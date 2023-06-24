@@ -1,0 +1,33 @@
+{% extends "layout.jinja2" %}
+
+{% block pagestyles %}
+  {% assets "home_style_bundle" %}
+    <link href="{{ ASSET_URL }}" rel="stylesheet" type="text/css">
+  {% endassets %}
+{% endblock %}
+
+{% block content %}
+  {% include "navigation.jinja2" %}
+
+  <div class="container">
+    <h1>{{ title }}</h1>
+    <h2>{{ subtitle }}</h2>
+    <div class="resource-links">
+      <p class="resource-link">Github repo found <a href="https://github.com/hackersandslackers/flask-blueprint-tutorial">here.</a></p>
+      <p class="resource-link">Tutorial found <a href="https://hackersandslackers.com/flask-blueprints/">here.</a></p>
+    </div>
+
+    <div class="products">
+      {% for product in products %}
+        <a href="/products/{{ loop.index - 1 }}/" class="product-preview">
+          <img class="product-image" src="{{ product.image }}" alt="profile"/>
+          <div class="name">{{ product.name }}</div>
+          <div class="price">${{ product.salePrice }}</div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+
+ {% include "blueprintinfo.jinja2" %}
+
+{% endblock %}

@@ -1,0 +1,53 @@
+@import 'vars.less';
+
+.profile-template {
+  .product-name {
+    font-size: 1.9em;
+    margin-bottom: 30px !important;
+    line-height: 1.25em;
+  }
+
+  .product-image {
+    height: 250px;
+    margin-right: 40px;
+    border-radius: 3px;
+  }
+
+  .product-flex {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .meta {
+    font-size: 1.1em;
+
+    .meta-name {
+      font-weight: 600;
+      width: 114px;
+      display: inline-block;
+    }
+  }
+
+  p {
+    font-size: 0.85em;
+    line-height: 1.5;
+  }
+
+  button {
+    background: @theme-color;
+    color: white;
+    border-radius: 2px;
+    margin-top: 10px;
+    font-weight: 400;
+    border: 1px solid @theme-color;
+    transition: @transition;
+    padding: 8px 14px;
+    font-size: 1em;
+
+    &:hover {
+      cursor: pointer;
+      background: white;
+      color: @theme-color;
+    }
+  }
+}
