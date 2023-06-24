@@ -1,0 +1,34 @@
+{% extends "layout.jinja2" %}
+
+{% block pagestyles %}
+  {% assets "profile_less_bundle" %}
+    <link href="{{ ASSET_URL }}" rel="stylesheet" type="text/css">
+  {% endassets %}
+{% endblock %}
+
+{% block content %}
+  {% include "navigation.jinja2" %}
+
+  <div class="container">
+    <div class="account-header">
+      <img class="user-avatar" src="{{ url_for('static', filename='img/avatar.png') }}" alt="profile">
+
+      <div class="account-details">
+        <div class="user-personal-info">
+          <h1 class="username">{{ user.username }}</h1>
+          <div class="user-name">{{ user.name }}</div>
+          <div class="user-meta">
+            <div class="user-title meta"><span class="meta-name">Title:</span> <span>{{ job }}</span></div>
+            <div class="user-location meta"><span class="meta-name">Address:</span> <span>{{ user.address }}</span></div>
+            <div class="user-location meta"><span class="meta-name">Birthday:</span> <span>{{ user.birthdate }}</span></div>
+            <a href="{{ user.website }}">{{ user.website }}</a></div>
+        </div>
+      </div>
+
+    </div>
+    <p class="user-bio">{{ user.bio }}</p>
+  </div>
+
+  {% include "blueprintinfo.jinja2" %}
+
+{% endblock %}
