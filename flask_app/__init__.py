@@ -1,30 +1,34 @@
-"""Initialize Flask app."""
+"""Initialize app."""
 from flask import Flask
-from flask_assets import Environment
+from flask_login import LoginManager
+from flask_sqlalchemy import SQLAlchemy
 
-from config import Config
+db = SQLAlchemy()
+login_manager = LoginManager()
 
 
-def init_app():
-    """Create Flask application."""
+def create_app():
+    """Construct the core app object."""
     app = Flask(__name__, instance_relative_config=False)
     app.config.from_object("config.Config")
-    assets = Environment()
-    assets.init_app(app)
+
+    # Initialize Plugins
+    db.init_app(app)
+    login_manager.init_app(app)
 
     with app.app_context():
-        # Import parts of our application
+        from . import auth, routes
         from .assets import compile_static_assets
-        from .home import home
-        from .products import products
-        from .profile import profile
 
         # Register Blueprints
-        app.register_blueprint(profile.profile_bp)
-        app.register_blueprint(home.home_bp)
-        app.register_blueprint(products.product_bp)
+        app.register_blueprint(routes.main_bp)
+        app.register_blueprint(auth.auth_bp)
+
+        # Create Database Models
+        db.create_all()
 
         # Compile static assets
-        compile_static_assets(assets)
+        if app.config["FLASK_ENV"] == "development":
+            compile_static_assets(app)
 
         return app
