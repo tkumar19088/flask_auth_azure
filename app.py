@@ -1,7 +1,6 @@
 from flask import Flask
-from flask import render_template, redirect, url_for
+from flask import render_template
 from datetime import datetime
-from flask_dance.contrib.azure import make_azure_blueprint, azure
 from flask import Flask, session
 
 app = Flask(__name__)
