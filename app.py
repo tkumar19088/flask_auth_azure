@@ -21,7 +21,7 @@ SCOPE = ["User.Read"]
 
 # Create the Flask app
 app = Flask(__name__)
-app.secret_key = os.urandom(24)
+app.secret_key = os.getenv("SECRET_KEY")
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
@@ -128,5 +128,5 @@ def _get_token_from_cache(scope=None):
         return result
 
 
-# if __name__ == "__main__":
-#     app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
