@@ -52,7 +52,7 @@ def login():
 
 
 @app.route("/redirect")
-def authorized():
+def redirect():
     try:
         cache = _load_cache()
         result = _build_msal_app(cache=cache).acquire_token_by_auth_code_flow(
