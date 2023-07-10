@@ -63,9 +63,10 @@ def authorized():
         session["user"] = result.get("id_token_claims")
         print(f'\n\n{session["user"]}\n\n')
         _save_cache(cache)
+        return redirect(url_for("index"))
     except ValueError:  # Usually caused by CSRF
-        pass  # Simply ignore them
-    return redirect(url_for("index"))
+        # pass  # Simply ignore them
+        return render_template("auth_error.html", result=result)
 
 
 @app.route("/logout")
