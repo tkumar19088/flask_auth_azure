@@ -51,8 +51,8 @@ def login():
     return redirect(auth_url)
 
 
-@app.route("/redirect")
-def redirect():
+@app.route("/authorized")
+def authorized():
     try:
         cache = _load_cache()
         result = _build_msal_app(cache=cache).acquire_token_by_auth_code_flow(
@@ -130,4 +130,5 @@ def _get_token_from_cache(scope=None):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # app.run(debug=True, host="localhost", port=5000)
+    app.run()
