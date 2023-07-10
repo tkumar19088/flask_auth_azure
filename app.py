@@ -29,15 +29,7 @@ Session(app)
 @app.route("/")
 def index():
     if "user" in session:
-        launchTime = datetime(2023, 7, 30)
-        currentTime = datetime.now()
-        diff = launchTime - currentTime
-        numberOfDays = diff.days
-        uname = session["user"].get("name")
-        urole = session["user"].get("roles")
-        return render_template(
-            "countdown.html", time=numberOfDays, uname=uname, urole=urole
-        )
+        return redirect(url_for("authorized"))
     else:
         return redirect(url_for("login"))
 
@@ -63,10 +55,19 @@ def authorized():
         session["user"] = result.get("id_token_claims")
         print(f'\n\n{session["user"]}\n\n')
         _save_cache(cache)
-        return redirect(url_for("index"))
+        if "user" in session:
+            launchTime = datetime(2023, 7, 30)
+            currentTime = datetime.now()
+            diff = launchTime - currentTime
+            numberOfDays = diff.days
+            uname = session["user"].get("name")
+            urole = session["user"].get("roles")
+            return render_template(
+                "countdown.html", time=numberOfDays, uname=uname, urole=urole
+            )
     except ValueError:  # Usually caused by CSRF
         # pass  # Simply ignore them
-        return render_template("auth_error.html", result=result)
+        return render_template("auth_error.html", result=ValueError)
 
 
 @app.route("/logout")
@@ -80,16 +81,16 @@ def logout():
     )
 
 
-@app.route("/graphcall")
-def graphcall():
-    token = _get_token_from_cache(SCOPE)
-    if not token:
-        return redirect(url_for("login"))
-    graph_data = requests.get(  # Use token to call downstream service
-        ENDPOINT,
-        headers={"Authorization": "Bearer " + token["access_token"]},
-    ).json()
-    return render_template("display.html", result=graph_data)
+# @app.route("/graphcall")
+# def graphcall():
+#     token = _get_token_from_cache(SCOPE)
+#     if not token:
+#         return redirect(url_for("login"))
+#     graph_data = requests.get(  # Use token to call downstream service
+#         ENDPOINT,
+#         headers={"Authorization": "Bearer " + token["access_token"]},
+#     ).json()
+#     return render_template("display.html", result=graph_data)
 
 
 def _load_cache():
@@ -119,16 +120,16 @@ def _build_auth_code_flow(authority=None, scopes=None):
     )
 
 
-def _get_token_from_cache(scope=None):
-    cache = _load_cache()  # This web app maintains one cache per session
-    cca = _build_msal_app(cache=cache)
-    accounts = cca.get_accounts()
-    if accounts:  # So all account(s) belong to the current signed-in user
-        result = cca.acquire_token_silent(scope, account=accounts[0])
-        _save_cache(cache)
-        return result
+# def _get_token_from_cache(scope=None):
+#     cache = _load_cache()  # This web app maintains one cache per session
+#     cca = _build_msal_app(cache=cache)
+#     accounts = cca.get_accounts()
+#     if accounts:  # So all account(s) belong to the current signed-in user
+#         result = cca.acquire_token_silent(scope, account=accounts[0])
+#         _save_cache(cache)
+#         return result
 
 
 if __name__ == "__main__":
-    # app.run(debug=True, host="localhost", port=5000)
-    app.run()
+    app.run(debug=True, host="localhost", port=5000)
+    # app.run()
