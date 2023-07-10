@@ -21,16 +21,16 @@ def index():
     if "user" in session:
         return redirect(url_for("authorized"))
     else:
-        return redirect(url_for("login"))
+        session["flow"] = _build_auth_code_flow(scopes=app_config.SCOPE)
+        auth_url = session["flow"]["auth_uri"]
+        return redirect(auth_url)
 
 
-@app.route("/login")
-def login():
-    # Technically we could use empty list [] as scopes to do just sign in,
-    # here we choose to also collect end user consent upfront
-    session["flow"] = _build_auth_code_flow(scopes=app_config.SCOPE)
-    auth_url = session["flow"]["auth_uri"]
-    return redirect(auth_url)
+# @app.route("/login")
+# def login():
+#     session["flow"] = _build_auth_code_flow(scopes=app_config.SCOPE)
+#     auth_url = session["flow"]["auth_uri"]
+#     return redirect(auth_url)
 
 
 @app.route("/authorized")
@@ -44,19 +44,18 @@ def authorized():
             return render_template("auth_error.html", result=result)
         session["user"] = result.get("id_token_claims")
         _save_cache(cache)
-        if "user" in session:
-            launchTime = datetime(2023, 7, 30)
-            currentTime = datetime.now()
-            diff = launchTime - currentTime
-            numberOfDays = diff.days
-            uname = session["user"].get("name")
-            urole = session["user"].get("roles")
-            return render_template(
-                "countdown.html", time=numberOfDays, uname=uname, urole=urole
-            )
-    except ValueError:  # Usually caused by CSRF
+        launchTime = datetime(2023, 7, 30)
+        currentTime = datetime.now()
+        diff = launchTime - currentTime
+        numberOfDays = diff.days
+        uname = session["user"].get("name")
+        urole = session["user"].get("roles")
+        return render_template(
+            "countdown.html", time=numberOfDays, uname=uname, urole=urole
+        )
+    except Exception as e:  # Usually caused by CSRF
         # pass  # Simply ignore them
-        return render_template("auth_error.html", result=ValueError)
+        return render_template("auth_error.html", result=e)
 
 
 @app.route("/logout")
