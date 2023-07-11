@@ -43,7 +43,7 @@ def login():
     return redirect(auth_url)
 
 
-@app.route(app_config.REDIRECT_URI)
+@app.route("/redirect")
 def authorized():
     try:
         cache = _load_cache()
