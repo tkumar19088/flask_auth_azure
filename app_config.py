@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-
+SECRET_KEY = os.getenv("SECRET_KEY")
 # Application (client) ID of app registration
 CLIENT_ID = os.getenv("CLIENT_ID")
 # Application's generated client secret: never check this into source control!
@@ -13,10 +13,7 @@ CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 TENANT_ID = os.getenv("TENANT_ID")
 # You can configure your authority via environment variable
 # Defaults to a multi-tenant app in world-wide cloud
-AUTHORITY = os.getenv(
-    f"https://login.microsoftonline.com/{TENANT_ID}",
-    "https://login.microsoftonline.com/common",
-)
+AUTHORITY = f"https://login.microsoftonline.com/{TENANT_ID}"
 
 REDIRECT_URI = os.getenv(
     "REDIRECT_URI"
