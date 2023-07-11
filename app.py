@@ -5,14 +5,14 @@ from msal import ConfidentialClientApplication, SerializableTokenCache
 import requests
 import app_config
 
-# from werkzeug.middleware.proxy_fix import ProxyFix
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 # Create the Flask app
 app = Flask(__name__)
 app.config.from_object(app_config)
 Session(app)
 
-# app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
 
 @app.route("/")
