@@ -1,29 +1,17 @@
 from flask import Flask, render_template, session, redirect, request, url_for
 from datetime import datetime
 from flask_session import Session
-from dotenv import load_dotenv
 from msal import ConfidentialClientApplication, SerializableTokenCache
 import requests
-import os
-
-# Load environment variables
-
-load_dotenv()
-
-CLIENT_ID = os.getenv("CLIENT_ID")
-CLIENT_SECRET = os.getenv("CLIENT_SECRET")
-TENANT_ID = os.getenv("TENANT_ID")
-AUTHORITY = f"https://login.microsoftonline.com/{TENANT_ID}"
-REDIRECT_URI = os.getenv("REDIRECT_URI")
-ENDPOINT = "https://graph.microsoft.com/v1.0/users"
-
-SCOPE = ["User.Read"]
+import app_config
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 # Create the Flask app
 app = Flask(__name__)
-app.secret_key = os.getenv("SECRET_KEY")
-app.config["SESSION_TYPE"] = "filesystem"
+app.config.from_object(app_config)
 Session(app)
+
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
 
 @app.route("/")
@@ -46,7 +34,7 @@ def index():
 def login():
     # Technically we could use empty list [] as scopes to do just sign in,
     # here we choose to also collect end user consent upfront
-    session["flow"] = _build_auth_code_flow(scopes=SCOPE)
+    session["flow"] = _build_auth_code_flow(scopes=app_config.SCOPE)
     auth_url = session["flow"]["auth_uri"]
     return redirect(auth_url)
 
@@ -72,7 +60,7 @@ def authorized():
 def logout():
     session.clear()  # Wipe out user and its token cache from session
     return redirect(  # Also logout from your tenant's web session
-        AUTHORITY
+        app_config.AUTHORITY
         + "/oauth2/v2.0/logout"
         + "?post_logout_redirect_uri="
         + url_for("index", _external=True)
@@ -81,11 +69,11 @@ def logout():
 
 @app.route("/graphcall")
 def graphcall():
-    token = _get_token_from_cache(SCOPE)
+    token = _get_token_from_cache(app_config.SCOPE)
     if not token:
         return redirect(url_for("login"))
     graph_data = requests.get(  # Use token to call downstream service
-        ENDPOINT,
+        app_config.ENDPOINT,
         headers={"Authorization": "Bearer " + token["access_token"]},
     ).json()
     return render_template("display.html", result=graph_data)
@@ -105,9 +93,9 @@ def _save_cache(cache):
 
 def _build_msal_app(cache=None, authority=None):
     return ConfidentialClientApplication(
-        CLIENT_ID,
-        authority=AUTHORITY,
-        client_credential=CLIENT_SECRET,
+        app_config.CLIENT_ID,
+        authority=app_config.AUTHORITY,
+        client_credential=app_config.CLIENT_SECRET,
         token_cache=cache,
     )
 
@@ -129,4 +117,4 @@ def _get_token_from_cache(scope=None):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="localhost", port=5000)
