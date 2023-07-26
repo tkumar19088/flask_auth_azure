@@ -1,10 +1,13 @@
 import os
+
 from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
 
+
 SECRET_KEY = os.getenv("SECRET_KEY")
+
 # Application (client) ID of app registration
 CLIENT_ID = os.getenv("CLIENT_ID")
 # Application's generated client secret: never check this into source control!
@@ -12,6 +15,7 @@ CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 TENANT_ID = os.getenv("TENANT_ID")
 # You can configure your authority via environment variable
 # Defaults to a multi-tenant app in world-wide cloud
+
 AUTHORITY = f"https://login.microsoftonline.com/{TENANT_ID}"
 
 # Used for forming an absolute URL to your redirect URI.
@@ -23,6 +27,7 @@ REDIRECT_URI = os.getenv("REDIRECT_URI")
 # https://developer.microsoft.com/en-us/graph/graph-explorer
 ENDPOINT = "https://graph.microsoft.com/v1.0/users"
 # This resource requires no admin consent
+
 
 # You can find the proper permission names from this document
 # https://docs.microsoft.com/en-us/graph/permissions-reference
