@@ -19,7 +19,6 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 @app.route("/")
 def index():
     if "user" in session:
-
         launchTime = datetime(2023, 7, 30)
         currentTime = datetime.now()
         diff = launchTime - currentTime
@@ -33,10 +32,7 @@ def index():
             urole=urole,
         )
     else:
-        session["flow"] = _build_auth_code_flow(scopes=app_config.SCOPE)
-        auth_url = session["flow"]["auth_uri"]
-        return redirect(auth_url)
-
+        return redirect(url_for("login"))
 
 
 @app.route("/login")
@@ -48,8 +44,7 @@ def login():
     return redirect(auth_url)
 
 
-
-@app.route("/authorized")
+@app.route("/redirect")
 def authorized():
     try:
         cache = _load_cache()
@@ -59,19 +54,11 @@ def authorized():
         if "error" in result:
             return render_template("auth_error.html", result=result)
         session["user"] = result.get("id_token_claims")
+        print(f'\n\n{session["user"]}\n\n')
         _save_cache(cache)
-        launchTime = datetime(2023, 7, 30)
-        currentTime = datetime.now()
-        diff = launchTime - currentTime
-        numberOfDays = diff.days
-        uname = session["user"].get("name")
-        urole = session["user"].get("roles")
-        return render_template(
-            "countdown.html", time=numberOfDays, uname=uname, urole=urole
-        )
-    except Exception as e:  # Usually caused by CSRF
-        # pass  # Simply ignore them
-        return render_template("auth_error.html", result=e)
+    except ValueError:  # Usually caused by CSRF
+        pass  # Simply ignore them
+    return redirect(url_for("index"))
 
 
 @app.route("/logout")
@@ -111,7 +98,7 @@ def _build_auth_code_flow(authority=None, scopes=None):
         scopes or [], redirect_uri=url_for("authorized", _external=True)
     )
 
+
 if __name__ == "__main__":
     # app.run(debug=False, host="localhost", port=5000)
     app.run()
-
