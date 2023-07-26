@@ -1,9 +1,11 @@
 # Byte-compiled / optimized / DLL files
-__pycache__/
+*pycache*
 *.py[cod]
 *$py.class
 /flask_session/
-
+*node_modules*
+*venv*
+__pycache__
 
 # C extensions
 *.so

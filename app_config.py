@@ -1,5 +1,4 @@
 import os
-
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -15,17 +14,15 @@ TENANT_ID = os.getenv("TENANT_ID")
 # Defaults to a multi-tenant app in world-wide cloud
 AUTHORITY = f"https://login.microsoftonline.com/{TENANT_ID}"
 
-REDIRECT_URI = os.getenv(
-    "REDIRECT_URI"
-)  # Used for forming an absolute URL to your redirect URI.
+# Used for forming an absolute URL to your redirect URI.
 # The absolute URL must match the redirect URI you set
 # in the app's registration in the Azure portal.
+REDIRECT_URI = os.getenv("REDIRECT_URI")
 
 # You can find more Microsoft Graph API endpoints from Graph Explorer
 # https://developer.microsoft.com/en-us/graph/graph-explorer
-ENDPOINT = (
-    "https://graph.microsoft.com/v1.0/users"  # This resource requires no admin consent
-)
+ENDPOINT = "https://graph.microsoft.com/v1.0/users"
+# This resource requires no admin consent
 
 # You can find the proper permission names from this document
 # https://docs.microsoft.com/en-us/graph/permissions-reference

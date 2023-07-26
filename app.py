@@ -2,7 +2,6 @@ from flask import Flask, render_template, session, redirect, request, url_for
 from datetime import datetime
 from flask_session import Session
 from msal import ConfidentialClientApplication, SerializableTokenCache
-import requests
 import app_config
 
 from werkzeug.middleware.proxy_fix import ProxyFix
@@ -121,5 +120,5 @@ def _build_auth_code_flow(authority=None, scopes=None):
 
 
 if __name__ == "__main__":
-    # app.run(debug=True, host="localhost", port=5000)
+    # app.run(debug=False, host="localhost", port=5000)
     app.run()
