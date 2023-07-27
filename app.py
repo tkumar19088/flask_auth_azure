@@ -4,12 +4,12 @@ from flask_session import Session
 from msal import ConfidentialClientApplication, SerializableTokenCache
 import app_config
 
-
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-
 # Create the Flask app
-app = Flask(__name__)
+app = Flask(
+    __name__, static_folder="frontend/build/static", template_folder="frontend/build"
+)
 app.config.from_object(app_config)
 Session(app)
 
@@ -19,18 +19,20 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 @app.route("/")
 def index():
     if "user" in session:
-        launchTime = datetime(2023, 7, 30)
-        currentTime = datetime.now()
-        diff = launchTime - currentTime
-        numberOfDays = diff.days
-        uname = session["user"].get("name")
-        urole = session["user"].get("roles")[0]
-        return render_template(
-            "countdown.html",
-            time=numberOfDays,
-            uname=uname,
-            urole=urole,
-        )
+        # launchTime = datetime(2023, 7, 30)
+        # currentTime = datetime.now()
+        # diff = launchTime - currentTime
+        # numberOfDays = diff.days
+        # uname = session["user"].get("name")
+        # urole = session["user"].get("roles")[0]
+        # return render_template(
+
+        #     "countdown.html",
+        #     time=numberOfDays,
+        #     uname=uname,
+        #     urole=urole,
+        # )
+        return render_template("index.html")  # , uname=uname, urole=urole)
     else:
         return redirect(url_for("login"))
 
