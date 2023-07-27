@@ -9,7 +9,7 @@ __pycache__
 *src*
 *public*
 *old*
-
+*package*
 
 # dependencies
 /node_modules
@@ -89,7 +89,7 @@ db.sqlite3-journal
 # Flask stuff:
 instance/
 .webassets-cache
-*.json
+
 
 # Scrapy stuff:
 .scrapy
