@@ -1,0 +1,49 @@
+.btn-export:hover{
+   background-color: #FF007E;
+}
+
+
+.kpis-box{
+    /* background-color: red; */
+    /* border: 1px solid ; */
+    padding: 10px;
+    width: 160px;
+    height: 60px;
+    line-height: 16px;
+    text-align: center;
+}
+.virtical-line{
+   
+    border: 1px solid #E5EBEF;
+    height: 60px;
+    /* margin-block: 5px; */
+    margin-top: 6px;
+    /* margin-left: -18px; */
+}
+
+@media only screen and (max-width: 1024px) {
+    .kpis-box{
+        width: 115px !important;
+        height: 47px;
+    }
+    .virtical-line {
+        height: 50px;
+    }
+  }
+
+/* .btn-hdata{
+    border-radius: 5px 5px;
+    background-color:#415A6C ;
+    padding: 5px 10px 5px 10px;
+    cursor: pointer;
+  } */
+
+  .btn-export{
+    /* height: 30px; */
+    padding: 3px 8px 6px 10px;
+    border-radius: 5px 5px;
+    cursor: pointer;
+
+    
+
+  }

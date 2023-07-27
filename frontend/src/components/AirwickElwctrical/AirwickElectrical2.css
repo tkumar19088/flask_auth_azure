@@ -1,0 +1,105 @@
+.scenario-card{
+    border-radius: 8px;
+    border: 1px solid #E7E9EE;
+    background-color: white;
+    padding: 12px 16px 12px 16px;
+    width: 96px;
+}
+
+.scn-txt{
+    color: #415A6C;
+}
+.scn-text-d{
+    color: #008824;
+    /* font-size: 26px; */
+}
+
+.scenario-card2{
+    border-radius: 8px;
+    border: 1px solid #E7E9EE;
+    background-color: white;
+    padding: 12px 16px 12px 16px;
+    width: 150px;
+}
+.scenario-card3{
+    border-radius: 8px;
+    border: 1px solid #E7E9EE;
+    background-color: white;
+    padding: 12px 16px 12px 16px;
+    width: 150px;
+}
+.scn-text-up{
+    color: #DD0000;
+    /* font-size: 26px; */
+}
+
+.scenario-card4{
+    border-radius: 8px;
+    border: 1px solid #E7E9EE;
+    background-color: white;
+    padding: 12px 16px 12px 16px;
+    width: 117px;
+}
+
+.optinol-card{
+    padding: 12px 16px 12px 16px;
+    border-radius: 8px;
+    background-color: #fff;
+    border: 1px solid #E7E9EE;
+    color: #415A6C;
+    height: 87px;
+
+
+}
+
+.btn-scenario{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px 5px;
+    background-color: #415A6C;
+    padding: 5px 2px 5px 10px;
+    color: #E7E9EE;
+    /* margin-top: 57px; */
+    cursor: pointer;
+}
+
+.snrio-rslt1{
+    border-radius: 5px 5px;
+    border: 1px solid #E7E9EE;
+    background-color: white;
+    height: 60px;
+    width: 110px;
+    padding: 0px 0px 0px 12px;
+
+}
+
+.snrio-rslt2{
+    border-radius: 5px 5px;
+    border: 1px solid #E7E9EE;
+    background-color: white;
+    height: 60px;
+    width: 160px;
+    padding: 0px 0px 0px 12px;
+
+}
+
+.scn-text-g{
+    color: #008824;
+}
+
+/* .airwikElectric2 .logoutSpace {
+    margin-top: 425px !important;
+  } */
+
+
+  .airwikElectric2-body{
+    background-color: #F5F6F8;
+    min-height: 920px;
+  }
+
+  .line-chart{
+    /* border: 1px solid; */
+    padding: 10px;
+    background-color: white;
+  }

@@ -6,10 +6,8 @@
 *node_modules*
 *venv*
 __pycache__
-*src*
-*public*
 *old*
-*package*
+
 
 # dependencies
 /node_modules

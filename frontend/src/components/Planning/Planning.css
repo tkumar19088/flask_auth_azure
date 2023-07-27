@@ -1,0 +1,81 @@
+.pln-cards-header{
+  border-radius: 5px 5px;
+  background-color:#00A6A5 ;
+  padding: 5px 10px 5px 10px;
+}
+.pln-card-bd{
+  
+  padding:20px 10px 20px 10px ;
+  border-radius: 5px 5px;
+  display: flex;
+  background-color: #fff;
+  justify-content: space-between;
+  margin-block: 5%;
+  cursor: pointer;
+
+  
+}
+.pln-card-bd:hover{
+  background-color: #ff007e;
+  color: #fff;
+}
+.pln-cards-cnt{
+  display: flex;
+  align-items: center;
+  /* color: rebeccapurple; */
+}
+.square-icon {
+  width: 25px;
+  height: 25px;
+  /* color: red; */
+}
+
+.pln-card-bd22{
+  display: flex;
+  border-radius: 5px 5px;
+  background-color: #fff;
+  align-items: center;
+  padding:12px 8px 11px 8px ;
+  cursor: pointer;
+
+}
+.pln-card-bd22:hover{
+  background-color: #ff007e;
+  color: #fff;
+}
+
+.pln-card-bd42{
+  display: flex;
+  justify-content: space-between;
+  border-radius: 5px 5px;
+  background-color: #fff;
+  align-items: center;
+  padding:20px 10px 20px 10px ;
+  cursor: pointer;
+  /* background-color: #ff007e; */
+  /* color: #fff; */
+
+}
+.pln-card-bd42:hover {
+  background-color: #ff007e;
+  color: #fff;
+}
+
+
+.pln-card-bd-L:hover{
+  background-color: #ff007e;
+  color: #fff;
+
+}
+.pln-card-bd-L{
+  display: flex;
+  justify-content: space-between;
+  border-radius: 5px 5px;
+  background-color: #fff;
+  align-items: center;
+  padding:12px 10px 20px 10px ;
+  cursor: pointer;
+  /* background-color: #ff007e; */
+  /* color: #fff; */
+
+}

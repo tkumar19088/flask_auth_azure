@@ -1,0 +1,107 @@
+
+.btn-datatable{
+    display: flex;
+    /* border: 1px solid; */
+    /* height: 20px; */
+}
+
+.btn-back{
+    display: flex;
+    border-radius: 20px;
+    background-color: white;
+    padding: 2px 6px 2px 10px ;
+    justify-content: space-between;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.bread-crumbs{
+    background-color: red;
+}
+
+
+ @media only screen and (max-width: 1024p) {
+  .datatable-head {
+    /* background-color: yellow; */
+    min-width: 10px !important;
+  }
+
+  .datatable-checkbox{
+    /* background-color: red !important; */
+    /* border: 1px solid green !important; */
+    /* width: 5px !important; */
+    /* height: 5px !important; */
+    /* margin-left: -17px !important; */
+
+  }
+  .bdr-ckeck{
+    /* -ms-transform-origin-x: -10px; */
+    border: 1px solid;
+    margin-left: -15px;
+    height: 47px;
+    width: 50px;
+  }
+  .bdr-sku{
+    /* -ms-transform-origin-x: -10px; */
+    border: 1px solid;
+    margin-left: -15px;
+    height: 47px;
+    width: 100px !important;
+  }
+  .bdr-skucode{
+    /* -ms-transform-origin-x: -10px; */
+    border: 1px solid;
+    margin-left: -65px;
+    height: 47px;
+    width: 100px !important;
+  }
+  .bdr-timeframe{
+    /* -ms-transform-origin-x: -10px; */
+    border: 1px solid;
+    margin-left: -105px;
+    height: 47px;
+    /* width: 100px !important; */
+  }
+  .bdr-netrevenue{
+    /* -ms-transform-origin-x: -10px; */
+    border: 1px solid;
+    margin-left: -15px;
+    height: 47px;
+    /* width: 100px !important; */
+  }
+  .bdr-expectedola{
+    /* -ms-transform-origin-x: -10px; */
+    border: 1px solid;
+    margin-left: -15px;
+    height: 47px;
+    /* width: 100px !important; */
+  }
+  .bdr-servicelevel{
+    /* -ms-transform-origin-x: -10px; */
+    border: 1px solid;
+    margin-left: -15px;
+    height: 47px;
+    /* width: 100px !important; */
+  }
+  .bdr-exptnetrevenue{
+    /* -ms-transform-origin-x: -10px; */
+    border: 1px solid;
+    margin-left: -15px;
+    height: 47px;
+    /* width: 100px !important; */
+  }
+  .bdr-bestseller{
+    /* -ms-transform-origin-x: -10px; */
+    border: 1px solid;
+    margin-left: -15px;
+    height: 47px;
+    /* width: 100px !important; */
+  }
+  .bdr-risk{
+    /* -ms-transform-origin-x: -10px; */
+    border: 1px solid;
+    margin-left: -15px;
+    height: 47px;
+    /* width: 100px !important; */
+  }
+} 

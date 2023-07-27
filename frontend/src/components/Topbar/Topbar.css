@@ -1,0 +1,52 @@
+.logo{
+  width: 38px;
+  height: 33px;
+  cursor: pointer;
+}
+
+
+.profile {
+  /* background-color: transparent; */
+  margin-top: 2px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+
+.notification{
+  width: 30px;
+  height: 30px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.help-icon{
+  /* width: 30px; */
+  /* height: 30px; */
+  padding: 8px;
+  color: #415A6C;
+  cursor: pointer;
+}
+.helpdown-icon{
+  margin-top: 11px;
+  margin-left: -12px;
+  /* height: 35px; */
+  cursor: pointer;
+}
+
+.css-sgw1ou:hover {
+  background-color: #F5F6F8 !important;
+}
+
+.search-icon{
+  width: 25px;
+  height: 25px;
+  align-items: center;
+  margin-right: 14px;
+  margin-top: 6px;
+}
+/* 
+  alignItems: "center",
+  marginTop: "8px",
+  marginRight: "11px",
+  color: "#415A6C", */

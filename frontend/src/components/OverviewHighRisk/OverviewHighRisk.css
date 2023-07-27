@@ -1,0 +1,76 @@
+/* .overviewHighRisk{
+  border: 1px solid red;
+} */
+
+.overviewHighRisk-main{
+  /* border: 1px solid red; */
+ background-color: #F5F6F8;
+ min-height: 920px;
+}
+
+
+/* mt={-1}
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "right",
+            }} */
+
+.btn-generateList{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
+
+
+
+/* 
+.css-ahj2mt-MuiTypography-root {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif !important;
+    font-size: 14px !important;
+} */
+
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    /* border-radius: 1px solid red; */
+  }
+  th {
+    text-align: left;
+    padding: 10px;
+    /* border: 1px solid red; */
+    /* border-collapse: collapse; */
+  }
+  
+  td {
+    /* border: 1px solid #dddddd; */
+    text-align: left;
+    padding: 10px;
+    /* width: 12px; */
+  }
+  
+  tr:nth-child(odd) {
+    background-color: #dddddd;
+  }
+  
+  .click:hover {
+    background-color: aqua;
+  }
+  
+
+
+  .h-m{
+    margin-left: 75px;
+  }
+  .ctr{
+    text-align: center;
+  }
+
+  /* .overviewHighRisk .logoutSpace {
+    margin-top: 425px !important;
+  } */

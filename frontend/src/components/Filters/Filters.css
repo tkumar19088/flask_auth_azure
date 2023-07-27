@@ -1,0 +1,54 @@
+.css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input:not([multiple]) option, .css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input:not([multiple]) optgroup{
+    /* margin-inline: 20px !important; */
+    border-radius: 0px !important;
+}
+
+/* style={{
+    color: "#E7E9EE",
+    backgroundColor: "#FF007E",
+    display: "flex",
+    borderRadius: "5px 5px",
+    padding: "4px 16px 4px 16px",
+    textAlign: "center",
+    alignItems: "center",
+    marginLeft: "41px",
+    marginTop: "16px",
+  }} */
+
+  .btn-filters{
+    border-radius: 5px 5px;
+    padding: 4px 2px 4px 12px;
+    background-color:#FF007E ;
+    display: flex;
+    width: 140px;
+    justify-content: space-around;
+    margin-left: 41px;
+    margin-top: 16px;
+    cursor: pointer;
+    color: white;
+  }
+
+  @media only screen and (max-width: 1024px) {
+   
+
+    .btn-filters{
+        width: 120px !important;
+        margin-left: 14px;
+    }
+  }
+
+
+  
+
+  .btn-fltr{
+    border-radius: 5px 5px;
+    background-color:#415A6C ;
+    padding: 5px 10px 5px 10px;
+    cursor: pointer;
+    text-align: center;
+  }
+  .btn-fltr:hover{
+    /* border-radius: 5px 5px; */
+    background-color:#FF007E ;
+    /* padding: 5px 10px 5px 10px; */
+  }

@@ -1,0 +1,18 @@
+.multicolor {
+  /* background-color: black; */
+  background: linear-gradient(90deg, #FF007F 7.83%, #FF007F 47.51%, #FF593D 87.2%);
+  border-radius: 8px;
+  padding: 5px;
+  color: white;
+
+}
+
+/* .logoutSpace {
+  margin-top: 870px !important;
+} */
+
+/* @media only screen and (max-width: 1024px) {
+  body {
+    background-color: yellow;
+  }
+} */
