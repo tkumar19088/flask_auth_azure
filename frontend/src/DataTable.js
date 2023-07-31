@@ -10,6 +10,7 @@ import {
   Typography,
   Box,
   Button,
+  Paper,
 } from "@mui/material";
 import { useState } from "react";
 import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
@@ -288,7 +289,7 @@ const DataTable = ({ onData }) => {
   return (
     <div>
       <Box display="flex" fontSize={14} mx="1px">
-        <Box mt="1px">
+        <Box mt={{ xs: "1px",lg:"1px", xl: "6px" }}>
           <Button
             style={{
               backgroundColor: "#fff",
@@ -311,22 +312,34 @@ const DataTable = ({ onData }) => {
               }}
             />
             &#160;
-            <Typography fontSize={12} onClick={handleBack}>
+            <Typography
+              fontSize={{ xs: 12, lg: 12, xl: 18 }}
+              onClick={handleBack}
+            >
               Back
             </Typography>
           </Button>
-        </Box>{" "}
+        </Box>
         &#160;&#160;&#160;&#160;&#160;&#160;
-        <Typography fontSize={14}>OOS Risk Dectection</Typography>
-        <Typography>
-          <ChevronRightIcon sx={{ height: "20px" }} />
+        <Typography fontSize={{ xs: 14, lg: 14, xl: 20 }}>
+          OOS Risk Dectection
         </Typography>
-        <Typography fontSize={14}>Overview High-Risk SKUs</Typography>
+        <Typography>
+          <ChevronRightIcon
+            sx={{ height: { xs: "20px", lg: "20px", xl: "30px" } }}
+          />
+        </Typography>
+        <Typography fontSize={{ xs: 14, lg: 14, xl: 20 }}>
+          Overview High-Risk SKUs
+        </Typography>
       </Box>
-      <Typography p={1} fontSize="26px">
+      <Typography p={1} fontSize={{ xs: "26px", lg: "26px", xl: "36px" }}>
         Overview High-Risk SKUs
       </Typography>
-      <TableContainer style={{ maxHeight: 730, width: "100%" }}>
+      <TableContainer
+        style={{ maxHeight: 730, width: "100%" }}
+        component={Paper}
+      >
         <Table stickyHeader>
           <TableHead>
             <TableRow>
@@ -371,7 +384,10 @@ const DataTable = ({ onData }) => {
                     marginLeft: "-20px",
                   }}
                 >
-                  <Box>
+                  <Box
+                    mt={{ xs: 0, lg: 0, xl: "4px" }}
+                    mr={{ xs: 0, lg: 0, xl: "5px" }}
+                  >
                     <Box mt="5px">
                       <ArrowDropUpIcon
                         style={{ height: "28px", width: "28px" }}
@@ -384,7 +400,11 @@ const DataTable = ({ onData }) => {
                     </Box>
                   </Box>
                   <Box textAlign="center">
-                    <Typography fontSize={14} mt="12px" mx="-6px">
+                    <Typography
+                      fontSize={{ xs: 14, lg: 14, xl: 20 }}
+                      mt="12px"
+                      mx="-6px"
+                    >
                       SKU
                     </Typography>
                   </Box>
@@ -402,7 +422,10 @@ const DataTable = ({ onData }) => {
                     color: "#415A6C",
                   }}
                 >
-                  <Box>
+                  <Box
+                    mt={{ xs: 0, lg: 0, xl: "4px" }}
+                    mr={{ xs: 0, lg: 0, xl: "5px" }}
+                  >
                     <Box mt="5px">
                       <ArrowDropUpIcon
                         style={{ height: "28px", width: "28px" }}
@@ -415,7 +438,11 @@ const DataTable = ({ onData }) => {
                     </Box>
                   </Box>
                   <Box textAlign="center">
-                    <Typography fontSize={14} mt="12px" mx="-6px">
+                    <Typography
+                      fontSize={{ xs: 14, lg: 14, xl: 20 }}
+                      mt="12px"
+                      mx="-6px"
+                    >
                       SKU Code
                     </Typography>
                   </Box>
@@ -428,8 +455,9 @@ const DataTable = ({ onData }) => {
               >
                 <Box className="bdr-timeframe">
                   <Typography
-                    lineHeight="16px"
-                    sx={{ fontSize: "14px", color: "#415A6C" }}
+                    sx={{ color: "#415A6C" }}
+                    fontSize={{ xs: 14, lg: 14, xl: 20 }}
+                    lineHeight={{ xs: "16px", lg: "16px", xl: "20px" }}
                   >
                     TimeFrame <br />
                     (weeks)
@@ -449,7 +477,11 @@ const DataTable = ({ onData }) => {
                     width: "110px",
                   }}
                 >
-                  <Box mx="-7px">
+                  <Box
+                    mx="-7px"
+                    mt={{ xs: 0, lg: 0, xl: "4px" }}
+                    mr={{ xs: 0, lg: 0, xl: "5px" }}
+                  >
                     <Box mt="5px">
                       <ArrowDropUpIcon
                         style={{ height: "28px", width: "28px" }}
@@ -461,8 +493,15 @@ const DataTable = ({ onData }) => {
                       />
                     </Box>
                   </Box>
-                  <Box textAlign="center" mt="14px" mx="2px">
-                    <Typography fontSize={14} lineHeight="16px">
+                  <Box
+                    textAlign="center"
+                    mt={{ xs: "14px", lg: "14px", xl: "7px" }}
+                    mx="2px"
+                  >
+                    <Typography
+                      fontSize={{ xs: 14, lg: 14, xl: 20 }}
+                      lineHeight={{ xs: "16px", lg: "16px", xl: "20px" }}
+                    >
                       Net Revenue
                     </Typography>
                   </Box>
@@ -478,11 +517,11 @@ const DataTable = ({ onData }) => {
                     display: "flex",
                     textAlign: "center",
                     color: "#415A6C",
-                    // marginLeft: "-25px",
+                    marginLeft: { xs: 0, lg: 0, xl: "-10px" },
                     width: "85px",
                   }}
                 >
-                  <Box mx="-7px">
+                  <Box mx="-7px" mr={{ xl: "10px" }}>
                     <Box mt="5px">
                       <ArrowDropUpIcon
                         style={{ height: "28px", width: "28px" }}
@@ -495,7 +534,11 @@ const DataTable = ({ onData }) => {
                     </Box>
                   </Box>
                   <Box textAlign="center" mt="3px" mx="-10px">
-                    <Typography fontSize={14} lineHeight="16px" mt="3px">
+                    <Typography
+                      fontSize={{ xs: 14, lg: 14, xl: 20 }}
+                      lineHeight={{ xs: "16px", lg: "16px", xl: "23px" }}
+                      mt="3px"
+                    >
                       Expected OLA
                     </Typography>
                   </Box>
@@ -507,15 +550,16 @@ const DataTable = ({ onData }) => {
               >
                 <Box
                   className="bdr-servicelevel"
+                  // border="1px solid"
                   sx={{
                     display: "flex",
                     textAlign: "center",
                     color: "#415A6C",
-                    // marginLeft: "-25px",
-                    width: "65px",
+                    // marginLeft: { xs: 0, lg: 0, xl: "-10px" },
+                    width: { xs: "65px", lg: "65px", xl: "110px" },
                   }}
                 >
-                  <Box mx="-5px">
+                  <Box mx="-5px" mr={{ xs: 0, lg: 0, xl: "0px" }}>
                     <Box mt="5px">
                       <ArrowDropUpIcon
                         style={{ height: "28px", width: "28px" }}
@@ -527,8 +571,17 @@ const DataTable = ({ onData }) => {
                       />
                     </Box>
                   </Box>
-                  <Box textAlign="center" mt="3px" mx="-10px">
-                    <Typography fontSize={14} lineHeight="16px" mt="3px">
+                  <Box
+                    textAlign="center"
+                    mt="3px"
+                    mx="-10px"
+                    ml={{ xs: 0, lg: 0, xl: "-20px" }}
+                  >
+                    <Typography
+                      fontSize={{ xs: 14, lg: 14, xl: 20 }}
+                      lineHeight={{ xs: "16px", lg: "16px", xl: "20px" }}
+                      mt="3px"
+                    >
                       Service Level{" "}
                     </Typography>
                   </Box>
@@ -545,13 +598,14 @@ const DataTable = ({ onData }) => {
                 <Box className="bdr-exptnetrevenue">
                   <Typography
                     sx={{
-                      fontSize: "14px",
+                      // fontSize: "14px",
                       width: "",
                       textAlign: "center",
                       width: "80px",
                       marginLeft: "-2px",
-                      lineHeight: "16px",
                     }}
+                    fontSize={{ xs: 14, lg: 14, xl: 20 }}
+                    lineHeight={{ xs: "16px", lg: "16px", xl: "20px" }}
                   >
                     Expected NetRevenue
                   </Typography>
@@ -584,7 +638,11 @@ const DataTable = ({ onData }) => {
                     </Box>
                   </Box>
                   <Box textAlign="center" mt="1px" mx="-6px">
-                    <Typography lineHeight="16px" mt="6px" fontSize={14}>
+                    <Typography
+                      mt="6px"
+                      fontSize={{ xs: 14, lg: 14, xl: 20 }}
+                      lineHeight={{ xs: "16px", lg: "16px", xl: "20px" }}
+                    >
                       Best Seller
                     </Typography>
                   </Box>
@@ -600,8 +658,9 @@ const DataTable = ({ onData }) => {
                     display: "flex",
                     textAlign: "center",
                     color: "#415A6C",
-                    width: "80px",
+                    width: { xs: "80px", lg: "80px", xl: "100px" },
                   }}
+                  ml={{ xs: 0, lg: 0, xl: "40px" }}
                 >
                   <Box>
                     <Box mt="5px">
@@ -616,10 +675,14 @@ const DataTable = ({ onData }) => {
                     </Box>
                   </Box>
                   <Box textAlign="center">
-                    <Typography mt="6px" sx={{ fontSize: "14px" }}>
+                    <Typography mt="6px" fontSize={{ xs: 14, lg: 14, xl: 20 }}>
                       Risk
                       <InfoOutlinedIcon sx={{ height: "15px", color: "red" }} />
-                      <Typography ml="-15px" mt="-4px">
+                      <Typography
+                        ml="-15px"
+                        mt="-4px"
+                        fontSize={{ xs: 14, lg: 14, xl: 20 }}
+                      >
                         {" "}
                         (1-10)
                       </Typography>
@@ -652,55 +715,76 @@ const DataTable = ({ onData }) => {
                       //   border: "1px solid",
                       width: "146px",
                       marginLeft: "-25px",
-                      fontSize: "13px",
+                      fontSize: { xs: "13px", lg: "13px", xl: "18px" },
+                      lineHeight: { xl: "24px" },
                     }}
                   >
                     {item.skuname}
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography ml="-8px" fontSize="13px">
+                  <Typography
+                    ml="-8px"
+                    fontSize={{ xs: "13px", lg: "13px", xl: "18px" }}
+                    // lineHeight={{ xl: "24px" }}
+                  >
                     {item.skucode}
                   </Typography>
                 </TableCell>
-                <TableCell sx={{ textAlign: "center", fontSize: "13px" }}>
-                  {item.timeframe}
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize={{ xs: "13px", lg: "13px", xl: "18px" }}>
+                    {item.timeframe}
+                  </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography mx="7px" fontSize="13px">
+                  <Typography
+                    mx="7px"
+                    fontSize={{ xs: "13px", lg: "13px", xl: "18px" }}
+                  >
                     {item.netrevenue}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography
+                    // ml={{ xl: "-10px" }}
                     mx="10px"
                     sx={{
                       color: "#F08C2A",
                       textAlign: "center",
-                      fontSize: "13px",
+                      // fontSize: "13px",
                     }}
+                    fontSize={{ xs: "13px", lg: "13px", xl: "18px" }}
                   >
                     {item.expectedola}
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography mx="6px" fontSize="13px">
+                  <Typography
+                    mx="6px"
+                    fontSize={{ xs: "13px", lg: "13px", xl: "18px" }}
+                    ml={{ xs: 0, lg: 0, xl: "30px" }}
+                  >
                     {item.servicelevel}
                   </Typography>
                 </TableCell>
-                <TableCell sx={{ color: "red", fontSize: "13px" }}>
-                  {item.expectednetrevenue}
+                <TableCell sx={{ color: "red" }}>
+                  <Typography fontSize={{ xs: "13px", lg: "13px", xl: "18px" }}>
+                    {item.expectednetrevenue}
+                  </Typography>
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
-                  <Typography mx="9px" fontSize="13px">
+                  <Typography
+                    mx="9px"
+                    fontSize={{ xs: "13px", lg: "13px", xl: "18px" }}
+                  >
                     {" "}
                     {item.bestseller}
                   </Typography>
                 </TableCell>
-                <TableCell
-                  sx={{ textAlign: "center", color: "red", fontSize: "13px" }}
-                >
-                  {item.risk}
+                <TableCell sx={{ textAlign: "center", color: "red" }}>
+                  <Typography fontSize={{ xs: "13px", lg: "13px", xl: "18px" }}>
+                    {item.risk}
+                  </Typography>
                 </TableCell>
               </TableRow>
             ))}

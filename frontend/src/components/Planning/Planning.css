@@ -79,3 +79,20 @@
   /* color: #fff; */
 
 }
+
+
+
+
+  
+@media only screen and (min-width: 1920px) {
+   
+
+  .pln-card-bd-L{
+    padding:12px 10px 30px 10px ;
+
+  }
+
+  
+}
+
+

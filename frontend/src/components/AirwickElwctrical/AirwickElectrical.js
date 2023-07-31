@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Topbar from "../Topbar/Topbar";
-import Sidebar from "../Sidebar/Sidebar";
+import Sidebar from "../SidebarNew/Sidebar";
 import { Box, Button, Grid, Typography } from "@mui/material";
 
 import play from "../../images/play.png";
@@ -12,7 +12,6 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 
 import { useNavigate } from "react-router-dom";
-import { animateScroll as scroll } from "react-scroll";
 
 const AirwickElectrical = () => {
   const navigate = useNavigate();
@@ -23,10 +22,6 @@ const AirwickElectrical = () => {
   const handleBack = () => {
     navigate(-1);
   };
-
-  useEffect(() => {
-    scroll.scrollToTop(); // Scrolls to the top of the page when the component mounts
-  }, []);
 
   return (
     <div>
@@ -44,7 +39,7 @@ const AirwickElectrical = () => {
           }}
         >
           <Box display="flex" fontSize={14} mx="1px">
-            <Box mt="1px">
+            <Box mt={{ xs: "1px", lg: "1px", xl: "6px" }}>
               <Button
                 style={{
                   backgroundColor: "#fff",
@@ -67,24 +62,37 @@ const AirwickElectrical = () => {
                   }}
                 />
                 &#160;
-                <Typography fontSize={12} onClick={handleBack}>
+                <Typography
+                  fontSize={{ xs: 12, lg: 12, xl: 18 }}
+                  onClick={handleBack}
+                >
                   Back
                 </Typography>
               </Button>
             </Box>{" "}
             &#160;&#160;&#160;&#160;&#160;&#160;
-            <Typography fontSize={14}>OOS Risk Dectection</Typography>
-            <Typography>
-              <ChevronRightIcon sx={{ height: "20px" }} />
+            <Typography fontSize={{ xs: 14, lg: 14, xl: 20 }}>
+              OOS Risk Dectection
             </Typography>
-            <Typography fontSize={14}>Overview High-Risk SKUs</Typography>
             <Typography>
-              <ChevronRightIcon sx={{ height: "20px" }} />
+              <ChevronRightIcon
+                sx={{ height: { xs: "20px", lg: "20px", xl: "30px" } }}
+              />
             </Typography>
-            <Typography fontSize={14}>Order investigation</Typography>
+            <Typography fontSize={{ xs: 14, lg: 14, xl: 20 }}>
+              Overview High-Risk SKUs
+            </Typography>
+            <Typography>
+              <ChevronRightIcon
+                sx={{ height: { xs: "20px", lg: "20px", xl: "30px" } }}
+              />
+            </Typography>
+            <Typography fontSize={{ xs: 14, lg: 14, xl: 20 }}>
+              Order investigation
+            </Typography>
           </Box>
           <Box mt="20px" mx="1px">
-            <Typography fontSize={28} color="#415A6C">
+            <Typography fontSize={{ xs: 28, lg: 28, xl: 36 }} color="#415A6C">
               Order Investigation: Airwick Electrical Lemon
             </Typography>
           </Box>
@@ -100,11 +108,12 @@ const AirwickElectrical = () => {
             >
               <Linechart className="line-chat" />
             </Box>
-            <Grid container>
-              <Grid item xs={10}></Grid>
+            <Grid container justifyContent="end">
               <Grid item xs={2}>
                 <Box className="btn-scenario">
-                  <Typography fontSize={12} onClick={handleClick}>
+                  <Typography
+                    onClick={handleClick}
+                  >
                     GENERATE SCENARIO{" "}
                   </Typography>{" "}
                   <PlayArrowIcon sx={{ height: "20px" }} />

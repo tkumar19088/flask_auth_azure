@@ -8,43 +8,8 @@
   /* max-height: 800px; */
 
 }
-.log-box{ 
-    min-height: 116px;
-    /* max-height: 316px; */
-    position: relative;
-    /* border: 1px solid red; */
-    /* border: 1px solid red; */
-}
-.logout-icon{
-    
-    height: 20px;   
-    margin-top: 1px;
-}
 
-.logout-fixed{
-    display: flex;
-    border-radius:5px 5px ;
-    padding: 8px 12px 8px 12px;
-    background-color:#E7E9EE ;
-    margin-top: 73px;
-    gap: 8px;
-    cursor: pointer;
-    width: 167px;
-    margin-inline: 15px;
-    position: absolute;
-    /* border: 3px solid green; */
-    /* margin-bottom: -5px; */
-}
 
-@media only screen and (max-width: 1024px) {
-   
-
-    .logout-fixed{
-        width: 120px !important;
-    }
-
-    
-  }
 
 
 
@@ -66,10 +31,6 @@
     
 }
 
-.qube-icon{
-    height: 14px;
-    margin-top: 1px;
-}
 
 .S-h2{
     display: flex;
@@ -199,3 +160,87 @@ min-height: 20px !important;
     background-color: red;
 }
 
+
+
+ .qube-icon{
+    /* height: 174px; */
+    /* margin-top: 10px; */
+} 
+
+
+.log-box{ 
+    min-height: 116px;
+    /* max-height: 316px; */
+    position: relative;
+    /* border: 1px solid red; */
+    /* border: 1px solid red; */
+}
+.logout-icon{
+    
+    height: 20px;   
+    margin-top: 1px;
+}
+
+.logout-fixed{
+    display: flex;
+    border-radius:5px 5px ;
+    padding: 8px 12px 8px 12px;
+    background-color:#E7E9EE ;
+    margin-top: 73px;
+    gap: 8px;
+    cursor: pointer;
+    width: 167px;
+    margin-inline: 15px;
+    position: absolute;
+    /* border: 3px solid green; */
+    /* margin-bottom: -5px; */
+}
+
+
+
+
+  
+@media only screen and (max-width: 1024px) {
+   
+
+    .logout-fixed{
+        width: 120px !important;
+        height: 20px !important;
+    }
+
+    
+  }
+
+  @media only screen and (min-width: 1440px) {
+   
+
+    .logout-fixed{
+        width: 186px !important;
+    }
+
+    
+  }
+  @media only screen and (min-width: 1920px) {
+   
+     .d-plan{
+        /* margin-bottom: 40px !important; */
+        border: 1px solid;
+     }
+    .log-box{
+        min-height: 330px !important;
+        /* border: 1px solid; */
+    }
+
+    .logout-fixed{
+        width: 266px !important;
+        margin-top: 273px !important;
+
+    }
+    .logout-icon{
+        height: 30px !important;
+    }
+
+    /* .log-1920{
+        font-size: 48px !important;
+    } */
+  }

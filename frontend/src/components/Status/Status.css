@@ -35,3 +35,17 @@
     height: 48px;
     width: 48px;
 }
+
+@media only screen and (min-width: 1920px) {
+    .error-icon {
+      /* background-color: yellow; */
+      /* font-size: 38px !important; */
+      height: 75px;
+      width: 75px;
+
+    }
+    .btn-alert{
+        font-size: 17px !important;
+    }
+  } 
+  

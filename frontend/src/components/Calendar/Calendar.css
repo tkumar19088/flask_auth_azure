@@ -6,3 +6,13 @@
 .month-fontsize{
     font-size: 56px;
 }
+
+@media only screen and (min-width: 1920px) {
+   
+    .today-box{
+            /* min-height: 1130px; */
+            /* margin-left: -90px !important; */
+
+    }
+    
+  }

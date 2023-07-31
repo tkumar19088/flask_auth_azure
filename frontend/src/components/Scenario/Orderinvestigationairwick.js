@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Topbar from "../Topbar/Topbar";
 import Sidebar from "../Sidebar/Sidebar";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Divider, Grid, Stack, Typography } from "@mui/material";
 
 import play from "../../images/play.png";
 // import "./AirwickElectrical.css";
@@ -50,19 +50,20 @@ const Orderinvestigationairwick = () => {
       {" "}
       <Grid item xs={6}>
         <Box
-          mt={-2}
+          mt="10px"
           display="flex"
           //   justifyContent="space-between"
           textAlign="center"
         >
           <Typography
-            fontSize={{ lg: 12, xs: 10 }}
+            // border="1px solid"
             sx={{
               backgroundColor: "#D1F2C4",
               padding: "4px 8px 2px 8px",
               borderRadius: "5px 5px",
-              width: { xs: "260px" },
+              width: { xs: "260px", lg: "260px", xl: "400px" },
             }}
+            fontSize={{ lg: 12, xs: 10, xl: 18 }}
           >
             Order Investigation: Airwick Electrical Lemon
           </Typography>{" "}
@@ -73,7 +74,7 @@ const Orderinvestigationairwick = () => {
           >
             <VisibilityOutlinedIcon
               sx={{
-                height: "14px",
+                height: { xs: "14px", lg: "14px", xl: "20px" },
                 //   textAlign: "center",
                 marginTop: { lg: "7px", xs: "7px" },
                 marginLeft: "-7px",
@@ -81,42 +82,55 @@ const Orderinvestigationairwick = () => {
             />{" "}
           </Typography>{" "}
           <Typography
-            fontSize={{ lg: 15, xs: 12 }}
-            mt={{ lg: "3px", xs: "5px" }}
+            fontSize={{ lg: 15, xs: 12, xl: 20 }}
+            mt={{ lg: "3px", xs: "5px", xl: "1px" }}
+            ml={{ xs: 0, lg: 0, xl: "5px" }}
           >
             {" "}
             01/01/23
           </Typography>
         </Box>
       </Grid>
-      <Typography fontSize={20} color="#145A6C" mt="2%" mx="3px">
+      <Typography
+        fontSize={{ xs: 20, lg: 20, xl: 36 }}
+        color="#145A6C"
+        mt="2%"
+        mx="3px"
+      >
         Constraints (Optional)
       </Typography>
       <Grid
         container
         spacing={1}
-        border=""
+        // border=" 1px solid red"
         mt="5px"
         mx={{ lg: "1px", xs: "1px" }}
       >
-        <Grid
-          container
-          item
-          xs={11}
+        <Box
+          display="flex"
           p={1}
           backgroundColor="#fff"
           borderRadius="5px 5px"
+          // border=" 1px solid red"
+          width={{ xs: "97%", lg: "90%", xl: "90%" }}
+          height={{ xl: "90px" }}
         >
           <Grid item xs={3} border="">
-            <Box display="flex" ml={{ lg: "5px", xs: "1px" }}>
-              <Typography fontSize={{ lg: 13, xs: 10 }}>
-                % deviation from actual sell in{" "}
+            <Box
+              display="flex"
+              ml={{ lg: "5px", xs: "1px" }}
+              // border="1px solid"
+              // width={{ xl: "300px" }}
+            >
+              <Typography fontSize={{ xs: 13, lg: 16, xl: 20 }}>
+                % deviation from actual sell in
               </Typography>{" "}
               <Typography>
                 <InfoOutlinedIcon
                   sx={{
-                    height: "17px",
-                    marginTop: { lg: "2px", xs: "1px" },
+                    height: { xs: "14px", lg: "20px", xl: "100%" },
+                    marginTop: { lg: "2px", xs: "1px", xl: "2px" },
+                    ml: { xs: 0, lg: "5px", xl: "5px" },
                   }}
                 />
               </Typography>
@@ -150,13 +164,18 @@ const Orderinvestigationairwick = () => {
                 <Typography
                   mt={{ lg: "8px", xs: "10px" }}
                   sx={{
-                    width: { lg: "100px", xs: "70px" },
+                    // width: { lg: "100px", xs: "70px" },
                     borderRadius: "18px 18px",
                     backgroundColor: "#55C3F0",
                     color: "#fff",
-                    padding: "2px 8px 2px 8px",
+                    // padding: "2px 8px 2px 8px",
+                    width: { xs: "110px", lg: "140px", xl: "290" },
+                    height: { xs: "20px", lg: "25px", xl: "25px" },
+                    justifyContent: "center",
+                    display: "flex",
+                    alignItems: "center",
                   }}
-                  fontSize={{ lg: 12, xs: 8 }}
+                  fontSize={{ lg: 14, xs: 11, xl: 14 }}
                 >
                   Partially Satisfied
                 </Typography>
@@ -165,15 +184,20 @@ const Orderinvestigationairwick = () => {
           </Grid>
           <Box border="1px solid #E5EBEF" height="65px" ml={2}></Box>
           <Grid item xs={3} border="" ml={2}>
-            <Box display="flex" width="240px">
-              <Typography fontSize={{ lg: 13, xs: 10 }}>
+            <Box
+              display="flex"
+              // border="1px solid"
+              // width={{ xs: "240px", lg: "240px", xl: "400" }}
+            >
+              <Typography fontSize={{ xs: 13, lg: 16, xl: 20 }}>
                 Max % of total inventory allocated
               </Typography>
               <Typography>
                 <InfoOutlinedIcon
                   sx={{
-                    height: "17px",
-                    marginTop: { lg: "2px", xs: "0px" },
+                    height: { xs: "14px", lg: "20px", xl: "100%" },
+                    marginTop: { lg: "2px", xs: "1px", xl: "2px" },
+                    ml: { xs: 0, lg: "5px", xl: "5px" },
                   }}
                 />
               </Typography>
@@ -208,13 +232,18 @@ const Orderinvestigationairwick = () => {
                 <Typography
                   mt={{ lg: "8px", xs: "10px" }}
                   sx={{
-                    width: { lg: "100px", xs: "70px" },
+                    // width: { lg: "100px", xs: "70px" },
                     borderRadius: "18px 18px",
                     backgroundColor: "#55C3F0",
                     color: "#fff",
-                    padding: "2px 8px 2px 8px",
+                    // padding: "2px 8px 2px 8px",
+                    width: { xs: "110px", lg: "140px", xl: "290" },
+                    height: { xs: "20px", lg: "25px", xl: "25px" },
+                    justifyContent: "center",
+                    display: "flex",
+                    alignItems: "center",
                   }}
-                  fontSize={{ lg: 12, xs: 8 }}
+                  fontSize={{ lg: 14, xs: 11, xl: 14 }}
                 >
                   Partially Satisfied
                 </Typography>
@@ -224,13 +253,21 @@ const Orderinvestigationairwick = () => {
           <Box border="1px solid #E5EBEF" height="65px" ml={4}></Box>
 
           <Grid item xs={4} border="" ml={2}>
-            <Box display="flex" width="200px" mx={7}>
-              <Typography fontSize={{ lg: 13, xs: 10 }}>
+            <Box
+              display="flex"
+              //  width="200px"
+              mx={7}
+            >
+              <Typography fontSize={{ xs: 13, lg: 16, xl: 20 }}>
                 Weeks on Coverage
               </Typography>
               <Typography>
                 <InfoOutlinedIcon
-                  sx={{ height: "17px", marginTop: { lg: "2px", xs: "1px" } }}
+                  sx={{
+                    height: { xs: "14px", lg: "20px", xl: "100%" },
+                    marginTop: { lg: "2px", xs: "1px", xl: "2px" },
+                    ml: { xs: 0, lg: "5px", xl: "5px" },
+                  }}
                 />
               </Typography>
             </Box>
@@ -319,145 +356,160 @@ const Orderinvestigationairwick = () => {
                   </Box>
                 </Box>
               </Box>
-              <Box border="" textAlign="center" mx={{ lg: "3px", xs: "0px" }}>
+              <Box
+                // border="1px solid red"
+                textAlign="center"
+                mx={{ lg: "3px", xs: "0px" }}
+              >
                 <Typography
+                  // border="1px solid red"
                   mt={{ lg: "8px", xs: "10px" }}
                   sx={{
-                    width: { lg: "100px", xs: "70px" },
                     borderRadius: "18px 18px",
                     backgroundColor: "#55C3F0",
                     color: "#fff",
-                    padding: "2px 8px 2px 8px",
+                    width: { xs: "110px", lg: "140px", xl: "290" },
+                    height: { xs: "20px", lg: "25px", xl: "25px" },
+                    justifyContent: "center",
+                    display: "flex",
+                    alignItems: "center",
                   }}
-                  fontSize={{ lg: 12, xs: 8 }}
+                  fontSize={{ lg: 14, xs: 11, xl: 14 }}
                 >
                   Partially Satisfied
                 </Typography>
               </Box>
             </Box>
           </Grid>
-        </Grid>
+        </Box>
       </Grid>
-      <Grid mt="2%">
-        <Typography fontSize={20} mt="5px" color="#145A6C" mx="3px">
+      <Grid mt="10px" border="">
+        <Typography
+          fontSize={{ xs: 20, lg: 20, xl: 36 }}
+          mt="5px"
+          color="#145A6C"
+          mx="3px"
+        >
           Results
         </Typography>
 
-        <Grid container spacing={1} item xs={12} border="">
-          <Grid item xs={2}>
-            <Box
-              className="snrio-rslt1"
-              border="1px solid #E7E9EE"
-              width={{ lg: "160px", xs: "130px" }}
+        <Grid
+          mt={{ xs: 1 }}
+          container
+          spacing={1}
+          item
+          xs={12}
+          //  border="1px solid red"
+        >
+          <Box
+            className="snrio-rslt1"
+            border="1px solid #E7E9EE"
+            width={{ xs: "130px", lg: "160px", xl: "200px" }}
+          >
+            <Typography
+              mt={{ lg: "6px", xs: "7px" }}
+              fontSize={{ xs: 12, lg: 14, xl: 18 }}
+              className="scn-txt"
             >
-              <Typography
-                mt={{ lg: "6px", xs: "7px" }}
-                fontSize={{ lg: 14, xs: 12 }}
-                className="scn-txt"
-              >
-                Expected Net Revenue
-              </Typography>
-              <Typography
-                fontSize={{ lg: 18 }}
-                color="#008824"
-                className="scn-txt"
-              >
-                £7,749.00
-              </Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={2}>
-            <Box
-              className="snrio-rslt1"
-              border="1px solid #E7E9EE"
-              // mt={{ lg: "6px", xs: "7px" }}
-              width={{ lg: "120px" }}
-              mx={{ lg: "25px", xs: "30px" }}
+              Expected Net Revenue
+            </Typography>
+            <Typography
+              fontSize={{ xs: 18, lg: 18, xl: 20 }}
+              color="#008824"
+              className="scn-txt"
             >
-              <Typography
-                mt={{ lg: "6px", xs: "7px" }}
-                className="scn-txt"
-                fontSize={{ lg: 14, xs: 12 }}
-              >
-                Expected OLA
-              </Typography>
-              <Typography
-                className="scn-txt"
-                fontSize={{ lg: 18 }}
-                color="#008824"
-              >
-                94%
-              </Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={2}>
-            <Box
-              className="snrio-rslt1"
-              border="1px solid #E7E9EE"
-              width={{ lg: "120px" }}
-              mx={{ lg: "10px", xs: "40px" }}
+              £7,749.00
+            </Typography>
+          </Box>
+
+          <Box
+            className="snrio-rslt1"
+            border="1px solid #E7E9EE"
+            // mt={{ lg: "6px", xs: "7px" }}
+            width={{ lg: "120px", xl: "160px" }}
+            mx={{ lg: "25px", xs: "20px" }}
+          >
+            <Typography
+              mt={{ lg: "6px", xs: "7px" }}
+              className="scn-txt"
+              fontSize={{ lg: 14, xs: 12, xl: 20 }}
             >
-              <Typography
-                mt={{ lg: "6px", xs: "7px" }}
-                className="scn-txt"
-                fontSize={{ lg: 14, xs: 12 }}
-              >
-                Costs to serve
-              </Typography>
-              <Typography
-                className="scn-txt"
-                fontSize={{ lg: 18 }}
-                color="#DD0000"
-              >
-                (£324.15)
-              </Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={2}>
+              Expected OLA
+            </Typography>
+            <Typography
+              className="scn-txt"
+              fontSize={{ lg: 18, xl: 20 }}
+              color="#008824"
+            >
+              94%
+            </Typography>
+          </Box>
+
+          <Box
+            className="snrio-rslt1"
+            border="1px solid #E7E9EE"
+            width={{ lg: "120px", xl: "160px" }}
+            mx={{ lg: "10px", xs: "0px" }}
+          >
+            <Typography
+              mt={{ lg: "6px", xs: "7px" }}
+              className="scn-txt"
+              fontSize={{ lg: 14, xs: 12, xl: 20 }}
+            >
+              Costs to serve
+            </Typography>
+            <Typography
+              className="scn-txt"
+              fontSize={{ lg: 18, xl: 20 }}
+              color="#DD0000"
+            >
+              (£324.15)
+            </Typography>
+          </Box>
+          <Box className="btn-rslt-main">
             <Box
+              className="btn-ruslt"
               border="1px solid #B7C3CA"
-              display="flex"
-              borderRadius="5px 5px"
-              justifyContent="space-around"
-              padding={{ lg: "4px 6px", xs: "2px 4px" }}
-              mt={{ lg: "29px", xs: "29px" }}
               color="#415A6C"
-              sx={{ cursor: "pointer" }}
-              ml={{ lg: "0px", xs: "50px" }}
-              width={{ lg: "160px", xs: "140px" }}
             >
               <Typography
-                fontSize={{ lg: "12px", xs: 10 }}
-                mt={{ lg: "1px", xs: "2px" }}
+                ml={{ lg: "6px", xs: "12px" }}
+                mt={{ lg: "3px", xs: "4px" }}
+                fontSize={{ lg: "13px", xs: "12px", xl: 22 }}
               >
                 SIMULATED SCENARIO{" "}
               </Typography>{" "}
-              <PlayArrowIcon sx={{ height: "20px" }} />
+              <PlayArrowIcon
+                sx={{
+                  height: { lg: "18px", xs: "16px", xl: 40 },
+                  ml: { lg: "0px", xs: "6px", xl: "10px" },
+                  mt: { lg: "2px", xs: "3px", xl: "-1px" },
+                }}
+              />
             </Box>
-          </Grid>
-          <Grid item xs={2} mx={{ lg: "15px" }}>
             <Box
-              border="1px solid"
-              display="flex"
-              borderRadius="5px 5px"
-              justifyContent="space-around"
-              padding={{ lg: "4px 6px", xs: "2px 4px" }}
-              mt={{ lg: "29px", xs: "29px" }}
-              color="#E7E9EE"
+              className="btn-ruslt"
               backgroundColor="#415A6C"
-              sx={{ cursor: "pointer" }}
-              ml={{ lg: "0px", xs: "80px" }}
-              width={{ lg: "160px", xs: "140px" }}
+              border="1px solid #415A6C"
+              color="#B7C3CA"
+              ml={{ lg: "20px", xs: "15px" }}
             >
               <Typography
-                fontSize={{ lg: "12px", xs: 10 }}
-                mt={{ lg: "1px", xs: "2px" }}
+                ml={{ lg: "15px", xs: "18px" }}
+                mt={{ lg: "3px", xs: "4px" }}
+                fontSize={{ lg: "13px", xs: "12px", xl: 22 }}
               >
                 SAVE SCENARIO{" "}
               </Typography>{" "}
-              <SaveIcon sx={{ height: "20px" }} />
+              <SaveIcon
+                sx={{
+                  height: { lg: "18px", xs: "16px", xl: 40 },
+                  ml: { lg: "25px", xs: "30px",xl:"50px" },
+                  mt: { lg: "3px", xs: "4px", xl: "-2px" },
+                }}
+              />
             </Box>
-          </Grid>
+          </Box>
         </Grid>
       </Grid>
     </div>

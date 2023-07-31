@@ -5,8 +5,18 @@
 
 .main-bd{
    
-    /* max-height: 920px; */
-    /* min-height: 920px; */
+    /* max-height: 970px; */
+    /* min-height: 970px; */
     background-color: #F5F6F8;
 
 }
+
+
+@media only screen and (min-width: 1920px) {
+   
+    .main-bd{
+            min-height: 1130px;
+
+    }
+    
+  }

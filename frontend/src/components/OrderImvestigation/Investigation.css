@@ -40,6 +40,57 @@
 
 
 
+  @media only screen and (max-width: 1024px) {
+    .thead-expectedola{
+        margin-left: -15px !important;
+        width: 90px !important;
+    }
+    .tbody-expecteola{
+        /* margin-left: -40px !important; */
+    }
+
+
+    .thead-costtoserve{
+        margin-left: -15px !important;
+        width: 90px !important;
+    }
+    .thead-received{
+        margin-left: -25px !important;
+        width: 90px !important;
+    }
+
+
+
+  .sku-name {
+    font-size: 10px !important;
+    text-align: center;
+    line-height: 12px !important;
+  }
+  .sku-code {
+    font-size: 10px !important;
+    text-align: center;
+  }
+
+  .btn-AE{
+    /* margin-left: -160px; */
+  }
+  .btn-amend{
+    /* height: 20px !important; */
+    /* width: 70px !important; */
+    /* font-size: 10px !important; */
+  }
+
+  .btn-export{
+    /* height: 20px !important; */
+    /* width: 70px !important; */
+  }
+
+
+
+
+
+
+} 
 
 
 

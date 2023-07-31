@@ -3,14 +3,12 @@ import React, { useState, useEffect } from "react";
 import { Box, Button, Grid, Typography } from "@mui/material";
 
 import Topbar from "../Topbar/Topbar";
-import Sidebar from "../Sidebar/Sidebar";
+import Sidebar from "../SidebarNew/Sidebar";
 import "./OverviewHighRisk.css";
 
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import DataTable from "../../DataTable";
 import { useNavigate } from "react-router-dom";
-import { animateScroll as scroll } from "react-scroll";
-// import MyBreadcrumbs from "../../MyBreadcrumbs";
 
 function OverviewHighRisk() {
   const navigate = useNavigate();
@@ -27,9 +25,6 @@ function OverviewHighRisk() {
     // Do something with the data in the parent component
   };
 
-  useEffect(() => {
-    scroll.scrollToTop(); // Scrolls to the top of the page when the component mounts
-  }, []);
   return (
     <div>
       <Topbar />
@@ -53,7 +48,12 @@ function OverviewHighRisk() {
                 marginTop: "16px",
               }}
             >
-              <Typography onClick={handleClick}>GENERATE SKU LIST </Typography>{" "}
+              <Typography
+                onClick={handleClick}
+                fontSize={{ xs: 14, lg: 14, xl: 20 }}
+              >
+                GENERATE SKU LIST{" "}
+              </Typography>{" "}
               &#160;&#160;&#160;&#160;
               <PlayArrowIcon />
             </Button>

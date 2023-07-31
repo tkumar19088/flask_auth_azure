@@ -52,23 +52,19 @@ function Calendar() {
 
   return (
     <div>
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        // alignItems="center"
-        // mb={12}
-      >
+      <Box display="flex" justifyContent="space-between">
         <Box display="flex" alignItems="center">
           <Typography
-            fontSize={{ lg: 28, xs: 16 }}
-            sx={{ marginRight: "10px" }}
-            marginLeft="18px"
+            //  border="1px solid"
+            fontSize={{ lg: 28, xs: 16, xl: 42 }}
+            // sx={{ marginRight: "10px" }}
+            marginLeft={{ xs: "10px", lg: "19px" }}
           >
             {format(startOfCurrentWeek, "MMMM YYY")}
           </Typography>
         </Box>
 
-        <Box display="flex" alignItems="center">
+        <Box display="flex" alignItems="center" ml={{ xs: "27px", lg: "70px" }}>
           <Typography
             variant="body2"
             style={{
@@ -79,6 +75,7 @@ function Calendar() {
               color: "#000",
             }}
             fontWeight={600}
+            fontSize={{ xs: 14, lg: 18, xl: 22 }}
           >
             Today
           </Typography>
@@ -123,7 +120,7 @@ function Calendar() {
               width: { lg: "14.2857%", xs: "13.2857%" },
               textAlign: "center",
               cursor: "pointer",
-              lineHeight: { lg: "57px", xs: "43px" },
+              lineHeight: { lg: "57px", xs: "43px", xl: "79px" },
               borderRadius: "50%",
 
               backgroundColor: isSameDay(day, selectedDate)

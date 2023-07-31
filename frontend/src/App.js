@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Dashboard from "./components/Dashboard/Dashboard";
 import OverviewHighRisk from "./components/OverviewHighRisk/OverviewHighRisk";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import DataTable from "./DataTable";
 import Investigation from "./components/OrderImvestigation/Investigation";
 import Linechart from "./Linechart";
@@ -19,9 +24,22 @@ import IntersectionPoints from "./Intersectionpoints";
 import ExpandableTable from "./Expandabletable";
 import Irregularpo from "./components/Irregularpo/Irregularpo";
 import HistoricalData from "./components/RetailerNegotation/HistoricalData";
+
+function ScrollToTopOnRouteChange() {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Scrolls to the top of the page when the route changes
+    window.scrollTo(0, 0);
+  }, [location]);
+
+  return null;
+}
+
 const App = () => {
   return (
     <Router>
+      <ScrollToTopOnRouteChange />
       <div>
         <Routes>
           <Route path="/" element={<Dashboard />} />

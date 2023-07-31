@@ -13,6 +13,7 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Paper,
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
@@ -21,13 +22,12 @@ import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import Sidebar from "../Sidebar/Sidebar";
+import Sidebar from "../SidebarNew/Sidebar";
 import Topbar from "../Topbar/Topbar";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { animateScroll as scroll } from "react-scroll";
 import BackupIcon from "@mui/icons-material/Backup";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
@@ -36,18 +36,13 @@ import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 const Investigation = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    scroll.scrollToTop(); // Scrolls to the top of the page when the component mounts
-  }, []);
-
   const handleClick = () => {
-    // Navigate to another URL
     navigate("/airwickelectrical");
   };
   const handleBack = () => {
     navigate(-1);
   };
-  // const data = jsondata;
+
   const location = useLocation();
   const jsonData = location.state?.data;
 
@@ -135,7 +130,7 @@ const Investigation = () => {
         >
           <div>
             <Box display="flex" fontSize={14} mx="1px">
-              <Box mt="1px">
+              <Box mt={{ xs: "1px", lg: "1px", xl: "6px" }}>
                 <Button
                   style={{
                     backgroundColor: "#fff",
@@ -158,24 +153,36 @@ const Investigation = () => {
                     }}
                   />
                   &#160;
-                  <Typography fontSize={12} onClick={handleBack}>
+                  <Typography
+                    fontSize={{ xs: 12, lg: 12, xl: 18 }}
+                    onClick={handleBack}
+                  >
                     Back
                   </Typography>
                 </Button>
               </Box>{" "}
               &#160;&#160;&#160;&#160;&#160;&#160;
-              <Typography fontSize={14}>OOS Risk Dectection</Typography>
-              <Typography>
-                <ChevronRightIcon sx={{ height: "20px" }} />
+              <Typography fontSize={{ xs: 14, lg: 14, xl: 20 }}>
+                OOS Risk Dectection
               </Typography>
-              <Typography fontSize={14}>Overview High-Risk SKUs</Typography>
+              <Typography>
+                <ChevronRightIcon
+                  sx={{ height: { xs: "20px", lg: "20px", xl: "30px" } }}
+                />
+              </Typography>
+              <Typography fontSize={{ xs: 14, lg: 14, xl: 20 }}>
+                Overview High-Risk SKUs
+              </Typography>
             </Box>
             <Box mt="20px" mx="1px">
               <Typography fontSize={28} color="#415A6C">
                 Order Investigation
               </Typography>
             </Box>
-            <TableContainer style={{ maxHeight: 732, width: "100%" }}>
+            <TableContainer
+              style={{ maxHeight: 732, width: "100%" }}
+              component={Paper}
+            >
               <Table stickyHeader>
                 <TableHead>
                   <TableRow>
@@ -189,6 +196,7 @@ const Investigation = () => {
                       }}
                     >
                       <Box
+                        // border="1px solid red"
                         ml="5px"
                         sx={{
                           display: "flex",
@@ -197,7 +205,7 @@ const Investigation = () => {
                           width: "110px",
                         }}
                       >
-                        <Box>
+                        <Box mt={{ xs: 0, lg: 0, xl: "3px" }}>
                           <Box>
                             <ArrowDropUpIcon
                               style={{ height: "28px", width: "28px" }}
@@ -210,7 +218,11 @@ const Investigation = () => {
                           </Box>
                         </Box>
                         <Box textAlign="center">
-                          <Typography fontSize={14} mt="7px" mx="-4px">
+                          <Typography
+                            fontSize={{ xs: 14, lg: 14, xl: 20 }}
+                            mt="7px"
+                            mx="-4px"
+                          >
                             SKU
                           </Typography>
                         </Box>
@@ -221,13 +233,14 @@ const Investigation = () => {
                       sx={{ backgroundColor: "#E5EBEF" }}
                     >
                       <Box
+                        // border="1px solid red"
                         sx={{
                           display: "flex",
                           textAlign: "center",
                           color: "#415A6C",
                         }}
                       >
-                        <Box>
+                        <Box mt={{ xs: 0, lg: 0, xl: "3px" }}>
                           <Box>
                             <ArrowDropUpIcon
                               style={{ height: "28px", width: "28px" }}
@@ -240,7 +253,11 @@ const Investigation = () => {
                           </Box>
                         </Box>
                         <Box textAlign="center">
-                          <Typography fontSize={14} mt="7px" mx="-4px">
+                          <Typography
+                            fontSize={{ xs: 14, lg: 14, xl: 20 }}
+                            mt="7px"
+                            mx="-4px"
+                          >
                             SKU Code
                           </Typography>
                         </Box>
@@ -252,14 +269,18 @@ const Investigation = () => {
                       sx={{ backgroundColor: "#E5EBEF" }}
                     >
                       <Box
+                        // border="1px solid red"
                         sx={{
                           display: "flex",
                           textAlign: "center",
                           color: "#415A6C",
-                          width: "80px",
+                          width: { xs: "80px", lg: "80px", xl: "110px" },
                         }}
                       >
-                        <Box>
+                        <Box
+                          mt={{ xs: 0, lg: 0, xl: "9px" }}
+                          mr={{ xs: 0, lg: 0, xl: "4px" }}
+                        >
                           <Box>
                             <ArrowDropUpIcon
                               style={{ height: "28px", width: "28px" }}
@@ -272,12 +293,19 @@ const Investigation = () => {
                           </Box>
                         </Box>
                         <Box textAlign="center">
-                          <Typography sx={{ fontSize: "14px" }} mx="-4px">
+                          <Typography
+                            fontSize={{ xs: 14, lg: 14, xl: 20 }}
+                            mx="-4px"
+                          >
                             Risk
                             <InfoOutlinedIcon
                               sx={{ height: "15px", color: "#415A6C" }}
                             />
-                            <Typography ml="-11px" mt="-5px">
+                            <Typography
+                              ml="-11px"
+                              mt="-5px"
+                              fontSize={{ xs: 14, lg: 14, xl: 20 }}
+                            >
                               {" "}
                               (1-10)
                             </Typography>
@@ -296,6 +324,7 @@ const Investigation = () => {
                       }}
                     >
                       <Box
+                        // border="1px solid red"
                         sx={{
                           display: "flex",
                           textAlign: "center",
@@ -303,7 +332,10 @@ const Investigation = () => {
                           width: "110px",
                         }}
                       >
-                        <Box>
+                        <Box
+                          mt={{ xs: 0, lg: 0, xl: "9px" }}
+                          mr={{ xs: 0, lg: 0, xl: "6px" }}
+                        >
                           <Box>
                             <ArrowDropUpIcon
                               style={{ height: "28px", width: "28px" }}
@@ -317,8 +349,8 @@ const Investigation = () => {
                         </Box>
                         <Box textAlign="center">
                           <Typography
-                            fontSize={14}
-                            lineHeight="16px"
+                            fontSize={{ xs: 14, lg: 14, xl: 20 }}
+                            lineHeight={{ xs: "16px", lg: "16px", xl: "24px" }}
                             mt="4px"
                             mx="-4px"
                           >
@@ -332,7 +364,9 @@ const Investigation = () => {
                       sx={{ backgroundColor: "#E5EBEF", textAlign: "center" }}
                     >
                       <Box
-                        mx="5px"
+                        className="thead-expectedola"
+                        // border="1px solid yellow"
+                        mx={{ lg: "5px", xs: "0px" }}
                         sx={{
                           display: "flex",
                           textAlign: "center",
@@ -341,7 +375,10 @@ const Investigation = () => {
                           width: "70px",
                         }}
                       >
-                        <Box>
+                        <Box
+                          mt={{ xs: 0, lg: 0, xl: "9px" }}
+                          mr={{ xs: 0, lg: 0, xl: "4px" }}
+                        >
                           <Box>
                             <ArrowDropUpIcon
                               style={{ height: "28px", width: "28px" }}
@@ -355,10 +392,10 @@ const Investigation = () => {
                         </Box>
                         <Box textAlign="center">
                           <Typography
-                            fontSize={14}
+                            fontSize={{ xs: 14, lg: 14, xl: 20 }}
+                            lineHeight={{ xs: "16px", lg: "16px", xl: "24px" }}
                             mt="8px"
                             ml="-2px"
-                            lineHeight="16px"
                             mx="-4px"
                           >
                             Expected OLA
@@ -371,15 +408,20 @@ const Investigation = () => {
                       sx={{ backgroundColor: "#E5EBEF" }}
                     >
                       <Box
+                        className="thead-costtoserve"
+                        // border="1px solid yellow"
                         sx={{
                           display: "flex",
                           textAlign: "center",
                           color: "#415A6C",
 
-                          width: "90px",
+                          width: { xs: "90px", lg: "90px", xl: "110px" },
                         }}
                       >
-                        <Box>
+                        <Box
+                          mt={{ xs: 0, lg: 0, xl: "9px" }}
+                          mr={{ xs: 0, lg: 0, xl: "6px" }}
+                        >
                           <Box>
                             <ArrowDropUpIcon
                               style={{ height: "28px", width: "28px" }}
@@ -393,10 +435,10 @@ const Investigation = () => {
                         </Box>
                         <Box textAlign="center">
                           <Typography
-                            fontSize={14}
                             ml="-14px"
                             mt="7px"
-                            lineHeight="16px"
+                            fontSize={{ xs: 14, lg: 14, xl: 20 }}
+                            lineHeight={{ xs: "16px", lg: "16px", xl: "22px" }}
                           >
                             Costs to Serve
                           </Typography>
@@ -408,13 +450,15 @@ const Investigation = () => {
                       sx={{ backgroundColor: "#E5EBEF", textAlign: "center" }}
                     >
                       <Box
+                        className="thead-received"
+                        // border="1px solid yellow"
                         sx={{
                           display: "flex",
                           textAlign: "center",
                           color: "#415A6C",
                         }}
                       >
-                        <Box>
+                        <Box mt={{ xs: 0, lg: 0, xl: "9px" }}>
                           <Box>
                             <ArrowDropUpIcon
                               style={{ height: "28px", width: "28px" }}
@@ -427,7 +471,11 @@ const Investigation = () => {
                           </Box>
                         </Box>
                         <Box textAlign="center">
-                          <Typography fontSize={14} textAlign="center" mt="7px">
+                          <Typography
+                            fontSize={{ xs: 14, lg: 14, xl: 20 }}
+                            textAlign="center"
+                            mt={{ xs: "7px", lg: "7px", xl: "11px" }}
+                          >
                             Reviewed
                           </Typography>
                         </Box>
@@ -463,75 +511,112 @@ const Investigation = () => {
                       }}
                       // className={item.checkbox ? "checked-row" : ""}
                     >
-                      <TableCell fontSize={13}>{item.skuname}</TableCell>
                       <TableCell>
-                        <Typography fontSize={13} ml="-10px">
+                        {" "}
+                        <Typography
+                          fontSize={{ xs: 13, lg: 13, xl: 18 }}
+                          className="sku-name"
+                        >
+                          {item.skuname}
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography
+                          fontSize={{ xs: 13, lg: 13, xl: 18 }}
+                          ml="-10px"
+                          className="sku-code"
+                        >
                           {item.skucode}
                         </Typography>
                       </TableCell>
-                      <TableCell sx={{ textAlign: "center", color: "#DD0000" }}>
-                        <Typography
-                          mx="12px"
+                      <TableCell sx={{ color: "#DD0000" }}>
+                        <Box
                           sx={{
-                            width: "30px",
+                            border: "1px solid ",
                             backgroundColor:
                               item.reviewed == "Yes" ? "green" : "#DD0000",
                             color: "#fff",
-                            paddingLeft: "-5px",
+                            width: { xs: "32px", lg: "32px", xl: "50px" },
+                            display: "flex",
+                            justifyContent: "center",
+                            margin: "auto",
+                            borderRadius: "3px 3px",
                           }}
+                          fontSize={{ xs: 13, lg: 13, xl: 20 }}
+                          ml={{ xs: 0, lg: 0, xl: "9px" }}
                         >
-                          {" "}
                           {item.risk}
-                        </Typography>
+                        </Box>
                       </TableCell>
-                      <TableCell sx={{ color: "#DD0000", textAlign: "center" }}>
+                      <TableCell
+                        sx={{
+                          color: item.reviewed == "Yes" ? "green" : "#DD0000",
+                          textAlign: "center",
+                        }}
+                      >
                         <Typography
-                          fontSize={13}
-                          sx={{ border: "", marginLeft: "" }}
+                          fontSize={{ xs: 13, lg: 13, xl: 18 }}
+                          sx={
+                            {
+                              // border: "1px solid red",
+                            }
+                          }
                         >
                           {item.expectednetrevenue}
                         </Typography>
                       </TableCell>
-                      <TableCell sx={{ color: "#F08C2A", textAlign: "center" }}>
-                        <Typography
-                          fontSize={13}
-                          sx={{ border: "", marginLeft: "25px" }}
+                      <TableCell
+                        sx={{
+                          color: item.reviewed == "Yes" ? "green" : "#F08C2A",
+                          textAlign: "center",
+                        }}
+                      >
+                        <Box
+                          className="tbody-expecteola"
+                          fontSize={{ xs: 13, lg: 13, xl: 18 }}
+                          sx={{
+                            //  border: "1px solid red",
+                            marginLeft: "25px",
+                          }}
                         >
                           {item.expectedola}
-                        </Typography>
+                        </Box>
                       </TableCell>
                       <TableCell sx={{ color: "#DD0000", textAlign: "center" }}>
                         <Typography
-                          fontSize={13}
+                          fontSize={{ xs: 13, lg: 13, xl: 18 }}
                           sx={{ border: "", marginLeft: "" }}
                         >
                           {item.costtoserve}
                         </Typography>
                       </TableCell>
-                      <TableCell
-                        sx={{
-                          color: "#F08C2A",
-                          textAlign: "center",
-                        }}
-                      >
-                        <Typography
+                      <TableCell>
+                        <Box
+                          // border="1px solid red"
                           sx={{
-                            width: "30px",
+                            // border: "1px solid",
                             backgroundColor:
                               item.reviewed == "Yes" ? "green" : "#DD0000",
                             color: "#fff",
-                            marginLeft: "29px",
+                            // width:"32px",
+                            width: { xs: "32px", lg: "32px", xl: "50px" },
+                            display: "flex",
+                            justifyContent: "center",
+                            margin: "auto",
+                            borderRadius: "3px 3px",
                           }}
+                          fontSize={{ xs: 13, lg: 13, xl: 20 }}
+                          ml={{ xs: 0, lg: 0, xl: "43px" }}
                         >
-                          {" "}
                           {item.reviewed}
-                        </Typography>
+                        </Box>
                       </TableCell>
                       {item.reviewed == "No" && (
                         <TableCell
                           sx={{ color: "#F08C2A", textAlign: "center" }}
                         >
                           <Box
+                            onClick={handleClick}
                             ml="-50px"
                             sx={{
                               borderRadius: "5px 5px",
@@ -544,9 +629,7 @@ const Investigation = () => {
                               // margin: " 0 35px 0 10px",
                             }}
                           >
-                            <Typography onClick={handleClick}>
-                              INVESTIGATE
-                            </Typography>
+                            <Typography>INVESTIGATE</Typography>
                             <Typography>
                               <PlayArrowIcon sx={{ height: "21px" }} />
                             </Typography>
@@ -556,57 +639,70 @@ const Investigation = () => {
 
                       {item.reviewed == "Yes" && (
                         <TableCell>
-                          <Box display="flex">
+                          <Box
+                            display="flex"
+                            // border="1px solid yellow"
+                            ml={{ lg: "-50px" }}
+                            // className="btn-AE"
+                          >
                             <Box
-                              ml="-50px"
+                              // className="btn-amend"
                               sx={{
-                                border: "1px solid",
-                                // padding: "3px",
+                                border: "1px solid #415A6C",
                                 width: "100px",
+                                height: "30px",
                                 borderRadius: "5px 5px",
                                 display: "flex",
                                 justifyContent: "space-around",
-                                marginRight: "10px",
                                 color: "#415A6C",
                                 cursor: "pointer",
                               }}
                             >
-                              <Typography mt="5px" fontSize="13px">
+                              <Typography
+                                fontSize={13}
+                                mt={{ lg: "6px" }}
+                                ml={{ lg: "8px" }}
+                              >
                                 AMEND
                               </Typography>
                               <Typography>
                                 <PlayArrowRoundedIcon
-                                  sx={{ height: "20x", marginTop: "2px" }}
+                                  sx={{ height: "18x", marginTop: "3px" }}
                                 />
                               </Typography>
                             </Box>
                             <Box
+                              // className="btn-export"
+                              ml={{ lg: "15px" }}
                               onClick={() =>
                                 handleAccordionChange(item.skucode)
                               }
-                              // variant="contained"
-                              // color="#E7E9EE"
-                              // backgroundColor="#415A6C"
                               sx={{
+                                border: "1px solid #415A6C",
                                 backgroundColor: "#415A6C",
                                 color: "#E7E9EE",
                                 width: "100px",
+                                height: "30px",
                                 display: "flex",
                                 justifyContent: "space-around",
-                                //   height: "35px",
                                 borderRadius: "5px 5px",
-                                textAlign: "center",
                                 cursor: "pointer",
-                                padding: "3px",
-                                alignSelf: "center",
                               }}
                             >
-                              <Typography fontSize="13px" mt="3px" mx="3px">
+                              <Typography
+                                fontSize={13}
+                                mt={{ lg: "6px" }}
+                                ml={{ lg: "5px" }}
+                              >
                                 EXPORT
                               </Typography>
                               <Typography ml="5px">
                                 <CloudUploadOutlinedIcon
-                                  sx={{ height: "18px", marginTop: "3px" }}
+                                  sx={{
+                                    height: "17px",
+                                    marginTop: "7px",
+                                    ml: { lg: "-7px" },
+                                  }}
                                 />
                               </Typography>
                             </Box>
@@ -620,6 +716,7 @@ const Investigation = () => {
                                 boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
                                 padding: "7px",
                                 marginLeft: "5px",
+                                marginTop: "2px",
                                 width: "150px",
                                 borderRadius: "5px 5px",
                                 border: "1px solid #E7E9EE",

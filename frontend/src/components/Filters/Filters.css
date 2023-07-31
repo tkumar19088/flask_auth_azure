@@ -28,14 +28,7 @@
     color: white;
   }
 
-  @media only screen and (max-width: 1024px) {
-   
-
-    .btn-filters{
-        width: 120px !important;
-        margin-left: 14px;
-    }
-  }
+ 
 
 
   
@@ -52,3 +45,51 @@
     background-color:#FF007E ;
     /* padding: 5px 10px 5px 10px; */
   }
+
+  .btn-applyfilter{
+    font-size: small !important;
+  }
+
+  @media only screen and (min-width: 1024px) {
+   
+
+    .btn-filters{
+        width: 120px !important;
+        margin-left: 14px;
+    }
+    .btn-applyfilter{
+      font-size: 10px !important;
+    }
+  }
+
+
+  @media only screen and (min-width: 1920px) {
+    .filter-maingrid{
+      height: 120px !important;
+      padding: 8px;
+    }
+    .btn-filters{
+      width: 166px !important;
+      margin-left: 74px;
+      /* height: 35px; */
+      /* margin-top: 5px; */
+      /* padding: 8px 16px 8px 16px; */
+
+  }
+  .brand-tittle{
+    font-size: 18px !important;
+    /* margin-left: 15px; */
+  }
+  .brand-potion{
+    font-size: 12px;
+    border: 1px solid red !important;
+    margin-left: 15px !important;
+  }
+  
+    .fltr-downbtns{
+      font-size:22px !important ;
+    }
+  
+    
+  }
+  

@@ -15,11 +15,16 @@ const Planning = ({ filterStatus }) => {
         <Grid container spacing={2} item xs={12} mt={1}>
           <Grid item xs={3}>
             <Box className="pln-cards-header">
-              <Typography color="#fff">Demand Planning</Typography>
+              <Typography color="#fff"  fontSize={{ xs: 14, lg: 16, xl: 22 }}>
+                Demand Planning
+              </Typography>
             </Box>{" "}
             <Box className="pln-card-bd">
               <Box className="pln-cards-cnt">
-                <Typography fontSize={{ lg: 14, xs: 12 }} fontWeight={500}>
+                <Typography
+                  fontSize={{ lg: 14, xs: 12, xl: 17 }}
+                  fontWeight={500}
+                >
                   Forecast Builder - Sell Out
                 </Typography>
               </Box>
@@ -29,7 +34,10 @@ const Planning = ({ filterStatus }) => {
             </Box>{" "}
             <Box className="pln-card-bd">
               <Box className="pln-cards-cnt">
-                <Typography fontSize={{ lg: 14, xs: 12 }} fontWeight={500}>
+                <Typography
+                  fontSize={{ lg: 14, xs: 12, xl: 17 }}
+                  fontWeight={500}
+                >
                   Market Price Match
                 </Typography>
               </Box>
@@ -40,11 +48,16 @@ const Planning = ({ filterStatus }) => {
           </Grid>
           <Grid item xs={3}>
             <Box className="pln-cards-header">
-              <Typography color="#fff">Demand Scenarios</Typography>
+              <Typography color="#fff" fontSize={{ xs: 14, lg: 16, xl: 22 }}>
+                Demand Scenarios
+              </Typography>
             </Box>{" "}
             <Box className="pln-card-bd">
               <Box className="pln-cards-cnt">
-                <Typography fontSize={{ lg: 14, xs: 12 }} fontWeight={500}>
+                <Typography
+                  fontSize={{ lg: 14, xs: 12, xl: 17 }}
+                  fontWeight={500}
+                >
                   Scenario Selection
                 </Typography>
               </Box>
@@ -54,7 +67,11 @@ const Planning = ({ filterStatus }) => {
             </Box>{" "}
             <Box className="pln-card-bd-L">
               <Box className="pln-cards-cnt">
-                <Typography fontSize={{ lg: 14, xs: 12 }} fontWeight={500} lineHeight="16px">
+                <Typography
+                  fontSize={{ lg: 14, xs: 12, xl: 17 }}
+                  fontWeight={500}
+                  lineHeight="16px"
+                >
                   Systamatic data-driven forecast validation
                 </Typography>
               </Box>
@@ -66,11 +83,16 @@ const Planning = ({ filterStatus }) => {
 
           <Grid item xs={3}>
             <Box className="pln-cards-header">
-              <Typography color="#fff">Supply Planning</Typography>
+              <Typography color="#fff" fontSize={{ xs: 14, lg: 16, xl: 22 }}>
+                Supply Planning
+              </Typography>
             </Box>{" "}
             <Box className="pln-card-bd">
               <Box className="pln-cards-cnt">
-                <Typography fontSize={{ lg: 14, xs: 12 }} fontWeight={500}>
+                <Typography
+                  fontSize={{ lg: 14, xs: 12, xl: 17 }}
+                  fontWeight={500}
+                >
                   Forecast builder - Sell-In{" "}
                 </Typography>
               </Box>
@@ -82,11 +104,16 @@ const Planning = ({ filterStatus }) => {
 
           <Grid item xs={3}>
             <Box className="pln-cards-header">
-              <Typography color="#fff">Distribution Planning</Typography>
+              <Typography color="#fff" fontSize={{ xs: 14, lg: 16, xl: 22 }}>
+                Distribution Planning
+              </Typography>
             </Box>{" "}
             <Box className="pln-card-bd">
               <Box className="pln-cards-cnt">
-                <Typography fontSize={{ lg: 14, xs: 12 }} fontWeight={500}>
+                <Typography
+                  fontSize={{ lg: 14, xs: 12, xl: 17 }}
+                  fontWeight={500}
+                >
                   SKU Prioritisation{" "}
                 </Typography>
               </Box>
@@ -96,7 +123,10 @@ const Planning = ({ filterStatus }) => {
             </Box>{" "}
             <Box className="pln-card-bd42" onClick={handleFilterStatus}>
               <Box className="pln-cards-cnt">
-                <Typography fontSize={{ lg: 14, xs: 12 }} fontWeight={500}>
+                <Typography
+                  fontSize={{ lg: 14, xs: 12, xl: 17 }}
+                  fontWeight={500}
+                >
                   OOS Risk Detection
                 </Typography>
               </Box>
@@ -106,7 +136,10 @@ const Planning = ({ filterStatus }) => {
             </Box>{" "}
             <Box className="pln-card-bd">
               <Box className="pln-cards-cnt">
-                <Typography fontSize={{ lg: 14, xs: 12 }} fontWeight={500}>
+                <Typography
+                  fontSize={{ lg: 14, xs: 12, xl: 17 }}
+                  fontWeight={500}
+                >
                   Smart Stock Reallocation
                 </Typography>
               </Box>
