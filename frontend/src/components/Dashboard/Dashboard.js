@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Grid } from "@mui/material";
 import Topbar from "../Topbar/Topbar";
-import Sidebar from "../SidebarNew/Sidebar";
+import Sidebar from "../Sidebar/Sidebar";
 import Welcome from "../Welcome/Welcome";
 import Status from "../Status/Status";
 import Planning from "../Planning/Planning";
@@ -23,11 +23,11 @@ function Dashboard() {
   return (
     <div>
       <Topbar />
-      <Grid container xs={12}>
-        <Grid item xs={2} className="sidebar-main">
+      <Grid container>
+        <Grid item xs={2}>
           <Sidebar filterStatus={handleFilterStatus} />
         </Grid>
-        <Grid item xs={10} p={2} className="main-bd">
+        <Grid item xs={10} p={2} className="bg-containerdashboard">
           <Welcome />
           <Status filterStatus={handleFilterStatus} />
           <Planning filterStatus={handleFilterStatus} />

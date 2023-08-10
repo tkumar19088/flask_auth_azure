@@ -50,3 +50,26 @@
   marginTop: "8px",
   marginRight: "11px",
   color: "#415A6C", */
+
+
+  /* .css-z6jybg-MuiSvgIcon-root {
+    border-bottom: 50% !important;
+  } */
+
+  .profile-logut{
+    margin-top: 10px;
+    margin-left: -3px;
+  }
+  /* .profile-logut:hover{
+    color: red !important;
+  } */
+  
+  .profile-logout-title{
+    /* color: red !important; */
+    background-color: white !important;
+    gap: 8px;
+  }
+  .profile-logout-title :hover{
+    color: red !important;
+    
+  }

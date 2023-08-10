@@ -74,3 +74,83 @@ table {
   /* .overviewHighRisk .logoutSpace {
     margin-top: 425px !important;
   } */
+
+  /* @media (min-width:1536px) {
+    .cont{
+      height: calc(100%) !important;
+    }
+  } */
+
+
+  .react-tabs__tab--selected{
+    background: none !important;
+    /* border-radius: 5px !important; */
+    /* border-bottom: none !important; */
+  }
+
+
+  @media (width > 1200px) and (width < 1440px) {
+    .bg-container{
+      background-color: #F5F6F8;
+      padding: 30px !important;
+      /* height: 1380px !important ; */
+     }
+     .btn-exp{
+      height: 30px !important;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1.1em!important;
+      display: flex !important;
+     }
+
+     .css-7mt4h1-MuiInputBase-root .MuiInputBase-input{
+          width: 10ch !important;
+     }
+     .css-7mt4h1-MuiInputBase-root .MuiInputBase-input:focus{
+      width: 10ch !important;
+     }
+
+     
+    .css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input.css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input.css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input {
+         padding-right: 65px !important;
+      }
+      .btn-exp{
+        background-color: #415A6C !important;
+
+      }
+  }
+ 
+  @media (width > 1919px) {
+    .bg-container{
+     /* background-color: #F5F6F8; */
+     /* padding: 30px !important; */
+     /* height: 1380px !important ; */
+    }
+    .ohr-title{
+      font-size: 2.4rem !important;
+    }
+    .css-7mt4h1-MuiInputBase-root .MuiInputBase-input{
+      width: 19ch !important;
+ }
+ .css-7mt4h1-MuiInputBase-root .MuiInputBase-input:focus{
+  width: 19ch !important;
+ }
+
+    .formcontrol-box{
+      margin-left: -30px !important;
+      margin-top: -12px !important;
+    }
+    .css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input.css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input.css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input {
+      padding-right: 165px !important;
+   }
+
+   .btn-exp{
+    font-size: 16px !important;
+    background-color: #415A6C !important;
+    margin-top: 5px !important;
+   }
+
+   .filter-inside-title{
+    font-size: 23px !important;
+   }
+ }

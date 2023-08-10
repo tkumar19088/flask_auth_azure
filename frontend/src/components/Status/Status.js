@@ -18,7 +18,7 @@ const Status = ({ filterStatus }) => {
     <div>
       <div className="status">
         <div>
-          <Typography fontSize={{ lg: 28, xs: 24, xl: 38 }} color="#415A6C">
+          <Typography fontSize={{ lg: 28, xs: 24 }} color="#415A6C">
             Current Status / Alert Section
           </Typography>
         </div>
@@ -30,11 +30,13 @@ const Status = ({ filterStatus }) => {
         </div>
       </div>
 
-      <Grid container spacing={2} mt="-20px" border="">
+      <Grid container
+       spacing={{ md: 2, lg: 3, xl: 5 }}
+      // spacing={2}
+        mt="-20px" border="">
         <Grid
           item
           xs={4}
-          // m={1}
           onClick={handleFilterStatus}
           sx={{ cursor: "pointer" }}
         >
@@ -56,21 +58,17 @@ const Status = ({ filterStatus }) => {
                 />{" "}
               </Box>
               <Box m={1}>
-                <Typography
-                  fontSize={{ lg: 18, xs: 13, xl: 26 }}
-                  // fontWeight={{ xl: 200 }}
-                  lineHeight={{ xl: 1 }}
-                >
+                <Typography fontSize={{ lg: 18, xs: 13 }}>
                   OOS Risk Detection on Airwick
                 </Typography>
-                <Typography fontSize={{ lg: 18, xs: 13, xl: 26 }}>
+                <Typography fontSize={{ lg: 18, xs: 13 }}>
                   {" "}
                   UK SKUs.
                   <Link
                     sx={{
                       textDecoration: "none",
                       color: "#7E919F",
-                      fontSize: { xs: "14px", lg: "14px", xl: 20 },
+                      fontSize: "14px",
                     }}
                   >
                     {" "}
@@ -90,47 +88,39 @@ const Status = ({ filterStatus }) => {
               // marginBottom={{lg:1,xs:-1}}
             >
               <Box>
-                <Typography
-                  color="#415A6C"
-                  fontWeight={500}
-                  fontSize={{ xs: 13, lg: "12px", xl: "20px" }}
-                >
+                <Typography color="#415A6C" fontSize="12px">
                   OOS Risk Dectected
                 </Typography>
-                <Typography fontSize={{ lg: 14, xs: 11, xl: 20 }}>
+                <Typography fontSize={{ lg: 14, xs: 12 }}>
                   Airwick Electrical Lemon
                 </Typography>
                 <Typography
-                  fontSize={{ lg: 14, xs: 11, xl: 20 }}
+                  fontSize={{ lg: 14, xs: 12 }}
                   lineHeight={{ lg: "16px", xs: "16px" }}
                 >
                   Airwick Electrical Lavender
                 </Typography>
-                <Typography fontSize={{ lg: 14, xs: 11, xl: 20 }}>
+                <Typography fontSize={{ lg: 14, xs: 12 }}>
                   Airwick Aersol Floral
                 </Typography>
               </Box>
               <Box>
                 {" "}
-                <Typography
-                  color="#415A6C"
-                  fontWeight={500}
-                  fontSize={{ xs: 12, lg: 12, xl: 20 }}
-                >
+                <Typography color="#415A6C" fontWeight={500} fontSize="12px">
                   Expected OLA
                 </Typography>
                 <Typography
                   sx={{ marginBlock: "2px" }}
                   color="#F08C2A"
                   fontWeight={500}
-                  fontSize={{ xs: 12, lg: 12, xl: 18 }}
+                  fontSize={12}
                 >
                   84%
                 </Typography>
                 <Typography
                   color="#F08C2A"
                   fontWeight={500}
-                  fontSize={{ xs: 12, lg: 12, xl: 18 }}
+                  fontSize={12}
                   lineHeight={{ lg: "16px", xs: "12px" }}
                 >
                   86%
@@ -139,7 +129,7 @@ const Status = ({ filterStatus }) => {
                   sx={{ marginBlock: "2px" }}
                   color="#F08C2A"
                   fontWeight={500}
-                  fontSize={{ xs: 12, lg: 12, xl: 18 }}
+                  fontSize={12}
                 >
                   87%
                 </Typography>
@@ -166,13 +156,10 @@ const Status = ({ filterStatus }) => {
                 />{" "}
               </Box>
               <Box m={1}>
-                <Typography
-                  fontSize={{ lg: 18, xs: 13, xl: 26 }}
-                  lineHeight={{ xl: 1 }}
-                >
+                <Typography fontSize={{ lg: 18, xs: 13 }}>
                   Vanish SKUs identified for
                 </Typography>
-                <Typography fontSize={{ lg: 18, xs: 13, xl: 26 }}>
+                <Typography fontSize={{ lg: 18, xs: 13 }}>
                   promotion prioritisation
                 </Typography>
               </Box>
@@ -180,8 +167,8 @@ const Status = ({ filterStatus }) => {
             <hr />
             <Box sx={{ marginInline: "20px", color: "#415A6C" }}>
               <Typography
-                fontSize={{ lg: 16, xs: 14, xl: 22 }}
-                lineHeight={{ lg: "20px", xs: "17px", xl: "26px" }}
+                fontSize={{ lg: 16, xs: 14 }}
+                lineHeight={{ lg: "20px", xs: "17px" }}
               >
                 Some SKUs have opportunity for promotion priotisation.{" "}
               </Typography>
@@ -207,22 +194,17 @@ const Status = ({ filterStatus }) => {
                 />{" "}
               </Box>
               <Box m={1}>
-                <Typography
-                  fontSize={{ lg: 18, xs: 13, xl: 26 }}
-                  lineHeight={{ xl: 1 }}
-                >
+                <Typography fontSize={{ lg: 18, xs: 13 }}>
                   OOS Risk Detected on Finish
                 </Typography>
-                <Typography fontSize={{ lg: 18, xs: 13, xl: 26 }}>
-                  UK SKUs{" "}
-                </Typography>
+                <Typography fontSize={{ lg: 18, xs: 13 }}>UK SKUs </Typography>
               </Box>
             </Box>
             <hr />
             <Box sx={{ marginInline: "20px", color: "#415A6C" }}>
               <Typography
-                fontSize={{ lg: 16, xs: 13, xl: 22 }}
-                lineHeight={{ lg: "20px", xs: "17px", xl: "26px" }}
+                fontStyle={{ lg: 16, xs: 13 }}
+                lineHeight={{ lg: "20px", xs: "17px" }}
               >
                 Some SKUs require actions due to OOS risk, press to inspect.{" "}
               </Typography>

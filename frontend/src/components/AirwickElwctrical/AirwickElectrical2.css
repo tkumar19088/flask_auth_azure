@@ -73,7 +73,7 @@
     padding: 0px 0px 0px 12px;
 
 }
- 
+
 .snrio-rslt2{
     border-radius: 5px 5px;
     border: 1px solid #E7E9EE;
@@ -82,37 +82,7 @@
     width: 160px;
     padding: 0px 0px 0px 12px;
 
-} 
- 
-.snrio-rslt3{
-    border-radius: 5px 5px;
-    border: 1px solid #E7E9EE;
-    background-color: white;
-    height: 60px;
-    width: 160px;
-    padding: 0px 0px 0px 12px;
-
-} 
- 
-.snrio-rslt4{
-    border-radius: 5px 5px;
-    border: 1px solid #E7E9EE;
-    background-color: white;
-    height: 60px;
-    width: 160px;
-    padding: 0px 0px 0px 12px;
-
-} 
-/* 
-.snrio-rslt3{
-    border-radius: 5px 5px;
-    border: 1px solid #E7E9EE;
-    background-color: white;
-    height: 60px;
-    width: 160px;
-    padding: 0px 0px 0px 12px;
-
-} */
+}
 
 .scn-text-g{
     color: #008824;
@@ -135,41 +105,11 @@
   }
 
 
-
-
-
   
-
-  @media only screen and (min-width: 1920px) {
-   
-    .snrio-rslt1{
-         /* font-size: 29px !important; */
-         width: 160px;
-         height: 80px;
-
+  @media (width > 1919px) {
+    .bg-container{
+     /* background-color: #F5F6F8; */
+     padding: 25px 40px !important;
+     /* height: 100% !important ; */
     }
-    .snrio-rslt2{
-         /* font-size: 29px !important; */
-         width: 230px;
-         height: 80px;
-
-    }
-    .snrio-rslt3{
-         /* font-size: 29px !important; */
-         width: 180px;
-         height: 80px;
-
-    }
-    .snrio-rslt4{
-         /* font-size: 29px !important; */
-         width: 170px;
-         height: 80px;
-         /* font-size: 20px; */
-
-    }
-   
-    .btn-scenario{
-        /* height: 30px; */
-    }
-    
-  }
+ }

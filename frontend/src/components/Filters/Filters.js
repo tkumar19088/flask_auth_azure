@@ -4,7 +4,6 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
-import MenuItem from "@mui/material/MenuItem"; // Import MenuItem
 
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { useNavigate } from "react-router-dom";
@@ -20,7 +19,7 @@ const Filters = () => {
   };
 
   const handleNavigateOverviewHighRisk = () => {
-    navigate("/overviewhighrisk");
+    navigate("/overviewhighrisk2");
   };
 
   const handleNavigateIrregularPO = () => {
@@ -28,9 +27,10 @@ const Filters = () => {
   };
 
   return (
-    <div>
+    <div className="filter-main">
       <Typography
-        fontSize={{ xs: 28, lg: 28, xl: 36 }}
+        className="filter-title"
+        fontSize={28}
         color="#415A6C"
         marginLeft="3px"
         p={1}
@@ -39,9 +39,9 @@ const Filters = () => {
       </Typography>
       <Grid container mt={-2}>
         <Grid
-          className="filter-maingrid"
           container
           spacing={3}
+          item
           xs={12}
           sx={{
             boxShadow: 3,
@@ -55,23 +55,25 @@ const Filters = () => {
             borderRadius: 2,
             fontSize: "0.875rem",
             fontWeight: "700",
-            // border: "1px solid red",
           }}
         >
           <Grid item xs={3}>
             <Box sx={{ minWidth: 120 }} ml={2}>
               <FormControl fullWidth>
-                <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                <InputLabel
+                  variant="standard"
+                  htmlFor="uncontrolled-native"
+                  // sx={{ marginLeft:"30px" }}
+                >
                   <Typography
-                    fontSize={{ xs: 22, lg: 22, xl: 28 }}
+                    fontSize={22}
                     mt={-1}
-                    ml={{ xs: "10px", lg: "10px", xl: "10px" }}
+                    className="filter-inside-title"
                   >
                     Customer
                   </Typography>
                 </InputLabel>
                 <NativeSelect
-                  className="brand-tittle"
                   defaultValue={10}
                   inputProps={{
                     name: "Customer",
@@ -79,12 +81,8 @@ const Filters = () => {
                   }}
                   style={{ backgroundColor: "", marginBottom: "20px" }}
                 >
-                  <option value="Amazon" className="brand-potion">
-                    &#160;&#160;Amazon
-                  </option>
-                  <option value="Tesco" className="brand-potion">
-                    &#160;&#160;Tesco
-                  </option>
+                  <option value="Amazon">Amazon</option>
+                  <option value="Tesco">Tesco</option>
                 </NativeSelect>
               </FormControl>
             </Box>
@@ -95,33 +93,21 @@ const Filters = () => {
               <FormControl fullWidth>
                 <InputLabel variant="standard" htmlFor="uncontrolled-native">
                   <Typography
-                    fontSize={{ xs: 22, lg: 22, xl: 28 }}
+                    fontSize={22}
                     mt={-1}
-                    ml={{ xs: "10px", lg: "14px", xl: "13px" }}
+                    className="filter-inside-title"
                   >
                     Location
                   </Typography>
                 </InputLabel>
                 <NativeSelect
-                  className="brand-tittle"
                   defaultValue={10}
                   inputProps={{
                     name: "Country",
                     id: "uncontrolled-native",
                   }}
                 >
-                  <option value="United Kingdom" className="brand-potion">
-                    {" "}
-                    &#160;&#160;United Kingdom
-                  </option>
-                  <option value="United Kingdom" className="brand-potion">
-                    {" "}
-                    &#160;&#160;USA
-                  </option>
-                  <option value="United Kingdom" className="brand-potion">
-                    {" "}
-                    &#160;&#160;UK
-                  </option>
+                  <option value="United Kingdom">United Kingdom</option>
                 </NativeSelect>
               </FormControl>
             </Box>
@@ -131,57 +117,33 @@ const Filters = () => {
               <FormControl fullWidth>
                 <InputLabel variant="standard" htmlFor="uncontrolled-native">
                   <Typography
-                    fontSize={{ xs: 22, lg: 22, xl: 28 }}
+                    fontSize={22}
                     mt={-1}
-                    ml={{ xs: "10px", lg: "10px", xl: "13px" }}
+                    className="filter-inside-title"
                   >
-                    Brand
+                    Business Unit
                   </Typography>
                 </InputLabel>
                 <NativeSelect
-                  className="brand-tittle"
                   defaultValue={10}
                   inputProps={{
                     name: "Brand",
                     id: "uncontrolled-native",
                   }}
                 >
-                  <option value="AirWick" className="brand-potion">
-                    &#160;&#160;AirWick
-                  </option>
-                  <option value="Durex" className="brand-potion">
-                    {" "}
-                    &#160;&#160;Durex
-                  </option>
+                  <option value="AirWick">Health</option>
+                  <option value="Durex">Hygeine</option>
+                  <option value="Nutrition">Nutrition</option>
                 </NativeSelect>
               </FormControl>
             </Box>
           </Grid>
           <Grid item xs={3} textAlign="center" alignItems="center">
-            <Box
-              flexDirection="row"
-              display="flex"
-              border="1px solid #FF007E"
-              backgroundColor="#FF007E"
-              color="#fff"
-              borderRadius="5px 5px"
-              mt={{ xs: "22px", xl: "13px" }}
-              width={{ xs: "160px", lg: "160px", xl: "200px" }}
-              height={{ xl: "35px" }}
-              ml={{ xs: 0, lg: "45px" }}
-              sx={{ cursor: "pointer" }}
-            >
-              <Typography
-                onClick={handleClick}
-                ml={{ xs: "20px" }}
-                mt={{ xs: "3px", xl: "5px" }}
-                fontSize={{ xs: "12px", lg: "12px", xl: "17px" }}
-              >
-                APPLY FILTERS
-              </Typography>
-              <PlayArrowIcon
-                sx={{ marginLeft: { xs: "15px" }, marginTop: { xl: "4px" } }}
-              />
+            <Box className="btn-filters">
+              <Typography onClick={handleClick} className="filter-btn-name">
+                APPLY FILTERS{" "}
+              </Typography>{" "}
+              <PlayArrowIcon />
             </Box>
           </Grid>
         </Grid>
@@ -192,26 +154,24 @@ const Filters = () => {
           p={1}
           spacing={1}
           mt={{ lg: "1px" }}
-          justifyContent="space-between"
+          justifyContent="space-evenly"
         >
-          <Grid item xs={2}></Grid>
           <Grid item xs={3}>
             <Box className="btn-fltr" onClick={handleNavigateIrregularPO}>
-              <Typography color="#fff" className="fltr-downbtns">
+              <Typography color="#fff" className="btn-filter-title">
                 {" "}
-                Irregular PO
+                Irregular PO (5)
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={3} onClick={handleNavigateOverviewHighRisk}>
-            <Box className="btn-fltr">
-              <Typography color="#fff" className="fltr-downbtns">
+          <Grid item xs={3}>
+            <Box className="btn-fltr" onClick={handleNavigateOverviewHighRisk}>
+              <Typography color="#fff" className="btn-filter-title">
                 {" "}
-                High Risk SKU's
+                High Risk SKU's (10)
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={2}></Grid>
         </Grid>
       )}
     </div>
@@ -219,3 +179,16 @@ const Filters = () => {
 };
 
 export default Filters;
+
+<Grid
+  item
+  xs={3}
+  //  onClick={handleNavigateOverviewHighRisk}
+>
+  <Box className="btn-fltr">
+    <Typography color="#fff" className="btn-">
+      {" "}
+      Low Stock on hand (10)
+    </Typography>
+  </Box>
+</Grid>;

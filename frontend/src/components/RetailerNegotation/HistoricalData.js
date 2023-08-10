@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Topbar from "../Topbar/Topbar";
 import { Box, Button, Grid, Typography } from "@mui/material";
-import Sidebar from "../SidebarNew/Sidebar";
+import Sidebar from "../Sidebar/Sidebar";
 import Linechart from "../../Linechart";
 import Linechart2 from "./LineChart2";
 import Barchart from "./Barchart";
@@ -12,6 +12,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 
 import { useNavigate } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
 
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";

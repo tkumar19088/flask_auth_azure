@@ -1,0 +1,60 @@
+.css-19kzrtu {
+    padding: 0px !important;
+}
+
+
+
+/* .css-1h9z7r5-MuiButtonBase-root-MuiTab-root{
+    min-width: 60px !important;
+    text-transform: initial !important;
+    padding: 0px 8px !important;
+    font-size: 0.17rem !important;
+
+} */
+
+.css-1a4cg4j-MuiButtonBase-root-MuiTab-root {
+    min-width: 53px !important;
+    text-transform: initial !important;
+    padding: 14px 14px !important;
+    font-size: 0.67rem !important;
+}
+
+
+/* @media (min-width:1920px) {
+    .css-1h9z7r5-MuiButtonBase-root-MuiTab-root{
+        min-width: 90px !important;
+        text-transform: initial !important;
+        padding: 10px 16px !important;
+        font-size: 1.1rem !important;
+
+    }
+} */
+/* @media (max-width:1200px) {
+    .css-1h9z7r5-MuiButtonBase-root-MuiTab-root{
+        min-width: 80px !important;
+        text-transform: initial !important;
+        padding: 10px 12px !important;
+        font-size: 0.22rem !important;
+
+    }
+} */
+@media (min-width:1330px) {
+    .css-1a4cg4j-MuiButtonBase-root-MuiTab-root {
+        min-width: 53px !important;
+        text-transform: initial !important;
+        padding: 14px 14px !important;
+        font-size: 0.81rem !important;
+        /* background-color: lightblue !important; */
+        /* color:#fff!important ; */
+        /* font-variant: inherit; */
+        /* border: 1px solid !important; */
+    }
+}
+
+/* @media (max-width:1024px) {
+    .css-1h9z7r5-MuiButtonBase-root-MuiTab-root{
+        min-width: 50px !important;
+        text-transform: initial !important;
+        font-size: 0.62rem !important;
+    }
+} */

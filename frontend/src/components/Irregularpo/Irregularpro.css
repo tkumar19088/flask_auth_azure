@@ -1,17 +1,4 @@
-.irregularpo-main{
-    height: 920px;
-}
-
-
-
-
 .thead-main{
     /* border: 1px solid red !important; */
     height: 80px;
 }
-@media only screen and (min-width: 1920px) {
-    .irregularpo-main{
-        height: 960px;
-    }
-  
-  }

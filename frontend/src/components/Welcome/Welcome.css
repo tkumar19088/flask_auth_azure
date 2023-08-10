@@ -11,10 +11,8 @@
   margin-top: 870px !important;
 } */
 
- @media only screen and (min-width: 2560px) {
-  .os {
-    /* background-color: yellow; */
-    font-size: 38px !important;
+/* @media only screen and (max-width: 1024px) {
+  body {
+    background-color: yellow;
   }
-} 
-
+} */

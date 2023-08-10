@@ -1,22 +1,35 @@
 .sidebar-main{
-    max-height: 920px;
+    /* max-height: 920px; */
 }
 
 
-.main-bd{
-   
-    /* max-height: 970px; */
-    /* min-height: 970px; */
+/* .container{
     background-color: #F5F6F8;
+} */
+ .bg-containerdashboard{
+    background-color: #F5F6F8;
+    padding: 30px !important;
+    
+   } 
 
+@media (width > 1023px) and (width < 1200px) {
+    
+}
+@media (width > 1200px) and (width < 1440px) {
+    .bg-container{
+        height: 930px !important;
+        /* height:100% !important; */
+    }
 }
 
-
-@media only screen and (min-width: 1920px) {
-   
-    .main-bd{
-            min-height: 1130px;
-
-    }
+@media (width > 1439px) and (width < 1537px) {
     
-  }
+}
+@media (width > 1919px) {
+   .bg-containerdashboard{
+    background-color: #F5F6F8;
+    padding: 40px !important;
+    height: 1000px !important ;
+    /* height: 100% !important; */
+   }
+}

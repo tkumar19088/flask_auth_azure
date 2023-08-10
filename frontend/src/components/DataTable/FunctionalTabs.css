@@ -1,0 +1,129 @@
+.react-tabs__tab--selected {
+    /* background-color: #415A6C !; */
+    background:#415A6C !important;
+    color: white;
+}
+
+.react-tabs__tab {
+    bottom: 2px;
+    padding: 6px 8px;
+}
+.alignment {
+    text-align: center;
+}
+
+.stockalignment-cw0 {
+    margin-left: -4px;
+}
+.stockalignment-cw3 {
+    margin-left: 3px;
+}
+.stockalignment-cw12 {
+    margin-left: 15px;
+}
+
+@media (width > 1023px) and (width < 1200px) {
+    .react-tabs__tab {
+        bottom: 2px;
+        padding: 4px 10px;
+        /* background-color: blueviolet !important; */
+    }
+}
+
+@media (width > 1200px) and (width < 1440px) {
+    .react-tabs__tab {
+        bottom: -1px;
+        padding: 6px 23.1px;
+        /* gap: 1px !important; */
+        /* background-color: yellowgreen !important; */
+    }
+
+    .css-y8ay40-MuiTableCell-root {
+        background-color: #E5EBEF !important;
+        color: #415A6C !important;
+        padding: 13px 13px !important;
+        line-height: 16px !important;
+        /* height: 45px !important; */
+        /* text-align: center; */
+        /* font-weight: 600 !important; */
+    }
+
+    tr:nth-child(odd) {
+        background-color: white;
+    }
+    .css-1q1u3t4-MuiTableRow-root {
+        background-color: rgb(245,245,245);
+    }
+
+    .brack-number{
+        margin-left:8px;
+    }
+    .isw{
+        margin-left:40px !important;
+    }
+
+    .alignment {
+        text-align: center;
+    }
+}
+
+@media (width > 1439px) and (width < 1537px) {
+    .react-tabs__tab {
+        bottom: 2px;
+        padding: 8px 12px;
+        /* background-color: orange !important; */
+    }
+    .css-y8ay40-MuiTableCell-root {
+        background-color: #E5EBEF !important;
+        color: #415A6C !important;
+        padding: 10px !important;
+        line-height: 18px !important;
+        /* text-align: center; */
+        font-weight: 600 !important;
+    }
+
+    tr:nth-child(odd) {
+        background-color: white;
+    }
+    .css-1q1u3t4-MuiTableRow-root {
+        background-color: rgb(245,245,245);
+    }
+
+    .brack-number{
+        margin-left:8px;
+    }
+    .isw{
+        margin-left:40px !important;
+    }
+}
+@media (width > 1919px) {
+    .react-tabs__tab {
+        bottom: 2px;
+        padding: 8px 35.3px;
+        font-size: 1.399rem !important;
+        /* background-color: pink; */
+    }
+
+    .css-y8ay40-MuiTableCell-root {
+        background-color: #E5EBEF !important;
+        color: #415A6C !important;
+        padding: 10px !important;
+        line-height: 16px !important;
+        /* text-align: center; */
+        font-weight: 600 !important;
+    }
+
+    tr:nth-child(odd) {
+        background-color: white;
+    }
+    .css-1q1u3t4-MuiTableRow-root {
+        background-color: rgb(245,245,245);
+    }
+
+    .brack-number{
+        margin-left:8px;
+    }
+    .isw{
+        margin-left:40px !important;
+    }
+}

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./ScenarioGeneration.css";
 import Topbar from "../Topbar/Topbar";
 import { Box, Button, Grid, Typography } from "@mui/material";
-import Sidebar from "../SidebarNew/Sidebar";
+import Sidebar from "../Sidebar/Sidebar";
 // import DataTable from "../../DataTable";
 import ScenarioGenarationData from "./ScenarioGenarationData";
 import Orderinvestigationairwick from "./Orderinvestigationairwick";
@@ -10,12 +10,17 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 // import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useNavigate } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
 
 const ScenarioGeneration = () => {
   const navigate = useNavigate();
   const handleBack = () => {
     navigate(-1);
   };
+  useEffect(() => {
+    scroll.scrollToTop(); // Scrolls to the top of the page when the component mounts
+  }, []);
+
   return (
     <div>
       <Topbar />
@@ -32,13 +37,10 @@ const ScenarioGeneration = () => {
           item
           xs={10}
           p={2}
-          sx={{
-            backgroundColor: "#F5F6F8",
-            // padding: "0px 25px 0px 25px",
-          }}
+         className="bg-container"
         >
           <Box display="flex" fontSize={14} mx="1px">
-            <Box mt={{ xs: "1px", lg: "1px", xl: "6px" }}>
+            <Box mt="1px">
               <Button
                 style={{
                   backgroundColor: "#fff",
@@ -61,44 +63,27 @@ const ScenarioGeneration = () => {
                   }}
                 />
                 &#160;
-                <Typography
-                  fontSize={{ xs: 12, lg: 12, xl: 18 }}
-                  onClick={handleBack}
-                >
+                <Typography fontSize={12} onClick={handleBack}>
                   Back
                 </Typography>
               </Button>
             </Box>{" "}
             &#160;&#160;&#160;&#160;&#160;&#160;
-            <Typography fontSize={{ xs: 14, lg: 14, xl: 20 }}>
-              OOS Risk Dectection
-            </Typography>
+            <Typography fontSize={14}>OOS Risk Dectection</Typography>
             <Typography>
-              <ChevronRightIcon
-                sx={{ height: { xs: "20px", lg: "20px", xl: "30px" } }}
-              />
+              <ChevronRightIcon sx={{ height: "20px" }} />
             </Typography>
-            <Typography fontSize={{ xs: 14, lg: 14, xl: 20 }}>
-              Overview High-Risk SKUs
-            </Typography>
+            <Typography fontSize={14}>Overview High-Risk SKUs</Typography>
             <Typography>
-              <ChevronRightIcon
-                sx={{ height: { xs: "20px", lg: "20px", xl: "30px" } }}
-              />
+              <ChevronRightIcon sx={{ height: "20px" }} />
             </Typography>
-            <Typography fontSize={{ xs: 14, lg: 14, xl: 20 }}>
-              Order investigation
-            </Typography>
+            <Typography fontSize={14}>Order investigation</Typography>
             <Typography>
-              <ChevronRightIcon
-                sx={{ height: { xs: "20px", lg: "20px", xl: "30px" } }}
-              />
+              <ChevronRightIcon sx={{ height: "20px" }} />
             </Typography>
-            <Typography fontSize={{ xs: 14, lg: 14, xl: 20 }}>
-              Scenario Generation
-            </Typography>
+            <Typography fontSize={14}>Scenario Generation</Typography>
           </Box>
-          <Box mx="1px">
+          <Box mt="10px" mx="1px">
             <Typography fontSize={{ lg: 26, xs: 18 }} color="#415A6C">
               Scenario Generation: Airwick Electrical Lemon 23434534693dlf
             </Typography>

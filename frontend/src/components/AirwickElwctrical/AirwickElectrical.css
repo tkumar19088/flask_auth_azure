@@ -84,3 +84,11 @@
   .airwikElectric .logoutSpace {
     margin-top: 425px !important;
   }
+
+  @media (width > 1919px) {
+    .bg-container{
+     /* background-color: #F5F6F8; */
+     padding: 25px 40px !important;
+     /* height: 1080px !important ; */
+    }
+ }

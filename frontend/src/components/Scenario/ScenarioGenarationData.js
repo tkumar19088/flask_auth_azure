@@ -25,7 +25,7 @@ const ScenarioGenarationData = () => {
   const [data, setData] = useState([
     {
       skuname: "30.01.2023",
-      skucode: "23434534693dl",
+      skucode: "Airwick Electrical Lemon 23434534693dlf",
       selloutforecast: 100,
       recommendedsellin: 0,
       actualanticipatedsellin: 10,
@@ -37,7 +37,7 @@ const ScenarioGenarationData = () => {
     },
     {
       skuname: "30.01.2023",
-      skucode: "2343453469312",
+      skucode: "Airwick Electrical Lemon 23434534693dlf",
       selloutforecast: 100,
       recommendedsellin: 0,
       actualanticipatedsellin: 10,
@@ -49,7 +49,7 @@ const ScenarioGenarationData = () => {
     },
     {
       skuname: "30.01.2023",
-      skucode: "2343453469313",
+      skucode: "Airwick Electrical Lemon 23434534693dlf",
       selloutforecast: 100,
       recommendedsellin: 0,
       actualanticipatedsellin: 10,
@@ -61,7 +61,7 @@ const ScenarioGenarationData = () => {
     },
     {
       skuname: "30.01.2023",
-      skucode: "2343453469314",
+      skucode: "Airwick Electrical Lemon 23434534693dlf",
       selloutforecast: 100,
       recommendedsellin: 0,
       actualanticipatedsellin: 10,
@@ -73,7 +73,7 @@ const ScenarioGenarationData = () => {
     },
     {
       skuname: "30.01.2023",
-      skucode: "2343453469315",
+      skucode: "Airwick Electrical Lemon 23434534693dlf",
       selloutforecast: 100,
       recommendedsellin: 0,
       actualanticipatedsellin: 10,
@@ -85,7 +85,7 @@ const ScenarioGenarationData = () => {
     },
     {
       skuname: "30.01.2023",
-      skucode: "2343453469316",
+      skucode: "Airwick Electrical Lemon 23434534693dlf",
       selloutforecast: 100,
       recommendedsellin: 0,
       actualanticipatedsellin: 10,
@@ -97,7 +97,7 @@ const ScenarioGenarationData = () => {
     },
     {
       skuname: "30.01.2023",
-      skucode: "2343453469317",
+      skucode: "Airwick Electrical Lemon 23434534693dlf",
       selloutforecast: 100,
       recommendedsellin: 0,
       actualanticipatedsellin: 10,
@@ -109,7 +109,7 @@ const ScenarioGenarationData = () => {
     },
     {
       skuname: "30.01.2023",
-      skucode: "2343453469318",
+      skucode: "Airwick Electrical Lemon 23434534693dlf",
       selloutforecast: 100,
       recommendedsellin: 0,
       actualanticipatedsellin: 10,
@@ -121,7 +121,7 @@ const ScenarioGenarationData = () => {
     },
     {
       skuname: "30.01.2023",
-      skucode: "2343453469319",
+      skucode: "Airwick Electrical Lemon 23434534693dlf",
       selloutforecast: 100,
       recommendedsellin: 0,
       actualanticipatedsellin: 10,
@@ -133,7 +133,7 @@ const ScenarioGenarationData = () => {
     },
     {
       skuname: "30.01.2023",
-      skucode: "2343453469320",
+      skucode: "Airwick Electrical Lemon 23434534693dlf",
       selloutforecast: 100,
       recommendedsellin: 0,
       actualanticipatedsellin: 10,
@@ -145,7 +145,7 @@ const ScenarioGenarationData = () => {
     },
     {
       skuname: "30.01.2023",
-      skucode: "2343453469321",
+      skucode: "Airwick Electrical Lemon 23434534693dlf",
       selloutforecast: 100,
       recommendedsellin: 0,
       actualanticipatedsellin: 10,
@@ -205,12 +205,10 @@ const ScenarioGenarationData = () => {
     return null;
   };
 
-  const [sliderValues, setSliderValues] = useState(data.map(() => 50));
+  const [value, setValue] = useState(50);
 
-  const handleChange = (index, newValue) => {
-    setSliderValues((prevSliderValues) =>
-      prevSliderValues.map((value, i) => (i === index ? newValue : value))
-    );
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
   };
 
   return (
@@ -246,12 +244,12 @@ const ScenarioGenarationData = () => {
                   </Box>
                   <Box textAlign="center">
                     <Typography
+                      fontSize={14}
                       mt="7px"
                       //   mx="-3px"
                       width="43px"
+                      lineHeight="16px"
                       textAlign="left"
-                      lineHeight={{ xs: "16px", lg: "16px", xl: "18px" }}
-                      fontSize={{ xs: 14, lg: 14, xl: 17 }}
                     >
                       Weeks Out
                     </Typography>
@@ -284,14 +282,12 @@ const ScenarioGenarationData = () => {
                   </Box>
                   <Box textAlign="center">
                     <Typography
-                      // fontSize={14}
+                      fontSize={14}
                       mt="7px"
                       //   mx="-3px"
                       width="70px"
-                      // lineHeight="16px"
+                      lineHeight="16px"
                       textAlign="left"
-                      lineHeight={{ xs: "16px", lg: "16px", xl: "18px" }}
-                      fontSize={{ xs: 14, lg: 14, xl: 17 }}
                     >
                       Sell-out forecast
                     </Typography>
@@ -324,14 +320,12 @@ const ScenarioGenarationData = () => {
                   </Box>
                   <Box textAlign="center">
                     <Typography
-                      // fontSize={14}
+                      fontSize={14}
                       mt="12px"
-                      // lineHeight="16px"
+                      lineHeight="16px"
                       //   mx="-3px"
-                      // textAlign="left"
+                      textAlign="left"
                       width="110px"
-                      lineHeight={{ xs: "16px", lg: "16px", xl: "18px" }}
-                      fontSize={{ xs: 14, lg: 14, xl: 17 }}
                     >
                       Recommended sell-in
                     </Typography>
@@ -363,24 +357,20 @@ const ScenarioGenarationData = () => {
                   </Box>
                   <Box textAlign="center">
                     <Typography
-                      // fontSize={14}
+                      fontSize={14}
                       mt="7px"
                       //   mx="-3px"
                       textAlign="left"
                       color="#FF007E"
-                      // lineHeight="16px"
-                      lineHeight={{ xs: "16px", lg: "16px", xl: "18px" }}
-                      fontSize={{ xs: 14, lg: 14, xl: 17 }}
+                      lineHeight="16px"
                     >
                       Actual /
                     </Typography>
                     <Typography
                       textAlign="left"
-                      // fontSize={14}
-                      // lineHeight="16px"
+                      fontSize={14}
+                      lineHeight="16px"
                       mb="4px"
-                      lineHeight={{ xs: "16px", lg: "16px", xl: "18px" }}
-                      fontSize={{ xs: 14, lg: 14, xl: 17 }}
                     >
                       {" "}
                       Anticipated sell-in
@@ -413,13 +403,11 @@ const ScenarioGenarationData = () => {
                   </Box>
                   <Box textAlign="center">
                     <Typography
-                      // fontSize={14}
-                      mt={{ xs: "7px", lg: "7px", xl: "13px" }}
+                      fontSize={14}
+                      mt="7px"
                       //   mx="-3px"
                       textAlign="left"
-                      // lineHeight="16px"
-                      lineHeight={{ xs: "16px", lg: "16px", xl: "18px" }}
-                      fontSize={{ xs: 14, lg: 14, xl: 17 }}
+                      lineHeight="16px"
                     >
                       Inventory Rockitt
                     </Typography>
@@ -451,13 +439,11 @@ const ScenarioGenarationData = () => {
                   </Box>
                   <Box textAlign="center">
                     <Typography
-                      // fontSize={14}
-                      mt={{ xs: "7px", lg: "7px", xl: "13px" }}
+                      fontSize={14}
+                      mt="7px"
                       //   mx="-3px"
                       textAlign="left"
-                      // lineHeight="16px"
-                      lineHeight={{ xs: "16px", lg: "16px", xl: "18px" }}
-                      fontSize={{ xs: 14, lg: 14, xl: 17 }}
+                      lineHeight="16px"
                     >
                       Inventory Retailer
                     </Typography>
@@ -489,13 +475,11 @@ const ScenarioGenarationData = () => {
                   </Box>
                   <Box textAlign="center">
                     <Typography
-                      // fontSize={14}
-                      mt={{ xs: "7px", lg: "7px", xl: "13px" }}
-                      // lineHeight="16px"
+                      fontSize={14}
+                      mt="7px"
+                      lineHeight="16px"
                       //   mx="-3px"
                       textAlign="left"
-                      lineHeight={{ xs: "16px", lg: "16px", xl: "18px" }}
-                      fontSize={{ xs: 14, lg: 14, xl: 17 }}
                     >
                       Weeks of Coverage
                     </Typography>
@@ -527,14 +511,11 @@ const ScenarioGenarationData = () => {
                   </Box>
                   <Box textAlign="center">
                     <Typography
-                      // fontSize={14}
-                      // mt="7px"
-                      // lineHeight="16px"
+                      fontSize={14}
+                      mt="7px"
+                      lineHeight="16px"
                       //   mx="-3px"
-                      mt={{ xs: "7px", lg: "7px", xl: "13px" }}
                       textAlign="left"
-                      lineHeight={{ xs: "16px", lg: "16px", xl: "18px" }}
-                      fontSize={{ xs: 14, lg: 14, xl: 17 }}
                     >
                       Suggested Supply
                     </Typography>
@@ -555,7 +536,7 @@ const ScenarioGenarationData = () => {
                     width: "170px",
                   }}
                 >
-                  <Box ml={{ xs: 0, lg: 0, xl: "-10px" }}>
+                  <Box>
                     <Box mt="5px">
                       <ArrowDropUpIcon
                         style={{ height: "28px", width: "28px" }}
@@ -569,13 +550,11 @@ const ScenarioGenarationData = () => {
                   </Box>
                   <Box textAlign="center" margin="auto">
                     <Typography
-                      // fontSize={14}
+                      fontSize={14}
                       mt="-3px"
-                      // lineHeight="16px"
+                      lineHeight="16px"
                       textAlign="left"
-                      marginLeft={{ xs: "-20px", lg: "-20px", xl: "-3px" }}
-                      lineHeight={{ xs: "16px", lg: "16px", xl: "18px" }}
-                      fontSize={{ xs: 14, lg: 14, xl: 17 }}
+                      marginLeft="-20px"
                     >
                       Test Supply Options
                     </Typography>
@@ -585,13 +564,10 @@ const ScenarioGenarationData = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((item, index) => (
+            {data.map((item) => (
               <TableRow
                 key={item.skucode}
                 className={item.checkbox ? "checked-row" : ""}
-                style={{
-                  backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
-                }}
               >
                 <TableCell>
                   <Typography>{item.skuname}</Typography>
@@ -619,7 +595,7 @@ const ScenarioGenarationData = () => {
                   {item.weeksofcoverage}
                 </TableCell>
                 <TableCell sx={{ textAlign: "center", color: "red" }}>
-                  {sliderValues[index]}
+                  {item.suggestedsupply}
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
                   <Box display="flex" width="120px" color="#DD00000">
@@ -631,15 +607,13 @@ const ScenarioGenarationData = () => {
                     </Box>
                     <Box mt="4px" sx={{ marginInline: "5%", color: "#DD0000" }}>
                       <Typography id="slider-label" gutterBottom>
-                        {sliderValues[index]}
+                        {value}
                       </Typography>
                     </Box>
                     <Box width="100%" ml="10%">
                       <Slider
-                        value={sliderValues[index]}
-                        onChange={(event, newValue) =>
-                          handleChange(index, newValue)
-                        }
+                        value={value}
+                        onChange={handleChange}
                         aria-labelledby="slider-label"
                       />
                     </Box>

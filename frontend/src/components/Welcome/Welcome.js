@@ -6,23 +6,12 @@ import Calendar from "../Calendar/Calendar";
 
 const Welcome = () => {
   return (
-    <Grid
-      container
-      className="multicolor"
-      sx={{
-        // border: "1px solid green",
-        height: { xl: 186 },
-      }}
-    >
-      <Grid item xs={7} p={1}>
-        <Typography fontSize={{ lg: 42, xs: 38, xl: 60 }} mx="10px">
+    <Grid container className="multicolor">
+      <Grid item xs={7}>
+        <Typography fontSize={{ lg: 42, xs: 38 }} mx="10px">
           Welcome
         </Typography>
-        <Typography
-          fontSize={{ lg: 42, xs: 36, xl: 60 }}
-          mx="10px"
-          lineHeight="40px"
-        >
+        <Typography fontSize={{ lg: 42, xs: 36 }} mx="10px" lineHeight="40px">
           Long name example
         </Typography>
       </Grid>

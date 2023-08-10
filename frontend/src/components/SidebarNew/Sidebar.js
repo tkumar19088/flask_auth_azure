@@ -12,15 +12,10 @@ import qube from "../../images/qube.png";
 import play from "../../images/play.png";
 import down from "../../images/down.png";
 import alert from "../../images/alert.png";
-import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
-import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
-import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
-import ReportProblemRoundedIcon from "@mui/icons-material/ReportProblemRounded";
-// import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+
 import "./Sidebar.css";
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { mt } from "date-fns/locale";
 
 const Sidebar = ({ filterStatus }) => {
   const navigate = useNavigate();
@@ -39,65 +34,24 @@ const Sidebar = ({ filterStatus }) => {
     <div>
       <div className="sidebar">
         <div className="sidebar-header" onClick={handleDashboard}>
-          <GridViewRoundedIcon
-            sx={{
-              height: { xs: 13, xl: 20 },
-              mt: { xs: "-1px", lg: "-2px" },
-              ml: { xs: "-10px", xl: 1 },
-            }}
-          />
-          <Typography
-            fontSize={{ lg: 13, xs: 12, xl: 18 }}
-            ml={{ xs: "-5px", xl: 1 }}
-          >
-            Dashboard
-          </Typography>
+          <img src={qube} alt="square icon" className="qube-icon" />
+          <Typography fontSize={{ lg: 13, xs: 10 }}>Dashboard</Typography>
         </div>
         <div className="S-h2">
-          <PlayArrowRoundedIcon
-            sx={{
-              height: { xs: 15, xl: 24 },
-              mt: { xs: "0px", lg: "-2px" },
-              ml: { xs: "-10px", xl: 1 },
-            }}
-          />
-          <Typography
-            fontSize={{ lg: 13, xs: 10, xl: 18 }}
-            ml={{ xs: "-5px", xl: 1 }}
-          >
-            Demand Planning
-          </Typography>
+          <img src={play} alt="play" className="play-icon" />
+          <Typography fontSize={{ lg: 13, xs: 10 }}>Demand Planning</Typography>
         </div>
         <div className="S-h2">
-          <PlayArrowRoundedIcon
-            sx={{
-              height: { xs: 15, xl: 24 },
-              mt: { xs: "0px", lg: "-2px" },
-              ml: { xs: "-10px", xl: 1 },
-            }}
-          />
-          <Typography
-            fontSize={{ lg: 13, xs: 10, xl: 18 }}
-            ml={{ xs: "-5px", xl: 1 }}
-          >
+          <img src={play} alt="play" className="play-icon" />
+          <Typography fontSize={{ lg: 13, xs: 10 }}>
             Demand Scenarios
           </Typography>
         </div>
 
         <div className="S-h2">
-          <PlayArrowRoundedIcon
-            sx={{
-              height: { xs: 15, xl: 24 },
-              mt: { xs: "0px", lg: "-2px" },
-              ml: { xs: "-10px", xl: 1 },
-            }}
-          />
-          <Typography
-            fontSize={{ lg: 13, xs: 10, xl: 18 }}
-            ml={{ xs: "-5px", xl: 1 }}
-          >
-            Supply Planning
-          </Typography>
+          <img src={play} alt="play" className="play-icon" />
+
+          <Typography fontSize={{ lg: 13, xs: 10 }}>Supply Planning</Typography>
         </div>
 
         <div style={{ marginBlock: "5%" }}>
@@ -111,25 +65,18 @@ const Sidebar = ({ filterStatus }) => {
                 height: "35px",
                 borderRadius: "5px 5px 0px 0px",
                 color: "#E7E9EE",
-                height: { xs: "30px", lg: "35px", xl: "43px" },
-                // marginTop: { xl: "16px" },
               }}
             >
               <Box sx={{ display: "flex" }}>
-                <ArrowDropDownRoundedIcon
+                <ArrowDropDownIcon
                   sx={{
-                    // border: "1px solid",
-                    height: { xs: 32, xl: 40 },
-                    width: { xs: 36, xl: 36 },
-                    mt: { xs: "0px", lg: "-2px" },
-                    ml: { xs: "-18px", xl: "1px" },
+                    marginLeft: "-6px",
                   }}
                 />
                 <Typography
-                  fontSize={{ lg: 13, xs: 9, xl: 18 }}
-                  mt={{ xs: "10px", lg: "5px", xl: "7px" }}
+                  fontSize={{ lg: 13, xs: 9 }}
+                  marginTop={{ lg: "3px", xs: "6px" }}
                   width={{ lg: "100%", xs: "100%" }}
-                  ml={{ xs: "-5px", xl: 1 }}
                 >
                   Distribution Planning
                 </Typography>
@@ -143,9 +90,8 @@ const Sidebar = ({ filterStatus }) => {
               }}
             >
               <Typography
-                ml={{ xs: "13px", xl: "43px" }}
-                // mx="14px"
-                fontSize={{ lg: "12px", xs: 10, xl: 18 }}
+                mx="14px"
+                fontSize={{ lg: "12px", xs: 10 }}
                 p="5px 0 0 0"
               >
                 {" "}
@@ -165,18 +111,19 @@ const Sidebar = ({ filterStatus }) => {
               onClick={handleFilterStatus}
             >
               <Typography
-                ml={{ xs: "13px", xl: "43px" }}
+                mx="14px"
                 width={{ lg: "100%", xs: "100%" }}
-                fontSize={{ lg: 12, xs: 10, xl: 18 }}
+                fontSize={{ lg: 12, xs: 10 }}
                 p="5px 0 0 0"
               >
+                {" "}
                 OOS Risk Detection
               </Typography>
             </AccordionDetails>
             <AccordionDetails sx={{ backgroundColor: "#E7E9EE" }}>
               <Typography
-                ml={{ xs: "13px", xl: "43px" }}
-                fontSize={{ lg: 12, xs: 9, xl: 18 }}
+                mx="12px"
+                fontSize={{ lg: 12, xs: 9 }}
                 p="5px 0 0 0"
                 // border="1px solid"
                 width={{ lg: "100%", xs: "110px" }}
@@ -186,68 +133,22 @@ const Sidebar = ({ filterStatus }) => {
             </AccordionDetails>
           </Accordion>
         </div>
-
         <div className="S-h2" style={{ marginTop: "8%" }}>
-          <PlayArrowRoundedIcon
-            sx={{
-              height: { xs: 15, xl: 24 },
-              mt: { xs: "0px", lg: "-2px" },
-              ml: { xs: "-10px", xl: 1 },
-            }}
-          />{" "}
-          <Typography
-            fontSize={{ lg: 13, xs: 9, xl: 18 }}
-            ml={{ xs: "-5px", xl: 1 }}
-          >
-            Retrospective Analysis
-          </Typography>
+          <img src={play} alt="play" className="play-icon" />
+          <Typography  fontSize={{ lg: 13, xs: 9 }}>Retrospective Analysis</Typography>
         </div>
         <div className="dotted-line"></div>
         <div className="S-h2" style={{ marginTop: "7%" }}>
-          <PlayArrowRoundedIcon
-            sx={{
-              height: { xs: 15, xl: 24 },
-              mt: { xs: "0px", lg: "-2px" },
-              ml: { xs: "-10px", xl: 1 },
-            }}
-          />
-          <Typography
-            fontSize={{ lg: 13, xs: 9, xl: 18 }}
-            ml={{ xs: "-5px", xl: 1 }}
-          >
-            Historical Runs
-          </Typography>
+          <img src={play} alt="play" className="play-icon" />
+          <Typography  fontSize={{ lg: 13, xs: 9 }}>Historical Runs</Typography>
         </div>
         <div className="S-h2" style={{ marginTop: "7%" }}>
-          <ReportProblemRoundedIcon
-            sx={{
-              height: { xs: 14 },
-              mt: { xs: "-1px", lg: "-2px" },
-              ml: { xs: "-10px", xl: 1 },
-            }}
-          />
-          <Typography
-            fontSize={{ lg: 13, xs: 9, xl: 18 }}
-            ml={{ xs: "-5px", xl: 1 }}
-          >
-            Alerts
-          </Typography>
+          <img src={alert} alt="alert" className="alert-icon" />
+          <Typography  fontSize={{ lg: 13, xs: 9 }}>Alerts</Typography>
         </div>
         <div className="S-h2" style={{ marginTop: "7%" }}>
-          <PlayArrowRoundedIcon
-            sx={{
-              height: { xs: 15, xl: 24 },
-              mt: { xs: "0px", lg: "-2px" },
-              ml: { xs: "-10px", xl: 1 },
-            }}
-          />{" "}
-          <Typography
-            fontSize={{ lg: 13, xs: 9, xl: 18 }}
-            ml={{ xs: "-5px", xl: 1 }}
-          >
-            {" "}
-            Historical Activations
-          </Typography>
+          <img src={play} alt="play" className="play-icon" />
+          <Typography  fontSize={{ lg: 13, xs: 9 }}> Historical Activations</Typography>
         </div>
 
         {/* logout........... */}
@@ -255,19 +156,8 @@ const Sidebar = ({ filterStatus }) => {
 
       <div className="log-box">
         <div className="logout-fixed">
-          <img
-            src={Log}
-            alt="logout"
-            className="logout-icon"
-            // sx={{ height: { xl: 60 } }}
-          />
-          <Typography
-            fontSize={{ xs: 14, lg: 14, xl: 18 }}
-            mt={{ xs: 0, lg: 0, xl: "3px" }}
-            ml={{ xs: 0, lg: 0, xl: 1 }}
-          >
-            Log out
-          </Typography>
+          <img src={Log} alt="logout" className="logout-icon" />
+          <Typography >Log out</Typography>
         </div>
       </div>
     </div>
@@ -275,3 +165,5 @@ const Sidebar = ({ filterStatus }) => {
 };
 
 export default Sidebar;
+
+

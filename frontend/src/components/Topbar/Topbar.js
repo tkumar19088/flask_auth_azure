@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -18,8 +18,22 @@ import Logo from "../../images/Logo-bar.png";
 import icon from "../../images/notification.png";
 import search from "../../images/search.png";
 import { useNavigate } from "react-router-dom";
+import { Typography } from "@mui/material";
+
+import { Button, Menu, MenuItem } from "@mui/material";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const Topbar = () => {
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -109,15 +123,32 @@ const Topbar = () => {
             <PersonIcon
               sx={{
                 border: "1px solid #DADADA",
-                borderRadius: "2px 2px",
+                borderRadius: "50%",
                 color: "#FF007E",
                 backgroundColor: "#DADADA",
               }}
             />
             &#160;
-            <ArrowDropDownSharpIcon sx={{ color: "#466072" }} />
+            <ArrowDropDownSharpIcon
+              sx={{ color: "#466072" }}
+              onClick={handleMenuOpen}
+            />
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
+              className="profile-logut"
+            >
+              <MenuItem
+                onClick={handleMenuClose}
+                className="profile-logout-title"
+              >
+                <Button startIcon={<LogoutIcon/>} size="small">Logout</Button>
+              </MenuItem>
+            </Menu>
           </Box>
         </Box>
+        <div></div>
         <Box sx={{ display: { xs: "flex", md: "none" } }}>
           <IconButton
             size="large"

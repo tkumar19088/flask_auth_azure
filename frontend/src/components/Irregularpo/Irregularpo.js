@@ -12,24 +12,35 @@ import {
   Button,
   Paper,
 } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Sidebar from "../Sidebar/Sidebar";
 import Topbar from "../Topbar/Topbar";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { useNavigate } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import DoDisturbOutlinedIcon from "@mui/icons-material/DoDisturbOutlined";
 import "./Irregularpro.css";
+import AddSharpIcon from "@mui/icons-material/AddSharp";
+import AddTwoToneIcon from "@mui/icons-material/AddTwoTone";
+import LocalHospitalOutlinedIcon from "@mui/icons-material/LocalHospitalOutlined";
+import LocalHospitalSharpIcon from "@mui/icons-material/LocalHospitalSharp";
+import AddCircleTwoToneIcon from "@mui/icons-material/AddCircleTwoTone";
+import AddCircleOutlinedIcon from "@mui/icons-material/AddCircleOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import Tooltip from "@mui/material/Tooltip";
 
 const Irregularpo = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    scroll.scrollToTop(); // Scrolls to the top of the page when the component mounts
+  }, []);
 
   const handleClick = () => {
     navigate("/historicaldata");
@@ -66,7 +77,7 @@ const Irregularpo = () => {
           costtoserve: "(£903.00)",
           reviewed: "No",
           quantityOrdered: "300",
-          quantityForcasted: "700",
+          quantityForcasted: "500",
           percentageDescrepency: "-63.64%",
         },
         {
@@ -82,9 +93,9 @@ const Irregularpo = () => {
           checkbox: false,
           costtoserve: "(£903.00)",
           reviewed: "No",
-          quantityOrdered: "200",
+          quantityOrdered: "300",
           quantityForcasted: "500",
-          percentageDescrepency: "-43.64%",
+          percentageDescrepency: "-63.64%",
         },
       ],
     },
@@ -95,10 +106,10 @@ const Irregularpo = () => {
       poStatus: "Delayed",
       noSKUsinPO: 60,
       noSKUsIrregular: 40,
-      totalForecastedRevenue: "300",
-      totalPORevenue: "600",
+      totalForecastedRevenue: "500",
+      totalPORevenue: "800",
       irregularPO: "Yes",
-      perDiscepency: "-74%",
+      perDiscepency: "-84%",
       details: [
         {
           skuname: "Airwick",
@@ -113,9 +124,9 @@ const Irregularpo = () => {
           checkbox: false,
           costtoserve: "(£903.00)",
           reviewed: "No",
-          quantityOrdered: "400",
-          quantityForcasted: "600",
-          percentageDescrepency: "-73.64%",
+          quantityOrdered: "300",
+          quantityForcasted: "500",
+          percentageDescrepency: "-63.64%",
         },
         {
           skuname: "Airwick",
@@ -130,9 +141,9 @@ const Irregularpo = () => {
           checkbox: false,
           costtoserve: "(£903.00)",
           reviewed: "No",
-          quantityOrdered: "700",
-          quantityForcasted: "900",
-          percentageDescrepency: "-33.64%",
+          quantityOrdered: "300",
+          quantityForcasted: "500",
+          percentageDescrepency: "-63.64%",
         },
       ],
     },
@@ -143,10 +154,10 @@ const Irregularpo = () => {
       poStatus: "Stock",
       noSKUsinPO: 50,
       noSKUsIrregular: 20,
-      totalForecastedRevenue: "400",
-      totalPORevenue: "700",
+      totalForecastedRevenue: "500",
+      totalPORevenue: "800",
       irregularPO: "Yes",
-      perDiscepency: "-69%",
+      perDiscepency: "-84%",
       details: [
         {
           skuname: "Airwick",
@@ -163,7 +174,7 @@ const Irregularpo = () => {
           reviewed: "No",
           quantityOrdered: "300",
           quantityForcasted: "500",
-          percentageDescrepency: "-23.64%",
+          percentageDescrepency: "-63.64%",
         },
         {
           skuname: "Airwick",
@@ -178,9 +189,9 @@ const Irregularpo = () => {
           checkbox: false,
           costtoserve: "(£903.00)",
           reviewed: "No",
-          quantityOrdered: "100",
-          quantityForcasted: "300",
-          percentageDescrepency: "-33.64%",
+          quantityOrdered: "300",
+          quantityForcasted: "500",
+          percentageDescrepency: "-63.64%",
         },
       ],
     },
@@ -191,10 +202,10 @@ const Irregularpo = () => {
       poStatus: "Open",
       noSKUsinPO: 70,
       noSKUsIrregular: 30,
-      totalForecastedRevenue: "200",
-      totalPORevenue: "900",
+      totalForecastedRevenue: "500",
+      totalPORevenue: "800",
       irregularPO: "Yes",
-      perDiscepency: "-54%",
+      perDiscepency: "-84%",
       details: [
         {
           skuname: "Airwick",
@@ -211,7 +222,7 @@ const Irregularpo = () => {
           reviewed: "No",
           quantityOrdered: "300",
           quantityForcasted: "500",
-          percentageDescrepency: "-13.64%",
+          percentageDescrepency: "-63.64%",
         },
         {
           skuname: "Airwick",
@@ -226,9 +237,9 @@ const Irregularpo = () => {
           checkbox: false,
           costtoserve: "(£903.00)",
           reviewed: "No",
-          quantityOrdered: "800",
-          quantityForcasted: "600",
-          percentageDescrepency: "-13.64%",
+          quantityOrdered: "300",
+          quantityForcasted: "500",
+          percentageDescrepency: "-63.64%",
         },
       ],
     },
@@ -419,7 +430,7 @@ const Irregularpo = () => {
               </TableCell>
               <TableCell>
                 <Typography
-                  ml="15px"
+                  ml="10px"
                   sx={{
                     color: "#F08C2A",
                     // textAlign: "center",
@@ -470,9 +481,9 @@ const Irregularpo = () => {
           item
           xs={10}
           p={3}
-          className="irregularpo-main"
           sx={{
             backgroundColor: "#F5F6F8",
+            Height: 870,
           }}
         >
           <div>
@@ -517,7 +528,7 @@ const Irregularpo = () => {
                 Irregular PO
               </Typography>
             </Box>
-            <TableContainer style={{ maxHeight: 730, width: "100%" }}>
+            <TableContainer style={{ maxHeight: 732, width: "100%" }}>
               <Table stickyHeader>
                 <TableHead className="thead-main">
                   <TableRow>
@@ -797,21 +808,12 @@ const Irregularpo = () => {
                           </Typography>
                         </TableCell>
                         <TableCell>
-                          <Typography
-                            fontSize={13}
-                            textAlign="center"
-                            ml={{ lg: "20px" }}
-                          >
+                          <Typography fontSize={13} textAlign="center">
                             {item.perDiscepency}
                           </Typography>
                         </TableCell>
                         <TableCell>
-                          <Typography
-                            fontSize={13}
-                            textAlign="center"
-                            // border="1px solid"
-                            mx={{ lg: "30px" }}
-                          >
+                          <Typography fontSize={13} textAlign="center">
                             <DoDisturbOutlinedIcon
                               sx={{
                                 color: "red",
