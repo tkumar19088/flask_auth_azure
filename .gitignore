@@ -2,18 +2,18 @@
 *pycache*
 *.py[cod]
 *$py.class
-/flask_session*
-/frontend/node_modules*
-/frontend/public
-/frontend/src
-*/public
-*/src
+*flask_session*
+*node_modules*
+*src*
+*public*
+*old*
+*package*
 *venv*
 __pycache__
 *old*
 /testing*
-/frontend/package-lock.json
-/frontend/package.json
+
+
 
 # dependencies
 /node_modules
