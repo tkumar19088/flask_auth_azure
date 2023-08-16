@@ -39,13 +39,13 @@ def index():
     present in the session, or it is redirecting to the "login" route if the "user" key is not present
     in the session.
     """
-    ### #Uncomment below lines if bypassing user authentication
+    ### #UnComment below lines if bypassing user authentication
 
     # if "user" in session:
     #     uname = session["user"]["name"]
-    #     userDetails = getUserDetails(uname)
-    #     print(f"\n\n{userDetails}\n\n")
-    #     return render_template("index.html", user=userDetails)
+    #     # userDetails = getUserDetails(uname)
+    #     # print(f"\n\n{userDetails}\n\n")
+    #     return render_template("index.html", user=uname)
     # else:
     #     return redirect(url_for("app.login"))
 
