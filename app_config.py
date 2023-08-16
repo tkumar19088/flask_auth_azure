@@ -1,5 +1,5 @@
 import os
-
+import urllib.parse
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -37,3 +37,7 @@ SCOPE = ["User.Read"]
 SESSION_TYPE = "filesystem"
 # Using the file system will not work in most production systems,
 # it's better to use a database-backed session store inste
+
+params = urllib.parse.quote_plus(os.getenv("SQLDBCONNECTIONPARAMS"))
+SQLALCHEMY_DATABASE_URI = "mssql+pyodbc:///?odbc_connect=%s" % params
+SQLALCHEMY_COMMIT_ON_TEARDOWN = True

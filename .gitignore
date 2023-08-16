@@ -7,7 +7,7 @@
 *venv*
 __pycache__
 *old*
-
+/testing*
 
 # dependencies
 /node_modules
