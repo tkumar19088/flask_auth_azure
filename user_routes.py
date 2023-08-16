@@ -8,7 +8,7 @@ from flask import (
     request,
     url_for,
 )
-import pyodbc
+# import pyodbc
 from msal import ConfidentialClientApplication, SerializableTokenCache
 import app_config
 import os
