@@ -33,7 +33,7 @@
 @media (width > 1200px) and (width < 1440px) {
     .react-tabs__tab {
         bottom: -1px;
-        padding: 6px 23.1px;
+        padding: 6px 24.05px;
         /* gap: 1px !important; */
         /* background-color: yellowgreen !important; */
     }
@@ -42,7 +42,7 @@
         background-color: #E5EBEF !important;
         color: #415A6C !important;
         padding: 13px 13px !important;
-        line-height: 16px !important;
+        line-height: 18px !important;
         /* height: 45px !important; */
         /* text-align: center; */
         /* font-weight: 600 !important; */
@@ -108,7 +108,8 @@
         background-color: #E5EBEF !important;
         color: #415A6C !important;
         padding: 10px !important;
-        line-height: 16px !important;
+        line-height: 18px !important;
+        letter-spacing: 0.02071em !important;
         /* text-align: center; */
         font-weight: 600 !important;
     }
@@ -125,5 +126,15 @@
     }
     .isw{
         margin-left:40px !important;
+    }
+}
+
+
+@media (width > 2559px) {
+    .react-tabs__tab {
+        bottom: 2px;
+        padding: 8px 35.3px;
+        font-size: 2.156rem !important;
+        /* background-color: pink; */
     }
 }

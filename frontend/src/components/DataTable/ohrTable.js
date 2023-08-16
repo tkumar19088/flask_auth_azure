@@ -24,18 +24,22 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import Badge from "@mui/material/Badge";
 
 import "./ohr.css";
 
 import { useNavigate } from "react-router-dom";
 // import MyBreadcrumbs from "./MyBreadcrumbs";
+const startingWeek = 28;
 
 const OhrTable = ({ onData }) => {
   const navigate = useNavigate();
   const [expandedRow, setExpandedRow] = useState(null);
+  const [pushAlternative, setpushAlternative] = useState(false);
 
   // Function to handle row click and expand/collapse accordion
   const handleRowClick = (rowId) => {
+    setpushAlternative(false);
     if (expandedRow === rowId) {
       setExpandedRow(null);
     } else {
@@ -43,20 +47,87 @@ const OhrTable = ({ onData }) => {
     }
   };
 
+  const handlePushAlternative = () => {
+    setpushAlternative(true);
+  };
+  const handleReallocate = () => {
+    navigate("/stockreallocation");
+  };
+
   const [data, setData] = useState([
     {
-      skuname: "Airwick Electrical Lemon",
-      skucode: "23434534693dlf",
-      timeframe: 4,
-      netrevenue: "246.43",
-      expectedola: "84%",
-      servicelevel: "60",
-      expectednetrevenue: "246.43",
-      bestseller: "High",
-      risk: "10",
-      checkbox: false,
-      costtoserve: "(£903.00)",
-      reviewed: "Yes",
+      rbsku: "010613",
+      description: "AWICK,IE,STICK UP LAVX12",
+      rrsegment: "Adhesives (Air Care)",
+      woc: "743",
+      olacw: "84%",
+      olacw1: "84%",
+      olacw2: "84%",
+      olacw3: "84%",
+      exptnetrevcw: "£100",
+      exptnetrevcw1: "£100",
+      exptnetrevcw2: "£100",
+      exptnetrevcw3: "£100",
+      ragcw: "G",
+      ragcw1: "R",
+      ragcw2: "A",
+      ragcw3: "G",
+      comments: "Soft change to 3234328",
+      campaugns: [
+        {
+          campaignanme: "Airwick special",
+          startdate: "12/05/2023",
+          enddate: "31/08/2023",
+          skufocused: "Yes",
+          activestatus: "Active",
+          retailersinvolved: "Tesco",
+          retailerinventory: "250",
+          rbwherehouseinventory: "1000",
+          requestdeactivation: "No",
+        },
+        {
+          campaignanme: "Airwick special",
+          startdate: "12/05/2023",
+          enddate: "31/08/2023",
+          skufocused: "Yes",
+          activestatus: "Active",
+          retailersinvolved: "Tesco",
+          retailerinventory: "250",
+          rbwherehouseinventory: "1000",
+          requestdeactivation: "No",
+        },
+      ],
+      pushAlternativeTable: [
+        {
+          recomscore: "96%",
+          title: "Airwick Electric Strawberry",
+          sku: "1236467867",
+          activecamp: "Active",
+          stockavailblerb: "1,345",
+          stockavailableamz: "234",
+          sellinforecast: "234",
+          selloutforecast: "100",
+          wocestimation: "100",
+          olaupliftestimation: "100",
+          costestimation: "500",
+          select: "Yes",
+        },
+        {
+          recomscore: "96%",
+          title: "Airwick Electric Strawberry",
+          sku: "1236467867",
+          activecamp: "Active",
+          stockavailblerb: "1,345",
+          stockavailableamz: "234",
+          sellinforecast: "234",
+          selloutforecast: "100",
+          wocestimation: "100",
+          olaupliftestimation: "100",
+          costestimation: "500",
+          select: "Yes",
+        },
+      ],
+
       details: [
         {
           skuname: "Airwick",
@@ -95,168 +166,78 @@ const OhrTable = ({ onData }) => {
       ],
     },
     {
-      skuname: "Airwick Electrical Lavende",
-      skucode: "23434534693dlf1",
-      timeframe: 8,
-      netrevenue: "246.43",
-      expectedola: "84%",
-      servicelevel: "70",
-      expectednetrevenue: "246.43",
-      bestseller: "High",
-      risk: "10",
-      checkbox: false,
-      costtoserve: "(£903.00)",
-      reviewed: "No",
-      details: [
+      rbsku: "010614",
+      description: "AWICK,IE,STICK UP LAVX12",
+      rrsegment: "Adhesives (Air Care)",
+      woc: "743",
+      olacw: "84%",
+      olacw1: "84%",
+      olacw2: "84%",
+      olacw3: "84%",
+      exptnetrevcw: "£100",
+      exptnetrevcw1: "£100",
+      exptnetrevcw2: "£100",
+      exptnetrevcw3: "£100",
+      ragcw: "G",
+      ragcw1: "R",
+      ragcw2: "A",
+      ragcw3: "G",
+      comments: "Soft change to 3234328",
+      campaugns: [
         {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
+          campaignanme: "Airwick special",
+          startdate: "12/05/2023",
+          enddate: "31/08/2023",
+          skufocused: "Yes",
+          activestatus: "Active",
+          retailersinvolved: "Tesco",
+          retailerinventory: "250",
+          rbwherehouseinventory: "1000",
+          requestdeactivation: "No",
         },
         {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
+          campaignanme: "Airwick special",
+          startdate: "12/05/2023",
+          enddate: "31/08/2023",
+          skufocused: "Yes",
+          activestatus: "Active",
+          retailersinvolved: "Tesco",
+          retailerinventory: "250",
+          rbwherehouseinventory: "1000",
+          requestdeactivation: "No",
         },
       ],
-    },
-    {
-      skuname: "Airwick Aersol Floral",
-      skucode: "23434534693dlf2",
-      timeframe: 12,
-      netrevenue: "246.43",
-      expectedola: "84%",
-      servicelevel: "100",
-      expectednetrevenue: "246.43",
-      bestseller: "High",
-      risk: "10",
-      checkbox: false,
-      costtoserve: "(£903.00)",
-      reviewed: "No",
-      details: [
+      pushAlternativeTable: [
         {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
+          recomscore: "96%",
+          title: "Airwick Electric Strawberry",
+          sku: "1236467867",
+          activecamp: "Active",
+          stockavailblerb: "1,345",
+          stockavailableamz: "234",
+          sellinforecast: "234",
+          selloutforecast: "100",
+          wocestimation: "100",
+          olaupliftestimation: "100",
+          costestimation: "500",
+          select: "Yes",
         },
         {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
+          recomscore: "96%",
+          title: "Airwick Electric Strawberry",
+          sku: "1236467867",
+          activecamp: "Active",
+          stockavailblerb: "1,345",
+          stockavailableamz: "234",
+          sellinforecast: "234",
+          selloutforecast: "100",
+          wocestimation: "100",
+          olaupliftestimation: "100",
+          costestimation: "500",
+          select: "Yes",
         },
       ],
-    },
-    {
-      skuname: "Airwick Aersol Lemon",
-      skucode: "23434534693dlf3",
-      timeframe: 4,
-      netrevenue: "246.43",
-      expectedola: "84%",
-      servicelevel: "100",
-      expectednetrevenue: "246.43",
-      bestseller: "High",
-      risk: "10",
-      checkbox: false,
-      costtoserve: "(£903.00)",
-      reviewed: "No",
-      details: [
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-      ],
-    },
-    {
-      skuname: "Candles White Melon",
-      skucode: "23434534693dlf4",
-      timeframe: 8,
-      netrevenue: "246.43",
-      expectedola: "84%",
-      servicelevel: "100",
-      expectednetrevenue: "246.43",
-      bestseller: "High",
-      risk: "10",
-      checkbox: false,
-      costtoserve: "(£903.00)",
-      reviewed: "No",
+
       details: [
         {
           skuname: "Airwick",
@@ -295,24 +276,84 @@ const OhrTable = ({ onData }) => {
       ],
     },
     {
-      skuname: "Candles White Orange",
-      skucode: "23434534693dlf5",
-      timeframe: 12,
-      netrevenue: "246.43",
-      expectedola: "84%",
-      servicelevel: "100",
-      expectednetrevenue: "246.43",
-      bestseller: "High",
-      risk: "10",
-      checkbox: false,
-      costtoserve: "(£903.00)",
-      reviewed: "No",
+      rbsku: "010615",
+      description: "AWICK,IE,STICK UP LAVX12",
+      rrsegment: "Adhesives (Air Care)",
+      woc: "743",
+      olacw: "84%",
+      olacw1: "84%",
+      olacw2: "84%",
+      olacw3: "84%",
+      exptnetrevcw: "£100",
+      exptnetrevcw1: "£100",
+      exptnetrevcw2: "£100",
+      exptnetrevcw3: "£100",
+      ragcw: "G",
+      ragcw1: "R",
+      ragcw2: "A",
+      ragcw3: "G",
+      comments: "Soft change to 3234328",
+      campaugns: [
+        {
+          campaignanme: "Airwick special",
+          startdate: "12/05/2023",
+          enddate: "31/08/2023",
+          skufocused: "Yes",
+          activestatus: "Active",
+          retailersinvolved: "Tesco",
+          retailerinventory: "250",
+          rbwherehouseinventory: "1000",
+          requestdeactivation: "No",
+        },
+        {
+          campaignanme: "Airwick special",
+          startdate: "12/05/2023",
+          enddate: "31/08/2023",
+          skufocused: "Yes",
+          activestatus: "Active",
+          retailersinvolved: "Tesco",
+          retailerinventory: "250",
+          rbwherehouseinventory: "1000",
+          requestdeactivation: "No",
+        },
+      ],
+      pushAlternativeTable: [
+        {
+          recomscore: "96%",
+          title: "Airwick Electric Strawberry",
+          sku: "1236467867",
+          activecamp: "Active",
+          stockavailblerb: "1,345",
+          stockavailableamz: "234",
+          sellinforecast: "234",
+          selloutforecast: "100",
+          wocestimation: "100",
+          olaupliftestimation: "100",
+          costestimation: "500",
+          select: "Yes",
+        },
+        {
+          recomscore: "96%",
+          title: "Airwick Electric Strawberry",
+          sku: "1236467867",
+          activecamp: "Active",
+          stockavailblerb: "1,345",
+          stockavailableamz: "234",
+          sellinforecast: "234",
+          selloutforecast: "100",
+          wocestimation: "100",
+          olaupliftestimation: "100",
+          costestimation: "500",
+          select: "Yes",
+        },
+      ],
+
       details: [
         {
           skuname: "Airwick",
           skucode: "23434534693dlf",
           timeframe: 4,
-          netrevenue: "246.43",
+          netrevenue: "£12,246.43",
           expectedola: "84%",
           servicelevel: "60",
           expectednetrevenue: "(£5,749.00)",
@@ -345,68 +386,78 @@ const OhrTable = ({ onData }) => {
       ],
     },
     {
-      skuname: "Mist Diffuser Calming Rose",
-      skucode: "23434534693dlg1",
-      timeframe: 12,
-      netrevenue: "246.43",
-      expectedola: "84%",
-      servicelevel: "100",
-      expectednetrevenue: "246.43",
-      bestseller: "High",
-      risk: "10",
-      checkbox: false,
-      costtoserve: "(£903.00)",
-      reviewed: "No",
-      details: [
+      rbsku: "010616",
+      description: "AWICK,IE,STICK UP LAVX12",
+      rrsegment: "Adhesives (Air Care)",
+      woc: "743",
+      olacw: "84%",
+      olacw1: "84%",
+      olacw2: "84%",
+      olacw3: "84%",
+      exptnetrevcw: "£100",
+      exptnetrevcw1: "£100",
+      exptnetrevcw2: "£100",
+      exptnetrevcw3: "£100",
+      ragcw: "G",
+      ragcw1: "R",
+      ragcw2: "A",
+      ragcw3: "G",
+      comments: "Soft change to 3234328",
+      campaugns: [
         {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
+          campaignanme: "Airwick special",
+          startdate: "12/05/2023",
+          enddate: "31/08/2023",
+          skufocused: "Yes",
+          activestatus: "Active",
+          retailersinvolved: "Tesco",
+          retailerinventory: "250",
+          rbwherehouseinventory: "1000",
+          requestdeactivation: "No",
         },
         {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
+          campaignanme: "Airwick special",
+          startdate: "12/05/2023",
+          enddate: "31/08/2023",
+          skufocused: "Yes",
+          activestatus: "Active",
+          retailersinvolved: "Tesco",
+          retailerinventory: "250",
+          rbwherehouseinventory: "1000",
+          requestdeactivation: "No",
         },
       ],
-    },
-    {
-      skuname: "Mist Diffuser Relaxing Lavender",
-      skucode: "23434534693dlg2",
-      timeframe: 4,
-      netrevenue: "246.43",
-      expectedola: "84%",
-      servicelevel: "100",
-      expectednetrevenue: "246.43",
-      bestseller: "High",
-      risk: "10",
-      checkbox: false,
-      costtoserve: "(£903.00)",
-      reviewed: "No",
+      pushAlternativeTable: [
+        {
+          recomscore: "96%",
+          title: "Airwick Electric Strawberry",
+          sku: "1236467867",
+          activecamp: "Active",
+          stockavailblerb: "1,345",
+          stockavailableamz: "234",
+          sellinforecast: "234",
+          selloutforecast: "100",
+          wocestimation: "100",
+          olaupliftestimation: "100",
+          costestimation: "500",
+          select: "Yes",
+        },
+        {
+          recomscore: "96%",
+          title: "Airwick Electric Strawberry",
+          sku: "1236467867",
+          activecamp: "Active",
+          stockavailblerb: "1,345",
+          stockavailableamz: "234",
+          sellinforecast: "234",
+          selloutforecast: "100",
+          wocestimation: "100",
+          olaupliftestimation: "100",
+          costestimation: "500",
+          select: "Yes",
+        },
+      ],
+
       details: [
         {
           skuname: "Airwick",
@@ -429,7 +480,7 @@ const OhrTable = ({ onData }) => {
           skuname: "Airwick",
           skucode: "23434534693dlf",
           timeframe: 4,
-          netrevenue: "246.43",
+          netrevenue: "£12,246.43",
           expectedola: "84%",
           servicelevel: "60",
           expectednetrevenue: "(£5,749.00)",
@@ -445,124 +496,84 @@ const OhrTable = ({ onData }) => {
       ],
     },
     {
-      skuname: "Fabric Refresher Fresh Sea Air",
-      skucode: "23434534693dlg3",
-      timeframe: 8,
-      netrevenue: "246.43",
-      expectedola: "84%",
-      servicelevel: "100",
-      expectednetrevenue: "246.43",
-      bestseller: "High",
-      risk: "10",
-      checkbox: false,
-      costtoserve: "(£903.00)",
-      reviewed: "No",
-      details: [
+      rbsku: "010617",
+      description: "AWICK,IE,STICK UP LAVX12",
+      rrsegment: "Adhesives (Air Care)",
+      woc: "743",
+      olacw: "84%",
+      olacw1: "84%",
+      olacw2: "84%",
+      olacw3: "84%",
+      exptnetrevcw: "£100",
+      exptnetrevcw1: "£100",
+      exptnetrevcw2: "£100",
+      exptnetrevcw3: "£100",
+      ragcw: "G",
+      ragcw1: "R",
+      ragcw2: "A",
+      ragcw3: "G",
+      comments: "Soft change to 3234328",
+      campaugns: [
         {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
+          campaignanme: "Airwick special",
+          startdate: "12/05/2023",
+          enddate: "31/08/2023",
+          skufocused: "Yes",
+          activestatus: "Active",
+          retailersinvolved: "Tesco",
+          retailerinventory: "250",
+          rbwherehouseinventory: "1000",
+          requestdeactivation: "No",
         },
         {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
+          campaignanme: "Airwick special",
+          startdate: "12/05/2023",
+          enddate: "31/08/2023",
+          skufocused: "Yes",
+          activestatus: "Active",
+          retailersinvolved: "Tesco",
+          retailerinventory: "250",
+          rbwherehouseinventory: "1000",
+          requestdeactivation: "No",
         },
       ],
-    },
-    {
-      skuname: "Fabric Refresher Garden After Rain",
-      skucode: "23434534693dlg4",
-      timeframe: 8,
-      netrevenue: "246.43",
-      expectedola: "84%",
-      servicelevel: "100",
-      expectednetrevenue: "246.43",
-      bestseller: "High",
-      risk: "10",
-      checkbox: false,
-      costtoserve: "(£903.00)",
-      reviewed: "No",
-      details: [
+      pushAlternativeTable: [
         {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
+          recomscore: "96%",
+          title: "Airwick Electric Strawberry",
+          sku: "1236467867",
+          activecamp: "Active",
+          stockavailblerb: "1,345",
+          stockavailableamz: "234",
+          sellinforecast: "234",
+          selloutforecast: "100",
+          wocestimation: "100",
+          olaupliftestimation: "100",
+          costestimation: "500",
+          select: "Yes",
         },
         {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
+          recomscore: "96%",
+          title: "Airwick Electric Strawberry",
+          sku: "1236467867",
+          activecamp: "Active",
+          stockavailblerb: "1,345",
+          stockavailableamz: "234",
+          sellinforecast: "234",
+          selloutforecast: "100",
+          wocestimation: "100",
+          olaupliftestimation: "100",
+          costestimation: "500",
+          select: "Yes",
         },
       ],
-    },
-    {
-      skuname: "Rose Garden Fabric Scent Booster",
-      skucode: "23434534693dlg5",
-      timeframe: 4,
-      netrevenue: "246.43",
-      expectedola: "84%",
-      servicelevel: "100",
-      expectednetrevenue: "246.43",
-      bestseller: "High",
-      risk: "10",
-      checkbox: false,
-      costtoserve: "(£903.00)",
-      reviewed: "No",
+
       details: [
         {
           skuname: "Airwick",
           skucode: "23434534693dlf",
           timeframe: 4,
-          netrevenue: "246.43",
+          netrevenue: "£12,246.43",
           expectedola: "84%",
           servicelevel: "60",
           expectednetrevenue: "(£5,749.00)",
@@ -579,157 +590,7 @@ const OhrTable = ({ onData }) => {
           skuname: "Airwick",
           skucode: "23434534693dlf",
           timeframe: 4,
-          netrevenue: "246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-      ],
-    },
-    {
-      skuname: "Rose Garden Fabric Scent Booster",
-      skucode: "23434534693dlg6",
-      timeframe: 25,
-      netrevenue: "246.43",
-      expectedola: "84%",
-      servicelevel: "100",
-      expectednetrevenue: "246.43",
-      bestseller: "High",
-      risk: "6",
-      checkbox: false,
-      costtoserve: "(£903.00)",
-      reviewed: "No",
-      details: [
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-      ],
-    },
-    {
-      skuname: "Rose Garden Fabric Scent Booster",
-      skucode: "23434534693dlg7",
-      timeframe: 25,
-      netrevenue: "246.43",
-      expectedola: "84%",
-      servicelevel: "100",
-      expectednetrevenue: "246.43",
-      bestseller: "High",
-      risk: "4",
-      checkbox: false,
-      costtoserve: "(£903.00)",
-      reviewed: "No",
-      details: [
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-      ],
-    },
-    {
-      skuname: "Rose Garden Fabric Scent Booster",
-      skucode: "23434534693dlg8",
-      timeframe: 25,
-      netrevenue: "246.43",
-      expectedola: "84%",
-      servicelevel: "100",
-      expectednetrevenue: "246.43",
-      bestseller: "High",
-      risk: "7",
-      checkbox: false,
-      costtoserve: "(£903.00)",
-      reviewed: "No",
-      details: [
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "246.43",
+          netrevenue: "£12,246.43",
           expectedola: "84%",
           servicelevel: "60",
           expectednetrevenue: "(£5,749.00)",
@@ -779,8 +640,16 @@ const OhrTable = ({ onData }) => {
   };
 
   const SubTable = ({ details }) => (
-    <div style={{ marginTop: "-18px" }}>
-      <Typography fontSize={20} my={1} color="#415A6C" className="ms-title">
+    <div style={{ marginTop: "-18px" }} className="mini-table">
+      <Typography
+        fontSize={20}
+        my={1}
+        color="#415A6C"
+        className="ms-title"
+        style={{
+          textAlign: "left",
+        }}
+      >
         Recent / current / Upcoming Campagins
       </Typography>
 
@@ -789,14 +658,24 @@ const OhrTable = ({ onData }) => {
           <TableHead>
             <TableRow className="tablecell-inside">
               <TableCell>Campaign Name</TableCell>
-              <TableCell>Start Date</TableCell>
-              <TableCell>End Date</TableCell>
-              <TableCell>SKU focused?</TableCell>
-              <TableCell>Active/Not Active</TableCell>
-              <TableCell>Active/Not Active</TableCell>
-              <TableCell>Retailer Inventory</TableCell>
-              <TableCell>RB warehouse inventory</TableCell>
-              <TableCell>Request Deactivation</TableCell>
+              <TableCell sx={{ textAlign: "center" }}>Start Date</TableCell>
+              <TableCell sx={{ textAlign: "center" }}>End Date</TableCell>
+              <TableCell sx={{ textAlign: "center" }}>SKU focused?</TableCell>
+              <TableCell sx={{ textAlign: "center" }}>
+                Active/Not Active
+              </TableCell>
+              <TableCell sx={{ textAlign: "center" }}>
+                Active/Not Active
+              </TableCell>
+              <TableCell sx={{ textAlign: "center" }}>
+                Retailer Inventory
+              </TableCell>
+              <TableCell sx={{ textAlign: "center" }}>
+                RB warehouse inventory
+              </TableCell>
+              <TableCell sx={{ textAlign: "center" }}>
+                Request Deactivation
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -808,45 +687,38 @@ const OhrTable = ({ onData }) => {
                 }}
               >
                 <TableCell>
-                  <Typography fontSize="13px">{item.skuname}</Typography>
+                  <Typography fontSize="13px">{item.campaignanme}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography fontSize="13px">{item.skucode}</Typography>
+                  <Typography fontSize="13px">{item.startdate}</Typography>
                 </TableCell>
-
+                <TableCell>
+                  <Typography fontSize="13px">{item.enddate}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography fontSize="13px">{item.skufocused}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography fontSize="13px">{item.activestatus}</Typography>
+                </TableCell>
                 <TableCell>
                   <Typography fontSize="13px">
-                    {item.quantityOrdered}
+                    {item.retailersinvolved}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography fontSize="13px">
-                    {item.quantityForcasted}
+                    {item.retailerinventory}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography fontSize="13px">
-                    {item.percentageDescrepency}
+                    {item.rbwherehouseinventory}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography fontSize="13px">
-                    {item.percentageDescrepency}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography fontSize="13px">
-                    {item.percentageDescrepency}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography fontSize="13px">
-                    {item.percentageDescrepency}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography fontSize="13px">
-                    {item.percentageDescrepency}
+                    {item.requestdeactivation}
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -854,57 +726,204 @@ const OhrTable = ({ onData }) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Typography
-        fontSize={20}
-        mx={4}
-        my={1}
-        color="#415A6C"
-        className="ms-title"
-      >
-        Choose a Mitigation Strategy{" "}
-      </Typography>
       <Stack
         direction="row"
-        gap={4}
-        sx={{ marginInline: "3%" }}
-        // border="1px solid"
-        p={2}
-        borderRadius="5px"
-        backgroundColor="#DCDCDC"
+        justifyContent="space-between"
+        my={3}
+        backgroundColor="#E5EBEF"
+        // p={4}
       >
-        <Grid item xs={3} className="ms-grid" bgcolor="green" color="white">
-          <Typography>Push Alternative</Typography>
-        </Grid>
-        <Grid item xs={3} className="ms-grid" bgcolor="red" color="white">
-          <Typography>Reallocate</Typography>
-        </Grid>
-        <Grid item xs={3} className="ms-grid" bgcolor="white">
-          <Typography>Redirect</Typography>
-        </Grid>
-        <Grid item xs={3} className="ms-grid" bgcolor="white">
-          <Typography>Mitigation Scenario 4</Typography>
-        </Grid>
+        <Typography
+          fontSize={16}
+          // mx={-2}
+          // my={3}
+          color="#415A6C"
+          className="ms-title"
+        >
+          Choose a Mitigation Strategy
+        </Typography>
+        <Box
+          className="ms-grid"
+          bgcolor="green"
+          color="white"
+          onClick={handlePushAlternative}
+        >
+          <Typography fontSize={20}>Push Alternative</Typography>
+        </Box>
+        <Box
+          className="ms-grid"
+          bgcolor="red"
+          color="white"
+          onClick={handleReallocate}
+        >
+          <Typography fontSize={20}>Reallocate</Typography>
+        </Box>
+        <Box className="ms-grid" bgcolor="white">
+          <Badge badgeContent="Coming Soon" className="redirect-badge">
+            <Typography fontSize={20}>Redirect</Typography>
+          </Badge>
+        </Box>
+        <Box className="ms-grid" bgcolor="white">
+          <Badge badgeContent="Coming Soon" className="retailer-badge">
+            <Typography fontSize={20}>Retailer Negotiation</Typography>
+          </Badge>
+        </Box>
       </Stack>
+    </div>
+  );
+
+  const PushAlternativeTable = ({ details }) => (
+    <div style={{ marginTop: "-18px" }}>
+      <TableContainer component={Paper} className="tablecell-header">
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell sx={{ border: "", width: "60px" }}>
+                Recom.Score
+              </TableCell>
+              <TableCell
+                sx={{ border: "", width: "60px", textAlign: "center" }}
+              >
+                Title
+              </TableCell>
+              <TableCell
+                sx={{ border: "", width: "60px", textAlign: "center" }}
+              >
+                SKU
+              </TableCell>
+              <TableCell
+                sx={{ border: "", width: "60px", textAlign: "center" }}
+              >
+                Active Camplaigns
+              </TableCell>
+              <TableCell
+                sx={{ border: "", width: "60px", textAlign: "center" }}
+              >
+                Stock Available RB
+              </TableCell>
+              <TableCell
+                sx={{ border: "", width: "60px", textAlign: "center" }}
+              >
+                Stock Available AMZ
+              </TableCell>
+              <TableCell
+                sx={{ border: "", width: "60px", textAlign: "center" }}
+              >
+                Sell-in forecast
+              </TableCell>
+              <TableCell
+                sx={{ border: "", width: "60px", textAlign: "center" }}
+              >
+                Sell-out forecast
+              </TableCell>
+              <TableCell
+                sx={{ border: "", width: "60px", textAlign: "center" }}
+              >
+                Customer Woc
+              </TableCell>
+              <TableCell
+                sx={{ border: "", width: "60px", textAlign: "center" }}
+              >
+                OLA Uplift estimation
+              </TableCell>
+              <TableCell
+                sx={{ border: "", width: "60px", textAlign: "center" }}
+              >
+                Cost estimation
+              </TableCell>
+              <TableCell
+                sx={{ border: "", width: "60px", textAlign: "center" }}
+              >
+                Select
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {details.map((item, index) => (
+              <TableRow
+                key={index}
+                style={{
+                  backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
+                }}
+              >
+                <TableCell>
+                  <Typography fontSize="13px">{item.recomscore}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography fontSize="13px">{item.title}</Typography>
+                </TableCell>
+
+                <TableCell>
+                  <Typography fontSize="13px">{item.sku}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography fontSize="13px">{item.activecamp}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography fontSize="13px">
+                    {item.stockavailblerb}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography fontSize="13px">
+                    {item.stockavailableamz}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography fontSize="13px">{item.sellinforecast}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography fontSize="13px">
+                    {item.selloutforecast}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography fontSize="13px">{item.wocestimation}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography fontSize="13px">
+                    {item.olaupliftestimation}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography fontSize="13px">{item.costestimation}</Typography>
+                </TableCell>
+                <TableCell sx={{ color: "#F08C2A", textAlign: "center" }}>
+                  <Box
+                    sx={{
+                      borderRadius: "5px 5px",
+                      border: "1px solid #415A6C",
+                      padding: "4px 0px 0px 8px",
+                      display: "flex",
+                      justifyContent: "space-around",
+                      color: "#415A6C",
+                      cursor: "pointer",
+                    }}
+                    width={{ lg: "90px" }}
+                    ml={{ lg: "-10px" }}
+                  >
+                    <Typography
+                      fontSize={{ lg: "11px" }}
+                      sx={{ paddingBottom: "5px" }}
+                    >
+                      Push
+                    </Typography>
+                  </Box>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 
   return (
     <div style={{ border: "" }}>
-      <TableContainer style={{ maxHeight: 730, width: "100%" }}>
-        <Table stickyHeader>
+      <TableContainer style={{ maxHeight: 530, width: "100%" }}>
+        <Table>
           <TableHead className="t-head">
             <TableRow className="tablerow-title">
-              <TableCell
-                rowSpan={2}
-                className="datatable-head"
-                sx={{
-                  backgroundColor: "#E5EBEF",
-                  // backgroundColor: "red",
-                  marginLeft: "2px",
-                  // border: "1px solid red",
-                  // width: "20px",
-                }}
-              ></TableCell>
               <TableCell
                 rowSpan={2}
                 sx={{
@@ -926,7 +945,7 @@ const OhrTable = ({ onData }) => {
                     // marginLeft: "-20px",
                   }}
                 >
-                  <Box>
+                  <Box className="sorting-h1-title">
                     <Box mt="5px">
                       <ArrowDropUpIcon
                         style={{ height: "28px", width: "28px" }}
@@ -939,7 +958,11 @@ const OhrTable = ({ onData }) => {
                     </Box>
                   </Box>
                   <Box textAlign="center">
-                    <Typography fontSize={14} mt="12px" mx="-6px">
+                    <Typography
+                      fontSize={14}
+                      mt="12px"
+                      className="table-h1-title"
+                    >
                       RB SKU
                     </Typography>
                   </Box>
@@ -958,7 +981,7 @@ const OhrTable = ({ onData }) => {
                     color: "#415A6C",
                   }}
                 >
-                  <Box>
+                  <Box className="sorting-h1-title">
                     <Box mt="5px">
                       <ArrowDropUpIcon
                         style={{ height: "28px", width: "28px" }}
@@ -971,7 +994,11 @@ const OhrTable = ({ onData }) => {
                     </Box>
                   </Box>
                   <Box textAlign="center">
-                    <Typography fontSize={14} mt="12px" mx="-6px">
+                    <Typography
+                      fontSize={14}
+                      mt="12px"
+                      className="table-h1-title"
+                    >
                       Description
                     </Typography>
                   </Box>
@@ -990,7 +1017,7 @@ const OhrTable = ({ onData }) => {
                     color: "#415A6C",
                   }}
                 >
-                  <Box>
+                  <Box className="sorting-h1-title">
                     <Box mt="5px">
                       <ArrowDropUpIcon
                         style={{ height: "28px", width: "28px" }}
@@ -1003,7 +1030,13 @@ const OhrTable = ({ onData }) => {
                     </Box>
                   </Box>
                   <Box textAlign="center">
-                    <Typography fontSize={14} mt="12px" mx="-6px">
+                    <Typography
+                      fontSize={14}
+                      mt="12px"
+                      className="table-h1-title"
+                      lineHeight="16px"
+                      // width={120}
+                    >
                       RR Segment
                     </Typography>
                   </Box>
@@ -1017,6 +1050,7 @@ const OhrTable = ({ onData }) => {
               >
                 <Box className="bdr-timeframe">
                   <Typography
+                    className="table-h1-title"
                     lineHeight="16px"
                     sx={{ fontSize: "14px", color: "#415A6C" }}
                   >
@@ -1025,10 +1059,17 @@ const OhrTable = ({ onData }) => {
                 </Box>
               </TableCell>
               <TableCell
-                className="merged-cell"
                 colSpan={4}
                 onClick={() => handleSort("servicelevel")}
-                sx={{ backgroundColor: "#E5EBEF" }}
+                sx={{
+                  backgroundColor: "#E5EBEF",
+                  // border: "1px solid",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  alignSelf: "center",
+                  // display: "flex",
+                }}
+                // border="1px solid"
               >
                 <Box
                   className="bdr-netrevenue centered-content"
@@ -1036,10 +1077,11 @@ const OhrTable = ({ onData }) => {
                     display: "flex",
                     textAlign: "center",
                     color: "#415A6C",
-                    width: "110px",
+                    // width: "110px",
+                    justifyContent: "center",
                   }}
                 >
-                  <Box mx="-7px">
+                  <Box mx="-7px" className="sorting-ola">
                     <Box mt="5px">
                       <ArrowDropUpIcon
                         style={{ height: "28px", width: "28px" }}
@@ -1051,8 +1093,12 @@ const OhrTable = ({ onData }) => {
                       />
                     </Box>
                   </Box>
-                  <Box textAlign="center" mt="14px" mx="2px">
-                    <Typography fontSize={14} lineHeight="16px">
+                  <Box textAlign="center" mt="14px">
+                    <Typography
+                      fontSize={18}
+                      lineHeight="16px"
+                      // className="tabletitle-ola"
+                    >
                       OLA %
                     </Typography>
                   </Box>
@@ -1065,19 +1111,15 @@ const OhrTable = ({ onData }) => {
                   color: "#415A6C",
                   textAlign: "center",
                   backgroundColor: "#E5EBEF",
+                  // borderRight: "0.1px solid red",
                 }}
               >
-                <Box className="bdr-exptnetrevenue">
-                  <Typography
-                    sx={{
-                      fontSize: "14px",
-                      width: "",
-                      textAlign: "center",
-                      width: "80px",
-                      marginLeft: "-2px",
-                      lineHeight: "16px",
-                    }}
-                  >
+                <Box
+                  className="bdr-exptnetrevenue"
+                  textAlign="center"
+                  mt="14px"
+                >
+                  <Typography fontSize={18} lineHeight="16px">
                     Expected Net Revenue
                   </Typography>
                 </Box>
@@ -1089,15 +1131,15 @@ const OhrTable = ({ onData }) => {
                   color: "#415A6C",
                   textAlign: "center",
                   backgroundColor: "#E5EBEF",
+                  borderLeft: "1px solid rgba(224, 224, 224, 1)",
                 }}
               >
                 <Box className="bdr-exptnetrevenue">
                   <Typography
+                    className="table-h1-title"
                     sx={{
                       fontSize: "14px",
-                      width: "",
                       textAlign: "center",
-                      width: "80px",
                       marginLeft: "-2px",
                       lineHeight: "16px",
                     }}
@@ -1117,12 +1159,12 @@ const OhrTable = ({ onData }) => {
               >
                 <Box className="bdr-exptnetrevenue">
                   <Typography
+                    className="table-h1-title"
                     sx={{
                       fontSize: "14px",
-                      width: "",
                       textAlign: "center",
-                      width: "80px",
-                      marginLeft: "-2px",
+                      // width: "80px",
+                      // marginLeft: "-2px",
                       lineHeight: "16px",
                     }}
                   >
@@ -1131,45 +1173,77 @@ const OhrTable = ({ onData }) => {
                 </Box>
               </TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>CW</TableCell>
-              <TableCell>CW+1</TableCell>
-              <TableCell>CW+2</TableCell>
-              <TableCell>CW+3</TableCell>
-              <TableCell>CW</TableCell>
-              <TableCell>CW+1</TableCell>
-              <TableCell>CW+2</TableCell>
-              <TableCell>CW+3</TableCell>
-              <TableCell>CW</TableCell>
-              <TableCell>CW+1</TableCell>
-              <TableCell>CW+2</TableCell>
-              <TableCell>CW+3</TableCell>
+            <TableRow className="t-row">
+              <TableCell>
+                CW <div className="brack-number">({startingWeek + 0})</div>
+              </TableCell>
+              <TableCell>
+                CW+1
+                <div className="brack-number">({startingWeek + 1})</div>
+              </TableCell>
+              <TableCell>
+                CW+2
+                <div className="brack-number">({startingWeek + 2})</div>
+              </TableCell>
+              <TableCell>
+                CW+3 <div className="brack-number">({startingWeek + 3})</div>
+              </TableCell>
+              <TableCell>
+                CW <div className="brack-number">({startingWeek + 0})</div>
+              </TableCell>
+              <TableCell>
+                CW+1 <div className="brack-number">({startingWeek + 1})</div>
+              </TableCell>
+              <TableCell>
+                CW+2 <div className="brack-number">({startingWeek + 2})</div>
+              </TableCell>
+              <TableCell>
+                CW+3 <div className="brack-number">({startingWeek + 3})</div>
+              </TableCell>
+              <TableCell
+                sx={{ borderLeft: "1px solid rgba(224, 224, 224, 1)" }}
+              >
+                CW <div className="brack-number">({startingWeek + 0})</div>
+              </TableCell>
+              <TableCell>
+                CW+1 <div className="brack-number">({startingWeek + 1})</div>
+              </TableCell>
+              <TableCell>
+                CW+2 <div className="brack-number">({startingWeek + 2})</div>
+              </TableCell>
+              <TableCell>
+                CW+3 <div className="brack-number">({startingWeek + 3})</div>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {data.map((item, index) => (
-              <React.Fragment key={item.skucode}>
+              <React.Fragment key={item.rbsku}>
                 <TableRow
-                  onClick={() => handleRowClick(item.skucode)}
-                  key={item.skucode}
-                  className={item.checkbox ? "checked-row" : ""}
+                  onClick={() => handleRowClick(item.rbsku)}
+                  key={item.rbsku}
+                  // className={item.checkbox ? "checked-row" : ""}
                   style={{
                     backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
                   }}
                 >
-                  <TableCell fontSize={13}>
+                  <TableCell
+                    fontSize={13}
+                    sx={{ display: "flex", gap: "16px" }}
+                  >
                     <Box
                       mt={{ lg: "-1px" }}
                       sx={{ display: "flex", alignItems: "center" }}
                     >
-                      {expandedRow === item.skucode ? (
+                      {expandedRow === item.rbsku ? (
                         <RemoveIcon
                           fontSize="medium"
                           sx={{
                             color: "#415A6C",
                             cursor: "pointer",
                             fontWeight: "800",
-                            marginTop: "-1px",
+                            // marginTop: "-1px",
+                            marginTop: "21px",
                             backgroundColor: "transparent",
                           }}
                         />
@@ -1180,17 +1254,24 @@ const OhrTable = ({ onData }) => {
                             color: "#415A6C",
                             cursor: "pointer",
                             fontWeight: "800",
-                            marginTop: "-1px",
+                            // marginTop: "-1px",
+                            marginTop: "21px",
                             backgroundColor: "transparent",
                           }}
                         />
                       )}
                     </Box>
-                  </TableCell>
-                  <TableCell>
-                    <Typography ml="-8px" fontSize="13px">
-                      {item.skucode}
-                    </Typography>
+                    <Box>
+                      <Typography
+                        ml="-8px"
+                        fontSize="13px"
+                        sx={{
+                          marginTop: "23px",
+                        }}
+                      >
+                        {item.rbsku}
+                      </Typography>
+                    </Box>
                   </TableCell>
                   <TableCell>
                     <Typography
@@ -1201,107 +1282,186 @@ const OhrTable = ({ onData }) => {
                         fontSize: "13px",
                       }}
                     >
-                      {item.skuname}
+                      {item.description}
                     </Typography>
                   </TableCell>
                   <TableCell sx={{ textAlign: "center", fontSize: "13px" }}>
-                    {item.timeframe}
+                    {item.rrsegment}
                   </TableCell>
                   <TableCell>
                     <Typography mx="7px" fontSize="13px">
-                      {item.netrevenue}
+                      {item.woc}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography
                       mx="10px"
                       sx={{
-                        color: "#F08C2A",
                         textAlign: "center",
                         fontSize: "13px",
                       }}
                     >
-                      {item.expectedola}
+                      {item.olacw}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography mx="6px" fontSize="13px">
-                      {item.servicelevel}
+                      {item.olacw1}
                     </Typography>
                   </TableCell>
-                  <TableCell sx={{ color: "red", fontSize: "13px" }}>
-                    {item.expectednetrevenue}
+                  <TableCell>
+                    <Typography mx="6px" fontSize="13px">
+                      {item.olacw2}
+                    </Typography>
                   </TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>
-                    <Typography mx="9px" fontSize="13px">
-                      {" "}
-                      {item.bestseller}
+                  <TableCell>
+                    <Typography mx="6px" fontSize="13px">
+                      {item.olacw3}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography
                       mx="10px"
                       sx={{
-                        color: "#F08C2A",
                         textAlign: "center",
                         fontSize: "13px",
                       }}
                     >
-                      {item.expectedola}
+                      {item.exptnetrevcw}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography mx="6px" fontSize="13px">
-                      {item.servicelevel}
+                      {item.exptnetrevcw1}
                     </Typography>
                   </TableCell>
-                  <TableCell sx={{ color: "red", fontSize: "13px" }}>
-                    {item.expectednetrevenue}
+                  <TableCell>
+                    <Typography mx="6px" fontSize="13px">
+                      {item.exptnetrevcw2}
+                    </Typography>
                   </TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>
-                    <Typography mx="9px" fontSize="13px">
-                      {" "}
-                      {item.bestseller}
+                  <TableCell>
+                    <Typography mx="6px" fontSize="13px">
+                      {item.exptnetrevcw3}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography
                       mx="10px"
                       sx={{
-                        color: "#F08C2A",
+                        color: "#fff",
                         textAlign: "center",
                         fontSize: "13px",
+                        // border:"1px solid",
+                        width: "30px",
+                        height: "25px",
+                        backgroundColor:
+                          item.ragcw == "G"
+                            ? "green"
+                            : item.ragcw == "R"
+                            ? "red"
+                            : "orange",
+                        display: "flex",
+                        justifyContent: "center",
+                        textAlign: "center",
+                        alignItems: "center",
                       }}
                     >
-                      {item.expectedola}
+                      {item.ragcw}
                     </Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography mx="6px" fontSize="13px">
-                      {item.servicelevel}
+                    <Typography
+                      mx="6px"
+                      sx={{
+                        fontSize: "13px",
+                        color: "#fff",
+                        width: "30px",
+                        height: "25px",
+                        backgroundColor:
+                          item.ragcw1 == "G"
+                            ? "green"
+                            : item.ragcw1 == "R"
+                            ? "red"
+                            : "orange",
+                        display: "flex",
+                        justifyContent: "center",
+                        textAlign: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      {item.ragcw1}
                     </Typography>
                   </TableCell>
-                  <TableCell sx={{ color: "red", fontSize: "13px" }}>
-                    {item.expectednetrevenue}
+                  <TableCell>
+                    <Typography
+                      mx="6px"
+                      sx={{
+                        fontSize: "13px",
+                        color: "#fff",
+                        width: "30px",
+                        height: "25px",
+                        backgroundColor:
+                          item.ragcw2 == "G"
+                            ? "green"
+                            : item.ragcw2 == "R"
+                            ? "red"
+                            : "orange",
+                        display: "flex",
+                        justifyContent: "center",
+                        textAlign: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      {item.ragcw2}
+                    </Typography>
                   </TableCell>
+                  <TableCell>
+                    <Typography
+                      mx="6px"
+                      sx={{
+                        fontSize: "13px",
+                        color: "#fff",
+                        width: "30px",
+                        height: "25px",
+                        backgroundColor:
+                          item.ragcw3 == "G"
+                            ? "green"
+                            : item.ragcw3 == "R"
+                            ? "red"
+                            : "orange",
+                        display: "flex",
+                        justifyContent: "center",
+                        textAlign: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      {item.ragcw3}
+                    </Typography>
+                  </TableCell>
+
                   <TableCell sx={{ textAlign: "center" }}>
                     <Typography mx="9px" fontSize="13px">
                       {" "}
-                      {item.bestseller}
-                    </Typography>
-                  </TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>
-                    <Typography mx="9px" fontSize="13px">
-                      {" "}
-                      {item.bestseller}
+                      {item.comments}
                     </Typography>
                   </TableCell>
                 </TableRow>
-                {expandedRow === item.skucode && (
+                {expandedRow === item.rbsku && (
                   <TableRow>
-                    <TableCell colSpan={10}>
+                    <TableCell colSpan={20}>
                       {/* Add your expanded table here */}
-                      <SubTable details={item.details} />
+                      <SubTable details={item.campaugns} />
+                    </TableCell>
+                  </TableRow>
+                )}
+                {expandedRow === item.rbsku && pushAlternative && (
+                  <TableRow>
+                    <TableCell colSpan={20}>
+                      {/* Add your expanded table here */}
+                      <PushAlternativeTable
+                        details={item.pushAlternativeTable}
+                      />
                     </TableCell>
                   </TableRow>
                 )}

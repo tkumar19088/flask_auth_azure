@@ -3,10 +3,22 @@ import { Box, Grid, Typography } from "@mui/material";
 import "./Planning.css";
 import qubes from "../../images/qubes.png";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
+import Badge from "@mui/material/Badge";
+import { useNavigate } from "react-router-dom";
 
 const Planning = ({ filterStatus }) => {
+  const navigate = useNavigate();
+
   const handleFilterStatus = () => {
     filterStatus(true);
+  };
+
+  const handleSellinforecast = () => {
+    navigate("/sellinforecast");
+  };
+
+  const handleSelloutforecast = () => {
+    navigate("/selloutforecast");
   };
 
   return (
@@ -19,7 +31,7 @@ const Planning = ({ filterStatus }) => {
                 Demand Planning
               </Typography>
             </Box>
-            <Box className="pln-card-bd">
+            <Box className="pln-card-bd" onClick={handleSelloutforecast}>
               <Box className="pln-cards-cnt">
                 <Typography fontSize={{ lg: 14, xs: 12 }}>
                   Forecast Builder - Sell Out
@@ -31,9 +43,11 @@ const Planning = ({ filterStatus }) => {
             </Box>
             <Box className="pln-card-bd">
               <Box className="pln-cards-cnt">
-                <Typography fontSize={{ lg: 14, xs: 12 }}>
-                  Market Price Match
-                </Typography>
+                <Badge badgeContent="Coming Soon" className="market-badge">
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>
+                    Market Price Match
+                  </Typography>
+                </Badge>
               </Box>
               <Box className="pln-cards-cnt">
                 <GridViewRoundedIcon />{" "}
@@ -48,9 +62,11 @@ const Planning = ({ filterStatus }) => {
             </Box>{" "}
             <Box className="pln-card-bd">
               <Box className="pln-cards-cnt">
-                <Typography fontSize={{ lg: 14, xs: 12 }}>
-                  Scenario Selection
-                </Typography>
+                <Badge badgeContent="Coming Soon" className="scenario-badge">
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>
+                    Scenario Selection
+                  </Typography>
+                </Badge>
               </Box>
               <Box className="pln-cards-cnt">
                 <GridViewRoundedIcon />{" "}
@@ -58,13 +74,12 @@ const Planning = ({ filterStatus }) => {
             </Box>{" "}
             <Box className="pln-card-bd">
               <Box className="pln-cards-cnt" height="20px">
-                <Typography
-                  // sx={{ border: "1px solid red" }}
-                  fontSize={{ lg: 14, xs: 12 }}
-                  // lineHeight={{md:"12px",lg:"14px"}}
-                >
-                  Systamatic data-driven forecast validation
-                </Typography>
+                <Badge badgeContent="Coming Soon" className="systamatic-badge">
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>
+                    Systamatic data-driven
+                    <br /> forecast validation
+                  </Typography>
+                </Badge>
               </Box>
               <Box className="pln-cards-cnt">
                 <GridViewRoundedIcon />{" "}
@@ -78,7 +93,7 @@ const Planning = ({ filterStatus }) => {
                 Supply Planning
               </Typography>
             </Box>{" "}
-            <Box className="pln-card-bd">
+            <Box className="pln-card-bd" onClick={handleSellinforecast}>
               <Box className="pln-cards-cnt">
                 <Typography fontSize={{ lg: 14, xs: 12 }}>
                   Forecast builder - Sell-In{" "}
@@ -98,9 +113,11 @@ const Planning = ({ filterStatus }) => {
             </Box>{" "}
             <Box className="pln-card-bd">
               <Box className="pln-cards-cnt">
-                <Typography fontSize={{ lg: 14, xs: 12 }}>
-                  SKU Prioritisation{" "}
-                </Typography>
+                <Badge badgeContent="Coming Soon" className="sku-badge">
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>
+                    SKU Prioritisation{" "}
+                  </Typography>
+                </Badge>
               </Box>
               <Box className="pln-cards-cnt">
                 <GridViewRoundedIcon />{" "}
@@ -118,9 +135,11 @@ const Planning = ({ filterStatus }) => {
             </Box>{" "}
             <Box className="pln-card-bd">
               <Box className="pln-cards-cnt">
-                <Typography fontSize={{ lg: 14, xs: 12 }} fontWeight={500}>
-                  Smart Stock Reallocation
-                </Typography>
+                <Badge badgeContent="Coming Soon" className="smartstock-badge">
+                  <Typography fontSize={{ lg: 14, xs: 12 }} fontWeight={500}>
+                    Smart Stock Reallocation
+                  </Typography>
+                </Badge>
               </Box>
               <Box className="pln-cards-cnt">
                 <GridViewRoundedIcon />{" "}

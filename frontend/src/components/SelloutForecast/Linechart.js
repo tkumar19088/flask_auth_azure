@@ -1,14 +1,14 @@
 import React from "react";
 import { Chart as ChartJS } from "chart.js/auto";
 import { Line } from "react-chartjs-2";
-import "./LineChart2.css";
+// import "./LineChart.css";
 
-const Linechart2 = () => {
+const Linechart = () => {
   const data1 = [
-    { name: "w1", value: 55 },
-    { name: "w2", value: 50 },
-    { name: "w3", value: 40 },
-    { name: "w4", value: 40 },
+    { name: "w1", value: 15 },
+    { name: "w2", value: 65 },
+    { name: "w3", value: 75 },
+    { name: "w4", value: 20 },
   ];
 
   const data2 = [
@@ -24,18 +24,10 @@ const Linechart2 = () => {
 
   const datasets = [
     {
-      label: "Order quantity for this SKU",
+      label: "Sell out forecast",
       data: values1,
       borderColor: "#F08C2A",
       backgroundColor: "#F08C2A",
-      fill: false,
-      tension: 0.3,
-    },
-    {
-      label: "Sell in forecast",
-      data: values2,
-      borderColor: "#FF007E",
-      backgroundColor: "#FF007E",
       fill: false,
       tension: 0.3,
     },
@@ -70,4 +62,4 @@ const Linechart2 = () => {
   );
 };
 
-export default Linechart2;
+export default Linechart;

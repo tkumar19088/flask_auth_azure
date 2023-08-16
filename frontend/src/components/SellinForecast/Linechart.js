@@ -1,9 +1,9 @@
 import React from "react";
 import { Chart as ChartJS } from "chart.js/auto";
 import { Line } from "react-chartjs-2";
-import "./LineChart2.css";
+// import "./LineChart.css";
 
-const Linechart2 = () => {
+const Linechart = () => {
   const data1 = [
     { name: "w1", value: 55 },
     { name: "w2", value: 50 },
@@ -23,14 +23,6 @@ const Linechart2 = () => {
   const values2 = data2.map((data) => data.value);
 
   const datasets = [
-    {
-      label: "Order quantity for this SKU",
-      data: values1,
-      borderColor: "#F08C2A",
-      backgroundColor: "#F08C2A",
-      fill: false,
-      tension: 0.3,
-    },
     {
       label: "Sell in forecast",
       data: values2,
@@ -70,4 +62,4 @@ const Linechart2 = () => {
   );
 };
 
-export default Linechart2;
+export default Linechart;

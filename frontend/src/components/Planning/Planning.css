@@ -16,7 +16,7 @@
   
 }
 .pln-card-bd:hover{
-  background-color: #ff007e;
+  /* background-color: #ff007e; */
   color: #fff;
 }
 .pln-cards-cnt{
@@ -40,7 +40,7 @@
 
 }
 .pln-card-bd22:hover{
-  background-color: #ff007e;
+  /* background-color: #ff007e; */
   color: #fff;
 }
 
@@ -57,7 +57,7 @@
 
 }
 .pln-card-bd42:hover {
-  background-color: #ff007e;
+  /* background-color: #ff007e; */
   color: #fff;
 }
 
@@ -79,7 +79,7 @@
 
 
 .pln-card-bd-L:hover{
-  background-color: #ff007e;
+  /* background-color: #ff007e; */
   color: #fff;
 
 }
@@ -109,13 +109,52 @@
  
 } */
 
-
+.market-badge .MuiBadge-badge {
+  transform: rotate(45deg); /* Rotate the badge */
+  margin-top: 31px !important;
+  margin-right: -103px !important;
+  background-color: #FF007F;
+  color: #fff;
+}
+.scenario-badge .MuiBadge-badge {
+  transform: rotate(45deg); /* Rotate the badge */
+  margin-top: 31px !important;
+  margin-right: -107px !important;
+  background-color: #FF007F;
+  color: #fff;
+}
+.sku-badge .MuiBadge-badge {
+  transform: rotate(45deg); /* Rotate the badge */
+  margin-top: 31px !important;
+  margin-right: -115px !important;
+  background-color: #FF007F;
+  color: #fff;
+}
+.smartstock-badge .MuiBadge-badge {
+  transform: rotate(45deg); /* Rotate the badge */
+  margin-top: 31px !important;
+  margin-right: -65px !important;
+  background-color: #FF007F;
+  color: #fff;
+}
+.systamatic-badge .MuiBadge-badge {
+  transform: rotate(45deg); /* Rotate the badge */
+  margin-top: 45px !important;
+  margin-right: -79px !important;
+  background-color: #FF007F;
+  color: #fff;
+}
 
 @media (width > 1023px) and (width < 1200px) {
     
 }
 @media (width > 1200px) and (width < 1440px) {
    
+  .pln-card-bd:hover{
+    /* background-color: #ff007e; */
+    /* background-color: #00A6A5 !important; */
+    color: #fff;
+  }
 }
 
 @media (width > 1439px) and (width < 1537px) {
@@ -129,4 +168,39 @@
   /* .spcl-marginbottom{
     margin-bottom: 50px !important;
   } */
+  .market-badge .MuiBadge-badge {
+    transform: rotate(45deg); /* Rotate the badge */
+    margin-top: 31px !important;
+    margin-right: -195px !important;
+    background-color: #FF007F;
+    color: #fff;
+  }
+  .scenario-badge .MuiBadge-badge {
+    transform: rotate(45deg); /* Rotate the badge */
+    margin-top: 31px !important;
+    margin-right: -198px !important;
+    background-color: #FF007F;
+    color: #fff;
+  }
+  .sku-badge .MuiBadge-badge {
+    transform: rotate(45deg); /* Rotate the badge */
+    margin-top: 31px !important;
+    margin-right: -204px !important;
+    background-color: #FF007F;
+    color: #fff;
+  }
+  .smartstock-badge .MuiBadge-badge {
+    transform: rotate(45deg); /* Rotate the badge */
+    margin-top: 31px !important;
+    margin-right: -156px !important;
+    background-color: #FF007F;
+    color: #fff;
+  }
+  .systamatic-badge .MuiBadge-badge {
+    transform: rotate(45deg); /* Rotate the badge */
+    margin-top: 45px !important;
+    margin-right: -172px !important;
+    background-color: #FF007F;
+    color: #fff;
+  }
 }

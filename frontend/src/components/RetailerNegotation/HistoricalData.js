@@ -100,7 +100,7 @@ const HistoricalData = () => {
           <Grid container justifyContent="space-between" mt={1}>
             <Box mx="1px">
               <Typography fontSize={24} color="#415A6C">
-                Irregular PO : PO no 123 : Airwick Electrical Lemon
+                Irregular PO : PO no 123 : Amazon, Airwick Electrical Lemon
               </Typography>
             </Box>
           </Grid>
@@ -199,7 +199,7 @@ const HistoricalData = () => {
                   fontSize={{ lg: 14, xs: 12 }}
                   className="scn-txt"
                 >
-                  Stock Allocation to Amazon
+                  Stock Allocation to Customer
                 </Typography>
                 <Typography
                   fontSize={{ lg: 18 }}

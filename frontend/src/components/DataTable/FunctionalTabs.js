@@ -12,6 +12,7 @@ import ExpectedServices from "./expectedServicesTable";
 import StockPosition from "./stockPositionTable";
 import RAG from "./ragTable";
 import OhrTable from "./ohrTable";
+import NewohrTable from "./NewohrTable";
 
 const FunctionalTabs = () => {
   const [activeTab, setActiveTab] = useState(0);

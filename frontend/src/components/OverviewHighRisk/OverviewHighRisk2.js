@@ -26,6 +26,11 @@ import FunctionalTabs from "../DataTable/FunctionalTabs";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import search from "../../images/search.png";
+import MultiLevelSelect from "../Option2";
+import NestedMenu from "../../Nestedmenu";
+import NestedMenu2 from "./Nestedmenu2";
+import "./OverviewHighRisk.css";
+import Filtersdropdown from "./Filtersdropdown";
 
 const OverviewHighRisk2 = () => {
   const Search = styled("div")(({ theme }) => ({
@@ -117,25 +122,19 @@ const OverviewHighRisk2 = () => {
               </Typography>
               <Typography fontSize={14}>Overview High-Risk SKUs</Typography>
             </Box>
-
-            <Box mt={-2}>
-              <Button variant="contained" size="small" className="btn-exp">
-                Export Data
-              </Button>
-            </Box>
           </Stack>
-          <Stack
+          <Stack className="ohr-stack"
             direction="row"
             // border="1px solid"
             justifyContent="space-between"
             alignItems="center"
             // p={1}
             // gap={2}
-            marginBlock={1}
+            // marginBlock={3}
             height={60}
           >
             <Typography
-              fontSize={28}
+              // fontSize={28}
               // mt={1}
               color="#415A6C"
               className="ohr-title"
@@ -144,79 +143,11 @@ const OverviewHighRisk2 = () => {
             </Typography>
 
             <Box
-              className="formcontrol-box"
-              sx={{ display: "flex", gap: "10px", marginLeft: "160px" }}
-              border=" "
-            >
-              <FormControl fullWidth>
-                <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                  <Typography
-                    fontSize={16}
-                    // mt={-1}
-                    className="filter-inside-title"
-                  >
-                    Customer
-                  </Typography>
-                </InputLabel>
-                <NativeSelect
-                  defaultValue={10}
-                  inputProps={{
-                    name: "Brand",
-                    id: "uncontrolled-native",
-                  }}
-                >
-                  <option value="Amazon">Amazon</option>
-                  <option value="Tesco">Tesco</option>
-                </NativeSelect>
-              </FormControl>
-              <FormControl fullWidth>
-                <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                  <Typography
-                    fontSize={16}
-                    // mt={-1}
-                    className="filter-inside-title"
-                  >
-                    Location
-                  </Typography>
-                </InputLabel>
-                <NativeSelect
-                  defaultValue={10}
-                  inputProps={{
-                    name: "Brand",
-                    id: "uncontrolled-native",
-                  }}
-                >
-                  <option value="United Kingdom">United Kingdom</option>
-                </NativeSelect>
-              </FormControl>
-              <FormControl fullWidth>
-                <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                  <Typography
-                    fontSize={16}
-                    // mt={-1}
-                    className="filter-inside-title"
-                  >
-                    Brand
-                  </Typography>
-                </InputLabel>
-                <NativeSelect
-                  defaultValue={10}
-                  inputProps={{
-                    name: "Brand",
-                    id: "uncontrolled-native",
-                  }}
-                >
-                  <option value="AirWick">AirWick</option>
-                  <option value="Durex">Durex</option>
-                </NativeSelect>
-              </FormControl>
-            </Box>
-
-            <Box
               textAlign="center"
               alignItems="center"
               justifyContent="center"
               display="flex"
+              className="search-align"
             >
               <Search
                 sx={{
@@ -234,6 +165,14 @@ const OverviewHighRisk2 = () => {
                 />{" "}
                 <img src={search} alt="search" className="search-icon" />
               </Search>
+            </Box>
+            <Box className="nestmenu-box">
+              <Filtersdropdown />
+            </Box>
+            <Box mt={-2}>
+              <Button variant="contained" size="small" className="btn-exp">
+                Export Data
+              </Button>
             </Box>
           </Stack>
           <FunctionalTabs />

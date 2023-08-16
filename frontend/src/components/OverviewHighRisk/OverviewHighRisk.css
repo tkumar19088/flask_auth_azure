@@ -95,6 +95,7 @@ table {
       padding: 30px !important;
       /* height: 1380px !important ; */
      }
+     
      .btn-exp{
       height: 30px !important;
       justify-content: center;
@@ -103,6 +104,9 @@ table {
       display: flex !important;
      }
 
+     .ohr-title{
+      font-size: 1.522rem !important;
+     }
      .css-7mt4h1-MuiInputBase-root .MuiInputBase-input{
           width: 10ch !important;
      }
@@ -112,12 +116,28 @@ table {
 
      
     .css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input.css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input.css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input {
-         padding-right: 65px !important;
+         padding-right: 90px !important;
       }
       .btn-exp{
         background-color: #415A6C !important;
 
+
       }
+      .formcontrol-box{
+        margin-left: -80px !important;
+        margin-top: -12px !important;
+      }
+      .search-align{
+        margin-left: 10px !important;
+      }
+      .css-eiibem-MuiTableCell-root {
+
+        /* margin-bottom: auto !important; */
+        border-bottom: none !important;
+  }
+  .css-15wwp11-MuiTableHead-root {
+    background: #415A6C !important;
+   }
   }
  
   @media (width > 1919px) {
@@ -126,8 +146,12 @@ table {
      /* padding: 30px !important; */
      /* height: 1380px !important ; */
     }
+    .ohr-stack{
+      margin-block: 25px !important;
+    }
     .ohr-title{
       font-size: 2.4rem !important;
+      margin-top: 20px !important;
     }
     .css-7mt4h1-MuiInputBase-root .MuiInputBase-input{
       width: 19ch !important;
@@ -137,7 +161,7 @@ table {
  }
 
     .formcontrol-box{
-      margin-left: -30px !important;
+      margin-left: -80px !important;
       margin-top: -12px !important;
     }
     .css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input.css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input.css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input {
@@ -145,12 +169,72 @@ table {
    }
 
    .btn-exp{
-    font-size: 16px !important;
+    font-size: 22px !important;
     background-color: #415A6C !important;
-    margin-top: 5px !important;
+    margin-top: 20px !important;
    }
 
    .filter-inside-title{
     font-size: 23px !important;
    }
+   .search-align{
+    margin-left: 450px !important;
+    margin-top: 8px !important;
+  }
+  .nestmenu-box{
+    margin-left: 3px !important;
+  }
+  .nestedbtn-filters{
+    background-color: #415A6C !important;
+    color: white !important;
+    font-size: 20px !important;
+    border-radius: 5px ;
+    width: 150px !important;
+    height: 47px !important;
+    margin-top: 5px !important;
+    /* padding: 9px !important; */
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex!important;
+    /* font-size: 18px !important; */
+  }
+  .nestfilter-title{
+    /* font-size: 2rem !important; */
+  }
+  .css-jh47zj-MuiButtonBase-root-MuiButton-root {
+    font-size: 23px !important;
+    margin-top: 6px !important;
+    background-color: #415A6C !important;
+    height: 47px !important;
+  }
+
+  .mainMenu {
+    font-size: 23px !important;
+  }
+
+  .css-7mt4h1-MuiInputBase-root .MuiInputBase-input {
+    width: 12ch;
+    font-size: 21px;
+    margin-top: -3px;
+    padding-left: 24px !important;
+  }
+  .search-icon {
+    width: 28px;
+    height: 28px;
+    align-items: center;
+    margin-right: 14px;
+    margin-top: 8px;
  }
+
+ .css-eiibem-MuiTableCell-root {
+
+       /* margin-bottom: auto !important; */
+       border-bottom: none !important;
+ }
+
+ .css-15wwp11-MuiTableHead-root {
+  background:  #415A6C !important;
+ }
+
+}

@@ -162,7 +162,7 @@ const StockPositionWeek = ({ onData }) => {
               <TableCell>Description</TableCell>
               <TableCell>RR Segment</TableCell>
               <TableCell>Initial SOH Week </TableCell>
-              <TableCell>
+              <TableCell sx={{ textAlign: "center" }}>
                 <div>CW</div>
                 <div>({startingWeek})</div>
               </TableCell>

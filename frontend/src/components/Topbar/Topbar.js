@@ -21,7 +21,7 @@ import { useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
 
 import { Button, Menu, MenuItem } from "@mui/material";
-import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const Topbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -40,6 +40,9 @@ const Topbar = () => {
     // Navigate to another URL
     navigate("/");
   };
+
+  const handleLogout = () => {};
+
   const Search = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
@@ -143,7 +146,13 @@ const Topbar = () => {
                 onClick={handleMenuClose}
                 className="profile-logout-title"
               >
-                <Button startIcon={<LogoutIcon/>} size="small">Logout</Button>
+                <Button
+                  onClick={handleLogout}
+                  startIcon={<LogoutIcon />}
+                  size="small"
+                >
+                  Logout
+                </Button>
               </MenuItem>
             </Menu>
           </Box>

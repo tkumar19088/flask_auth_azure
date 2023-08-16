@@ -32,6 +32,11 @@ function Calendar() {
 
   const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+  const handleTodayClick = () => {
+    setSelectedDate(now);
+    setCurrentWeekStart(startOfWeek(now));
+  };
+
   React.useEffect(() => {
     setSelectedDate(now);
   }, []);
@@ -77,8 +82,10 @@ function Calendar() {
               padding: "4px 17px",
               textAlign: "center",
               color: "#000",
+              cursor: "pointer",
             }}
             fontWeight={600}
+            onClick={handleTodayClick}
           >
             Today
           </Typography>

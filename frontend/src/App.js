@@ -23,6 +23,13 @@ import DashboardNew from "./components/Dashboard/DashboardNew";
 import OverviewHighRisk2 from "./components/OverviewHighRisk/OverviewHighRisk2";
 import MaterialUITabs from "./components/TabsMaterialui";
 import SampleTable from "./sampleTable";
+import MultiLevelMultiSelect from "./components/Options";
+import MultiLevelSelect from "./components/Option2";
+import NestedMenu from "./Nestedmenu";
+import Commingsoon from "./Commingsoon";
+import StockReallocation from "./components/StockReallocation/StockReallocation";
+import Sellinforecast from "./components/SellinForecast/Sellinforecast";
+import Selloutforecast from "./components/SelloutForecast/Selloutforecast";
 
 const App = () => {
   return (
@@ -40,6 +47,8 @@ const App = () => {
           <Route path="/scenariogeneration" element={<ScenarioGeneration />} />
           <Route path="/expandabletable" element={<ExpandableTable />} />
           <Route path="/irregularpo" element={<Irregularpo />} />
+          <Route path="/sellinforecast" element={<Sellinforecast />} />
+          <Route path="/selloutforecast" element={<Selloutforecast />} />
           <Route
             path="/orderinvestigationairwick"
             element={<Orderinvestigationairwick />}
@@ -58,6 +67,14 @@ const App = () => {
           <Route path="/overviewhighrisk2" element={<OverviewHighRisk2 />} />
           <Route path="/materialuitabs" element={<MaterialUITabs />} />
           <Route path="/sampletable" element={<SampleTable />} />
+          <Route
+            path="/multilevelmultiselect"
+            element={<MultiLevelMultiSelect />}
+          />
+          <Route path="/multilevelselect" element={<MultiLevelSelect />} />
+          <Route path="/nestedmenu" element={<NestedMenu />} />
+          <Route path="/commingsoon" element={<Commingsoon />} />
+          <Route path="/stockreallocation" element={<StockReallocation />} />
         </Routes>
       </div>
     </Router>

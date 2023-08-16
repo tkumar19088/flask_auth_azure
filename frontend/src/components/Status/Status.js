@@ -19,7 +19,7 @@ const Status = ({ filterStatus }) => {
       <div className="status">
         <div>
           <Typography fontSize={{ lg: 28, xs: 24 }} color="#415A6C">
-            Current Status / Alert Section
+            Current Status / Alerts Section
           </Typography>
         </div>
         <div className="btn-alert">
@@ -30,10 +30,13 @@ const Status = ({ filterStatus }) => {
         </div>
       </div>
 
-      <Grid container
-       spacing={{ md: 2, lg: 3, xl: 5 }}
-      // spacing={2}
-        mt="-20px" border="">
+      <Grid
+        container
+        spacing={{ md: 2, lg: 3, xl: 5 }}
+        // spacing={2}
+        mt="-20px"
+        border=""
+      >
         <Grid
           item
           xs={4}

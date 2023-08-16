@@ -1,0 +1,9 @@
+
+  .vertical-badge .MuiBadge-badge {
+    transform: rotate(45deg); /* Rotate the badge */
+    margin-top: 33px;
+    margin-right:-35px;
+    background-color: #FF007F;
+    color: #fff;
+  }
+  

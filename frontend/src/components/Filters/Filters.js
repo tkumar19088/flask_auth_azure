@@ -131,8 +131,8 @@ const Filters = () => {
                     id: "uncontrolled-native",
                   }}
                 >
-                  <option value="AirWick">Health</option>
-                  <option value="Durex">Hygeine</option>
+                  <option value="Health">Health</option>
+                  <option value="Hygeine">Hygeine</option>
                   <option value="Nutrition">Nutrition</option>
                 </NativeSelect>
               </FormControl>

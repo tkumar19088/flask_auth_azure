@@ -12,7 +12,7 @@ const Welcome = () => {
           Welcome
         </Typography>
         <Typography fontSize={{ lg: 42, xs: 36 }} mx="10px" lineHeight="40px">
-          Long name example
+          Kumar, Pavan (Contractor)
         </Typography>
       </Grid>
       <Grid item xs={5}>

@@ -23,7 +23,28 @@ const CustomTable = () => {
           <TableCell>Subheader 3</TableCell>
         </TableRow>
       </TableHead>
-      <TableBody>{/* Table body rows */}</TableBody>
+      <TableBody>
+        <TableRow>
+          <TableCell>adasdasd</TableCell>
+          <TableCell>adasdasd</TableCell>
+          <TableCell>adasdasd</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>adasdasd</TableCell>
+          <TableCell>adasdasd</TableCell>
+          <TableCell>adasdasd</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>adasdasd</TableCell>
+          <TableCell>adasdasd</TableCell>
+          <TableCell>adasdasd</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>adasdasd</TableCell>
+          <TableCell>adasdasd</TableCell>
+          <TableCell>adasdasd</TableCell>
+        </TableRow>
+      </TableBody>
     </Table>
   );
 };

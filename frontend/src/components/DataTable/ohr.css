@@ -109,7 +109,16 @@
 .merged-cell {
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 2; /* Make sure this is higher than the z-index of table cells in the body */
+  text-align: center;
+  background-color: #e0e0e0;
+  font-weight: bold;
+  vertical-align: middle;
+  width: 100px !important; /* Adjust the width as needed */
+}
+
+.css-1dixqta-MuiTableCell-root {
+  padding: 0px !important;
 }
 
 
@@ -143,6 +152,11 @@
         line-height: 1.0rem !important;
       }
 
+      .css-1q1u3t4-MuiTableRow-root {
+        background-color: #E5EBEF
+    
+      }
+
       .ms-grid{
         /* padding: 16px 16px!important ; */
         /* width:250px; */
@@ -153,8 +167,20 @@
         cursor: pointer;
         /* font-size: 20px !important; */
       }
+      
+      .css-1ys3pbw-MuiTableCell-root {
+        padding: 0px !important;
+        /* height: 10px !important; */
+        background-color: #E5EBEF !important;
+        /* width: 10px !important; */
+      }
+      /* .t-row{
+        background-color: red !important;
+      } */
 
+      .tabletitle-crc{
 
+      }
 }
 
 @media (width > 1919px) {
@@ -171,4 +197,84 @@
     cursor: pointer;
     /* font-size: 20px !important; */
   }
+
+  .table-h1-title{
+    font-size: 0.96rem !important;
+    /* margin-left: 0px !important; */
+  }
+  .tabletitle-ola{
+    font-size: 1.3rem !important;
+     margin-left: 10px !important;
+  }
+  .sorting-ola{
+    /* margin-left: 30px !important; */
+  }
+  .sorting-h1-title{
+    /* margin-top: 4px !important; */
+  }
+
+  .css-1ys3pbw-MuiTableCell-root {
+    padding: 0px !important;
+  }
+  .css-1q1u3t4-MuiTableRow-root {
+    background-color: #E5EBEF
+
+  }
+  /* .tablecell-inside{
+    background-color: #E5EBEF !important;
+  } */
+  .tablecell-header{
+    /* background-color: red !important; */
+   }
+
+   .mini-table{
+    width: 1538px !important;
+   }
+
+   .ms-grid{
+    /* padding: 16px 16px!important ; */
+    width:250px;
+    /* border: 1px solid; */
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    /* font-size: 20px !important; */
+  }
+
+  .redirect-badge .MuiBadge-badge {
+    transform: rotate(45deg); /* Rotate the badge */
+    margin-top: 31px !important;
+    margin-right: -100px !important;
+    background-color: #FF007F;
+    color: #fff;
+  }
+  .retailer-badge .MuiBadge-badge {
+    transform: rotate(45deg); /* Rotate the badge */
+    margin-top: 31px !important;
+    margin-right: -50px !important;
+    background-color: #FF007F;
+    color: #fff;
+  }
+
+
+  tr:nth-child(odd) {
+    background-color: #E5EBEF
+  }
+
+/* .pushalternative-header{
+  width:250px !important;
+  border: 1px solid green !important;
+} */
+
+
+
+
+
+
+
 }
+
+
+
+

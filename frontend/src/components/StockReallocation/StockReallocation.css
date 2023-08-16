@@ -1,0 +1,262 @@
+.ani{
+
+}
+
+@media (width > 1200px) and (width < 1440px) {
+    .bread-crumb{
+        margin-top: -20px !important;
+        margin-bottom: 10px !important;
+       }
+    .safilter-title{
+        /* font: 64px/60px 'Open Sans', sans-serif; */
+        font-size: 16px !important;
+        border-radius: 5px;
+        background-color: #415A6C;
+        color: white;
+        width: 120px;
+        justify-content: center;
+        text-align: center;
+        /* margin: auto!important ; */
+        margin-block: 5px !important;
+    }
+    .safilter-minititle{
+        font-size: 22px !important;
+        color: #415A6C;
+        font-weight: 500 !important;
+        margin-block: 10px !important;
+    
+    }
+    tr:nth-child(odd) {
+        height: 65px !important;
+    }
+
+    .sr-h1{
+        width: 75px !important;
+        /* line-height: 13px !important; */
+    }
+
+    .css-y8ay40-MuiTableCell-root {
+        /* font-size: 0.72rem  !important; */
+        /* font-size: 8px; */
+        /* font-weight: 100 !important; */
+        /* line-height: 16px; */
+    }
+    .css-1ex1afd-MuiTableCell-root {
+        padding: 0px !important;
+        text-align: center !important;
+        font-size: 0.7rem !important;
+    }
+    
+.sa-box{
+    /* background-color: red !important; */
+    width: 160px !important;
+    height: 55px !important;
+    background-color: white;
+    border-radius: 5px!important;
+    text-align: center !important;
+    align-items: center;
+    display: block;
+    align-self: center !important;
+    justify-content: center !important;
+    
+   
+
+
+}
+.sa-h1{
+    font-size: 14px !important;
+    margin-top: 5px !important;
+}
+.sa-h2{
+    font-size: 14px !important;
+}
+.sa-boxbtn{
+    margin-top: 23px;
+    width: 170px !important;
+    height: 28px !important;
+    /* padding: 4px !important; */
+    font-size: 12px;
+    /* background-color: palevioletred !important; */
+    text-align: center !important;
+    align-items: center;
+    display: flex;
+    align-self: center !important;
+    justify-content: center !important;
+    border-radius: 5px;
+    background-color: #415A6C;
+    color: #F5F6F8;
+    border: 1.2px solid #415A6C;
+    cursor: pointer;
+}
+.btn-refresh{
+    size: 10px !important;
+    font-size: 16px !important;
+    margin-left: 5px !important;
+    margin-top: 3px;
+}
+.btn-download{
+    size: 10px !important;
+    font-size: 16px !important;
+    margin-left: 8px !important;
+    margin-top: 3px;
+}
+.btn-submit{
+    size: 10px !important;
+    font-size: 16px !important;
+    margin-left: 10px !important;
+    margin-top: 2px;
+}
+
+}
+
+@media (width > 1919px) {
+    .srbr-h1{
+        /* margin-top: 10px !important; */
+    }
+    .srbr-btns{
+        background-color: #415A6C !important;
+        height: 45px !important;
+
+    }
+    .srbr-btnswithin{
+        background-color: #FF007F !important;
+        height: 45px !important;
+    }
+    .css-y8ay40-MuiTableCell-root {
+        font-size: 1.029rem  !important;
+        font-weight: 100 !important;
+        /* line-height: 16px; */
+    }
+ .safilter-title{
+    font-size: 26px !important;
+    border-radius: 5px;
+    background-color: #415A6C;
+    color: white;
+    width: 170px;
+    justify-content: center;
+    text-align: center;
+} 
+/* .filter-minititle{
+    font-size: 28px !important;
+    color: #415A6C;
+    font-weight: 500 !important;
+    margin-top: 10px !important;
+
+} */
+
+.bg-container{
+    background-color: #F5F6F8;
+    padding: 40px !important;
+    /* height: 1380px !important ; */
+   }
+
+   .bread-crumb{
+    margin-top: -20px !important;
+    margin-bottom: 10px !important;
+   }
+
+   .sr-h11{
+    font-size: 18px !important;
+    width: 120px !important;
+    /* line-height: 16px; */
+   }
+   .sr-supplyrealocate1{
+    font-size: 18px !important;
+   }
+   .css-1ex1afd-MuiTableCell-root {
+      text-align: center !important;
+      width: 20px !important;
+   }
+
+   
+
+tr:nth-child(odd) {
+    height: 80px !important;
+}
+/* .css-y8ay40-MuiTableCell-root {
+    font-size: 1.20rem  !important;
+    font-weight: 600 !important;
+} */
+
+.sa-title{
+    font-size: 32px !important;
+}
+
+.sa-stack{
+    display: flex   !important;
+    justify-self: center !important;
+    align-self: center !important;
+    /* justify-content: center !important; */
+    align-items: center !important;
+
+}
+
+.sa-box{
+    width: 210px !important;
+    height: 75px !important;
+    background-color: white;
+    /* padding: 10px !important; */
+    border-radius: 5px!important;
+    /* padding-left:10px !important ; */
+    /* margin: auto; */
+    text-align: center !important;
+    align-items: center;
+    display: block;
+    align-self: center !important;
+    justify-content: center !important;
+    
+   
+
+
+}
+.sa-h1{
+    font-size: 18px !important;
+    margin-top: 10px !important;
+}
+.sa-h2{
+    font-size: 18px !important;
+}
+.sa-boxbtn{
+    margin-top: 25px;
+    width: 240px !important;
+    height: 40px !important;
+    font-size: 18px;
+    /* background-color: palevioletred !important; */
+    text-align: center !important;
+    align-items: center;
+    display: flex;
+    align-self: center !important;
+    justify-content: center !important;
+    border-radius: 5px;
+    color: #415A6C;
+    border: 1.2px solid #415A6C;
+}
+
+.btn-refresh{
+    size: 10px !important;
+    font-size: 26px !important;
+    margin-left: 5px !important;
+    margin-top: 3px;
+}
+.btn-download{
+    size: 10px !important;
+    font-size: 26px !important;
+    margin-left: 8px !important;
+    margin-top: 0px;
+}
+.btn-submit{
+    size: 10px !important;
+    font-size: 26px !important;
+    margin-left: 10px !important;
+    margin-top: 2px;
+}
+
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+    height: 1.2375em !important;
+}
+
+
+.css-15wwp11-MuiTableHead-root {
+    height: 105px !important
+}
+}

@@ -164,7 +164,7 @@ const Sidebar = ({ filterStatus }) => {
       {/* logout........... */}
       <div
         className="logs-out"
-        style={{ position: "absolute", left: 14, bottom: 10 }}
+        style={{ position: "absolute", left: 14, bottom: 10,cursor:"pointer" }}
       >
         <img src={Log} alt="logout" className="logout-icon" />
         <Typography>Log out</Typography>

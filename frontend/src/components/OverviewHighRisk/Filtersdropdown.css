@@ -1,0 +1,37 @@
+.MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 css-1906fj0-MuiGrid-root {
+    display: block !important;
+}
+
+
+
+/* .css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input:not([multiple]) option,
+ .css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input:not([multiple]) optgroup ::after{
+    background-color: red !important;
+} */
+
+@media (width > 1919px) {
+
+    .css-6hp17o-MuiList-root-MuiMenu-list {
+        list-style: none;
+        margin: 0px;
+        padding: 0;
+        position: relative;
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+     
+
+}
+
+.filter-downbox{
+    /* margin-top: 40px !important; */
+}
+
+.filter-dropdown{
+    min-width: 270px !important;
+}
+
+.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper{
+    /* margin-top: 95px !important; */
+}
+
+}

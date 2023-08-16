@@ -408,23 +408,23 @@ const Irregularpo = () => {
               }}
             >
               <TableCell>
-                <Typography ml="8px" fontSize="13px">
+                <Typography ml="8px" fontSize="13px" textAlign="left">
                   {item.skuname}
                 </Typography>
               </TableCell>
               <TableCell>
-                <Typography ml="8px" fontSize="13px">
+                <Typography ml="8px" fontSize="13px" textAlign="left">
                   {item.skucode}
                 </Typography>
               </TableCell>
 
               <TableCell>
-                <Typography ml="28%" fontSize="13px">
+                <Typography ml="28%" fontSize="13px" textAlign="left">
                   {item.quantityOrdered}
                 </Typography>
               </TableCell>
               <TableCell>
-                <Typography ml="28%" fontSize="13px">
+                <Typography ml="28%" fontSize="13px" textAlign="left">
                   {item.quantityForcasted}
                 </Typography>
               </TableCell>
@@ -433,14 +433,14 @@ const Irregularpo = () => {
                   ml="10px"
                   sx={{
                     color: "#F08C2A",
-                    // textAlign: "center",
+                    textAlign: "left",
                     fontSize: "13px",
                   }}
                 >
                   {item.percentageDescrepency}
                 </Typography>
               </TableCell>
-              <TableCell sx={{ color: "#F08C2A", textAlign: "center" }}>
+              <TableCell sx={{ color: "#F08C2A", textAlign: "left" }}>
                 <Box
                   // ml="-10px"
                   sx={{
