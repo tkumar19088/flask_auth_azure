@@ -27,7 +27,7 @@ function Dashboard() {
         <Grid item xs={2}>
           <Sidebar filterStatus={handleFilterStatus} />
         </Grid>
-        <Grid item xs={10} p={2} className="bg-containerdashboard">
+        <Grid item xs={10}  className="bg-containerdashboard">
           <Welcome />
           <Status filterStatus={handleFilterStatus} />
           <Planning filterStatus={handleFilterStatus} />

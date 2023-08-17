@@ -179,16 +179,3 @@ const Filters = () => {
 };
 
 export default Filters;
-
-<Grid
-  item
-  xs={3}
-  //  onClick={handleNavigateOverviewHighRisk}
->
-  <Box className="btn-fltr">
-    <Typography color="#fff" className="btn-">
-      {" "}
-      Low Stock on hand (10)
-    </Typography>
-  </Box>
-</Grid>;

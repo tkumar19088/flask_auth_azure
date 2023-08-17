@@ -1,14 +1,12 @@
 .sidebar-main{
-    /* max-height: 920px; */
+    /* max-height: 990px; */
 }
 
 
-/* .container{
-    background-color: #F5F6F8;
-} */
+
  .bg-containerdashboard{
     background-color: #F5F6F8;
-    padding: 30px !important;
+    /* padding: 30px !important; */
     
    } 
 
@@ -26,10 +24,10 @@
     
 }
 @media (width > 1919px) {
-   .bg-containerdashboard{
+   .bg-containerdashboard {
     background-color: #F5F6F8;
-    padding: 40px !important;
-    height: 1000px !important ;
+    padding: 30px !important;
+    height: 889px !important ;
     /* height: 100% !important; */
    }
 }

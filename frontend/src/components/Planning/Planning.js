@@ -41,8 +41,8 @@ const Planning = ({ filterStatus }) => {
                 <GridViewRoundedIcon />
               </Box>
             </Box>
-            <Box className="pln-card-bd">
-              <Box className="pln-cards-cnt">
+            <Box className="pln-card-bd12">
+              <Box className="pln-cards-cnt hover-none">
                 <Badge badgeContent="Coming Soon" className="market-badge">
                   <Typography fontSize={{ lg: 14, xs: 12 }}>
                     Market Price Match
@@ -60,7 +60,7 @@ const Planning = ({ filterStatus }) => {
                 Demand Scenarios
               </Typography>
             </Box>{" "}
-            <Box className="pln-card-bd">
+            <Box className="pln-card-bd21">
               <Box className="pln-cards-cnt">
                 <Badge badgeContent="Coming Soon" className="scenario-badge">
                   <Typography fontSize={{ lg: 14, xs: 12 }}>
@@ -72,12 +72,11 @@ const Planning = ({ filterStatus }) => {
                 <GridViewRoundedIcon />{" "}
               </Box>
             </Box>{" "}
-            <Box className="pln-card-bd">
-              <Box className="pln-cards-cnt" height="20px">
+            <Box className="pln-card-bd222">
+              <Box className="pln-cards-cnt">
                 <Badge badgeContent="Coming Soon" className="systamatic-badge">
                   <Typography fontSize={{ lg: 14, xs: 12 }}>
-                    Systamatic data-driven
-                    <br /> forecast validation
+                    Systamatic data-driven forecast validation
                   </Typography>
                 </Badge>
               </Box>
@@ -85,6 +84,7 @@ const Planning = ({ filterStatus }) => {
                 <GridViewRoundedIcon />{" "}
               </Box>
             </Box>{" "}
+            
           </Grid>
 
           <Grid item xs={3}>
@@ -111,7 +111,7 @@ const Planning = ({ filterStatus }) => {
                 Distribution Planning
               </Typography>
             </Box>{" "}
-            <Box className="pln-card-bd">
+            <Box className="pln-card-bd41">
               <Box className="pln-cards-cnt">
                 <Badge badgeContent="Coming Soon" className="sku-badge">
                   <Typography fontSize={{ lg: 14, xs: 12 }}>
@@ -133,7 +133,7 @@ const Planning = ({ filterStatus }) => {
                 <GridViewRoundedIcon />{" "}
               </Box>
             </Box>{" "}
-            <Box className="pln-card-bd">
+            <Box className="pln-card-bd43">
               <Box className="pln-cards-cnt">
                 <Badge badgeContent="Coming Soon" className="smartstock-badge">
                   <Typography fontSize={{ lg: 14, xs: 12 }} fontWeight={500}>

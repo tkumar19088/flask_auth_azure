@@ -4,28 +4,17 @@ import { Line } from "react-chartjs-2";
 // import "./LineChart.css";
 
 const Linechart = () => {
-  const data1 = [
-    { name: "w1", value: 15 },
-    { name: "w2", value: 65 },
-    { name: "w3", value: 75 },
-    { name: "w4", value: 20 },
+  const data = [
+    { name: "week1", value: 55 },
+    { name: "week2", value: 50 },
+    { name: "week3", value: 40 },
+    { name: "week4", value: 40 },
   ];
-
-  const data2 = [
-    { name: "w1", value: 15 },
-    { name: "w2", value: 65 },
-    { name: "w3", value: 75 },
-    { name: "w4", value: 20 },
-  ];
-
-  const labels = data1.map((data) => data.name);
-  const values1 = data1.map((data) => data.value);
-  const values2 = data2.map((data) => data.value);
 
   const datasets = [
     {
       label: "Sell out forecast",
-      data: values1,
+      data: data.map((data) => data.value),
       borderColor: "#F08C2A",
       backgroundColor: "#F08C2A",
       fill: false,
@@ -34,7 +23,7 @@ const Linechart = () => {
   ];
 
   const chartData = {
-    labels: labels,
+    labels: data.map((data) => data.name),
     datasets: datasets,
   };
 
@@ -44,13 +33,39 @@ const Linechart = () => {
       x: {
         grid: {
           color: "rgba(0, 0, 0, 0.1)",
+          borderWidth: 1,
+        },
+        title: {
+          display: true,
+          text: "Weeks",
+          font: {
+            size: 18, // Adjust the font size as needed
+          },
+        },
+        ticks: {
+          font: {
+            size: 14, // Adjust the font size for the tick labels
+          },
         },
       },
       y: {
         grid: {
           color: "rgba(0, 0, 0, 0.1)",
+          borderWidth: 1,
         },
         beginAtZero: true,
+        title: {
+          display: true,
+          text: "Sell-Out Forecast",
+          font: {
+            size: 18, // Adjust the font size as needed
+          },
+        },
+        ticks: {
+          font: {
+            size: 15, // Adjust the font size for the tick labels
+          },
+        },
       },
     },
   };

@@ -243,16 +243,12 @@
   }
 
   .redirect-badge .MuiBadge-badge {
-    transform: rotate(45deg); /* Rotate the badge */
-    margin-top: 31px !important;
-    margin-right: -100px !important;
+    margin-right: -55px !important;
     background-color: #FF007F;
     color: #fff;
   }
   .retailer-badge .MuiBadge-badge {
-    transform: rotate(45deg); /* Rotate the badge */
-    margin-top: 31px !important;
-    margin-right: -50px !important;
+    margin-right: -3px !important;
     background-color: #FF007F;
     color: #fff;
   }

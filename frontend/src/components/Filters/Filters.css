@@ -57,7 +57,10 @@
 
   @media (width > 1919px) {
     
-   
+    .filter-main{
+      margin-top: -55px;
+
+    }
     .filter-title{
       font-size: 2.125rem !important;
     }
@@ -84,11 +87,15 @@
 
 
     .btn-fltr{
-      padding: 8px 20px;
+      padding: 5px 10px;
     }
 
     .btn-filter-title{
       /* background-color: rebeccapurple; */
-      font-size: 1.2rem !important;
+      font-size: 16px !important;
     }
+  }
+
+  .ani{
+    
   }

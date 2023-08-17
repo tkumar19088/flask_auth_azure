@@ -477,15 +477,7 @@ const Irregularpo = () => {
         <Grid item xs={2}>
           <Sidebar />
         </Grid>
-        <Grid
-          item
-          xs={10}
-          p={3}
-          sx={{
-            backgroundColor: "#F5F6F8",
-            Height: 870,
-          }}
-        >
+        <Grid item xs={10} className="bg-containerdashboard">
           <div>
             <Box display="flex" fontSize={14} mx="1px">
               <Box mt="1px">

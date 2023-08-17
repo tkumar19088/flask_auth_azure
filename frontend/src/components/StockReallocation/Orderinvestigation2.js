@@ -17,7 +17,8 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import SaveIcon from "@mui/icons-material/Save";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
-import PublishIcon from "@mui/icons-material/Publish";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import DownloadIcon from "@mui/icons-material/Download";
 
 import { useNavigate } from "react-router-dom";
 
@@ -237,7 +238,11 @@ const Orderinvestigation2 = () => {
               </Typography>
               <Typography>
                 <InfoOutlinedIcon
-                  sx={{ height: "28px", marginTop: { lg: "2px", xs: "1px" } ,marginLeft:"8px"}}
+                  sx={{
+                    height: "28px",
+                    marginTop: { lg: "2px", xs: "1px" },
+                    marginLeft: "8px",
+                  }}
                 />
               </Typography>
             </Box>
@@ -346,11 +351,12 @@ const Orderinvestigation2 = () => {
         </Grid>
       </Grid>
       <Grid mt="2%">
-        <Typography fontSize={20} mt="5px" color="#145A6C" mx="3px">
+        <Typography fontSize={28} mt="5px" color="#145A6C" mx="3px">
           Results
         </Typography>
 
         <Stack
+          mt="-20px"
           direction="row"
           //   backgroundColor="red"
           height="120px"
@@ -379,14 +385,17 @@ const Orderinvestigation2 = () => {
             </Typography>
           </Box>
           <Box className="sa-boxbtn">
-            Refesh Suggested Supply <RefreshIcon className="btn-refresh" />
+            Refesh <RefreshIcon className="btn-refresh" />
           </Box>
           <Box className="sa-boxbtn">
             Download this Scenario{" "}
             <DownloadForOfflineIcon className="btn-download" />
           </Box>
           <Box className="sa-boxbtn">
-            Submit <PublishIcon className="btn-submit" />
+            Submit <DownloadIcon className="btn-submit" />
+          </Box>
+          <Box className="sa-boxbtn">
+            Cancel <HighlightOffIcon className="btn-submit" />
           </Box>
         </Stack>
       </Grid>

@@ -22,6 +22,7 @@
     margin-left: 15px;
 }
 
+
 @media (width > 1023px) and (width < 1200px) {
     .react-tabs__tab {
         bottom: 2px;
@@ -101,9 +102,7 @@
         bottom: 2px;
         padding: 8px 35.3px;
         font-size: 1.399rem !important;
-        /* background-color: pink; */
     }
-
     .css-y8ay40-MuiTableCell-root {
         background-color: #E5EBEF !important;
         color: #415A6C !important;

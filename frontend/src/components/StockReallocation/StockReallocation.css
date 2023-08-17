@@ -218,7 +218,7 @@ tr:nth-child(odd) {
 }
 .sa-boxbtn{
     margin-top: 25px;
-    width: 240px !important;
+    width: 200px !important;
     height: 40px !important;
     font-size: 18px;
     /* background-color: palevioletred !important; */
@@ -228,8 +228,10 @@ tr:nth-child(odd) {
     align-self: center !important;
     justify-content: center !important;
     border-radius: 5px;
-    color: #415A6C;
+    background-color: #415A6C;
+    color: white;
     border: 1.2px solid #415A6C;
+    line-height: 16px;
 }
 
 .btn-refresh{
@@ -241,8 +243,9 @@ tr:nth-child(odd) {
 .btn-download{
     size: 10px !important;
     font-size: 26px !important;
-    margin-left: 8px !important;
+    /* margin-left: -11px !important; */
     margin-top: 0px;
+    margin-right: 10px;
 }
 .btn-submit{
     size: 10px !important;
