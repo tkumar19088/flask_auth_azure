@@ -30,6 +30,7 @@ import Commingsoon from "./Commingsoon";
 import StockReallocation from "./components/StockReallocation/StockReallocation";
 import Sellinforecast from "./components/SellinForecast/Sellinforecast";
 import Selloutforecast from "./components/SelloutForecast/Selloutforecast";
+import Newsidebar from "./Newsidebar";
 
 const App = () => {
   return (
@@ -75,6 +76,7 @@ const App = () => {
           <Route path="/nestedmenu" element={<NestedMenu />} />
           <Route path="/commingsoon" element={<Commingsoon />} />
           <Route path="/stockreallocation" element={<StockReallocation />} />
+          <Route path="/newsidebar" element={<Newsidebar />} />
         </Routes>
       </div>
     </Router>

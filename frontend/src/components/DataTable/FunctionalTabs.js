@@ -24,14 +24,70 @@ const FunctionalTabs = () => {
   return (
     <Tabs selectedIndex={activeTab} onSelect={handleTabChange}>
       <TabList>
-        <Tab style={{ border: "1px solid #E5EBEF" }}>OHR</Tab>
-        <Tab style={{ border: "1px solid #E5EBEF" }}>Supply</Tab>
-        <Tab style={{ border: "1px solid #E5EBEF" }}>Demand</Tab>
-        <Tab style={{ border: "1px solid #E5EBEF" }}>Expctd SOH at EOW</Tab>
-        <Tab style={{ border: "1px solid #E5EBEF" }}>WOC at EOW</Tab>
-        <Tab style={{ border: "1px solid #E5EBEF" }}>Case shortages</Tab>
-        <Tab style={{ border: "1px solid #E5EBEF" }}>Expected Services</Tab>
-        <Tab style={{ border: "1px solid #E5EBEF" }}>Stock Position</Tab>
+        <Tab
+          style={{
+            border: "1px solid #E5EBEF",
+            color: activeTab === 0 ? "white" : "#415A6C",
+          }}
+        >
+          Overview
+        </Tab>
+        <Tab
+          style={{
+            border: "1px solid #E5EBEF",
+            color: activeTab === 1 ? "white" : "#415A6C",
+          }}
+        >
+          Supply
+        </Tab>
+        <Tab
+          style={{
+            border: "1px solid #E5EBEF",
+            color: activeTab === 2 ? "white" : "#415A6C",
+          }}
+        >
+          Demand
+        </Tab>
+        <Tab
+          style={{
+            border: "1px solid #E5EBEF",
+            color: activeTab === 3 ? "white" : "#415A6C",
+          }}
+        >
+          Expctd SOH at EOW
+        </Tab>
+        <Tab
+          style={{
+            border: "1px solid #E5EBEF",
+            color: activeTab === 4 ? "white" : "#415A6C",
+          }}
+        >
+          WOC at EOW
+        </Tab>
+        <Tab
+          style={{
+            border: "1px solid #E5EBEF",
+            color: activeTab === 5 ? "white" : "#415A6C",
+          }}
+        >
+          Case Shortages
+        </Tab>
+        <Tab
+          style={{
+            border: "1px solid #E5EBEF",
+            color: activeTab === 6 ? "white" : "#415A6C",
+          }}
+        >
+          Expected Services
+        </Tab>
+        <Tab
+          style={{
+            border: "1px solid #E5EBEF",
+            color: activeTab === 7 ? "white" : "#415A6C",
+          }}
+        >
+          Stock Position
+        </Tab>
       </TabList>
 
       <TabPanel>

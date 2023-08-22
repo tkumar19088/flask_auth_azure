@@ -56,10 +56,11 @@ const OhrTable = ({ onData }) => {
 
   const [data, setData] = useState([
     {
-      rbsku: "010613",
+      rbsku: "010612",
       description: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       woc: "743",
+      activepromo: "Yes",
       olacw: "84%",
       olacw1: "84%",
       olacw2: "84%",
@@ -72,13 +73,14 @@ const OhrTable = ({ onData }) => {
       ragcw1: "R",
       ragcw2: "A",
       ragcw3: "G",
+      reasoncode: "E0",
       comments: "Soft change to 3234328",
       campaugns: [
         {
           campaignanme: "Airwick special",
           startdate: "12/05/2023",
           enddate: "31/08/2023",
-          skufocused: "Yes",
+          skufocused: "Clubcard- CC Air freshener",
           activestatus: "Active",
           retailersinvolved: "Tesco",
           retailerinventory: "250",
@@ -89,7 +91,119 @@ const OhrTable = ({ onData }) => {
           campaignanme: "Airwick special",
           startdate: "12/05/2023",
           enddate: "31/08/2023",
-          skufocused: "Yes",
+          skufocused: "Clubcard- Was 9.25 Now 6.00",
+          activestatus: "Active",
+          retailersinvolved: "Tesco",
+          retailerinventory: "250",
+          rbwherehouseinventory: "1000",
+          requestdeactivation: "No",
+        },
+      ],
+      pushAlternativeTable: [
+        {
+          recomscore: "96%",
+          title: "Airwick Electric Strawberry",
+          sku: "1236467867",
+          activecamp: "Active",
+          stockavailblerb: "1,345",
+          stockavailableamz: "234",
+          sellinforecast: "234",
+          selloutforecast: "100",
+          wocestimation: "100",
+          olaupliftestimation: "100",
+          costestimation: "500",
+          select: "Yes",
+        },
+        {
+          recomscore: "96%",
+          title: "Airwick Electric Strawberry",
+          sku: "1236467867",
+          activecamp: "Active",
+          stockavailblerb: "1,345",
+          stockavailableamz: "234",
+          sellinforecast: "234",
+          selloutforecast: "100",
+          wocestimation: "100",
+          olaupliftestimation: "100",
+          costestimation: "500",
+          select: "Yes",
+        },
+      ],
+
+      details: [
+        {
+          skuname: "Airwick",
+          skucode: "23434534693dlf",
+          timeframe: 4,
+          netrevenue: "£12,246.43",
+          expectedola: "84%",
+          servicelevel: "60",
+          expectednetrevenue: "(£5,749.00)",
+          bestseller: "High",
+          risk: "10",
+          checkbox: false,
+          costtoserve: "(£903.00)",
+          reviewed: "No",
+          quantityOrdered: "300",
+          quantityForcasted: "500",
+          percentageDescrepency: "-63.64%",
+        },
+        {
+          skuname: "Airwick",
+          skucode: "23434534693dlf",
+          timeframe: 4,
+          netrevenue: "£12,246.43",
+          expectedola: "84%",
+          servicelevel: "60",
+          expectednetrevenue: "(£5,749.00)",
+          bestseller: "High",
+          risk: "10",
+          checkbox: false,
+          costtoserve: "(£903.00)",
+          reviewed: "No",
+          quantityOrdered: "300",
+          quantityForcasted: "500",
+          percentageDescrepency: "-63.64%",
+        },
+      ],
+    },
+    {
+      rbsku: "010613",
+      description: "AWICK,IE,STICK UP LAVX12",
+      rrsegment: "Adhesives (Air Care)",
+      woc: "743",
+      activepromo: "Yes",
+      olacw: "84%",
+      olacw1: "84%",
+      olacw2: "84%",
+      olacw3: "84%",
+      exptnetrevcw: "£100",
+      exptnetrevcw1: "£100",
+      exptnetrevcw2: "£100",
+      exptnetrevcw3: "£100",
+      ragcw: "G",
+      ragcw1: "R",
+      ragcw2: "A",
+      ragcw3: "G",
+      reasoncode: "E0",
+      comments: "Soft change to 3234328",
+      campaugns: [
+        {
+          campaignanme: "Airwick special",
+          startdate: "12/05/2023",
+          enddate: "31/08/2023",
+          skufocused: "Clubcard- CC Air freshener",
+          activestatus: "Active",
+          retailersinvolved: "Tesco",
+          retailerinventory: "250",
+          rbwherehouseinventory: "1000",
+          requestdeactivation: "No",
+        },
+        {
+          campaignanme: "Airwick special",
+          startdate: "12/05/2023",
+          enddate: "31/08/2023",
+          skufocused: "Clubcard- Was 9.25 Now 6.00",
           activestatus: "Active",
           retailersinvolved: "Tesco",
           retailerinventory: "250",
@@ -170,6 +284,7 @@ const OhrTable = ({ onData }) => {
       description: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       woc: "743",
+      activepromo: "No",
       olacw: "84%",
       olacw1: "84%",
       olacw2: "84%",
@@ -182,6 +297,7 @@ const OhrTable = ({ onData }) => {
       ragcw1: "R",
       ragcw2: "A",
       ragcw3: "G",
+      reasoncode: "E0",
       comments: "Soft change to 3234328",
       campaugns: [
         {
@@ -280,6 +396,7 @@ const OhrTable = ({ onData }) => {
       description: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       woc: "743",
+      activepromo: "Yes",
       olacw: "84%",
       olacw1: "84%",
       olacw2: "84%",
@@ -292,6 +409,7 @@ const OhrTable = ({ onData }) => {
       ragcw1: "R",
       ragcw2: "A",
       ragcw3: "G",
+      reasoncode: "E0",
       comments: "Soft change to 3234328",
       campaugns: [
         {
@@ -390,6 +508,7 @@ const OhrTable = ({ onData }) => {
       description: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       woc: "743",
+      activepromo: "No",
       olacw: "84%",
       olacw1: "84%",
       olacw2: "84%",
@@ -402,6 +521,7 @@ const OhrTable = ({ onData }) => {
       ragcw1: "R",
       ragcw2: "A",
       ragcw3: "G",
+      reasoncode: "E0",
       comments: "Soft change to 3234328",
       campaugns: [
         {
@@ -500,6 +620,7 @@ const OhrTable = ({ onData }) => {
       description: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       woc: "743",
+      activepromo: "Yes",
       olacw: "84%",
       olacw1: "84%",
       olacw2: "84%",
@@ -512,6 +633,231 @@ const OhrTable = ({ onData }) => {
       ragcw1: "R",
       ragcw2: "A",
       ragcw3: "G",
+      reasoncode: "E0",
+      comments: "Soft change to 3234328",
+      campaugns: [
+        {
+          campaignanme: "Airwick special",
+          startdate: "12/05/2023",
+          enddate: "31/08/2023",
+          skufocused: "Yes",
+          activestatus: "Active",
+          retailersinvolved: "Tesco",
+          retailerinventory: "250",
+          rbwherehouseinventory: "1000",
+          requestdeactivation: "No",
+        },
+        {
+          campaignanme: "Airwick special",
+          startdate: "12/05/2023",
+          enddate: "31/08/2023",
+          skufocused: "Yes",
+          activestatus: "Active",
+          retailersinvolved: "Tesco",
+          retailerinventory: "250",
+          rbwherehouseinventory: "1000",
+          requestdeactivation: "No",
+        },
+      ],
+      pushAlternativeTable: [
+        {
+          recomscore: "96%",
+          title: "Airwick Electric Strawberry",
+          sku: "1236467867",
+          activecamp: "Active",
+          stockavailblerb: "1,345",
+          stockavailableamz: "234",
+          sellinforecast: "234",
+          selloutforecast: "100",
+          wocestimation: "100",
+          olaupliftestimation: "100",
+          costestimation: "500",
+          select: "Yes",
+        },
+        {
+          recomscore: "96%",
+          title: "Airwick Electric Strawberry",
+          sku: "1236467867",
+          activecamp: "Active",
+          stockavailblerb: "1,345",
+          stockavailableamz: "234",
+          sellinforecast: "234",
+          selloutforecast: "100",
+          wocestimation: "100",
+          olaupliftestimation: "100",
+          costestimation: "500",
+          select: "Yes",
+        },
+      ],
+
+      details: [
+        {
+          skuname: "Airwick",
+          skucode: "23434534693dlf",
+          timeframe: 4,
+          netrevenue: "£12,246.43",
+          expectedola: "84%",
+          servicelevel: "60",
+          expectednetrevenue: "(£5,749.00)",
+          bestseller: "High",
+          risk: "10",
+          checkbox: false,
+          costtoserve: "(£903.00)",
+          reviewed: "No",
+          quantityOrdered: "300",
+          quantityForcasted: "500",
+          percentageDescrepency: "-63.64%",
+        },
+        {
+          skuname: "Airwick",
+          skucode: "23434534693dlf",
+          timeframe: 4,
+          netrevenue: "£12,246.43",
+          expectedola: "84%",
+          servicelevel: "60",
+          expectednetrevenue: "(£5,749.00)",
+          bestseller: "High",
+          risk: "10",
+          checkbox: false,
+          costtoserve: "(£903.00)",
+          reviewed: "No",
+          quantityOrdered: "300",
+          quantityForcasted: "500",
+          percentageDescrepency: "-63.64%",
+        },
+      ],
+    },
+    {
+      rbsku: "010619",
+      description: "AWICK,IE,STICK UP LAVX12",
+      rrsegment: "Adhesives (Air Care)",
+      woc: "743",
+      activepromo: "Yes",
+      olacw: "84%",
+      olacw1: "84%",
+      olacw2: "84%",
+      olacw3: "84%",
+      exptnetrevcw: "£100",
+      exptnetrevcw1: "£100",
+      exptnetrevcw2: "£100",
+      exptnetrevcw3: "£100",
+      ragcw: "G",
+      ragcw1: "R",
+      ragcw2: "A",
+      ragcw3: "G",
+      reasoncode: "E0",
+      comments: "Soft change to 3234328",
+      campaugns: [
+        {
+          campaignanme: "Airwick special",
+          startdate: "12/05/2023",
+          enddate: "31/08/2023",
+          skufocused: "Yes",
+          activestatus: "Active",
+          retailersinvolved: "Tesco",
+          retailerinventory: "250",
+          rbwherehouseinventory: "1000",
+          requestdeactivation: "No",
+        },
+        {
+          campaignanme: "Airwick special",
+          startdate: "12/05/2023",
+          enddate: "31/08/2023",
+          skufocused: "Yes",
+          activestatus: "Active",
+          retailersinvolved: "Tesco",
+          retailerinventory: "250",
+          rbwherehouseinventory: "1000",
+          requestdeactivation: "No",
+        },
+      ],
+      pushAlternativeTable: [
+        {
+          recomscore: "96%",
+          title: "Airwick Electric Strawberry",
+          sku: "1236467867",
+          activecamp: "Active",
+          stockavailblerb: "1,345",
+          stockavailableamz: "234",
+          sellinforecast: "234",
+          selloutforecast: "100",
+          wocestimation: "100",
+          olaupliftestimation: "100",
+          costestimation: "500",
+          select: "Yes",
+        },
+        {
+          recomscore: "96%",
+          title: "Airwick Electric Strawberry",
+          sku: "1236467867",
+          activecamp: "Active",
+          stockavailblerb: "1,345",
+          stockavailableamz: "234",
+          sellinforecast: "234",
+          selloutforecast: "100",
+          wocestimation: "100",
+          olaupliftestimation: "100",
+          costestimation: "500",
+          select: "Yes",
+        },
+      ],
+
+      details: [
+        {
+          skuname: "Airwick",
+          skucode: "23434534693dlf",
+          timeframe: 4,
+          netrevenue: "£12,246.43",
+          expectedola: "84%",
+          servicelevel: "60",
+          expectednetrevenue: "(£5,749.00)",
+          bestseller: "High",
+          risk: "10",
+          checkbox: false,
+          costtoserve: "(£903.00)",
+          reviewed: "No",
+          quantityOrdered: "300",
+          quantityForcasted: "500",
+          percentageDescrepency: "-63.64%",
+        },
+        {
+          skuname: "Airwick",
+          skucode: "23434534693dlf",
+          timeframe: 4,
+          netrevenue: "£12,246.43",
+          expectedola: "84%",
+          servicelevel: "60",
+          expectednetrevenue: "(£5,749.00)",
+          bestseller: "High",
+          risk: "10",
+          checkbox: false,
+          costtoserve: "(£903.00)",
+          reviewed: "No",
+          quantityOrdered: "300",
+          quantityForcasted: "500",
+          percentageDescrepency: "-63.64%",
+        },
+      ],
+    },
+    {
+      rbsku: "010620",
+      description: "AWICK,IE,STICK UP LAVX12",
+      rrsegment: "Adhesives (Air Care)",
+      woc: "743",
+      activepromo: "Yes",
+      olacw: "84%",
+      olacw1: "84%",
+      olacw2: "84%",
+      olacw3: "84%",
+      exptnetrevcw: "£100",
+      exptnetrevcw1: "£100",
+      exptnetrevcw2: "£100",
+      exptnetrevcw3: "£100",
+      ragcw: "G",
+      ragcw1: "R",
+      ragcw2: "A",
+      ragcw3: "G",
+      reasoncode: "E0",
       comments: "Soft change to 3234328",
       campaugns: [
         {
@@ -640,40 +986,67 @@ const OhrTable = ({ onData }) => {
   };
 
   const SubTable = ({ details }) => (
-    <div style={{ marginTop: "-18px" }} className="mini-table">
+    <div style={{ marginTop: "-18px", padding: "10px" }} className="mini-table">
       <Typography
         fontSize={20}
-        my={1}
+        my={2}
         color="#415A6C"
         className="ms-title"
         style={{
           textAlign: "left",
         }}
       >
-        Recent / current / Upcoming Campagins
+        Recent / Current / Upcoming Campaigns
       </Typography>
 
       <TableContainer component={Paper} className="tablecell-header">
-        <Table>
+        <Table className="campaignsTable">
           <TableHead>
             <TableRow className="tablecell-inside">
-              <TableCell>Campaign Name</TableCell>
-              <TableCell sx={{ textAlign: "center" }}>Start Date</TableCell>
-              <TableCell sx={{ textAlign: "center" }}>End Date</TableCell>
-              <TableCell sx={{ textAlign: "center" }}>SKU focused?</TableCell>
-              <TableCell sx={{ textAlign: "center" }}>
-                Active/Not Active
+              <TableCell
+                sx={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+                border="1px solid #dddddd"
+              >
+                Campaign Name
               </TableCell>
-              <TableCell sx={{ textAlign: "center" }}>
-                Active/Not Active
+              <TableCell
+                sx={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+              >
+                Start Date
               </TableCell>
-              <TableCell sx={{ textAlign: "center" }}>
-                Retailer Inventory
+              <TableCell
+                sx={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+              >
+                End Date
               </TableCell>
-              <TableCell sx={{ textAlign: "center" }}>
-                RB warehouse inventory
+              <TableCell
+                sx={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+              >
+                Offer Description
               </TableCell>
-              <TableCell sx={{ textAlign: "center" }}>
+              <TableCell
+                sx={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+              >
+                Status
+              </TableCell>
+              <TableCell
+                sx={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+              >
+                Customer
+              </TableCell>
+              <TableCell
+                sx={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+              >
+                Customer Inventory
+              </TableCell>
+              <TableCell
+                sx={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+              >
+                Customer Allocation
+              </TableCell>
+              <TableCell
+                sx={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+              >
                 Request Deactivation
               </TableCell>
             </TableRow>
@@ -729,110 +1102,177 @@ const OhrTable = ({ onData }) => {
       <Stack
         direction="row"
         justifyContent="space-between"
-        my={3}
         backgroundColor="#E5EBEF"
-        // p={4}
+        className="choosems-stack"
+        // my={2}
       >
-        <Typography
-          fontSize={16}
-          // mx={-2}
-          // my={3}
-          color="#415A6C"
-          className="ms-title"
-        >
+        <Typography color="#415A6C" className="ms-title">
           Choose a Mitigation Strategy
         </Typography>
-        <Box
-          className="ms-grid"
-          bgcolor="green"
-          color="white"
-          onClick={handlePushAlternative}
-        >
-          <Typography fontSize={20}>Push Alternative</Typography>
-        </Box>
-        <Box
-          className="ms-grid"
-          bgcolor="red"
-          color="white"
-          onClick={handleReallocate}
-        >
-          <Typography fontSize={20}>Reallocate</Typography>
-        </Box>
-        <Box className="ms-grid" bgcolor="white">
-          <Badge badgeContent="Coming Soon" className="redirect-badge">
-            <Typography fontSize={20}>Redirect</Typography>
-          </Badge>
-        </Box>
-        <Box className="ms-grid" bgcolor="white">
-          <Badge badgeContent="Coming Soon" className="retailer-badge">
-            <Typography fontSize={20}>Retailer Negotiation</Typography>
-          </Badge>
+        <Box display="flex" className="ms-buttons">
+          <Box
+            className="ms-grid"
+            bgcolor="#57a957"
+            color="white"
+            borderRadius="50px"
+            onClick={handlePushAlternative}
+          >
+            <Typography className="ms-gridtitle">Push Alternative</Typography>
+          </Box>
+          <Box
+            className="ms-grid"
+            bgcolor="#f44444"
+            color="white"
+            borderRadius="50px"
+            onClick={handleReallocate}
+          >
+            <Typography className="ms-gridtitle">Reallocate</Typography>
+          </Box>
+          <Box
+            className="ms-grid"
+            bgcolor="#b6acac"
+            color="white"
+            borderRadius="50px"
+          >
+            <Badge badgeContent="Coming Soon" className="redirect-badge">
+              <Typography className="ms-gridtitle">Redirect</Typography>
+            </Badge>
+          </Box>
+          <Box
+            className="ms-grid"
+            bgcolor="#b6acac"
+            color="white"
+            borderRadius="50px"
+          >
+            <Badge badgeContent="Coming Soon" className="retailer-badge">
+              <Typography className="ms-gridtitle">
+                Retailer Negotiation
+              </Typography>
+            </Badge>
+          </Box>
         </Box>
       </Stack>
     </div>
   );
 
   const PushAlternativeTable = ({ details }) => (
-    <div style={{ marginTop: "-18px" }}>
+    <div>
       <TableContainer component={Paper} className="tablecell-header">
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell sx={{ border: "", width: "60px" }}>
+              <TableCell
+                sx={{ border: "", width: "60px", border: "1px solid #dcdcdc" }}
+              >
                 Recom.Score
               </TableCell>
               <TableCell
-                sx={{ border: "", width: "60px", textAlign: "center" }}
+                sx={{
+                  border: "",
+                  width: "60px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                }}
               >
                 Title
               </TableCell>
               <TableCell
-                sx={{ border: "", width: "60px", textAlign: "center" }}
+                sx={{
+                  border: "",
+                  width: "60px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                }}
               >
                 SKU
               </TableCell>
               <TableCell
-                sx={{ border: "", width: "60px", textAlign: "center" }}
+                sx={{
+                  border: "",
+                  width: "60px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                }}
               >
                 Active Camplaigns
               </TableCell>
               <TableCell
-                sx={{ border: "", width: "60px", textAlign: "center" }}
+                sx={{
+                  border: "",
+                  width: "60px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                }}
               >
                 Stock Available RB
               </TableCell>
               <TableCell
-                sx={{ border: "", width: "60px", textAlign: "center" }}
+                sx={{
+                  border: "",
+                  width: "60px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                }}
               >
                 Stock Available AMZ
               </TableCell>
               <TableCell
-                sx={{ border: "", width: "60px", textAlign: "center" }}
+                sx={{
+                  border: "",
+                  width: "60px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                }}
               >
                 Sell-in forecast
               </TableCell>
               <TableCell
-                sx={{ border: "", width: "60px", textAlign: "center" }}
+                sx={{
+                  border: "",
+                  width: "60px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                }}
               >
                 Sell-out forecast
               </TableCell>
               <TableCell
-                sx={{ border: "", width: "60px", textAlign: "center" }}
+                sx={{
+                  border: "",
+                  width: "60px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                }}
               >
                 Customer Woc
               </TableCell>
               <TableCell
-                sx={{ border: "", width: "60px", textAlign: "center" }}
+                sx={{
+                  border: "",
+                  width: "60px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                }}
               >
                 OLA Uplift estimation
               </TableCell>
               <TableCell
-                sx={{ border: "", width: "60px", textAlign: "center" }}
+                sx={{
+                  border: "",
+                  width: "60px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                }}
               >
                 Cost estimation
               </TableCell>
               <TableCell
-                sx={{ border: "", width: "60px", textAlign: "center" }}
+                sx={{
+                  border: "",
+                  width: "60px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                }}
               >
                 Select
               </TableCell>
@@ -920,33 +1360,29 @@ const OhrTable = ({ onData }) => {
 
   return (
     <div style={{ border: "" }}>
-      <TableContainer style={{ maxHeight: 530, width: "100%" }}>
+      <TableContainer style={{ maxHeight: 642, width: "100%" }}>
         <Table>
           <TableHead className="t-head">
             <TableRow className="tablerow-title">
               <TableCell
                 rowSpan={2}
                 sx={{
-                  // backgroundColor: "red",
-                  // cursor: "pointer",
                   backgroundColor: "#E5EBEF",
-                  // height: "20px",
+                  border: "1px solid #dcdcdc",
                 }}
-                onClick={() => handleSort("skuname")}
               >
                 <Box
-                  className="bdr-sku"
                   sx={{
+                    // border: "1px solid",
                     display: "flex",
+                    width: "90px",
                     textAlign: "center",
-                    color: "#415A6C",
-                    width: "110px",
-                    // height:"40px"
-                    // marginLeft: "-20px",
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
-                  <Box className="sorting-h1-title">
-                    <Box mt="5px">
+                  <Box color="#415A6C">
+                    <Box mt="8px">
                       <ArrowDropUpIcon
                         style={{ height: "28px", width: "28px" }}
                       />
@@ -957,204 +1393,103 @@ const OhrTable = ({ onData }) => {
                       />
                     </Box>
                   </Box>
-                  <Box textAlign="center">
-                    <Typography
-                      fontSize={14}
-                      mt="12px"
-                      className="table-h1-title"
-                    >
-                      RB SKU
-                    </Typography>
+                  <Box textAlign="center" className="table-h1-title">
+                    RB SKU
                   </Box>
                 </Box>
               </TableCell>
               <TableCell
                 rowSpan={2}
-                onClick={() => handleSort("skucode")}
-                sx={{ backgroundColor: "#E5EBEF" }}
+                sx={{
+                  backgroundColor: "#E5EBEF",
+                  border: "1px solid #dcdcdc",
+                }}
               >
-                <Box
-                  className="bdr-skucode"
-                  sx={{
-                    display: "flex",
-                    textAlign: "center",
-                    color: "#415A6C",
-                  }}
-                >
-                  <Box className="sorting-h1-title">
-                    <Box mt="5px">
-                      <ArrowDropUpIcon
-                        style={{ height: "28px", width: "28px" }}
-                      />
-                    </Box>
-                    <Box mt="-28px">
-                      <ArrowDropDownIcon
-                        style={{ height: "28px", width: "28px" }}
-                      />
-                    </Box>
-                  </Box>
-                  <Box textAlign="center">
-                    <Typography
-                      fontSize={14}
-                      mt="12px"
-                      className="table-h1-title"
-                    >
-                      Description
-                    </Typography>
-                  </Box>
-                </Box>
+                <Typography className="table-h1-title">Description</Typography>
               </TableCell>
               <TableCell
                 rowSpan={2}
-                onClick={() => handleSort("skucode")}
-                sx={{ backgroundColor: "#E5EBEF" }}
+                sx={{
+                  backgroundColor: "#E5EBEF",
+                  border: "1px solid #dcdcdc",
+                }}
               >
-                <Box
-                  className="bdr-skucode"
-                  sx={{
-                    display: "flex",
-                    textAlign: "center",
-                    color: "#415A6C",
-                  }}
-                >
-                  <Box className="sorting-h1-title">
-                    <Box mt="5px">
-                      <ArrowDropUpIcon
-                        style={{ height: "28px", width: "28px" }}
-                      />
-                    </Box>
-                    <Box mt="-28px">
-                      <ArrowDropDownIcon
-                        style={{ height: "28px", width: "28px" }}
-                      />
-                    </Box>
-                  </Box>
-                  <Box textAlign="center">
-                    <Typography
-                      fontSize={14}
-                      mt="12px"
-                      className="table-h1-title"
-                      lineHeight="16px"
-                      // width={120}
-                    >
-                      RR Segment
-                    </Typography>
-                  </Box>
-                </Box>
+                <Typography className="table-h1-title">Brand</Typography>
               </TableCell>
 
               <TableCell
                 rowSpan={2}
-                onClick={() => handleSort("")}
-                sx={{ textAlign: "center", backgroundColor: "#E5EBEF" }}
-              >
-                <Box className="bdr-timeframe">
-                  <Typography
-                    className="table-h1-title"
-                    lineHeight="16px"
-                    sx={{ fontSize: "14px", color: "#415A6C" }}
-                  >
-                    WOC
-                  </Typography>
-                </Box>
-              </TableCell>
-              <TableCell
-                colSpan={4}
-                onClick={() => handleSort("servicelevel")}
                 sx={{
                   backgroundColor: "#E5EBEF",
-                  // border: "1px solid",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  alignSelf: "center",
-                  // display: "flex",
+                  border: "1px solid #dcdcdc",
                 }}
-                // border="1px solid"
               >
-                <Box
-                  className="bdr-netrevenue centered-content"
-                  sx={{
-                    display: "flex",
-                    textAlign: "center",
-                    color: "#415A6C",
-                    // width: "110px",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Box mx="-7px" className="sorting-ola">
-                    <Box mt="5px">
-                      <ArrowDropUpIcon
-                        style={{ height: "28px", width: "28px" }}
-                      />
-                    </Box>
-                    <Box mt="-28px">
-                      <ArrowDropDownIcon
-                        style={{ height: "28px", width: "28px" }}
-                      />
-                    </Box>
-                  </Box>
-                  <Box textAlign="center" mt="14px">
-                    <Typography
-                      fontSize={18}
-                      lineHeight="16px"
-                      // className="tabletitle-ola"
-                    >
-                      OLA %
-                    </Typography>
-                  </Box>
-                </Box>
+                <Typography className="table-h1-title">WOC</Typography>
+              </TableCell>
+              <TableCell
+                rowSpan={2}
+                sx={{
+                  backgroundColor: "#E5EBEF",
+                  border: "1px solid #dcdcdc",
+                }}
+              >
+                <Typography width="60px" className="table-h1-title">
+                  Active Promo ?
+                </Typography>
+              </TableCell>
+
+              <TableCell
+                colSpan={4}
+                sx={{
+                  backgroundColor: "#E5EBEF",
+                  border: "1px solid #dcdcdc",
+                }}
+              >
+                <Typography className="table-h1-title">OLA %</Typography>
               </TableCell>
               <TableCell
                 colSpan={4}
-                onClick={() => handleSort("expectednetrevenue")}
                 sx={{
-                  color: "#415A6C",
-                  textAlign: "center",
                   backgroundColor: "#E5EBEF",
-                  // borderRight: "0.1px solid red",
+                  border: "1px solid #dcdcdc",
                 }}
               >
                 <Box
                   className="bdr-exptnetrevenue"
                   textAlign="center"
-                  mt="14px"
+                  // mt="3px"
                 >
-                  <Typography fontSize={18} lineHeight="16px">
+                  <Typography className="table-h1-title" lineHeight="16px">
                     Expected Net Revenue
                   </Typography>
                 </Box>
               </TableCell>
               <TableCell
                 colSpan={4}
-                onClick={() => handleSort("expectednetrevenue")}
                 sx={{
-                  color: "#415A6C",
-                  textAlign: "center",
                   backgroundColor: "#E5EBEF",
-                  borderLeft: "1px solid rgba(224, 224, 224, 1)",
+                  border: "1px solid #dcdcdc",
                 }}
               >
-                <Box className="bdr-exptnetrevenue">
-                  <Typography
-                    className="table-h1-title"
-                    sx={{
-                      fontSize: "14px",
-                      textAlign: "center",
-                      marginLeft: "-2px",
-                      lineHeight: "16px",
-                    }}
-                  >
-                    RAG
-                  </Typography>
-                </Box>
+                <Typography className="table-h1-title">RAG</Typography>
               </TableCell>
               <TableCell
                 rowSpan={2}
-                onClick={() => handleSort("expectednetrevenue")}
                 sx={{
-                  color: "#415A6C",
-                  textAlign: "center",
                   backgroundColor: "#E5EBEF",
+                  border: "1px solid #dcdcdc",
+                }}
+              >
+                <Typography className="table-h1-title">
+                  Reason <br />
+                  Code
+                </Typography>
+              </TableCell>
+              <TableCell
+                rowSpan={2}
+                sx={{
+                  backgroundColor: "#E5EBEF",
+                  border: "1px solid #dcdcdc",
                 }}
               >
                 <Box className="bdr-exptnetrevenue">
@@ -1174,44 +1509,57 @@ const OhrTable = ({ onData }) => {
               </TableCell>
             </TableRow>
             <TableRow className="t-row">
-              <TableCell>
-                CW <div className="brack-number">({startingWeek + 0})</div>
+              <TableCell sx={{ textAlign: "center", color: "#415A6C" }}>
+                <Typography className="cw"> CW </Typography>
+                <div className="brack-number">({startingWeek + 0})</div>
               </TableCell>
-              <TableCell>
+              <TableCell sx={{ border: "1px solid #dcdcdc", color: "#415A6C" }}>
                 CW+1
                 <div className="brack-number">({startingWeek + 1})</div>
               </TableCell>
-              <TableCell>
+              <TableCell sx={{ border: "1px solid #dcdcdc", color: "#415A6C" }}>
                 CW+2
                 <div className="brack-number">({startingWeek + 2})</div>
               </TableCell>
-              <TableCell>
-                CW+3 <div className="brack-number">({startingWeek + 3})</div>
-              </TableCell>
-              <TableCell>
-                CW <div className="brack-number">({startingWeek + 0})</div>
-              </TableCell>
-              <TableCell>
-                CW+1 <div className="brack-number">({startingWeek + 1})</div>
-              </TableCell>
-              <TableCell>
-                CW+2 <div className="brack-number">({startingWeek + 2})</div>
-              </TableCell>
-              <TableCell>
+              <TableCell sx={{ border: "1px solid #dcdcdc", color: "#415A6C" }}>
                 CW+3 <div className="brack-number">({startingWeek + 3})</div>
               </TableCell>
               <TableCell
-                sx={{ borderLeft: "1px solid rgba(224, 224, 224, 1)" }}
+                sx={{
+                  borderLeft: "1px solid rgba(224, 224, 224, 1)",
+                  textAlign: "center",
+                  color: "#415A6C",
+                }}
               >
-                CW <div className="brack-number">({startingWeek + 0})</div>
+                <Typography className="cw"> CW </Typography>
+                <div className="brack-number">({startingWeek + 0})</div>
               </TableCell>
-              <TableCell>
+              <TableCell sx={{ border: "1px solid #dcdcdc", color: "#415A6C" }}>
                 CW+1 <div className="brack-number">({startingWeek + 1})</div>
               </TableCell>
-              <TableCell>
+              <TableCell sx={{ border: "1px solid #dcdcdc", color: "#415A6C" }}>
                 CW+2 <div className="brack-number">({startingWeek + 2})</div>
               </TableCell>
-              <TableCell>
+              <TableCell sx={{ border: "1px solid #dcdcdc", color: "#415A6C" }}>
+                CW+3 <div className="brack-number">({startingWeek + 3})</div>
+              </TableCell>
+              <TableCell
+                sx={{
+                  borderLeft: "1px solid rgba(224, 224, 224, 1)",
+                  textAlign: "center",
+                  color: "#415A6C",
+                }}
+              >
+                <Typography className="cw"> CW </Typography>
+                <div className="brack-number">({startingWeek + 0})</div>
+              </TableCell>
+              <TableCell sx={{ border: "1px solid #dcdcdc", color: "#415A6C" }}>
+                CW+1 <div className="brack-number">({startingWeek + 1})</div>
+              </TableCell>
+              <TableCell sx={{ border: "1px solid #dcdcdc", color: "#415A6C" }}>
+                CW+2 <div className="brack-number">({startingWeek + 2})</div>
+              </TableCell>
+              <TableCell sx={{ border: "1px solid #dcdcdc", color: "#415A6C" }}>
                 CW+3 <div className="brack-number">({startingWeek + 3})</div>
               </TableCell>
             </TableRow>
@@ -1225,6 +1573,7 @@ const OhrTable = ({ onData }) => {
                   // className={item.checkbox ? "checked-row" : ""}
                   style={{
                     backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
+                    border: "1px solid #dcdcdc",
                   }}
                 >
                   <TableCell
@@ -1293,6 +1642,11 @@ const OhrTable = ({ onData }) => {
                       {item.woc}
                     </Typography>
                   </TableCell>
+                  <TableCell
+                    sx={{ textAlign: "center", padding: "16px 16px 16px 27px" }}
+                  >
+                    <Typography width="40px">{item.activepromo}</Typography>
+                  </TableCell>
                   <TableCell>
                     <Typography
                       mx="10px"
@@ -1347,8 +1701,9 @@ const OhrTable = ({ onData }) => {
                   </TableCell>
                   <TableCell>
                     <Typography
-                      mx="10px"
+                      // mx="30px"
                       sx={{
+                        marginLeft: "20px",
                         color: "#fff",
                         textAlign: "center",
                         fontSize: "13px",
@@ -1357,9 +1712,9 @@ const OhrTable = ({ onData }) => {
                         height: "25px",
                         backgroundColor:
                           item.ragcw == "G"
-                            ? "green"
+                            ? "#57a957"
                             : item.ragcw == "R"
-                            ? "red"
+                            ? "#F44444"
                             : "orange",
                         display: "flex",
                         justifyContent: "center",
@@ -1372,17 +1727,19 @@ const OhrTable = ({ onData }) => {
                   </TableCell>
                   <TableCell>
                     <Typography
-                      mx="6px"
+                      // mx="6px"
                       sx={{
+                        marginLeft: "20px",
+
                         fontSize: "13px",
                         color: "#fff",
                         width: "30px",
                         height: "25px",
                         backgroundColor:
                           item.ragcw1 == "G"
-                            ? "green"
+                            ? "#57a957"
                             : item.ragcw1 == "R"
-                            ? "red"
+                            ? "#F44444"
                             : "orange",
                         display: "flex",
                         justifyContent: "center",
@@ -1395,17 +1752,18 @@ const OhrTable = ({ onData }) => {
                   </TableCell>
                   <TableCell>
                     <Typography
-                      mx="6px"
+                      // mx="6px"
                       sx={{
+                        marginLeft: "20px",
                         fontSize: "13px",
                         color: "#fff",
                         width: "30px",
                         height: "25px",
                         backgroundColor:
                           item.ragcw2 == "G"
-                            ? "green"
+                            ? "#57a957"
                             : item.ragcw2 == "R"
-                            ? "red"
+                            ? "#F44444"
                             : "orange",
                         display: "flex",
                         justifyContent: "center",
@@ -1418,17 +1776,18 @@ const OhrTable = ({ onData }) => {
                   </TableCell>
                   <TableCell>
                     <Typography
-                      mx="6px"
+                      // mx="6px"
                       sx={{
+                        marginLeft: "20px",
                         fontSize: "13px",
                         color: "#fff",
                         width: "30px",
                         height: "25px",
                         backgroundColor:
                           item.ragcw3 == "G"
-                            ? "green"
+                            ? "#57a957"
                             : item.ragcw3 == "R"
-                            ? "red"
+                            ? "#F44444"
                             : "orange",
                         display: "flex",
                         justifyContent: "center",
@@ -1440,6 +1799,9 @@ const OhrTable = ({ onData }) => {
                     </Typography>
                   </TableCell>
 
+                  <TableCell sx={{ textAlign: "center" }}>
+                    <Typography>{item.reasoncode}</Typography>
+                  </TableCell>
                   <TableCell sx={{ textAlign: "center" }}>
                     <Typography mx="9px" fontSize="13px">
                       {" "}

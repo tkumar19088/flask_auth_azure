@@ -37,7 +37,7 @@
   
     
   }
-  .pln-card-bd:hover{
+  .pln-card-bd:hover, .pln-card-bd:active{
     background-color: #ff007e;
     color: #fff;
   }

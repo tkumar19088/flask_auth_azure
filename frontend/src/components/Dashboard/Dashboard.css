@@ -23,11 +23,21 @@
 @media (width > 1439px) and (width < 1537px) {
     
 }
-@media (width > 1919px) {
+
+@media (width > 1919px) and (width <2558) {
    .bg-containerdashboard {
     background-color: #F5F6F8;
     padding: 30px !important;
     height: 889px !important ;
+   }
+}
+
+@media (width > 2560px) {
+   .bg-containerdashboard {
+    background-color: #F5F6F8;
+    /* padding: 120px !important; */
+    height: 889px !important ;
+    /* background-color: RED !important; */
     /* height: 100% !important; */
    }
 }

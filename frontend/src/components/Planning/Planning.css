@@ -138,9 +138,7 @@
   .plan{
       
   }
-  .pln-cards-header{
-    padding: 8px 20px !important;
-  }
+  
   .plan-title{
     font-size: 1.2rem !important;
   }
@@ -195,20 +193,20 @@
 }
 @media (width > 1919px) {
   .market-badge .MuiBadge-badge {
-    margin-top: -12px !important;
-    margin-right: -175px !important;
+    margin-top: -15px !important;
+    margin-right: -264px !important;
     background-color: #FF007F;
     color: #fff;
   }
   .scenario-badge .MuiBadge-badge {
-    margin-top: -11px !important;
-    margin-right: -180px !important;
+    margin-top: -15px !important;
+    margin-right: -304px !important;
     background-color: #FF007F;
     color: #fff;
   }
   .sku-badge .MuiBadge-badge {
-    margin-top: -11px !important;
-    margin-right: -187px !important;
+    margin-top: -15px !important;
+    margin-right: -354px !important;
     background-color: #FF007F;
     color: #fff;
   }
@@ -219,9 +217,23 @@
     color: #fff;
   }
   .systamatic-badge .MuiBadge-badge {
-    margin-top: -12px !important;
-    margin-right: -35px !important;
+    margin-top: -15px !important;
+    margin-right: -354px !important;
     background-color: #FF007F;
     color: #fff;
+  }
+
+  .pln-cards-header{
+    text-align: center !important;
+  }
+  
+}
+
+@media (width > 2559px) {
+  .plan-title{
+      font-size: 26px !important;
+  }
+  .plan-minititile{
+    font-size: 18px !important;
   }
 }

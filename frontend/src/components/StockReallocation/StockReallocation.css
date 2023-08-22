@@ -4,7 +4,7 @@
 
 @media (width > 1200px) and (width < 1440px) {
     .bread-crumb{
-        margin-top: -20px !important;
+        margin-top: 10px !important;
         margin-bottom: 10px !important;
        }
     .safilter-title{
@@ -110,20 +110,32 @@
 }
 
 @media (width > 1919px) {
-    .srbr-h1{
-        /* margin-top: 10px !important; */
-    }
+   
     .srbr-btns{
-        background-color: #415A6C !important;
-        height: 45px !important;
+        height: 30px !important;
+        /* margin-top: 1px !important; */
 
     }
-    .srbr-btnswithin{
-        background-color: #FF007F !important;
-        height: 45px !important;
+    .srbr-btns:hover{
+        background-color: #FF007E !important;
+
+
     }
+    .srbr-btnshvr{
+        height: 30px !important;
+        /* margin-top: 15px !important; */
+        
+
+    }
+    .srbr-btnshvr:hover{
+        background-color: #FF007E !important;
+       
+        
+
+    }
+   
     .css-y8ay40-MuiTableCell-root {
-        font-size: 1.029rem  !important;
+        font-size: 14px  !important;
         font-weight: 100 !important;
         /* line-height: 16px; */
     }
@@ -136,23 +148,17 @@
     justify-content: center;
     text-align: center;
 } 
-/* .filter-minititle{
-    font-size: 28px !important;
-    color: #415A6C;
-    font-weight: 500 !important;
-    margin-top: 10px !important;
 
-} */
 
 .bg-container{
     background-color: #F5F6F8;
-    padding: 40px !important;
-    /* height: 1380px !important ; */
+    padding: 20px !important;
+    height: 889px !important ;
    }
 
    .bread-crumb{
-    margin-top: -20px !important;
-    margin-bottom: 10px !important;
+    margin-top: -5px !important;
+    /* margin-bottom: 10px !important; */
    }
 
    .sr-h11{
@@ -166,12 +172,13 @@
    .css-1ex1afd-MuiTableCell-root {
       text-align: center !important;
       width: 20px !important;
+      font-size: 13px !important;
    }
 
    
 
-tr:nth-child(odd) {
-    height: 80px !important;
+.stockReallocation tr:nth-child(odd) {
+    height: 60px !important;
 }
 /* .css-y8ay40-MuiTableCell-root {
     font-size: 1.20rem  !important;
@@ -192,35 +199,29 @@ tr:nth-child(odd) {
 }
 
 .sa-box{
-    width: 210px !important;
-    height: 75px !important;
+    width: 215px !important;
+    height: 63px !important;
     background-color: white;
-    /* padding: 10px !important; */
     border-radius: 5px!important;
-    /* padding-left:10px !important ; */
-    /* margin: auto; */
     text-align: center !important;
     align-items: center;
     display: block;
     align-self: center !important;
     justify-content: center !important;
-    
-   
-
-
 }
 .sa-h1{
-    font-size: 18px !important;
+    font-size: 15px !important;
     margin-top: 10px !important;
+    color: #415A6C;
 }
 .sa-h2{
-    font-size: 18px !important;
+    font-size: 14px !important;
 }
 .sa-boxbtn{
     margin-top: 25px;
-    width: 200px !important;
-    height: 40px !important;
-    font-size: 18px;
+    width: 140px !important;
+    height: 30px !important;
+    font-size: 14px;
     /* background-color: palevioletred !important; */
     text-align: center !important;
     align-items: center;
@@ -232,34 +233,76 @@ tr:nth-child(odd) {
     color: white;
     border: 1.2px solid #415A6C;
     line-height: 16px;
+    cursor: pointer;
 }
 
 .btn-refresh{
-    size: 10px !important;
-    font-size: 26px !important;
-    margin-left: 5px !important;
+    /* size: 10px !important; */
+    font-size: 20px !important;
+    margin-left: 10px !important;
     margin-top: 3px;
 }
 .btn-download{
-    size: 10px !important;
-    font-size: 26px !important;
-    /* margin-left: -11px !important; */
-    margin-top: 0px;
-    margin-right: 10px;
-}
-.btn-submit{
-    size: 10px !important;
-    font-size: 26px !important;
+    font-size: 20px !important;
     margin-left: 10px !important;
-    margin-top: 2px;
 }
+
 
 .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
     height: 1.2375em !important;
 }
 
 
-.css-15wwp11-MuiTableHead-root {
-    height: 105px !important
+.stockReallocation .css-15wwp11-MuiTableHead-root {
+    height: 80px !important
+}
+
+
+
+.constains-h1{
+    color: #415A6C !important;
+    font-size: 15px !important;
+}
+
+.vertical-line{
+    border: 1px solid #E5EBEF;
+    height: 73px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.vertical-line2{
+    border: 1px solid #E5EBEF;
+    height: 73px;
+    margin-left: 25px;
+    margin-right: 40px;
+}
+
+.constains-innerbox{
+    width: 70%;
+    background-color: white;
+    border-radius: 5px;
+    padding:  10px 20px ;
+}
+
+.sg-title{
+    border-radius: 5px;
+    background-color: rgb(198 223 215);
+    padding: 2px 8px !important;
+    font-size: 14px;
+    color: black;
+}
+
+
+.radiobtn-title{
+    /* margin-top: 2px !important; */
+    margin-left: 5px !important;
+    margin-right: 15px !important;
+}
+
+
+.optimistarion-box{
+    /* border: 1px solid; */
+    align-items: center;
 }
 }

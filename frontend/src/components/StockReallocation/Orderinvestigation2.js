@@ -19,6 +19,12 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import DownloadIcon from "@mui/icons-material/Download";
+import Tooltip from "@mui/material/Tooltip";
+
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
 
 import { useNavigate } from "react-router-dom";
 
@@ -49,80 +55,80 @@ const Orderinvestigation2 = () => {
     setCounter(counter - 1);
   };
 
+  const [selectedOption, setSelectedOption] = useState("");
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
   return (
-    <div style={{ marginBlock: "3%" }}>
-      {" "}
-      <Grid item xs={6}>
-        <Box
-          mt={-2}
-          display="flex"
-          //   justifyContent="space-between"
-          textAlign="center"
-        >
-          <Typography
-            fontSize={{ lg: 18, xs: 10 }}
-            sx={{
-              backgroundColor: "#D1F2C4",
-              padding: "8px",
-              borderRadius: "5px 5px",
-              width: { lg: "460px" },
-            }}
-          >
-            Scenario Generation: Airwick Electrical Lemon 112345
-          </Typography>{" "}
-          <Typography
-            textAlign="center"
-            // fontSize={15}
-            sx={{ marginLeft: "15px" }}
-          >
-            <VisibilityOutlinedIcon
-              sx={{
-                height: "32px",
-                width: "80px",
-                //   textAlign: "center",
-                marginTop: { lg: "7px", xs: "7px" },
-                // marginLeft: "-7px",
-              }}
-            />{" "}
-          </Typography>{" "}
-          <Typography
-            fontSize={{ lg: 24, xs: 12 }}
-            mt={{ lg: "5px", xs: "5px" }}
-            marginLeft="-13px"
-          >
-            {" "}
-            01/01/23
+    <div style={{ marginTop: "5px" }}>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        // className="optimistarion-box"
+        my={1}
+      >
+        <Box display="flex" className="optimistarion-box">
+          <Typography fontSize={18} color="#415A6C" className="radiobtn-title">
+            Optimisation Target :
           </Typography>
+
+          <label>
+            <input
+              type="radio"
+              value="red"
+              checked={selectedOption === "red"}
+              onChange={handleOptionChange}
+            />
+            Minimise ( | Current WoC - Target WoC | )
+          </label>
+          <label>
+            <input
+              type="radio"
+              value="green"
+              checked={selectedOption === "green"}
+              onChange={handleOptionChange}
+            />
+            Maximise revenue
+          </label>
         </Box>
-      </Grid>
-      <Typography fontSize={26} color="#145A6C" mt="2%" mx="3px">
+        <Box display="flex">
+          <Box className="sg-title">
+            Scenario Generation: Airwick Electrical Lemon 112345
+          </Box>
+          <Box display="flex" marginTop="2px">
+            <Typography>
+              <VisibilityOutlinedIcon
+                sx={{
+                  height: "18px",
+                  width: "40px",
+                  marginTop: "2px",
+                }}
+              />
+            </Typography>
+            <Typography fontSize={14}>01/01/23 05:03:20</Typography>
+          </Box>
+        </Box>
+      </Stack>
+      <Typography fontSize={24} color="#145A6C" mx="3px">
         Constraints (Optional)
       </Typography>
-      <Grid
-        container
-        spacing={1}
-        border=""
-        mt="5px"
-        mx={{ lg: "1px", xs: "1px" }}
-      >
-        <Grid
-          container
-          item
-          xs={11}
-          p={1}
-          backgroundColor="#fff"
-          borderRadius="5px 5px"
-        >
+      <Grid container spacing={1} mt="5px" mx={{ lg: "1px", xs: "1px" }}>
+        <Stack direction="row" className="constains-innerbox">
           <Grid item xs={3} border="">
-            <Box display="flex" ml={{ lg: "5px", xs: "1px" }}>
-              <Typography fontSize={{ lg: 22, xs: 10 }}>
-                % deviation from actual sell in{" "}
+            <Box
+              display="flex"
+              ml={{ lg: "5px", xs: "1px" }}
+              sx={{ color: "#415A6C" }}
+            >
+              <Typography className="constains-h1">
+                % Deviation from initial allocation{" "}
               </Typography>{" "}
               <Typography>
                 <InfoOutlinedIcon
                   sx={{
-                    height: "28px",
-                    marginTop: { lg: "2px", xs: "1px" },
+                    height: "22px",
+                    marginTop: { lg: "0px", xs: "1px" },
                     marginLeft: "5px",
                   }}
                 />
@@ -170,17 +176,17 @@ const Orderinvestigation2 = () => {
               </Box>
             </Box>
           </Grid>
-          <Box border="1px solid #E5EBEF" height="65px" ml={2}></Box>
+          <Box className="vertical-line"></Box>
           <Grid item xs={3} border="" ml={2}>
-            <Box display="flex" width="370px">
-              <Typography fontSize={{ lg: 22, xs: 10 }}>
-                Max % of total inventory allocated
+            <Box display="flex" width="370px" sx={{ color: "#415A6C" }}>
+              <Typography className="constains-h1">
+                Minimum expected sevice level
               </Typography>
               <Typography>
                 <InfoOutlinedIcon
                   sx={{
-                    height: "28px",
-                    marginTop: { lg: "2px", xs: "0px" },
+                    height: "22px",
+                    marginTop: { lg: "0px", xs: "0px" },
                     marginLeft: "8px",
                   }}
                 />
@@ -229,18 +235,24 @@ const Orderinvestigation2 = () => {
               </Box>
             </Box>
           </Grid>
-          <Box border="1px solid #E5EBEF" height="65px" ml={4}></Box>
+          <Box className="vertical-line2 "></Box>
 
           <Grid item xs={4} border="" ml={2}>
-            <Box display="flex" width="400px" mx={7}>
-              <Typography fontSize={{ lg: 22, xs: 10 }}>
-                Weeks on Coverage
+            <Box
+              display="flex"
+              width="400px"
+              mx={7}
+              sx={{ color: "#415A6C" }}
+              marginLeft={0}
+            >
+              <Typography className="constains-h1">
+                Deviation from target WOC
               </Typography>
               <Typography>
                 <InfoOutlinedIcon
                   sx={{
-                    height: "28px",
-                    marginTop: { lg: "2px", xs: "1px" },
+                    height: "22px",
+                    marginTop: { lg: "0px", xs: "1px" },
                     marginLeft: "8px",
                   }}
                 />
@@ -250,8 +262,6 @@ const Orderinvestigation2 = () => {
             <Box
               display="flex"
               justifyContent="space-between"
-              // border="1px solid red"
-              // width="240px"
               mx={{ lg: 0, xs: "-10px" }}
               marginTop="1%"
             >
@@ -331,7 +341,12 @@ const Orderinvestigation2 = () => {
                   </Box>
                 </Box>
               </Box>
-              <Box border="" textAlign="center" mx={{ lg: "3px", xs: "0px" }}>
+              <Box
+                border=""
+                textAlign="center"
+                mx={{ lg: "3px", xs: "0px" }}
+                marginRight={{ lg: "60px", xs: "0px" }}
+              >
                 <Typography
                   mt={{ lg: "8px", xs: "10px" }}
                   sx={{
@@ -348,9 +363,9 @@ const Orderinvestigation2 = () => {
               </Box>
             </Box>
           </Grid>
-        </Grid>
+        </Stack>
       </Grid>
-      <Grid mt="2%">
+      <Grid mt="10px">
         <Typography fontSize={28} mt="5px" color="#145A6C" mx="3px">
           Results
         </Typography>
@@ -363,39 +378,52 @@ const Orderinvestigation2 = () => {
           justifyContent="space-between"
           className="sa-stack"
         >
-          <Box className="sa-box">
-            <Typography className="sa-h1"> Expected Net Revenue</Typography>
-            <Typography color="#008824" className="sa-h2">
-              {" "}
-              £7,749.00
-            </Typography>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            sx={{ width: "450px" }}
+          >
+            <Box className="sa-box">
+              <Typography className="sa-h1"> Expected Net Revenue</Typography>
+              <Typography color="#008824" className="sa-h2">
+                {" "}
+                £7,749.00
+              </Typography>
+            </Box>
+            <Box className="sa-box">
+              <Typography className="sa-h1"> Expected OLA</Typography>
+              <Typography color="#008824" className="sa-h2">
+                {" "}
+                94%
+              </Typography>
+            </Box>
           </Box>
-          <Box className="sa-box">
-            <Typography className="sa-h1"> Expected OLA</Typography>
-            <Typography color="#008824" className="sa-h2">
-              {" "}
-              94%
-            </Typography>
-          </Box>
-          <Box className="sa-box">
-            <Typography className="sa-h1"> Costs to serve</Typography>
-            <Typography color="#DD0000" className="sa-h2">
-              {" "}
-              (£324.15)
-            </Typography>
-          </Box>
-          <Box className="sa-boxbtn">
-            Refesh <RefreshIcon className="btn-refresh" />
-          </Box>
-          <Box className="sa-boxbtn">
-            Download this Scenario{" "}
-            <DownloadForOfflineIcon className="btn-download" />
-          </Box>
-          <Box className="sa-boxbtn">
-            Submit <DownloadIcon className="btn-submit" />
-          </Box>
-          <Box className="sa-boxbtn">
-            Cancel <HighlightOffIcon className="btn-submit" />
+          <Box
+            display="flex"
+            justifyContent="space-around"
+            sx={{ width: "320px" }}
+          >
+            <Tooltip
+              title="Reallocate Suggested Supply"
+              arrow
+              placement="top-start"
+              // ml={{ lg: "-19px" }}
+            >
+              <Box className="sa-boxbtn">
+                Reallocate <RefreshIcon className="btn-refresh" />
+              </Box>
+            </Tooltip>
+            <Tooltip
+              title="Download this scenario"
+              arrow
+              placement="top-start"
+              // ml={{ lg: "-19px" }}
+            >
+              <Box className="sa-boxbtn">
+                Download
+                <DownloadForOfflineIcon className="btn-download" />
+              </Box>
+            </Tooltip>
           </Box>
         </Stack>
       </Grid>
@@ -404,3 +432,13 @@ const Orderinvestigation2 = () => {
 };
 
 export default Orderinvestigation2;
+<Typography
+  fontSize={{ lg: 16, xs: 10 }}
+  sx={{
+    backgroundColor: "#D1F2C4",
+    borderRadius: "5px 5px",
+    width: { lg: "410px" },
+  }}
+>
+  Scenario Generation: Airwick Electrical Lemon 112345
+</Typography>;

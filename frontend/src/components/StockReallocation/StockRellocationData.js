@@ -33,89 +33,137 @@ const StockReallocationData = ({ onData }) => {
 
   const [data, setData] = useState([
     {
-      retailer: "Amazon",
-      channel: "Pure Play",
-      expctsellout: 100,
-      expctsellin: "20",
-      reckittsoh: "2000",
-      retailersoh: "500",
-      retailertagetsoh: "450",
-      currentwoc: "2.1",
-      retailertagetwoc: "4",
-      pvnys: "100",
-      activecamp: "Yes",
-      cmuscore: 3.9,
-      ssr: "N/A",
-      ss: "200",
-      sr: "20",
+      customer: "Amazon",
+      channel: "Pureplay",
+      sellinforecast: "300",
+      currentallocation: "200",
+      allcConsumedDate: "50",
+      remAllocation: "150",
+      openOrders: "50",
+      expectServiceLevel: "100%",
+      custSohcurrent: "500",
+      custSohTarget: "600",
+      custWoccurrent: "300",
+      custWocTarget: "400",
+      price: "£6.00",
+      cmuScore: "4.4",
+      stockSafeRealloc: "100",
+      suggAlloc: "100",
+      testReallocation: "20",
     },
     {
-      retailer: "Tesco",
-      channel: "Grocery",
-      expctsellout: "45",
-      expctsellin: "10",
-      reckittsoh: "2000",
-      retailersoh: "400",
-      retailertagetsoh: "300",
-      currentwoc: "3.5",
-      retailertagetwoc: "4",
-      pvnys: "200",
-      activecamp: "Yes",
-      cmuscore: 3.5,
-      ssr: "20",
-      ss: "-20",
-      sr: "-20",
+      customer: "Amazon",
+      channel: "Pureplay",
+      sellinforecast: "300",
+      currentallocation: "200",
+      allcConsumedDate: "50",
+      remAllocation: "150",
+      openOrders: "50",
+      expectServiceLevel: "100%",
+      custSohcurrent: "500",
+      custSohTarget: "600",
+      custWoccurrent: "300",
+      custWocTarget: "400",
+      price: "£6.00",
+      cmuScore: "4.4",
+      stockSafeRealloc: "100",
+      suggAlloc: "100",
+      testReallocation: "20",
     },
     {
-      retailer: "Amazon",
-      channel: "Pure Play",
-      expctsellout: 100,
-      expctsellin: "20",
-      reckittsoh: "2000",
-      retailersoh: "500",
-      retailertagetsoh: "450",
-      currentwoc: "2.1",
-      retailertagetwoc: "4",
-      pvnys: "100",
-      activecamp: "Yes",
-      cmuscore: 3.9,
-      ssr: "N/A",
-      ss: "200",
-      sr: "20",
+      customer: "Amazon",
+      channel: "Pureplay",
+      sellinforecast: "300",
+      currentallocation: "200",
+      allcConsumedDate: "50",
+      remAllocation: "150",
+      openOrders: "50",
+      expectServiceLevel: "100%",
+      custSohcurrent: "500",
+      custSohTarget: "600",
+      custWoccurrent: "300",
+      custWocTarget: "400",
+      price: "£6.00",
+      cmuScore: "4.4",
+      stockSafeRealloc: "100",
+      suggAlloc: "100",
+      testReallocation: "20",
     },
     {
-      retailer: "Amazon",
-      channel: "Pure Play",
-      expctsellout: 100,
-      expctsellin: "20",
-      reckittsoh: "2000",
-      retailersoh: "500",
-      retailertagetsoh: "450",
-      currentwoc: "2.1",
-      retailertagetwoc: "4",
-      pvnys: "100",
-      activecamp: "Yes",
-      cmuscore: 3.9,
-      ssr: "N/A",
-      ss: "200",
-      sr: "-20",
+      customer: "Amazon",
+      channel: "Pureplay",
+      sellinforecast: "300",
+      currentallocation: "200",
+      allcConsumedDate: "50",
+      remAllocation: "150",
+      openOrders: "50",
+      expectServiceLevel: "100%",
+      custSohcurrent: "500",
+      custSohTarget: "600",
+      custWoccurrent: "300",
+      custWocTarget: "400",
+      price: "£6.00",
+      cmuScore: "4.4",
+      stockSafeRealloc: "100",
+      suggAlloc: "100",
+      testReallocation: "20",
     },
     {
-      retailer: "Amazon",
-      channel: "Pure Play",
-      expctsellout: 100,
-      expctsellin: "20",
-      reckittsoh: "2000",
-      retailersoh: "500",
-      retailertagetsoh: "450",
-      currentwoc: "2.1",
-      retailertagetwoc: "4",
-      pvnys: "100",
-      activecamp: "Yes",
-      cmuscore: 3.9,
-      ssr: "N/A",
-      ss: "200",
-      sr: "20",
+      customer: "Amazon",
+      channel: "Pureplay",
+      sellinforecast: "300",
+      currentallocation: "200",
+      allcConsumedDate: "50",
+      remAllocation: "150",
+      openOrders: "50",
+      expectServiceLevel: "100%",
+      custSohcurrent: "500",
+      custSohTarget: "600",
+      custWoccurrent: "300",
+      custWocTarget: "400",
+      price: "£6.00",
+      cmuScore: "4.4",
+      stockSafeRealloc: "100",
+      suggAlloc: "100",
+      testReallocation: "20",
+    },
+    {
+      customer: "Amazon",
+      channel: "Pureplay",
+      sellinforecast: "300",
+      currentallocation: "200",
+      allcConsumedDate: "50",
+      remAllocation: "150",
+      openOrders: "50",
+      expectServiceLevel: "100%",
+      custSohcurrent: "500",
+      custSohTarget: "600",
+      custWoccurrent: "300",
+      custWocTarget: "400",
+      price: "£6.00",
+      cmuScore: "4.4",
+      stockSafeRealloc: "100",
+      suggAlloc: "100",
+      testReallocation: "20",
+    },
+    {
+      customer: "Amazon",
+      channel: "Pureplay",
+      sellinforecast: "300",
+      currentallocation: "200",
+      allcConsumedDate: "50",
+      remAllocation: "150",
+      openOrders: "50",
+      expectServiceLevel: "100%",
+      custSohcurrent: "500",
+      custSohTarget: "600",
+      custWoccurrent: "300",
+      custWocTarget: "400",
+      price: "£6.00",
+      cmuScore: "4.4",
+      stockSafeRealloc: "100",
+      suggAlloc: "100",
+      testReallocation: "20",
     },
   ]);
   const [selectAll, setSelectAll] = useState(false);
@@ -179,54 +227,67 @@ const StockReallocationData = ({ onData }) => {
   };
   return (
     <div style={{ border: "" }}>
-      <TableContainer style={{ maxHeight: 730, width: "100%" }}>
-        <Table stickyHeader>
+      <TableContainer style={{ maxHeight: 425, width: "100%" }}>
+        <Table stickyHeader className="stockReallocation">
           <TableHead>
             <TableRow>
-              <TableCell style={{ textAlign: "center" }} className="sr-header">
-                Retailer
+              <TableCell style={{ textAlign: "center",border:"1px solid #dcdcdc" }} className="sr-header">
+                Customer
               </TableCell>
-              <TableCell style={{ textAlign: "center" }} className="sr-header">
+              <TableCell style={{ textAlign: "center",border:"1px solid #dcdcdc" }} className="sr-header">
                 Channel
               </TableCell>
               <TableCell
                 style={{
-                  textAlign: "center",
+                  textAlign: "center",border:"1px solid #dcdcdc"
                 }}
                 className="sr-header"
               >
-                Expct Sell-out
+                Sell-In Forecast
               </TableCell>
-              <TableCell style={{ textAlign: "center" }} className="sr-header">
-                Expct Sell-in
+              <TableCell style={{ textAlign: "center" ,border:"1px solid #dcdcdc"}} className="sr-header">
+                Current Allocation
               </TableCell>
-              <TableCell style={{ textAlign: "center" }} className="sr-header">
-                Reckitt SOH
+              <TableCell style={{ textAlign: "center" ,border:"1px solid #dcdcdc"}} className="sr-header">
+                Allocation consumed to date
               </TableCell>
-              <TableCell style={{ textAlign: "center" }} className="sr-header">
-                Retailer SOH <br /> (current vs target)
+              <TableCell style={{ textAlign: "center",border:"1px solid #dcdcdc" }} className="sr-header">
+                Remaining allocation
+              </TableCell>
+              <TableCell style={{ textAlign: "center",border:"1px solid #dcdcdc" }} className="sr-header">
+                Open orders
+              </TableCell>
+              <TableCell style={{ textAlign: "center",border:"1px solid #dcdcdc" }} className="sr-header">
+                Expected Service level
               </TableCell>
               <TableCell
-                style={{ textAlign: "center", width: "120px" }}
+                style={{ textAlign: "center", width: "120px",border:"1px solid #dcdcdc" }}
                 className="sr-header"
               >
-                Retailer WoC <br />
+                Customer SOH <br />
                 (current vs target)
               </TableCell>
-              <TableCell style={{ textAlign: "center" }} className="sr-header">
-                Open PO
+              <TableCell
+                style={{ textAlign: "center", width: "120px",border:"1px solid #dcdcdc" }}
+                className="sr-header"
+              >
+                Customer WoC <br />
+                (current vs target)
               </TableCell>
-              <TableCell style={{ textAlign: "center" }} className="sr-header">
+              <TableCell style={{ textAlign: "center" ,border:"1px solid #dcdcdc"}} className="sr-header">
+                Price
+              </TableCell>
+              <TableCell style={{ textAlign: "center" ,border:"1px solid #dcdcdc"}} className="sr-header">
                 CMU Score
               </TableCell>
-              <TableCell style={{ textAlign: "center" }} className="sr-header">
-                SOH safe to reallocate
+              <TableCell style={{ textAlign: "center",border:"1px solid #dcdcdc" }} className="sr-header">
+                Stock safe to reallocate
               </TableCell>
-              <TableCell style={{ textAlign: "center" }} className="sr-header">
-                Suggested Supply
+              <TableCell style={{ textAlign: "center",border:"1px solid #dcdcdc" }} className="sr-header">
+                Suggested Allocation
               </TableCell>
-              <TableCell style={{ textAlign: "center" }} className="sr-header">
-                Supply to Reallocate
+              <TableCell style={{ textAlign: "center" ,border:"1px solid #dcdcdc"}} className="sr-header">
+                Test reallocation scenario
               </TableCell>
             </TableRow>
           </TableHead>
@@ -235,49 +296,56 @@ const StockReallocationData = ({ onData }) => {
               key={data[0].skucode}
               className={data[0].checkbox ? "checked-row" : ""}
               style={{
-                backgroundColor: "rgb(237 216 218)",
+                backgroundColor: "rgb(198 223 215)",
               }}
             >
-              <TableCell>{data[0].retailer}</TableCell>
+              <TableCell>{data[0].customer}</TableCell>
               <TableCell>{data[0].channel}</TableCell>
-              <TableCell>{data[0].expctsellout}</TableCell>
-              <TableCell>{data[0].expctsellin}</TableCell>
-              <TableCell>{data[0].reckittsoh}</TableCell>
+              <TableCell>{data[0].sellinforecast}</TableCell>
+              <TableCell>{data[0].currentallocation}</TableCell>
+              <TableCell>{data[0].allcConsumedDate}</TableCell>
+              <TableCell>{data[0].remAllocation}</TableCell>
+              <TableCell>{data[0].openOrders}</TableCell>
+              <TableCell>{data[0].expectServiceLevel}</TableCell>
               <TableCell>
-                <Box display="flex" sx={{ marginLeft: "40px" }}>
-                  <Typography fontSize={20}>{data[0].retailersoh}</Typography>
+                <Box display="flex" sx={{ marginLeft: "50px" }}>
+                  <Typography fontSize={15}>
+                    {data[0].custSohcurrent}
+                  </Typography>
                   <Typography
-                    fontSize={16}
+                    fontSize={13}
                     sx={{
                       marginLeft: "12px",
                       marginTop: "10px",
                       color: "#6e8c78",
                     }}
                   >
-                    {data[0].retailertagetsoh}
+                    {data[0].custSohTarget}
                   </Typography>
                 </Box>
               </TableCell>
               <TableCell>
-                <Box display="flex" sx={{ marginLeft: "40px" }}>
-                  <Typography fontSize={20}>{data[0].currentwoc}</Typography>
+                <Box display="flex" sx={{ marginLeft: "50px" }}>
+                  <Typography fontSize={15}>
+                    {data[0].custWoccurrent}
+                  </Typography>
                   <Typography
-                    fontSize={16}
+                    fontSize={13}
                     sx={{
                       marginLeft: "12px",
                       marginTop: "10px",
                       color: "#6e8c78",
                     }}
                   >
-                    {data[0].retailertagetwoc}
+                    {data[0].custWocTarget}
                   </Typography>
                 </Box>
               </TableCell>
-              <TableCell>{data[0].pvnys}</TableCell>
-              <TableCell>{data[0].cmuscore}</TableCell>
-              <TableCell>{data[0].ssr}</TableCell>
-              <TableCell>{data[0].ss}</TableCell>
-              <TableCell>{data[0].sr}</TableCell>
+              <TableCell>{data[0].price}</TableCell>
+              <TableCell>{data[0].cmuScore}</TableCell>
+              <TableCell>{data[0].stockSafeRealloc}</TableCell>
+              <TableCell>{data[0].suggAlloc}</TableCell>
+              <TableCell>{data[0].testReallocation}</TableCell>
             </TableRow>
             {data.map((item, index) => (
               <TableRow
@@ -287,57 +355,61 @@ const StockReallocationData = ({ onData }) => {
                   backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
                 }}
               >
-                <TableCell>{item.retailer}</TableCell>
+                <TableCell>{item.customer}</TableCell>
                 <TableCell>{item.channel}</TableCell>
-                <TableCell>{item.expctsellout}</TableCell>
-                <TableCell>{item.expctsellin}</TableCell>
-                <TableCell>{item.reckittsoh}</TableCell>
+                <TableCell>{item.sellinforecast}</TableCell>
+                <TableCell>{item.currentallocation}</TableCell>
+                <TableCell>{item.allcConsumedDate}</TableCell>
+                <TableCell>{item.remAllocation}</TableCell>
+                <TableCell>{item.openOrders}</TableCell>
+                <TableCell>{item.expectServiceLevel}</TableCell>
                 <TableCell>
-                  <Box display="flex" sx={{ marginLeft: "40px" }}>
-                    <Typography fontSize={20}>{item.retailersoh}</Typography>
+                  <Box display="flex" sx={{ marginLeft: "50px" }}>
+                    <Typography fontSize={15}>{item.custSohcurrent}</Typography>
                     <Typography
-                      fontSize={16}
+                      fontSize={13}
                       sx={{
                         marginLeft: "12px",
                         marginTop: "10px",
                         color: "#6e8c78",
                       }}
                     >
-                      {item.retailertagetsoh}
+                      {item.custSohTarget}
                     </Typography>
                   </Box>
                 </TableCell>
                 <TableCell>
-                  <Box display="flex" sx={{ marginLeft: "40px" }}>
-                    <Typography fontSize={20}>{item.currentwoc}</Typography>
+                  <Box display="flex" sx={{ marginLeft: "50px" }}>
+                    <Typography fontSize={15}>{item.custWoccurrent}</Typography>
                     <Typography
-                      fontSize={16}
+                      fontSize={13}
                       sx={{
                         marginLeft: "12px",
                         marginTop: "10px",
                         color: "#6e8c78",
                       }}
                     >
-                      {item.retailertagetwoc}
+                      {item.custWocTarget}
                     </Typography>
                   </Box>
                 </TableCell>
-                <TableCell>{item.pvnys}</TableCell>
-                <TableCell>{item.cmuscore}</TableCell>
-                <TableCell>{item.ssr}</TableCell>
-                <TableCell>{item.ss}</TableCell>
+                <TableCell>{item.price}</TableCell>
+                <TableCell>{item.cmuScore}</TableCell>
+                <TableCell>{item.stockSafeRealloc}</TableCell>
+                <TableCell>{item.suggAlloc}</TableCell>
                 <TableCell>
                   <Box
                     component="form"
                     sx={{
                       "& > :not(style)": {
-                        width: "25ch",
+                        width: "10ch",
+                        height: "3ch",
                       },
                     }}
                     noValidate
                     autoComplete="off"
                   >
-                    <TextField variant="outlined" value={item.sr} />
+                    <input type="number" name="testReallocation" />
                   </Box>
                 </TableCell>
               </TableRow>

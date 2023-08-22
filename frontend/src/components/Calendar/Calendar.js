@@ -60,6 +60,8 @@ function Calendar() {
       <Box
         display="flex"
         justifyContent="space-between"
+        width="94%"
+        marginLeft="15px"
         // alignItems="center"
         // mb={12}
       >
@@ -111,7 +113,7 @@ function Calendar() {
             variant="body2"
             key={day}
             sx={{
-              width: "14.2857%",
+              width: "14.2840%",
               textAlign: "center",
               color: "#E7E9EE",
               fontWeight: 700,
@@ -127,15 +129,18 @@ function Calendar() {
             onClick={() => handleDayClick(day)}
             sx={{
               marginTop: "4px",
-              width: { lg: "14.2857%", xs: "13.2857%" },
+              width: { lg: "14.2850%", xs: "13.2857%" },
               textAlign: "center",
               cursor: "pointer",
-              lineHeight: { lg: "57px", xs: "43px" },
-              borderRadius: "50%",
+              lineHeight: isSameDay(day, selectedDate)
+                ? { lg: "40px", xs: "43px" }
+                : { lg: "57px", xs: "43px" },
+              // marginLeft: isSameDay(day, selectedDate) ? "0px" : "-8px",
+              // borderRadius: "50%",
 
-              backgroundColor: isSameDay(day, selectedDate)
-                ? "#fff"
-                : "transparent",
+              // backgroundColor: isSameDay(day, selectedDate)
+              //   ? "#fff"
+              //   : "transparent",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -143,7 +148,19 @@ function Calendar() {
               fontSize: isSameDay(day, selectedDate) ? "1.2rem" : "1rem",
             }}
           >
-            {format(day, "dd")}
+            <Typography
+              sx={{
+                backgroundColor: isSameDay(day, selectedDate)
+                  ? "#fff"
+                  : "transparent",
+                marginTop: isSameDay(day, selectedDate) ? "9px" : "12px",
+                padding: isSameDay(day, selectedDate) ? "6px" : "4px",
+                borderRadius: "50%",
+                lineHeight: "1.2",
+              }}
+            >
+              {format(day, "dd")}
+            </Typography>
           </Typography>
         ))}
       </Box>

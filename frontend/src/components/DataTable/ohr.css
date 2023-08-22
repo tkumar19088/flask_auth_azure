@@ -145,7 +145,8 @@
      }
             
       .tablecell-inside{
-        background-color: #E5EBEF !important;
+        /* background-color: #E5EBEF !important; */
+        background-color: red !important;
       }
 
       .css-1ygcj2i-MuiTableCell-root {
@@ -158,14 +159,11 @@
       }
 
       .ms-grid{
-        /* padding: 16px 16px!important ; */
-        /* width:250px; */
-        /* border: 1px solid; */
+       
         text-align: center;
         border-radius: 5px;
         padding: 10px;
         cursor: pointer;
-        /* font-size: 20px !important; */
       }
       
       .css-1ys3pbw-MuiTableCell-root {
@@ -184,34 +182,48 @@
 }
 
 @media (width > 1919px) {
+  .tablecell-inside{
+    background-color: #E5EBEF !important;
+    /* background-color: red !important; */
+    width: 70% !important;
+  }
+
+  .css-x6rght-MuiTypography-root {
+    width: 109px !important;
+    text-align: center !important;
+    margin-left: 0px !important;
+  }
+
+  .choosems-stack{
+    align-items: center !important;
+    /* border: 1px solid; */
+    /* margin-block: 10px; */
+    margin-top: 15px;
+    margin-bottom: 4px;
+  }
   .ms-title{
-    font-size: 28px !important;
+    font-size: 22px !important;
   }
   .ms-grid{
-    /* padding: 16px 16px!important ; */
-    /* width:250px; */
-    /* border: 1px solid; */
+    
     text-align: center;
     border-radius: 5px;
     padding: 24px;
     cursor: pointer;
-    /* font-size: 20px !important; */
   }
 
   .table-h1-title{
-    font-size: 0.96rem !important;
-    /* margin-left: 0px !important; */
+    font-size: 14px !important;
+    color: #415A6C !important;
+    line-height: 16px !important;
+    text-align: center !important;
   }
-  .tabletitle-ola{
-    font-size: 1.3rem !important;
+  .tablpetitle-ola{
+    font-size: 14px !important;
      margin-left: 10px !important;
   }
-  .sorting-ola{
-    /* margin-left: 30px !important; */
-  }
-  .sorting-h1-title{
-    /* margin-top: 4px !important; */
-  }
+  
+  
 
   .css-1ys3pbw-MuiTableCell-root {
     padding: 0px !important;
@@ -227,30 +239,36 @@
     /* background-color: red !important; */
    }
 
-   .mini-table{
+   /* .mini-table{
     width: 1538px !important;
-   }
+   } */
 
    .ms-grid{
-    /* padding: 16px 16px!important ; */
-    width:250px;
-    /* border: 1px solid; */
+    width:170px;
+    height: 25px !important;
     text-align: center;
     border-radius: 5px;
-    padding: 10px;
+    padding: 5px;
     cursor: pointer;
-    /* font-size: 20px !important; */
+    align-items: center;
+    justify-content: center;
   }
 
   .redirect-badge .MuiBadge-badge {
-    margin-right: -55px !important;
+    margin-right: -38px !important;
+    margin-top: -5px !important;
     background-color: #FF007F;
     color: #fff;
+    font-size: 9px;
+    padding: 2px;
   }
   .retailer-badge .MuiBadge-badge {
-    margin-right: -3px !important;
+    /* margin-right: -10px !important; */
+    margin-top: -5px !important;
     background-color: #FF007F;
     color: #fff;
+    font-size: 9px;
+    padding: 2px;
   }
 
 
@@ -258,19 +276,57 @@
     background-color: #E5EBEF
   }
 
-/* .pushalternative-header{
-  width:250px !important;
-  border: 1px solid green !important;
-} */
+  .css-dxa0fp-MuiTableCell-root {
+    padding: 0px !important;
+  }
+  .css-193h0r1-MuiTableCell-root {
+    padding: 0px !important;
+  }
+.css-vvc30v-MuiTableCell-root {
+  padding: 0px !important;
+}
+.css-1w9k3fr-MuiTableCell-root {
+  padding: 0px !important;
+}
+.css-1ygcj2i-MuiTableCell-root {
+  padding: 0px !important;
+}
+.css-1y1j9ok-MuiTableCell-root {
+  padding: 0px !important;
+}
 
-
-
-
-
-
-
+.css-eiibem-MuiTableCell-root {
+  padding: 3px !important;
+  margin-top: 0px !important;
 }
 
 
 
+.css-1ex1afd-MuiTableCell-root {
+   padding: 0px !important;
+}
+
+.cw{
+  margin-left: 6px !important;
+}
+.css-11xur9t-MuiPaper-root-MuiTableContainer-root {
+  box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.14), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 1px 0px rgba(0,0,0,0.14) !important;
+}
+
+.campaignsTable tbody tr {
+  height: 60px !important;
+}
+.campaignsTable .css-15wwp11-MuiTableHead-root {
+  height: 80px !important;
+
+}
+
+.ms-buttons{
+  justify-content: space-between;
+  width: 750px;
+  /* border:1px solid */
+  
+}
+
+}
 

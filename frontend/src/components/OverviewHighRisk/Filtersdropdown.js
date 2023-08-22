@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import "./Filtersdropdown.css";
+import { Stack } from "react-bootstrap";
 
 function Filtersdropdown() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -53,7 +54,17 @@ function Filtersdropdown() {
 
   return (
     <div>
-      <Button size="large" variant="contained" onClick={handleMenuClick}>
+      <Button
+        size="medium"
+        variant="contained"
+        onClick={handleMenuClick}
+        style={{
+          backgroundColor: "#415A6C",
+          padding: "4px 16px",
+          textDecoration: "none",
+          textTransform: "none",
+        }}
+      >
         Filters
       </Button>
       <Menu
@@ -62,7 +73,7 @@ function Filtersdropdown() {
         onClose={handleMenuClose}
       >
         <Grid p={2} className="filter-downbox">
-          <Grid item xs={4}>
+          <Grid item xs={2} lg={1}>
             <Box sx={{ minWidth: 200 }} className="filter-dropdown">
               <FormControl fullWidth>
                 <InputLabel variant="standard" htmlFor="uncontrolled-native">
@@ -140,6 +151,28 @@ function Filtersdropdown() {
               </FormControl>
             </Box>
           </Grid>
+          <Box className="filterdropdown-insidebtn">
+            <Button
+              variant="contained"
+              size="small"
+              className="btn-apply"
+              sx={{
+                backgroundColor: "#FF007E",
+              }}
+            >
+              Apply
+            </Button>
+            <Button
+              variant="contained"
+              size="small"
+              className="btn-cancel"
+              sx={{
+                backgroundColor: "#415A6C",
+              }}
+            >
+              Cancel
+            </Button>
+          </Box>
         </Grid>
       </Menu>
     </div>
