@@ -47,7 +47,7 @@ const Planning = ({ filterStatus }) => {
           <Grid item xs={4}>
             <Box className="pln-cards-header">
               <Typography color="#fff" className="plan-title">
-                Forecasting
+                Forecast
               </Typography>
             </Box>
             <Box className="pln-card-bd" onClick={handleSellinforecast}>
@@ -56,7 +56,7 @@ const Planning = ({ filterStatus }) => {
                   fontSize={{ lg: 14, xs: 12 }}
                   className="plan-minititile"
                 >
-                  Sell in Forecasting Model
+                  Sell-In Forecast
                 </Typography>
               </Box>
               <Box className="pln-cards-cnt">
@@ -69,7 +69,7 @@ const Planning = ({ filterStatus }) => {
                   fontSize={{ lg: 14, xs: 12 }}
                   className="plan-minititile"
                 >
-                  Sell out Forecasting Model
+                  Sell-Out Forecast
                 </Typography>
               </Box>
               <Box className="pln-cards-cnt">
@@ -80,7 +80,7 @@ const Planning = ({ filterStatus }) => {
           <Grid item xs={4}>
             <Box className="pln-cards-header">
               <Typography color="#fff" className="plan-title">
-                Monitoring
+                Monitor
               </Typography>
             </Box>{" "}
             <Box
@@ -96,7 +96,7 @@ const Planning = ({ filterStatus }) => {
                   fontSize={{ lg: 14, xs: 12 }}
                   className="plan-minititile"
                 >
-                  OSS Risk Dectection
+                  OOS Risk Dectection
                 </Typography>
               </Box>
               <Box className="pln-cards-cnt">

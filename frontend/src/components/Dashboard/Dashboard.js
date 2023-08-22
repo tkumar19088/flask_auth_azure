@@ -9,10 +9,17 @@ import Filters from "../Filters/Filters";
 import "./Dashboard.css";
 import { animateScroll as scroll } from "react-scroll";
 
+import { useSelector, useDispatch } from "react-redux";
+import { fetchfilterstatus } from "../../store/actions/sidebarActions";
+
 function Dashboard() {
-  const [isFilter, setisFilter] = useState(false);
+  const filterStatusVal = useSelector((state) => state.sidebar.filterStatus);
+  const dispatch = useDispatch();
+
+  const [isFilter, setisFilter] = useState(filterStatusVal);
 
   const handleFilterStatus = (props) => {
+    dispatch(fetchfilterstatus(true));
     setisFilter(props);
   };
 
@@ -25,9 +32,9 @@ function Dashboard() {
       <Topbar />
       <Grid container>
         <Grid item xs={2}>
-          <Sidebar filterStatus={handleFilterStatus} />
+          <Sidebar />
         </Grid>
-        <Grid item xs={10}  className="bg-containerdashboard">
+        <Grid item xs={10} className="bg-containerdashboard">
           <Welcome />
           <Status filterStatus={handleFilterStatus} />
           <Planning filterStatus={handleFilterStatus} />

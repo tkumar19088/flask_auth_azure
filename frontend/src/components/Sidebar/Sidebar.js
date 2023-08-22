@@ -20,14 +20,73 @@ import WarningAmberRoundedIcon from "@mui/icons-material/WarningAmberRounded";
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
 
-const Sidebar = ({ filterStatus }) => {
+import { useSelector, useDispatch } from "react-redux";
+import {
+  fetchSellinForecast,
+  fetchSelloutForecast,
+  fetchOOSRisk,
+  fetchIrregular,
+  fetchReallocation,
+} from "../../store/actions/sidebarActions";
+
+const Sidebar = () => {
+  const sellinForecastVal = useSelector(
+    (state) => state.sidebar.sellinforecast
+  );
+  const selloutForecastVal = useSelector(
+    (state) => state.sidebar.selloutforecast
+  );
+  const oosriskVal = useSelector((state) => state.sidebar.oosrisk);
+  const irregularpoVal = useSelector((state) => state.sidebar.irregularpo);
+  const reallocationVal = useSelector((state) => state.sidebar.reallocation);
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [isSelected, setisSelected] = useState(false);
+  const [issellinSelected, setissellinSelected] = useState(sellinForecastVal);
+  const [isselloutSelected, setisselloutSelected] =
+    useState(selloutForecastVal);
+  const [oosrick, setoosrick] = useState(oosriskVal);
+  const [irregular, setirregular] = useState(irregularpoVal);
+  const [reallocation, setreallocation] = useState(reallocationVal);
 
-  const handleFilterStatus = () => {
-    setisSelected(true);
-    filterStatus(true);
+  const handleOOSRick = () => {
+    dispatch(fetchOOSRisk(true));
+
+    setreallocation(false);
+    setirregular(false);
+
+    setoosrick(true);
+  };
+  const handleIrregular = () => {
+    dispatch(fetchIrregular(true));
+
+    setoosrick(false);
+    setreallocation(false);
+
+    setirregular(true);
+  };
+  const handleReallocation = () => {
+    dispatch(fetchReallocation(true));
+
+    setoosrick(false);
+    setirregular(false);
+
+    setreallocation(true);
+  };
+  const handleSelloutForecasting = () => {
+    dispatch(fetchSelloutForecast(true));
+    setissellinSelected(false);
+    setisselloutSelected(true);
+    navigate("/selloutforecast");
+  };
+  const handleSellinForecasting = () => {
+    dispatch(fetchSellinForecast(true));
+
+    setisselloutSelected(false);
+    setissellinSelected(true);
+    navigate("/sellinforecast");
   };
 
   const handleDashboard = () => {
@@ -66,7 +125,7 @@ const Sidebar = ({ filterStatus }) => {
                 width={{ lg: "100%", xs: "100%" }}
                 className="sidebar-minititle"
               >
-                Forecasting
+                Forecast
               </Typography>
             </Box>
           </AccordionSummary>
@@ -74,30 +133,41 @@ const Sidebar = ({ filterStatus }) => {
             sx={{
               borderTop: "1px solid #B7C3CA ",
               borderBottom: "1px solid #B7C3CA ",
-              backgroundColor: "#E7E9EE",
+              backgroundColor: issellinSelected
+                ? "rgb(70, 96, 114)"
+                : "#E7E9EE",
+              color: issellinSelected
+                ? "rgb(255, 255, 255)"
+                : "rgba(0, 0, 0, 0.87)",
               cursor: "pointer",
             }}
+            className="selectedMenu"
+            onClick={handleSellinForecasting}
           >
             <Typography
-              mx="14px"
-              fontSize={{ lg: "12px", xs: 10 }}
+              mx="25px"
+              fontSize={{ lg: "13px", xs: 10 }}
               p="5px 0 0 0"
             >
-              Sell-In Forecasting Model
+              Sell-In Forecast
             </Typography>
           </AccordionDetails>
           <AccordionDetails
             sx={{
               borderBottom: "1px solid #B7C3CA",
-              backgroundColor: isSelected ? "rgb(70, 96, 114)" : "#E7E9EE",
-              color: isSelected ? "rgb(255, 255, 255)" : "rgba(0, 0, 0, 0.87)",
+              backgroundColor: isselloutSelected
+                ? "rgb(70, 96, 114)"
+                : "#E7E9EE",
+              color: isselloutSelected
+                ? "rgb(255, 255, 255)"
+                : "rgba(0, 0, 0, 0.87)",
               cursor: "pointer",
             }}
             className="selectedMenu"
-            onClick={handleFilterStatus}
+            onClick={handleSelloutForecasting}
           >
-            <Typography mx="14px" fontSize={{ lg: 12, xs: 10 }} p="5px 0 0 0">
-              Sell-Out Forecasting Model
+            <Typography mx="25px" fontSize={{ lg: 13, xs: 10 }} p="5px 0 0 0">
+              Sell-Out Forecast
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -122,7 +192,7 @@ const Sidebar = ({ filterStatus }) => {
                 width={{ lg: "100%", xs: "100%" }}
                 className="sidebar-minititle"
               >
-                Monitoring
+                Monitor
               </Typography>
             </Box>
           </AccordionSummary>
@@ -130,13 +200,16 @@ const Sidebar = ({ filterStatus }) => {
             sx={{
               borderTop: "1px solid #B7C3CA ",
               borderBottom: "1px solid #B7C3CA ",
-              backgroundColor: "#E7E9EE",
+              backgroundColor: oosrick ? "rgb(70, 96, 114)" : "#E7E9EE",
+              color: oosrick ? "rgb(255, 255, 255)" : "rgba(0, 0, 0, 0.87)",
               cursor: "pointer",
             }}
+            className="selectedMenu"
+            onClick={handleOOSRick}
           >
             <Typography
-              mx="14px"
-              fontSize={{ lg: "12px", xs: 10 }}
+              mx="26px"
+              fontSize={{ lg: "13px", xs: 10 }}
               p="5px 0 0 0"
             >
               OOS Risk Detection
@@ -145,14 +218,14 @@ const Sidebar = ({ filterStatus }) => {
           <AccordionDetails
             sx={{
               borderBottom: "1px solid #B7C3CA",
-              backgroundColor: isSelected ? "rgb(70, 96, 114)" : "#E7E9EE",
-              color: isSelected ? "rgb(255, 255, 255)" : "rgba(0, 0, 0, 0.87)",
+              backgroundColor: irregular ? "rgb(70, 96, 114)" : "#E7E9EE",
+              color: irregular ? "rgb(255, 255, 255)" : "rgba(0, 0, 0, 0.87)",
               cursor: "pointer",
             }}
             className="selectedMenu"
-            onClick={handleFilterStatus}
+            onClick={handleIrregular}
           >
-            <Typography mx="14px" fontSize={{ lg: 12, xs: 10 }} p="5px 0 0 0">
+            <Typography mx="26px" fontSize={{ lg: 13, xs: 10 }} p="5px 0 0 0">
               Irregular PO
             </Typography>
           </AccordionDetails>
@@ -186,13 +259,18 @@ const Sidebar = ({ filterStatus }) => {
             sx={{
               borderTop: "1px solid #B7C3CA ",
               borderBottom: "1px solid #B7C3CA ",
-              backgroundColor: "#E7E9EE",
+              backgroundColor: reallocation ? "rgb(70, 96, 114)" : "#E7E9EE",
+              color: reallocation
+                ? "rgb(255, 255, 255)"
+                : "rgba(0, 0, 0, 0.87)",
               cursor: "pointer",
             }}
+            className="selectedMenu"
+            onClick={handleReallocation}
           >
             <Typography
-              mx="14px"
-              fontSize={{ lg: "12px", xs: 10 }}
+              mx="26px"
+              fontSize={{ lg: "13px", xs: 10 }}
               p="5px 0 0 0"
             >
               Customer Reallocation
