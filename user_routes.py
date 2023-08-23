@@ -41,9 +41,9 @@ def index():
 
     if "user" in session:
         uname = session["user"]["name"]
-        userDetails = UserDataReader.get_user_details(uname) # type: ignore
-        print(f"\n\n{userDetails}\n\n")
-        overviewdata = AzureBlobReader.read_excel(excel_blob_name) # type: ignore
+        # userDetails = UserDataReader.get_user_details(uname) # type: ignore
+        # print(f"\n\n{userDetails}\n\n")
+        # overviewdata = AzureBlobReader.read_excel(excel_blob_name) # type: ignore
         return render_template("index.html", user=uname)
     else:
         return redirect(url_for("app.login"))
