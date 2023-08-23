@@ -138,16 +138,7 @@ const StockPosition = ({ onData }) => {
       cw2: "0",
       cw3: "2100",
     },
-    {
-      rbsku: "010613",
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-    },
+    
   ]);
 
   return (
@@ -156,23 +147,23 @@ const StockPosition = ({ onData }) => {
         <Table stickyHeader>
           <TableHead>
             <TableRow>
-              <TableCell>RB SKU</TableCell>
-              <TableCell>Description</TableCell>
-              <TableCell>RR Segment</TableCell>
-              <TableCell>Initial SOH Week </TableCell>
-              <TableCell>
+              <TableCell sx={{ textAlign: "center" ,backgroundColor:"#E5EBEF ",color:"#415A6C"}}>RB SKU</TableCell>
+              <TableCell sx={{ textAlign: "center" ,backgroundColor:"#E5EBEF ",color:"#415A6C"}}>Description</TableCell>
+              <TableCell sx={{ textAlign: "center" ,backgroundColor:"#E5EBEF ",color:"#415A6C"}}>RR Segment</TableCell>
+              <TableCell sx={{ textAlign: "center" ,backgroundColor:"#E5EBEF ",color:"#415A6C"}}>Initial SOH Week </TableCell>
+              <TableCell sx={{ textAlign: "center" ,backgroundColor:"#E5EBEF ",color:"#415A6C"}}>
                 <div>CW</div>
                 <div>({startingWeek})</div>
               </TableCell>
-              <TableCell>
+              <TableCell sx={{ textAlign: "center" ,backgroundColor:"#E5EBEF ",color:"#415A6C"}}>
                 <div>CW+1</div>
                 <div className="brack-number">({startingWeek + 1})</div>
               </TableCell>
-              <TableCell>
+              <TableCell sx={{ textAlign: "center" ,backgroundColor:"#E5EBEF ",color:"#415A6C"}}>
                 <div>CW+2</div>
                 <div className="brack-number">({startingWeek + 2})</div>
               </TableCell>
-              <TableCell>
+              <TableCell sx={{ textAlign: "center" ,backgroundColor:"#E5EBEF ",color:"#415A6C"}}>
                 <div>CW+3</div>
                 <div className="brack-number">({startingWeek + 3})</div>
               </TableCell>

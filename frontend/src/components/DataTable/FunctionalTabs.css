@@ -50,10 +50,10 @@
     }
 
     tr:nth-child(odd) {
-        background-color: white;
+        /* background-color: white; */
     }
     .css-1q1u3t4-MuiTableRow-root {
-        background-color: rgb(245,245,245);
+        /* background-color: rgb(245,245,245); */
     }
 
     .brack-number{
@@ -84,10 +84,10 @@
     }
 
     tr:nth-child(odd) {
-        background-color: white;
+        /* background-color: white; */
     }
     .css-1q1u3t4-MuiTableRow-root {
-        background-color: rgb(245,245,245);
+        /* background-color: rgb(245,245,245); */
     }
 
     .brack-number{
@@ -115,10 +115,10 @@
     }
 
     tr:nth-child(odd) {
-        background-color: white;
+        background-color: none;
     }
     .css-1q1u3t4-MuiTableRow-root {
-        background-color: rgb(245,245,245);
+        /* background-color: rgb(245,245,245); */
     }
 
     .brack-number{

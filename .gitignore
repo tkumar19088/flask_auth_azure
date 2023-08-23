@@ -14,7 +14,7 @@ __pycache__
 /node_modules
 /.pnp
 .pnp.js
-
+*build*
 # testing
 /coverage
 
@@ -168,3 +168,5 @@ cython_debug/
 *.json
 *.csv
 irregularpograph.py
+*.json
+frontend/build/asset-manifest.json

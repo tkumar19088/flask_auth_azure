@@ -35,7 +35,8 @@ const StockReallocationData = ({ onData }) => {
     {
       customer: "Amazon",
       channel: "Pureplay",
-      sellinforecast: "300",
+      sellinforecastartefact: "300",
+      sellinforecastreckitt: "500",
       currentallocation: "200",
       allcConsumedDate: "50",
       remAllocation: "150",
@@ -54,7 +55,8 @@ const StockReallocationData = ({ onData }) => {
     {
       customer: "Amazon",
       channel: "Pureplay",
-      sellinforecast: "300",
+      sellinforecastartefact: "300",
+      sellinforecastreckitt: "500",
       currentallocation: "200",
       allcConsumedDate: "50",
       remAllocation: "150",
@@ -73,7 +75,8 @@ const StockReallocationData = ({ onData }) => {
     {
       customer: "Amazon",
       channel: "Pureplay",
-      sellinforecast: "300",
+      sellinforecastartefact: "300",
+      sellinforecastreckitt: "500",
       currentallocation: "200",
       allcConsumedDate: "50",
       remAllocation: "150",
@@ -92,7 +95,8 @@ const StockReallocationData = ({ onData }) => {
     {
       customer: "Amazon",
       channel: "Pureplay",
-      sellinforecast: "300",
+      sellinforecastartefact: "300",
+      sellinforecastreckitt: "500",
       currentallocation: "200",
       allcConsumedDate: "50",
       remAllocation: "150",
@@ -111,7 +115,8 @@ const StockReallocationData = ({ onData }) => {
     {
       customer: "Amazon",
       channel: "Pureplay",
-      sellinforecast: "300",
+      sellinforecastartefact: "300",
+      sellinforecastreckitt: "500",
       currentallocation: "200",
       allcConsumedDate: "50",
       remAllocation: "150",
@@ -130,7 +135,8 @@ const StockReallocationData = ({ onData }) => {
     {
       customer: "Amazon",
       channel: "Pureplay",
-      sellinforecast: "300",
+      sellinforecastartefact: "300",
+      sellinforecastreckitt: "500",
       currentallocation: "200",
       allcConsumedDate: "50",
       remAllocation: "150",
@@ -149,7 +155,8 @@ const StockReallocationData = ({ onData }) => {
     {
       customer: "Amazon",
       channel: "Pureplay",
-      sellinforecast: "300",
+      sellinforecastartefact: "300",
+      sellinforecastreckitt: "500",
       currentallocation: "200",
       allcConsumedDate: "50",
       remAllocation: "150",
@@ -231,62 +238,126 @@ const StockReallocationData = ({ onData }) => {
         <Table stickyHeader className="stockReallocation">
           <TableHead>
             <TableRow>
-              <TableCell style={{ textAlign: "center",border:"1px solid #dcdcdc" }} className="sr-header">
+              <TableCell
+                style={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+                className="sr-header"
+              >
                 Customer
               </TableCell>
-              <TableCell style={{ textAlign: "center",border:"1px solid #dcdcdc" }} className="sr-header">
+              <TableCell
+                style={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+                className="sr-header"
+              >
                 Channel
               </TableCell>
               <TableCell
                 style={{
-                  textAlign: "center",border:"1px solid #dcdcdc"
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  width: "140px",
                 }}
                 className="sr-header"
               >
                 Sell-In Forecast
+                <br />
+                (Artefact vs Reckitt)
               </TableCell>
-              <TableCell style={{ textAlign: "center" ,border:"1px solid #dcdcdc"}} className="sr-header">
+              <TableCell
+                style={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+                className="sr-header"
+              >
                 Current Allocation
               </TableCell>
-              <TableCell style={{ textAlign: "center" ,border:"1px solid #dcdcdc"}} className="sr-header">
+              <TableCell
+                style={{
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  width: "130px",
+                }}
+                className="sr-header"
+              >
                 Allocation consumed to date
               </TableCell>
-              <TableCell style={{ textAlign: "center",border:"1px solid #dcdcdc" }} className="sr-header">
+              <TableCell
+                style={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+                className="sr-header"
+              >
                 Remaining allocation
               </TableCell>
-              <TableCell style={{ textAlign: "center",border:"1px solid #dcdcdc" }} className="sr-header">
+              <TableCell
+                style={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+                className="sr-header"
+              >
                 Open orders
               </TableCell>
-              <TableCell style={{ textAlign: "center",border:"1px solid #dcdcdc" }} className="sr-header">
+              <TableCell
+                style={{
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  width: "90px",
+                }}
+                className="sr-header"
+              >
                 Expected Service level
               </TableCell>
               <TableCell
-                style={{ textAlign: "center", width: "120px",border:"1px solid #dcdcdc" }}
+                style={{
+                  textAlign: "center",
+                  width: "120px",
+                  border: "1px solid #dcdcdc",
+                }}
                 className="sr-header"
               >
                 Customer SOH <br />
                 (current vs target)
               </TableCell>
               <TableCell
-                style={{ textAlign: "center", width: "120px",border:"1px solid #dcdcdc" }}
+                style={{
+                  textAlign: "center",
+                  width: "120px",
+                  border: "1px solid #dcdcdc",
+                }}
                 className="sr-header"
               >
                 Customer WoC <br />
                 (current vs target)
               </TableCell>
-              <TableCell style={{ textAlign: "center" ,border:"1px solid #dcdcdc"}} className="sr-header">
+              <TableCell
+                style={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+                className="sr-header"
+              >
                 Price
               </TableCell>
-              <TableCell style={{ textAlign: "center" ,border:"1px solid #dcdcdc"}} className="sr-header">
+              <TableCell
+                style={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+                className="sr-header"
+              >
                 CMU Score
               </TableCell>
-              <TableCell style={{ textAlign: "center",border:"1px solid #dcdcdc" }} className="sr-header">
+              <TableCell
+                style={{
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  width: "90px",
+                }}
+                className="sr-header"
+              >
                 Stock safe to reallocate
               </TableCell>
-              <TableCell style={{ textAlign: "center",border:"1px solid #dcdcdc" }} className="sr-header">
+              <TableCell
+                style={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+                className="sr-header"
+              >
                 Suggested Allocation
               </TableCell>
-              <TableCell style={{ textAlign: "center" ,border:"1px solid #dcdcdc"}} className="sr-header">
+              <TableCell
+                style={{
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  width: "110px",
+                }}
+                className="sr-header"
+              >
                 Test reallocation scenario
               </TableCell>
             </TableRow>
@@ -301,7 +372,23 @@ const StockReallocationData = ({ onData }) => {
             >
               <TableCell>{data[0].customer}</TableCell>
               <TableCell>{data[0].channel}</TableCell>
-              <TableCell>{data[0].sellinforecast}</TableCell>
+              <TableCell>
+                <Box display="flex" sx={{ marginLeft: "50px" }}>
+                  <Typography fontSize={15}>
+                    {data[0].sellinforecastartefact}
+                  </Typography>
+                  <Typography
+                    fontSize={13}
+                    sx={{
+                      marginLeft: "12px",
+                      marginTop: "10px",
+                      color: "#6e8c78",
+                    }}
+                  >
+                    {data[0].sellinforecastreckitt}
+                  </Typography>
+                </Box>
+              </TableCell>{" "}
               <TableCell>{data[0].currentallocation}</TableCell>
               <TableCell>{data[0].allcConsumedDate}</TableCell>
               <TableCell>{data[0].remAllocation}</TableCell>
@@ -309,7 +396,15 @@ const StockReallocationData = ({ onData }) => {
               <TableCell>{data[0].expectServiceLevel}</TableCell>
               <TableCell>
                 <Box display="flex" sx={{ marginLeft: "50px" }}>
-                  <Typography fontSize={15}>
+                  <Typography
+                    fontSize={15}
+                    sx={{
+                      color:
+                        data[0].custSohcurrent > data[0].custSohTarget
+                          ? "black"
+                          : "red",
+                    }}
+                  >
                     {data[0].custSohcurrent}
                   </Typography>
                   <Typography
@@ -326,7 +421,15 @@ const StockReallocationData = ({ onData }) => {
               </TableCell>
               <TableCell>
                 <Box display="flex" sx={{ marginLeft: "50px" }}>
-                  <Typography fontSize={15}>
+                  <Typography
+                    fontSize={15}
+                    sx={{
+                      color:
+                        data[0].custWoccurrent > data[0].custWocTarget
+                          ? "black"
+                          : "red",
+                    }}
+                  >
                     {data[0].custWoccurrent}
                   </Typography>
                   <Typography
@@ -357,7 +460,23 @@ const StockReallocationData = ({ onData }) => {
               >
                 <TableCell>{item.customer}</TableCell>
                 <TableCell>{item.channel}</TableCell>
-                <TableCell>{item.sellinforecast}</TableCell>
+                <TableCell>
+                  <Box display="flex" sx={{ marginLeft: "50px" }}>
+                    <Typography fontSize={15}>
+                      {item.sellinforecastartefact}
+                    </Typography>
+                    <Typography
+                      fontSize={13}
+                      sx={{
+                        marginLeft: "12px",
+                        marginTop: "10px",
+                        color: "#6e8c78",
+                      }}
+                    >
+                      {item.sellinforecastreckitt}
+                    </Typography>
+                  </Box>
+                </TableCell>{" "}
                 <TableCell>{item.currentallocation}</TableCell>
                 <TableCell>{item.allcConsumedDate}</TableCell>
                 <TableCell>{item.remAllocation}</TableCell>
@@ -365,7 +484,17 @@ const StockReallocationData = ({ onData }) => {
                 <TableCell>{item.expectServiceLevel}</TableCell>
                 <TableCell>
                   <Box display="flex" sx={{ marginLeft: "50px" }}>
-                    <Typography fontSize={15}>{item.custSohcurrent}</Typography>
+                    <Typography
+                      fontSize={15}
+                      sx={{
+                        color:
+                          item.custSohcurrent > item.custSohTarget
+                            ? "#6e8c78"
+                            : "red",
+                      }}
+                    >
+                      {item.custSohcurrent}
+                    </Typography>
                     <Typography
                       fontSize={13}
                       sx={{
@@ -380,7 +509,17 @@ const StockReallocationData = ({ onData }) => {
                 </TableCell>
                 <TableCell>
                   <Box display="flex" sx={{ marginLeft: "50px" }}>
-                    <Typography fontSize={15}>{item.custWoccurrent}</Typography>
+                    <Typography
+                      fontSize={15}
+                      sx={{
+                        color:
+                          item.custWoccurrent > item.custWocTarget
+                            ? "#6e8c78"
+                            : "red",
+                      }}
+                    >
+                      {item.custWoccurrent}
+                    </Typography>
                     <Typography
                       fontSize={13}
                       sx={{

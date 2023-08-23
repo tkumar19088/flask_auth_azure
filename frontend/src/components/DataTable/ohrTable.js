@@ -1044,11 +1044,6 @@ const OhrTable = ({ onData }) => {
               >
                 Customer Allocation
               </TableCell>
-              <TableCell
-                sx={{ textAlign: "center", border: "1px solid #dcdcdc" }}
-              >
-                Request Deactivation
-              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -1087,11 +1082,6 @@ const OhrTable = ({ onData }) => {
                 <TableCell>
                   <Typography fontSize="13px">
                     {item.rbwherehouseinventory}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography fontSize="13px">
-                    {item.requestdeactivation}
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -1434,7 +1424,7 @@ const OhrTable = ({ onData }) => {
                 }}
               >
                 <Typography width="60px" className="table-h1-title">
-                  Active Promo ?
+                  Active Promo
                 </Typography>
               </TableCell>
 

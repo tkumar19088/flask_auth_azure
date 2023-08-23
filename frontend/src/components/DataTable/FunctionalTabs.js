@@ -78,7 +78,7 @@ const FunctionalTabs = () => {
             color: activeTab === 6 ? "white" : "#415A6C",
           }}
         >
-          Expected Services
+          Expected Service
         </Tab>
         <Tab
           style={{

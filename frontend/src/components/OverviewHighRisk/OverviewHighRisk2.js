@@ -31,6 +31,7 @@ import NestedMenu from "../../Nestedmenu";
 import NestedMenu2 from "./Nestedmenu2";
 import "./OverviewHighRisk.css";
 import Filtersdropdown from "./Filtersdropdown";
+import OhrTabs from "../DataTable/OhrTab";
 
 const OverviewHighRisk2 = () => {
   const Search = styled("div")(({ theme }) => ({
@@ -124,9 +125,8 @@ const OverviewHighRisk2 = () => {
             alignItems="center"
             height={60}
           >
-            <Typography color="#415A6C" className="ohr-title">
-              Overview High-Risk SKUs
-            </Typography>
+            <OhrTabs />
+
             <Box className="ohr-rightbox">
               <Box
                 textAlign="center"
@@ -171,6 +171,16 @@ const OverviewHighRisk2 = () => {
             </Box>
           </Stack>
           <FunctionalTabs />
+          <Box display="flex" justifyContent="right">
+            <Button
+              variant="contained"
+              size="small"
+              className="btn-exp"
+              style={{ textDecoration: "none", textTransform: "none" }}
+            >
+              Export List
+            </Button>
+          </Box>
         </Grid>
       </Grid>
     </div>

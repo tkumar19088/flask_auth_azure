@@ -120,7 +120,7 @@ height: 20px;
 margin-top: 1px;
 }
 
-.css-ahj2mt-MuiTypography-root {
+.sidebar .css-ahj2mt-MuiTypography-root {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif !important;
@@ -161,10 +161,10 @@ margin-top: 1px;
     width: 165px;
 
 }
-.css-yw020d-MuiAccordionSummary-expandIconWrapper{
+.sidebar .css-yw020d-MuiAccordionSummary-expandIconWrapper{
     transform: rotate(-90deg) !important;
 }
-.css-yw020d-MuiAccordionSummary-expandIconWrapper.Mui-expanded{
+.sidebar  .css-yw020d-MuiAccordionSummary-expandIconWrapper.Mui-expanded{
     transform: rotate(0deg) !important;
 
 }

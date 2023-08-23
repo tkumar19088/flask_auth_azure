@@ -157,47 +157,47 @@ const DemandTable = ({ onData }) => {
         <Table stickyHeader>
           <TableHead>
             <TableRow>
-              <TableCell>RB SKU</TableCell>
-              <TableCell>Description</TableCell>
-              <TableCell>RR Segment</TableCell>
-              <TableCell>Initial SOH Week </TableCell>
-              <TableCell>
+              <TableCell sx={{ textAlign: "center" ,backgroundColor:"#E5EBEF ",color:"#415A6C"}}>RB SKU</TableCell>
+              <TableCell sx={{ textAlign: "center" ,backgroundColor:"#E5EBEF ",color:"#415A6C"}}>Description</TableCell>
+              <TableCell sx={{ textAlign: "center" ,backgroundColor:"#E5EBEF ",color:"#415A6C"}}>RR Segment</TableCell>
+              <TableCell sx={{ textAlign: "center" ,backgroundColor:"#E5EBEF ",color:"#415A6C"}}>Initial SOH Week </TableCell>
+              <TableCell sx={{ textAlign: "center" ,backgroundColor:"#E5EBEF ",color:"#415A6C"}}>
                 <div>CW</div>
                 <div>({startingWeek})</div>
               </TableCell>
-              <TableCell>
+              <TableCell sx={{ textAlign: "center" ,backgroundColor:"#E5EBEF ",color:"#415A6C"}}>
                 <div>CW+1</div>
                 <div className="brack-number">({startingWeek + 1})</div>
               </TableCell>
-              <TableCell>
+              <TableCell sx={{ textAlign: "center" ,backgroundColor:"#E5EBEF ",color:"#415A6C"}}>
                 <div>CW+2</div>
                 <div className="brack-number">({startingWeek + 2})</div>
               </TableCell>
-              <TableCell>
+              <TableCell sx={{ textAlign: "center" ,backgroundColor:"#E5EBEF ",color:"#415A6C"}}>
                 <div>CW+3</div>
                 <div className="brack-number">({startingWeek + 3})</div>
               </TableCell>
-              <TableCell>
+              <TableCell sx={{ textAlign: "center" ,backgroundColor:"#E5EBEF ",color:"#415A6C"}}>
                 <div>CW+4</div>
                 <div className="brack-number">({startingWeek + 4})</div>
               </TableCell>
-              <TableCell>
+              <TableCell sx={{ textAlign: "center" ,backgroundColor:"#E5EBEF ",color:"#415A6C"}}>
                 <div>CW+5</div>
                 <div className="brack-number">({startingWeek + 5})</div>
               </TableCell>
-              <TableCell>
+              <TableCell sx={{ textAlign: "center" ,backgroundColor:"#E5EBEF ",color:"#415A6C"}}>
                 <div>CW+6</div>
                 <div className="brack-number">({startingWeek + 6})</div>
               </TableCell>
-              <TableCell>
+              <TableCell sx={{ textAlign: "center" ,backgroundColor:"#E5EBEF ",color:"#415A6C"}}>
                 <div>CW+7</div>
                 <div className="brack-number">({startingWeek + 7})</div>
               </TableCell>
-              <TableCell>
+              <TableCell sx={{ textAlign: "center" ,backgroundColor:"#E5EBEF ",color:"#415A6C"}}>
                 <div>CW+8</div>
                 <div className="brack-number">({startingWeek + 8})</div>
               </TableCell>
-              <TableCell>
+              <TableCell sx={{ textAlign: "center" ,backgroundColor:"#E5EBEF ",color:"#415A6C"}}>
                 <div>CW+9</div>
                 <div className="brack-number">({startingWeek + 9})</div>{" "}
               </TableCell>

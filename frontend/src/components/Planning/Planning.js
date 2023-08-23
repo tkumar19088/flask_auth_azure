@@ -128,7 +128,7 @@ const Planning = ({ filterStatus }) => {
           <Grid item xs={4}>
             <Box className="pln-cards-header">
               <Typography color="#fff" className="plan-title">
-                Reallocate
+               Allocate / Reallocate
               </Typography>
             </Box>{" "}
             <Box
