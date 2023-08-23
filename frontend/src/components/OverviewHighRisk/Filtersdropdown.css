@@ -18,20 +18,35 @@
         position: relative;
         padding-top: 0px !important;
         padding-bottom: 0px !important;
+        width: 235px;
      
 
 }
 
-.filter-downbox{
-    /* margin-top: 40px !important; */
+.filterdropdown-insidebtn{
+    display: flex;
+    justify-content: space-around !important;
+    /* width: 100% !important; */
+
+}
+.btn-apply{
+    height: 24px !important;
+    text-transform: none !important;
+}
+.btn-cancel{
+    height: 24px !important;
+    text-transform: none !important;
 }
 
-.filter-dropdown{
-    min-width: 270px !important;
+.btn-apply:hover{
+    
+    background-color: #FF007E !important;
 }
 
-.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper{
-    /* margin-top: 95px !important; */
+.btn-cancel:hover{
+    background-color: #415A6C !important;
 }
+
+
 
 }

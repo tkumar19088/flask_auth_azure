@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Box, Grid, Link, Typography } from "@mui/material";
 
@@ -10,15 +10,17 @@ import Error from "../../images/error.png";
 import "./Status.css";
 
 const Status = ({ filterStatus }) => {
+  const [selectedalert, setselectedalert] = useState(false);
   const handleFilterStatus = () => {
     filterStatus(true);
+    setselectedalert(true);
   };
 
   return (
     <div>
       <div className="status">
         <div>
-          <Typography fontSize={{ lg: 28, xs: 24 }} color="#415A6C">
+          <Typography my={1} fontSize={{ lg: 23, xs: 24 }} color="#415A6C">
             Current Status / Alerts Section
           </Typography>
         </div>
@@ -47,8 +49,11 @@ const Status = ({ filterStatus }) => {
             sx={{
               borderRadius: "5px 5px ",
               backgroundColor: "#fff",
-              boxShadow: "0px 2px 0px 0px  rgba(0,0,0,0.3)",
+              boxShadow: selectedalert
+                ? ""
+                : "0px 2px 0px 0px  rgba(0,0,0,0.3)",
               height: "100%",
+              border: selectedalert ? "2px solid orange" : "",
             }}
           >
             <Box sx={{ display: "flex", alignItems: "center" }}>

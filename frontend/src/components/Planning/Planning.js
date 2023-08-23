@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import "./Planning.css";
 import qubes from "../../images/qubes.png";
@@ -9,8 +9,27 @@ import { useNavigate } from "react-router-dom";
 const Planning = ({ filterStatus }) => {
   const navigate = useNavigate();
 
-  const handleFilterStatus = () => {
+  const [oosriskselectedBG, setoosriskselectedBG] = useState(false);
+  const [irregularselectedBG, setirregularselectedBG] = useState(false);
+  const [reallocationselectedBG, setreallocationselectedBG] = useState(false);
+
+  const handleOOSRisk = () => {
     filterStatus(true);
+    setirregularselectedBG(false);
+    setreallocationselectedBG(false);
+    setoosriskselectedBG(true);
+  };
+  const handleirregularpo = () => {
+    filterStatus(true);
+    setoosriskselectedBG(false);
+    setreallocationselectedBG(false);
+    setirregularselectedBG(true);
+  };
+  const handleReallocation = () => {
+    filterStatus(true);
+    setoosriskselectedBG(false);
+    setirregularselectedBG(false);
+    setreallocationselectedBG(true);
   };
 
   const handleSellinforecast = () => {
@@ -25,126 +44,113 @@ const Planning = ({ filterStatus }) => {
     <div>
       <Grid mt={3}>
         <Grid container spacing={{ md: 2, lg: 2, xl: 5 }} item xs={12} mt={1}>
-          <Grid item xs={3}>
+          <Grid item xs={4}>
             <Box className="pln-cards-header">
               <Typography color="#fff" className="plan-title">
-                Demand Planning
+                Forecast
               </Typography>
+            </Box>
+            <Box className="pln-card-bd" onClick={handleSellinforecast}>
+              <Box className="pln-cards-cnt">
+                <Typography
+                  fontSize={{ lg: 14, xs: 12 }}
+                  className="plan-minititile"
+                >
+                  Sell-In Forecast
+                </Typography>
+              </Box>
+              <Box className="pln-cards-cnt">
+                <GridViewRoundedIcon />
+              </Box>
             </Box>
             <Box className="pln-card-bd" onClick={handleSelloutforecast}>
               <Box className="pln-cards-cnt">
-                <Typography fontSize={{ lg: 14, xs: 12 }}>
-                  Forecast Builder - Sell Out
+                <Typography
+                  fontSize={{ lg: 14, xs: 12 }}
+                  className="plan-minititile"
+                >
+                  Sell-Out Forecast
                 </Typography>
               </Box>
               <Box className="pln-cards-cnt">
                 <GridViewRoundedIcon />
               </Box>
             </Box>
-            <Box className="pln-card-bd">
-              <Box className="pln-cards-cnt">
-                <Badge badgeContent="Coming Soon" className="market-badge">
-                  <Typography fontSize={{ lg: 14, xs: 12 }}>
-                    Market Price Match
-                  </Typography>
-                </Badge>
-              </Box>
-              <Box className="pln-cards-cnt">
-                <GridViewRoundedIcon />{" "}
-              </Box>
-            </Box>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={4}>
             <Box className="pln-cards-header">
               <Typography color="#fff" className="plan-title">
-                Demand Scenarios
+                Monitor
               </Typography>
             </Box>{" "}
-            <Box className="pln-card-bd">
+            <Box
+              className="pln-card-bd"
+              onClick={handleOOSRisk}
+              style={{
+                backgroundColor: oosriskselectedBG ? "#ff007e" : "#fff",
+                color: oosriskselectedBG ? "#fff" : "black",
+              }}
+            >
               <Box className="pln-cards-cnt">
-                <Badge badgeContent="Coming Soon" className="scenario-badge">
-                  <Typography fontSize={{ lg: 14, xs: 12 }}>
-                    Scenario Selection
-                  </Typography>
-                </Badge>
-              </Box>
-              <Box className="pln-cards-cnt">
-                <GridViewRoundedIcon />{" "}
-              </Box>
-            </Box>{" "}
-            <Box className="pln-card-bd">
-              <Box className="pln-cards-cnt" height="20px">
-                <Badge badgeContent="Coming Soon" className="systamatic-badge">
-                  <Typography fontSize={{ lg: 14, xs: 12 }}>
-                    Systamatic data-driven
-                    <br /> forecast validation
-                  </Typography>
-                </Badge>
-              </Box>
-              <Box className="pln-cards-cnt">
-                <GridViewRoundedIcon />{" "}
-              </Box>
-            </Box>{" "}
-          </Grid>
-
-          <Grid item xs={3}>
-            <Box className="pln-cards-header">
-              <Typography color="#fff" className="plan-title">
-                Supply Planning
-              </Typography>
-            </Box>{" "}
-            <Box className="pln-card-bd" onClick={handleSellinforecast}>
-              <Box className="pln-cards-cnt">
-                <Typography fontSize={{ lg: 14, xs: 12 }}>
-                  Forecast builder - Sell-In{" "}
+                <Typography
+                  fontSize={{ lg: 14, xs: 12 }}
+                  className="plan-minititile"
+                >
+                  OOS Risk Dectection
                 </Typography>
               </Box>
               <Box className="pln-cards-cnt">
                 <GridViewRoundedIcon />
               </Box>
-            </Box>{" "}
-          </Grid>
-
-          <Grid item xs={3}>
-            <Box className="pln-cards-header">
-              <Typography color="#fff" className="plan-title">
-                Distribution Planning
-              </Typography>
-            </Box>{" "}
-            <Box className="pln-card-bd">
+            </Box>
+            <Box
+              className="pln-card-bd"
+              onClick={handleirregularpo}
+              style={{
+                backgroundColor: irregularselectedBG ? "#ff007e" : "#fff",
+                color: irregularselectedBG ? "#fff" : "black",
+              }}
+            >
               <Box className="pln-cards-cnt">
-                <Badge badgeContent="Coming Soon" className="sku-badge">
-                  <Typography fontSize={{ lg: 14, xs: 12 }}>
-                    SKU Prioritisation{" "}
-                  </Typography>
-                </Badge>
-              </Box>
-              <Box className="pln-cards-cnt">
-                <GridViewRoundedIcon />{" "}
-              </Box>
-            </Box>{" "}
-            <Box className="pln-card-bd42" onClick={handleFilterStatus}>
-              <Box className="pln-cards-cnt">
-                <Typography fontSize={{ lg: 14, xs: 12 }} fontWeight={500}>
-                  OOS Risk Detection
+                <Typography
+                  fontSize={{ lg: 14, xs: 12 }}
+                  className="plan-minititile"
+                >
+                  Irregular PO
                 </Typography>
               </Box>
               <Box className="pln-cards-cnt">
-                <GridViewRoundedIcon />{" "}
+                <GridViewRoundedIcon />
               </Box>
+            </Box>
+          </Grid>
+
+          <Grid item xs={4}>
+            <Box className="pln-cards-header">
+              <Typography color="#fff" className="plan-title">
+                Reallocate
+              </Typography>
             </Box>{" "}
-            <Box className="pln-card-bd">
+            <Box
+              className="pln-card-bd"
+              onClick={handleReallocation}
+              style={{
+                backgroundColor: reallocationselectedBG ? "#ff007e" : "#fff",
+                color: reallocationselectedBG ? "#fff" : "black",
+              }}
+            >
               <Box className="pln-cards-cnt">
-                <Badge badgeContent="Coming Soon" className="smartstock-badge">
-                  <Typography fontSize={{ lg: 14, xs: 12 }} fontWeight={500}>
-                    Smart Stock Reallocation
-                  </Typography>
-                </Badge>
+                <Typography
+                  fontSize={{ lg: 14, xs: 12 }}
+                  className="plan-minititile"
+                >
+                  Customer Reallocation
+                </Typography>
               </Box>
               <Box className="pln-cards-cnt">
-                <GridViewRoundedIcon />{" "}
+                <GridViewRoundedIcon />
               </Box>
-            </Box>{" "}
+            </Box>
           </Grid>
         </Grid>
       </Grid>

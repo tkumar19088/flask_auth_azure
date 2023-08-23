@@ -81,7 +81,7 @@ const OverviewHighRisk2 = () => {
         <Grid item xs={2}>
           <Sidebar />
         </Grid>
-        <Grid item xs={10} p={2} sx={{ backgroundColor: "#F5F6F8" }}>
+        <Grid item xs={10} className="bg-containerOHR">
           <Stack direction="row" justifyContent="space-between">
             <Box display="flex" fontSize={14} mx="1px">
               <Box mt="1px">
@@ -93,7 +93,6 @@ const OverviewHighRisk2 = () => {
                     border: "#fff",
                     marginTop: "-6px",
                     height: "24px",
-                    // width: "27px",
                   }}
                 >
                   <ArrowBackIosNewIcon
@@ -107,12 +106,7 @@ const OverviewHighRisk2 = () => {
                     }}
                   />
                   &#160;
-                  <Typography
-                    fontSize={12}
-                    //  onClick={handleBack}
-                  >
-                    Back
-                  </Typography>
+                  <Typography fontSize={12}>Back</Typography>
                 </Button>
               </Box>{" "}
               &#160;&#160;&#160;&#160;&#160;&#160;
@@ -123,56 +117,57 @@ const OverviewHighRisk2 = () => {
               <Typography fontSize={14}>Overview High-Risk SKUs</Typography>
             </Box>
           </Stack>
-          <Stack className="ohr-stack"
+          <Stack
+            className="ohr-stack"
             direction="row"
-            // border="1px solid"
             justifyContent="space-between"
             alignItems="center"
-            // p={1}
-            // gap={2}
-            // marginBlock={3}
             height={60}
           >
-            <Typography
-              // fontSize={28}
-              // mt={1}
-              color="#415A6C"
-              className="ohr-title"
-            >
+            <Typography color="#415A6C" className="ohr-title">
               Overview High-Risk SKUs
             </Typography>
-
-            <Box
-              textAlign="center"
-              alignItems="center"
-              justifyContent="center"
-              display="flex"
-              className="search-align"
-            >
-              <Search
-                sx={{
-                  backgroundColor: "#F5F6F8",
-                  // borderRadius: "20px 20px",
-                  border: "1px solid",
-                  display: "flex",
-                  color: "#415A6C",
-                }}
+            <Box className="ohr-rightbox">
+              <Box
+                textAlign="center"
+                alignItems="center"
+                justifyContent="center"
+                display="flex"
+                className="search-align"
               >
-                <StyledInputBase
-                  // {{border:"1px solid"}}
-                  placeholder="Search Sku by name"
-                  inputProps={{ "aria-label": "search" }}
-                />{" "}
-                <img src={search} alt="search" className="search-icon" />
-              </Search>
-            </Box>
-            <Box className="nestmenu-box">
-              <Filtersdropdown />
-            </Box>
-            <Box mt={-2}>
-              <Button variant="contained" size="small" className="btn-exp">
-                Export Data
-              </Button>
+                <Search
+                  className="serch-border"
+                  sx={{
+                    backgroundColor: "#F5F6F8",
+                    // borderRadius: "20px 20px",
+                    border: "1px solid",
+                    display: "flex",
+                    color: "#415A6C",
+                    marginTop: "13px",
+                  }}
+                >
+                  <StyledInputBase
+                    className="serch-name"
+                    // {{border:"1px solid"}}
+                    placeholder="Search Sku by name"
+                    inputProps={{ "aria-label": "search" }}
+                  />{" "}
+                  <img src={search} alt="search" className="search-icon" />
+                </Search>
+              </Box>
+              <Box className="nestmenu-box">
+                <Filtersdropdown />
+              </Box>
+              <Box>
+                <Button
+                  variant="contained"
+                  size="small"
+                  className="btn-exp"
+                  style={{ textDecoration: "none", textTransform: "none" }}
+                >
+                  Export Data
+                </Button>
+              </Box>
             </Box>
           </Stack>
           <FunctionalTabs />
@@ -183,21 +178,3 @@ const OverviewHighRisk2 = () => {
 };
 
 export default OverviewHighRisk2;
-<MaterialUITabs />;
-
-<Box
-  sx={{
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: "center",
-    borderRadius: "5px",
-    color: "#fff",
-    backgroundColor: "#415A6C",
-    textAlign: "center",
-  }}
-  width={120}
-  height={40}
->
-  Export
-</Box>;

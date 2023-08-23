@@ -73,7 +73,11 @@ const Selloutforecast = () => {
           </Box>
           <Grid container justifyContent="space-between" mt={1}>
             <Box mx="1px">
-              <Typography fontSize={24} color="#415A6C">
+              <Typography
+                fontSize={24}
+                color="#415A6C"
+                style={{ marginTop: "20px" }}
+              >
                 Forecast Builder - Sell-Out
               </Typography>
             </Box>

@@ -42,7 +42,7 @@ function StockReallocation() {
         <Grid item xs={2}>
           <Sidebar />
         </Grid>
-        <Grid item xs={10} p={2} className="bg-container">
+        <Grid item xs={10} className="bg-container">
           <Box display="flex" fontSize={14} mx="1px" className="bread-crumb">
             <Box mt="1px">
               <Button
@@ -67,12 +67,7 @@ function StockReallocation() {
                   }}
                 />
                 &#160;
-                <Typography
-                  fontSize={12}
-                  //  onClick={handleBack}
-                >
-                  Back
-                </Typography>
+                <Typography fontSize={12}>Back</Typography>
               </Button>
             </Box>{" "}
             &#160;&#160;&#160;&#160;&#160;&#160;
@@ -82,20 +77,16 @@ function StockReallocation() {
             </Typography>
             <Typography fontSize={14}>Overview High-Risk SKUs</Typography>
           </Box>
-          <Typography className="safilter-title" my={1}>
-            Filters : SKU
-          </Typography>
-
           <Typography
-            fontSize={22}
+            fontSize={16}
             sx={{ color: "#415A6C" }}
-            marginBottom="-35px"
+            margin="5px 0px -10px 3px"
           >
             Scenario Generation: Airwick Electrical Lemon 112345
           </Typography>
           <Box
             mx="1px"
-            sx={{ marginBlock: "15px" }}
+            sx={{ marginTop: "" }}
             display="flex"
             justifyContent="space-between"
             // border="1px solid"
@@ -103,24 +94,55 @@ function StockReallocation() {
           >
             <Box>
               <Typography
-                fontSize={38}
+                fontSize={30}
                 color="#415A6C"
                 className="srbr-h1"
-                mt="13px"
+                marginTop="7px"
+
+                // mt="1px"
               >
-                Stock Reallocation between Retailers{" "}
+                Stock Reallocation between Retailers
               </Typography>
             </Box>
-            <Box display="flex" justifyContent="space-between" width="550px">
-              <Button variant="contained" className="srbr-btnswithin">
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              width="450px"
+              marginTop="10px"
+            >
+              <Button
+                variant="contained"
+                className="srbr-btnshvr"
+                sx={{
+                  backgroundColor: "#FF007E",
+                  textDecoration: "none",
+                  textTransform: "none",
+                }}
+              >
                 Within same channel
               </Button>
 
-              <Button variant="contained" className="srbr-btns">
+              <Button
+                variant="contained"
+                className="srbr-btns"
+                sx={{
+                  backgroundColor: "#415A6C",
+                  textDecoration: "none",
+                  textTransform: "none",
+                }}
+              >
                 Across channels
               </Button>
-              <Button variant="contained" className="srbr-btns">
-                Export Excel
+              <Button
+                variant="contained"
+                className="srbr-btns"
+                sx={{
+                  backgroundColor: "#415A6C",
+                  textDecoration: "none",
+                  textTransform: "none",
+                }}
+              >
+                Export Data
               </Button>
             </Box>
           </Box>

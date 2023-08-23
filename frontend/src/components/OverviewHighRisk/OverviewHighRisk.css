@@ -128,7 +128,7 @@ table {
         margin-top: -12px !important;
       }
       .search-align{
-        margin-left: 10px !important;
+        margin-left: 9px !important;
       }
       .css-eiibem-MuiTableCell-root {
 
@@ -141,16 +141,17 @@ table {
   }
  
   @media (width > 1919px) {
-    .bg-container{
-     /* background-color: #F5F6F8; */
-     /* padding: 30px !important; */
-     /* height: 1380px !important ; */
+    .bg-containerOHR {
+      background-color: #F5F6F8;
+      padding: 10px !important;
+      height: 889px !important ;
     }
     .ohr-stack{
-      margin-block: 25px !important;
+      /* margin-block: 10px !important; */
+      margin-bottom: 20px !important;
     }
     .ohr-title{
-      font-size: 2.4rem !important;
+      font-size: 30px !important;
       margin-top: 20px !important;
     }
     .css-7mt4h1-MuiInputBase-root .MuiInputBase-input{
@@ -164,12 +165,13 @@ table {
       margin-left: -80px !important;
       margin-top: -12px !important;
     }
-    .css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input.css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input.css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input {
+
+    /* .css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input.css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input.css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input {
       padding-right: 165px !important;
-   }
+   } */
 
    .btn-exp{
-    font-size: 22px !important;
+    font-size: 14px !important;
     background-color: #415A6C !important;
     margin-top: 20px !important;
    }
@@ -178,11 +180,12 @@ table {
     font-size: 23px !important;
    }
    .search-align{
-    margin-left: 450px !important;
+    /* margin-left: 450px !important; */
     margin-top: 8px !important;
   }
   .nestmenu-box{
-    margin-left: 3px !important;
+    /* margin-left: 150px !important; */
+    margin-top: 20px !important;
   }
   .nestedbtn-filters{
     background-color: #415A6C !important;
@@ -213,18 +216,18 @@ table {
     font-size: 23px !important;
   }
 
-  .css-7mt4h1-MuiInputBase-root .MuiInputBase-input {
-    width: 12ch;
-    font-size: 21px;
-    margin-top: -3px;
+  .ohr-rightbox .css-7mt4h1-MuiInputBase-root .MuiInputBase-input {
+    /* width: 12ch; */
+    font-size: 12px;
+    margin-top: 0px;
     padding-left: 24px !important;
   }
-  .search-icon {
+  .ohr-rightbox .search-icon {
     width: 28px;
     height: 28px;
     align-items: center;
     margin-right: 14px;
-    margin-top: 8px;
+    margin-top: 1px;
  }
 
  .css-eiibem-MuiTableCell-root {
@@ -237,4 +240,24 @@ table {
   background:  #415A6C !important;
  }
 
+ .css-1q1u3t4-MuiTableRow-root {
+  height: 55px !important;
+ }
+ tr:nth-child(odd) {
+  height: 55px !important;
+ }
+
+ .ohr-rightbox{
+  display: flex;
+  /* border: 1px solid; */
+  width: 400px;
+  justify-content: space-between ;
+  align-items: center;
+  align-self: center;
+ }
+
+ .serch-name .css-yz9k0d-MuiInputBase-input {
+  height: 10px;
+ }
+ 
 }

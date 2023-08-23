@@ -12,18 +12,9 @@ import "./Filters.css";
 
 const Filters = () => {
   const navigate = useNavigate();
-  const [scenarios, setScenarios] = useState(false);
 
   const handleClick = () => {
-    setScenarios(true);
-  };
-
-  const handleNavigateOverviewHighRisk = () => {
     navigate("/overviewhighrisk2");
-  };
-
-  const handleNavigateIrregularPO = () => {
-    navigate("/irregularpo");
   };
 
   return (
@@ -138,9 +129,15 @@ const Filters = () => {
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={3} textAlign="center" alignItems="center">
+          <Grid
+            item
+            xs={3}
+            textAlign="center"
+            alignItems="center"
+            onClick={handleClick}
+          >
             <Box className="btn-filters">
-              <Typography onClick={handleClick} className="filter-btn-name">
+              <Typography className="filter-btn-name">
                 APPLY FILTERS{" "}
               </Typography>{" "}
               <PlayArrowIcon />
@@ -148,47 +145,8 @@ const Filters = () => {
           </Grid>
         </Grid>
       </Grid>
-      {scenarios && (
-        <Grid
-          container
-          p={1}
-          spacing={1}
-          mt={{ lg: "1px" }}
-          justifyContent="space-evenly"
-        >
-          <Grid item xs={3}>
-            <Box className="btn-fltr" onClick={handleNavigateIrregularPO}>
-              <Typography color="#fff" className="btn-filter-title">
-                {" "}
-                Irregular PO (5)
-              </Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={3}>
-            <Box className="btn-fltr" onClick={handleNavigateOverviewHighRisk}>
-              <Typography color="#fff" className="btn-filter-title">
-                {" "}
-                High Risk SKU's (10)
-              </Typography>
-            </Box>
-          </Grid>
-        </Grid>
-      )}
     </div>
   );
 };
 
 export default Filters;
-
-<Grid
-  item
-  xs={3}
-  //  onClick={handleNavigateOverviewHighRisk}
->
-  <Box className="btn-fltr">
-    <Typography color="#fff" className="btn-">
-      {" "}
-      Low Stock on hand (10)
-    </Typography>
-  </Box>
-</Grid>;

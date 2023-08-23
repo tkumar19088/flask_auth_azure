@@ -15,15 +15,78 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
+import WarningAmberRoundedIcon from "@mui/icons-material/WarningAmberRounded";
+import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
+import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
 
-const Sidebar = ({ filterStatus }) => {
+import { useSelector, useDispatch } from "react-redux";
+import {
+  fetchSellinForecast,
+  fetchSelloutForecast,
+  fetchOOSRisk,
+  fetchIrregular,
+  fetchReallocation,
+} from "../../store/actions/sidebarActions";
+
+const Sidebar = () => {
+  const sellinForecastVal = useSelector(
+    (state) => state.sidebar.sellinforecast
+  );
+  const selloutForecastVal = useSelector(
+    (state) => state.sidebar.selloutforecast
+  );
+  const oosriskVal = useSelector((state) => state.sidebar.oosrisk);
+  const irregularpoVal = useSelector((state) => state.sidebar.irregularpo);
+  const reallocationVal = useSelector((state) => state.sidebar.reallocation);
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [isSelected, setisSelected] = useState(false);
+  const [issellinSelected, setissellinSelected] = useState(sellinForecastVal);
+  const [isselloutSelected, setisselloutSelected] =
+    useState(selloutForecastVal);
+  const [oosrick, setoosrick] = useState(oosriskVal);
+  const [irregular, setirregular] = useState(irregularpoVal);
+  const [reallocation, setreallocation] = useState(reallocationVal);
 
-  const handleFilterStatus = () => {
-    setisSelected(true);
-    filterStatus(true);
+  const handleOOSRick = () => {
+    dispatch(fetchOOSRisk(true));
+
+    setreallocation(false);
+    setirregular(false);
+
+    setoosrick(true);
+  };
+  const handleIrregular = () => {
+    dispatch(fetchIrregular(true));
+
+    setoosrick(false);
+    setreallocation(false);
+
+    setirregular(true);
+  };
+  const handleReallocation = () => {
+    dispatch(fetchReallocation(true));
+
+    setoosrick(false);
+    setirregular(false);
+
+    setreallocation(true);
+  };
+  const handleSelloutForecasting = () => {
+    dispatch(fetchSelloutForecast(true));
+    setissellinSelected(false);
+    setisselloutSelected(true);
+    navigate("/selloutforecast");
+  };
+  const handleSellinForecasting = () => {
+    dispatch(fetchSellinForecast(true));
+
+    setisselloutSelected(false);
+    setissellinSelected(true);
+    navigate("/sellinforecast");
   };
 
   const handleDashboard = () => {
@@ -36,55 +99,33 @@ const Sidebar = ({ filterStatus }) => {
         onClick={handleDashboard}
         style={{ backgroundColor: "#415A6C", color: "#fff" }}
       >
-        <img src={qube} className="qube-icon" />
-        <Typography>Dashboard</Typography>
-      </div>
-      <div className="S-h2">
-        <img src={play} alt="play" className="play-icon" />
-        <Typography>Demand Planning</Typography>
-      </div>
-      <div className="S-h2">
-        <img src={play} alt="play" className="play-icon" />
-        <Typography>Demand Scenarios</Typography>
+        <GridViewRoundedIcon className="grid-icon1" />
+        <Typography fontSize={{ lg: 14, xs: 9 }} className="sidebar-minititle">
+          Dashboard
+        </Typography>
       </div>
 
-      <div className="S-h2">
-        <img src={play} alt="play" className="play-icon" />
-
-        <Typography>Supply Planning</Typography>
-      </div>
-
-      <div style={{ marginBlock: "5%" }}>
+      <div style={{ marginBlock: "10%" }}>
         <Accordion className="acrdn-main">
           <AccordionSummary
             className="acrdn-s"
-            // expandIcon={<ArrowDropDownIcon />}
+            expandIcon={<ArrowDropDownIcon />}
             sx={{
               color: "#fff",
-              // backgroundColor: "#7E919F",
               height: "35px",
               borderRadius: "5px 5px 0px 0px",
-              // color: "#E7E9EE",
-              // backgroundColor: isSelected ? "rgb(70, 96, 114)" : "#E7E9EE",
-              // color: isSelected
-              //   ? "rgb(255, 255, 255)"
-              //   : "rgba(0, 0, 0, 0.87)",
-              // cursor: "pointer",
             }}
-            // onClick={handleFilterStatus}
           >
             <Box sx={{ display: "flex" }}>
-              <ArrowDropDownIcon
-                sx={{
-                  marginLeft: "-6px",
-                }}
-              />
+              <GridViewRoundedIcon className="grid-icon" />
+
               <Typography
-                fontSize={{ lg: 13, xs: 9 }}
+                fontSize={{ lg: 14, xs: 9 }}
                 marginTop={{ lg: "3px", xs: "6px" }}
                 width={{ lg: "100%", xs: "100%" }}
+                className="sidebar-minititle"
               >
-                Distribution Planning
+                Forecast
               </Typography>
             </Box>
           </AccordionSummary>
@@ -92,121 +133,182 @@ const Sidebar = ({ filterStatus }) => {
             sx={{
               borderTop: "1px solid #B7C3CA ",
               borderBottom: "1px solid #B7C3CA ",
-              backgroundColor: "#E7E9EE",
-              // marginBottom: "-15px",
+              backgroundColor: issellinSelected
+                ? "rgb(70, 96, 114)"
+                : "#E7E9EE",
+              color: issellinSelected
+                ? "rgb(255, 255, 255)"
+                : "rgba(0, 0, 0, 0.87)",
               cursor: "pointer",
             }}
+            className="selectedMenu"
+            onClick={handleSellinForecasting}
           >
             <Typography
-              mx="14px"
-              fontSize={{ lg: "12px", xs: 10 }}
+              mx="25px"
+              fontSize={{ lg: "13px", xs: 10 }}
               p="5px 0 0 0"
             >
-              {" "}
-              SKU Prioritization
+              Sell-In Forecast
             </Typography>
           </AccordionDetails>
           <AccordionDetails
             sx={{
               borderBottom: "1px solid #B7C3CA",
-              backgroundColor: isSelected ? "rgb(70, 96, 114)" : "#E7E9EE",
-              color: isSelected ? "rgb(255, 255, 255)" : "rgba(0, 0, 0, 0.87)",
+              backgroundColor: isselloutSelected
+                ? "rgb(70, 96, 114)"
+                : "#E7E9EE",
+              color: isselloutSelected
+                ? "rgb(255, 255, 255)"
+                : "rgba(0, 0, 0, 0.87)",
               cursor: "pointer",
             }}
             className="selectedMenu"
-            onClick={handleFilterStatus}
+            onClick={handleSelloutForecasting}
+          >
+            <Typography mx="25px" fontSize={{ lg: 13, xs: 10 }} p="5px 0 0 0">
+              Sell-Out Forecast
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+      </div>
+      <div style={{ marginBlock: "10%" }}>
+        <Accordion className="acrdn-main">
+          <AccordionSummary
+            className="acrdn-s"
+            expandIcon={<ArrowDropDownIcon />}
+            sx={{
+              color: "#fff",
+              height: "35px",
+              borderRadius: "5px 5px 0px 0px",
+            }}
+          >
+            <Box sx={{ display: "flex" }}>
+              <GridViewRoundedIcon className="grid-icon" />
+
+              <Typography
+                fontSize={{ lg: 14, xs: 9 }}
+                marginTop={{ lg: "3px", xs: "6px" }}
+                width={{ lg: "100%", xs: "100%" }}
+                className="sidebar-minititle"
+              >
+                Monitor
+              </Typography>
+            </Box>
+          </AccordionSummary>
+          <AccordionDetails
+            sx={{
+              borderTop: "1px solid #B7C3CA ",
+              borderBottom: "1px solid #B7C3CA ",
+              backgroundColor: oosrick ? "rgb(70, 96, 114)" : "#E7E9EE",
+              color: oosrick ? "rgb(255, 255, 255)" : "rgba(0, 0, 0, 0.87)",
+              cursor: "pointer",
+            }}
+            className="selectedMenu"
+            onClick={handleOOSRick}
           >
             <Typography
-              mx="14px"
-              width={{ lg: "100%", xs: "100%" }}
-              fontSize={{ lg: 12, xs: 10 }}
+              mx="26px"
+              fontSize={{ lg: "13px", xs: 10 }}
               p="5px 0 0 0"
             >
-              {" "}
               OOS Risk Detection
             </Typography>
           </AccordionDetails>
-          <AccordionDetails sx={{ backgroundColor: "#E7E9EE" }}>
+          <AccordionDetails
+            sx={{
+              borderBottom: "1px solid #B7C3CA",
+              backgroundColor: irregular ? "rgb(70, 96, 114)" : "#E7E9EE",
+              color: irregular ? "rgb(255, 255, 255)" : "rgba(0, 0, 0, 0.87)",
+              cursor: "pointer",
+            }}
+            className="selectedMenu"
+            onClick={handleIrregular}
+          >
+            <Typography mx="26px" fontSize={{ lg: 13, xs: 10 }} p="5px 0 0 0">
+              Irregular PO
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+      </div>
+      <div style={{ marginBlock: "10%" }}>
+        <Accordion className="acrdn-main">
+          <AccordionSummary
+            className="acrdn-s"
+            expandIcon={<ArrowDropDownIcon />}
+            sx={{
+              color: "#fff",
+              height: "35px",
+              borderRadius: "5px 5px 0px 0px",
+            }}
+          >
+            <Box sx={{ display: "flex" }}>
+              <GridViewRoundedIcon className="grid-icon" />
+
+              <Typography
+                fontSize={{ lg: 14, xs: 9 }}
+                marginTop={{ lg: "3px", xs: "6px" }}
+                width={{ lg: "100%", xs: "100%" }}
+                className="sidebar-minititle"
+              >
+                Reallocate
+              </Typography>
+            </Box>
+          </AccordionSummary>
+          <AccordionDetails
+            sx={{
+              borderTop: "1px solid #B7C3CA ",
+              borderBottom: "1px solid #B7C3CA ",
+              backgroundColor: reallocation ? "rgb(70, 96, 114)" : "#E7E9EE",
+              color: reallocation
+                ? "rgb(255, 255, 255)"
+                : "rgba(0, 0, 0, 0.87)",
+              cursor: "pointer",
+            }}
+            className="selectedMenu"
+            onClick={handleReallocation}
+          >
             <Typography
-              mx="12px"
-              fontSize={{ lg: 12, xs: 9 }}
+              mx="26px"
+              fontSize={{ lg: "13px", xs: 10 }}
               p="5px 0 0 0"
-              // border="1px solid"
-              width={{ lg: "100%", xs: "110px" }}
-              sx={{
-                cursor: "pointer",
-              }}
             >
-              Smart Stock Reallocation
+              Customer Reallocation
             </Typography>
           </AccordionDetails>
         </Accordion>
       </div>
 
-      <div className="S-h2" style={{ marginTop: "8%" }}>
-        <img src={play} alt="play" className="play-icon" />
-        <Typography>Retrospective Analysis</Typography>
-      </div>
-      <div className="dotted-line"></div>
-      <div className="S-h2" style={{ marginTop: "7%" }}>
-        <img src={play} alt="play" className="play-icon" />
-        <Typography>Historical Runs</Typography>
-      </div>
-      <div className="S-h2" style={{ marginTop: "7%" }}>
-        <img src={alert} alt="alert" className="alert-icon" />
-        <Typography>Alerts</Typography>
-      </div>
-      <div className="S-h2" style={{ marginTop: "7%", marginBottom: "90px" }}>
-        <img src={play} alt="play" className="play-icon" />
-        <Typography>Historical Activations</Typography>
+      <div className="s-h2" style={{ marginTop: "7%" }}>
+        <WarningRoundedIcon className="alert-icon" />
+        <Typography fontSize={{ lg: 14, xs: 9 }} className="sidebar-minititle">
+          Alerts
+        </Typography>
       </div>
 
       {/* logout........... */}
       <div
         className="logs-out"
-        style={{ position: "absolute", left: 14, bottom: 10,cursor:"pointer" }}
+        style={{
+          position: "absolute",
+          left: 14,
+          bottom: 10,
+          cursor: "pointer",
+        }}
       >
         <img src={Log} alt="logout" className="logout-icon" />
-        <Typography>Log out</Typography>
+        <Typography fontSize={{ lg: 14, xs: 9 }} className="logsout-titile">
+          Log out
+        </Typography>
       </div>
     </div>
   );
 };
 
 export default Sidebar;
-<div>
-  <div
-    className="S-h2 logoutSpace"
-    style={{ marginTop: "280px", cursor: "pointer", marginBottom: "10px" }}
-  >
-    <img src={Log} alt="logout" className="logout-icon" />
-    <Typography>Log out</Typography>
-  </div>
-  ;
-  <div className="sidebar-header2">
-    <img src={down} alt="down icon" className="down-icon" />
-    <Typography>Distribution Planning</Typography>
-  </div>
-  <div className="S-h21">
-    <Typography fontSize="12px" mx="22px">
-      {" "}
-      SKU Prioritization
-    </Typography>
-  </div>
-  <div className="S-h21" style={{ backgroundColor: "#466072", color: "#FFF" }}>
-    <Typography fontSize="12px" mx="22px">
-      OOS Risk Detection{" "}
-    </Typography>
-  </div>
-  <div
-    className="S-h21"
-    style={{
-      borderRadius: "0px 0px 5px 5px",
-      padding: "8px 0px 8px 17px ",
-    }}
-  >
-    <Typography fontSize="12px" mx="17px">
-      Smart Stock Reallocation
-    </Typography>
-  </div>
-</div>;
+
+<ArrowDropDownIcon
+  sx={{
+    marginLeft: "-6px",
+  }}
+/>;

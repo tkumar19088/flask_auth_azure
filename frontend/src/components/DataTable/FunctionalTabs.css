@@ -22,6 +22,7 @@
     margin-left: 15px;
 }
 
+
 @media (width > 1023px) and (width < 1200px) {
     .react-tabs__tab {
         bottom: 2px;
@@ -99,11 +100,10 @@
 @media (width > 1919px) {
     .react-tabs__tab {
         bottom: 2px;
-        padding: 8px 35.3px;
-        font-size: 1.399rem !important;
-        /* background-color: pink; */
+        padding: 8px 44.9px;
+        /* font-size: 1.435rem !important; */
+        font-size: 18px !important;
     }
-
     .css-y8ay40-MuiTableCell-root {
         background-color: #E5EBEF !important;
         color: #415A6C !important;
@@ -126,6 +126,9 @@
     }
     .isw{
         margin-left:40px !important;
+    }
+    .react-tabs__tab-list {
+        margin: 0 0 5px;
     }
 }
 

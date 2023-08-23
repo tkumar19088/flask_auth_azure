@@ -65,7 +65,7 @@ const Linechart2 = () => {
 
   return (
     <div>
-      <Line data={chartData} options={chartOptions} className="l-chart" />
+      <Line data={chartData} options={chartOptions} className="line-chart2"  />
     </div>
   );
 };

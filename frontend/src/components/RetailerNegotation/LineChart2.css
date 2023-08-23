@@ -1,8 +1,10 @@
-.l-chart{
-    /* border: 1px solid red; */
-    /* height: 300px !important; */
-    /* width: 100% !important; */
+
+
+.line-chart2{
     padding: 15px;
     background-color: white;
     border-radius: 5px 5px;
+    height: 500px !important;
+    min-width: 100% !important;
+    
 }

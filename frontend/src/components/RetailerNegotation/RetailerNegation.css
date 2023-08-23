@@ -2,6 +2,9 @@
    background-color: #FF007E;
 }
 
+.h{
+
+}
 
 .kpis-box{
     /* background-color: red; */
@@ -46,4 +49,9 @@
 
     
 
+  }
+
+
+  .kpi-box{
+    border:1px solid #E7E9EE;
   }

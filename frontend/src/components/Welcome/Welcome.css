@@ -4,6 +4,11 @@
   border-radius: 8px;
   padding: 5px;
   color: white;
+  /* margin-top: -20px; */
+
+}
+
+.we{
 
 }
 
@@ -11,8 +16,9 @@
   margin-top: 870px !important;
 } */
 
-/* @media only screen and (max-width: 1024px) {
-  body {
-    background-color: yellow;
-  }
-} */
+ @media only screen and (width > 1919px) {
+  .css-1yn0t5k-MuiTypography-root {
+    width: 9.2857% !important;
+    line-height: 57px;
+}
+} 

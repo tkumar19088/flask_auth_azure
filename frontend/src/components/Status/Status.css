@@ -1,9 +1,7 @@
 .status{
     display: flex;
     justify-content: space-between;
-    /* margin-top: 1%; */
-    padding: 1%;
-    /* font-size: 128px; */
+   
 
 }
 
@@ -37,8 +35,3 @@
 }
 
 
-@media (min-width:1536px) {
-    .status{
-        
-    }
-}

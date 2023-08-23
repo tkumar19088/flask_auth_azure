@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Topbar from "../Topbar/Topbar";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import Sidebar from "../Sidebar/Sidebar";
 import Linechart from "../../Linechart";
 import Linechart2 from "./LineChart2";
@@ -53,14 +53,7 @@ const HistoricalData = () => {
         <Grid item xs={2}>
           <Sidebar />
         </Grid>
-        <Grid
-          item
-          xs={10}
-          p={2}
-          sx={{
-            backgroundColor: "#F5F6F8",
-          }}
-        >
+        <Grid item xs={10} className="bg-containerdashboard">
           <Box display="flex" fontSize={14} mx="1px">
             <Box mt="1px">
               <Button
@@ -139,9 +132,9 @@ const HistoricalData = () => {
               </Box>
             </Box>
           </Grid>
-          <Box sx={{ width: "100%" }}></Box>
+
           {lineChartData && (
-            <Box>
+            <Box className="linechart-main">
               <Linechart2 />
             </Box>
           )}
@@ -156,6 +149,28 @@ const HistoricalData = () => {
               KPIs
             </Typography>
           </Box>
+          <Stack direction="row" spacing={2}>
+            <Box className="kpi-box">
+              Reckitt stock on hand
+            </Box>
+            <Box  className="kpi-box">
+              Stock Allocation to Customer
+            </Box>
+            <Grid item xs={2}  className="kpi-box">
+              Monthly Allocation consumed to date
+            </Grid>
+            <Grid item xs={2}  className="kpi-box">
+            Customer inventory
+            </Grid>
+            <Grid item xs={2}  className="kpi-box">
+            Customer 6 month average order quantity
+
+            </Grid>
+            <Grid item xs={2}  className="kpi-box">
+            Customer’s order quantity variance
+
+            </Grid>
+          </Stack>
 
           <Grid container spacing={1} item xs={12} border="">
             <Grid item xs={2}>
