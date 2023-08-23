@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 // import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import {
   Box,
   Button,
@@ -13,7 +11,6 @@ import {
 } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import "./Filtersdropdown.css";
-import { Stack } from "react-bootstrap";
 
 function Filtersdropdown() {
   const [anchorEl, setAnchorEl] = useState(null);
