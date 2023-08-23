@@ -179,13 +179,3 @@ class AzureBlobReader:
         # Get blob client
         stream = self._buildclient(blob_name)
         return pq.read_table(source=stream)
-
-# if __name__ == "__main__":
-#     azure_connection_string = "DefaultEndpointsProtocol=https;AccountName=satrinitydevecommercest1;AccountKey=O6Zd3hHePAcyq9fYXSr1nNiNZ2xmti3r99hwrhgufcWnKCWbtZz5PT/kmOGLo8qyfiMgSr4NpXUe+AStYu8oWQ==;EndpointSuffix=core.windows.net"
-#     container_name = "adlstrinitydatahubexternalpoc"
-#     blob_name = "OHR-sample-dummy-data.xlsx"
-#     blob_name = "your_blob_name.parquet"
-
-#     blob_reader = AzureBlobReader(azure_connection_string)
-#     parquetdata = blob_reader.read_parquet(container_name, blob_name)
-#     exceldata = blob_reader.read_excel(container_name, blob_name)
