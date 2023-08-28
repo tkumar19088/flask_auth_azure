@@ -50,9 +50,9 @@ def index():
     #     return redirect(url_for("app.login"))
 
     ### #Comment below line if uncommenting above lines
-    # data = {'user': 'Moka, keerthi (Contractor)'}
-    # return jsonify(data)
-    return render_template("index.html")
+    data = {'user': 'Moka, keerthi (Contractor)'}
+    return jsonify(data)
+    # return render_template("index.html")
 
 @app_blueprint.route("/login")
 def login():
@@ -105,45 +105,6 @@ def logout():
     )
 
 
-# def getUserDetails(user_name):
-#     """
-#     The function `getUserDetails` retrieves user details from a database based on the provided username.
-    
-#     :param user_name: The `user_name` parameter is the username of the user whose details you want to
-#     retrieve from the `UsersTable` in the database
-
-#     :return: a dictionary containing the user details (name, email, country, and role) if the user is
-#     found in the UsersTable. If there is an exception during the execution of the query, it will return
-#     a JSON response with an error message and a status code of 500.
-#     """
-#     # Build connection string
-#     conn = pyodbc.connect(
-#         f'DRIVER={driver};'
-#         f'SERVER={server};'
-#         f'DATABASE={database};'
-#         f'UID={dbusername};'
-#         f'PWD={password}'
-#     )
-#     cur= conn.cursor()
-#     # Build cursor & Query user details
-#     # with conn.cursor() as cur:
-#     try:
-#         query = f"SELECT * FROM UsersTable WHERE UserName = '{user_name}'"
-#         cur.execute(query)
-#         user_details = cur.fetchone()
-#         # Build user details dictionary
-#         if user_details:
-#             userdetails = {
-#                 "name": user_details[1],
-#                 "email": user_details[2],
-#                 "country": user_details[3],
-#                 "role": user_details[4],
-#             }
-#             return userdetails
-#     except Exception as e:
-#         return jsonify({"error": str(e)}), 500
-
-
 def _load_cache():
     """
     The function `_load_cache` loads a cache object from the session if it exists.
@@ -182,14 +143,14 @@ def _build_msal_app(cache=None, authority=None):
     authentication tokens. It specifies the identity provider that the application will use for
     authentication
 
-#     :return: an instance of the `ConfidentialClientApplication` class.
-#     """
-#     return ConfidentialClientApplication(
-#         app_config.CLIENT_ID,
-#         authority=app_config.AUTHORITY,
-#         client_credential=app_config.CLIENT_SECRET,
-#         token_cache=cache,
-#     )
+    :return: an instance of the `ConfidentialClientApplication` class.
+    """
+    return ConfidentialClientApplication(
+        app_config.CLIENT_ID,
+        authority=app_config.AUTHORITY,
+        client_credential=app_config.CLIENT_SECRET,
+        token_cache=cache,
+    )
 
 
 def _build_auth_code_flow(authority=None, scopes=None):
@@ -201,9 +162,9 @@ def _build_auth_code_flow(authority=None, scopes=None):
     that will be used for authentication. It specifies the AAD tenant or the Azure AD B2C endpoint that
     will be used for authentication
 
-#     :param scopes: The `scopes` parameter is a list of strings that represents the permissions or access
-#     levels that the application is requesting from the user. These scopes define what resources or
-#     actions the application can access on behalf of the user
+    :param scopes: The `scopes` parameter is a list of strings that represents the permissions or access
+    levels that the application is requesting from the user. These scopes define what resources or
+    actions the application can access on behalf of the user
 
     :return: the result of calling the `initiate_auth_code_flow` method on the `_build_msal_app`
     function.
