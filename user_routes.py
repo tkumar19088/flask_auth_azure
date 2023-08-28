@@ -50,9 +50,9 @@ def index():
     #     return redirect(url_for("app.login"))
 
     ### #Comment below line if uncommenting above lines
-    data = {'user': 'Moka, keerthi (Contractor)'}
-    return jsonify(data)
-    # return render_template("index.html")
+    # data = {'user': 'Moka, keerthi (Contractor)'}
+    # return jsonify(data)
+    return render_template("index.html")
 
 @app_blueprint.route("/login")
 def login():
