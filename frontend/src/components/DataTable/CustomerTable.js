@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 const startingWeek = 28;
 
-const SupplyTable = ({ onData }) => {
+const CustomerTable = ({ onData }) => {
   const navigate = useNavigate();
   const handleBack = () => {
     navigate(-1);
@@ -157,7 +157,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Description
+                OLA
               </TableCell>
               <TableCell
                 sx={{
@@ -167,7 +167,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                RR Segment
+                Customer inventory
               </TableCell>
               <TableCell
                 sx={{
@@ -177,7 +177,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Initial SOH Week{" "}
+                Customer WoC
               </TableCell>
               <TableCell
                 sx={{
@@ -187,8 +187,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW</div>
-                <div>({startingWeek})</div>
+                Customer Sell-out forecast
               </TableCell>
               <TableCell
                 sx={{
@@ -198,8 +197,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW+1</div>
-                <div className="brack-number">({startingWeek + 1})</div>
+                Historic ePOS actuals
               </TableCell>
               <TableCell
                 sx={{
@@ -209,8 +207,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW+2</div>
-                <div className="brack-number">({startingWeek + 2})</div>
+                ePOS w-o-w variance
               </TableCell>
               <TableCell
                 sx={{
@@ -220,8 +217,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW+3</div>
-                <div className="brack-number">({startingWeek + 3})</div>
+                Eventing data
               </TableCell>
               <TableCell
                 sx={{
@@ -231,8 +227,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW+4</div>
-                <div className="brack-number">({startingWeek + 4})</div>
+                Reckitt Sell-in forecast (from RR)
               </TableCell>
               <TableCell
                 sx={{
@@ -242,52 +237,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW+5</div>
-                <div className="brack-number">({startingWeek + 5})</div>
-              </TableCell>
-              <TableCell
-                sx={{
-                  textAlign: "center",
-                  backgroundColor: "#E5EBEF ",
-                  color: "#415A6C",
-                  border: "1px solid #dcdcdc",
-                }}
-              >
-                <div>CW+6</div>
-                <div className="brack-number">({startingWeek + 6})</div>
-              </TableCell>
-              <TableCell
-                sx={{
-                  textAlign: "center",
-                  backgroundColor: "#E5EBEF ",
-                  color: "#415A6C",
-                  border: "1px solid #dcdcdc",
-                }}
-              >
-                <div>CW+7</div>
-                <div className="brack-number">({startingWeek + 7})</div>
-              </TableCell>
-              <TableCell
-                sx={{
-                  textAlign: "center",
-                  backgroundColor: "#E5EBEF ",
-                  color: "#415A6C",
-                  border: "1px solid #dcdcdc",
-                }}
-              >
-                <div>CW+8</div>
-                <div className="brack-number">({startingWeek + 8})</div>
-              </TableCell>
-              <TableCell
-                sx={{
-                  textAlign: "center",
-                  backgroundColor: "#E5EBEF ",
-                  color: "#415A6C",
-                  border: "1px solid #dcdcdc",
-                }}
-              >
-                <div>CW+9</div>
-                <div className="brack-number">({startingWeek + 9})</div>{" "}
+                Reckitt Sell-in forecast From ATF
               </TableCell>
             </TableRow>
           </TableHead>
@@ -330,20 +280,6 @@ const SupplyTable = ({ onData }) => {
                   {" "}
                   <div className="alignment">{item.cw5}</div>
                 </TableCell>
-                <TableCell>
-                  <div className="alignment">{item.cw6}</div>
-                </TableCell>
-                <TableCell>
-                  <div className="alignment">{item.cw7}</div>
-                </TableCell>
-                <TableCell>
-                  {" "}
-                  <div className="alignment">{item.cw8}</div>
-                </TableCell>
-                <TableCell>
-                  {" "}
-                  <div className="alignment">{item.cw9}</div>
-                </TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -353,4 +289,4 @@ const SupplyTable = ({ onData }) => {
   );
 };
 
-export default SupplyTable;
+export default CustomerTable;

@@ -1,0 +1,5 @@
+.exportButton, .exportButton:hover {
+    background-color: #415A6C !important;
+    border-radius: 4px !important;
+    margin-top: 10px !important;
+}

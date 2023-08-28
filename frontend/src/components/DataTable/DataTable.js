@@ -9,25 +9,12 @@ import {
   Checkbox,
   Typography,
   Box,
-  Button,
-  Grid,
 } from "@mui/material";
 import { useState } from "react";
-import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-
-import FunctionalTabs from "./FunctionalTabs";
-
-// import "./DataTable.css";
-
 import { useNavigate } from "react-router-dom";
-// import MyBreadcrumbs from "./MyBreadcrumbs";
-// import MyBreadcrumbs from "../../MyBreadcrumbs";
 
 const DataTable2 = ({ onData }) => {
   const navigate = useNavigate();

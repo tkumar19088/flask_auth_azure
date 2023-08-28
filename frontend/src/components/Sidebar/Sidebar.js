@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
 import Log from "../../images/Logout.png";
-import qube from "../../images/qube.png";
-import play from "../../images/play.png";
-import down from "../../images/down.png";
-import alert from "../../images/alert.png";
-
 import "./Sidebar.css";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
@@ -16,8 +11,6 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
-import WarningAmberRoundedIcon from "@mui/icons-material/WarningAmberRounded";
-import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -43,13 +36,13 @@ const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [isSelected, setisSelected] = useState(false);
   const [issellinSelected, setissellinSelected] = useState(sellinForecastVal);
   const [isselloutSelected, setisselloutSelected] =
     useState(selloutForecastVal);
   const [oosrick, setoosrick] = useState(oosriskVal);
   const [irregular, setirregular] = useState(irregularpoVal);
   const [reallocation, setreallocation] = useState(reallocationVal);
+  const [forecast, setforecast] = useState(false);
 
   const handleOOSRick = () => {
     dispatch(fetchOOSRisk(true));
@@ -92,6 +85,11 @@ const Sidebar = () => {
   const handleDashboard = () => {
     navigate("/");
   };
+
+  const handleForecast = () => {
+    setforecast(!forecast);
+  };
+
   return (
     <div className="sidebar" style={{ position: "relative" }}>
       <div
@@ -105,9 +103,10 @@ const Sidebar = () => {
         </Typography>
       </div>
 
-      <div style={{ marginBlock: "10%" }}>
+      <div style={{ marginInline: "20px", marginTop: "20px" }}>
         <Accordion className="acrdn-main">
           <AccordionSummary
+            onClick={handleForecast}
             className="acrdn-s"
             expandIcon={<ArrowDropDownIcon />}
             sx={{
@@ -172,7 +171,7 @@ const Sidebar = () => {
           </AccordionDetails>
         </Accordion>
       </div>
-      <div style={{ marginBlock: "10%" }}>
+      <div style={{ marginInline: "20px", marginTop: "20px" }}>
         <Accordion className="acrdn-main">
           <AccordionSummary
             className="acrdn-s"
@@ -231,7 +230,7 @@ const Sidebar = () => {
           </AccordionDetails>
         </Accordion>
       </div>
-      <div style={{ marginBlock: "10%" }}>
+      <div style={{ marginInline: "20px", marginTop: "20px" }}>
         <Accordion className="acrdn-main">
           <AccordionSummary
             className="acrdn-s"
@@ -251,7 +250,7 @@ const Sidebar = () => {
                 width={{ lg: "100%", xs: "100%" }}
                 className="sidebar-minititle"
               >
-                Reallocate
+                Allocate / Reallocate
               </Typography>
             </Box>
           </AccordionSummary>
@@ -279,7 +278,7 @@ const Sidebar = () => {
         </Accordion>
       </div>
 
-      <div className="s-h2" style={{ marginTop: "7%" }}>
+      <div className="s-h2">
         <WarningRoundedIcon className="alert-icon" />
         <Typography fontSize={{ lg: 14, xs: 9 }} className="sidebar-minititle">
           Alerts
@@ -306,9 +305,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-
-<ArrowDropDownIcon
-  sx={{
-    marginLeft: "-6px",
-  }}
-/>;

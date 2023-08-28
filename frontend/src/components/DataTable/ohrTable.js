@@ -6,30 +6,20 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Checkbox,
   Typography,
   Box,
-  Button,
   Paper,
   Stack,
-  Grid,
 } from "@mui/material";
 import { useState } from "react";
-import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import Badge from "@mui/material/Badge";
-
 import "./ohr.css";
 
 import { useNavigate } from "react-router-dom";
-// import MyBreadcrumbs from "./MyBreadcrumbs";
 const startingWeek = 28;
 
 const OhrTable = ({ onData }) => {
@@ -57,6 +47,7 @@ const OhrTable = ({ onData }) => {
   const [data, setData] = useState([
     {
       rbsku: "010612",
+      ppg: "1234567",
       description: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       woc: "743",
@@ -81,6 +72,17 @@ const OhrTable = ({ onData }) => {
           startdate: "12/05/2023",
           enddate: "31/08/2023",
           skufocused: "Clubcard- CC Air freshener",
+          activestatus: "Active",
+          retailersinvolved: "Tesco",
+          retailerinventory: "250",
+          rbwherehouseinventory: "1000",
+          requestdeactivation: "No",
+        },
+        {
+          campaignanme: "Airwick special",
+          startdate: "12/05/2023",
+          enddate: "31/08/2023",
+          skufocused: "Clubcard- Was 9.25 Now 6.00",
           activestatus: "Active",
           retailersinvolved: "Tesco",
           retailerinventory: "250",
@@ -169,6 +171,7 @@ const OhrTable = ({ onData }) => {
     },
     {
       rbsku: "010613",
+      ppg: "1234567",
       description: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       woc: "743",
@@ -193,6 +196,17 @@ const OhrTable = ({ onData }) => {
           startdate: "12/05/2023",
           enddate: "31/08/2023",
           skufocused: "Clubcard- CC Air freshener",
+          activestatus: "Active",
+          retailersinvolved: "Tesco",
+          retailerinventory: "250",
+          rbwherehouseinventory: "1000",
+          requestdeactivation: "No",
+        },
+        {
+          campaignanme: "Airwick special",
+          startdate: "12/05/2023",
+          enddate: "31/08/2023",
+          skufocused: "Clubcard- Was 9.25 Now 6.00",
           activestatus: "Active",
           retailersinvolved: "Tesco",
           retailerinventory: "250",
@@ -281,6 +295,7 @@ const OhrTable = ({ onData }) => {
     },
     {
       rbsku: "010614",
+      ppg: "1234567",
       description: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       woc: "743",
@@ -300,6 +315,17 @@ const OhrTable = ({ onData }) => {
       reasoncode: "E0",
       comments: "Soft change to 3234328",
       campaugns: [
+        {
+          campaignanme: "Airwick special",
+          startdate: "12/05/2023",
+          enddate: "31/08/2023",
+          skufocused: "Yes",
+          activestatus: "Active",
+          retailersinvolved: "Tesco",
+          retailerinventory: "250",
+          rbwherehouseinventory: "1000",
+          requestdeactivation: "No",
+        },
         {
           campaignanme: "Airwick special",
           startdate: "12/05/2023",
@@ -393,6 +419,7 @@ const OhrTable = ({ onData }) => {
     },
     {
       rbsku: "010615",
+      ppg: "1234567",
       description: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       woc: "743",
@@ -505,6 +532,7 @@ const OhrTable = ({ onData }) => {
     },
     {
       rbsku: "010616",
+      ppg: "1234567",
       description: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       woc: "743",
@@ -617,6 +645,7 @@ const OhrTable = ({ onData }) => {
     },
     {
       rbsku: "010617",
+      ppg: "1234567",
       description: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       woc: "743",
@@ -729,6 +758,7 @@ const OhrTable = ({ onData }) => {
     },
     {
       rbsku: "010619",
+      ppg: "1234567",
       description: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       woc: "743",
@@ -841,6 +871,7 @@ const OhrTable = ({ onData }) => {
     },
     {
       rbsku: "010620",
+      ppg: "1234567",
       description: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       woc: "743",
@@ -1004,50 +1035,77 @@ const OhrTable = ({ onData }) => {
           <TableHead>
             <TableRow className="tablecell-inside">
               <TableCell
-                sx={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+                sx={{
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
                 border="1px solid #dddddd"
               >
                 Campaign Name
               </TableCell>
               <TableCell
-                sx={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+                sx={{
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
               >
                 Start Date
               </TableCell>
               <TableCell
-                sx={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+                sx={{
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
               >
                 End Date
               </TableCell>
               <TableCell
-                sx={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+                sx={{
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
               >
                 Offer Description
               </TableCell>
               <TableCell
-                sx={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+                sx={{
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
               >
                 Status
               </TableCell>
               <TableCell
-                sx={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+                sx={{
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
               >
                 Customer
               </TableCell>
               <TableCell
-                sx={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+                sx={{
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
               >
                 Customer Inventory
               </TableCell>
               <TableCell
-                sx={{ textAlign: "center", border: "1px solid #dcdcdc" }}
+                sx={{
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
               >
                 Customer Allocation
-              </TableCell>
-              <TableCell
-                sx={{ textAlign: "center", border: "1px solid #dcdcdc" }}
-              >
-                Request Deactivation
               </TableCell>
             </TableRow>
           </TableHead>
@@ -1057,41 +1115,37 @@ const OhrTable = ({ onData }) => {
                 key={index}
                 style={{
                   backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
+                  textAlign: "center",
                 }}
               >
-                <TableCell>
+                <TableCell style={{ textAlign: "center" }}>
                   <Typography fontSize="13px">{item.campaignanme}</Typography>
                 </TableCell>
-                <TableCell>
+                <TableCell style={{ textAlign: "center" }}>
                   <Typography fontSize="13px">{item.startdate}</Typography>
                 </TableCell>
-                <TableCell>
+                <TableCell style={{ textAlign: "center" }}>
                   <Typography fontSize="13px">{item.enddate}</Typography>
                 </TableCell>
-                <TableCell>
+                <TableCell style={{ textAlign: "center" }}>
                   <Typography fontSize="13px">{item.skufocused}</Typography>
                 </TableCell>
-                <TableCell>
+                <TableCell style={{ textAlign: "center" }}>
                   <Typography fontSize="13px">{item.activestatus}</Typography>
                 </TableCell>
-                <TableCell>
+                <TableCell style={{ textAlign: "center" }}>
                   <Typography fontSize="13px">
                     {item.retailersinvolved}
                   </Typography>
                 </TableCell>
-                <TableCell>
+                <TableCell style={{ textAlign: "center" }}>
                   <Typography fontSize="13px">
                     {item.retailerinventory}
                   </Typography>
                 </TableCell>
-                <TableCell>
+                <TableCell style={{ textAlign: "center" }}>
                   <Typography fontSize="13px">
                     {item.rbwherehouseinventory}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography fontSize="13px">
-                    {item.requestdeactivation}
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -1102,7 +1156,7 @@ const OhrTable = ({ onData }) => {
       <Stack
         direction="row"
         justifyContent="space-between"
-        backgroundColor="#E5EBEF"
+        // backgroundColor="#E5EBEF"
         className="choosems-stack"
         // my={2}
       >
@@ -1158,11 +1212,19 @@ const OhrTable = ({ onData }) => {
   const PushAlternativeTable = ({ details }) => (
     <div>
       <TableContainer component={Paper} className="tablecell-header">
-        <Table>
-          <TableHead>
+        <Table className="campaignsTable">
+          <TableHead className="pushalternative-tablehead">
             <TableRow>
               <TableCell
-                sx={{ border: "", width: "60px", border: "1px solid #dcdcdc" }}
+                sx={{
+                  border: "",
+                  width: "60px",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                  textAlign: "center",
+                  // padding: "0px",
+                  height: "30px",
+                }}
               >
                 Recom.Score
               </TableCell>
@@ -1172,6 +1234,8 @@ const OhrTable = ({ onData }) => {
                   width: "60px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                  // padding: "0px",
                 }}
               >
                 Title
@@ -1182,6 +1246,7 @@ const OhrTable = ({ onData }) => {
                   width: "60px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
                 }}
               >
                 SKU
@@ -1189,9 +1254,10 @@ const OhrTable = ({ onData }) => {
               <TableCell
                 sx={{
                   border: "",
-                  width: "60px",
+                  width: "110px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
                 }}
               >
                 Active Camplaigns
@@ -1199,9 +1265,10 @@ const OhrTable = ({ onData }) => {
               <TableCell
                 sx={{
                   border: "",
-                  width: "60px",
+                  width: "110px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
                 }}
               >
                 Stock Available RB
@@ -1209,9 +1276,10 @@ const OhrTable = ({ onData }) => {
               <TableCell
                 sx={{
                   border: "",
-                  width: "60px",
+                  width: "130px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
                 }}
               >
                 Stock Available AMZ
@@ -1219,9 +1287,10 @@ const OhrTable = ({ onData }) => {
               <TableCell
                 sx={{
                   border: "",
-                  width: "60px",
+                  width: "110px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
                 }}
               >
                 Sell-in forecast
@@ -1229,9 +1298,10 @@ const OhrTable = ({ onData }) => {
               <TableCell
                 sx={{
                   border: "",
-                  width: "60px",
+                  width: "110px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
                 }}
               >
                 Sell-out forecast
@@ -1239,9 +1309,10 @@ const OhrTable = ({ onData }) => {
               <TableCell
                 sx={{
                   border: "",
-                  width: "60px",
+                  width: "110px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
                 }}
               >
                 Customer Woc
@@ -1249,9 +1320,10 @@ const OhrTable = ({ onData }) => {
               <TableCell
                 sx={{
                   border: "",
-                  width: "60px",
+                  width: "110px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
                 }}
               >
                 OLA Uplift estimation
@@ -1259,9 +1331,10 @@ const OhrTable = ({ onData }) => {
               <TableCell
                 sx={{
                   border: "",
-                  width: "60px",
+                  width: "110px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
                 }}
               >
                 Cost estimation
@@ -1269,9 +1342,10 @@ const OhrTable = ({ onData }) => {
               <TableCell
                 sx={{
                   border: "",
-                  width: "60px",
+                  width: "110px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
                 }}
               >
                 Select
@@ -1284,6 +1358,7 @@ const OhrTable = ({ onData }) => {
                 key={index}
                 style={{
                   backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
+                  padding: "0px",
                 }}
               >
                 <TableCell>
@@ -1360,7 +1435,7 @@ const OhrTable = ({ onData }) => {
 
   return (
     <div style={{ border: "" }}>
-      <TableContainer style={{ maxHeight: 642, width: "100%" }}>
+      <TableContainer style={{ maxHeight: 686, width: "100%" }}>
         <Table>
           <TableHead className="t-head">
             <TableRow className="tablerow-title">
@@ -1369,49 +1444,43 @@ const OhrTable = ({ onData }) => {
                 sx={{
                   backgroundColor: "#E5EBEF",
                   border: "1px solid #dcdcdc",
+                  padding: "0px",
+                  textAlign: "center",
+                  color: "#415A6C",
                 }}
               >
-                <Box
-                  sx={{
-                    // border: "1px solid",
-                    display: "flex",
-                    width: "90px",
-                    textAlign: "center",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Box color="#415A6C">
-                    <Box mt="8px">
-                      <ArrowDropUpIcon
-                        style={{ height: "28px", width: "28px" }}
-                      />
-                    </Box>
-                    <Box mt="-28px">
-                      <ArrowDropDownIcon
-                        style={{ height: "28px", width: "28px" }}
-                      />
-                    </Box>
-                  </Box>
-                  <Box textAlign="center" className="table-h1-title">
-                    RB SKU
-                  </Box>
-                </Box>
+                RB SKU
               </TableCell>
               <TableCell
                 rowSpan={2}
                 sx={{
                   backgroundColor: "#E5EBEF",
                   border: "1px solid #dcdcdc",
+                  padding: "0px",
+                  textAlign: "center",
+                  color: "#415A6C",
                 }}
               >
-                <Typography className="table-h1-title">Description</Typography>
+                PPG
               </TableCell>
               <TableCell
                 rowSpan={2}
                 sx={{
                   backgroundColor: "#E5EBEF",
                   border: "1px solid #dcdcdc",
+                  padding: "0px",
+                  textAlign: "center",
+                  color: "#415A6C",
+                }}
+              >
+                Description
+              </TableCell>
+              <TableCell
+                rowSpan={2}
+                sx={{
+                  backgroundColor: "#E5EBEF",
+                  border: "1px solid #dcdcdc",
+                  padding: "0px",
                 }}
               >
                 <Typography className="table-h1-title">Brand</Typography>
@@ -1431,11 +1500,13 @@ const OhrTable = ({ onData }) => {
                 sx={{
                   backgroundColor: "#E5EBEF",
                   border: "1px solid #dcdcdc",
+                  padding: "0px",
+                  lineHeight: "16px",
+                  textAlign: "center",
+                  color: "#415A6C",
                 }}
               >
-                <Typography width="60px" className="table-h1-title">
-                  Active Promo ?
-                </Typography>
+                Active Promo
               </TableCell>
 
               <TableCell
@@ -1478,6 +1549,7 @@ const OhrTable = ({ onData }) => {
                 sx={{
                   backgroundColor: "#E5EBEF",
                   border: "1px solid #dcdcdc",
+                  padding: "0px",
                 }}
               >
                 <Typography className="table-h1-title">
@@ -1490,6 +1562,7 @@ const OhrTable = ({ onData }) => {
                 sx={{
                   backgroundColor: "#E5EBEF",
                   border: "1px solid #dcdcdc",
+                  padding: "0px",
                 }}
               >
                 <Box className="bdr-exptnetrevenue">
@@ -1498,8 +1571,6 @@ const OhrTable = ({ onData }) => {
                     sx={{
                       fontSize: "14px",
                       textAlign: "center",
-                      // width: "80px",
-                      // marginLeft: "-2px",
                       lineHeight: "16px",
                     }}
                   >
@@ -1509,19 +1580,43 @@ const OhrTable = ({ onData }) => {
               </TableCell>
             </TableRow>
             <TableRow className="t-row">
-              <TableCell sx={{ textAlign: "center", color: "#415A6C" }}>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  color: "#415A6C",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
                 <Typography className="cw"> CW </Typography>
                 <div className="brack-number">({startingWeek + 0})</div>
               </TableCell>
-              <TableCell sx={{ border: "1px solid #dcdcdc", color: "#415A6C" }}>
+              <TableCell
+                sx={{
+                  border: "1px solid #dcdcdc",
+                  color: "#415A6C",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
                 CW+1
                 <div className="brack-number">({startingWeek + 1})</div>
               </TableCell>
-              <TableCell sx={{ border: "1px solid #dcdcdc", color: "#415A6C" }}>
+              <TableCell
+                sx={{
+                  border: "1px solid #dcdcdc",
+                  color: "#415A6C",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
                 CW+2
                 <div className="brack-number">({startingWeek + 2})</div>
               </TableCell>
-              <TableCell sx={{ border: "1px solid #dcdcdc", color: "#415A6C" }}>
+              <TableCell
+                sx={{
+                  border: "1px solid #dcdcdc",
+                  color: "#415A6C",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
                 CW+3 <div className="brack-number">({startingWeek + 3})</div>
               </TableCell>
               <TableCell
@@ -1529,18 +1624,37 @@ const OhrTable = ({ onData }) => {
                   borderLeft: "1px solid rgba(224, 224, 224, 1)",
                   textAlign: "center",
                   color: "#415A6C",
+                  backgroundColor: "#E5EBEF",
                 }}
               >
                 <Typography className="cw"> CW </Typography>
                 <div className="brack-number">({startingWeek + 0})</div>
               </TableCell>
-              <TableCell sx={{ border: "1px solid #dcdcdc", color: "#415A6C" }}>
+              <TableCell
+                sx={{
+                  border: "1px solid #dcdcdc",
+                  color: "#415A6C",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
                 CW+1 <div className="brack-number">({startingWeek + 1})</div>
               </TableCell>
-              <TableCell sx={{ border: "1px solid #dcdcdc", color: "#415A6C" }}>
+              <TableCell
+                sx={{
+                  border: "1px solid #dcdcdc",
+                  color: "#415A6C",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
                 CW+2 <div className="brack-number">({startingWeek + 2})</div>
               </TableCell>
-              <TableCell sx={{ border: "1px solid #dcdcdc", color: "#415A6C" }}>
+              <TableCell
+                sx={{
+                  border: "1px solid #dcdcdc",
+                  color: "#415A6C",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
                 CW+3 <div className="brack-number">({startingWeek + 3})</div>
               </TableCell>
               <TableCell
@@ -1548,18 +1662,37 @@ const OhrTable = ({ onData }) => {
                   borderLeft: "1px solid rgba(224, 224, 224, 1)",
                   textAlign: "center",
                   color: "#415A6C",
+                  backgroundColor: "#E5EBEF",
                 }}
               >
                 <Typography className="cw"> CW </Typography>
                 <div className="brack-number">({startingWeek + 0})</div>
               </TableCell>
-              <TableCell sx={{ border: "1px solid #dcdcdc", color: "#415A6C" }}>
+              <TableCell
+                sx={{
+                  border: "1px solid #dcdcdc",
+                  color: "#415A6C",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
                 CW+1 <div className="brack-number">({startingWeek + 1})</div>
               </TableCell>
-              <TableCell sx={{ border: "1px solid #dcdcdc", color: "#415A6C" }}>
+              <TableCell
+                sx={{
+                  border: "1px solid #dcdcdc",
+                  color: "#415A6C",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
                 CW+2 <div className="brack-number">({startingWeek + 2})</div>
               </TableCell>
-              <TableCell sx={{ border: "1px solid #dcdcdc", color: "#415A6C" }}>
+              <TableCell
+                sx={{
+                  border: "1px solid #dcdcdc",
+                  color: "#415A6C",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
                 CW+3 <div className="brack-number">({startingWeek + 3})</div>
               </TableCell>
             </TableRow>
@@ -1578,10 +1711,12 @@ const OhrTable = ({ onData }) => {
                 >
                   <TableCell
                     fontSize={13}
-                    sx={{ display: "flex", gap: "16px" }}
+                    sx={{ display: "flex", gap: "16px", padding: "12px",border:"none" }}
+                    border="1px solid red"
+
                   >
                     <Box
-                      mt={{ lg: "-1px" }}
+                      className="rbsku-expand"
                       sx={{ display: "flex", alignItems: "center" }}
                     >
                       {expandedRow === item.rbsku ? (
@@ -1610,7 +1745,7 @@ const OhrTable = ({ onData }) => {
                         />
                       )}
                     </Box>
-                    <Box>
+                    <Box className="rbsku-expand">
                       <Typography
                         ml="-8px"
                         fontSize="13px"
@@ -1622,32 +1757,47 @@ const OhrTable = ({ onData }) => {
                       </Typography>
                     </Box>
                   </TableCell>
-                  <TableCell>
-                    <Typography
-                      sx={{
-                        //   border: "1px solid",
-                        width: "146px",
-                        marginLeft: "-25px",
-                        fontSize: "13px",
-                      }}
-                    >
-                      {item.description}
-                    </Typography>
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                      fontSize: "13px",
+                      // border: "1px solid",
+                      padding: "10px",
+                    }}
+                  >
+                    {item.ppg}
                   </TableCell>
-                  <TableCell sx={{ textAlign: "center", fontSize: "13px" }}>
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                      fontSize: "13px",
+                      padding: "0px",
+                    }}
+                  >
+                    {item.description}
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                      fontSize: "13px",
+                      // border: "1px solid",
+                      padding: "0px",
+                    }}
+                  >
                     {item.rrsegment}
                   </TableCell>
-                  <TableCell>
+                  <TableCell style={{ textAlign: "center" }}>
                     <Typography mx="7px" fontSize="13px">
                       {item.woc}
                     </Typography>
                   </TableCell>
                   <TableCell
-                    sx={{ textAlign: "center", padding: "16px 16px 16px 27px" }}
+                    style={{ textAlign: "center" }}
+                    sx={{ textAlign: "center", padding: "0px" }}
                   >
-                    <Typography width="40px">{item.activepromo}</Typography>
+                    {item.activepromo}
                   </TableCell>
-                  <TableCell>
+                  <TableCell style={{ textAlign: "center" }}>
                     <Typography
                       mx="10px"
                       sx={{
@@ -1658,22 +1808,22 @@ const OhrTable = ({ onData }) => {
                       {item.olacw}
                     </Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell style={{ textAlign: "center" }}>
                     <Typography mx="6px" fontSize="13px">
                       {item.olacw1}
                     </Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell style={{ textAlign: "center" }}>
                     <Typography mx="6px" fontSize="13px">
                       {item.olacw2}
                     </Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell style={{ textAlign: "center" }}>
                     <Typography mx="6px" fontSize="13px">
                       {item.olacw3}
                     </Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell style={{ textAlign: "center" }}>
                     <Typography
                       mx="10px"
                       sx={{
@@ -1684,17 +1834,17 @@ const OhrTable = ({ onData }) => {
                       {item.exptnetrevcw}
                     </Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell style={{ textAlign: "center" }}>
                     <Typography mx="6px" fontSize="13px">
                       {item.exptnetrevcw1}
                     </Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell style={{ textAlign: "center" }}>
                     <Typography mx="6px" fontSize="13px">
                       {item.exptnetrevcw2}
                     </Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell style={{ textAlign: "center" }}>
                     <Typography mx="6px" fontSize="13px">
                       {item.exptnetrevcw3}
                     </Typography>
@@ -1799,8 +1949,8 @@ const OhrTable = ({ onData }) => {
                     </Typography>
                   </TableCell>
 
-                  <TableCell sx={{ textAlign: "center" }}>
-                    <Typography>{item.reasoncode}</Typography>
+                  <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                    {item.reasoncode}
                   </TableCell>
                   <TableCell sx={{ textAlign: "center" }}>
                     <Typography mx="9px" fontSize="13px">

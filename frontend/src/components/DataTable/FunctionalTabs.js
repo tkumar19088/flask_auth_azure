@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
-
-import "./FunctionalTabs.css";
 import SupplyTable from "./supplyTable";
 import DemandTable from "./DemandTable";
 import StockPositionWeek from "./StockPositionWeek";
@@ -10,9 +7,9 @@ import WocTable from "./wocTable";
 import CaseShortages from "./caseShortages";
 import ExpectedServices from "./expectedServicesTable";
 import StockPosition from "./stockPositionTable";
-import RAG from "./ragTable";
 import OhrTable from "./ohrTable";
-import NewohrTable from "./NewohrTable";
+import "react-tabs/style/react-tabs.css";
+import "./FunctionalTabs.css";
 
 const FunctionalTabs = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -54,7 +51,7 @@ const FunctionalTabs = () => {
             color: activeTab === 3 ? "white" : "#415A6C",
           }}
         >
-          Expctd SOH at EOW
+          Expected SOH at EOW
         </Tab>
         <Tab
           style={{
@@ -78,7 +75,7 @@ const FunctionalTabs = () => {
             color: activeTab === 6 ? "white" : "#415A6C",
           }}
         >
-          Expected Services
+          Expected Service
         </Tab>
         <Tab
           style={{

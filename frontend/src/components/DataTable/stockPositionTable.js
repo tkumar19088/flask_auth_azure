@@ -6,28 +6,9 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Checkbox,
-  Typography,
-  Box,
-  Button,
-  Grid,
 } from "@mui/material";
 import { useState } from "react";
-import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-
-import FunctionalTabs from "./FunctionalTabs";
-
-// import "./DataTable.css";
-
 import { useNavigate } from "react-router-dom";
-// import MyBreadcrumbs from "./MyBreadcrumbs";
-// import MyBreadcrumbs from "../../MyBreadcrumbs";
 
 const startingWeek = 28;
 
@@ -138,16 +119,6 @@ const StockPosition = ({ onData }) => {
       cw2: "0",
       cw3: "2100",
     },
-    {
-      rbsku: "010613",
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-    },
   ]);
 
   return (
@@ -156,23 +127,87 @@ const StockPosition = ({ onData }) => {
         <Table stickyHeader>
           <TableHead>
             <TableRow>
-              <TableCell>RB SKU</TableCell>
-              <TableCell>Description</TableCell>
-              <TableCell>RR Segment</TableCell>
-              <TableCell>Initial SOH Week </TableCell>
-              <TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  backgroundColor: "#E5EBEF ",
+                  color: "#415A6C",
+                  border: "1px solid #dcdcdc",
+                }}
+              >
+                RB SKU
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  backgroundColor: "#E5EBEF ",
+                  color: "#415A6C",
+                  border: "1px solid #dcdcdc",
+                }}
+              >
+                Description
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  backgroundColor: "#E5EBEF ",
+                  color: "#415A6C",
+                  border: "1px solid #dcdcdc",
+                }}
+              >
+                RR Segment
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  backgroundColor: "#E5EBEF ",
+                  color: "#415A6C",
+                  border: "1px solid #dcdcdc",
+                }}
+              >
+                Initial SOH Week{" "}
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  backgroundColor: "#E5EBEF ",
+                  color: "#415A6C",
+                  border: "1px solid #dcdcdc",
+                }}
+              >
                 <div>CW</div>
                 <div>({startingWeek})</div>
               </TableCell>
-              <TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  backgroundColor: "#E5EBEF ",
+                  color: "#415A6C",
+                  border: "1px solid #dcdcdc",
+                }}
+              >
                 <div>CW+1</div>
                 <div className="brack-number">({startingWeek + 1})</div>
               </TableCell>
-              <TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  backgroundColor: "#E5EBEF ",
+                  color: "#415A6C",
+                  border: "1px solid #dcdcdc",
+                }}
+              >
                 <div>CW+2</div>
                 <div className="brack-number">({startingWeek + 2})</div>
               </TableCell>
-              <TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  backgroundColor: "#E5EBEF ",
+                  color: "#415A6C",
+                  border: "1px solid #dcdcdc",
+                }}
+              >
                 <div>CW+3</div>
                 <div className="brack-number">({startingWeek + 3})</div>
               </TableCell>
@@ -181,25 +216,34 @@ const StockPosition = ({ onData }) => {
           <TableBody>
             {data.map((item) => (
               <TableRow key={item.rbsku}>
-                <TableCell>{item.rbsku}</TableCell>
-                <TableCell>{item.desc}</TableCell>
-                <TableCell>{item.rrsegment}</TableCell>
                 <TableCell>
-                  <div className="isw">{item.initsohweek}</div>
+                  {" "}
+                  <div className="alignment">{item.rbsku}</div>
+                </TableCell>{" "}
+                <TableCell>
+                  {" "}
+                  <div className="alignment">{item.desc}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="stockalignment-cw0">{item.cw}</div>
+                  <div className="alignment">{item.rrsegment}</div>
+                </TableCell>
+                <TableCell>
+                  <div className="alignment">{item.initsohweek}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="stockalignment-cw12">{item.cw1}</div>
+                  <div className="alignment">{item.cw}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="stockalignment-cw12">{item.cw2}</div>
+                  {" "}
+                  <div className="alignment">{item.cw1}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="stockalignment-cw3">{item.cw3}</div>
+                  <div className="alignment">{item.cw2}</div>
+                </TableCell>
+                <TableCell>
+                  <div className="alignment">{item.cw3}</div>
                 </TableCell>
               </TableRow>
             ))}

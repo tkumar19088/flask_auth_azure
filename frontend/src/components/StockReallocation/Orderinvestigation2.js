@@ -1,40 +1,17 @@
 import React, { useState } from "react";
-import Topbar from "../Topbar/Topbar";
-import Sidebar from "../Sidebar/Sidebar";
-import { Box, Button, Grid, Stack, Typography } from "@mui/material";
-
-import play from "../../images/play.png";
-// import "./AirwickElectrical.css";
+import { Box, Grid, Stack, Typography } from "@mui/material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import Linechart from "../../Linechart";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import SaveIcon from "@mui/icons-material/Save";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import DownloadIcon from "@mui/icons-material/Download";
 import Tooltip from "@mui/material/Tooltip";
-
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-
 import { useNavigate } from "react-router-dom";
 
 const Orderinvestigation2 = () => {
   const navigate = useNavigate();
-
-  const handleClick = () => {
-    // Navigate to another URL
-    // navigate("/scenariogeneration");
-  };
 
   const [counter, setCounter] = useState(0);
   const [weeksOnConv, setweeksOnConv] = useState(0);
@@ -69,28 +46,32 @@ const Orderinvestigation2 = () => {
         my={1}
       >
         <Box display="flex" className="optimistarion-box">
-          <Typography fontSize={18} color="#415A6C" className="radiobtn-title">
+          <Typography fontSize={24} color="#415A6C" className="radiobtn-title">
             Optimisation Target :
           </Typography>
 
-          <label>
-            <input
-              type="radio"
-              value="red"
-              checked={selectedOption === "red"}
-              onChange={handleOptionChange}
-            />
-            Minimise ( | Current WoC - Target WoC | )
-          </label>
-          <label>
-            <input
-              type="radio"
-              value="green"
-              checked={selectedOption === "green"}
-              onChange={handleOptionChange}
-            />
-            Maximise revenue
-          </label>
+          <Box>
+            <label>
+              <input
+                type="radio"
+                value="red"
+                checked={selectedOption === "red"}
+                onChange={handleOptionChange}
+              />
+              Minimise Current woc - Target woc
+            </label>
+          </Box>
+          <Box mt="5px" mx={2}>
+            <label>
+              <input
+                type="radio"
+                value="green"
+                checked={selectedOption === "green"}
+                onChange={handleOptionChange}
+              />
+              Maximise revenue
+            </label>
+          </Box>
         </Box>
         <Box display="flex">
           <Box className="sg-title">
@@ -110,10 +91,17 @@ const Orderinvestigation2 = () => {
           </Box>
         </Box>
       </Stack>
+
       <Typography fontSize={24} color="#145A6C" mx="3px">
         Constraints (Optional)
       </Typography>
-      <Grid container spacing={1} mt="5px" mx={{ lg: "1px", xs: "1px" }}>
+      <Grid
+        container
+        spacing={1}
+        mt="5px"
+        mx={{ lg: "1px", xs: "1px" }}
+        // border="1px solid red"
+      >
         <Stack direction="row" className="constains-innerbox">
           <Grid item xs={3} border="">
             <Box
@@ -364,8 +352,9 @@ const Orderinvestigation2 = () => {
             </Box>
           </Grid>
         </Stack>
+        
       </Grid>
-      <Grid mt="10px">
+      <Grid>
         <Typography fontSize={28} mt="5px" color="#145A6C" mx="3px">
           Results
         </Typography>
@@ -432,13 +421,3 @@ const Orderinvestigation2 = () => {
 };
 
 export default Orderinvestigation2;
-<Typography
-  fontSize={{ lg: 16, xs: 10 }}
-  sx={{
-    backgroundColor: "#D1F2C4",
-    borderRadius: "5px 5px",
-    width: { lg: "410px" },
-  }}
->
-  Scenario Generation: Airwick Electrical Lemon 112345
-</Typography>;

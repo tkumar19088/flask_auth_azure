@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import {
   Box,
@@ -14,38 +13,12 @@ import "./Filtersdropdown.css";
 
 function Filtersdropdown() {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [subMenuAnchorEl, setSubMenuAnchorEl] = useState(null);
-  const [subcustomerEl, setsubcustomerEl] = useState(null);
-  const [subLocation, setsubLocation] = useState(null);
 
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleCustomerClick = (event) => {
-    setsubcustomerEl(event.currentTarget);
-  };
-  const handleLocationClick = (event) => {
-    setsubLocation(event.currentTarget);
-  };
-
-  const handleSubMenuClick = (event) => {
-    setSubMenuAnchorEl(event.currentTarget);
-  };
 
   const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleSubMenuClose = () => {
-    setSubMenuAnchorEl(null);
-    setAnchorEl(null);
-  };
-  const handleCustomerSubMenuClose = () => {
-    setsubcustomerEl(null);
-    setAnchorEl(null);
-  };
-  const handleLocationSubMenuClose = () => {
-    setsubLocation(null);
     setAnchorEl(null);
   };
 

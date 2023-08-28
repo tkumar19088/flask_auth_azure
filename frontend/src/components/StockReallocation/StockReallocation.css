@@ -1,6 +1,4 @@
-.ani{
 
-}
 
 @media (width > 1200px) and (width < 1440px) {
     .bread-crumb{
@@ -109,7 +107,7 @@
 
 }
 
-@media (width > 1919px) {
+@media screen and (min-width: 1920px) {
    
     .srbr-btns{
         height: 30px !important;
@@ -177,14 +175,9 @@
 
    
 
-.stockReallocation tr:nth-child(odd) {
+/* .stockReallocation tr:nth-child(odd) {
     height: 60px !important;
-}
-/* .css-y8ay40-MuiTableCell-root {
-    font-size: 1.20rem  !important;
-    font-weight: 600 !important;
 } */
-
 .sa-title{
     font-size: 32px !important;
 }
@@ -253,9 +246,7 @@
 }
 
 
-.stockReallocation .css-15wwp11-MuiTableHead-root {
-    height: 80px !important
-}
+
 
 
 
@@ -304,5 +295,18 @@
 .optimistarion-box{
     /* border: 1px solid; */
     align-items: center;
+    justify-content: center;
+    align-self: center;
 }
+
+
+.stable-header{
+    background-color: #E5EBEF !important;
+    color:#415A6C !important;
+    border:1px solid #dcdcdc !important;
+}
+
+
+
+
 }

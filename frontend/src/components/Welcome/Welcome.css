@@ -16,9 +16,17 @@
   margin-top: 870px !important;
 } */
 
- @media only screen and (width > 1919px) {
+@media screen and (min-width: 1920px) {
   .css-1yn0t5k-MuiTypography-root {
     width: 9.2857% !important;
     line-height: 57px;
+}
+
+.welcome-title{
+  margin-left: 20px !important;
+  margin-top: -5px !important;
+}
+.welcome-contname{
+  margin-left: 20px !important;
 }
 } 

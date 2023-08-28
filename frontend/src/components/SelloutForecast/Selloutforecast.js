@@ -6,7 +6,7 @@ import Linechart from "./Linechart";
 
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-
+import "./Selloutforecast.css";
 import { useNavigate } from "react-router-dom";
 
 const Selloutforecast = () => {
@@ -84,9 +84,9 @@ const Selloutforecast = () => {
             <Box
               display="flex"
               justifyContent="space-between"
-              sx={{ marginBottom: "15px" }}
+              sx={{ marginBottom: "20px" }}
             >
-              <Button variant="contained" className="srbr-btns">
+              <Button variant="contained" className="exportButton">
                 Export Data
               </Button>
             </Box>

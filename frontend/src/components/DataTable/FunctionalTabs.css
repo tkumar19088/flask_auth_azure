@@ -23,81 +23,15 @@
 }
 
 
-@media (width > 1023px) and (width < 1200px) {
-    .react-tabs__tab {
-        bottom: 2px;
-        padding: 4px 10px;
-        /* background-color: blueviolet !important; */
-    }
-}
 
-@media (width > 1200px) and (width < 1440px) {
-    .react-tabs__tab {
-        bottom: -1px;
-        padding: 6px 24.05px;
-        /* gap: 1px !important; */
-        /* background-color: yellowgreen !important; */
-    }
 
-    .css-y8ay40-MuiTableCell-root {
-        background-color: #E5EBEF !important;
-        color: #415A6C !important;
-        padding: 13px 13px !important;
-        line-height: 18px !important;
-        /* height: 45px !important; */
-        /* text-align: center; */
-        /* font-weight: 600 !important; */
-    }
 
-    tr:nth-child(odd) {
-        background-color: white;
-    }
-    .css-1q1u3t4-MuiTableRow-root {
-        background-color: rgb(245,245,245);
-    }
 
-    .brack-number{
-        margin-left:8px;
-    }
-    .isw{
-        margin-left:40px !important;
-    }
 
-    .alignment {
-        text-align: center;
+@media screen and (min-width: 1920px) {
+    .react-tabs__tab-list{
+        border-bottom: none;
     }
-}
-
-@media (width > 1439px) and (width < 1537px) {
-    .react-tabs__tab {
-        bottom: 2px;
-        padding: 8px 12px;
-        /* background-color: orange !important; */
-    }
-    .css-y8ay40-MuiTableCell-root {
-        background-color: #E5EBEF !important;
-        color: #415A6C !important;
-        padding: 10px !important;
-        line-height: 18px !important;
-        /* text-align: center; */
-        font-weight: 600 !important;
-    }
-
-    tr:nth-child(odd) {
-        background-color: white;
-    }
-    .css-1q1u3t4-MuiTableRow-root {
-        background-color: rgb(245,245,245);
-    }
-
-    .brack-number{
-        margin-left:8px;
-    }
-    .isw{
-        margin-left:40px !important;
-    }
-}
-@media (width > 1919px) {
     .react-tabs__tab {
         bottom: 2px;
         padding: 8px 44.9px;
@@ -115,7 +49,7 @@
     }
 
     tr:nth-child(odd) {
-        background-color: white;
+        background-color: #fff;
     }
     .css-1q1u3t4-MuiTableRow-root {
         background-color: rgb(245,245,245);
