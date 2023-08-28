@@ -167,11 +167,11 @@
    .sr-supplyrealocate1{
     font-size: 18px !important;
    }
-   .css-1ex1afd-MuiTableCell-root {
+   /* .css-1ex1afd-MuiTableCell-root {
       text-align: center !important;
       width: 20px !important;
       font-size: 13px !important;
-   }
+   } */
 
    
 
@@ -276,12 +276,25 @@
     padding:  10px 20px ;
 }
 
+.sg-main{
+    margin-top: 10px !important;
+}
 .sg-title{
     border-radius: 5px;
     background-color: rgb(198 223 215);
     padding: 2px 8px !important;
     font-size: 14px;
     color: black;
+    height: 22px !important;
+}
+.radibtn-left{
+    margin-top: 5px;
+    margin-left: -10px;
+
+}
+.radiobtn-right{
+      margin-top: 9px;
+      margin-left: 10px;
 }
 
 
@@ -304,6 +317,9 @@
     background-color: #E5EBEF !important;
     color:#415A6C !important;
     border:1px solid #dcdcdc !important;
+    padding: 5px 2px !important;
+    text-align: center !important;
+    line-height: 16px !important;
 }
 
 

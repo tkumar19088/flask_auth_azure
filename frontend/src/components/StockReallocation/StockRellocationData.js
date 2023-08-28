@@ -469,12 +469,22 @@ const StockReallocationData = ({ onData }) => {
                       {item.sellinforecastreckitt}
                     </Typography>
                   </Box>
-                </TableCell>{" "}
-                <TableCell>{item.currentallocation}</TableCell>
-                <TableCell>{item.allcConsumedDate}</TableCell>
-                <TableCell>{item.remAllocation}</TableCell>
-                <TableCell>{item.openOrders}</TableCell>
-                <TableCell>{item.expectServiceLevel}</TableCell>
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  {item.currentallocation}
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  {item.allcConsumedDate}
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  {item.remAllocation}
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  {item.openOrders}
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  {item.expectServiceLevel}
+                </TableCell>
                 <TableCell>
                   <Box display="flex" sx={{ marginLeft: "" }}>
                     <Typography fontSize={15}>{item.custSohcurrent}</Typography>
@@ -513,10 +523,16 @@ const StockReallocationData = ({ onData }) => {
                     </Typography>
                   </Box>
                 </TableCell>
-                <TableCell>{item.price}</TableCell>
-                <TableCell>{item.cmuScore}</TableCell>
-                <TableCell>{item.stockSafeRealloc}</TableCell>
-                <TableCell>{item.suggAlloc}</TableCell>
+                <TableCell sx={{ textAlign: "center" }}>{item.price}</TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  {item.cmuScore}
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  {item.stockSafeRealloc}
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  {item.suggAlloc}
+                </TableCell>
                 <TableCell>
                   <Box
                     component="form"

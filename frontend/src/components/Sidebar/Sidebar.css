@@ -205,12 +205,9 @@ margin-top: 1px;
 /* media 1920px....................................................................................... */
 @media screen and (min-width: 1920px) {
 
-    /* .acrdn-main .css-ck8r11-MuiButtonBase-root-MuiAccordionSummary-root.Mui-expanded {
-        min-height: 0px !important;
-    } */
+   
     
 .grid-icon1{
-    /* margin-right: 10px; */
     margin-top: -1px !important;
     font-size: 18px !important;
     margin-left: 2px !important;
@@ -264,7 +261,6 @@ margin-top: 1px;
  
    .acrdn-s{
     background-color:#E7E9EE  !important;
-    /* height: 45px !important; */
     border-radius: 5px !important;
     color: #415A6C !important;
 }
@@ -280,62 +276,73 @@ margin-top: 1px;
 
 /* media 2560px............................................................................................. */
 
-@media (width > 2559px) {
+@media screen and (min-width: 2560px) {
 
+   
+    
     .grid-icon1{
-        /* margin-right: 10px; */
-        margin-top: -1px;
-        font-size: 22px !important;
+        margin-top: -1px !important;
+        font-size: 18px !important;
+        margin-left: 2px !important;
      }
      
      .grid-icon{
         margin-right: 10px;
-        margin-top: 6px;
-        font-size: 22px !important;
+        margin-top: 4px;
+        font-size: 18px !important;
      
      }
      .alert-icon{
-         margin-left: -2px !important;
+         margin-left: 2px !important;
          margin-right: 3px;
          margin-top: -3px;
-         font-size: 22px !important;
+         font-size: 18px !important;
      
      
-     } 
-    .logs-out{
-    padding: 16px;
-    width: 360px;
+     }
+        .s-h2{
+            display: flex;
+            border-radius:5px 5px ;
+            padding:  16px 12px !important;
+            background-color:#E7E9EE ;
+            margin-top: 7%;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            width: auto;
+            margin-inline: 20px;
+            box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+        
+        }
+    
+       .logs-out{
+        padding: 16px;
+        width: 351px;
+        box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+    
+    
+       }
+       
+    .logout-icon{
+        margin-right: 14px !important;
+    }
+    .logsout-titile{
+        font-size: 14px !important;
+    }
+    
+      
+     
+       .acrdn-s{
+        background-color:#E7E9EE  !important;
+        border-radius: 5px !important;
+        color: #415A6C !important;
+    }
+    
+    
+    .acrdn-main {
+        background-color:#E7E9EE  !important;
+        border-radius: 5px 5px 5px !important;
+    }
+    
+    }
 
-   }
-   .logsout-titile{
-    font-size: 22px !important;
-  }
-
-   .s-h2{
-    padding: 16px !important;
-    height: 35px;
-    font-size: 32px;
-   }
-   .sidebar-title{
-    font-size: 86px !important;
-    /* background-color: rebeccapurple !important; */
-   }
-
-   
-.acrdn-main {
-    background-color:#E7E9EE  !important;
-    border-radius: 5px 5px 5px !important;
-    /* border: 1px solid red; */
-    /* height: 60px; */
-}
-
-.acrdn-s{
-    background-color:#E7E9EE  !important;
-    /* height: 60px !important; */
-    border-radius: 5px !important;
-    color: #415A6C !important;
-}
-.sidebar-minititle{
-    font-size: 20px !important;
-}
-}

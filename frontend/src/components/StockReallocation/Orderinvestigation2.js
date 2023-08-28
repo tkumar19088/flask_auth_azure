@@ -38,19 +38,14 @@ const Orderinvestigation2 = () => {
     setSelectedOption(event.target.value);
   };
   return (
-    <div style={{ marginTop: "5px" }}>
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        // className="optimistarion-box"
-        my={1}
-      >
+    <div>
+      <Stack direction="row" justifyContent="space-between">
         <Box display="flex" className="optimistarion-box">
           <Typography fontSize={24} color="#415A6C" className="radiobtn-title">
             Optimisation Target :
           </Typography>
 
-          <Box>
+          <Box className="radibtn-left">
             <label>
               <input
                 type="radio"
@@ -61,7 +56,7 @@ const Orderinvestigation2 = () => {
               Minimise Current woc - Target woc
             </label>
           </Box>
-          <Box mt="5px" mx={2}>
+          <Box className="radiobtn-right">
             <label>
               <input
                 type="radio"
@@ -73,7 +68,7 @@ const Orderinvestigation2 = () => {
             </label>
           </Box>
         </Box>
-        <Box display="flex">
+        <Box display="flex" className="sg-main">
           <Box className="sg-title">
             Scenario Generation: Airwick Electrical Lemon 112345
           </Box>
@@ -352,7 +347,6 @@ const Orderinvestigation2 = () => {
             </Box>
           </Grid>
         </Stack>
-        
       </Grid>
       <Grid>
         <Typography fontSize={28} mt="5px" color="#145A6C" mx="3px">
