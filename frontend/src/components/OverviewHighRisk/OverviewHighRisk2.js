@@ -15,7 +15,7 @@ import OhrTabs from "../DataTable/OhrTab";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import "./OverviewHighRisk.css";
-import SupplyTable from "../DataTable/supplyTable";
+import CustomerTable from "../DataTable/CustomerTable";
 
 const OverviewHighRisk2 = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -159,7 +159,7 @@ const OverviewHighRisk2 = () => {
               <FunctionalTabs />
             </TabPanel>
             <TabPanel>
-              <SupplyTable />
+              <CustomerTable />
             </TabPanel>
           </Tabs>
         </Grid>

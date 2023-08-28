@@ -42,6 +42,7 @@ const Sidebar = () => {
   const [oosrick, setoosrick] = useState(oosriskVal);
   const [irregular, setirregular] = useState(irregularpoVal);
   const [reallocation, setreallocation] = useState(reallocationVal);
+  const [forecast, setforecast] = useState(false);
 
   const handleOOSRick = () => {
     dispatch(fetchOOSRisk(true));
@@ -84,6 +85,11 @@ const Sidebar = () => {
   const handleDashboard = () => {
     navigate("/");
   };
+
+  const handleForecast = () => {
+    setforecast(!forecast);
+  };
+
   return (
     <div className="sidebar" style={{ position: "relative" }}>
       <div
@@ -100,6 +106,7 @@ const Sidebar = () => {
       <div style={{ marginInline: "20px", marginTop: "20px" }}>
         <Accordion className="acrdn-main">
           <AccordionSummary
+            onClick={handleForecast}
             className="acrdn-s"
             expandIcon={<ArrowDropDownIcon />}
             sx={{

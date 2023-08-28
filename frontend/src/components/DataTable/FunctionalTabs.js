@@ -51,7 +51,7 @@ const FunctionalTabs = () => {
             color: activeTab === 3 ? "white" : "#415A6C",
           }}
         >
-          Expctd SOH at EOW
+          Expected SOH at EOW
         </Tab>
         <Tab
           style={{

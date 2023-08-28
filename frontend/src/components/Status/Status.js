@@ -66,20 +66,7 @@ const Status = ({ filterStatus }) => {
                 <Typography fontSize={{ lg: 18, xs: 13 }}>
                   OOS Risk Detection on Airwick
                 </Typography>
-                <Typography fontSize={{ lg: 18, xs: 13 }}>
-                  {" "}
-                  UK SKUs.
-                  <Link
-                    sx={{
-                      textDecoration: "none",
-                      color: "#7E919F",
-                      fontSize: "14px",
-                    }}
-                  >
-                    {" "}
-                    Use cases
-                  </Link>
-                </Typography>
+                <Typography fontSize={{ lg: 18, xs: 13 }}> UK SKUs.</Typography>
               </Box>
             </Box>
             <hr />
@@ -172,20 +159,7 @@ const Status = ({ filterStatus }) => {
                 <Typography fontSize={{ lg: 18, xs: 13 }}>
                   OOS Risk Detection on Gaviscon
                 </Typography>
-                <Typography fontSize={{ lg: 18, xs: 13 }}>
-                  {" "}
-                  UK SKUs.
-                  <Link
-                    sx={{
-                      textDecoration: "none",
-                      color: "#7E919F",
-                      fontSize: "14px",
-                    }}
-                  >
-                    {" "}
-                    Use cases
-                  </Link>
-                </Typography>
+                <Typography fontSize={{ lg: 18, xs: 13 }}> UK SKUs.</Typography>
               </Box>
             </Box>
             <hr />
@@ -203,16 +177,16 @@ const Status = ({ filterStatus }) => {
                   OOS Risk Dectected
                 </Typography>
                 <Typography fontSize={{ lg: 14, xs: 12 }}>
-                  Airwick Electrical Lemon
+                  Gaviscon double action
                 </Typography>
                 <Typography
                   fontSize={{ lg: 14, xs: 12 }}
                   lineHeight={{ lg: "16px", xs: "16px" }}
                 >
-                  Airwick Electrical Lavender
+                  Gaviscon regular
                 </Typography>
                 <Typography fontSize={{ lg: 14, xs: 12 }}>
-                  Airwick Aersol Floral
+                  Gaviscon advance{" "}
                 </Typography>
               </Box>
               <Box>
@@ -257,7 +231,7 @@ const Status = ({ filterStatus }) => {
               height: "100%",
             }}
           >
-            <Box className="status-cardshead" >
+            <Box className="status-cardshead">
               <Box>
                 <img
                   src={Error}
@@ -266,17 +240,39 @@ const Status = ({ filterStatus }) => {
                   style={{ marginTop: "8px" }}
                 />{" "}
               </Box>
-              <Box m={1} >
+              <Box m={1}>
                 <Typography fontSize={{ lg: 18, xs: 13 }}>
                   Irregular PO detected
                 </Typography>
               </Box>
             </Box>
-           
+
             <Box sx={{ marginInline: "20px", color: "#415A6C" }}>
-             <Box className="po-miniheader">PO 1234</Box>
-             <Box className="po-miniheader">PO 1234</Box>
-             <Box className="po-miniheader">PO 1234</Box>
+              <Box
+                className="po-miniheader"
+                display="flex"
+                justifyContent="space-between"
+              >
+                <Typography>PO 1234</Typography>
+                <Typography>28/8/2023</Typography>
+              </Box>
+              <Box
+                className="po-miniheader"
+                display="flex"
+                justifyContent="space-between"
+              >
+                <Typography>PO 1234</Typography>
+                <Typography>28/8/2023</Typography>
+              </Box>
+              <Box
+                className="po-miniheader"
+                display="flex"
+                justifyContent="space-between"
+              >
+                <Typography>PO 1234</Typography>
+                <Typography>28/8/2023</Typography>
+              </Box>
+              
             </Box>
           </Box>{" "}
         </Grid>

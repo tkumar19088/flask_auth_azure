@@ -295,6 +295,8 @@
 .optimistarion-box{
     /* border: 1px solid; */
     align-items: center;
+    justify-content: center;
+    align-self: center;
 }
 
 

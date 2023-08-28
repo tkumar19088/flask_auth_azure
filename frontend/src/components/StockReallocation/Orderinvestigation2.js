@@ -46,28 +46,32 @@ const Orderinvestigation2 = () => {
         my={1}
       >
         <Box display="flex" className="optimistarion-box">
-          <Typography fontSize={18} color="#415A6C" className="radiobtn-title">
+          <Typography fontSize={24} color="#415A6C" className="radiobtn-title">
             Optimisation Target :
           </Typography>
 
-          <label>
-            <input
-              type="radio"
-              value="red"
-              checked={selectedOption === "red"}
-              onChange={handleOptionChange}
-            />
-            Minimise ( | Current WoC - Target WoC | )
-          </label>
-          <label>
-            <input
-              type="radio"
-              value="green"
-              checked={selectedOption === "green"}
-              onChange={handleOptionChange}
-            />
-            Maximise revenue
-          </label>
+          <Box>
+            <label>
+              <input
+                type="radio"
+                value="red"
+                checked={selectedOption === "red"}
+                onChange={handleOptionChange}
+              />
+              Minimise Current woc - Target woc
+            </label>
+          </Box>
+          <Box mt="5px" mx={2}>
+            <label>
+              <input
+                type="radio"
+                value="green"
+                checked={selectedOption === "green"}
+                onChange={handleOptionChange}
+              />
+              Maximise revenue
+            </label>
+          </Box>
         </Box>
         <Box display="flex">
           <Box className="sg-title">
@@ -87,10 +91,17 @@ const Orderinvestigation2 = () => {
           </Box>
         </Box>
       </Stack>
+
       <Typography fontSize={24} color="#145A6C" mx="3px">
         Constraints (Optional)
       </Typography>
-      <Grid container spacing={1} mt="5px" mx={{ lg: "1px", xs: "1px" }}>
+      <Grid
+        container
+        spacing={1}
+        mt="5px"
+        mx={{ lg: "1px", xs: "1px" }}
+        // border="1px solid red"
+      >
         <Stack direction="row" className="constains-innerbox">
           <Grid item xs={3} border="">
             <Box
@@ -341,6 +352,7 @@ const Orderinvestigation2 = () => {
             </Box>
           </Grid>
         </Stack>
+        
       </Grid>
       <Grid>
         <Typography fontSize={28} mt="5px" color="#145A6C" mx="3px">
