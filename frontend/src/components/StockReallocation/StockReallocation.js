@@ -5,17 +5,12 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import Topbar from "../Topbar/Topbar";
 import Sidebar from "../Sidebar/Sidebar";
 import "./StockReallocation.css";
-
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-// import DataTable from "../../DataTable";
 import { useNavigate } from "react-router-dom";
-import { animateScroll as scroll } from "react-scroll";
 
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import StockReallocationData from "./StockRellocationData";
 import Orderinvestigation2 from "./Orderinvestigation2";
-// import MyBreadcrumbs from "../../MyBreadcrumbs";
 
 function StockReallocation() {
   const navigate = useNavigate();
@@ -32,9 +27,6 @@ function StockReallocation() {
     // Do something with the data in the parent component
   };
 
-  useEffect(() => {
-    scroll.scrollToTop(); // Scrolls to the top of the page when the component mounts
-  }, []);
   return (
     <div>
       <Topbar />

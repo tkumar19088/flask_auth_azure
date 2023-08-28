@@ -18,7 +18,6 @@ import Logo from "../../images/Logo-bar.png";
 import icon from "../../images/notification.png";
 import search from "../../images/search.png";
 import { useNavigate } from "react-router-dom";
-import { Typography } from "@mui/material";
 
 import { Button, Menu, MenuItem } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -58,16 +57,6 @@ const Topbar = () => {
     },
   }));
 
-  const SearchIconWrapper = styled("div")(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  }));
-
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: "inherit",
     "& .MuiInputBase-input": {
@@ -94,7 +83,10 @@ const Topbar = () => {
         <Box>
           <Search
             sx={{
-              backgroundColor: "#F5F6F8",
+              backgroundColor: "#E7E9EE",
+              "&:hover": {
+                backgroundColor: "#E7E9EE",
+              },
               borderRadius: "20px 20px",
               display: "flex",
               color: "#415A6C",

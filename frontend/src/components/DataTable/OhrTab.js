@@ -2,18 +2,6 @@ import React, { useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
-import SupplyTable from "./supplyTable";
-import DemandTable from "./DemandTable";
-import StockPositionWeek from "./StockPositionWeek";
-import WocTable from "./wocTable";
-import CaseShortages from "./caseShortages";
-import ExpectedServices from "./expectedServicesTable";
-import StockPosition from "./stockPositionTable";
-import RAG from "./ragTable";
-import OhrTable from "./ohrTable";
-import NewohrTable from "./NewohrTable";
-import FunctionalTabs from "./FunctionalTabs";
-
 const OhrTabs = () => {
   const [activeTab, setActiveTab] = useState(0);
 
@@ -23,7 +11,7 @@ const OhrTabs = () => {
 
   return (
     <Tabs selectedIndex={activeTab} onSelect={handleTabChange}>
-      <TabList>
+      <TabList style={{ marginTop: "45px" }}>
         <Tab
           style={{
             border: "1px solid #E5EBEF",

@@ -55,14 +55,15 @@
     }
   }
 
-  @media (width > 1919px) {
+  @media screen and (min-width: 1920px) {
+   
     
     .filter-main{
-      margin-top: 0px;
+      margin-top: 40px;
 
     }
     .filter-title{
-      font-size: 2.125rem !important;
+      font-size: 23px !important; 
     }
 
     .btn-filters{
@@ -80,10 +81,9 @@
       font-size: 1.2rem !important;
     } */
 
-.filter-inside-title{
-  font-size: 2.125rem !important;
-  /* background-color: red !important; */
-}
+  .filter-inside-title{
+    font-size: 23px !important;
+  }
 
 
     .btn-fltr{

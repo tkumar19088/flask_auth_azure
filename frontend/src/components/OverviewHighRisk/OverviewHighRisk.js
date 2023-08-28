@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { Box, Button, Grid, Typography } from "@mui/material";
 
@@ -9,11 +9,9 @@ import "./OverviewHighRisk.css";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import DataTable from "../../DataTable";
 import { useNavigate } from "react-router-dom";
-import { animateScroll as scroll } from "react-scroll";
 
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-// import MyBreadcrumbs from "../../MyBreadcrumbs";
 
 function OverviewHighRisk() {
   const navigate = useNavigate();
@@ -27,12 +25,8 @@ function OverviewHighRisk() {
   const handleDataFromChild = (data) => {
     console.log("Data received from child:", data);
     setselectedData(data);
-    // Do something with the data in the parent component
   };
 
-  useEffect(() => {
-    scroll.scrollToTop(); // Scrolls to the top of the page when the component mounts
-  }, []);
   return (
     <div>
       <Topbar />

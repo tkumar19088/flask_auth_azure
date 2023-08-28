@@ -1,8 +1,7 @@
 
 .btn-datatable{
     display: flex;
-    /* border: 1px solid; */
-    /* height: 20px; */
+    
 }
 
 .btn-back{
@@ -20,91 +19,7 @@
 }
 
 
- @media only screen and (max-width: 1024p) {
-  .datatable-head {
-    /* background-color: yellow; */
-    min-width: 10px !important;
-  }
-
-  .datatable-checkbox{
-    /* background-color: red !important; */
-    /* border: 1px solid green !important; */
-    /* width: 5px !important; */
-    /* height: 5px !important; */
-    /* margin-left: -17px !important; */
-
-  }
-  .bdr-ckeck{
-    /* -ms-transform-origin-x: -10px; */
-    border: 1px solid;
-    margin-left: -15px;
-    height: 47px;
-    width: 50px;
-  }
-  .bdr-sku{
-    /* -ms-transform-origin-x: -10px; */
-    border: 1px solid;
-    margin-left: -15px;
-    height: 47px;
-    width: 100px !important;
-  }
-  .bdr-skucode{
-    /* -ms-transform-origin-x: -10px; */
-    border: 1px solid;
-    margin-left: -65px;
-    height: 47px;
-    width: 100px !important;
-  }
-  .bdr-timeframe{
-    /* -ms-transform-origin-x: -10px; */
-    border: 1px solid;
-    margin-left: -105px;
-    height: 47px;
-    /* width: 100px !important; */
-  }
-  .bdr-netrevenue{
-    /* -ms-transform-origin-x: -10px; */
-    border: 1px solid;
-    margin-left: -15px;
-    height: 47px;
-    /* width: 100px !important; */
-  }
-  .bdr-expectedola{
-    /* -ms-transform-origin-x: -10px; */
-    border: 1px solid;
-    margin-left: -15px;
-    height: 47px;
-    /* width: 100px !important; */
-  }
-  .bdr-servicelevel{
-    /* -ms-transform-origin-x: -10px; */
-    border: 1px solid;
-    margin-left: -15px;
-    height: 47px;
-    /* width: 100px !important; */
-  }
-  .bdr-exptnetrevenue{
-    /* -ms-transform-origin-x: -10px; */
-    border: 1px solid;
-    margin-left: -15px;
-    height: 47px;
-    /* width: 100px !important; */
-  }
-  .bdr-bestseller{
-    /* -ms-transform-origin-x: -10px; */
-    border: 1px solid;
-    margin-left: -15px;
-    height: 47px;
-    /* width: 100px !important; */
-  }
-  .bdr-risk{
-    /* -ms-transform-origin-x: -10px; */
-    border: 1px solid;
-    margin-left: -15px;
-    height: 47px;
-    /* width: 100px !important; */
-  }
-} 
+ 
 
 .merged-cell {
   position: sticky;
@@ -117,89 +32,25 @@
   width: 100px !important; /* Adjust the width as needed */
 }
 
-.css-1dixqta-MuiTableCell-root {
-  padding: 0px !important;
-}
 
 
 
-@media (width > 1200px) and (width < 1440px) {
-  .t-head{
-    height: 10px !important;
-    padding: 1px !important;
-  }
-  .tablerow-title{
-    height: 10px !important;
-    padding: 3px !important;
-  }
 
-  .bdr-skucode{
-    /* -ms-transform-origin-x: -10px; */
-    /* border: 1px solid; */
-    /* margin-left: -65px; */
-    height: 47px;
-    width: 115px !important;
-  }
-     .tablecell-header{
-      /* background-color: red !important; */
-     }
-            
-      .tablecell-inside{
-        /* background-color: #E5EBEF !important; */
-        background-color: red !important;
-      }
 
-      .css-1ygcj2i-MuiTableCell-root {
-        line-height: 1.0rem !important;
-      }
-
-      .css-1q1u3t4-MuiTableRow-root {
-        background-color: #E5EBEF
-    
-      }
-
-      .ms-grid{
-       
-        text-align: center;
-        border-radius: 5px;
-        padding: 10px;
-        cursor: pointer;
-      }
-      
-      .css-1ys3pbw-MuiTableCell-root {
-        padding: 0px !important;
-        /* height: 10px !important; */
-        background-color: #E5EBEF !important;
-        /* width: 10px !important; */
-      }
-      /* .t-row{
-        background-color: red !important;
-      } */
-
-      .tabletitle-crc{
-
-      }
-}
-
-@media (width > 1919px) {
+@media screen and (min-width: 1920px) {
+ 
+ 
   .tablecell-inside{
     background-color: #E5EBEF !important;
-    /* background-color: red !important; */
     width: 70% !important;
   }
-
-  .css-x6rght-MuiTypography-root {
-    width: 109px !important;
-    text-align: center !important;
-    margin-left: 0px !important;
-  }
+ 
+ 
 
   .choosems-stack{
     align-items: center !important;
-    /* border: 1px solid; */
-    /* margin-block: 10px; */
     margin-top: 15px;
-    margin-bottom: 4px;
+    margin-bottom: -10px;
   }
   .ms-title{
     font-size: 22px !important;
@@ -225,29 +76,13 @@
   
   
 
-  .css-1ys3pbw-MuiTableCell-root {
-    padding: 0px !important;
-  }
-  .css-1q1u3t4-MuiTableRow-root {
-    background-color: #E5EBEF
-
-  }
-  /* .tablecell-inside{
-    background-color: #E5EBEF !important;
-  } */
-  .tablecell-header{
-    /* background-color: red !important; */
-   }
-
-   /* .mini-table{
-    width: 1538px !important;
-   } */
+  
 
    .ms-grid{
     width:170px;
     height: 25px !important;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 50px;
     padding: 5px;
     cursor: pointer;
     align-items: center;
@@ -263,7 +98,6 @@
     padding: 2px;
   }
   .retailer-badge .MuiBadge-badge {
-    /* margin-right: -10px !important; */
     margin-top: -5px !important;
     background-color: #FF007F;
     color: #fff;
@@ -272,59 +106,24 @@
   }
 
 
-  tr:nth-child(odd) {
-    background-color: #E5EBEF
-  }
-
-  .css-dxa0fp-MuiTableCell-root {
-    padding: 0px !important;
-  }
-  .css-193h0r1-MuiTableCell-root {
-    padding: 0px !important;
-  }
-.css-vvc30v-MuiTableCell-root {
-  padding: 0px !important;
-}
-.css-1w9k3fr-MuiTableCell-root {
-  padding: 0px !important;
-}
-.css-1ygcj2i-MuiTableCell-root {
-  padding: 0px !important;
-}
-.css-1y1j9ok-MuiTableCell-root {
-  padding: 0px !important;
-}
-
-.css-eiibem-MuiTableCell-root {
-  padding: 3px !important;
-  margin-top: 0px !important;
-}
 
 
 
-.css-1ex1afd-MuiTableCell-root {
-   padding: 0px !important;
-}
+
 
 .cw{
   margin-left: 6px !important;
 }
-.css-11xur9t-MuiPaper-root-MuiTableContainer-root {
-  box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.14), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 1px 0px rgba(0,0,0,0.14) !important;
-}
+
 
 .campaignsTable tbody tr {
   height: 60px !important;
 }
-.campaignsTable .css-15wwp11-MuiTableHead-root {
-  height: 80px !important;
 
-}
 
 .ms-buttons{
   justify-content: space-between;
   width: 750px;
-  /* border:1px solid */
   
 }
 

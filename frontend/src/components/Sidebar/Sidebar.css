@@ -120,7 +120,7 @@ height: 20px;
 margin-top: 1px;
 }
 
-.sidebar .css-ahj2mt-MuiTypography-root {
+.css-ahj2mt-MuiTypography-root {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif !important;
@@ -161,10 +161,10 @@ margin-top: 1px;
     width: 165px;
 
 }
-.sidebar .css-yw020d-MuiAccordionSummary-expandIconWrapper{
+.css-yw020d-MuiAccordionSummary-expandIconWrapper{
     transform: rotate(-90deg) !important;
 }
-.sidebar  .css-yw020d-MuiAccordionSummary-expandIconWrapper.Mui-expanded{
+.css-yw020d-MuiAccordionSummary-expandIconWrapper.Mui-expanded{
     transform: rotate(0deg) !important;
 
 }
@@ -173,13 +173,13 @@ margin-top: 1px;
 }
 @media (width > 1200px) and (width < 1440px) {
    
-    
+/*     
     .acrdn-s{
         background-color:#E7E9EE  !important;
         height: 37px !important;
         border-radius: 5px !important;
         color: #415A6C !important;
-    }
+    } */
    
     .acrdn-main {
         background-color:#E7E9EE  !important;
@@ -188,12 +188,12 @@ margin-top: 1px;
 }
 
 @media (width > 1439px) and (width < 1537px) {
-    .acrdn-s{
+    /* .acrdn-s{
         background-color:#E7E9EE  !important;
         height: 37px !important;
         border-radius: 5px !important;
         color: #415A6C !important;
-    }
+    } */
     
     .acrdn-main {
         background-color:#E7E9EE  !important;
@@ -203,7 +203,11 @@ margin-top: 1px;
 
 
 /* media 1920px....................................................................................... */
-@media (width > 1919px) {
+@media screen and (min-width: 1920px) {
+
+    /* .acrdn-main .css-ck8r11-MuiButtonBase-root-MuiAccordionSummary-root.Mui-expanded {
+        min-height: 0px !important;
+    } */
     
 .grid-icon1{
     /* margin-right: 10px; */
@@ -236,13 +240,16 @@ margin-top: 1px;
         gap: 8px;
         cursor: pointer;
         width: auto;
-        margin-inline: 15px;
+        margin-inline: 20px;
+        box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
     
     }
 
    .logs-out{
     padding: 12px;
     width: 258px;
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+
 
    }
    
@@ -257,10 +264,11 @@ margin-top: 1px;
  
    .acrdn-s{
     background-color:#E7E9EE  !important;
-    height: 45px !important;
+    /* height: 45px !important; */
     border-radius: 5px !important;
     color: #415A6C !important;
 }
+
 
 .acrdn-main {
     background-color:#E7E9EE  !important;
@@ -323,7 +331,7 @@ margin-top: 1px;
 
 .acrdn-s{
     background-color:#E7E9EE  !important;
-    height: 60px !important;
+    /* height: 60px !important; */
     border-radius: 5px !important;
     color: #415A6C !important;
 }

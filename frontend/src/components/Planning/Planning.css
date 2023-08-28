@@ -1,6 +1,6 @@
 .pln-cards-header{
   border-radius: 5px 5px;
-  background-color:#00A6A5 ;
+  background-color:rgb(65, 90, 108); ;
   padding: 5px  10px;
 }
 
@@ -65,7 +65,7 @@
 
   
 }
-.pln-card-bd43{
+/* .pln-card-bd43{
   
   padding:20px 10px 20px 10px ;
   border-radius: 5px 5px;
@@ -79,10 +79,11 @@
 }
 .n{
 
-}
+} */
 .pln-card-bd:hover{
   
   color: #fff;
+  background-color: rgb(255, 0, 126);
 }
 .pln-cards-cnt{
   display: flex;
@@ -91,7 +92,6 @@
 .square-icon {
   width: 25px;
   height: 25px;
-  /* color: red; */
 }
 
 
@@ -104,8 +104,6 @@
   align-items: center;
   padding:20px 10px 20px 10px ;
   cursor: pointer;
-  /* background-color: #ff007e; */
-  /* color: #fff; */
 
 }
 .pln-card-bd42:hover {

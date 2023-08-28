@@ -1,43 +1,29 @@
-.sidebar-main{
-    /* max-height: 990px; */
+
+
+
+
+.screen-height{
+            background-color:#E7E9EE ;
+            padding: 15px;
+
 }
 
+@media screen and (min-width: 1920px) {
+   
+    .screen-height{
+        height:889px;
+        padding: 23px !important;
 
-
- .bg-containerdashboard{
-    background-color: #F5F6F8;
-    /* padding: 30px !important; */
-    
-   } 
-
-@media (width > 1023px) and (width < 1200px) {
-    
-}
-@media (width > 1200px) and (width < 1440px) {
-    .bg-container{
-        height: 930px !important;
-        /* height:100% !important; */
     }
-}
-
-@media (width > 1439px) and (width < 1537px) {
+  }
+@media screen and (min-width: 2560px) {
     
-}
+    .screen-height{
+        height:889px;
+        padding: 30px !important;
 
-@media (width > 1919px) and (width <2558) {
-   .bg-containerdashboard {
-    background-color: #F5F6F8;
-    padding: 30px !important;
-    height: 889px !important ;
-   }
-}
+    }
+  }
 
-@media (width > 2560px) {
-   .bg-containerdashboard {
-    background-color: #F5F6F8;
-    /* padding: 120px !important; */
-    height: 889px !important ;
-    /* background-color: RED !important; */
-    /* height: 100% !important; */
-   }
-}
+
+

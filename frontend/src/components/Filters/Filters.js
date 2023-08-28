@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import React from "react";
+import { Box, Grid, Typography } from "@mui/material";
 
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
@@ -14,16 +14,17 @@ const Filters = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/overviewhighrisk2");
+    navigate("/overviewhighrisk");
   };
 
   return (
     <div className="filter-main">
       <Typography
         className="filter-title"
-        fontSize={28}
+        // fontSize={23}
         color="#415A6C"
         marginLeft="3px"
+        marginBottom="10px"
         p={1}
       >
         Filters

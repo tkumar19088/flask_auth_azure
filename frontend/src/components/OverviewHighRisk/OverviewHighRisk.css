@@ -54,9 +54,9 @@ table {
     /* width: 12px; */
   }
   
-  tr:nth-child(odd) {
+  /* tr:nth-child(odd) {
     background-color: white !important;
-  }
+  } */
   
   .click:hover {
     background-color: aqua;
@@ -71,122 +71,57 @@ table {
     text-align: center;
   }
 
-  /* .overviewHighRisk .logoutSpace {
-    margin-top: 425px !important;
-  } */
-
-  /* @media (min-width:1536px) {
-    .cont{
-      height: calc(100%) !important;
-    }
-  } */
+  
 
 
   .react-tabs__tab--selected{
     background: none !important;
+    background-color: #415A6C !important;
     /* border-radius: 5px !important; */
     /* border-bottom: none !important; */
   }
 
 
-  @media (width > 1200px) and (width < 1440px) {
-    .bg-container{
-      background-color: #F5F6F8;
-      padding: 30px !important;
-      /* height: 1380px !important ; */
-     }
-     
-     .btn-exp{
-      height: 30px !important;
-      justify-content: center;
-      align-items: center;
-      margin-top: 1.1em!important;
-      display: flex !important;
-     }
-
-     .ohr-title{
-      font-size: 1.522rem !important;
-     }
-     .css-7mt4h1-MuiInputBase-root .MuiInputBase-input{
-          width: 10ch !important;
-     }
-     .css-7mt4h1-MuiInputBase-root .MuiInputBase-input:focus{
-      width: 10ch !important;
-     }
-
-     
-    .css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input.css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input.css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input {
-         padding-right: 90px !important;
-      }
-      .btn-exp{
-        background-color: #415A6C !important;
-
-
-      }
-      .formcontrol-box{
-        margin-left: -80px !important;
-        margin-top: -12px !important;
-      }
-      .search-align{
-        margin-left: 9px !important;
-      }
-      .css-eiibem-MuiTableCell-root {
-
-        /* margin-bottom: auto !important; */
-        border-bottom: none !important;
-  }
-  .css-15wwp11-MuiTableHead-root {
-    background: #415A6C !important;
-   }
-  }
- 
-  @media (width > 1919px) {
+  
+  @media screen and (min-width: 1920px) {
     .bg-containerOHR {
       background-color: #F5F6F8;
       padding: 10px !important;
       height: 889px !important ;
     }
     .ohr-stack{
-      /* margin-block: 10px !important; */
-      margin-bottom: 20px !important;
-    }
-    .ohr-title{
-      font-size: 30px !important;
-      margin-top: 20px !important;
-    }
-    .css-7mt4h1-MuiInputBase-root .MuiInputBase-input{
+      width: 420px;
+      justify-content: space-between;  
+      margin-top: -6px;
+      margin-left: 401px; 
+     }
+    
+    /* .css-7mt4h1-MuiInputBase-root .MuiInputBase-input{
       width: 19ch !important;
- }
- .css-7mt4h1-MuiInputBase-root .MuiInputBase-input:focus{
+ } */
+ /* .css-7mt4h1-MuiInputBase-root .MuiInputBase-input:focus{
   width: 19ch !important;
- }
+ } */
 
     .formcontrol-box{
       margin-left: -80px !important;
       margin-top: -12px !important;
     }
 
-    /* .css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input.css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input.css-19ygod6-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input {
-      padding-right: 165px !important;
-   } */
-
+    
+  
    .btn-exp{
     font-size: 14px !important;
     background-color: #415A6C !important;
-    margin-top: 20px !important;
    }
 
    .filter-inside-title{
-    font-size: 23px !important;
+    font-size: 21px !important;
    }
    .search-align{
-    /* margin-left: 450px !important; */
     margin-top: 8px !important;
   }
-  .nestmenu-box{
-    /* margin-left: 150px !important; */
-    margin-top: 20px !important;
-  }
+  
   .nestedbtn-filters{
     background-color: #415A6C !important;
     color: white !important;
@@ -195,15 +130,12 @@ table {
     width: 150px !important;
     height: 47px !important;
     margin-top: 5px !important;
-    /* padding: 9px !important; */
     text-align: center;
     justify-content: center;
     align-items: center;
     display: flex!important;
-    /* font-size: 18px !important; */
   }
   .nestfilter-title{
-    /* font-size: 2rem !important; */
   }
   .css-jh47zj-MuiButtonBase-root-MuiButton-root {
     font-size: 23px !important;
@@ -217,22 +149,14 @@ table {
   }
 
   .ohr-rightbox .css-7mt4h1-MuiInputBase-root .MuiInputBase-input {
-    /* width: 12ch; */
     font-size: 12px;
     margin-top: 0px;
     padding-left: 24px !important;
   }
-  .ohr-rightbox .search-icon {
-    width: 28px;
-    height: 28px;
-    align-items: center;
-    margin-right: 14px;
-    margin-top: 1px;
- }
+   
 
  .css-eiibem-MuiTableCell-root {
 
-       /* margin-bottom: auto !important; */
        border-bottom: none !important;
  }
 
@@ -243,21 +167,34 @@ table {
  .css-1q1u3t4-MuiTableRow-root {
   height: 55px !important;
  }
- tr:nth-child(odd) {
+ /* tr:nth-child(odd) {
   height: 55px !important;
- }
+ } */
 
  .ohr-rightbox{
   display: flex;
-  /* border: 1px solid; */
   width: 400px;
   justify-content: space-between ;
   align-items: center;
   align-self: center;
  }
+ .search-icon2{
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  margin-right: 14px;
+  margin-top: -10px;
+} 
+.search-icon2 {
+   margin-top: 0px;
+}
 
- .serch-name .css-yz9k0d-MuiInputBase-input {
-  height: 10px;
+ .serch-name input {
+  width: 19ch !important;
+  height: 10px !important;
+  font-size: 12px;
+  margin-top: 1px;
+  padding-left: 24px !important;
  }
  
 }

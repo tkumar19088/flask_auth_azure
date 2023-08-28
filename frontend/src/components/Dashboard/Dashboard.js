@@ -7,12 +7,14 @@ import Status from "../Status/Status";
 import Planning from "../Planning/Planning";
 import Filters from "../Filters/Filters";
 import "./Dashboard.css";
-import { animateScroll as scroll } from "react-scroll";
 
 import { useSelector, useDispatch } from "react-redux";
 import { fetchfilterstatus } from "../../store/actions/sidebarActions";
 
 function Dashboard() {
+  // const userData = window.jsonData;
+  // console.log(userData);
+
   const filterStatusVal = useSelector((state) => state.sidebar.filterStatus);
   const dispatch = useDispatch();
 
@@ -24,7 +26,21 @@ function Dashboard() {
   };
 
   useEffect(() => {
-    scroll.scrollToTop(); // Scrolls to the top of the page when the component mounts
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:5000/");
+        console.log(response);
+        if (response.ok) {
+          const json = await response.json();
+          console.log(json);
+        } else {
+          console.error("Error fetching data:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
+    fetchData();
   }, []);
 
   return (
@@ -34,7 +50,7 @@ function Dashboard() {
         <Grid item xs={2}>
           <Sidebar />
         </Grid>
-        <Grid item xs={10} className="bg-containerdashboard">
+        <Grid item xs={10} className="screen-height">
           <Welcome />
           <Status filterStatus={handleFilterStatus} />
           <Planning filterStatus={handleFilterStatus} />

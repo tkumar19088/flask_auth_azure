@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import "./Planning.css";
-import qubes from "../../images/qubes.png";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
-import Badge from "@mui/material/Badge";
 import { useNavigate } from "react-router-dom";
 
 const Planning = ({ filterStatus }) => {
@@ -128,7 +126,7 @@ const Planning = ({ filterStatus }) => {
           <Grid item xs={4}>
             <Box className="pln-cards-header">
               <Typography color="#fff" className="plan-title">
-               Allocate / Reallocate
+                Allocate / Reallocate
               </Typography>
             </Box>{" "}
             <Box

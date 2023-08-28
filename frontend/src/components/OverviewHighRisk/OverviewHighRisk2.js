@@ -1,39 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import Topbar from "../Topbar/Topbar";
 import Sidebar from "../Sidebar/Sidebar";
-import {
-  Box,
-  Button,
-  Grid,
-  InputLabel,
-  NativeSelect,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 
-import "./OverviewHighRisk.css";
-import MaterialUITabs from "../TabsMaterialui";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-
-import BackupIcon from "@mui/icons-material/Backup";
-import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
-import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
-import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
-import FormControl from "@mui/material/FormControl";
 
 import FunctionalTabs from "../DataTable/FunctionalTabs";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import search from "../../images/search.png";
-import MultiLevelSelect from "../Option2";
-import NestedMenu from "../../Nestedmenu";
-import NestedMenu2 from "./Nestedmenu2";
-import "./OverviewHighRisk.css";
 import Filtersdropdown from "./Filtersdropdown";
 import OhrTabs from "../DataTable/OhrTab";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
+import "./OverviewHighRisk.css";
+import SupplyTable from "../DataTable/supplyTable";
 
 const OverviewHighRisk2 = () => {
+  const [activeTab, setActiveTab] = useState(0);
+
+  const handleTabChange = (index) => {
+    setActiveTab(index);
+  };
+
   const Search = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
@@ -47,16 +37,6 @@ const OverviewHighRisk2 = () => {
       marginLeft: theme.spacing(1),
       width: "auto",
     },
-  }));
-
-  const SearchIconWrapper = styled("div")(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
   }));
 
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -83,104 +63,105 @@ const OverviewHighRisk2 = () => {
           <Sidebar />
         </Grid>
         <Grid item xs={10} className="bg-containerOHR">
-          <Stack direction="row" justifyContent="space-between">
-            <Box display="flex" fontSize={14} mx="1px">
-              <Box mt="1px">
-                <Button
-                  style={{
-                    backgroundColor: "#fff",
-                    color: "#000",
-                    borderRadius: "30px 30px ",
-                    border: "#fff",
-                    marginTop: "-6px",
-                    height: "24px",
-                  }}
-                >
-                  <ArrowBackIosNewIcon
-                    sx={{
-                      height: "12px",
-                      width: "12px",
-                      border: "1px solid",
-                      borderRadius: "50%",
-                      backgroundColor: "#FF007E",
-                      color: "#fff",
-                    }}
-                  />
-                  &#160;
-                  <Typography fontSize={12}>Back</Typography>
-                </Button>
-              </Box>{" "}
-              &#160;&#160;&#160;&#160;&#160;&#160;
-              <Typography fontSize={14}>OOS Risk Dectection</Typography>
-              <Typography>
-                <ChevronRightIcon sx={{ height: "20px" }} />
-              </Typography>
-              <Typography fontSize={14}>Overview High-Risk SKUs</Typography>
-            </Box>
-          </Stack>
-          <Stack
-            className="ohr-stack"
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            height={60}
-          >
-            <OhrTabs />
-
-            <Box className="ohr-rightbox">
-              <Box
-                textAlign="center"
-                alignItems="center"
-                justifyContent="center"
-                display="flex"
-                className="search-align"
+          <Box display="flex" fontSize={14} mx="1px">
+            <Box mt="1px">
+              <Button
+                style={{
+                  backgroundColor: "#fff",
+                  color: "#000",
+                  borderRadius: "30px 30px ",
+                  border: "#fff",
+                  marginTop: "-6px",
+                  height: "24px",
+                }}
               >
-                <Search
-                  className="serch-border"
+                <ArrowBackIosNewIcon
                   sx={{
-                    backgroundColor: "#F5F6F8",
-                    // borderRadius: "20px 20px",
+                    height: "12px",
+                    width: "12px",
                     border: "1px solid",
-                    display: "flex",
-                    color: "#415A6C",
-                    marginTop: "13px",
+                    borderRadius: "50%",
+                    backgroundColor: "#FF007E",
+                    color: "#fff",
                   }}
-                >
-                  <StyledInputBase
-                    className="serch-name"
-                    // {{border:"1px solid"}}
-                    placeholder="Search Sku by name"
-                    inputProps={{ "aria-label": "search" }}
-                  />{" "}
-                  <img src={search} alt="search" className="search-icon" />
-                </Search>
-              </Box>
-              <Box className="nestmenu-box">
-                <Filtersdropdown />
-              </Box>
-              <Box>
-                <Button
-                  variant="contained"
-                  size="small"
-                  className="btn-exp"
-                  style={{ textDecoration: "none", textTransform: "none" }}
-                >
-                  Export Data
-                </Button>
-              </Box>
-            </Box>
-          </Stack>
-          <FunctionalTabs />
-          <Box display="flex" justifyContent="right">
-            <Button
-              variant="contained"
-              size="small"
-              className="btn-exp"
-              style={{ textDecoration: "none", textTransform: "none" }}
-            >
-              Export List
-            </Button>
+                />
+                &#160;
+                <Typography fontSize={12}>Back</Typography>
+              </Button>
+            </Box>{" "}
+            &#160;&#160;&#160;&#160;&#160;&#160;
+            <Typography fontSize={14}>OOS Risk Dectection</Typography>
+            <Typography>
+              <ChevronRightIcon sx={{ height: "20px" }} />
+            </Typography>
+            <Typography fontSize={14}>Overview High-Risk SKUs</Typography>
           </Box>
+
+          <Tabs selectedIndex={activeTab} onSelect={handleTabChange}>
+            <TabList style={{ marginTop: "20px", display: "flex" }}>
+              <Tab
+                style={{
+                  border: "1px solid #E5EBEF",
+                  color: activeTab === 0 ? "white" : "#415A6C",
+                }}
+              >
+                Overview High Risk SKUs - Reckitt
+              </Tab>
+              <Tab
+                style={{
+                  border: "1px solid #E5EBEF",
+                  color: activeTab === 1 ? "white" : "#415A6C",
+                }}
+              >
+                Overview High Risk SKUs - Customer
+              </Tab>
+
+              <Stack
+                className="ohr-stack"
+                direction="row"
+                alignItems="center"
+                // border="1px solid red"
+              >
+                <Box>
+                  <Search
+                    className="serch-border"
+                    sx={{
+                      backgroundColor: "#F5F6F8",
+                      border: "1px solid",
+                      display: "flex",
+                      color: "#415A6C",
+                    }}
+                  >
+                    <StyledInputBase
+                      className="serch-name"
+                      placeholder="Search Sku by name"
+                      inputProps={{ "aria-label": "search" }}
+                    />{" "}
+                    <img src={search} alt="search" className="search-icon2" />
+                  </Search>
+                </Box>
+                <Box className="nestmenu-box">
+                  <Filtersdropdown />
+                </Box>
+                <Box>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    className="btn-exp"
+                    style={{ textDecoration: "none", textTransform: "none" }}
+                  >
+                    Export Data
+                  </Button>
+                </Box>
+              </Stack>
+            </TabList>
+            <TabPanel>
+              <FunctionalTabs />
+            </TabPanel>
+            <TabPanel>
+              <SupplyTable />
+            </TabPanel>
+          </Tabs>
         </Grid>
       </Grid>
     </div>

@@ -17,7 +17,7 @@ import "./Calendar.css";
 
 function Calendar() {
   const [selectedDate, setSelectedDate] = React.useState(null);
-  const [currentMonth, setCurrentMonth] = React.useState(new Date());
+  // const [currentMonth, setCurrentMonth] = React.useState(new Date());
   const [currentWeekStart, setCurrentWeekStart] = React.useState(
     startOfWeek(new Date())
   );
@@ -43,12 +43,12 @@ function Calendar() {
 
   const handlePrevWeek = () => {
     setCurrentWeekStart((prevWeekStart) => subWeeks(prevWeekStart, 1));
-    setCurrentMonth((prevMonth) => subWeeks(prevMonth, 1));
+    // setCurrentMonth((prevMonth) => subWeeks(prevMonth, 1));
   };
 
   const handleNextWeek = () => {
     setCurrentWeekStart((prevWeekStart) => addWeeks(prevWeekStart, 1));
-    setCurrentMonth((prevMonth) => addWeeks(prevMonth, 1));
+    // setCurrentMonth((prevMonth) => addWeeks(prevMonth, 1));
   };
 
   const handleDayClick = (date) => {
@@ -62,6 +62,7 @@ function Calendar() {
         justifyContent="space-between"
         width="94%"
         marginLeft="15px"
+        marginTop="15px"
         // alignItems="center"
         // mb={12}
       >
@@ -80,10 +81,10 @@ function Calendar() {
             variant="body2"
             style={{
               borderRadius: "20px 20px",
-              backgroundColor: "#FF89C4",
+              backgroundColor: "#FFF",
               padding: "4px 17px",
               textAlign: "center",
-              color: "#000",
+              color: "#FF593D",
               cursor: "pointer",
             }}
             fontWeight={600}
@@ -93,10 +94,10 @@ function Calendar() {
           </Typography>
           <Box ml={1}>
             <IconButton onClick={handlePrevWeek}>
-              <img src={Licon} className="btn-lr" />
+              <img alt="" src={Licon} className="btn-lr" />
             </IconButton>
             <IconButton onClick={handleNextWeek}>
-              <img src={Ricon} className="btn-lr" />
+              <img alt="" src={Ricon} className="btn-lr" />
             </IconButton>
           </Box>
         </Box>
@@ -106,6 +107,7 @@ function Calendar() {
         justifyContent="center"
         alignItems="center"
         flexWrap="wrap"
+        marginTop="5px"
         // fontWeight={700}
       >
         {weekDays.map((day) => (
@@ -128,7 +130,7 @@ function Calendar() {
             variant={isSameDay(day, selectedDate) ? "body1" : "body2"}
             onClick={() => handleDayClick(day)}
             sx={{
-              marginTop: "4px",
+              marginTop: "-5px",
               width: { lg: "14.2850%", xs: "13.2857%" },
               textAlign: "center",
               cursor: "pointer",
@@ -157,6 +159,7 @@ function Calendar() {
                 padding: isSameDay(day, selectedDate) ? "6px" : "4px",
                 borderRadius: "50%",
                 lineHeight: "1.2",
+                fontWeight: isSameDay(day, selectedDate) ? "600" : "400",
               }}
             >
               {format(day, "dd")}
