@@ -54,94 +54,94 @@ def index():
     # return jsonify(data)
     return render_template("index.html")
 
-# @app_blueprint.route("/login")
-# def login():
+@app_blueprint.route("/login")
+def login():
+    """
+    The `login` function redirects the user to the authentication URL for logging in.
+
+    :return: a redirect to the authentication URL.
+    """
+    session["flow"] = _build_auth_code_flow(scopes=app_config.SCOPE)
+    auth_url = session["flow"]["auth_uri"]
+    return redirect(auth_url)
+
+
+@app_blueprint.route("/redirect")
+def authorized():
+    """
+    The `authorized` function is used to handle the authorization process for a user, including
+    acquiring a token and saving it in the session.
+
+    :return: a redirect to the "app.index" route.
+    """
+    try:
+        cache = _load_cache()
+        result = _build_msal_app(cache=cache).acquire_token_by_auth_code_flow(
+            session.get("flow", {}), request.args
+        )
+        if "error" in result:
+            return render_template("auth_error.html", result=result)
+        session["user"] = result.get("id_token_claims")
+        _save_cache(cache)
+    except ValueError:  # Usually caused by CSRF
+        pass  # Simply ignore them
+    return redirect(url_for("app.index"))
+
+
+@app_blueprint.route("/logout")
+def logout():
+    """
+    The `logout` function clears the user's session and redirects them to the logout page of the
+    tenant's web session.
+
+    :return: a redirect response.
+    """
+    session.clear()  # Wipe out user and its token cache from session
+    return redirect(  # Also logout from your tenant's web session
+        app_config.AUTHORITY
+        + "/oauth2/v2.0/logout"
+        + "?post_logout_redirect_uri="
+        + url_for("app.index", _external=True)
+    )
+
+
+# def getUserDetails(user_name):
 #     """
-#     The `login` function redirects the user to the authentication URL for logging in.
-
-#     :return: a redirect to the authentication URL.
-#     """
-#     session["flow"] = _build_auth_code_flow(scopes=app_config.SCOPE)
-#     auth_url = session["flow"]["auth_uri"]
-#     return redirect(auth_url)
-
-
-# @app_blueprint.route("/redirect")
-# def authorized():
-#     """
-#     The `authorized` function is used to handle the authorization process for a user, including
-#     acquiring a token and saving it in the session.
-
-#     :return: a redirect to the "app.index" route.
-#     """
-#     try:
-#         cache = _load_cache()
-#         result = _build_msal_app(cache=cache).acquire_token_by_auth_code_flow(
-#             session.get("flow", {}), request.args
-#         )
-#         if "error" in result:
-#             return render_template("auth_error.html", result=result)
-#         session["user"] = result.get("id_token_claims")
-#         _save_cache(cache)
-#     except ValueError:  # Usually caused by CSRF
-#         pass  # Simply ignore them
-#     return redirect(url_for("app.index"))
-
-
-# @app_blueprint.route("/logout")
-# def logout():
-#     """
-#     The `logout` function clears the user's session and redirects them to the logout page of the
-#     tenant's web session.
-
-#     :return: a redirect response.
-#     """
-#     session.clear()  # Wipe out user and its token cache from session
-#     return redirect(  # Also logout from your tenant's web session
-#         app_config.AUTHORITY
-#         + "/oauth2/v2.0/logout"
-#         + "?post_logout_redirect_uri="
-#         + url_for("app.index", _external=True)
-#     )
-
-
-# # def getUserDetails(user_name):
-# #     """
-# #     The function `getUserDetails` retrieves user details from a database based on the provided username.
+#     The function `getUserDetails` retrieves user details from a database based on the provided username.
     
-# #     :param user_name: The `user_name` parameter is the username of the user whose details you want to
-# #     retrieve from the `UsersTable` in the database
+#     :param user_name: The `user_name` parameter is the username of the user whose details you want to
+#     retrieve from the `UsersTable` in the database
 
-# #     :return: a dictionary containing the user details (name, email, country, and role) if the user is
-# #     found in the UsersTable. If there is an exception during the execution of the query, it will return
-# #     a JSON response with an error message and a status code of 500.
-# #     """
-# #     # Build connection string
-# #     conn = pyodbc.connect(
-# #         f'DRIVER={driver};'
-# #         f'SERVER={server};'
-# #         f'DATABASE={database};'
-# #         f'UID={dbusername};'
-# #         f'PWD={password}'
-# #     )
-# #     cur= conn.cursor()
-# #     # Build cursor & Query user details
-# #     # with conn.cursor() as cur:
-# #     try:
-# #         query = f"SELECT * FROM UsersTable WHERE UserName = '{user_name}'"
-# #         cur.execute(query)
-# #         user_details = cur.fetchone()
-# #         # Build user details dictionary
-# #         if user_details:
-# #             userdetails = {
-# #                 "name": user_details[1],
-# #                 "email": user_details[2],
-# #                 "country": user_details[3],
-# #                 "role": user_details[4],
-# #             }
-# #             return userdetails
-# #     except Exception as e:
-# #         return jsonify({"error": str(e)}), 500
+#     :return: a dictionary containing the user details (name, email, country, and role) if the user is
+#     found in the UsersTable. If there is an exception during the execution of the query, it will return
+#     a JSON response with an error message and a status code of 500.
+#     """
+#     # Build connection string
+#     conn = pyodbc.connect(
+#         f'DRIVER={driver};'
+#         f'SERVER={server};'
+#         f'DATABASE={database};'
+#         f'UID={dbusername};'
+#         f'PWD={password}'
+#     )
+#     cur= conn.cursor()
+#     # Build cursor & Query user details
+#     # with conn.cursor() as cur:
+#     try:
+#         query = f"SELECT * FROM UsersTable WHERE UserName = '{user_name}'"
+#         cur.execute(query)
+#         user_details = cur.fetchone()
+#         # Build user details dictionary
+#         if user_details:
+#             userdetails = {
+#                 "name": user_details[1],
+#                 "email": user_details[2],
+#                 "country": user_details[3],
+#                 "role": user_details[4],
+#             }
+#             return userdetails
+#     except Exception as e:
+#         return jsonify({"error": str(e)}), 500
 
 
 def _load_cache():
