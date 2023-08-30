@@ -11,7 +11,6 @@ import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import search from "../../images/search.png";
 import Filtersdropdown from "./Filtersdropdown";
-import OhrTabs from "../DataTable/OhrTab";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import "./OverviewHighRisk.css";
@@ -63,7 +62,12 @@ const OverviewHighRisk2 = () => {
           <Sidebar />
         </Grid>
         <Grid item xs={10} className="bg-containerOHR">
-          <Box display="flex" fontSize={14} mx="1px">
+          <Box
+            display="flex"
+            fontSize={14}
+            mx="1px"
+            className="breadcrumb-tabbox"
+          >
             <Box mt="1px">
               <Button
                 style={{

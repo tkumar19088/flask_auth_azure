@@ -1,6 +1,7 @@
 import React from "react";
 import { Chart as ChartJS } from "chart.js/auto";
 import { Line } from "react-chartjs-2";
+import { Box } from "@mui/material";
 // import "./LineChart.css";
 
 const Linechart = () => {
@@ -70,7 +71,9 @@ const Linechart = () => {
 
   return (
     <div>
-      <Line data={chartData} options={chartOptions} className="l-chart" />
+      <Box sx={{ border: "", width: 1200 ,height:500}}>
+        <Line data={chartData} options={chartOptions} className="l-chart" />
+      </Box>
     </div>
   );
 };

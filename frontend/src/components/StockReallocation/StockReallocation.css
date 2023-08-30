@@ -108,7 +108,9 @@
 }
 
 @media screen and (min-width: 1920px) {
-   
+   .breadcrumb-sabox{
+    margin-top: 4px;
+   }
     .srbr-btns{
         height: 30px !important;
         /* margin-top: 1px !important; */
@@ -277,7 +279,8 @@
 }
 
 .sg-main{
-    margin-top: 10px !important;
+    /* margin-top: 10px !important; */
+    justify-content: end !important;
 }
 .sg-title{
     border-radius: 5px;
@@ -288,19 +291,19 @@
     height: 22px !important;
 }
 .radibtn-left{
-    margin-top: 5px;
+    margin-top: 3px;
     margin-left: -10px;
 
 }
 .radiobtn-right{
-      margin-top: 9px;
+      margin-top: 5px;
       margin-left: 10px;
 }
 
 
 .radiobtn-title{
     /* margin-top: 2px !important; */
-    margin-left: 5px !important;
+    margin-left: 3px !important;
     margin-right: 15px !important;
 }
 
@@ -310,6 +313,7 @@
     align-items: center;
     justify-content: center;
     align-self: center;
+    margin-top: -12px;
 }
 
 

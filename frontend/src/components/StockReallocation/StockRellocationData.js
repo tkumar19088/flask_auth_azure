@@ -251,7 +251,6 @@ const StockReallocationData = ({ onData }) => {
                 Customer WoC <br />
                 (current vs target)
               </TableCell>
-              <TableCell className="stable-header">Price</TableCell>
               <TableCell className="stable-header">CMU Score</TableCell>
               <TableCell className="stable-header">
                 Stock safe to reallocate
@@ -408,14 +407,6 @@ const StockReallocationData = ({ onData }) => {
                   textAlign: "center",
                 }}
               >
-                {data[0].price}
-              </TableCell>
-              <TableCell
-                sx={{
-                  backgroundColor: "rgb(198 223 215)",
-                  textAlign: "center",
-                }}
-              >
                 {data[0].cmuScore}
               </TableCell>
               <TableCell
@@ -523,7 +514,6 @@ const StockReallocationData = ({ onData }) => {
                     </Typography>
                   </Box>
                 </TableCell>
-                <TableCell sx={{ textAlign: "center" }}>{item.price}</TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
                   {item.cmuScore}
                 </TableCell>
@@ -533,7 +523,7 @@ const StockReallocationData = ({ onData }) => {
                 <TableCell sx={{ textAlign: "center" }}>
                   {item.suggAlloc}
                 </TableCell>
-                <TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
                   <Box
                     component="form"
                     sx={{

@@ -35,7 +35,7 @@ function StockReallocation() {
           <Sidebar />
         </Grid>
         <Grid item xs={10} className="bg-container">
-          <Box display="flex" fontSize={14} mx="1px" className="bread-crumb">
+          <Box display="flex" fontSize={14} mx="1px" className="breadcrumb-sabox">
             <Box mt="1px">
               <Button
                 style={{

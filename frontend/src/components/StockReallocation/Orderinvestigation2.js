@@ -39,9 +39,28 @@ const Orderinvestigation2 = () => {
   };
   return (
     <div>
+      <Stack>
+        <Box display="flex" className="sg-main">
+          <Box className="sg-title">
+            Scenario Generation: Airwick Electrical Lemon 112345
+          </Box>
+          <Box display="flex" marginTop="2px">
+            <Typography>
+              <VisibilityOutlinedIcon
+                sx={{
+                  height: "18px",
+                  width: "40px",
+                  marginTop: "2px",
+                }}
+              />
+            </Typography>
+            <Typography fontSize={14}>01/01/23 05:03:20</Typography>
+          </Box>
+        </Box>
+      </Stack>
       <Stack direction="row" justifyContent="space-between">
         <Box display="flex" className="optimistarion-box">
-          <Typography fontSize={24} color="#415A6C" className="radiobtn-title">
+          <Typography fontSize={24} color="#415A6C" className="radiobtn-title" >
             Optimisation Target :
           </Typography>
 
@@ -68,32 +87,15 @@ const Orderinvestigation2 = () => {
             </label>
           </Box>
         </Box>
-        <Box display="flex" className="sg-main">
-          <Box className="sg-title">
-            Scenario Generation: Airwick Electrical Lemon 112345
-          </Box>
-          <Box display="flex" marginTop="2px">
-            <Typography>
-              <VisibilityOutlinedIcon
-                sx={{
-                  height: "18px",
-                  width: "40px",
-                  marginTop: "2px",
-                }}
-              />
-            </Typography>
-            <Typography fontSize={14}>01/01/23 05:03:20</Typography>
-          </Box>
-        </Box>
       </Stack>
 
-      <Typography fontSize={24} color="#145A6C" mx="3px">
+      <Typography fontSize={24} color="#145A6C" mx="3px" mt="-3px">
         Constraints (Optional)
       </Typography>
       <Grid
         container
         spacing={1}
-        mt="5px"
+        mt="3px"
         mx={{ lg: "1px", xs: "1px" }}
         // border="1px solid red"
       >
@@ -349,12 +351,12 @@ const Orderinvestigation2 = () => {
         </Stack>
       </Grid>
       <Grid>
-        <Typography fontSize={28} mt="5px" color="#145A6C" mx="3px">
+        <Typography fontSize={28} mt="1px" color="#145A6C" mx="3px">
           Results
         </Typography>
 
         <Stack
-          mt="-20px"
+          mt="-30px"
           direction="row"
           //   backgroundColor="red"
           height="120px"

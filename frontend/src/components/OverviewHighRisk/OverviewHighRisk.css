@@ -89,6 +89,10 @@ table {
       padding: 10px !important;
       height: 889px !important ;
     }
+
+    .breadcrumb-tabbox{
+      margin-top: 14px;
+    }
     .ohr-stack{
       width: 420px;
       justify-content: space-between;  

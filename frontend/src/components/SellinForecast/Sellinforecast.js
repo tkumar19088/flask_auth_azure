@@ -34,6 +34,8 @@ const Sellinforecast = () => {
           p={2}
           sx={{
             backgroundColor: "#F5F6F8",
+            // border: "1px solid red",
+            height: "889px",
           }}
         >
           <Box display="flex" fontSize={14} mx="1px">
@@ -91,13 +93,13 @@ const Sellinforecast = () => {
               </Button>
             </Box>
           </Grid>
-          <Box sx={{ width: "100%" }}></Box>
-          {lineChartData && (
-            <Box>
-              <Linechart />
-            </Box>
-          )}
-        </Grid>
+            {lineChartData && (
+              <Box sx={{ border: "",padding:"10px 10px",backgroundColor:"#fff",borderRadius:"5px" }}>
+                <Linechart />
+              </Box>
+            )}
+
+            </Grid>
       </Grid>
     </div>
   );

@@ -1238,7 +1238,7 @@ const OhrTable = ({ onData }) => {
                   // padding: "0px",
                 }}
               >
-                Title
+                RB SKU
               </TableCell>
               <TableCell
                 sx={{
@@ -1249,7 +1249,18 @@ const OhrTable = ({ onData }) => {
                   backgroundColor: "#E5EBEF",
                 }}
               >
-                SKU
+                PPG
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "",
+                  width: "60px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
+                Description
               </TableCell>
               <TableCell
                 sx={{
@@ -1271,7 +1282,7 @@ const OhrTable = ({ onData }) => {
                   backgroundColor: "#E5EBEF",
                 }}
               >
-                Stock Available RB
+                Reckitt Stock on hand
               </TableCell>
               <TableCell
                 sx={{
@@ -1282,7 +1293,7 @@ const OhrTable = ({ onData }) => {
                   backgroundColor: "#E5EBEF",
                 }}
               >
-                Stock Available AMZ
+                Custom inventory
               </TableCell>
               <TableCell
                 sx={{
@@ -1339,17 +1350,6 @@ const OhrTable = ({ onData }) => {
               >
                 Cost estimation
               </TableCell>
-              <TableCell
-                sx={{
-                  border: "",
-                  width: "110px",
-                  textAlign: "center",
-                  border: "1px solid #dcdcdc",
-                  backgroundColor: "#E5EBEF",
-                }}
-              >
-                Select
-              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -1365,11 +1365,13 @@ const OhrTable = ({ onData }) => {
                   <Typography fontSize="13px">{item.recomscore}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography fontSize="13px">{item.title}</Typography>
+                  <Typography fontSize="13px">{item.sku}</Typography>
                 </TableCell>
-
                 <TableCell>
                   <Typography fontSize="13px">{item.sku}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography fontSize="13px">{item.title}</Typography>
                 </TableCell>
                 <TableCell>
                   <Typography fontSize="13px">{item.activecamp}</Typography>
@@ -1402,28 +1404,6 @@ const OhrTable = ({ onData }) => {
                 </TableCell>
                 <TableCell>
                   <Typography fontSize="13px">{item.costestimation}</Typography>
-                </TableCell>
-                <TableCell sx={{ color: "#F08C2A", textAlign: "center" }}>
-                  <Box
-                    sx={{
-                      borderRadius: "5px 5px",
-                      border: "1px solid #415A6C",
-                      padding: "4px 0px 0px 8px",
-                      display: "flex",
-                      justifyContent: "space-around",
-                      color: "#415A6C",
-                      cursor: "pointer",
-                    }}
-                    width={{ lg: "90px" }}
-                    ml={{ lg: "-10px" }}
-                  >
-                    <Typography
-                      fontSize={{ lg: "11px" }}
-                      sx={{ paddingBottom: "5px" }}
-                    >
-                      Push
-                    </Typography>
-                  </Box>
                 </TableCell>
               </TableRow>
             ))}
@@ -1711,9 +1691,13 @@ const OhrTable = ({ onData }) => {
                 >
                   <TableCell
                     fontSize={13}
-                    sx={{ display: "flex", gap: "16px", padding: "12px",border:"none" }}
+                    sx={{
+                      display: "flex",
+                      gap: "16px",
+                      padding: "12px",
+                      border: "none",
+                    }}
                     border="1px solid red"
-
                   >
                     <Box
                       className="rbsku-expand"
