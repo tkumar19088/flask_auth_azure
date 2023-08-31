@@ -37,23 +37,18 @@
     justify-content: space-around !important;
 
 }
-.btn-apply{
-    height: 24px !important;
-    text-transform: none !important;
-}
-.btn-cancel{
+.btn-minibtns{
     height: 24px !important;
     text-transform: none !important;
 }
 
-.btn-apply:hover{
+
+.btn-minibtns:hover{
     
     background-color: #FF007E !important;
 }
 
-.btn-cancel:hover{
-    background-color: #415A6C !important;
-}
+
 
 
 
@@ -63,7 +58,12 @@
 
     .ragfilter-title{
         color: #415A6C;
-        /* margin-block: 5px; */
+    
+    }
+    .ragfilter-title.first{
+        color: #415A6C;
+        padding: 0px 9px;
+    
     }
     .grag{
         width: 25px;

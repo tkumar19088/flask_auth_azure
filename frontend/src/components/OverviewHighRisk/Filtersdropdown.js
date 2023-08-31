@@ -105,7 +105,7 @@ function Filtersdropdown() {
                     mt={-1}
                     className="filter-inside-title"
                   >
-                   Customer
+                    Customer
                   </Typography>
                 </InputLabel>
                 <NativeSelect
@@ -127,7 +127,7 @@ function Filtersdropdown() {
               size="small"
               className="btn-apply"
               sx={{
-                backgroundColor: "#FF007E",
+                backgroundColor: "#415A6C",
               }}
             >
               Apply
@@ -135,7 +135,17 @@ function Filtersdropdown() {
             <Button
               variant="contained"
               size="small"
-              className="btn-cancel"
+              className="btn-apply"
+              sx={{
+                backgroundColor: "#415A6C",
+              }}
+            >
+              Reset
+            </Button>
+            <Button
+              variant="contained"
+              size="small"
+              className="btn-apply"
               sx={{
                 backgroundColor: "#415A6C",
               }}

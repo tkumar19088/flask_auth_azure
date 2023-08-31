@@ -19,7 +19,7 @@ import icon from "../../images/notification.png";
 import search from "../../images/search.png";
 import { useNavigate } from "react-router-dom";
 
-import { Button, Menu, MenuItem } from "@mui/material";
+import { Button, Menu, MenuItem, Typography } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 const Topbar = () => {
@@ -79,6 +79,7 @@ const Topbar = () => {
       <Toolbar>
         <img src={Logo} alt="logo" className="logo" onClick={handleClick} />
         <Box sx={{ flexGrow: 1 }} />
+        <Typography color="#415A6C">Kumar, Pavan (Contractor)</Typography>
 
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
           <Box className="profile">

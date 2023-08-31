@@ -30,12 +30,7 @@ const Status = ({ filterStatus }) => {
       </div>
 
       <Grid container spacing={{ md: 2, lg: 3, xl: 5 }} mt="-20px" border="">
-        <Grid
-          item
-          xs={3}
-          onClick={handleFilterStatus}
-          sx={{ cursor: "pointer" }}
-        >
+        <Grid item xs={3} sx={{ cursor: "pointer" }}>
           <Box
             sx={{
               borderRadius: "5px 5px ",
@@ -126,12 +121,7 @@ const Status = ({ filterStatus }) => {
             </Box>
           </Box>{" "}
         </Grid>
-        <Grid
-          item
-          xs={3}
-          onClick={handleFilterStatus}
-          sx={{ cursor: "pointer" }}
-        >
+        <Grid item xs={3} sx={{ cursor: "pointer" }}>
           <Box
             sx={{
               borderRadius: "5px 5px ",
@@ -222,12 +212,7 @@ const Status = ({ filterStatus }) => {
             </Box>
           </Box>{" "}
         </Grid>
-        <Grid
-          item
-          xs={3}
-          onClick={handleFilterStatus}
-          sx={{ cursor: "pointer" }}
-        >
+        <Grid item xs={3} sx={{ cursor: "pointer" }}>
           <Box
             sx={{
               borderRadius: "5px 5px ",
@@ -308,12 +293,7 @@ const Status = ({ filterStatus }) => {
             </Box>
           </Box>{" "}
         </Grid>
-        <Grid
-          item
-          xs={3}
-          onClick={handleFilterStatus}
-          sx={{ cursor: "pointer" }}
-        >
+        <Grid item xs={3} sx={{ cursor: "pointer" }}>
           <Box
             sx={{
               borderRadius: "5px 5px ",

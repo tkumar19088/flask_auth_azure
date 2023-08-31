@@ -47,58 +47,62 @@ function Ragfilters() {
           <Grid item xs={2} lg={1}>
             <Box sx={{ minWidth: 200 }} className="filter-dropdown">
               <Box mb={2}>
-                <Typography className="ragfilter-title">CW</Typography>
-                <Box display="flex" justifyContent="space-around">
-                  <Box className="grag" backgroundColor="#57a957" color="#fff">
-                    G
-                  </Box>
+                <Box display="flex" justifyContent="space-evenly">
+                  <Typography className="ragfilter-title first">CW</Typography>
+
                   <Box className="grag" backgroundColor="#F44444" color="#fff">
                     R
                   </Box>
                   <Box className="grag" backgroundColor="orange" color="#fff">
                     A
+                  </Box>
+                  <Box className="grag" backgroundColor="#57a957" color="#fff">
+                    G
                   </Box>
                 </Box>
               </Box>
               <Box mb={2}>
-                <Typography className="ragfilter-title">CW+1</Typography>
                 <Box display="flex" justifyContent="space-around">
-                  <Box className="grag" backgroundColor="#57a957" color="#fff">
-                    G
-                  </Box>
+                  <Typography className="ragfilter-title">CW+1</Typography>
+
                   <Box className="grag" backgroundColor="#F44444" color="#fff">
                     R
                   </Box>
                   <Box className="grag" backgroundColor="orange" color="#fff">
                     A
+                  </Box>
+                  <Box className="grag" backgroundColor="#57a957" color="#fff">
+                    G
                   </Box>
                 </Box>
               </Box>
               <Box mb={2}>
-                <Typography className="ragfilter-title">CW+2</Typography>
                 <Box display="flex" justifyContent="space-around">
-                  <Box className="grag" backgroundColor="#57a957" color="#fff">
-                    G
-                  </Box>
+                  <Typography className="ragfilter-title">CW+2</Typography>
+
                   <Box className="grag" backgroundColor="#F44444" color="#fff">
                     R
                   </Box>
                   <Box className="grag" backgroundColor="orange" color="#fff">
                     A
+                  </Box>
+                  <Box className="grag" backgroundColor="#57a957" color="#fff">
+                    G
                   </Box>
                 </Box>
               </Box>
               <Box mb={2}>
-                <Typography className="ragfilter-title">CW+3</Typography>
                 <Box display="flex" justifyContent="space-around">
-                  <Box className="grag" backgroundColor="#57a957" color="#fff">
-                    G
-                  </Box>
+                  <Typography className="ragfilter-title">CW+3</Typography>
+
                   <Box className="grag" backgroundColor="#F44444" color="#fff">
                     R
                   </Box>
                   <Box className="grag" backgroundColor="orange" color="#fff">
                     A
+                  </Box>
+                  <Box className="grag" backgroundColor="#57a957" color="#fff">
+                    G
                   </Box>
                 </Box>
               </Box>
@@ -109,9 +113,9 @@ function Ragfilters() {
             <Button
               variant="contained"
               size="small"
-              className="btn-apply"
+              className="btn-minibtns"
               sx={{
-                backgroundColor: "#FF007E",
+                backgroundColor: "#415A6C",
               }}
             >
               Apply
@@ -119,13 +123,24 @@ function Ragfilters() {
             <Button
               variant="contained"
               size="small"
-              className="btn-cancel"
+              className="btn-minibtns"
+              sx={{
+                backgroundColor: "#415A6C",
+              }}
+            >
+              Reset
+            </Button>
+            <Button
+              variant="contained"
+              size="small"
+              className="btn-minibtns"
               sx={{
                 backgroundColor: "#415A6C",
               }}
             >
               Cancel
             </Button>
+           
           </Box>
         </Grid>
       </Menu>
