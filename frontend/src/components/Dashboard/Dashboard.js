@@ -52,8 +52,7 @@ function Dashboard() {
         </Grid>
         <Grid item xs={10} className="screen-height">
           <Welcome />
-          {isFilter && <Filters />}
-
+          <Filters />
           <Status filterStatus={handleFilterStatus} />
           <Planning filterStatus={handleFilterStatus} />
         </Grid>

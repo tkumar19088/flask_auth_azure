@@ -16,6 +16,7 @@ const Planning = ({ filterStatus }) => {
     setirregularselectedBG(false);
     setreallocationselectedBG(false);
     setoosriskselectedBG(true);
+    navigate("/overviewhighrisk");
   };
   const handleirregularpo = () => {
     filterStatus(true);
@@ -142,7 +143,7 @@ const Planning = ({ filterStatus }) => {
                   fontSize={{ lg: 14, xs: 12 }}
                   className="plan-minititile"
                 >
-                SKU prioritization for promotion
+                  SKU prioritization for promotion
                 </Typography>
               </Box>
               <Box className="pln-cards-cnt">

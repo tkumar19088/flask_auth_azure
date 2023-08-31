@@ -13,10 +13,6 @@ import "./Filters.css";
 const Filters = () => {
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    navigate("/overviewhighrisk");
-  };
-
   return (
     <div className="filter-main">
       <Typography
@@ -129,13 +125,7 @@ const Filters = () => {
               </FormControl>
             </Box>
           </Grid>
-          <Grid
-            item
-            xs={3}
-            textAlign="center"
-            alignItems="center"
-            onClick={handleClick}
-          >
+          <Grid item xs={3} textAlign="center" alignItems="center">
             <Box className="btn-filters">
               <Typography className="filter-btn-name">
                 APPLY FILTERS{" "}
