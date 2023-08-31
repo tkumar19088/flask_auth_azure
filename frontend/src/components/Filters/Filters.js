@@ -68,8 +68,9 @@ const Filters = () => {
                   }}
                   style={{ backgroundColor: "", marginBottom: "20px" }}
                 >
-                  <option value="Amazon">Amazon</option>
-                  <option value="Tesco">Tesco</option>
+                  <option value="Health">Health</option>
+                  <option value="Hygeine">Hygeine</option>
+                  <option value="Nutrition">Nutrition</option>
                 </NativeSelect>
               </FormControl>
             </Box>
@@ -95,6 +96,7 @@ const Filters = () => {
                   }}
                 >
                   <option value="United Kingdom">United Kingdom</option>
+                  <option value="India">India</option>
                 </NativeSelect>
               </FormControl>
             </Box>
@@ -118,9 +120,8 @@ const Filters = () => {
                     id: "uncontrolled-native",
                   }}
                 >
-                  <option value="Health">Health</option>
-                  <option value="Hygeine">Hygeine</option>
-                  <option value="Nutrition">Nutrition</option>
+                  <option value="Amazon">Amazon</option>
+                  <option value="Tesco">Tesco</option>
                 </NativeSelect>
               </FormControl>
             </Box>
