@@ -23,7 +23,7 @@ const StockReallocationData = ({ onData }) => {
       channel: "Pureplay",
       sellinforecastartefact: "300",
       sellinforecastreckitt: "500",
-      currentallocation: "200",
+      currentallocation: "200.X",
       allcConsumedDate: "50",
       remAllocation: "150",
       openOrders: "50",
@@ -43,7 +43,7 @@ const StockReallocationData = ({ onData }) => {
       channel: "Pureplay",
       sellinforecastartefact: "300",
       sellinforecastreckitt: "500",
-      currentallocation: "200",
+      currentallocation: "200.Y",
       allcConsumedDate: "50",
       remAllocation: "150",
       openOrders: "50",
@@ -63,7 +63,7 @@ const StockReallocationData = ({ onData }) => {
       channel: "Pureplay",
       sellinforecastartefact: "300",
       sellinforecastreckitt: "500",
-      currentallocation: "200",
+      currentallocation: "200.Y",
       allcConsumedDate: "50",
       remAllocation: "150",
       openOrders: "50",
@@ -83,7 +83,7 @@ const StockReallocationData = ({ onData }) => {
       channel: "Pureplay",
       sellinforecastartefact: "300",
       sellinforecastreckitt: "500",
-      currentallocation: "200",
+      currentallocation: "200.X",
       allcConsumedDate: "50",
       remAllocation: "150",
       openOrders: "50",
@@ -103,7 +103,7 @@ const StockReallocationData = ({ onData }) => {
       channel: "Pureplay",
       sellinforecastartefact: "300",
       sellinforecastreckitt: "500",
-      currentallocation: "200",
+      currentallocation: "200.Y",
       allcConsumedDate: "50",
       remAllocation: "150",
       openOrders: "50",
@@ -123,7 +123,7 @@ const StockReallocationData = ({ onData }) => {
       channel: "Pureplay",
       sellinforecastartefact: "300",
       sellinforecastreckitt: "500",
-      currentallocation: "200",
+      currentallocation: "200.X",
       allcConsumedDate: "50",
       remAllocation: "150",
       openOrders: "50",
@@ -143,7 +143,7 @@ const StockReallocationData = ({ onData }) => {
       channel: "Pureplay",
       sellinforecastartefact: "300",
       sellinforecastreckitt: "500",
-      currentallocation: "200",
+      currentallocation: "200.Y",
       allcConsumedDate: "50",
       remAllocation: "150",
       openOrders: "50",
@@ -293,7 +293,7 @@ const StockReallocationData = ({ onData }) => {
                   textAlign: "center",
                 }}
               >
-                <Box display="flex">
+                <Box display="flex" sx={{ paddingLeft: "15px" }}>
                   <Typography fontSize={15}>
                     {data[0].sellinforecastartefact}
                   </Typography>
@@ -355,8 +355,16 @@ const StockReallocationData = ({ onData }) => {
                   textAlign: "center",
                 }}
               >
-                <Box display="flex" sx={{ marginLeft: "" }}>
-                  <Typography fontSize={15}>
+                <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                  <Typography
+                    fontSize={15}
+                    sx={{
+                      color:
+                        data[0].custSohcurrent >= data[0].custSohTarget
+                          ? "green"
+                          : "red",
+                    }}
+                  >
                     {data[0].custSohcurrent}
                   </Typography>
                   <Typography
@@ -365,10 +373,7 @@ const StockReallocationData = ({ onData }) => {
                       marginLeft: "12px",
                       marginTop: "10px",
                       fontWeight: "600",
-                      color:
-                        data[0].custSohcurrent >= data[0].custSohTarget
-                          ? "green"
-                          : "red",
+                      color: "#6e8c78",
                     }}
                   >
                     {data[0].custSohTarget}
@@ -381,8 +386,16 @@ const StockReallocationData = ({ onData }) => {
                   textAlign: "center",
                 }}
               >
-                <Box display="flex" sx={{ marginLeft: "" }}>
-                  <Typography fontSize={15}>
+                <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                  <Typography
+                    fontSize={15}
+                    sx={{
+                      color:
+                        data[0].custWoccurrent >= data[0].custWocTarget
+                          ? "green"
+                          : "red",
+                    }}
+                  >
                     {data[0].custWoccurrent}
                   </Typography>
                   <Typography
@@ -391,10 +404,7 @@ const StockReallocationData = ({ onData }) => {
                       marginLeft: "12px",
                       marginTop: "10px",
                       fontWeight: "600",
-                      color:
-                        data[0].custWoccurrent >= data[0].custWocTarget
-                          ? "green"
-                          : "red",
+                      color: "#6e8c78",
                     }}
                   >
                     {data[0].custWocTarget}
@@ -445,7 +455,7 @@ const StockReallocationData = ({ onData }) => {
                 <TableCell>{item.customer}</TableCell>
                 <TableCell>{item.channel}</TableCell>
                 <TableCell>
-                  <Box display="flex">
+                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
                     <Typography fontSize={15}>
                       {item.sellinforecastartefact}
                     </Typography>
@@ -477,18 +487,25 @@ const StockReallocationData = ({ onData }) => {
                   {item.expectServiceLevel}
                 </TableCell>
                 <TableCell>
-                  <Box display="flex" sx={{ marginLeft: "" }}>
-                    <Typography fontSize={15}>{item.custSohcurrent}</Typography>
+                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                    <Typography
+                      fontSize={15}
+                      sx={{
+                        color:
+                          item.custSohcurrent >= item.custSohTarget
+                            ? "green"
+                            : "red",
+                      }}
+                    >
+                      {item.custSohcurrent}
+                    </Typography>
                     <Typography
                       fontSize={13}
                       sx={{
                         marginLeft: "12px",
                         marginTop: "10px",
                         fontWeight: "600",
-                        color:
-                          item.custSohcurrent >= item.custSohTarget
-                            ? "green"
-                            : "red",
+                        color: "#6e8c78",
                       }}
                     >
                       {item.custSohTarget}
@@ -496,18 +513,25 @@ const StockReallocationData = ({ onData }) => {
                   </Box>
                 </TableCell>
                 <TableCell>
-                  <Box display="flex">
-                    <Typography fontSize={15}>{item.custWoccurrent}</Typography>
+                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                    <Typography
+                      fontSize={15}
+                      sx={{
+                        color:
+                          item.custWoccurrent > item.custWocTarget
+                            ? "green"
+                            : "red",
+                      }}
+                    >
+                      {item.custWoccurrent}
+                    </Typography>
                     <Typography
                       fontSize={13}
                       sx={{
                         marginLeft: "12px",
                         marginTop: "10px",
                         fontWeight: "600",
-                        color:
-                          item.custWoccurrent > item.custWocTarget
-                            ? "green"
-                            : "red",
+                        color: "#6e8c78",
                       }}
                     >
                       {item.custWocTarget}

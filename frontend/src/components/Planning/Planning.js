@@ -126,7 +126,7 @@ const Planning = ({ filterStatus }) => {
           <Grid item xs={4}>
             <Box className="pln-cards-header">
               <Typography color="#fff" className="plan-title">
-                Allocate / Reallocate
+                Promotion
               </Typography>
             </Box>{" "}
             <Box
@@ -142,7 +142,7 @@ const Planning = ({ filterStatus }) => {
                   fontSize={{ lg: 14, xs: 12 }}
                   className="plan-minititile"
                 >
-                  Customer Reallocation
+                SKU prioritization for promotion
                 </Typography>
               </Box>
               <Box className="pln-cards-cnt">

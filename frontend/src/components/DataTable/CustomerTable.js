@@ -51,14 +51,16 @@ const CustomerTable = ({ onData }) => {
       description: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       woc: "743",
-      activepromo: "Yes",
+      activepromo: "£100",
+
       olacw: "84%",
       olacw1: "84%",
       olacw2: "84%",
       olacw3: "84%",
       exptnetrevcw: "£100",
       exptnetrevcw1: "£100",
-      exptnetrevcw2: "£100",
+      exptnetrevcw2: "100",
+
       exptnetrevcw3: "£100",
       ragcw: "G",
       ragcw1: "R",
@@ -175,14 +177,16 @@ const CustomerTable = ({ onData }) => {
       description: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       woc: "743",
-      activepromo: "Yes",
+      activepromo: "£100",
+
       olacw: "84%",
       olacw1: "84%",
       olacw2: "84%",
       olacw3: "84%",
       exptnetrevcw: "£100",
       exptnetrevcw1: "£100",
-      exptnetrevcw2: "£100",
+      exptnetrevcw2: "100",
+
       exptnetrevcw3: "£100",
       ragcw: "G",
       ragcw1: "R",
@@ -299,14 +303,16 @@ const CustomerTable = ({ onData }) => {
       description: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       woc: "743",
-      activepromo: "No",
+      activepromo: "£100",
+
       olacw: "84%",
       olacw1: "84%",
       olacw2: "84%",
       olacw3: "84%",
       exptnetrevcw: "£100",
       exptnetrevcw1: "£100",
-      exptnetrevcw2: "£100",
+      exptnetrevcw2: "100",
+
       exptnetrevcw3: "£100",
       ragcw: "G",
       ragcw1: "R",
@@ -423,14 +429,16 @@ const CustomerTable = ({ onData }) => {
       description: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       woc: "743",
-      activepromo: "Yes",
+      activepromo: "£100",
+
       olacw: "84%",
       olacw1: "84%",
       olacw2: "84%",
       olacw3: "84%",
       exptnetrevcw: "£100",
       exptnetrevcw1: "£100",
-      exptnetrevcw2: "£100",
+      exptnetrevcw2: "100",
+
       exptnetrevcw3: "£100",
       ragcw: "G",
       ragcw1: "R",
@@ -536,14 +544,16 @@ const CustomerTable = ({ onData }) => {
       description: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       woc: "743",
-      activepromo: "No",
+      activepromo: "£100",
+
       olacw: "84%",
       olacw1: "84%",
       olacw2: "84%",
       olacw3: "84%",
       exptnetrevcw: "£100",
       exptnetrevcw1: "£100",
-      exptnetrevcw2: "£100",
+      exptnetrevcw2: "100",
+
       exptnetrevcw3: "£100",
       ragcw: "G",
       ragcw1: "R",
@@ -649,14 +659,16 @@ const CustomerTable = ({ onData }) => {
       description: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       woc: "743",
-      activepromo: "Yes",
+      activepromo: "£100",
+
       olacw: "84%",
       olacw1: "84%",
       olacw2: "84%",
       olacw3: "84%",
       exptnetrevcw: "£100",
       exptnetrevcw1: "£100",
-      exptnetrevcw2: "£100",
+      exptnetrevcw2: "100",
+
       exptnetrevcw3: "£100",
       ragcw: "G",
       ragcw1: "R",
@@ -762,14 +774,16 @@ const CustomerTable = ({ onData }) => {
       description: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       woc: "743",
-      activepromo: "Yes",
+      activepromo: "£100",
+
       olacw: "84%",
       olacw1: "84%",
       olacw2: "84%",
       olacw3: "84%",
       exptnetrevcw: "£100",
       exptnetrevcw1: "£100",
-      exptnetrevcw2: "£100",
+      exptnetrevcw2: "100",
+
       exptnetrevcw3: "£100",
       ragcw: "G",
       ragcw1: "R",
@@ -875,14 +889,16 @@ const CustomerTable = ({ onData }) => {
       description: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       woc: "743",
-      activepromo: "Yes",
+      activepromo: "£100",
+
       olacw: "84%",
       olacw1: "84%",
       olacw2: "84%",
       olacw3: "84%",
       exptnetrevcw: "£100",
       exptnetrevcw1: "£100",
-      exptnetrevcw2: "£100",
+      exptnetrevcw2: "100",
+
       exptnetrevcw3: "£100",
       ragcw: "G",
       ragcw1: "R",
@@ -1390,6 +1406,18 @@ const CustomerTable = ({ onData }) => {
                   color: "#415A6C",
                 }}
               >
+                Description
+              </TableCell>
+              <TableCell
+                rowSpan={2}
+                sx={{
+                  backgroundColor: "#E5EBEF",
+                  border: "1px solid #dcdcdc",
+                  padding: "0px",
+                  textAlign: "center",
+                  color: "#415A6C",
+                }}
+              >
                 Current OLA
               </TableCell>
               <TableCell
@@ -1436,7 +1464,7 @@ const CustomerTable = ({ onData }) => {
                 }}
               >
                 <Typography className="table-h1-title">
-                  Histosic ePOS actuals
+                  Historic ePOS actuals
                 </Typography>
               </TableCell>
 
@@ -1449,7 +1477,7 @@ const CustomerTable = ({ onData }) => {
                 }}
               >
                 <Typography className="table-h1-title">
-                  e POS w-o-w variance
+                  ePOS variance
                 </Typography>
               </TableCell>
               <TableCell
@@ -1461,21 +1489,7 @@ const CustomerTable = ({ onData }) => {
                 }}
               >
                 <Typography className="table-h1-title">
-                  Reckitt Sell-in forecast <br />
-                  (from RR)
-                </Typography>
-              </TableCell>
-              <TableCell
-                rowSpan={2}
-                sx={{
-                  backgroundColor: "#E5EBEF",
-                  border: "1px solid #dcdcdc",
-                  padding: "0px",
-                }}
-              >
-                <Typography className="table-h1-title">
-                  Reckitt Sell-in forecast <br />
-                  (from ATF)
+                  Reckitt Sell-in forecast
                 </Typography>
               </TableCell>
             </TableRow>
@@ -1555,7 +1569,7 @@ const CustomerTable = ({ onData }) => {
                             cursor: "pointer",
                             fontWeight: "800",
                             // marginTop: "-1px",
-                            marginTop: "21px",
+                            // marginTop: "21px",
                             backgroundColor: "transparent",
                           }}
                         />
@@ -1566,21 +1580,19 @@ const CustomerTable = ({ onData }) => {
                             color: "#415A6C",
                             cursor: "pointer",
                             fontWeight: "800",
-                            // marginTop: "-1px",
-                            marginTop: "21px",
+                            // marginTop: "21px",
                             backgroundColor: "transparent",
                           }}
                         />
                       )}
                     </Box>
-                    <Box className="rbsku-expand">
-                      <Typography
-                        ml="-8px"
-                        fontSize="13px"
-                        sx={{
-                          marginTop: "23px",
-                        }}
-                      >
+                    <Box
+                      className="rbsku-expand"
+                      sx={{
+                        alignItems: "center",
+                      }}
+                    >
+                      <Typography ml="-8px" fontSize="13px" mt="3px">
                         {item.rbsku}
                       </Typography>
                     </Box>
@@ -1618,6 +1630,12 @@ const CustomerTable = ({ onData }) => {
                     <Typography mx="7px" fontSize="13px">
                       {item.woc}
                     </Typography>
+                  </TableCell>
+                  <TableCell
+                    style={{ textAlign: "center" }}
+                    sx={{ textAlign: "center", padding: "0px" }}
+                  >
+                    {item.activepromo}
                   </TableCell>
                   <TableCell
                     style={{ textAlign: "center" }}
@@ -1663,15 +1681,26 @@ const CustomerTable = ({ onData }) => {
                     </Typography>
                   </TableCell>
 
-                  <TableCell style={{ textAlign: "center" }}>
-                    <Typography mx="6px" fontSize="13px">
-                      {item.exptnetrevcw2}
-                    </Typography>
-                  </TableCell>
-                  <TableCell style={{ textAlign: "center" }}>
-                    <Typography mx="6px" fontSize="13px">
-                      {item.exptnetrevcw3}
-                    </Typography>
+                  <TableCell>
+                    <Box display="flex"  ml="40px">
+                      <Typography fontSize="15px" mt="-5px">
+                        {item.exptnetrevcw2}
+                      </Typography>
+                      <Typography
+                        fontSize={13}
+                        sx={{
+                          marginLeft: "12px",
+                          marginTop: "2px",
+                          fontWeight: "600",
+                          color:
+                            item.exptnetrevcw2 >= item.exptnetrevcw2
+                              ? "green"
+                              : "red",
+                        }}
+                      >
+                        {item.exptnetrevcw2}
+                      </Typography>
+                    </Box>
                   </TableCell>
                 </TableRow>
                 {expandedRow === item.rbsku && (

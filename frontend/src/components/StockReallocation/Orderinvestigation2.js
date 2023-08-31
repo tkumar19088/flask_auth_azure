@@ -58,36 +58,6 @@ const Orderinvestigation2 = () => {
           </Box>
         </Box>
       </Stack>
-      <Stack direction="row" justifyContent="space-between">
-        <Box display="flex" className="optimistarion-box">
-          <Typography fontSize={24} color="#415A6C" className="radiobtn-title" >
-            Optimisation Target :
-          </Typography>
-
-          <Box className="radibtn-left">
-            <label>
-              <input
-                type="radio"
-                value="red"
-                checked={selectedOption === "red"}
-                onChange={handleOptionChange}
-              />
-              Minimise Current woc - Target woc
-            </label>
-          </Box>
-          <Box className="radiobtn-right">
-            <label>
-              <input
-                type="radio"
-                value="green"
-                checked={selectedOption === "green"}
-                onChange={handleOptionChange}
-              />
-              Maximise revenue
-            </label>
-          </Box>
-        </Box>
-      </Stack>
 
       <Typography fontSize={24} color="#145A6C" mx="3px" mt="-3px">
         Constraints (Optional)
@@ -366,10 +336,13 @@ const Orderinvestigation2 = () => {
           <Box
             display="flex"
             justifyContent="space-between"
-            sx={{ width: "450px" }}
+            sx={{ width: "380px" }}
           >
             <Box className="sa-box">
-              <Typography className="sa-h1"> Expected Net Revenue</Typography>
+              <Typography className="sa-h1">
+                {" "}
+                Average expected service level
+              </Typography>
               <Typography color="#008824" className="sa-h2">
                 {" "}
                 £7,749.00
@@ -386,7 +359,7 @@ const Orderinvestigation2 = () => {
           <Box
             display="flex"
             justifyContent="space-around"
-            sx={{ width: "320px" }}
+            sx={{ width: "500px" }}
           >
             <Tooltip
               title="Reallocate Suggested Supply"
@@ -395,7 +368,19 @@ const Orderinvestigation2 = () => {
               // ml={{ lg: "-19px" }}
             >
               <Box className="sa-boxbtn">
-                Reallocate <RefreshIcon className="btn-refresh" />
+                Update results
+                <RefreshIcon className="btn-refresh" />
+              </Box>
+            </Tooltip>
+            <Tooltip
+              title="Reallocate Suggested Supply"
+              arrow
+              placement="top-start"
+              // ml={{ lg: "-19px" }}
+            >
+              <Box className="sa-boxbtn">
+                Reset results
+                <RefreshIcon className="btn-refresh" />
               </Box>
             </Tooltip>
             <Tooltip

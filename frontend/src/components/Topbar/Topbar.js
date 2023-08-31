@@ -79,41 +79,8 @@ const Topbar = () => {
       <Toolbar>
         <img src={Logo} alt="logo" className="logo" onClick={handleClick} />
         <Box sx={{ flexGrow: 1 }} />
-        {/* search................................ ..........*/}
-        <Box>
-          <Search
-            sx={{
-              backgroundColor: "#E7E9EE",
-              "&:hover": {
-                backgroundColor: "#E7E9EE",
-              },
-              borderRadius: "20px 20px",
-              display: "flex",
-              color: "#415A6C",
-            }}
-          >
-            <StyledInputBase
-              placeholder="Search"
-              inputProps={{ "aria-label": "search" }}
-            />{" "}
-            <img src={search} alt="search" className="search-icon" />
-          </Search>
-        </Box>
-        &#160;&#160;
+
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
-          {/* <Badge badgeContent={17} color="error"> */}
-          <img src={icon} alt="notification" className="notification" />
-          {/* </Badge> */}
-          <HelpIcon
-            className="help-icon"
-            style={{ width: "30px", height: "30px", color: "#415A6C" }}
-          />
-          &#160;
-          <ArrowDropDownSharpIcon
-            className="helpdown-icon"
-            sx={{ color: "#466072" }}
-          />
-          &#160;
           <Box className="profile">
             <PersonIcon
               sx={{

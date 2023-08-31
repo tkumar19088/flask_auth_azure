@@ -165,7 +165,7 @@ const StockPosition = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Initial SOH Week{" "}
+                Initial Reckitt SoH
               </TableCell>
               <TableCell
                 sx={{

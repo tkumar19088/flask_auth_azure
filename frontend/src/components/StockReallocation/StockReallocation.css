@@ -194,7 +194,8 @@
 }
 
 .sa-box{
-    width: 215px !important;
+    /* width: 215px !important; */
+    padding: 0px 16px;
     height: 63px !important;
     background-color: white;
     border-radius: 5px!important;

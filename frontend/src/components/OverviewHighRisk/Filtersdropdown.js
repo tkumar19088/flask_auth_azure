@@ -52,7 +52,7 @@ function Filtersdropdown() {
                     mt={-1}
                     className="filter-inside-title"
                   >
-                    Customer
+                    Business Unit
                   </Typography>
                 </InputLabel>
                 <NativeSelect
@@ -105,7 +105,7 @@ function Filtersdropdown() {
                     mt={-1}
                     className="filter-inside-title"
                   >
-                    Brand
+                   Customer
                   </Typography>
                 </InputLabel>
                 <NativeSelect

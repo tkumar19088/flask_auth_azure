@@ -18,6 +18,8 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import Badge from "@mui/material/Badge";
 import "./ohr.css";
+import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
+import CheckIcon from "@mui/icons-material/Check";
 
 import { useNavigate } from "react-router-dom";
 const startingWeek = 28;
@@ -75,7 +77,7 @@ const OhrTable = ({ onData }) => {
           activestatus: "Active",
           retailersinvolved: "Tesco",
           retailerinventory: "250",
-          rbwherehouseinventory: "1000",
+          rbwherehouseinventory: "1000.X",
           requestdeactivation: "No",
         },
         {
@@ -86,7 +88,7 @@ const OhrTable = ({ onData }) => {
           activestatus: "Active",
           retailersinvolved: "Tesco",
           retailerinventory: "250",
-          rbwherehouseinventory: "1000",
+          rbwherehouseinventory: "1000.Y",
           requestdeactivation: "No",
         },
         {
@@ -97,7 +99,7 @@ const OhrTable = ({ onData }) => {
           activestatus: "Active",
           retailersinvolved: "Tesco",
           retailerinventory: "250",
-          rbwherehouseinventory: "1000",
+          rbwherehouseinventory: "1000.Y",
           requestdeactivation: "No",
         },
       ],
@@ -1020,11 +1022,11 @@ const OhrTable = ({ onData }) => {
     <div style={{ marginTop: "-18px", padding: "10px" }} className="mini-table">
       <Typography
         fontSize={20}
-        my={2}
         color="#415A6C"
         className="ms-title"
         style={{
           textAlign: "left",
+          marginBottom: "10px",
         }}
       >
         Recent / Current / Upcoming Campaigns
@@ -1094,18 +1096,22 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  lineHeight: "16px",
                 }}
               >
-                Customer Inventory
+                Customer
+                <br /> Inventory
               </TableCell>
               <TableCell
                 sx={{
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  lineHeight: "16px",
                 }}
               >
-                Customer Allocation
+                Customer <br />
+                Allocation
               </TableCell>
             </TableRow>
           </TableHead>
@@ -1154,54 +1160,34 @@ const OhrTable = ({ onData }) => {
         </Table>
       </TableContainer>
       <Stack
-        direction="row"
-        justifyContent="space-between"
-        // backgroundColor="#E5EBEF"
+        // direction="row"
+        justifyContent="center"
+        textAlign="center"
         className="choosems-stack"
-        // my={2}
       >
-        <Typography color="#415A6C" className="ms-title">
-          Choose a Mitigation Strategy
-        </Typography>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          sx={{ marginTop: "-3px", marginBottom: "10px" }}
+        >
+          <ReportProblemOutlinedIcon
+            sx={{ color: "red", padding: "0px 12px" }}
+          />
+          <Typography color="#415A6C" className="ms-title">
+            Choose a Mitigation Strategy
+          </Typography>
+        </Box>
         <Box display="flex" className="ms-buttons">
-          <Box
-            className="ms-grid"
-            bgcolor="#57a957"
-            color="white"
-            borderRadius="50px"
-            onClick={handlePushAlternative}
-          >
+          <Box className="ms-grid" onClick={handlePushAlternative}>
             <Typography className="ms-gridtitle">Push Alternative</Typography>
           </Box>
-          <Box
-            className="ms-grid"
-            bgcolor="#f44444"
-            color="white"
-            borderRadius="50px"
-            onClick={handleReallocate}
-          >
+          <Box className="ms-grid" onClick={handleReallocate}>
             <Typography className="ms-gridtitle">Reallocate</Typography>
           </Box>
-          <Box
-            className="ms-grid"
-            bgcolor="#b6acac"
-            color="white"
-            borderRadius="50px"
-          >
+          <Box className="ms-grid">
             <Badge badgeContent="Coming Soon" className="redirect-badge">
               <Typography className="ms-gridtitle">Redirect</Typography>
-            </Badge>
-          </Box>
-          <Box
-            className="ms-grid"
-            bgcolor="#b6acac"
-            color="white"
-            borderRadius="50px"
-          >
-            <Badge badgeContent="Coming Soon" className="retailer-badge">
-              <Typography className="ms-gridtitle">
-                Retailer Negotiation
-              </Typography>
             </Badge>
           </Box>
         </Box>
@@ -1328,28 +1314,6 @@ const OhrTable = ({ onData }) => {
               >
                 Customer Woc
               </TableCell>
-              <TableCell
-                sx={{
-                  border: "",
-                  width: "110px",
-                  textAlign: "center",
-                  border: "1px solid #dcdcdc",
-                  backgroundColor: "#E5EBEF",
-                }}
-              >
-                OLA Uplift estimation
-              </TableCell>
-              <TableCell
-                sx={{
-                  border: "",
-                  width: "110px",
-                  textAlign: "center",
-                  border: "1px solid #dcdcdc",
-                  backgroundColor: "#E5EBEF",
-                }}
-              >
-                Cost estimation
-              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -1361,49 +1325,41 @@ const OhrTable = ({ onData }) => {
                   padding: "0px",
                 }}
               >
-                <TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
                   <Typography fontSize="13px">{item.recomscore}</Typography>
                 </TableCell>
-                <TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
                   <Typography fontSize="13px">{item.sku}</Typography>
                 </TableCell>
-                <TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
                   <Typography fontSize="13px">{item.sku}</Typography>
                 </TableCell>
-                <TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
                   <Typography fontSize="13px">{item.title}</Typography>
                 </TableCell>
-                <TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
                   <Typography fontSize="13px">{item.activecamp}</Typography>
                 </TableCell>
-                <TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
                   <Typography fontSize="13px">
                     {item.stockavailblerb}
                   </Typography>
                 </TableCell>
-                <TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
                   <Typography fontSize="13px">
                     {item.stockavailableamz}
                   </Typography>
                 </TableCell>
-                <TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
                   <Typography fontSize="13px">{item.sellinforecast}</Typography>
                 </TableCell>
-                <TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
                   <Typography fontSize="13px">
                     {item.selloutforecast}
                   </Typography>
                 </TableCell>
-                <TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
                   <Typography fontSize="13px">{item.wocestimation}</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography fontSize="13px">
-                    {item.olaupliftestimation}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography fontSize="13px">{item.costestimation}</Typography>
                 </TableCell>
               </TableRow>
             ))}
@@ -1496,7 +1452,9 @@ const OhrTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <Typography className="table-h1-title">OLA %</Typography>
+                <Typography className="table-h1-title">
+                  Service Level
+                </Typography>
               </TableCell>
               <TableCell
                 colSpan={4}

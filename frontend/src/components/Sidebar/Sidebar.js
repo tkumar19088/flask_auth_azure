@@ -250,7 +250,7 @@ const Sidebar = () => {
                 width={{ lg: "100%", xs: "100%" }}
                 className="sidebar-minititle"
               >
-                Allocate / Reallocate
+                Promotion
               </Typography>
             </Box>
           </AccordionSummary>
@@ -272,7 +272,7 @@ const Sidebar = () => {
               fontSize={{ lg: "13px", xs: 10 }}
               p="5px 0 0 0"
             >
-              Customer Reallocation
+              SKU prioritization for promotion
             </Typography>
           </AccordionDetails>
         </Accordion>

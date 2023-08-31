@@ -21,11 +21,10 @@ const Filters = () => {
     <div className="filter-main">
       <Typography
         className="filter-title"
-        // fontSize={23}
         color="#415A6C"
-        marginLeft="3px"
-        marginBottom="10px"
-        p={1}
+        marginBottom="20px"
+        marginTop="10px"
+        // p={1}
       >
         Filters
       </Typography>
@@ -43,7 +42,7 @@ const Filters = () => {
             color: (theme) =>
               theme.palette.mode === "dark" ? "grey.300" : "grey.800",
             // p: 1,
-            m: 1,
+            m: 0,
             borderRadius: 2,
             fontSize: "0.875rem",
             fontWeight: "700",
@@ -62,7 +61,7 @@ const Filters = () => {
                     mt={-1}
                     className="filter-inside-title"
                   >
-                    Customer
+                    Business Unit
                   </Typography>
                 </InputLabel>
                 <NativeSelect
@@ -113,7 +112,7 @@ const Filters = () => {
                     mt={-1}
                     className="filter-inside-title"
                   >
-                    Business Unit
+                    Customer
                   </Typography>
                 </InputLabel>
                 <NativeSelect

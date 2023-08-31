@@ -15,6 +15,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import "./OverviewHighRisk.css";
 import CustomerTable from "../DataTable/CustomerTable";
+import Ragfilters from "./Ragfiltersdropdown";
 
 const OverviewHighRisk2 = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -143,6 +144,9 @@ const OverviewHighRisk2 = () => {
                     />{" "}
                     <img src={search} alt="search" className="search-icon2" />
                   </Search>
+                </Box>
+                <Box className="nestmenu-box">
+                  <Ragfilters />
                 </Box>
                 <Box className="nestmenu-box">
                   <Filtersdropdown />
