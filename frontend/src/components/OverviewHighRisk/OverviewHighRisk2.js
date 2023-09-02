@@ -131,8 +131,11 @@ const OverviewHighRisk2 = () => {
                   <Search
                     className="serch-border"
                     sx={{
-                      backgroundColor: "#F5F6F8",
-                      border: "1px solid",
+                      backgroundColor: "#E7E9EE",
+                      "&:hover": {
+                        backgroundColor: "#E7E9EE",
+                      },
+                      borderRadius: "30px",
                       display: "flex",
                       color: "#415A6C",
                     }}

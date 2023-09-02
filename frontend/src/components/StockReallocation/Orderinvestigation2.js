@@ -6,6 +6,7 @@ import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import UpdateIcon from '@mui/icons-material/Update';
 import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 import Tooltip from "@mui/material/Tooltip";
 import { useNavigate } from "react-router-dom";
@@ -369,7 +370,7 @@ const Orderinvestigation2 = () => {
             >
               <Box className="sa-boxbtn">
                 Update results
-                <RefreshIcon className="btn-refresh" />
+                <UpdateIcon className="btn-refresh" />
               </Box>
             </Tooltip>
             <Tooltip

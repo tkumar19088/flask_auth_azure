@@ -10,6 +10,7 @@ import {
   Box,
   Paper,
   Stack,
+  Button,
 } from "@mui/material";
 import { useState } from "react";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
@@ -1171,12 +1172,9 @@ const OhrTable = ({ onData }) => {
           alignItems="center"
           sx={{ marginTop: "-3px", marginBottom: "10px" }}
         >
-          <ReportProblemOutlinedIcon
-            sx={{ color: "red", padding: "0px 12px" }}
-          />
-          <Typography color="#415A6C" className="ms-title">
+          <Button variant="contained" size="medium" startIcon={<ReportProblemOutlinedIcon  sx={{ color: "red"}} />} sx={{backgroundColor:"#415A6C"}}>
             Choose a Mitigation Strategy
-          </Typography>
+          </Button>
         </Box>
         <Box display="flex" className="ms-buttons">
           <Box className="ms-grid" onClick={handlePushAlternative}>

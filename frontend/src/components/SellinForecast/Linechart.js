@@ -71,7 +71,7 @@ const Linechart = () => {
 
   return (
     <div>
-      <Box sx={{ border: "", width: 1200 ,height:500}}>
+      <Box sx={{ border: "", width: 1200, height: 500 }}>
         <Line data={chartData} options={chartOptions} className="l-chart" />
       </Box>
     </div>

@@ -40,8 +40,8 @@ const Filters = () => {
             // p: 1,
             m: 0,
             borderRadius: 2,
-            fontSize: "0.875rem",
-            fontWeight: "700",
+            // fontSize: "0.875rem",
+            // fontWeight: "700",
           }}
         >
           <Grid item xs={3}>
@@ -129,11 +129,12 @@ const Filters = () => {
           <Grid item xs={3} textAlign="center" alignItems="center">
             <Box className="btn-filters">
               <Typography className="filter-btn-name">
-                APPLY FILTERS{" "}
-              </Typography>{" "}
+                APPLY FILTERS
+              </Typography>
               <PlayArrowIcon />
             </Box>
           </Grid>
+         
         </Grid>
       </Grid>
     </div>

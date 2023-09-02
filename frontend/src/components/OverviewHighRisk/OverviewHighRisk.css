@@ -183,14 +183,14 @@ table {
   align-self: center;
  }
  .search-icon2{
-  width: 28px;
-  height: 28px;
+  width: 23px;
+  height: 23px;
   align-items: center;
   margin-right: 14px;
   margin-top: -10px;
 } 
 .search-icon2 {
-   margin-top: 0px;
+   margin-top: 2px;
 }
 
  .serch-name input {

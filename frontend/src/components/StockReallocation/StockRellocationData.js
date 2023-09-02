@@ -264,13 +264,7 @@ const StockReallocationData = ({ onData }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow
-              key={data[0].skucode}
-              className={data[0].checkbox ? "checked-row" : ""}
-              style={{
-                backgroundColor: "rgb(198 223 215)",
-              }}
-            >
+            <TableRow>
               <TableCell
                 sx={{
                   backgroundColor: "rgb(198 223 215)",
@@ -321,6 +315,7 @@ const StockReallocationData = ({ onData }) => {
                 sx={{
                   backgroundColor: "rgb(198 223 215)",
                   textAlign: "center",
+                  width:80
                 }}
               >
                 {data[0].allcConsumedDate}

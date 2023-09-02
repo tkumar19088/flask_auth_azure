@@ -20,6 +20,7 @@ const DemandTable = ({ onData }) => {
   const [data, setData] = useState([
     {
       rbsku: "010613",
+      ppg: "1234567",
       desc: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       initsohweek: "743",
@@ -36,6 +37,8 @@ const DemandTable = ({ onData }) => {
     },
     {
       rbsku: "010613",
+      ppg: "1234567",
+
       desc: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       initsohweek: "743",
@@ -52,6 +55,8 @@ const DemandTable = ({ onData }) => {
     },
     {
       rbsku: "010613",
+      ppg: "1234567",
+
       desc: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       initsohweek: "743",
@@ -68,6 +73,8 @@ const DemandTable = ({ onData }) => {
     },
     {
       rbsku: "010613",
+      ppg: "1234567",
+
       desc: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       initsohweek: "743",
@@ -84,6 +91,8 @@ const DemandTable = ({ onData }) => {
     },
     {
       rbsku: "010613",
+      ppg: "1234567",
+
       desc: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       initsohweek: "743",
@@ -100,6 +109,8 @@ const DemandTable = ({ onData }) => {
     },
     {
       rbsku: "010613",
+      ppg: "1234567",
+
       desc: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       initsohweek: "743",
@@ -116,6 +127,8 @@ const DemandTable = ({ onData }) => {
     },
     {
       rbsku: "010613",
+      ppg: "1234567",
+
       desc: "AWICK,IE,STICK UP LAVX12",
       rrsegment: "Adhesives (Air Care)",
       initsohweek: "743",
@@ -156,6 +169,16 @@ const DemandTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
+                PPG
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  backgroundColor: "#E5EBEF ",
+                  color: "#415A6C",
+                  border: "1px solid #dcdcdc",
+                }}
+              >
                 Description
               </TableCell>
               <TableCell
@@ -166,7 +189,8 @@ const DemandTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                RR Segment
+                    Brand
+
               </TableCell>
               <TableCell
                 sx={{
@@ -296,6 +320,10 @@ const DemandTable = ({ onData }) => {
                 <TableCell>
                   {" "}
                   <div className="alignment">{item.rbsku}</div>
+                </TableCell>{" "}
+                <TableCell>
+                  {" "}
+                  <div className="alignment">{item.ppg}</div>
                 </TableCell>{" "}
                 <TableCell>
                   {" "}

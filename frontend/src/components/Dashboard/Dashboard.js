@@ -5,11 +5,12 @@ import Sidebar from "../Sidebar/Sidebar";
 import Welcome from "../Welcome/Welcome";
 import Status from "../Status/Status";
 import Planning from "../Planning/Planning";
-import Filters from "../Filters/Filters";
+// import Filters from "../Filters/Filters";
 import "./Dashboard.css";
 
 import { useSelector, useDispatch } from "react-redux";
 import { fetchfilterstatus } from "../../store/actions/sidebarActions";
+import Filtersnew from "../Filters/Filtersnew";
 
 function Dashboard() {
   // const userData = window.jsonData;
@@ -52,7 +53,7 @@ function Dashboard() {
         </Grid>
         <Grid item xs={10} className="screen-height">
           <Welcome />
-          <Filters />
+          <Filtersnew />
           <Status filterStatus={handleFilterStatus} />
           <Planning filterStatus={handleFilterStatus} />
         </Grid>
