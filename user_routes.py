@@ -1,18 +1,16 @@
 from flask import (
     Blueprint,
-    jsonify,
     render_template,
     redirect,
     session,
     request,
     url_for,
 )
-import os
+from flask_cors import CORS, cross_origin
 from msal import ConfidentialClientApplication, SerializableTokenCache
 import app_config
 import json
-from utils import UserDataReaderSQLStorage, AzureBlobReader, UserDataReaderBlobStorage
-
+from utils import AzureBlobReader, UserDataReaderBlobStorage
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -23,11 +21,11 @@ load_dotenv()
 app_blueprint = Blueprint("app", __name__)
 
 
-
 # *******************************
 # Application login routes
 # *******************************
 @app_blueprint.route("/")
+@cross_origin()
 def index():
     """
     The function checks if a user is logged in, retrieves their details, and renders the index.html
@@ -42,12 +40,12 @@ def index():
     else:
         return redirect(url_for("app.login"))
 
-
+@cross_origin()
 @app_blueprint.route("/getuserdata")
 def getuserdata():
     if "user" in session:
-        uname = session["user"]["name"]
-        userDetails = UserDataReaderBlobStorage().getUserDetails(uname)
+        uemail = session["user"]["preferred_username"]
+        userDetails = UserDataReaderBlobStorage().getUserDetails(uemail)
         return userDetails
     else:
         return redirect(url_for("app.login"))
@@ -74,7 +72,6 @@ def login():
     auth_url = session["flow"]["auth_uri"]
     return redirect(auth_url)
 
-
 @app_blueprint.route("/redirect")
 def authorized():
     """
@@ -96,7 +93,6 @@ def authorized():
         pass  # Simply ignore them
     return redirect(url_for("app.index"))
 
-
 @app_blueprint.route("/logout")
 def logout():
     """
@@ -113,7 +109,6 @@ def logout():
         + url_for("app.index", _external=True)
     )
 
-
 def _load_cache():
     """
     The function `_load_cache` loads a cache object from the session if it exists.
@@ -124,7 +119,6 @@ def _load_cache():
     if session.get("token_cache"):
         cache.deserialize(session["token_cache"])
     return cache
-
 
 def _save_cache(cache):
     """
@@ -137,7 +131,6 @@ def _save_cache(cache):
     """
     if cache.has_state_changed:
         session["token_cache"] = cache.serialize()
-
 
 def _build_msal_app(cache=None, authority=None):
     """
@@ -161,7 +154,6 @@ def _build_msal_app(cache=None, authority=None):
         token_cache=cache,
     )
 
-
 def _build_auth_code_flow(authority=None, scopes=None):
     """
     The function initiates an authorization code flow using the Microsoft Authentication Library (MSAL)
@@ -179,7 +171,7 @@ def _build_auth_code_flow(authority=None, scopes=None):
     function.
     """
     return _build_msal_app(authority=authority).initiate_auth_code_flow(
-        scopes or [], redirect_uri=url_for("app.authorized", _external=True)
+        scopes or [], redirect_uri=url_for("app.authorized", _external=True), 
     )
 
 

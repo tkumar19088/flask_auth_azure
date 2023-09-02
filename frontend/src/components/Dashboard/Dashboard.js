@@ -29,7 +29,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://testingsmartola.azurewebsites.net/getuserdata");
+        const response = await fetch("http://localhost:5000/getuserdata");
         console.log(response);
         if (response.ok) {
           const json = await response.json();

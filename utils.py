@@ -6,7 +6,7 @@ from azure.storage.blob import BlobServiceClient
 import pyarrow.parquet as pq
 from io import BytesIO
 import pandas as pd
-import json
+from flask_cors import CORS, cross_origin
 
 load_dotenv()
 
@@ -88,8 +88,8 @@ class UserDataReaderBlobStorage:
         blobcontainer = os.getenv("container_name")
 
         # Get blob client
-        blob_container_client = self.blob_service_client.get_container_client(blobcontainer)
-        blob_client = blob_container_client.get_blob_client(blob=blob_name)
+        blob_container_client = self.blob_service_client.get_container_client(blobcontainer) # type: ignore
+        blob_client = blob_container_client.get_blob_client(blob=blob_name) # type: ignore
 
         # Build stream for data from blob
         stream_downloader = blob_client.download_blob()
@@ -111,8 +111,9 @@ class UserDataReaderBlobStorage:
         # Get blob client
         stream = self.buildclient(blob_name)
         return pd.read_excel(stream)
-
-    def getUserDetails(self, uname):
+    
+    @cross_origin()
+    def getUserDetails(self, uemail):
         """
         The function fetches user details from a database based on the provided username.
 
@@ -122,11 +123,11 @@ class UserDataReaderBlobStorage:
         on the provided username.
         """
         usersdata = self.fetch_user_excel("users.xlsx")
-        print(f"\n\n{usersdata}\n\n")
-        user_details = usersdata[usersdata["Name"] == uname]
-        print(f"\n\n{user_details}\n\n")
+        user_details = usersdata[usersdata["Email"] == uemail]
         if len(user_details) > 0:
-            return json.loads(user_details.to_json(orient='records'))[0]
+            # return json.loads(user_details.to_json(orient='records'))[0]
+            response = jsonify(user_details.to_dict(orient='records')[0])
+            return response
         else:
             return jsonify({"error": "User not found"}), 404
 
@@ -136,24 +137,22 @@ class AzureBlobReader:
         connection_string = os.getenv("azure_connection_string")
         self.blob_service_client = BlobServiceClient.from_connection_string(connection_string) # type: ignore
 
-    def buildclient(self, blob_name):
+    def buildclient(self, blob_name=None):
         """
-        The function `_buildclient` takes a container name and blob name as input, retrieves the blob
-        client, downloads the blob data into a stream, and returns the stream.
-
-        :param container_name: The container_name parameter is the name of the container where the blob
-        is stored. A container is a logical grouping of blobs within a storage account
-        :param blob_name: The `blob_name` parameter is the name of the blob that you want to retrieve
+        The function `buildclient` takes a blob name as input, retrieves the container name from an
+        environment variable, and returns a stream of data from the specified blob.
+        
+        :param blob_name: The `blob_name` parameter is the name of the blob that you want to download
         from the Azure Blob Storage container
-        :return: a stream object that contains the data from the specified blob in the specified
-        container.
+        :return: a stream object that contains the data from the specified blob.
         """
+        
         # Get container name
         blobcontainer = os.getenv("container_name")
 
         # Get blob client
         blob_container_client = self.blob_service_client.get_container_client(blobcontainer) # type: ignore
-        blob_client = blob_container_client.get_blob_client(blob=blob_name)
+        blob_client = blob_container_client.get_blob_client(blob_name) # type: ignore
 
         # Build stream for data from blob
         stream_downloader = blob_client.download_blob()
@@ -163,15 +162,13 @@ class AzureBlobReader:
 
     def read_xls(self, blob_name=None):
         """
-        The function reads an Excel file from a blob storage container and returns a pandas DataFrame.
-
-        :param container_name: The container_name parameter is the name of the container where the Excel
-        file is stored
-        :param blob_name: The `blob_name` parameter is the name of the blob file that you want to read
-        from. It is the name of the file stored in the container specified by the `container_name`
-        parameter
-        :return: a table object that is created by reading an Excel file from a blob storage container.
+        The function reads an Excel file from a blob storage and returns the data as a pandas DataFrame.
+        
+        :param blob_name: The parameter "blob_name" is the name of the blob file that you want to read.
+        It is used to identify the specific blob file that you want to read data from
+        :return: a pandas DataFrame object that is created by reading an Excel file.
         """
+        
         # Get blob client
         stream = self.buildclient(blob_name)
         return pd.read_excel(stream)

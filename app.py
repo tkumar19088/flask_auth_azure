@@ -5,23 +5,19 @@ from user_routes import app_blueprint
 from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_cors import CORS,cross_origin
 
+import logging
+logging.getLogger('flask_cors').level = logging.DEBUG
 
 
 # Create the Flask app
-# app = Flask(
-#     __name__, static_folder="frontend/build/static", template_folder="frontend/build"
-# )
-# CORS(app, origins="*")
+app = Flask(__name__,
+            static_folder="frontend/build/static",
+            template_folder="frontend/build"
+            )
+cors = CORS(app)
 
-
-app = Flask(__name__)
-CORS(app, resources={r"*": {"origins": "*"}})
-
-
-# Load configuration settings
 app.config.from_object(app_config)
 app.register_blueprint(app_blueprint)
-
 Session(app)
 
 app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
