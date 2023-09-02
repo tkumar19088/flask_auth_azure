@@ -8,14 +8,14 @@ from flask_cors import CORS,cross_origin
 
 
 # Create the Flask app
-app = Flask(
-    __name__, static_folder="frontend/build/static", template_folder="frontend/build"
-)
-CORS(app, origins="*")
+# app = Flask(
+#     __name__, static_folder="frontend/build/static", template_folder="frontend/build"
+# )
+# CORS(app, origins="*")
 
 
-# app = Flask(__name__)
-# CORS(app, resources={r"*": {"origins": "*"}})
+app = Flask(__name__)
+CORS(app, resources={r"*": {"origins": "*"}})
 
 
 # Load configuration settings

@@ -47,8 +47,8 @@ def index():
 def getuserdata():
     if "user" in session:
         uname = session["user"]["name"]
-        userDetails = UserDataReaderBlobStorage.getUserDetails(uname) # type: ignore
-        return json.loads(userDetails.to_json(orient='records'))[0]
+        userDetails = UserDataReaderBlobStorage().getUserDetails(uname)
+        return userDetails
     else:
         return redirect(url_for("app.login"))
 
@@ -56,12 +56,12 @@ def getuserdata():
 @app_blueprint.route("/getoverviewhighriskdata")
 def getoverviewhighriskdata():
     # excel_blob_name = os.getenv("excel_blob_name")
-    overviewdata = AzureBlobReader.read_xls("overviewhighrisksku.xlsx") # type: ignore
+    overviewdata = AzureBlobReader().read_xls("overviewhighrisksku.xlsx")
     return json.loads(overviewdata.to_json(orient='records'))
 
 @app_blueprint.route("/getsupplydata")
 def getsupplydata():
-    supply = AzureBlobReader.read_excel("supply.xlsx") # type: ignore
+    supply = AzureBlobReader().read_xls("supply.xlsx")
     return json.loads(supply.to_json(orient='records'))
 
 @app_blueprint.route("/login")

@@ -6,6 +6,7 @@ from azure.storage.blob import BlobServiceClient
 import pyarrow.parquet as pq
 from io import BytesIO
 import pandas as pd
+import json
 
 load_dotenv()
 
@@ -71,7 +72,7 @@ class UserDataReaderBlobStorage:
         connection_string = os.getenv("azure_connection_string")
         self.blob_service_client = BlobServiceClient.from_connection_string(connection_string) # type: ignore
 
-    def buildclient(self, blob_name):
+    def buildclient(self, blob_name=None):
         """
         The function `_buildclient` takes a container name and blob name as input, retrieves the blob
         client, downloads the blob data into a stream, and returns the stream.
@@ -87,7 +88,7 @@ class UserDataReaderBlobStorage:
         blobcontainer = os.getenv("container_name")
 
         # Get blob client
-        blob_container_client = self.blob_service_client.get_container_client(blobcontainer) # type: ignore
+        blob_container_client = self.blob_service_client.get_container_client(blobcontainer)
         blob_client = blob_container_client.get_blob_client(blob=blob_name)
 
         # Build stream for data from blob
@@ -120,22 +121,14 @@ class UserDataReaderBlobStorage:
         :return: The fetch_user_details function returns the details of a user from the UsersTable based
         on the provided username.
         """
-        usersdata = self.fetch_user_excel("users.xlsx") # type: ignore
-        user_details = usersdata[usersdata["UserName"] == uname]
-        try:
-            if not user_details:
-                return {"Error": "User not found"}
-            else:
-                return {
-                    "name": user_details["Name"].values[0],
-                    "email": user_details["Email"].values[0],
-                    "customer": user_details["Customer"].values[0],
-                    "location": user_details["Location"].values[0],
-                    "bu": user_details["Business Unit"].values[0],
-                    "role": user_details["Role"].values[0],
-                    }
-        except Exception as e:
-            return jsonify({"error": str(e)}), 500
+        usersdata = self.fetch_user_excel("users.xlsx")
+        print(f"\n\n{usersdata}\n\n")
+        user_details = usersdata[usersdata["Name"] == uname]
+        print(f"\n\n{user_details}\n\n")
+        if len(user_details) > 0:
+            return json.loads(user_details.to_json(orient='records'))[0]
+        else:
+            return jsonify({"error": "User not found"}), 404
 
 
 class AzureBlobReader:
