@@ -7,6 +7,8 @@ import pyarrow.parquet as pq
 from io import BytesIO
 import pandas as pd
 from flask_cors import CORS, cross_origin
+import json
+import ast
 
 load_dotenv()
 
@@ -125,9 +127,14 @@ class UserDataReaderBlobStorage:
         usersdata = self.fetch_user_excel("users.xlsx")
         user_details = usersdata[usersdata["Email"] == uemail]
         if len(user_details) > 0:
-            # return json.loads(user_details.to_json(orient='records'))[0]
-            response = jsonify(user_details.to_dict(orient='records')[0])
-            return response
+            resp = json.loads(user_details.to_json(orient='records'))[0]
+            resp['Location'] = ast.literal_eval(resp['Location'])
+            resp['Business Unit'] = ast.literal_eval(resp['Business Unit'])
+            resp['Customer'] = ast.literal_eval(resp['Customer'])
+            print(f"\n\n{resp}\n\n")
+            return resp
+            # response = jsonify(user_details.to_dict(orient='records')[0])
+            # return response
         else:
             return jsonify({"error": "User not found"}), 404
 
