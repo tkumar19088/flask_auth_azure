@@ -10,13 +10,12 @@ from flask import (
 import os
 from msal import ConfidentialClientApplication, SerializableTokenCache
 import app_config
-
-from utils import UserDataReader, AzureBlobReader
+import json
+from utils import UserDataReaderSQLStorage, AzureBlobReader, UserDataReaderBlobStorage
 
 from dotenv import load_dotenv
 load_dotenv()
-excel_blob_name = os.getenv("excel_blob_name")
-parquet_blob_name = os.getenv("parquet_blob_name")
+
 
 # *******************************
 # Create the app access objects
@@ -38,27 +37,37 @@ def index():
     present in the session, or it is redirecting to the "login" route if the "user" key is not present
     in the session.
     """
-    ### #UnComment below lines if bypassing user authentication
+    if "user" in session:
+        return render_template("index.html")
+    else:
+        return redirect(url_for("app.login"))
 
-    # if "user" in session:
-    #     uname = session["user"]["name"]
-    #     # userDetails = UserDataReader.get_user_details(uname) # type: ignore
-    #     # print(f"\n\n{userDetails}\n\n")
-    #     # overviewdata = AzureBlobReader.read_excel(excel_blob_name) # type: ignore
-    #     return render_template("index.html", user=uname)
-    # else:
-    #     return redirect(url_for("app.login"))
 
-    ### #Comment below line if uncommenting above lines
-    # data = {'user': 'Moka, keerthi (Contractor)'}
-    # return jsonify(data)
-    return render_template("index.html")
+@app_blueprint.route("/getuserdata")
+def getuserdata():
+    if "user" in session:
+        uname = session["user"]["name"]
+        userDetails = UserDataReaderBlobStorage.getUserDetails(uname) # type: ignore
+        return json.loads(userDetails.to_json(orient='records'))[0]
+    else:
+        return redirect(url_for("app.login"))
+
+
+@app_blueprint.route("/getoverviewhighriskdata")
+def getoverviewhighriskdata():
+    # excel_blob_name = os.getenv("excel_blob_name")
+    overviewdata = AzureBlobReader.read_xls("overviewhighrisksku.xlsx") # type: ignore
+    return json.loads(overviewdata.to_json(orient='records'))
+
+@app_blueprint.route("/getsupplydata")
+def getsupplydata():
+    supply = AzureBlobReader.read_excel("supply.xlsx") # type: ignore
+    return json.loads(supply.to_json(orient='records'))
 
 @app_blueprint.route("/login")
 def login():
     """
     The `login` function redirects the user to the authentication URL for logging in.
-
     :return: a redirect to the authentication URL.
     """
     session["flow"] = _build_auth_code_flow(scopes=app_config.SCOPE)

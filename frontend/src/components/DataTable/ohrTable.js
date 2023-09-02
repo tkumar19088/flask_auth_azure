@@ -1450,7 +1450,7 @@ const OhrTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <Typography className="table-h1-title">
+                <Typography className="table-h1-title" lineHeight="16px">
                   Service Level
                 </Typography>
               </TableCell>

@@ -85,7 +85,7 @@ const CarouselExample = ({ filterStatus = "false" }) => {
               >
                 <Box>
                   <Typography color="#415A6C" fontSize="12px">
-                    OOS Risk Dectected
+                    OOS Risk Detected
                   </Typography>
                   <Typography fontSize={{ lg: 14, xs: 12 }}>
                     Airwick Electrical Lemon
@@ -97,7 +97,7 @@ const CarouselExample = ({ filterStatus = "false" }) => {
                     Airwick Electrical Lavender
                   </Typography>
                   <Typography fontSize={{ lg: 14, xs: 12 }}>
-                    Airwick Aersol Floral
+                    Airwick Aerosol Floral
                   </Typography>
                 </Box>
                 <Box>
@@ -156,7 +156,7 @@ const CarouselExample = ({ filterStatus = "false" }) => {
                     Vanish SKUs identified for
                   </Typography>
                   <Typography fontSize={{ lg: 18, xs: 13 }}>
-                    promotion prioritisation
+                    Promotion Prioritisation
                   </Typography>
                 </Box>
               </Box>
@@ -166,7 +166,7 @@ const CarouselExample = ({ filterStatus = "false" }) => {
                   fontSize={{ lg: 16, xs: 14 }}
                   lineHeight={{ lg: "20px", xs: "17px" }}
                 >
-                  Some SKUs have opportunity for promotion priotisation.{" "}
+                  Some SKUs have opportunity for Promotion Priotisation.{" "}
                 </Typography>
               </Box>
             </Box>{" "}
@@ -204,7 +204,7 @@ const CarouselExample = ({ filterStatus = "false" }) => {
                   fontStyle={{ lg: 16, xs: 13 }}
                   lineHeight={{ lg: "20px", xs: "17px" }}
                 >
-                  Some SKUs require actions due to OOS risk, press to inspect.{" "}
+                  Some SKUs require actions due to OOS risk, click to inspect.{" "}
                 </Typography>
               </Box>
             </Box>{" "}

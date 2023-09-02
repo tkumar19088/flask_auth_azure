@@ -95,7 +95,7 @@ const Planning = ({ filterStatus }) => {
                   fontSize={{ lg: 14, xs: 12 }}
                   className="plan-minititile"
                 >
-                  OOS Risk Dectection
+                  OOS Risk Detection
                 </Typography>
               </Box>
               <Box className="pln-cards-cnt">
@@ -143,7 +143,7 @@ const Planning = ({ filterStatus }) => {
                   fontSize={{ lg: 14, xs: 12 }}
                   className="plan-minititile"
                 >
-                  SKU prioritization for promotion
+                  SKU Prioritization for Promotion
                 </Typography>
               </Box>
               <Box className="pln-cards-cnt">
