@@ -235,7 +235,7 @@ const Status = ({ filterStatus }) => {
               </Box>
               <Box m={1}>
                 <Typography fontSize={{ lg: 18, xs: 13 }}>
-                  Irregular PO Detected - Airwick
+                  Irregular PO Dectected - Airwick
                 </Typography>
               </Box>
             </Box>
@@ -271,7 +271,7 @@ const Status = ({ filterStatus }) => {
                   fontWeight={500}
                   fontSize={12}
                 >
-                  16-08-2023
+                  31-08-2023
                 </Typography>
                 <Typography
                   color="#F08C2A"
@@ -279,7 +279,7 @@ const Status = ({ filterStatus }) => {
                   fontSize={12}
                   lineHeight={{ lg: "16px", xs: "12px" }}
                 >
-                  19-08-2023
+                  31-08-2023
                 </Typography>
                 <Typography
                   sx={{ marginBlock: "2px" }}
@@ -287,7 +287,7 @@ const Status = ({ filterStatus }) => {
                   fontWeight={500}
                   fontSize={12}
                 >
-                  19-08-2023
+                  31-08-2023
                 </Typography>
               </Box>
             </Box>
@@ -316,7 +316,7 @@ const Status = ({ filterStatus }) => {
               </Box>
               <Box m={1}>
                 <Typography fontSize={{ lg: 18, xs: 13 }}>
-                  Irregular PO Detected - Gaviscon
+                  Irregular PO Dectected - Gaviscon
                 </Typography>
               </Box>
             </Box>
@@ -352,7 +352,7 @@ const Status = ({ filterStatus }) => {
                   fontWeight={500}
                   fontSize={12}
                 >
-                  06-08-2023
+                  31-08-2023
                 </Typography>
                 <Typography
                   color="#F08C2A"
@@ -360,7 +360,7 @@ const Status = ({ filterStatus }) => {
                   fontSize={12}
                   lineHeight={{ lg: "16px", xs: "12px" }}
                 >
-                  11-08-2023
+                  31-08-2023
                 </Typography>
                 <Typography
                   sx={{ marginBlock: "2px" }}
@@ -368,7 +368,7 @@ const Status = ({ filterStatus }) => {
                   fontWeight={500}
                   fontSize={12}
                 >
-                  22-08-2023
+                  31-08-2023
                 </Typography>
               </Box>
             </Box>

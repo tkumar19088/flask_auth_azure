@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Grid, Typography } from "@mui/material";
 
 import InputLabel from "@mui/material/InputLabel";
@@ -7,12 +7,23 @@ import NativeSelect from "@mui/material/NativeSelect";
 
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import "./Filters.css";
 
 const Filters = () => {
   const navigate = useNavigate();
+  var userDetails = useSelector((state) => state.sidebar.userDetails);
+  console.log(userDetails.Customer);
 
+  const data = {
+    Name: "Moka  Keerthi",
+    Email: "keerthi.moka@artefact.com",
+    Customer: ["Asda", "Amazon"],
+    Location: ["United Kingdom", "Australia"],
+    "Business Unit": ["Nutrition", "Hygiene", "Health"],
+    Role: "admin",
+  };
   return (
     <div className="filter-main">
       <Typography
@@ -104,7 +115,11 @@ const Filters = () => {
           <Grid item xs={3}>
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
-                <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                <InputLabel
+                  variant="standard"
+                  htmlFor="uncontrolled-native"
+                  sx={{ top: "-22px" }}
+                >
                   <Typography
                     fontSize={22}
                     mt={-1}
@@ -120,21 +135,27 @@ const Filters = () => {
                     id: "uncontrolled-native",
                   }}
                 >
-                  <option value="Amazon">Amazon</option>
-                  <option value="Tesco">Tesco</option>
+                  {userDetails.Customer ? (
+                    userDetails.Customer.map((item, index) => (
+                      <option value={item} key={index}>
+                        {item}
+                      </option>
+                    ))
+                  ) : (
+                    <option value="" disabled>
+                      Data is not available
+                    </option>
+                  )}
                 </NativeSelect>
               </FormControl>
             </Box>
           </Grid>
           <Grid item xs={3} textAlign="center" alignItems="center">
             <Box className="btn-filters">
-              <Typography className="filter-btn-name">
-                APPLY FILTERS
-              </Typography>
+              <Typography className="filter-btn-name">APPLY FILTERS</Typography>
               <PlayArrowIcon />
             </Box>
           </Grid>
-         
         </Grid>
       </Grid>
     </div>

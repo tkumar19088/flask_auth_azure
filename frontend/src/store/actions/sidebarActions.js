@@ -37,3 +37,21 @@ export const fetchfilterstatus = (newValue) => {
     payload: newValue,
   };
 };
+export const fetchuserdetails = (newValue) => {
+  return {
+    type: "FETCH_USERDETAILS",
+    payload: newValue,
+  };
+};
+export const fetchoverviewhighriskdata = (newValue) => {
+  return {
+    type: "FETCH_OVERVIEWHIGHRISKDATA",
+    payload: newValue,
+  };
+};
+export const fetchexpandeditem = (newValue) => {
+  return {
+    type: "FETCH_EXPANDEDITEM",
+    payload: newValue,
+  };
+};

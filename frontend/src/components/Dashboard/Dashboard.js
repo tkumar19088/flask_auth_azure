@@ -9,14 +9,21 @@ import Planning from "../Planning/Planning";
 import "./Dashboard.css";
 
 import { useSelector, useDispatch } from "react-redux";
-import { fetchfilterstatus } from "../../store/actions/sidebarActions";
+import {
+  fetchfilterstatus,
+  fetchuserdetails,
+} from "../../store/actions/sidebarActions";
 import Filtersnew from "../Filters/Filtersnew";
+import CarouselExample from "../Carousel/Carousel";
+import Filters from "../Filters/Filters";
 
 function Dashboard() {
   // const userData = window.jsonData;
   // console.log(userData);
+  // const [userDetails, setuserDetails] = useState();
 
   const filterStatusVal = useSelector((state) => state.sidebar.filterStatus);
+  const userDetails = useSelector((state) => state.sidebar.userDetails);
   const dispatch = useDispatch();
 
   const [isFilter, setisFilter] = useState(filterStatusVal);
@@ -30,10 +37,11 @@ function Dashboard() {
     const fetchData = async () => {
       try {
         const response = await fetch("http://localhost:5000/getuserdata");
-        console.log(response);
         if (response.ok) {
           const json = await response.json();
           console.log(json);
+          // setuserDetails(json.name);
+          dispatch(fetchuserdetails(json));
         } else {
           console.error("Error fetching data:", response.statusText);
         }
@@ -53,7 +61,7 @@ function Dashboard() {
         </Grid>
         <Grid item xs={10} className="screen-height">
           <Welcome />
-          <Filtersnew />
+          <Filters />
           <Status filterStatus={handleFilterStatus} />
           <Planning filterStatus={handleFilterStatus} />
         </Grid>

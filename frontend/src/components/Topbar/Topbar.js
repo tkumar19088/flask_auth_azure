@@ -21,9 +21,12 @@ import { useNavigate } from "react-router-dom";
 
 import { Button, Menu, MenuItem, Typography } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { useSelector } from "react-redux";
 
 const Topbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const userDetails = useSelector((state) => state.sidebar.userDetails);
+  console.log(userDetails);
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -79,7 +82,7 @@ const Topbar = () => {
       <Toolbar>
         <img src={Logo} alt="logo" className="logo" onClick={handleClick} />
         <Box sx={{ flexGrow: 1 }} />
-        <Typography color="#415A6C">Kumar, Pavan (Contractor)</Typography>
+        <Typography color="#415A6C">{userDetails.Name}</Typography>
 
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
           <Box className="profile">

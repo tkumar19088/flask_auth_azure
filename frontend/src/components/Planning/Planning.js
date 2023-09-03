@@ -3,9 +3,13 @@ import { Box, Grid, Typography } from "@mui/material";
 import "./Planning.css";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import { useNavigate } from "react-router-dom";
+import { fetchoverviewhighriskdata } from "../../store/actions/sidebarActions";
+import { useDispatch } from "react-redux";
+import Badge from "@mui/material/Badge";
 
 const Planning = ({ filterStatus }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [oosriskselectedBG, setoosriskselectedBG] = useState(false);
   const [irregularselectedBG, setirregularselectedBG] = useState(false);
@@ -16,7 +20,25 @@ const Planning = ({ filterStatus }) => {
     setirregularselectedBG(false);
     setreallocationselectedBG(false);
     setoosriskselectedBG(true);
-    navigate("/overviewhighrisk");
+    fetchData();
+  };
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/getoverviewhighriskdata"
+      );
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        // setuserDetails(json.name);
+        dispatch(fetchoverviewhighriskdata(json));
+        navigate("/overviewhighrisk");
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    }
   };
   const handleirregularpo = () => {
     filterStatus(true);
@@ -111,12 +133,14 @@ const Planning = ({ filterStatus }) => {
               }}
             >
               <Box className="pln-cards-cnt">
-                <Typography
-                  fontSize={{ lg: 14, xs: 12 }}
-                  className="plan-minititile"
-                >
-                  Irregular PO
-                </Typography>
+                <Badge badgeContent="Coming Soon" className="sku-badge">
+                  <Typography
+                    fontSize={{ lg: 14, xs: 12 }}
+                    className="plan-minititile"
+                  >
+                    Irregular PO
+                  </Typography>
+                </Badge>
               </Box>
               <Box className="pln-cards-cnt">
                 <GridViewRoundedIcon />
@@ -139,12 +163,14 @@ const Planning = ({ filterStatus }) => {
               }}
             >
               <Box className="pln-cards-cnt">
-                <Typography
-                  fontSize={{ lg: 14, xs: 12 }}
-                  className="plan-minititile"
-                >
-                  SKU Prioritization for Promotion
-                </Typography>
+                <Badge badgeContent="Coming Soon" className="systamatic-badge">
+                  <Typography
+                    fontSize={{ lg: 14, xs: 12 }}
+                    className="plan-minititile"
+                  >
+                    SKU Prioritization for Promotion
+                  </Typography>
+                </Badge>
               </Box>
               <Box className="pln-cards-cnt">
                 <GridViewRoundedIcon />

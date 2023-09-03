@@ -16,6 +16,7 @@ import "react-tabs/style/react-tabs.css";
 import "./OverviewHighRisk.css";
 import CustomerTable from "../DataTable/CustomerTable";
 import Ragfilters from "./Ragfiltersdropdown";
+import OhrCustomerTabs from "../DataTable/ohrCustomerTabs";
 
 const OverviewHighRisk2 = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -125,7 +126,6 @@ const OverviewHighRisk2 = () => {
                 className="ohr-stack"
                 direction="row"
                 alignItems="center"
-                // border="1px solid red"
               >
                 <Box>
                   <Search
@@ -170,7 +170,7 @@ const OverviewHighRisk2 = () => {
               <FunctionalTabs />
             </TabPanel>
             <TabPanel>
-              <CustomerTable />
+            <OhrCustomerTabs />
             </TabPanel>
           </Tabs>
         </Grid>

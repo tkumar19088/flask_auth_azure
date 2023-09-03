@@ -6,6 +6,9 @@ const initialState = {
   irregularpo: false,
   reallocation: false,
   filterstatus: false,
+  userDetails: {},
+  overviewhighriskdata: [],
+  expandedItem: null,
 };
 
 const sidebarReducer = (state = initialState, action) => {
@@ -59,6 +62,21 @@ const sidebarReducer = (state = initialState, action) => {
       return {
         ...state,
         filterstatus: action.payload,
+      };
+    case "FETCH_USERDETAILS":
+      return {
+        ...state,
+        userDetails: action.payload,
+      };
+    case "FETCH_OVERVIEWHIGHRISKDATA":
+      return {
+        ...state,
+        overviewhighriskdata: action.payload,
+      };
+    case "FETCH_EXPANDEDITEM":
+      return {
+        ...state,
+        expandedItem: action.payload,
       };
     default:
       return state;

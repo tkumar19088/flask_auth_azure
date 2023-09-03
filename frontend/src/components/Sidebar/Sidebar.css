@@ -168,6 +168,9 @@ margin-top: 1px;
     transform: rotate(0deg) !important;
 
 }
+.acrdn-main.expanded .acrdn-s {
+    min-height: 50px !important;
+}
 @media (width > 1023px) and (width < 1200px) {
     
 }

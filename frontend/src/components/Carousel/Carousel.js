@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Carousel from "react-material-ui-carousel";
 import { Box, Grid, Link, Typography, Paper } from "@mui/material";
 
@@ -15,36 +15,31 @@ const items = [
     name: "Item 3",
     description: "Description for Item 3",
   },
+  {
+    name: "Item 4",
+    description: "Description for Item 4",
+  },
+  {
+    name: "Item 5",
+    description: "Description for Item 5",
+  },
 ];
 
-const CarouselExample = ({ filterStatus = "false" }) => {
-  const [selectedalert, setselectedalert] = useState(false);
-  const handleFilterStatus = () => {
-    filterStatus(true);
-    setselectedalert(true);
-  };
+const CarouselExample = ({ filterStatus = false }) => {
   return (
-    <Carousel>
-      {items.map((item, index) => (
-        <Paper>
-          <Grid
-            item
-            xs={4}
-            onClick={handleFilterStatus}
-            sx={{ cursor: "pointer" }}
-          >
+    <Carousel interval={30000}>
+      <Paper elevation={3} sx={{ padding: 2 }}>
+        <Grid container spacing={{ md: 2, lg: 3, xl: 5 }} mt="-20px" border="">
+          <Grid item xs={3} sx={{ cursor: "pointer" }}>
             <Box
               sx={{
                 borderRadius: "5px 5px ",
                 backgroundColor: "#fff",
-                boxShadow: selectedalert
-                  ? ""
-                  : "0px 2px 0px 0px  rgba(0,0,0,0.3)",
+                boxShadow: "0px 2px 0px 0px  rgba(0,0,0,0.3)",
                 height: "100%",
-                border: selectedalert ? "2px solid orange" : "",
               }}
             >
-              <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Box className="cs-cardsheader">
                 <Box>
                   <img
                     src={Error}
@@ -60,16 +55,6 @@ const CarouselExample = ({ filterStatus = "false" }) => {
                   <Typography fontSize={{ lg: 18, xs: 13 }}>
                     {" "}
                     UK SKUs.
-                    <Link
-                      sx={{
-                        textDecoration: "none",
-                        color: "#7E919F",
-                        fontSize: "14px",
-                      }}
-                    >
-                      {" "}
-                      Use cases
-                    </Link>
                   </Typography>
                 </Box>
               </Box>
@@ -84,8 +69,8 @@ const CarouselExample = ({ filterStatus = "false" }) => {
                 // marginBottom={{lg:1,xs:-1}}
               >
                 <Box>
-                  <Typography color="#415A6C" fontSize="12px">
-                    OOS Risk Detected
+                  <Typography color="#415A6C" fontSize="14px">
+                    OOS Risk Dectected
                   </Typography>
                   <Typography fontSize={{ lg: 14, xs: 12 }}>
                     Airwick Electrical Lemon
@@ -97,19 +82,20 @@ const CarouselExample = ({ filterStatus = "false" }) => {
                     Airwick Electrical Lavender
                   </Typography>
                   <Typography fontSize={{ lg: 14, xs: 12 }}>
-                    Airwick Aerosol Floral
+                    Airwick Aersol Floral
                   </Typography>
                 </Box>
                 <Box>
                   {" "}
-                  <Typography color="#415A6C" fontWeight={500} fontSize="12px">
-                    Expected OLA
+                  <Typography color="#415A6C" fontWeight={500} fontSize="14px">
+                    Expected Service
                   </Typography>
                   <Typography
                     sx={{ marginBlock: "2px" }}
                     color="#F08C2A"
                     fontWeight={500}
                     fontSize={12}
+                    textAlign="center"
                   >
                     84%
                   </Typography>
@@ -118,6 +104,7 @@ const CarouselExample = ({ filterStatus = "false" }) => {
                     fontWeight={500}
                     fontSize={12}
                     lineHeight={{ lg: "16px", xs: "12px" }}
+                    textAlign="center"
                   >
                     86%
                   </Typography>
@@ -126,6 +113,7 @@ const CarouselExample = ({ filterStatus = "false" }) => {
                     color="#F08C2A"
                     fontWeight={500}
                     fontSize={12}
+                    textAlign="center"
                   >
                     87%
                   </Typography>
@@ -133,7 +121,7 @@ const CarouselExample = ({ filterStatus = "false" }) => {
               </Box>
             </Box>{" "}
           </Grid>
-          <Grid item xs={4} sx={{ cursor: "pointer" }}>
+          <Grid item xs={3} sx={{ cursor: "pointer" }}>
             <Box
               sx={{
                 borderRadius: "5px 5px ",
@@ -142,7 +130,7 @@ const CarouselExample = ({ filterStatus = "false" }) => {
                 height: "100%",
               }}
             >
-              <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Box className="cs-cardsheader">
                 <Box>
                   <img
                     src={Error}
@@ -153,25 +141,78 @@ const CarouselExample = ({ filterStatus = "false" }) => {
                 </Box>
                 <Box m={1}>
                   <Typography fontSize={{ lg: 18, xs: 13 }}>
-                    Vanish SKUs identified for
+                    OOS Risk Detection on Gaviscon
                   </Typography>
                   <Typography fontSize={{ lg: 18, xs: 13 }}>
-                    Promotion Prioritisation
+                    {" "}
+                    UK SKUs.
                   </Typography>
                 </Box>
               </Box>
               <hr />
-              <Box sx={{ marginInline: "20px", color: "#415A6C" }}>
-                <Typography
-                  fontSize={{ lg: 16, xs: 14 }}
-                  lineHeight={{ lg: "20px", xs: "17px" }}
-                >
-                  Some SKUs have opportunity for Promotion Priotisation.{" "}
-                </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginInline: "11px",
+                  marginBottom: "5px",
+                }}
+                // marginBottom={{lg:1,xs:-1}}
+              >
+                <Box>
+                  <Typography color="#415A6C" fontSize="14px">
+                    OOS Risk Dectected
+                  </Typography>
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>
+                    Gaviscon double action
+                  </Typography>
+                  <Typography
+                    fontSize={{ lg: 14, xs: 12 }}
+                    lineHeight={{ lg: "16px", xs: "16px" }}
+                  >
+                    Gaviscon regular
+                  </Typography>
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>
+                    Gaviscon advance{" "}
+                  </Typography>
+                </Box>
+                <Box>
+                  {" "}
+                  <Typography color="#415A6C" fontWeight={500} fontSize="14px">
+                    Expected Service
+                  </Typography>
+                  <Typography
+                    sx={{ marginBlock: "2px" }}
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                    textAlign="center"
+                  >
+                    84%
+                  </Typography>
+                  <Typography
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                    lineHeight={{ lg: "16px", xs: "12px" }}
+                    textAlign="center"
+                  >
+                    86%
+                  </Typography>
+                  <Typography
+                    sx={{ marginBlock: "2px" }}
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                    textAlign="center"
+                  >
+                    87%
+                  </Typography>
+                </Box>
               </Box>
             </Box>{" "}
           </Grid>
-          <Grid item xs={4} sx={{ cursor: "pointer" }}>
+          <Grid item xs={3} sx={{ cursor: "pointer" }}>
             <Box
               sx={{
                 borderRadius: "5px 5px ",
@@ -180,7 +221,167 @@ const CarouselExample = ({ filterStatus = "false" }) => {
                 height: "100%",
               }}
             >
-              <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Box className="cs-cardsheader">
+                <Box>
+                  <img
+                    src={Error}
+                    alt="error"
+                    className="error-icon"
+                    style={{ marginTop: "8px" }}
+                  />
+                </Box>
+                <Box m={1}>
+                  <Typography fontSize={{ lg: 18, xs: 13 }}>
+                    Irregular PO Dectected - Airwick
+                  </Typography>
+                </Box>
+              </Box>
+              <hr />
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginInline: "11px",
+                  marginBottom: "5px",
+                }}
+              >
+                <Box>
+                  <Typography color="#415A6C" fontSize="14px">
+                    PO Number
+                  </Typography>
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>PO 1234</Typography>
+                  <Typography
+                    fontSize={{ lg: 14, xs: 12 }}
+                    lineHeight={{ lg: "16px", xs: "16px" }}
+                  >
+                    PO 1234
+                  </Typography>
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>PO 1234</Typography>
+                </Box>
+                <Box>
+                  <Typography color="#415A6C" fontWeight={500} fontSize="14px">
+                    PO Date
+                  </Typography>
+                  <Typography
+                    sx={{ marginBlock: "2px" }}
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                  >
+                    31-08-2023
+                  </Typography>
+                  <Typography
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                    lineHeight={{ lg: "16px", xs: "12px" }}
+                  >
+                    31-08-2023
+                  </Typography>
+                  <Typography
+                    sx={{ marginBlock: "2px" }}
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                  >
+                    31-08-2023
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>{" "}
+          </Grid>
+          <Grid item xs={3} sx={{ cursor: "pointer" }}>
+            <Box
+              sx={{
+                borderRadius: "5px 5px ",
+                backgroundColor: "#fff",
+                boxShadow: "0px 2px 0px 0px  rgba(0,0,0,0.3)",
+                height: "100%",
+              }}
+            >
+              <Box className="cs-cardsheader">
+                <Box>
+                  <img
+                    src={Error}
+                    alt="error"
+                    className="error-icon"
+                    style={{ marginTop: "8px" }}
+                  />
+                </Box>
+                <Box m={1}>
+                  <Typography fontSize={{ lg: 18, xs: 13 }}>
+                    Irregular PO Dectected - Gaviscon
+                  </Typography>
+                </Box>
+              </Box>
+              <hr />
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginInline: "11px",
+                  marginBottom: "5px",
+                }}
+              >
+                <Box>
+                  <Typography color="#415A6C" fontSize="14px">
+                    PO Number
+                  </Typography>
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>PO 1234</Typography>
+                  <Typography
+                    fontSize={{ lg: 14, xs: 12 }}
+                    lineHeight={{ lg: "16px", xs: "16px" }}
+                  >
+                    PO 1234
+                  </Typography>
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>PO 1234</Typography>
+                </Box>
+                <Box>
+                  <Typography color="#415A6C" fontWeight={500} fontSize="14px">
+                    PO Date
+                  </Typography>
+                  <Typography
+                    sx={{ marginBlock: "2px" }}
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                  >
+                    31-08-2023
+                  </Typography>
+                  <Typography
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                    lineHeight={{ lg: "16px", xs: "12px" }}
+                  >
+                    31-08-2023
+                  </Typography>
+                  <Typography
+                    sx={{ marginBlock: "2px" }}
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                  >
+                    31-08-2023
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>{" "}
+          </Grid>
+        </Grid>
+      </Paper>
+      <Paper elevation={3} sx={{ padding: 2 }}>
+        <Grid container spacing={{ md: 2, lg: 3, xl: 5 }} mt="-20px" border="">
+          <Grid item xs={3} sx={{ cursor: "pointer" }}>
+            <Box
+              sx={{
+                borderRadius: "5px 5px ",
+                backgroundColor: "#fff",
+                boxShadow: "0px 2px 0px 0px  rgba(0,0,0,0.3)",
+                height: "100%",
+              }}
+            >
+              <Box className="cs-cardsheader">
                 <Box>
                   <img
                     src={Error}
@@ -191,26 +392,668 @@ const CarouselExample = ({ filterStatus = "false" }) => {
                 </Box>
                 <Box m={1}>
                   <Typography fontSize={{ lg: 18, xs: 13 }}>
-                    OOS Risk Detected on Finish
+                    OOS Risk Detection on Airwick
                   </Typography>
                   <Typography fontSize={{ lg: 18, xs: 13 }}>
-                    UK SKUs{" "}
+                    {" "}
+                    UK SKUs.
                   </Typography>
                 </Box>
               </Box>
               <hr />
-              <Box sx={{ marginInline: "20px", color: "#415A6C" }}>
-                <Typography
-                  fontStyle={{ lg: 16, xs: 13 }}
-                  lineHeight={{ lg: "20px", xs: "17px" }}
-                >
-                  Some SKUs require actions due to OOS risk, click to inspect.{" "}
-                </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginInline: "11px",
+                  marginBottom: "5px",
+                }}
+                // marginBottom={{lg:1,xs:-1}}
+              >
+                <Box>
+                  <Typography color="#415A6C" fontSize="14px">
+                    OOS Risk Dectected
+                  </Typography>
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>
+                    Airwick Electrical Lemon
+                  </Typography>
+                  <Typography
+                    fontSize={{ lg: 14, xs: 12 }}
+                    lineHeight={{ lg: "16px", xs: "16px" }}
+                  >
+                    Airwick Electrical Lavender
+                  </Typography>
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>
+                    Airwick Aersol Floral
+                  </Typography>
+                </Box>
+                <Box>
+                  {" "}
+                  <Typography color="#415A6C" fontWeight={500} fontSize="14px">
+                    Expected Service
+                  </Typography>
+                  <Typography
+                    sx={{ marginBlock: "2px" }}
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                    textAlign="center"
+                  >
+                    84%
+                  </Typography>
+                  <Typography
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                    lineHeight={{ lg: "16px", xs: "12px" }}
+                    textAlign="center"
+                  >
+                    86%
+                  </Typography>
+                  <Typography
+                    sx={{ marginBlock: "2px" }}
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                    textAlign="center"
+                  >
+                    87%
+                  </Typography>
+                </Box>
               </Box>
             </Box>{" "}
           </Grid>
-        </Paper>
-      ))}
+          <Grid item xs={3} sx={{ cursor: "pointer" }}>
+            <Box
+              sx={{
+                borderRadius: "5px 5px ",
+                backgroundColor: "#fff",
+                boxShadow: "0px 2px 0px 0px  rgba(0,0,0,0.3)",
+                height: "100%",
+              }}
+            >
+              <Box className="cs-cardsheader">
+                <Box>
+                  <img
+                    src={Error}
+                    alt="error"
+                    className="error-icon"
+                    style={{ marginTop: "8px" }}
+                  />{" "}
+                </Box>
+                <Box m={1}>
+                  <Typography fontSize={{ lg: 18, xs: 13 }}>
+                    OOS Risk Detection on Gaviscon
+                  </Typography>
+                  <Typography fontSize={{ lg: 18, xs: 13 }}>
+                    {" "}
+                    UK SKUs.
+                  </Typography>
+                </Box>
+              </Box>
+              <hr />
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginInline: "11px",
+                  marginBottom: "5px",
+                }}
+                // marginBottom={{lg:1,xs:-1}}
+              >
+                <Box>
+                  <Typography color="#415A6C" fontSize="14px">
+                    OOS Risk Dectected
+                  </Typography>
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>
+                    Gaviscon double action
+                  </Typography>
+                  <Typography
+                    fontSize={{ lg: 14, xs: 12 }}
+                    lineHeight={{ lg: "16px", xs: "16px" }}
+                  >
+                    Gaviscon regular
+                  </Typography>
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>
+                    Gaviscon advance{" "}
+                  </Typography>
+                </Box>
+                <Box>
+                  {" "}
+                  <Typography color="#415A6C" fontWeight={500} fontSize="14px">
+                    Expected Service
+                  </Typography>
+                  <Typography
+                    sx={{ marginBlock: "2px" }}
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                    textAlign="center"
+                  >
+                    84%
+                  </Typography>
+                  <Typography
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                    lineHeight={{ lg: "16px", xs: "12px" }}
+                    textAlign="center"
+                  >
+                    86%
+                  </Typography>
+                  <Typography
+                    sx={{ marginBlock: "2px" }}
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                    textAlign="center"
+                  >
+                    87%
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>{" "}
+          </Grid>
+          <Grid item xs={3} sx={{ cursor: "pointer" }}>
+            <Box
+              sx={{
+                borderRadius: "5px 5px ",
+                backgroundColor: "#fff",
+                boxShadow: "0px 2px 0px 0px  rgba(0,0,0,0.3)",
+                height: "100%",
+              }}
+            >
+              <Box className="cs-cardsheader">
+                <Box>
+                  <img
+                    src={Error}
+                    alt="error"
+                    className="error-icon"
+                    style={{ marginTop: "8px" }}
+                  />
+                </Box>
+                <Box m={1}>
+                  <Typography fontSize={{ lg: 18, xs: 13 }}>
+                    Irregular PO Dectected - Airwick
+                  </Typography>
+                </Box>
+              </Box>
+              <hr />
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginInline: "11px",
+                  marginBottom: "5px",
+                }}
+              >
+                <Box>
+                  <Typography color="#415A6C" fontSize="14px">
+                    PO Number
+                  </Typography>
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>PO 1234</Typography>
+                  <Typography
+                    fontSize={{ lg: 14, xs: 12 }}
+                    lineHeight={{ lg: "16px", xs: "16px" }}
+                  >
+                    PO 1234
+                  </Typography>
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>PO 1234</Typography>
+                </Box>
+                <Box>
+                  <Typography color="#415A6C" fontWeight={500} fontSize="14px">
+                    PO Date
+                  </Typography>
+                  <Typography
+                    sx={{ marginBlock: "2px" }}
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                  >
+                    31-08-2023
+                  </Typography>
+                  <Typography
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                    lineHeight={{ lg: "16px", xs: "12px" }}
+                  >
+                    31-08-2023
+                  </Typography>
+                  <Typography
+                    sx={{ marginBlock: "2px" }}
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                  >
+                    31-08-2023
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>{" "}
+          </Grid>
+          <Grid item xs={3} sx={{ cursor: "pointer" }}>
+            <Box
+              sx={{
+                borderRadius: "5px 5px ",
+                backgroundColor: "#fff",
+                boxShadow: "0px 2px 0px 0px  rgba(0,0,0,0.3)",
+                height: "100%",
+              }}
+            >
+              <Box className="cs-cardsheader">
+                <Box>
+                  <img
+                    src={Error}
+                    alt="error"
+                    className="error-icon"
+                    style={{ marginTop: "8px" }}
+                  />
+                </Box>
+                <Box m={1}>
+                  <Typography fontSize={{ lg: 18, xs: 13 }}>
+                    Irregular PO Dectected - Gaviscon
+                  </Typography>
+                </Box>
+              </Box>
+              <hr />
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginInline: "11px",
+                  marginBottom: "5px",
+                }}
+              >
+                <Box>
+                  <Typography color="#415A6C" fontSize="14px">
+                    PO Number
+                  </Typography>
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>PO 1234</Typography>
+                  <Typography
+                    fontSize={{ lg: 14, xs: 12 }}
+                    lineHeight={{ lg: "16px", xs: "16px" }}
+                  >
+                    PO 1234
+                  </Typography>
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>PO 1234</Typography>
+                </Box>
+                <Box>
+                  <Typography color="#415A6C" fontWeight={500} fontSize="14px">
+                    PO Date
+                  </Typography>
+                  <Typography
+                    sx={{ marginBlock: "2px" }}
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                  >
+                    31-08-2023
+                  </Typography>
+                  <Typography
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                    lineHeight={{ lg: "16px", xs: "12px" }}
+                  >
+                    31-08-2023
+                  </Typography>
+                  <Typography
+                    sx={{ marginBlock: "2px" }}
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                  >
+                    31-08-2023
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>{" "}
+          </Grid>
+        </Grid>
+      </Paper>
+      <Paper elevation={3} sx={{ padding: 2 }}>
+        <Grid container spacing={{ md: 2, lg: 3, xl: 5 }} mt="-20px" border="">
+          <Grid item xs={3} sx={{ cursor: "pointer" }}>
+            <Box
+              sx={{
+                borderRadius: "5px 5px ",
+                backgroundColor: "#fff",
+                boxShadow: "0px 2px 0px 0px  rgba(0,0,0,0.3)",
+                height: "100%",
+              }}
+            >
+              <Box className="cs-cardsheader">
+                <Box>
+                  <img
+                    src={Error}
+                    alt="error"
+                    className="error-icon"
+                    style={{ marginTop: "8px" }}
+                  />{" "}
+                </Box>
+                <Box m={1}>
+                  <Typography fontSize={{ lg: 18, xs: 13 }}>
+                    OOS Risk Detection on Airwick
+                  </Typography>
+                  <Typography fontSize={{ lg: 18, xs: 13 }}>
+                    {" "}
+                    UK SKUs.
+                  </Typography>
+                </Box>
+              </Box>
+              <hr />
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginInline: "11px",
+                  marginBottom: "5px",
+                }}
+                // marginBottom={{lg:1,xs:-1}}
+              >
+                <Box>
+                  <Typography color="#415A6C" fontSize="14px">
+                    OOS Risk Dectected
+                  </Typography>
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>
+                    Airwick Electrical Lemon
+                  </Typography>
+                  <Typography
+                    fontSize={{ lg: 14, xs: 12 }}
+                    lineHeight={{ lg: "16px", xs: "16px" }}
+                  >
+                    Airwick Electrical Lavender
+                  </Typography>
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>
+                    Airwick Aersol Floral
+                  </Typography>
+                </Box>
+                <Box>
+                  {" "}
+                  <Typography color="#415A6C" fontWeight={500} fontSize="14px">
+                    Expected Service
+                  </Typography>
+                  <Typography
+                    sx={{ marginBlock: "2px" }}
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                    textAlign="center"
+                  >
+                    84%
+                  </Typography>
+                  <Typography
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                    lineHeight={{ lg: "16px", xs: "12px" }}
+                    textAlign="center"
+                  >
+                    86%
+                  </Typography>
+                  <Typography
+                    sx={{ marginBlock: "2px" }}
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                    textAlign="center"
+                  >
+                    87%
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>{" "}
+          </Grid>
+          <Grid item xs={3} sx={{ cursor: "pointer" }}>
+            <Box
+              sx={{
+                borderRadius: "5px 5px ",
+                backgroundColor: "#fff",
+                boxShadow: "0px 2px 0px 0px  rgba(0,0,0,0.3)",
+                height: "100%",
+              }}
+            >
+              <Box className="cs-cardsheader">
+                <Box>
+                  <img
+                    src={Error}
+                    alt="error"
+                    className="error-icon"
+                    style={{ marginTop: "8px" }}
+                  />{" "}
+                </Box>
+                <Box m={1}>
+                  <Typography fontSize={{ lg: 18, xs: 13 }}>
+                    OOS Risk Detection on Gaviscon
+                  </Typography>
+                  <Typography fontSize={{ lg: 18, xs: 13 }}>
+                    {" "}
+                    UK SKUs.
+                  </Typography>
+                </Box>
+              </Box>
+              <hr />
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginInline: "11px",
+                  marginBottom: "5px",
+                }}
+                // marginBottom={{lg:1,xs:-1}}
+              >
+                <Box>
+                  <Typography color="#415A6C" fontSize="14px">
+                    OOS Risk Dectected
+                  </Typography>
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>
+                    Gaviscon double action
+                  </Typography>
+                  <Typography
+                    fontSize={{ lg: 14, xs: 12 }}
+                    lineHeight={{ lg: "16px", xs: "16px" }}
+                  >
+                    Gaviscon regular
+                  </Typography>
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>
+                    Gaviscon advance{" "}
+                  </Typography>
+                </Box>
+                <Box>
+                  {" "}
+                  <Typography color="#415A6C" fontWeight={500} fontSize="14px">
+                    Expected Service
+                  </Typography>
+                  <Typography
+                    sx={{ marginBlock: "2px" }}
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                    textAlign="center"
+                  >
+                    84%
+                  </Typography>
+                  <Typography
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                    lineHeight={{ lg: "16px", xs: "12px" }}
+                    textAlign="center"
+                  >
+                    86%
+                  </Typography>
+                  <Typography
+                    sx={{ marginBlock: "2px" }}
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                    textAlign="center"
+                  >
+                    87%
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>{" "}
+          </Grid>
+          <Grid item xs={3} sx={{ cursor: "pointer" }}>
+            <Box
+              sx={{
+                borderRadius: "5px 5px ",
+                backgroundColor: "#fff",
+                boxShadow: "0px 2px 0px 0px  rgba(0,0,0,0.3)",
+                height: "100%",
+              }}
+            >
+              <Box className="cs-cardsheader">
+                <Box>
+                  <img
+                    src={Error}
+                    alt="error"
+                    className="error-icon"
+                    style={{ marginTop: "8px" }}
+                  />
+                </Box>
+                <Box m={1}>
+                  <Typography fontSize={{ lg: 18, xs: 13 }}>
+                    Irregular PO Dectected - Airwick
+                  </Typography>
+                </Box>
+              </Box>
+              <hr />
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginInline: "11px",
+                  marginBottom: "5px",
+                }}
+              >
+                <Box>
+                  <Typography color="#415A6C" fontSize="14px">
+                    PO Number
+                  </Typography>
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>PO 1234</Typography>
+                  <Typography
+                    fontSize={{ lg: 14, xs: 12 }}
+                    lineHeight={{ lg: "16px", xs: "16px" }}
+                  >
+                    PO 1234
+                  </Typography>
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>PO 1234</Typography>
+                </Box>
+                <Box>
+                  <Typography color="#415A6C" fontWeight={500} fontSize="14px">
+                    PO Date
+                  </Typography>
+                  <Typography
+                    sx={{ marginBlock: "2px" }}
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                  >
+                    31-08-2023
+                  </Typography>
+                  <Typography
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                    lineHeight={{ lg: "16px", xs: "12px" }}
+                  >
+                    31-08-2023
+                  </Typography>
+                  <Typography
+                    sx={{ marginBlock: "2px" }}
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                  >
+                    31-08-2023
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>{" "}
+          </Grid>
+          <Grid item xs={3} sx={{ cursor: "pointer" }}>
+            <Box
+              sx={{
+                borderRadius: "5px 5px ",
+                backgroundColor: "#fff",
+                boxShadow: "0px 2px 0px 0px  rgba(0,0,0,0.3)",
+                height: "100%",
+              }}
+            >
+              <Box className="cs-cardsheader">
+                <Box>
+                  <img
+                    src={Error}
+                    alt="error"
+                    className="error-icon"
+                    style={{ marginTop: "8px" }}
+                  />
+                </Box>
+                <Box m={1}>
+                  <Typography fontSize={{ lg: 18, xs: 13 }}>
+                    Irregular PO Dectected - Gaviscon
+                  </Typography>
+                </Box>
+              </Box>
+              <hr />
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginInline: "11px",
+                  marginBottom: "5px",
+                }}
+              >
+                <Box>
+                  <Typography color="#415A6C" fontSize="14px">
+                    PO Number
+                  </Typography>
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>PO 1234</Typography>
+                  <Typography
+                    fontSize={{ lg: 14, xs: 12 }}
+                    lineHeight={{ lg: "16px", xs: "16px" }}
+                  >
+                    PO 1234
+                  </Typography>
+                  <Typography fontSize={{ lg: 14, xs: 12 }}>PO 1234</Typography>
+                </Box>
+                <Box>
+                  <Typography color="#415A6C" fontWeight={500} fontSize="14px">
+                    PO Date
+                  </Typography>
+                  <Typography
+                    sx={{ marginBlock: "2px" }}
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                  >
+                    31-08-2023
+                  </Typography>
+                  <Typography
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                    lineHeight={{ lg: "16px", xs: "12px" }}
+                  >
+                    31-08-2023
+                  </Typography>
+                  <Typography
+                    sx={{ marginBlock: "2px" }}
+                    color="#F08C2A"
+                    fontWeight={500}
+                    fontSize={12}
+                  >
+                    31-08-2023
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>{" "}
+          </Grid>
+        </Grid>
+      </Paper>
     </Carousel>
   );
 };

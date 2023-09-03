@@ -94,8 +94,8 @@ const Sellinforecast = () => {
             </Box>
           </Grid>
             {lineChartData && (
-              <Box sx={{ border: "",padding:"10px 10px",backgroundColor:"#fff",borderRadius:"5px" }}>
-                <Linechart />
+              <Box sx={{ border: "", width: 1550, height: 755 }}>
+              <Linechart />
               </Box>
             )}
 

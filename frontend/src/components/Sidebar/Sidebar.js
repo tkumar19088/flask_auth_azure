@@ -20,6 +20,7 @@ import {
   fetchOOSRisk,
   fetchIrregular,
   fetchReallocation,
+  fetchexpandeditem,
 } from "../../store/actions/sidebarActions";
 
 const Sidebar = () => {
@@ -32,6 +33,8 @@ const Sidebar = () => {
   const oosriskVal = useSelector((state) => state.sidebar.oosrisk);
   const irregularpoVal = useSelector((state) => state.sidebar.irregularpo);
   const reallocationVal = useSelector((state) => state.sidebar.reallocation);
+
+  const expandedItem = useSelector((state) => state.sidebar.expandedItem);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -83,11 +86,17 @@ const Sidebar = () => {
   };
 
   const handleDashboard = () => {
+    dispatch(fetchexpandeditem(null));
     navigate("/");
   };
 
   const handleForecast = () => {
     setforecast(!forecast);
+  };
+
+  const handleMenuItemClick = (itemId) => {
+    // Update the selected item when a menu item is clicked
+    dispatch(fetchexpandeditem(itemId));
   };
 
   return (
@@ -104,7 +113,12 @@ const Sidebar = () => {
       </div>
 
       <div style={{ marginInline: "20px", marginTop: "20px" }}>
-        <Accordion className="acrdn-main">
+        <Accordion
+          className={expandedItem === 1 ? "acrdn-main expanded" : "acrdn-main"}
+          key={1}
+          expanded={expandedItem === 1}
+          onChange={() => handleMenuItemClick(1)}
+        >
           <AccordionSummary
             onClick={handleForecast}
             className="acrdn-s"
@@ -172,7 +186,12 @@ const Sidebar = () => {
         </Accordion>
       </div>
       <div style={{ marginInline: "20px", marginTop: "20px" }}>
-        <Accordion className="acrdn-main">
+        <Accordion
+          className={expandedItem === 2 ? "acrdn-main expanded" : "acrdn-main"}
+          key={2}
+          expanded={expandedItem === 2}
+          onChange={() => handleMenuItemClick(2)}
+        >
           <AccordionSummary
             className="acrdn-s"
             expandIcon={<ArrowDropDownIcon />}
@@ -231,7 +250,12 @@ const Sidebar = () => {
         </Accordion>
       </div>
       <div style={{ marginInline: "20px", marginTop: "20px" }}>
-        <Accordion className="acrdn-main">
+        <Accordion
+          className={expandedItem === 3 ? "acrdn-main expanded" : "acrdn-main"}
+          key={3}
+          expanded={expandedItem === 3}
+          onChange={() => handleMenuItemClick(3)}
+        >
           <AccordionSummary
             className="acrdn-s"
             expandIcon={<ArrowDropDownIcon />}
