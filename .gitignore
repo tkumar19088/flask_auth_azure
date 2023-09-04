@@ -10,11 +10,15 @@ __pycache__
 /test*
 
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-*build*
+# Frontend dependencies
+*/node_modules*
+*/public*
+/frontend/public/*
+/frontend/src/*
+*/src*
+/frontend/package-lock.json
+/frontend/package.json
+
 # testing
 /coverage
 
