@@ -55,7 +55,8 @@ def getuserdata():
 def getoverviewhighriskdata():
     # excel_blob_name = os.getenv("excel_blob_name")
     overviewdata = AzureBlobReader().read_xls("overviewhighrisksku.xlsx")
-    return json.loads(overviewdata.to_json(orient='records'))
+    sampleoverviewdata = overviewdata.sample(20)
+    return json.loads(sampleoverviewdata.to_json(orient='records'))
 
 @app_blueprint.route("/getsupplydata")
 def getsupplydata():

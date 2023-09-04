@@ -113,7 +113,7 @@ class UserDataReaderBlobStorage:
         # Get blob client
         stream = self.buildclient(blob_name)
         return pd.read_excel(stream)
-    
+
     @cross_origin()
     def getUserDetails(self, uemail):
         """
@@ -131,10 +131,7 @@ class UserDataReaderBlobStorage:
             resp['Location'] = ast.literal_eval(resp['Location'])
             resp['Business Unit'] = ast.literal_eval(resp['Business Unit'])
             resp['Customer'] = ast.literal_eval(resp['Customer'])
-            print(f"\n\n{resp}\n\n")
             return resp
-            # response = jsonify(user_details.to_dict(orient='records')[0])
-            # return response
         else:
             return jsonify({"error": "User not found"}), 404
 
@@ -148,12 +145,12 @@ class AzureBlobReader:
         """
         The function `buildclient` takes a blob name as input, retrieves the container name from an
         environment variable, and returns a stream of data from the specified blob.
-        
+
         :param blob_name: The `blob_name` parameter is the name of the blob that you want to download
         from the Azure Blob Storage container
         :return: a stream object that contains the data from the specified blob.
         """
-        
+
         # Get container name
         blobcontainer = os.getenv("container_name")
 
