@@ -25,7 +25,7 @@ const Planning = ({ filterStatus }) => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "http://testingsmartola.azurewebsites.net/getoverviewhighriskdata"
+        "https://testingsmartola.azurewebsites.net/getoverviewhighriskdata"
       );
       if (response.ok) {
         const json = await response.json();
