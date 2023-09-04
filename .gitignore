@@ -12,24 +12,13 @@ __pycache__
 
 # Frontend dependencies
 */node_modules*
+*/public/*
 */public*
-/frontend/public/*
-/frontend/src/*
-*/src*
-/frontend/package-lock.json
-/frontend/package.json
-
-# testing
-/coverage
-
-# production
+*/src/*
 
 # misc
 .DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+*.env*
 
 npm-debug.log*
 yarn-debug.log*
@@ -171,6 +160,4 @@ cython_debug/
 #.idea/
 *.json
 *.csv
-irregularpograph.py
 *.json
-frontend/build/asset-manifest.json
