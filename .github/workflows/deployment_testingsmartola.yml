@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'testingsmartola'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3883EB1AA5A7438FA45841301802630B }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_542552429DF44A709B3A21011B00B90C }}
