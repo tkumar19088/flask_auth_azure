@@ -6,7 +6,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Button, Grid, Typography } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import RotateLeftIcon from '@mui/icons-material/RotateLeft';
+import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 
 import "./Filtersnew.css";
 
@@ -29,21 +29,29 @@ const Filtersnew = () => {
 
   return (
     <div>
-      <Stack direction="row" width="100%" justifyContent="space-between">
-        <Stack
-          justifyItems="center"
-          alignItems="center"
+      <Stack
+        direction="row"
+        width="100%"
+        // justifyContent="space-around"
+        mt="10px"
+        mb="-10px"
+        className="filtersDispaly"
+        alignItems="center"
+        gap={5}
+      >
+        <Typography
+          className="f-h1"
           justifyContent="center"
+          alignItems="center"
           display="flex"
-        //   border="1px solid"
-          width="10%"
+          //   border="1px solid"
         >
-          <Typography className="f-h1">Filters</Typography>
-        </Stack>
-        <Stack direction="row" className="filters-newstack" width="90%">
+          Filters
+        </Typography>
+        <Stack direction="row" className="filters-newstack" width="70%">
           <FormControl
             variant="standard"
-            sx={{ minWidth: 200, marginTop: "-20px" }}
+            sx={{ minWidth: 170, marginTop: "-20px" }}
             size="small"
           >
             <InputLabel>Business Unit</InputLabel>
@@ -55,19 +63,19 @@ const Filtersnew = () => {
           </FormControl>
           <FormControl
             variant="standard"
-            sx={{ minWidth: 200, marginTop: "-20px" }}
+            sx={{ minWidth: 170, marginTop: "-20px" }}
             size="small"
           >
             <InputLabel>Location</InputLabel>
             <Select value={location} onChange={handleLocationChange}>
-              <MenuItem value={10}>Health</MenuItem>
+              <MenuItem value={10}>United Kingdom</MenuItem>
               <MenuItem value={20}>Hugeine</MenuItem>
               <MenuItem value={30}>Nutrition</MenuItem>
             </Select>
           </FormControl>
           <FormControl
             variant="standard"
-            sx={{ minWidth: 200, marginTop: "-20px" }}
+            sx={{ minWidth: 170, marginTop: "-20px" }}
             size="small"
           >
             <InputLabel>Customer</InputLabel>
@@ -77,10 +85,20 @@ const Filtersnew = () => {
               <MenuItem value={30}>Nutrition</MenuItem>
             </Select>
           </FormControl>
-          <Button endIcon={<PlayArrowIcon/>} variant="contained" size="small" className="filter-buttons">
+          <Button
+            endIcon={<PlayArrowIcon />}
+            variant="contained"
+            size="small"
+            className="filter-buttons"
+          >
             Apply Filters
           </Button>
-          <Button endIcon={<RotateLeftIcon/>} variant="contained" size="small" className="filter-buttons">
+          <Button
+            endIcon={<RotateLeftIcon />}
+            variant="contained"
+            size="small"
+            className="filter-buttons"
+          >
             Reset Filters
           </Button>
         </Stack>

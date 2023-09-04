@@ -122,14 +122,10 @@ const OverviewHighRisk2 = () => {
                 Overview High Risk SKUs - Customer
               </Tab>
 
-              <Stack
-                className="ohr-stack"
-                direction="row"
-                alignItems="center"
-              >
+              <Stack className="ohr-stack" direction="row" alignItems="center">
                 <Box>
                   <Search
-                    className="serch-border"
+                    // className="serch-border"
                     sx={{
                       backgroundColor: "#E7E9EE",
                       "&:hover": {
@@ -138,6 +134,7 @@ const OverviewHighRisk2 = () => {
                       borderRadius: "30px",
                       display: "flex",
                       color: "#415A6C",
+                      height: "35px",
                     }}
                   >
                     <StyledInputBase
@@ -148,11 +145,12 @@ const OverviewHighRisk2 = () => {
                     <img src={search} alt="search" className="search-icon2" />
                   </Search>
                 </Box>
-                <Box className="nestmenu-box">
-                  <Ragfilters />
-                </Box>
+                
                 <Box className="nestmenu-box">
                   <Filtersdropdown />
+                </Box>
+                <Box className="nestmenu-box">
+                  <Ragfilters />
                 </Box>
                 <Box>
                   <Button
@@ -170,7 +168,7 @@ const OverviewHighRisk2 = () => {
               <FunctionalTabs />
             </TabPanel>
             <TabPanel>
-            <OhrCustomerTabs />
+              <OhrCustomerTabs />
             </TabPanel>
           </Tabs>
         </Grid>

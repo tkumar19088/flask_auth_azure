@@ -61,8 +61,8 @@ function Dashboard() {
         </Grid>
         <Grid item xs={10} className="screen-height">
           <Welcome />
-          <Filters />
-          <Status filterStatus={handleFilterStatus} />
+          <Filtersnew />
+          <CarouselExample />
           <Planning filterStatus={handleFilterStatus} />
         </Grid>
       </Grid>

@@ -1523,8 +1523,9 @@ const OhrTable2 = ({ onData }) => {
                       gap: "16px",
                       padding: "12px",
                       border: "none",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
-                    border="1px solid red"
                   >
                     <Box
                       className="rbsku-expand"
@@ -1623,7 +1624,11 @@ const OhrTable2 = ({ onData }) => {
                   </TableCell>
 
                   <TableCell
-                    sx={{ justifyContent: "center", alignItems: "center" }}
+                    sx={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      width: "20px",
+                    }}
                   >
                     <Typography
                       margin="auto"
@@ -1650,13 +1655,16 @@ const OhrTable2 = ({ onData }) => {
                       {item.ragcw}
                     </Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell
+                    sx={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      width: "20px",
+                    }}
+                  >
                     <Typography
                       margin="auto"
-                      // mx="6px"
                       sx={{
-                        // marginLeft: "20px",
-
                         fontSize: "13px",
                         color: "#fff",
                         width: "30px",
@@ -1676,12 +1684,16 @@ const OhrTable2 = ({ onData }) => {
                       {item.ragcw1}
                     </Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell
+                    sx={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      width: "20px",
+                    }}
+                  >
                     <Typography
                       margin="auto"
-                      // mx="6px"
                       sx={{
-                        // marginLeft: "20px",
                         fontSize: "13px",
                         color: "#fff",
                         width: "30px",
@@ -1701,7 +1713,13 @@ const OhrTable2 = ({ onData }) => {
                       {item.ragcw2}
                     </Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell
+                    sx={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      width: "20px",
+                    }}
+                  >
                     <Typography
                       margin="auto"
                       sx={{

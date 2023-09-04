@@ -49,7 +49,7 @@ const OhrCustomerTabs = () => {
             color: activeTab === 2 ? "white" : "#415A6C",
           }}
         >
-          Sell out ATF vs Reckitt
+          Sell Out <span style={{ fontSize: "14px" }}>( ATF vs Reckitt )</span>
         </Tab>
         <Tab
           style={{
@@ -57,7 +57,7 @@ const OhrCustomerTabs = () => {
             color: activeTab === 3 ? "white" : "#415A6C",
           }}
         >
-          Sell in ATF vs Reckitt
+          Sell In <span style={{ fontSize: "14px" }}> ( ATF vs Reckitt )</span>
         </Tab>
         <Tab
           style={{
