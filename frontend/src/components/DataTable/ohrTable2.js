@@ -24,10 +24,13 @@ import CheckIcon from "@mui/icons-material/Check";
 import Tooltip from "@mui/material/Tooltip";
 
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { updateloader } from "../../store/actions/sidebarActions";
 const startingWeek = 28;
 
 const OhrTable2 = ({ onData }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [expandedRow, setExpandedRow] = useState(null);
   const [pushAlternative, setpushAlternative] = useState(false);
 
@@ -39,10 +42,25 @@ const OhrTable2 = ({ onData }) => {
   };
 
   // Function to handle row click and expand/collapse accordion
-  const handleRowClick = (rowId) => {
+  const handleRowClick = async (rowId) => {
     setpushAlternative(false);
     if (expandedRow === rowId) {
       setExpandedRow(null);
+      dispatch(updateloader(true));
+      try {
+        const response = await fetch("http://localhost:5000/getuserdata");
+        if (response.ok) {
+          const json = await response.json();
+          console.log(json);
+          //dispatch(fetchuserdetails(json));
+        } else {
+          console.error("Error fetching data:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+      } finally {
+        dispatch(updateloader(false));
+      }
     } else {
       setExpandedRow(rowId);
     }

@@ -16,12 +16,119 @@ import Sellout from "./sellout";
 import Sellin from "./sellin";
 import StockPosition2 from "./stockPosition2";
 import Ola from "./ola";
+import { useDispatch } from "react-redux";
+import { updateloader } from "../../store/actions/sidebarActions";
 
 const OhrCustomerTabs = () => {
+  const dispatch = useDispatch();
+
   const [activeTab, setActiveTab] = useState(0);
 
   const handleTabChange = (index) => {
     setActiveTab(index);
+  };
+
+  const handleOverview = async () => {
+    dispatch(updateloader(true));
+    try {
+      const response = await fetch("http://localhost:5000/getuserdata");
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        //dispatch(fetchuserdetails(json));
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
+  };
+  const handleHistoricePOS = async () => {
+    dispatch(updateloader(true));
+    try {
+      const response = await fetch("http://localhost:5000/getuserdata");
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        //dispatch(fetchuserdetails(json));
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
+  };
+  const handleSellOut = async () => {
+    dispatch(updateloader(true));
+    try {
+      const response = await fetch("http://localhost:5000/getuserdata");
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        //dispatch(fetchuserdetails(json));
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
+  };
+  const handleSellIn = async () => {
+    dispatch(updateloader(true));
+    try {
+      const response = await fetch("http://localhost:5000/getuserdata");
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        //dispatch(fetchuserdetails(json));
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
+  };
+  const handleStockPosition = async () => {
+    dispatch(updateloader(true));
+    try {
+      const response = await fetch("http://localhost:5000/getuserdata");
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        //dispatch(fetchuserdetails(json));
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
+  };
+  const handleOLA = async () => {
+    dispatch(updateloader(true));
+    try {
+      const response = await fetch("http://localhost:5000/getuserdata");
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        //dispatch(fetchuserdetails(json));
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
   };
 
   return (
@@ -32,6 +139,7 @@ const OhrCustomerTabs = () => {
             border: "1px solid #E5EBEF",
             color: activeTab === 0 ? "white" : "#415A6C",
           }}
+          onClick={handleOverview}
         >
           Overview
         </Tab>
@@ -40,6 +148,7 @@ const OhrCustomerTabs = () => {
             border: "1px solid #E5EBEF",
             color: activeTab === 1 ? "white" : "#415A6C",
           }}
+          onClick={handleHistoricePOS}
         >
           Historic ePOS
         </Tab>
@@ -48,6 +157,7 @@ const OhrCustomerTabs = () => {
             border: "1px solid #E5EBEF",
             color: activeTab === 2 ? "white" : "#415A6C",
           }}
+          onClick={handleSellOut}
         >
           Sell Out <span style={{ fontSize: "14px" }}>( ATF vs Reckitt )</span>
         </Tab>
@@ -56,6 +166,7 @@ const OhrCustomerTabs = () => {
             border: "1px solid #E5EBEF",
             color: activeTab === 3 ? "white" : "#415A6C",
           }}
+          onClick={handleSellIn}
         >
           Sell In <span style={{ fontSize: "14px" }}> ( ATF vs Reckitt )</span>
         </Tab>
@@ -64,6 +175,7 @@ const OhrCustomerTabs = () => {
             border: "1px solid #E5EBEF",
             color: activeTab === 4 ? "white" : "#415A6C",
           }}
+          onClick={handleStockPosition}
         >
           Stock Position
         </Tab>
@@ -72,6 +184,7 @@ const OhrCustomerTabs = () => {
             border: "1px solid #E5EBEF",
             color: activeTab === 5 ? "white" : "#415A6C",
           }}
+          onClick={handleOLA}
         >
           OLA
         </Tab>

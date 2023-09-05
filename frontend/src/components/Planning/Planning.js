@@ -3,7 +3,10 @@ import { Box, Grid, Typography } from "@mui/material";
 import "./Planning.css";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import { useNavigate } from "react-router-dom";
-import { fetchoverviewhighriskdata } from "../../store/actions/sidebarActions";
+import {
+  fetchoverviewhighriskdata,
+  updateloader,
+} from "../../store/actions/sidebarActions";
 import { useDispatch } from "react-redux";
 import Badge from "@mui/material/Badge";
 
@@ -14,15 +17,16 @@ const Planning = ({ filterStatus }) => {
   const [oosriskselectedBG, setoosriskselectedBG] = useState(false);
   const [irregularselectedBG, setirregularselectedBG] = useState(false);
   const [reallocationselectedBG, setreallocationselectedBG] = useState(false);
-
   const handleOOSRisk = () => {
     filterStatus(true);
     setirregularselectedBG(false);
     setreallocationselectedBG(false);
     setoosriskselectedBG(true);
     fetchData();
+    navigate("/overviewhighrisk");
   };
   const fetchData = async () => {
+    dispatch(updateloader(true));
     try {
       const response = await fetch(
         "http://localhost:5000/getoverviewhighriskdata"
@@ -38,6 +42,8 @@ const Planning = ({ filterStatus }) => {
       }
     } catch (error) {
       console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
     }
   };
   const handleirregularpo = () => {

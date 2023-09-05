@@ -17,8 +17,15 @@ import "./OverviewHighRisk.css";
 import CustomerTable from "../DataTable/CustomerTable";
 import Ragfilters from "./Ragfiltersdropdown";
 import OhrCustomerTabs from "../DataTable/ohrCustomerTabs";
+import { updateloader } from "../../store/actions/sidebarActions";
+import { useSelector, useDispatch } from "react-redux";
+import loaderImage from "../../images/Logo-bar.png";
 
 const OverviewHighRisk2 = () => {
+  const dispatch = useDispatch();
+
+  const loader = useSelector((state) => state.sidebar.loader);
+
   const [activeTab, setActiveTab] = useState(0);
 
   const handleTabChange = (index) => {
@@ -56,8 +63,48 @@ const OverviewHighRisk2 = () => {
       },
     },
   }));
+
+  const handleReckittOverview = async () => {
+    dispatch(updateloader(true));
+    try {
+      const response = await fetch("http://localhost:5000/getuserdata");
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        //dispatch(fetchuserdetails(json));
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
+  };
+  const handleCustomerOverview = async () => {
+    dispatch(updateloader(true));
+    try {
+      const response = await fetch("http://localhost:5000/getuserdata");
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        //dispatch(fetchuserdetails(json));
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
+  };
   return (
     <div>
+      {loader && (
+        <div className="loader-overlay">
+          <img src={loaderImage} alt="Loading..." className="rotating-image" />
+        </div>
+      )}
       <Topbar />
       <Grid container>
         <Grid item xs={2}>
@@ -110,6 +157,7 @@ const OverviewHighRisk2 = () => {
                   border: "1px solid #E5EBEF",
                   color: activeTab === 0 ? "white" : "#415A6C",
                 }}
+                onClick={handleReckittOverview}
               >
                 Overview High Risk SKUs - Reckitt
               </Tab>
@@ -118,6 +166,7 @@ const OverviewHighRisk2 = () => {
                   border: "1px solid #E5EBEF",
                   color: activeTab === 1 ? "white" : "#415A6C",
                 }}
+                onClick={handleCustomerOverview}
               >
                 Overview High Risk SKUs - Customer
               </Tab>
@@ -145,7 +194,7 @@ const OverviewHighRisk2 = () => {
                     <img src={search} alt="search" className="search-icon2" />
                   </Search>
                 </Box>
-                
+
                 <Box className="nestmenu-box">
                   <Filtersdropdown />
                 </Box>

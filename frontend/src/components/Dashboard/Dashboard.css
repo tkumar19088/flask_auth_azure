@@ -49,3 +49,8 @@
   100% { transform: rotate(360deg); }
 }
 
+.rotating-image {
+  animation: spin 2s linear infinite;
+  width: 48px;
+  height: 43px;
+}

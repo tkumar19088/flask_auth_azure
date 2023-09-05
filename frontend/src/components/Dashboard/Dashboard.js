@@ -7,6 +7,7 @@ import Status from "../Status/Status";
 import Planning from "../Planning/Planning";
 // import Filters from "../Filters/Filters";
 import "./Dashboard.css";
+import loaderImage from "../../images/Logo-bar.png"; // Replace with your image path
 
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -60,7 +61,7 @@ function Dashboard() {
     <div>
       {loader && (
         <div className="loader-overlay">
-          <div className="loader"></div>
+          <img src={loaderImage} alt="Loading..." className="rotating-image" />
         </div>
       )}
       <Topbar />

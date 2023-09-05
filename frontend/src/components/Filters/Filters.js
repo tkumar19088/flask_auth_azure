@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Grid, Button, Typography } from "@mui/material";
 
 import InputLabel from "@mui/material/InputLabel";
@@ -7,23 +7,25 @@ import NativeSelect from "@mui/material/NativeSelect";
 
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Stack } from "@mui/system";
 import RotateLeftIcon from "@mui/icons-material/RotateLeft";
-
+import { updateloader } from "../../store/actions/sidebarActions";
 import "./Filters.css";
 import "./Filtersnew.css";
 
 const Filters = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const data = useSelector((state) => state.sidebar.userDetails);
   console.log(data);
-  const [business, setBusiness] = React.useState("");
-  const [location, setLocation] = React.useState("");
-  const [customer, setCustomer] = React.useState("");
-  const [brand, setBrand] = React.useState("");
+
+  const [business, setBusiness] = useState("");
+  const [location, setLocation] = useState("");
+  const [customer, setCustomer] = useState("");
+  const [brand, setBrand] = useState("");
 
   const handleBusinessChange = (event) => {
     setBusiness(event.target.value);
@@ -38,6 +40,44 @@ const Filters = () => {
   };
   const handleBrandChange = (event) => {
     setBrand(event.target.value);
+  };
+  const handleApplyFilters = async (e) => {
+    e.preventDefault();
+    dispatch(updateloader(true));
+    var data = { brand, customer, location, business };
+    console.log(data);
+    try {
+      const response = await fetch("http://localhost:5000//getfilterparams", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: data,
+      });
+
+      if (response.ok) {
+        console.log("success");
+      }
+      // Handle the API response data as needed
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
+  };
+
+  const handleResetFilters = async () => {
+    dispatch(updateloader(true));
+    try {
+      const response = await fetch("http://localhost:5000/getresetdata");
+      if (response.ok) {
+        console.log("success");
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
   };
   // const data = {
   //   Name: "Moka  Keerthi",
@@ -154,6 +194,7 @@ const Filters = () => {
                 variant="contained"
                 size="medium"
                 className="filter-buttons"
+                onClick={handleApplyFilters}
               >
                 Apply Filters
               </Button>
@@ -162,6 +203,7 @@ const Filters = () => {
                 variant="contained"
                 size="medium"
                 className="filter-buttons"
+                onClick={handleResetFilters}
               >
                 Reset Filters
               </Button>

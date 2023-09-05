@@ -7,13 +7,13 @@ const initialState = {
   reallocation: false,
   filterstatus: false,
   userDetails: {
-    // Name: "Moka  Keerthi",
-    // Email: "keerthi.moka@artefact.com",
-    // Customer: ["Asda", "Amazon"],
-    // Location: ["United Kingdom", "Australia"],
-    // Brand: ["Airwick", "Durex"],
-    // "Business Unit": ["Nutrition", "Hygiene", "Health"],
-    // Role: "admin",
+    Name: "Moka Keerthi",
+    Email: "keerthi.moka@artefact.com",
+    Customer: ["Asda", "Amazon"],
+    Location: ["United Kingdom", "Australia"],
+    Brand: ["Airwick", "Durex"],
+    "Business Unit": ["Nutrition", "Hygiene", "Health"],
+    Role: "admin",
   },
   overviewhighriskdata: [
     {
