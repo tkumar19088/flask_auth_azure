@@ -55,3 +55,9 @@ export const fetchexpandeditem = (newValue) => {
     payload: newValue,
   };
 };
+export const updateloader = (newValue) => {
+  return {
+    type: "UPDATE_LOADER",
+    payload: newValue,
+  };
+};

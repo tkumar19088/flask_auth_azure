@@ -3,11 +3,11 @@ import Carousel from "react-material-ui-carousel";
 import { Box, Grid, Link, Typography, Paper } from "@mui/material";
 import Error from "../../images/error.png";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
-
+import "./Casousel.css";
 const CarouselExample = () => {
   return (
     <div>
-      <div className="status" style={{ margin: "3px 0px -3px 0px" }}>
+      <div className="status" style={{ margin: "13px 0px -3px 0px" }}>
         <div>
           <Typography my={1} fontSize={{ lg: 23, xs: 24 }} color="#415A6C">
             Current Status / Alerts Section
@@ -21,7 +21,7 @@ const CarouselExample = () => {
         </div>
       </div>
 
-      <Carousel interval={30000}>
+      <Carousel interval={30000} className="carouselcls">
         <Paper
           elevation={3}
           sx={{ padding: 2, backgroundColor: "#E7E9EE", boxShadow: "none" }}

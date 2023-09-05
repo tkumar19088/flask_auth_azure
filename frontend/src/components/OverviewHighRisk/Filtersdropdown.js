@@ -9,10 +9,16 @@ import {
   NativeSelect,
 } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
+import { useSelector } from "react-redux";
 import "./Filtersdropdown.css";
 
 function Filtersdropdown() {
   const [anchorEl, setAnchorEl] = useState(null);
+  const overviewhighriskdata = useSelector(
+    (state) => state.sidebar.overviewhighriskdata
+  );
+  const filteredOHRdata = useSelector((state) => state.sidebar.filteredOHRdata);
+  const [selectedCustomerValue, setselectedCustomerValue] = useState("Amazon"); // Initialize with a default value
 
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -20,6 +26,14 @@ function Filtersdropdown() {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleApplyFilters = () => {
+    console.log(selectedCustomerValue);
+    const filteredResult = overviewhighriskdata.filter(
+      (item) => item.Brand === selectedCustomerValue
+    );
+    // setFilteredData(filteredResult);
   };
 
   return (
@@ -63,10 +77,9 @@ function Filtersdropdown() {
                   }}
                   style={{ backgroundColor: "", marginBottom: "20px" }}
                 >
-                  <option value="Amazon" sx={{ backgroundColor: "red" }}>
-                    Amazon
-                  </option>
-                  <option value="Tesco">Tesco</option>
+                  <option value="Nutrition">Nutrition</option>
+                  <option value="Hygiene">Hygiene</option>
+                  <option value="Health">Health</option>
                 </NativeSelect>
               </FormControl>
             </Box>
@@ -92,6 +105,7 @@ function Filtersdropdown() {
                   }}
                 >
                   <option value="United Kingdom">United Kingdom</option>
+                  <option value="Australia">Australia</option>
                 </NativeSelect>
               </FormControl>
             </Box>
@@ -109,13 +123,40 @@ function Filtersdropdown() {
                   </Typography>
                 </InputLabel>
                 <NativeSelect
-                  defaultValue={10}
+                  defaultValue="Amazon"
                   inputProps={{
                     name: "Brand",
                     id: "uncontrolled-native",
                   }}
+                  onChange={(e) => setselectedCustomerValue(e.target.value)} // Update the selectedValue
                 >
-                  <option value="AirWick">Airwick</option>
+                  <option value="Amazon">Amazon</option>
+                  <option value="Asda">Asda</option>
+                </NativeSelect>
+              </FormControl>
+            </Box>
+          </Grid>
+          <Grid item xs={4} my={2} className="filter-dropdown">
+            <Box sx={{ minWidth: 200 }}>
+              <FormControl fullWidth>
+                <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                  <Typography
+                    fontSize={22}
+                    mt={-1}
+                    className="filter-inside-title"
+                  >
+                    Brand
+                  </Typography>
+                </InputLabel>
+                <NativeSelect
+                  defaultValue="Amazon"
+                  inputProps={{
+                    name: "Brand",
+                    id: "uncontrolled-native",
+                  }}
+                  onChange={(e) => setselectedCustomerValue(e.target.value)} // Update the selectedValue
+                >
+                  <option value="Airwick">Airwick</option>
                   <option value="Durex">Durex</option>
                 </NativeSelect>
               </FormControl>
@@ -129,6 +170,7 @@ function Filtersdropdown() {
               sx={{
                 backgroundColor: "#415A6C",
               }}
+              onClick={handleApplyFilters}
             >
               Apply
             </Button>

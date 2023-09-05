@@ -12,8 +12,8 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   fetchfilterstatus,
   fetchuserdetails,
+  updateloader,
 } from "../../store/actions/sidebarActions";
-import Filtersnew from "../Filters/Filtersnew";
 import CarouselExample from "../Carousel/Carousel";
 import Filters from "../Filters/Filters";
 
@@ -24,6 +24,7 @@ function Dashboard() {
 
   const filterStatusVal = useSelector((state) => state.sidebar.filterStatus);
   const userDetails = useSelector((state) => state.sidebar.userDetails);
+  const loader = useSelector((state) => state.sidebar.loader);
   const dispatch = useDispatch();
 
   const [isFilter, setisFilter] = useState(filterStatusVal);
@@ -35,6 +36,7 @@ function Dashboard() {
 
   useEffect(() => {
     const fetchData = async () => {
+      dispatch(updateloader(true));
       try {
         const response = await fetch("http://localhost:5000/getuserdata");
         if (response.ok) {
@@ -47,6 +49,8 @@ function Dashboard() {
         }
       } catch (error) {
         console.error("Fetch error:", error);
+      } finally {
+        dispatch(updateloader(false));
       }
     };
     fetchData();
@@ -54,6 +58,11 @@ function Dashboard() {
 
   return (
     <div>
+      {loader && (
+        <div className="loader-overlay">
+          <div className="loader"></div>
+        </div>
+      )}
       <Topbar />
       <Grid container>
         <Grid item xs={2}>
@@ -61,7 +70,7 @@ function Dashboard() {
         </Grid>
         <Grid item xs={10} className="screen-height">
           <Welcome />
-          <Filtersnew />
+          <Filters />
           <CarouselExample />
           <Planning filterStatus={handleFilterStatus} />
         </Grid>
