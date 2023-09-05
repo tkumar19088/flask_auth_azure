@@ -1542,7 +1542,10 @@ const OhrTable = ({ onData }) => {
                   backgroundColor: "#E5EBEF",
                 }}
               >
-                <Typography className="cw"> CW </Typography>
+                <Typography className="cw" sx={{ fontSize: "0.875rem" }}>
+                  {" "}
+                  CW{" "}
+                </Typography>
                 <div className="brack-number">({startingWeek + 0})</div>
               </TableCell>
               <TableCell
@@ -1582,7 +1585,10 @@ const OhrTable = ({ onData }) => {
                   backgroundColor: "#E5EBEF",
                 }}
               >
-                <Typography className="cw"> CW </Typography>
+                <Typography className="cw" sx={{ fontSize: "0.875rem" }}>
+                  {" "}
+                  CW{" "}
+                </Typography>
                 <div className="brack-number">({startingWeek + 0})</div>
               </TableCell>
               <TableCell
@@ -1620,7 +1626,10 @@ const OhrTable = ({ onData }) => {
                   backgroundColor: "#E5EBEF",
                 }}
               >
-                <Typography className="cw"> CW </Typography>
+                <Typography className="cw" sx={{ fontSize: "0.875rem" }}>
+                  {" "}
+                  CW{" "}
+                </Typography>
                 <div className="brack-number">({startingWeek + 0})</div>
               </TableCell>
               <TableCell
@@ -1672,8 +1681,9 @@ const OhrTable = ({ onData }) => {
                         gap: "16px",
                         padding: "12px",
                         border: "none",
+                        alignItems: "center",
+                        justifyContent: "center",
                       }}
-                      border="1px solid red"
                     >
                       <Box
                         className="rbsku-expand"
@@ -1687,7 +1697,7 @@ const OhrTable = ({ onData }) => {
                               cursor: "pointer",
                               fontWeight: "800",
                               // marginTop: "-1px",
-                              marginTop: "21px",
+                              marginTop: "4px",
                               backgroundColor: "transparent",
                             }}
                           />
@@ -1699,7 +1709,7 @@ const OhrTable = ({ onData }) => {
                               cursor: "pointer",
                               fontWeight: "800",
                               // marginTop: "-1px",
-                              marginTop: "21px",
+                              marginTop: "4px",
                               backgroundColor: "transparent",
                             }}
                           />
@@ -1710,7 +1720,7 @@ const OhrTable = ({ onData }) => {
                           ml="-8px"
                           fontSize="13px"
                           sx={{
-                            marginTop: "23px",
+                            marginTop: "7px",
                           }}
                         >
                           {item["RB SKU"]}
@@ -1767,7 +1777,7 @@ const OhrTable = ({ onData }) => {
                     >
                       {item["Active Promo"]}
                     </TableCell>
-                    <TableCell style={{ textAlign: "center" }}>
+                    <TableCell style={{ textAlign: "center", width: "20px" }}>
                       <Typography
                         mx="10px"
                         sx={{
@@ -1778,24 +1788,24 @@ const OhrTable = ({ onData }) => {
                         {item["OLA PCT CW"]}
                       </Typography>
                     </TableCell>
-                    <TableCell style={{ textAlign: "center" }}>
+                    <TableCell style={{ textAlign: "center", width: "20px" }}>
                       <Typography mx="6px" fontSize="13px">
                         {item["OLA PCT CW+1"]}
                       </Typography>
                     </TableCell>
-                    <TableCell style={{ textAlign: "center" }}>
+                    <TableCell style={{ textAlign: "center", width: "20px" }}>
                       <Typography mx="6px" fontSize="13px">
                         {item["OLA PCT CW+2"]}
                       </Typography>
                     </TableCell>
-                    <TableCell style={{ textAlign: "center" }}>
+                    <TableCell style={{ textAlign: "center", width: "20px" }}>
                       <Typography mx="6px" fontSize="13px">
                         {item["OLA PCT CW+3"]}
                       </Typography>
                     </TableCell>
-                    <TableCell style={{ textAlign: "center" }}>
+                    <TableCell style={{ textAlign: "center", width: "20px" }}>
                       <Typography
-                        mx="10px"
+                        // mx="10px"
                         sx={{
                           textAlign: "center",
                           fontSize: "13px",
@@ -1804,30 +1814,35 @@ const OhrTable = ({ onData }) => {
                         {item["Exp NR CW"]}
                       </Typography>
                     </TableCell>
-                    <TableCell style={{ textAlign: "center" }}>
-                      <Typography mx="6px" fontSize="13px">
+                    <TableCell style={{ textAlign: "center", width: "20px" }}>
+                      <Typography fontSize="13px">
                         {item["Exp NR CW+1"]}
                       </Typography>
                     </TableCell>
-                    <TableCell style={{ textAlign: "center" }}>
-                      <Typography mx="6px" fontSize="13px">
+                    <TableCell style={{ textAlign: "center", width: "20px" }}>
+                      <Typography fontSize="13px">
                         {item["Exp NR CW+2"]}
                       </Typography>
                     </TableCell>
-                    <TableCell style={{ textAlign: "center" }}>
-                      <Typography mx="6px" fontSize="13px">
+                    <TableCell style={{ textAlign: "center", width: "20px" }}>
+                      <Typography fontSize="13px">
                         {item["Exp NR CW+3"]}
                       </Typography>
                     </TableCell>
-                    <TableCell>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        width: "20px",
+                        justifyContent: "center",
+                        alignContent: "center",
+                      }}
+                    >
                       <Typography
-                        // mx="30px"
+                        margin="auto"
                         sx={{
-                          marginLeft: "20px",
                           color: "#fff",
                           textAlign: "center",
                           fontSize: "13px",
-                          // border:"1px solid",
                           width: "30px",
                           height: "25px",
                           backgroundColor:
@@ -1845,12 +1860,16 @@ const OhrTable = ({ onData }) => {
                         {item["RAG CW"]}
                       </Typography>
                     </TableCell>
-                    <TableCell>
+                    <TableCell
+                      sx={{
+                        justifyContent: "center",
+                        alignItems: "center",
+                        width: "20px",
+                      }}
+                    >
                       <Typography
-                        // mx="6px"
+                        margin="auto"
                         sx={{
-                          marginLeft: "20px",
-
                           fontSize: "13px",
                           color: "#fff",
                           width: "30px",
@@ -1870,11 +1889,17 @@ const OhrTable = ({ onData }) => {
                         {item["RAG CW+1"]}
                       </Typography>
                     </TableCell>
-                    <TableCell>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        width: "20px",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
                       <Typography
-                        // mx="6px"
+                        margin="auto"
                         sx={{
-                          marginLeft: "20px",
                           fontSize: "13px",
                           color: "#fff",
                           width: "30px",
@@ -1894,11 +1919,17 @@ const OhrTable = ({ onData }) => {
                         {item["RAG CW+2"]}
                       </Typography>
                     </TableCell>
-                    <TableCell>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        width: "20px",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
                       <Typography
-                        // mx="6px"
+                        margin="auto"
                         sx={{
-                          marginLeft: "20px",
                           fontSize: "13px",
                           color: "#fff",
                           width: "30px",
@@ -1929,6 +1960,7 @@ const OhrTable = ({ onData }) => {
                         overflow: "hidden",
                         whiteSpace: "nowrap",
                         textOverflow: "ellipsis",
+                        // with: "80px",
                       }}
                     >
                       <Typography mx="9px" fontSize="13px">

@@ -15,7 +15,7 @@ const Status = ({ filterStatus }) => {
 
   return (
     <div>
-      <div className="status" style={{ margin: "3px 0px " }}>
+      <div className="status" style={{ margin: "3px 0px 10px 0px" }}>
         <div>
           <Typography my={1} fontSize={{ lg: 23, xs: 24 }} color="#415A6C">
             Current Status / Alerts Section
@@ -30,7 +30,7 @@ const Status = ({ filterStatus }) => {
       </div>
 
       <Grid container spacing={{ md: 2, lg: 3, xl: 5 }} mt="-20px" border="">
-        <Grid item xs={3} sx={{ cursor: "pointer" }}>
+        <Grid item xs={3}>
           <Box
             sx={{
               borderRadius: "5px 5px ",
@@ -40,6 +40,7 @@ const Status = ({ filterStatus }) => {
                 : "0px 2px 0px 0px  rgba(0,0,0,0.3)",
               height: "100%",
               border: selectedalert ? "2px solid orange" : "",
+              cursor: "pointer",
             }}
           >
             <Box className="cs-cardsheader">
@@ -121,7 +122,7 @@ const Status = ({ filterStatus }) => {
             </Box>
           </Box>{" "}
         </Grid>
-        <Grid item xs={3} sx={{ cursor: "pointer" }}>
+        <Grid item xs={3}>
           <Box
             sx={{
               borderRadius: "5px 5px ",
@@ -131,6 +132,7 @@ const Status = ({ filterStatus }) => {
                 : "0px 2px 0px 0px  rgba(0,0,0,0.3)",
               height: "100%",
               border: selectedalert ? "2px solid orange" : "",
+              cursor: "pointer",
             }}
           >
             <Box className="cs-cardsheader">
@@ -212,7 +214,7 @@ const Status = ({ filterStatus }) => {
             </Box>
           </Box>{" "}
         </Grid>
-        <Grid item xs={3} sx={{ cursor: "pointer" }}>
+        <Grid item xs={3}>
           <Box
             sx={{
               borderRadius: "5px 5px ",
@@ -222,6 +224,7 @@ const Status = ({ filterStatus }) => {
                 : "0px 2px 0px 0px  rgba(0,0,0,0.3)",
               height: "100%",
               border: selectedalert ? "2px solid orange" : "",
+              cursor: "pointer",
             }}
           >
             <Box className="cs-cardsheader">
@@ -293,7 +296,7 @@ const Status = ({ filterStatus }) => {
             </Box>
           </Box>{" "}
         </Grid>
-        <Grid item xs={3} sx={{ cursor: "pointer" }}>
+        <Grid item xs={3}>
           <Box
             sx={{
               borderRadius: "5px 5px ",
@@ -303,6 +306,7 @@ const Status = ({ filterStatus }) => {
                 : "0px 2px 0px 0px  rgba(0,0,0,0.3)",
               height: "100%",
               border: selectedalert ? "2px solid orange" : "",
+              cursor: "pointer",
             }}
           >
             <Box className="cs-cardsheader">

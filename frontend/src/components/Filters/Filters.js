@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Button, Typography } from "@mui/material";
 
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
@@ -8,29 +8,53 @@ import NativeSelect from "@mui/material/NativeSelect";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import MenuItem from "@mui/material/MenuItem";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { Stack } from "@mui/system";
+import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 
 import "./Filters.css";
+import "./Filtersnew.css";
 
 const Filters = () => {
   const navigate = useNavigate();
-  var userDetails = useSelector((state) => state.sidebar.userDetails);
-  console.log(userDetails.Customer);
+  const data = useSelector((state) => state.sidebar.userDetails);
+  console.log(data);
+  const [business, setBusiness] = React.useState("");
+  const [location, setLocation] = React.useState("");
+  const [customer, setCustomer] = React.useState("");
+  const [brand, setBrand] = React.useState("");
 
-  const data = {
-    Name: "Moka  Keerthi",
-    Email: "keerthi.moka@artefact.com",
-    Customer: ["Asda", "Amazon"],
-    Location: ["United Kingdom", "Australia"],
-    "Business Unit": ["Nutrition", "Hygiene", "Health"],
-    Role: "admin",
+  const handleBusinessChange = (event) => {
+    setBusiness(event.target.value);
   };
+
+  const handleLocationChange = (event) => {
+    setLocation(event.target.value);
+  };
+
+  const handleCustomerChange = (event) => {
+    setCustomer(event.target.value);
+  };
+  const handleBrandChange = (event) => {
+    setBrand(event.target.value);
+  };
+  // const data = {
+  //   Name: "Moka  Keerthi",
+  //   Email: "keerthi.moka@artefact.com",
+  //   Customer: ["Asda", "Amazon"],
+  //   Location: ["United Kingdom", "Australia"],
+  //   Brand: ["Airwick", "Durex"],
+  //   "Business Unit": ["Nutrition", "Hygiene", "Health"],
+  //   Role: "admin",
+  // };
   return (
     <div className="filter-main">
       <Typography
         className="filter-title"
         color="#415A6C"
         marginBottom="20px"
-        marginTop="10px"
+        marginTop="20px"
         // p={1}
       >
         Filters
@@ -39,6 +63,9 @@ const Filters = () => {
         <Grid
           container
           spacing={3}
+          justifyContent="space-between"
+          alignSelf="center"
+          alignItems="center"
           item
           xs={12}
           sx={{
@@ -55,105 +82,89 @@ const Filters = () => {
             // fontWeight: "700",
           }}
         >
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <Box sx={{ minWidth: 120 }} ml={2}>
-              <FormControl fullWidth>
-                <InputLabel
-                  variant="standard"
-                  htmlFor="uncontrolled-native"
-                  // sx={{ marginLeft:"30px" }}
-                >
-                  <Typography
-                    fontSize={22}
-                    mt={-1}
-                    className="filter-inside-title"
-                  >
-                    Business Unit
-                  </Typography>
-                </InputLabel>
-                <NativeSelect
-                  defaultValue={10}
-                  inputProps={{
-                    name: "Customer",
-                    id: "uncontrolled-native",
-                  }}
-                  style={{ backgroundColor: "", marginBottom: "20px" }}
-                >
-                  <option value="Health">Health</option>
-                  <option value="Hygeine">Hygeine</option>
-                  <option value="Nutrition">Nutrition</option>
-                </NativeSelect>
+              <FormControl
+                variant="standard"
+                sx={{ minWidth: 200, marginTop: "-20px" }}
+                size="small"
+              >
+                <InputLabel>Business Unit</InputLabel>
+                <Select value={business} onChange={handleBusinessChange}>
+                  {data["Business Unit"].map((item) => (
+                    <MenuItem value={item}>{item}</MenuItem>
+                  ))}
+                </Select>
               </FormControl>
             </Box>
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <Box sx={{ minWidth: 120 }}>
-              <FormControl fullWidth>
-                <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                  <Typography
-                    fontSize={22}
-                    mt={-1}
-                    className="filter-inside-title"
-                  >
-                    Location
-                  </Typography>
-                </InputLabel>
-                <NativeSelect
-                  defaultValue={10}
-                  inputProps={{
-                    name: "Country",
-                    id: "uncontrolled-native",
-                  }}
-                >
-                  <option value="United Kingdom">United Kingdom</option>
-                  <option value="India">India</option>
-                </NativeSelect>
+              <FormControl
+                variant="standard"
+                sx={{ minWidth: 200, marginTop: "-20px" }}
+                size="small"
+              >
+                <InputLabel>Location</InputLabel>
+                <Select value={location} onChange={handleLocationChange}>
+                  {data.Location.map((item) => (
+                    <MenuItem value={item}>{item}</MenuItem>
+                  ))}
+                </Select>
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <Box sx={{ minWidth: 120 }}>
-              <FormControl fullWidth>
-                <InputLabel
-                  variant="standard"
-                  htmlFor="uncontrolled-native"
-                  sx={{ top: "-22px" }}
-                >
-                  <Typography
-                    fontSize={22}
-                    mt={-1}
-                    className="filter-inside-title"
-                  >
-                    Customer
-                  </Typography>
-                </InputLabel>
-                <NativeSelect
-                  defaultValue={10}
-                  inputProps={{
-                    name: "Brand",
-                    id: "uncontrolled-native",
-                  }}
-                >
-                  {userDetails.Customer ? (
-                    userDetails.Customer.map((item, index) => (
-                      <option value={item} key={index}>
-                        {item}
-                      </option>
-                    ))
-                  ) : (
-                    <option value="" disabled>
-                      Data is not available
-                    </option>
-                  )}
-                </NativeSelect>
+              <FormControl
+                variant="standard"
+                sx={{ minWidth: 200, marginTop: "-20px" }}
+                size="small"
+              >
+                <InputLabel>Customer</InputLabel>
+                <Select value={customer} onChange={handleCustomerChange}>
+                  {data.Customer.map((item) => (
+                    <MenuItem value={item}>{item}</MenuItem>
+                  ))}
+                </Select>
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={3} textAlign="center" alignItems="center">
-            <Box className="btn-filters">
-              <Typography className="filter-btn-name">APPLY FILTERS</Typography>
-              <PlayArrowIcon />
+          <Grid item xs={2}>
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl
+                variant="standard"
+                sx={{ minWidth: 200, marginTop: "-20px" }}
+                size="small"
+              >
+                <InputLabel>Brand</InputLabel>
+                <Select value={brand} onChange={handleBrandChange}>
+                  <MenuItem value="Airwick">Airwick</MenuItem>
+                  <MenuItem value="Durex">Durex</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+          </Grid>
+
+          <Grid item xs={3} className="flt-grid">
+            <Box className="filter-boxmain">
+              <Button
+                endIcon={<PlayArrowIcon />}
+                variant="contained"
+                size="medium"
+                className="filter-buttons"
+              >
+                Apply Filters
+              </Button>
+              <Button
+                endIcon={<RotateLeftIcon />}
+                variant="contained"
+                size="medium"
+                className="filter-buttons"
+              >
+                Reset Filters
+              </Button>
             </Box>
           </Grid>
         </Grid>
