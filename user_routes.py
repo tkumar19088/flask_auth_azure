@@ -5,6 +5,7 @@ from flask import (
     session,
     request,
     url_for,
+    jsonify
 )
 from flask_cors import CORS, cross_origin
 from msal import ConfidentialClientApplication, SerializableTokenCache
@@ -14,32 +15,30 @@ from utils import AzureBlobReader, UserDataReaderBlobStorage
 from dotenv import load_dotenv
 load_dotenv()
 
+global_variables = {}
 
-# *******************************
+
+# ******************************
 # Create the app access objects
-# *******************************
+# ******************************
 app_blueprint = Blueprint("app", __name__)
 
 
-# *******************************
+# *************************
 # Application login routes
-# *******************************
-@app_blueprint.route("/")
+# *************************
+@app_blueprint.route("/") # Homepage # Default route
 @cross_origin()
 def index():
-    """
-    The function checks if a user is logged in, retrieves their details, and renders the index.html
-    template with the user's details if they are logged in, otherwise it redirects to the login page.
-
-    :return: either the rendered template "index.html" with the user details if the "user" key is
-    present in the session, or it is redirecting to the "login" route if the "user" key is not present
-    in the session.
-    """
     if "user" in session:
         return render_template("index.html")
     else:
         return redirect(url_for("app.login"))
 
+
+# **********************
+# Get User Data objects
+# **********************
 @cross_origin()
 @app_blueprint.route("/getuserdata")
 def getuserdata():
@@ -51,24 +50,98 @@ def getuserdata():
         return redirect(url_for("app.login"))
 
 
-@app_blueprint.route("/getoverviewhighriskdata")
-def getoverviewhighriskdata():
-    # excel_blob_name = os.getenv("excel_blob_name")
-    overviewdata = AzureBlobReader().read_xls("overviewhighrisksku.xlsx")
-    sampleohrdata = overviewdata.sample(20)
-    return json.loads(sampleohrdata.to_json(orient='records'))
+# ************************************
+# Get filter parameters from homepage
+# ************************************
+@app_blueprint.route('/getfilterparams', methods=['POST'])
+def getfilterparams(request):
+    try:
+        data = request.json
+        for key, value in data.items():
+            global_variables[key] = value
+        return jsonify(status="success", message="Data Received!"), 200
+    except Exception as e:
+        return jsonify(status="error", message=str(e)), 500
 
-@app_blueprint.route("/getrecentcampaignsbysku")
-def getrecentcampaignsbysku():
-    # excel_blob_name = os.getenv("excel_blob_name")
-    campaignsdata = AzureBlobReader().read_xls("campaignsbysku.xlsx")
-    samplecampaignsdata = campaignsdata.sample(20)
-    return json.loads(samplecampaignsdata.to_json(orient='records'))
 
-@app_blueprint.route("/getsupplydata")
-def getsupplydata():
-    supply = AzureBlobReader().read_xls("supply.xlsx")
-    return json.loads(supply.to_json(orient='records'))
+# # ************************************
+# # Get ALL overview highrisk data
+# # ************************************
+# @app_blueprint.route("/getoverviewhighriskdata")
+# def getoverviewhighriskdata():
+#     overviewdata = AzureBlobReader().read_xls("overviewhighrisksku.xlsx")
+#     sampleohrdata = overviewdata.sample(20)
+#     return json.loads(sampleohrdata.to_json(orient='records'))
+
+
+# # ************************************
+# # Get ALL campaigns by SKU data
+# # ************************************
+# @app_blueprint.route("/getcampaignsdata")
+# def getcampaignsdata():
+#     # excel_blob_name = os.getenv("excel_blob_name")
+#     campaignsdata = AzureBlobReader().read_xls("campaignsbysku.xlsx")
+#     samplecampaignsdata = campaignsdata.sample(20)
+#     return json.loads(samplecampaignsdata.to_json(orient='records'))
+
+
+# *****************************************************
+# Get FILTERED overview highrisk data by filter params
+# *****************************************************
+@app_blueprint.route("/getfilteredoverview", methods=['POST'])
+def getfilteredoverview(request):
+    if request.customer:
+        ohr = AzureBlobReader().read_xls("smartola_data.xlsx", sheet="customeroverviewdatarepo")
+    else:
+        ohr = AzureBlobReader().read_xls("smartola_data.xlsx", sheet="reckittoverviewdatarepo")
+
+    if global_variables:
+        filters = ['Business Unit', 'Location', 'Customer', 'Brand']
+        for filter_key in filters:
+            if filter_key in global_variables.keys():
+                ohr = ohr[ohr[filter_key] == global_variables[filter_key]]
+        return json.loads(ohr.to_json(orient='records'))
+    else:
+        return jsonify(status="Error", message="Choose above filters to view data"), 500
+
+
+
+# *********************************************
+# Get FILTERED campaigns data by filter params
+# *********************************************
+@app_blueprint.route("/getfilteredcampaigns", methods=['POST'])
+def getfilteredcampaigns(request):
+    if request.customer:
+        campaigns = AzureBlobReader().read_xls("smartola_data.xlsx", sheet="customercampaignsbysku")
+    else:
+        campaigns = AzureBlobReader().read_xls("smartola_data.xlsx", sheet="reckittcampaignsbysku")
+    campaignsbysku = campaigns[campaigns['SKU'] == request.rbsku]
+    filters = ['Business Unit', 'Location', 'Customer', 'Brand']
+    for filter_key in filters:
+        if filter_key in global_variables.keys():
+            campaignsbysku = campaignsbysku[campaignsbysku[filter_key] == global_variables[filter_key]]
+    return json.loads(campaignsbysku.to_json(orient='records'))
+
+
+# ******** MITIGATION SCENARIO # 1 *********
+# Get Push alternative SKU data by SKU code
+# ******************************************
+@app_blueprint.route("/getalternativeskus", methods=['POST'])
+def getalternativeskus(request):
+    altskudata = AzureBlobReader().read_xls("smartola_data.xlsx", sheet="pushalternativeskus")
+    altskubysku = altskudata[altskudata['SKU'] == request.rbsku]
+    return json.loads(altskubysku.to_json(orient='records'))
+
+
+# ************* MITIGATION SCENARIO # 2 *************
+# Get Reallocation across Retailers data by SKU code
+# ***************************************************
+@app_blueprint.route("/rarbysku", methods=['POST'])
+def getrarbysku(request):
+    reallocationdata = AzureBlobReader().read_xls("smartola_data.xlsx", sheet="retailerreallocation")
+    reallocationdatabysku = reallocationdata[reallocationdata['SKU'] == request.rbsku]
+    return json.loads(reallocationdatabysku.to_json(orient='records'))
+
 
 @app_blueprint.route("/login")
 def login():

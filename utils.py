@@ -167,7 +167,7 @@ class AzureBlobReader:
         stream_downloader.readinto(stream)
         return stream
 
-    def read_xls(self, blob_name=None):
+    def read_xls(self, blob_name=None, sheet=None):
         """
         The function reads an Excel file from a blob storage and returns the data as a pandas DataFrame.
         
@@ -178,4 +178,4 @@ class AzureBlobReader:
         
         # Get blob client
         stream = self.buildclient(blob_name)
-        return pd.read_excel(stream)
+        return pd.read_excel(stream, sheet_name=sheet)
