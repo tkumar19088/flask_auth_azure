@@ -25,7 +25,10 @@ import Tooltip from "@mui/material/Tooltip";
 
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { updateloader } from "../../store/actions/sidebarActions";
+import {
+  updateloader,
+  fetchstockreallocatedata,
+} from "../../store/actions/sidebarActions";
 
 const startingWeek = 28;
 
@@ -38,6 +41,9 @@ const OhrTable = ({ onData }) => {
 
   const [expandedRow, setExpandedRow] = useState(null);
   const [pushAlternative, setpushAlternative] = useState(false);
+  const [campaignsData, setcampaignsData] = useState([]);
+  const [pushAlternativeData, setpushAlternativeData] = useState([]);
+  const [iscampaigns, setiscampaigns] = useState(false);
 
   const truncateText = (text, maxLength) => {
     if (text.length <= maxLength) {
@@ -51,12 +57,25 @@ const OhrTable = ({ onData }) => {
     setpushAlternative(false);
     if (expandedRow === rowId) {
       setExpandedRow(null);
+    } else {
       dispatch(updateloader(true));
+      var data = { customer: 0, rbsku: rowId };
       try {
-        const response = await fetch("http://localhost:5000/getuserdata");
+        const response = await fetch(
+          "http://localhost:5000/getfilteredcampaigns",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
         if (response.ok) {
           const json = await response.json();
           console.log(json);
+          setiscampaigns(true);
+          setcampaignsData(json);
           //dispatch(fetchuserdetails(json));
         } else {
           console.error("Error fetching data:", response.statusText);
@@ -66,7 +85,6 @@ const OhrTable = ({ onData }) => {
       } finally {
         dispatch(updateloader(false));
       }
-    } else {
       setExpandedRow(rowId);
     }
   };
@@ -74,11 +92,20 @@ const OhrTable = ({ onData }) => {
   const handlePushAlternative = async () => {
     setpushAlternative(true);
     dispatch(updateloader(true));
+    var data = { rbsku: expandedRow };
     try {
-      const response = await fetch("http://localhost:5000/getuserdata");
+      const response = await fetch("http://localhost:5000/getalternativeskus", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       if (response.ok) {
         const json = await response.json();
         console.log(json);
+        // setiscampaigns(true);
+        setpushAlternativeData(json);
         //dispatch(fetchuserdetails(json));
       } else {
         console.error("Error fetching data:", response.statusText);
@@ -90,14 +117,21 @@ const OhrTable = ({ onData }) => {
     }
   };
   const handleReallocate = async () => {
-    navigate("/stockreallocation");
     dispatch(updateloader(true));
+    var data = { rbsku: expandedRow };
     try {
-      const response = await fetch("http://localhost:5000/getuserdata");
+      const response = await fetch("http://localhost:5000/rarbysku", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       if (response.ok) {
         const json = await response.json();
         console.log(json);
-        //dispatch(fetchuserdetails(json));
+        dispatch(fetchstockreallocatedata(json));
+        navigate("/stockreallocation");
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -1187,7 +1221,7 @@ const OhrTable = ({ onData }) => {
                 }}
               >
                 <TableCell style={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.campaignanme}</Typography>
+                  <Typography fontSize="13px">{item.campaignname}</Typography>
                 </TableCell>
                 <TableCell style={{ textAlign: "center" }}>
                   <Typography fontSize="13px">{item.startdate}</Typography>
@@ -1196,24 +1230,24 @@ const OhrTable = ({ onData }) => {
                   <Typography fontSize="13px">{item.enddate}</Typography>
                 </TableCell>
                 <TableCell style={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.skufocused}</Typography>
+                  <Typography fontSize="13px">
+                    {item.offerdescription}
+                  </Typography>
                 </TableCell>
                 <TableCell style={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.activestatus}</Typography>
+                  <Typography fontSize="13px">{item.status}</Typography>
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.Customer}</Typography>
                 </TableCell>
                 <TableCell style={{ textAlign: "center" }}>
                   <Typography fontSize="13px">
-                    {item.retailersinvolved}
+                    {item.customerinventory}
                   </Typography>
                 </TableCell>
                 <TableCell style={{ textAlign: "center" }}>
                   <Typography fontSize="13px">
-                    {item.retailerinventory}
-                  </Typography>
-                </TableCell>
-                <TableCell style={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">
-                    {item.rbwherehouseinventory}
+                    {item.customerallocation}
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -1237,7 +1271,13 @@ const OhrTable = ({ onData }) => {
             variant="contained"
             size="medium"
             startIcon={<ReportProblemOutlinedIcon sx={{ color: "white" }} />}
-            sx={{ backgroundColor: "#415A6C" }}
+            sx={{
+              backgroundColor: "#415A6C",
+              "&:hover": {
+                backgroundColor: "#FF007F",
+              },
+              borderRadius: "50px",
+            }}
           >
             Choose a Mitigation Strategy
           </Button>
@@ -1390,40 +1430,54 @@ const OhrTable = ({ onData }) => {
                 }}
               >
                 <TableCell sx={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.recomscore}</Typography>
+                  <Typography fontSize="13px">{item["recom-score"]}</Typography>
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.sku}</Typography>
+                  <Typography fontSize="13px">{item["RB SKU"]}</Typography>
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.sku}</Typography>
+                  <Typography fontSize="13px">{item.PPG}</Typography>
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.title}</Typography>
-                </TableCell>
-                <TableCell sx={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.activecamp}</Typography>
+                  <Typography fontSize="13px">{item.Description}</Typography>
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
                   <Typography fontSize="13px">
-                    {item.stockavailblerb}
+                    {item.activecampaigns}
                   </Typography>
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.reckittsoh}</Typography>
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
                   <Typography fontSize="13px">
-                    {item.stockavailableamz}
+                    {item.customerinventory}
                   </Typography>
                 </TableCell>
+                <TableCell
+                  sx={{
+                    textAlign: "center",
+                  }}
+                >
+                  <Box display="flex" sx={{ paddingLeft: "40px" }}>
+                    <Typography fontSize={15}>{item["sif-atf"]}</Typography>
+                    <Typography
+                      fontSize={13}
+                      sx={{
+                        marginLeft: "12px",
+                        marginTop: "10px",
+                        color: "#6e8c78",
+                      }}
+                    >
+                      {item["sif-reckitt"]}
+                    </Typography>
+                  </Box>
+                </TableCell> 
                 <TableCell sx={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.sellinforecast}</Typography>
+                  <Typography fontSize="13px">{item.sof}</Typography>
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">
-                    {item.selloutforecast}
-                  </Typography>
-                </TableCell>
-                <TableCell sx={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.wocestimation}</Typography>
+                  <Typography fontSize="13px">{item.customerwoc}</Typography>
                 </TableCell>
               </TableRow>
             ))}
@@ -1832,22 +1886,22 @@ const OhrTable = ({ onData }) => {
                           fontSize: "13px",
                         }}
                       >
-                        {item["OLA PCT CW"]}
+                        {item["SL CW"]}
                       </Typography>
                     </TableCell>
                     <TableCell style={{ textAlign: "center", width: "20px" }}>
                       <Typography mx="6px" fontSize="13px">
-                        {item["OLA PCT CW+1"]}
+                        {item["SL CW+1"]}
                       </Typography>
                     </TableCell>
                     <TableCell style={{ textAlign: "center", width: "20px" }}>
                       <Typography mx="6px" fontSize="13px">
-                        {item["OLA PCT CW+2"]}
+                        {item["SL CW+2"]}
                       </Typography>
                     </TableCell>
                     <TableCell style={{ textAlign: "center", width: "20px" }}>
                       <Typography mx="6px" fontSize="13px">
-                        {item["OLA PCT CW+3"]}
+                        {item["SL CW+3"]}
                       </Typography>
                     </TableCell>
                     <TableCell style={{ textAlign: "center", width: "20px" }}>
@@ -2021,11 +2075,11 @@ const OhrTable = ({ onData }) => {
                       </Typography>
                     </TableCell>
                   </TableRow>
-                  {expandedRow === item["RB SKU"] && (
+                  {expandedRow === item["RB SKU"] && iscampaigns && (
                     <TableRow>
                       <TableCell colSpan={20}>
                         {/* Add your expanded table here */}
-                        <SubTable details={item.campaugns} />
+                        <SubTable details={campaignsData} />
                       </TableCell>
                     </TableRow>
                   )}
@@ -2033,9 +2087,7 @@ const OhrTable = ({ onData }) => {
                     <TableRow>
                       <TableCell colSpan={20}>
                         {/* Add your expanded table here */}
-                        <PushAlternativeTable
-                          details={item.pushAlternativeTable}
-                        />
+                        <PushAlternativeTable details={pushAlternativeData} />
                       </TableCell>
                     </TableRow>
                   )}

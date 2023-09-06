@@ -54,11 +54,12 @@ def getuserdata():
 # Get filter parameters from homepage
 # ************************************
 @app_blueprint.route('/getfilterparams', methods=['POST'])
-def getfilterparams(request):
+def getfilterparams():
     try:
         data = request.json
         for key, value in data.items():
             global_variables[key] = value
+            print(global_variables)
         return jsonify(status="success", message="Data Received!"), 200
     except Exception as e:
         return jsonify(status="error", message=str(e)), 500
@@ -89,8 +90,10 @@ def getfilterparams(request):
 # Get FILTERED overview highrisk data by filter params
 # *****************************************************
 @app_blueprint.route("/getfilteredoverview", methods=['POST'])
-def getfilteredoverview(request):
-    if request.customer:
+def getfilteredoverview():
+    data = request.json
+    print(data)
+    if data['customer']:
         ohr = AzureBlobReader().read_xls("smartola_data.xlsx", sheet="customeroverviewdatarepo")
     else:
         ohr = AzureBlobReader().read_xls("smartola_data.xlsx", sheet="reckittoverviewdatarepo")
@@ -110,12 +113,13 @@ def getfilteredoverview(request):
 # Get FILTERED campaigns data by filter params
 # *********************************************
 @app_blueprint.route("/getfilteredcampaigns", methods=['POST'])
-def getfilteredcampaigns(request):
-    if request.customer:
+def getfilteredcampaigns():
+    data = request.json
+    if data['customer']:
         campaigns = AzureBlobReader().read_xls("smartola_data.xlsx", sheet="customercampaignsbysku")
     else:
         campaigns = AzureBlobReader().read_xls("smartola_data.xlsx", sheet="reckittcampaignsbysku")
-    campaignsbysku = campaigns[campaigns['SKU'] == request.rbsku]
+    campaignsbysku = campaigns[campaigns['RB SKU'] == data['rbsku']]
     filters = ['Business Unit', 'Location', 'Customer', 'Brand']
     for filter_key in filters:
         if filter_key in global_variables.keys():
@@ -127,9 +131,10 @@ def getfilteredcampaigns(request):
 # Get Push alternative SKU data by SKU code
 # ******************************************
 @app_blueprint.route("/getalternativeskus", methods=['POST'])
-def getalternativeskus(request):
+def getalternativeskus():
+    data = request.json
     altskudata = AzureBlobReader().read_xls("smartola_data.xlsx", sheet="pushalternativeskus")
-    altskubysku = altskudata[altskudata['SKU'] == request.rbsku]
+    altskubysku = altskudata[altskudata['RB SKU'] == data['rbsku']]
     return json.loads(altskubysku.to_json(orient='records'))
 
 
@@ -137,10 +142,12 @@ def getalternativeskus(request):
 # Get Reallocation across Retailers data by SKU code
 # ***************************************************
 @app_blueprint.route("/rarbysku", methods=['POST'])
-def getrarbysku(request):
+def getrarbysku():
+    data = request.json
     reallocationdata = AzureBlobReader().read_xls("smartola_data.xlsx", sheet="retailerreallocation")
-    reallocationdatabysku = reallocationdata[reallocationdata['SKU'] == request.rbsku]
-    return json.loads(reallocationdatabysku.to_json(orient='records'))
+    # reallocationdatabysku = reallocationdata[reallocationdata['RB SKU'] == data['rbsku']]
+    samplereallocationdata = reallocationdata.sample(10)
+    return json.loads(samplereallocationdata.to_json(orient='records'))
 
 
 @app_blueprint.route("/login")

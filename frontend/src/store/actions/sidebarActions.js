@@ -61,3 +61,9 @@ export const updateloader = (newValue) => {
     payload: newValue,
   };
 };
+export const fetchstockreallocatedata = (newValue) => {
+  return {
+    type: "FETCH_STOCKREALLOCATIONDATA",
+    payload: newValue,
+  };
+};

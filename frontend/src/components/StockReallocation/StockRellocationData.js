@@ -13,152 +13,154 @@ import { useState } from "react";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const StockReallocationData = ({ onData }) => {
   const navigate = useNavigate();
-
-  const [data, setData] = useState([
-    {
-      customer: "Amazon",
-      channel: "Pureplay",
-      sellinforecastartefact: "300",
-      sellinforecastreckitt: "500",
-      currentallocation: "200.X",
-      allcConsumedDate: "50",
-      remAllocation: "150",
-      openOrders: "50",
-      expectServiceLevel: "100%",
-      custSohcurrent: "600",
-      custSohTarget: "600",
-      custWoccurrent: "300",
-      custWocTarget: "400",
-      price: "£6.00",
-      cmuScore: "4.4",
-      stockSafeRealloc: "100",
-      suggAlloc: "100",
-      testReallocation: "20",
-    },
-    {
-      customer: "Amazon",
-      channel: "Pureplay",
-      sellinforecastartefact: "300",
-      sellinforecastreckitt: "500",
-      currentallocation: "200.Y",
-      allcConsumedDate: "50",
-      remAllocation: "150",
-      openOrders: "50",
-      expectServiceLevel: "100%",
-      custSohcurrent: "500",
-      custSohTarget: "600",
-      custWoccurrent: "300",
-      custWocTarget: "400",
-      price: "£6.00",
-      cmuScore: "4.4",
-      stockSafeRealloc: "100",
-      suggAlloc: "100",
-      testReallocation: "20",
-    },
-    {
-      customer: "Amazon",
-      channel: "Pureplay",
-      sellinforecastartefact: "300",
-      sellinforecastreckitt: "500",
-      currentallocation: "200.Y",
-      allcConsumedDate: "50",
-      remAllocation: "150",
-      openOrders: "50",
-      expectServiceLevel: "100%",
-      custSohcurrent: "500",
-      custSohTarget: "600",
-      custWoccurrent: "300",
-      custWocTarget: "400",
-      price: "£6.00",
-      cmuScore: "4.4",
-      stockSafeRealloc: "100",
-      suggAlloc: "100",
-      testReallocation: "20",
-    },
-    {
-      customer: "Amazon",
-      channel: "Pureplay",
-      sellinforecastartefact: "300",
-      sellinforecastreckitt: "500",
-      currentallocation: "200.X",
-      allcConsumedDate: "50",
-      remAllocation: "150",
-      openOrders: "50",
-      expectServiceLevel: "100%",
-      custSohcurrent: "500",
-      custSohTarget: "600",
-      custWoccurrent: "300",
-      custWocTarget: "400",
-      price: "£6.00",
-      cmuScore: "4.4",
-      stockSafeRealloc: "100",
-      suggAlloc: "100",
-      testReallocation: "20",
-    },
-    {
-      customer: "Amazon",
-      channel: "Pureplay",
-      sellinforecastartefact: "300",
-      sellinforecastreckitt: "500",
-      currentallocation: "200.Y",
-      allcConsumedDate: "50",
-      remAllocation: "150",
-      openOrders: "50",
-      expectServiceLevel: "100%",
-      custSohcurrent: "500",
-      custSohTarget: "600",
-      custWoccurrent: "300",
-      custWocTarget: "400",
-      price: "£6.00",
-      cmuScore: "4.4",
-      stockSafeRealloc: "100",
-      suggAlloc: "100",
-      testReallocation: "20",
-    },
-    {
-      customer: "Amazon",
-      channel: "Pureplay",
-      sellinforecastartefact: "300",
-      sellinforecastreckitt: "500",
-      currentallocation: "200.X",
-      allcConsumedDate: "50",
-      remAllocation: "150",
-      openOrders: "50",
-      expectServiceLevel: "100%",
-      custSohcurrent: "500",
-      custSohTarget: "600",
-      custWoccurrent: "300",
-      custWocTarget: "400",
-      price: "£6.00",
-      cmuScore: "4.4",
-      stockSafeRealloc: "100",
-      suggAlloc: "100",
-      testReallocation: "20",
-    },
-    {
-      customer: "Amazon",
-      channel: "Pureplay",
-      sellinforecastartefact: "300",
-      sellinforecastreckitt: "500",
-      currentallocation: "200.Y",
-      allcConsumedDate: "50",
-      remAllocation: "150",
-      openOrders: "50",
-      expectServiceLevel: "100%",
-      custSohcurrent: "500",
-      custSohTarget: "600",
-      custWoccurrent: "300",
-      custWocTarget: "400",
-      price: "£6.00",
-      cmuScore: "4.4",
-      stockSafeRealloc: "100",
-      suggAlloc: "100",
-      testReallocation: "20",
-    },
-  ]);
+  const data = useSelector((state) => state.sidebar.stockreallocation);
+  console.log(data);
+  // const [data, setData] = useState([
+  //   {
+  //     customer: "Amazon",
+  //     channel: "Pureplay",
+  //     sellinforecastartefact: "300",
+  //     sellinforecastreckitt: "500",
+  //     currentallocation: "200.X",
+  //     allcConsumedDate: "50",
+  //     remAllocation: "150",
+  //     openOrders: "50",
+  //     expectServiceLevel: "100%",
+  //     custSohcurrent: "600",
+  //     custSohTarget: "600",
+  //     custWoccurrent: "300",
+  //     custWocTarget: "400",
+  //     price: "£6.00",
+  //     cmuScore: "4.4",
+  //     stockSafeRealloc: "100",
+  //     suggAlloc: "100",
+  //     testReallocation: "20",
+  //   },
+  //   {
+  //     customer: "Amazon",
+  //     channel: "Pureplay",
+  //     sellinforecastartefact: "300",
+  //     sellinforecastreckitt: "500",
+  //     currentallocation: "200.Y",
+  //     allcConsumedDate: "50",
+  //     remAllocation: "150",
+  //     openOrders: "50",
+  //     expectServiceLevel: "100%",
+  //     custSohcurrent: "500",
+  //     custSohTarget: "600",
+  //     custWoccurrent: "300",
+  //     custWocTarget: "400",
+  //     price: "£6.00",
+  //     cmuScore: "4.4",
+  //     stockSafeRealloc: "100",
+  //     suggAlloc: "100",
+  //     testReallocation: "20",
+  //   },
+  //   {
+  //     customer: "Amazon",
+  //     channel: "Pureplay",
+  //     sellinforecastartefact: "300",
+  //     sellinforecastreckitt: "500",
+  //     currentallocation: "200.Y",
+  //     allcConsumedDate: "50",
+  //     remAllocation: "150",
+  //     openOrders: "50",
+  //     expectServiceLevel: "100%",
+  //     custSohcurrent: "500",
+  //     custSohTarget: "600",
+  //     custWoccurrent: "300",
+  //     custWocTarget: "400",
+  //     price: "£6.00",
+  //     cmuScore: "4.4",
+  //     stockSafeRealloc: "100",
+  //     suggAlloc: "100",
+  //     testReallocation: "20",
+  //   },
+  //   {
+  //     customer: "Amazon",
+  //     channel: "Pureplay",
+  //     sellinforecastartefact: "300",
+  //     sellinforecastreckitt: "500",
+  //     currentallocation: "200.X",
+  //     allcConsumedDate: "50",
+  //     remAllocation: "150",
+  //     openOrders: "50",
+  //     expectServiceLevel: "100%",
+  //     custSohcurrent: "500",
+  //     custSohTarget: "600",
+  //     custWoccurrent: "300",
+  //     custWocTarget: "400",
+  //     price: "£6.00",
+  //     cmuScore: "4.4",
+  //     stockSafeRealloc: "100",
+  //     suggAlloc: "100",
+  //     testReallocation: "20",
+  //   },
+  //   {
+  //     customer: "Amazon",
+  //     channel: "Pureplay",
+  //     sellinforecastartefact: "300",
+  //     sellinforecastreckitt: "500",
+  //     currentallocation: "200.Y",
+  //     allcConsumedDate: "50",
+  //     remAllocation: "150",
+  //     openOrders: "50",
+  //     expectServiceLevel: "100%",
+  //     custSohcurrent: "500",
+  //     custSohTarget: "600",
+  //     custWoccurrent: "300",
+  //     custWocTarget: "400",
+  //     price: "£6.00",
+  //     cmuScore: "4.4",
+  //     stockSafeRealloc: "100",
+  //     suggAlloc: "100",
+  //     testReallocation: "20",
+  //   },
+  //   {
+  //     customer: "Amazon",
+  //     channel: "Pureplay",
+  //     sellinforecastartefact: "300",
+  //     sellinforecastreckitt: "500",
+  //     currentallocation: "200.X",
+  //     allcConsumedDate: "50",
+  //     remAllocation: "150",
+  //     openOrders: "50",
+  //     expectServiceLevel: "100%",
+  //     custSohcurrent: "500",
+  //     custSohTarget: "600",
+  //     custWoccurrent: "300",
+  //     custWocTarget: "400",
+  //     price: "£6.00",
+  //     cmuScore: "4.4",
+  //     stockSafeRealloc: "100",
+  //     suggAlloc: "100",
+  //     testReallocation: "20",
+  //   },
+  //   {
+  //     customer: "Amazon",
+  //     channel: "Pureplay",
+  //     sellinforecastartefact: "300",
+  //     sellinforecastreckitt: "500",
+  //     currentallocation: "200.Y",
+  //     allcConsumedDate: "50",
+  //     remAllocation: "150",
+  //     openOrders: "50",
+  //     expectServiceLevel: "100%",
+  //     custSohcurrent: "500",
+  //     custSohTarget: "600",
+  //     custWoccurrent: "300",
+  //     custWocTarget: "400",
+  //     price: "£6.00",
+  //     cmuScore: "4.4",
+  //     stockSafeRealloc: "100",
+  //     suggAlloc: "100",
+  //     testReallocation: "20",
+  //   },
+  // ]);
   const [selectAll, setSelectAll] = useState(false);
   const [selectedRowsData, setselectedRowsData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: "id", direction: "asc" });
@@ -173,7 +175,7 @@ const StockReallocationData = ({ onData }) => {
       if (a[property] > b[property]) return direction === "asc" ? 1 : -1;
       return 0;
     });
-    setData(sortedData);
+    // setData(sortedData);
     setSortConfig({ key: property, direction });
   };
   // var selectedRowsData = [];
@@ -184,7 +186,7 @@ const StockReallocationData = ({ onData }) => {
         ...item,
         checkbox: checked,
       }));
-      setData(updatedData);
+      // setData(updatedData);
       setSelectAll(checked);
 
       // setselectedRowsData((prevDataArray) => [...prevDataArray, data]);
@@ -200,7 +202,7 @@ const StockReallocationData = ({ onData }) => {
         }
         return item;
       });
-      setData(updatedData);
+      //setData(updatedData);
       setSelectAll(updatedData.every((item) => item.checkbox));
     }
   };
@@ -271,7 +273,7 @@ const StockReallocationData = ({ onData }) => {
                   textAlign: "center",
                 }}
               >
-                {data[0].customer}
+                {data[0].Customer}
               </TableCell>
               <TableCell
                 sx={{
@@ -279,7 +281,7 @@ const StockReallocationData = ({ onData }) => {
                   textAlign: "center",
                 }}
               >
-                {data[0].channel}
+                {data[0].Channel}
               </TableCell>
               <TableCell
                 sx={{
@@ -288,9 +290,7 @@ const StockReallocationData = ({ onData }) => {
                 }}
               >
                 <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                  <Typography fontSize={15}>
-                    {data[0].sellinforecastartefact}
-                  </Typography>
+                  <Typography fontSize={15}>{data[0]["sif-atf"]}</Typography>
                   <Typography
                     fontSize={13}
                     sx={{
@@ -299,7 +299,7 @@ const StockReallocationData = ({ onData }) => {
                       color: "#6e8c78",
                     }}
                   >
-                    {data[0].sellinforecastreckitt}
+                    {data[0]["sif-reckitt"]}
                   </Typography>
                 </Box>
               </TableCell>{" "}
@@ -315,10 +315,10 @@ const StockReallocationData = ({ onData }) => {
                 sx={{
                   backgroundColor: "rgb(198 223 215)",
                   textAlign: "center",
-                  width:80
+                  width: 80,
                 }}
               >
-                {data[0].allcConsumedDate}
+                {data[0].allocationconsumed}
               </TableCell>
               <TableCell
                 sx={{
@@ -326,7 +326,7 @@ const StockReallocationData = ({ onData }) => {
                   textAlign: "center",
                 }}
               >
-                {data[0].remAllocation}
+                {data[0].remainingallocation}
               </TableCell>
               <TableCell
                 sx={{
@@ -334,7 +334,7 @@ const StockReallocationData = ({ onData }) => {
                   textAlign: "center",
                 }}
               >
-                {data[0].openOrders}
+                {data[0].openorders}
               </TableCell>
               <TableCell
                 sx={{
@@ -342,7 +342,7 @@ const StockReallocationData = ({ onData }) => {
                   textAlign: "center",
                 }}
               >
-                {data[0].expectServiceLevel}
+                {data[0].expectedservicelevel}
               </TableCell>
               <TableCell
                 sx={{
@@ -355,12 +355,12 @@ const StockReallocationData = ({ onData }) => {
                     fontSize={15}
                     sx={{
                       color:
-                        data[0].custSohcurrent >= data[0].custSohTarget
+                        data[0]["custsoh-current"] >= data[0]["custsoh-target"]
                           ? "green"
                           : "red",
                     }}
                   >
-                    {data[0].custSohcurrent}
+                    {data[0]["custsoh-current"]}
                   </Typography>
                   <Typography
                     fontSize={13}
@@ -371,7 +371,7 @@ const StockReallocationData = ({ onData }) => {
                       color: "#6e8c78",
                     }}
                   >
-                    {data[0].custSohTarget}
+                    {data[0]["custsoh-target"]}
                   </Typography>
                 </Box>
               </TableCell>
@@ -386,12 +386,12 @@ const StockReallocationData = ({ onData }) => {
                     fontSize={15}
                     sx={{
                       color:
-                        data[0].custWoccurrent >= data[0].custWocTarget
+                        data[0]["custwoc-current"] >= data[0]["custwoc-target"]
                           ? "green"
                           : "red",
                     }}
                   >
-                    {data[0].custWoccurrent}
+                    {data[0]["custwoc-current"]}
                   </Typography>
                   <Typography
                     fontSize={13}
@@ -402,7 +402,7 @@ const StockReallocationData = ({ onData }) => {
                       color: "#6e8c78",
                     }}
                   >
-                    {data[0].custWocTarget}
+                    {data[0]["custwoc-target"]}
                   </Typography>
                 </Box>
               </TableCell>
@@ -412,7 +412,7 @@ const StockReallocationData = ({ onData }) => {
                   textAlign: "center",
                 }}
               >
-                {data[0].cmuScore}
+                {data[0].cmuscore}
               </TableCell>
               <TableCell
                 sx={{
@@ -420,7 +420,7 @@ const StockReallocationData = ({ onData }) => {
                   textAlign: "center",
                 }}
               >
-                {data[0].stockSafeRealloc}
+                {data[0].stocksafetoreallocate}
               </TableCell>
               <TableCell
                 sx={{
@@ -428,7 +428,7 @@ const StockReallocationData = ({ onData }) => {
                   textAlign: "center",
                 }}
               >
-                {data[0].suggAlloc}
+                {data[0].suggestedallocation}
               </TableCell>
               <TableCell
                 sx={{
@@ -436,7 +436,7 @@ const StockReallocationData = ({ onData }) => {
                   textAlign: "center",
                 }}
               >
-                {data[0].testReallocation}
+                0
               </TableCell>
             </TableRow>
             {data.map((item, index) => (
@@ -447,13 +447,11 @@ const StockReallocationData = ({ onData }) => {
                   backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
                 }}
               >
-                <TableCell>{item.customer}</TableCell>
-                <TableCell>{item.channel}</TableCell>
+                <TableCell>{item.Customer}</TableCell>
+                <TableCell>{item.Channel}</TableCell>
                 <TableCell>
                   <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                    <Typography fontSize={15}>
-                      {item.sellinforecastartefact}
-                    </Typography>
+                    <Typography fontSize={15}>{item["sif-atf"]}</Typography>
                     <Typography
                       fontSize={13}
                       sx={{
@@ -462,7 +460,7 @@ const StockReallocationData = ({ onData }) => {
                         color: "#6e8c78",
                       }}
                     >
-                      {item.sellinforecastreckitt}
+                      {item["sif-reckitt"]}
                     </Typography>
                   </Box>
                 </TableCell>
@@ -470,16 +468,16 @@ const StockReallocationData = ({ onData }) => {
                   {item.currentallocation}
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
-                  {item.allcConsumedDate}
+                  {item.allocationconsumed}
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
-                  {item.remAllocation}
+                  {item.remainingallocation}
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
-                  {item.openOrders}
+                  {item.openorders}
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
-                  {item.expectServiceLevel}
+                  {item.expectedservicelevel}
                 </TableCell>
                 <TableCell>
                   <Box display="flex" sx={{ paddingLeft: "15px" }}>
@@ -487,12 +485,12 @@ const StockReallocationData = ({ onData }) => {
                       fontSize={15}
                       sx={{
                         color:
-                          item.custSohcurrent >= item.custSohTarget
+                          item["custsoh-current"] >= item["custsoh-target"]
                             ? "green"
                             : "red",
                       }}
                     >
-                      {item.custSohcurrent}
+                      {item["custsoh-current"]}
                     </Typography>
                     <Typography
                       fontSize={13}
@@ -503,7 +501,7 @@ const StockReallocationData = ({ onData }) => {
                         color: "#6e8c78",
                       }}
                     >
-                      {item.custSohTarget}
+                      {item["custsoh-target"]}
                     </Typography>
                   </Box>
                 </TableCell>
@@ -513,12 +511,12 @@ const StockReallocationData = ({ onData }) => {
                       fontSize={15}
                       sx={{
                         color:
-                          item.custWoccurrent > item.custWocTarget
+                          item["custwoc-current"] > item["custwoc-target"]
                             ? "green"
                             : "red",
                       }}
                     >
-                      {item.custWoccurrent}
+                      {item["custwoc-current"]}
                     </Typography>
                     <Typography
                       fontSize={13}
@@ -529,18 +527,18 @@ const StockReallocationData = ({ onData }) => {
                         color: "#6e8c78",
                       }}
                     >
-                      {item.custWocTarget}
+                      {item["custwoc-target"]}
                     </Typography>
                   </Box>
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
-                  {item.cmuScore}
+                  {item.cmuscore}
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
-                  {item.stockSafeRealloc}
+                  {item.stocksafetoreallocate}
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
-                  {item.suggAlloc}
+                  {item.suggestedallocation}
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
                   <Box

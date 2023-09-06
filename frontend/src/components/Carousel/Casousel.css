@@ -1,8 +1,11 @@
 .carouselcls.css-ohwg9z .css-1abc02a {
     top: 98px !important;
+    margin-inline: 670px;
 }
 .carouselcls.css-ohwg9z .css-hn784z {
     top: 98px !important;
+    margin-inline: 670px;
+
 }
 
 .carouselcls.css-ohwg9z .css-e8vs8u {
@@ -14,4 +17,8 @@
     background-color: "415A6C" !important;
     opacity: 0.6 !important;
 
+}
+
+.carouselcls.css-ohwg9z button {
+    margin-bottom: 17px !important;
 }

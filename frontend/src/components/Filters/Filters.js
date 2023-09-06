@@ -44,15 +44,20 @@ const Filters = () => {
   const handleApplyFilters = async (e) => {
     e.preventDefault();
     dispatch(updateloader(true));
-    var data = { brand, customer, location, business };
+    var data = {
+      Brand: brand,
+      Customer: customer,
+      Location: location,
+      "Business Unit": business,
+    };
     console.log(data);
     try {
-      const response = await fetch("http://localhost:5000//getfilterparams", {
+      const response = await fetch("http://localhost:5000/getfilterparams", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: data,
+        body: JSON.stringify(data),
       });
 
       if (response.ok) {

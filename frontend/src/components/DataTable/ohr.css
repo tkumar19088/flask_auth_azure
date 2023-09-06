@@ -63,6 +63,9 @@
     background-color: #415A6C;
     color: #fff;
   }
+  .ms-grid:hover {
+    background-color: #FF007F,
+  }
 
   .table-h1-title{
     font-size: 14px !important;

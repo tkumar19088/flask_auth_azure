@@ -23,13 +23,20 @@ const Planning = ({ filterStatus }) => {
     setreallocationselectedBG(false);
     setoosriskselectedBG(true);
     fetchData();
-    navigate("/overviewhighrisk");
   };
   const fetchData = async () => {
     dispatch(updateloader(true));
+    var data = { customer: 0 };
     try {
       const response = await fetch(
-        "http://localhost:5000/getoverviewhighriskdata"
+        "http://localhost:5000/getfilteredoverview",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
       );
       if (response.ok) {
         const json = await response.json();
@@ -68,8 +75,8 @@ const Planning = ({ filterStatus }) => {
   };
 
   return (
-    <div>
-      <Grid mt={3}>
+    <div style={{ marginTop: "20px" }}>
+      <Grid>
         <Grid container spacing={{ md: 2, lg: 2, xl: 5 }} item xs={12} mt={1}>
           <Grid item xs={4}>
             <Box className="pln-cards-header">
