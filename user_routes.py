@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 global_variables = {}
-
+global_userDetails = {}
 
 # ******************************
 # Create the app access objects
@@ -35,6 +35,17 @@ def index():
     else:
         return redirect(url_for("app.login"))
 
+# Login page redirected from index (homepage)
+@app_blueprint.route("/login")
+def login():
+    """
+    The `login` function redirects the user to the authentication URL for logging in.
+    :return: a redirect to the authentication URL.
+    """
+    session["flow"] = _build_auth_code_flow(scopes=app_config.SCOPE)
+    auth_url = session["flow"]["auth_uri"]
+    return redirect(auth_url)
+
 
 # **********************
 # Get User Data objects
@@ -42,17 +53,24 @@ def index():
 @cross_origin()
 @app_blueprint.route("/getuserdata")
 def getuserdata():
+    filters = ['Business Unit', 'Customer', 'Location','Brand']
     if "user" in session:
         uemail = session["user"]["preferred_username"]
         userDetails = UserDataReaderBlobStorage().getUserDetails(uemail)
+        print(f"\n\n{userDetails}\n\n")
+        for filter_key in filters:
+            if filter_key in userDetails.items():
+                global_userDetails[filter_key] = userDetails[filter_key].value
+                print(f"\n\n{global_userDetails}\n\n")
         return userDetails
     else:
         return redirect(url_for("app.login"))
 
 
-# ************************************
-# Get filter parameters from homepage
-# ************************************
+# **************************************************************
+# Get filter parameters from homepage & filter Current status &
+# alerts section to display only relevant data
+# **************************************************************
 @app_blueprint.route('/getfilterparams', methods=['POST'])
 def getfilterparams():
     try:
@@ -65,41 +83,50 @@ def getfilterparams():
         return jsonify(status="error", message=str(e)), 500
 
 
-# # ************************************
-# # Get ALL overview highrisk data
-# # ************************************
-# @app_blueprint.route("/getoverviewhighriskdata")
-# def getoverviewhighriskdata():
-#     overviewdata = AzureBlobReader().read_xls("overviewhighrisksku.xlsx")
-#     sampleohrdata = overviewdata.sample(20)
-#     return json.loads(sampleohrdata.to_json(orient='records'))
+# ************************************
+# Reset filter parameters from homepage
+# ************************************
+@app_blueprint.route('/resetfilterparams', methods=['POST'])
+def resetfilterparams():
+    try:
+        global_variables.clear()
+        return jsonify(status="success", message="Filter params cleared!"), 200
+    except Exception as e:
+        return jsonify(status="error", message=str(e)), 500
 
 
-# # ************************************
-# # Get ALL campaigns by SKU data
-# # ************************************
-# @app_blueprint.route("/getcampaignsdata")
-# def getcampaignsdata():
-#     # excel_blob_name = os.getenv("excel_blob_name")
-#     campaignsdata = AzureBlobReader().read_xls("campaignsbysku.xlsx")
-#     samplecampaignsdata = campaignsdata.sample(20)
-#     return json.loads(samplecampaignsdata.to_json(orient='records'))
+# ************************************
+#     Current Status / Alerts API  #TODO
+# ************************************
+@app_blueprint.route('/getalertsdata', methods=['POST'])
+def getalertsdata():
+    alertsdata = AzureBlobReader().read_csvfile("alertsoverview.csv")
+    filters = ['Business Unit', 'Customer', 'Location','Brand']
 
-
-# *****************************************************
-# Get FILTERED overview highrisk data by filter params
-# *****************************************************
-@app_blueprint.route("/getfilteredoverview", methods=['POST'])
-def getfilteredoverview():
-    data = request.json
-    print(data)
-    if data['customer']:
-        ohr = AzureBlobReader().read_xls("smartola_data.xlsx", sheet="customeroverviewdatarepo")
+    if global_userDetails:
+        for filter_key in filters:
+            if filter_key in global_userDetails.keys():
+                alertsdata = alertsdata[alertsdata[filter_key] == global_userDetails[filter_key]]
+        return json.loads(alertsdata.to_json(orient='records'))
     else:
-        ohr = AzureBlobReader().read_xls("smartola_data.xlsx", sheet="reckittoverviewdatarepo")
+        return jsonify(status="Error", message="Choose above filters to view data"), 500
+
+
+# *****************************************************
+#    Reckitt Tab Overview |||| Customer Tab Overview
+# *****************************************************
+@app_blueprint.route("/getoverview", methods=['POST'])
+def getoverview():
+    data = request.json
+
+    if data['customer']:
+        ohr = AzureBlobReader().read_csvfile("customeroverviewdatarepo.csv")
+        filters = ['Business Unit', 'Location', 'Customer', 'Brand']
+    else:
+        ohr = AzureBlobReader().read_csvfile("reckittoverviewdatarepo.csv")
+        filters = ['Business Unit', 'Location','Brand']
 
     if global_variables:
-        filters = ['Business Unit', 'Location', 'Customer', 'Brand']
         for filter_key in filters:
             if filter_key in global_variables.keys():
                 ohr = ohr[ohr[filter_key] == global_variables[filter_key]]
@@ -108,17 +135,171 @@ def getfilteredoverview():
         return jsonify(status="Error", message="Choose above filters to view data"), 500
 
 
+# ************************************************************************************************
+#    Reckitt Tab Overview |||| Customer Tab Overview  --  EXPORT DATA: Get all RAG filters params 
+# TODO : Should it export data of all tabs or only active tab?
+# ************************************************************************************************
+@app_blueprint.route("/exportoosriskdata", methods=['POST'])
+def exportoosriskdata():
+    data = request.json # request contains the rag filters params & customer = 0|1
+    return jsonify(status="success", message="Data Received!"), 200
 
-# *********************************************
-# Get FILTERED campaigns data by filter params
-# *********************************************
-@app_blueprint.route("/getfilteredcampaigns", methods=['POST'])
-def getfilteredcampaigns():
+
+# *****************************************************
+#                  Reckitt Tab - Supply
+# *****************************************************
+@app_blueprint.route("/getsupply", methods=['POST'])
+def getsupply():
+    ohr = AzureBlobReader().read_csvfile("reckittsupply.csv")
+    filters = ['Business Unit', 'Location','Brand']
+    for filter_key in filters:
+        if filter_key in global_variables.keys():
+            ohr = ohr[ohr[filter_key] == global_variables[filter_key]]
+    return json.loads(ohr.to_json(orient='records'))
+
+
+# *****************************************************
+#                   Reckitt Tab - Demand
+# *****************************************************
+@app_blueprint.route("/getdemand", methods=['POST'])
+def getdemand():
+    ohr = AzureBlobReader().read_csvfile("reckittdemand.csv")
+    filters = ['Business Unit', 'Location','Brand']
+    for filter_key in filters:
+        if filter_key in global_variables.keys():
+            ohr = ohr[ohr[filter_key] == global_variables[filter_key]]
+    return json.loads(ohr.to_json(orient='records'))
+
+
+# *****************************************************
+#          Reckitt Tab - Expected SOH at EOW
+# *****************************************************
+@app_blueprint.route("/getsohateow", methods=['POST'])
+def getsohateow():
+    ohr = AzureBlobReader().read_csvfile("reckittexpecsohateow.csv")
+    filters = ['Business Unit', 'Location','Brand']
+    for filter_key in filters:
+        if filter_key in global_variables.keys():
+            ohr = ohr[ohr[filter_key] == global_variables[filter_key]]
+    return json.loads(ohr.to_json(orient='records'))
+
+
+# *****************************************************
+#          Reckitt Tab - WOC at EOW
+# *****************************************************
+@app_blueprint.route("/getwocateow", methods=['POST'])
+def getwocateow():
+    ohr = AzureBlobReader().read_csvfile("wocateow.csv")
+    filters = ['Business Unit', 'Location','Brand']
+    for filter_key in filters:
+        if filter_key in global_variables.keys():
+            ohr = ohr[ohr[filter_key] == global_variables[filter_key]]
+    return json.loads(ohr.to_json(orient='records'))
+
+
+# *****************************************************
+#          Reckitt Tab - Case Shortages
+# *****************************************************
+@app_blueprint.route("/getcaseshortages", methods=['POST'])
+def getcaseshortages():
+    ohr = AzureBlobReader().read_csvfile("caseshortages.csv")
+    filters = ['Business Unit', 'Location','Brand']
+    for filter_key in filters:
+        if filter_key in global_variables.keys():
+            ohr = ohr[ohr[filter_key] == global_variables[filter_key]]
+    return json.loads(ohr.to_json(orient='records'))
+
+
+# *****************************************************
+#          Reckitt Tab - Expected Service
+# *****************************************************
+@app_blueprint.route("/getexpectedservice", methods=['POST'])
+def getexpectedservice():
+    ohr = AzureBlobReader().read_csvfile("expectedservice.csv")
+    filters = ['Business Unit', 'Location','Brand']
+    for filter_key in filters:
+        if filter_key in global_variables.keys():
+            ohr = ohr[ohr[filter_key] == global_variables[filter_key]]
+    return json.loads(ohr.to_json(orient='records'))
+
+
+# *****************************************************
+# Reckitt Tab - Stock Position |||| Customer Tab - Stock Position
+# *****************************************************
+@app_blueprint.route("/getstockposition", methods=['POST'])
+def getstockposition():
     data = request.json
     if data['customer']:
-        campaigns = AzureBlobReader().read_xls("smartola_data.xlsx", sheet="customercampaignsbysku")
+        ohr = AzureBlobReader().read_csvfile("customerstockposition.csv")
+        filters = ['Business Unit', 'Location', 'Customer', 'Brand']
     else:
-        campaigns = AzureBlobReader().read_xls("smartola_data.xlsx", sheet="reckittcampaignsbysku")
+        ohr = AzureBlobReader().read_csvfile("stockposition.csv")
+        filters = ['Business Unit', 'Location','Brand']
+    for filter_key in filters:
+        if filter_key in global_variables.keys():
+            ohr = ohr[ohr[filter_key] == global_variables[filter_key]]
+    return json.loads(ohr.to_json(orient='records'))
+
+
+# *****************************************************
+#          Customer Tab - Historic ePOS
+# *****************************************************
+@app_blueprint.route("/getcustepos", methods=['POST'])
+def getcustepos():
+    ohr = AzureBlobReader().read_csvfile("customerhistoricepos.csv")
+    filters = ['Business Unit', 'Location', 'Customer','Brand']
+    for filter_key in filters:
+        if filter_key in global_variables.keys():
+            ohr = ohr[ohr[filter_key] == global_variables[filter_key]]
+    return json.loads(ohr.to_json(orient='records'))
+
+
+# *****************************************************
+#          Customer Tab - Sell Out
+# *****************************************************
+@app_blueprint.route("/getcustsellout", methods=['POST'])
+def getcustsellout():
+    ohr = AzureBlobReader().read_csvfile("customersellout.csv")
+    filters = ['Business Unit', 'Location', 'Customer','Brand']
+    for filter_key in filters:
+        if filter_key in global_variables.keys():
+            ohr = ohr[ohr[filter_key] == global_variables[filter_key]]
+    return json.loads(ohr.to_json(orient='records'))
+
+
+# *****************************************************
+#          Customer Tab - Sell In
+# *****************************************************
+@app_blueprint.route("/getcustsellin", methods=['POST'])
+def getcustsellin():
+    ohr = AzureBlobReader().read_csvfile("customersellin.csv")
+    filters = ['Business Unit', 'Location', 'Customer','Brand']
+    for filter_key in filters:
+        if filter_key in global_variables.keys():
+            ohr = ohr[ohr[filter_key] == global_variables[filter_key]]
+    return json.loads(ohr.to_json(orient='records'))
+
+
+# *****************************************************
+#          Customer Tab - OLA
+# *****************************************************
+@app_blueprint.route("/getcustola", methods=['POST'])
+def getcustola():
+    ohr = AzureBlobReader().read_csvfile("customerola.csv")
+    filters = ['Business Unit', 'Location', 'Customer','Brand']
+    for filter_key in filters:
+        if filter_key in global_variables.keys():
+            ohr = ohr[ohr[filter_key] == global_variables[filter_key]]
+    return json.loads(ohr.to_json(orient='records'))
+
+
+# ****************************************************************************
+#      Recent / Upcoming Campaigns by SKU code ||| RECKITT Tab & CUSTOMER Tab
+# ****************************************************************************
+@app_blueprint.route("/getcampaigns", methods=['POST'])
+def getcampaigns():
+    data = request.json
+    campaigns = AzureBlobReader().read_csvfile("reckittcampaignsbysku.csv")
     campaignsbysku = campaigns[campaigns['RB SKU'] == data['rbsku']]
     filters = ['Business Unit', 'Location', 'Customer', 'Brand']
     for filter_key in filters:
@@ -128,7 +309,7 @@ def getfilteredcampaigns():
 
 
 # ******** MITIGATION SCENARIO # 1 *********
-# Get Push alternative SKU data by SKU code
+#      PUSH ALTERNATIVE SKU API
 # ******************************************
 @app_blueprint.route("/getalternativeskus", methods=['POST'])
 def getalternativeskus():
@@ -150,15 +331,28 @@ def getrarbysku():
     return json.loads(samplereallocationdata.to_json(orient='records'))
 
 
-@app_blueprint.route("/login")
-def login():
+# *******************************
+#          LOG OUT API
+# *******************************
+@app_blueprint.route("/logout")
+def logout():
     """
-    The `login` function redirects the user to the authentication URL for logging in.
-    :return: a redirect to the authentication URL.
+    The `logout` function clears the user's session and redirects them to the logout page of the
+    tenant's web session.
+
+    :return: a redirect response.
     """
-    session["flow"] = _build_auth_code_flow(scopes=app_config.SCOPE)
-    auth_url = session["flow"]["auth_uri"]
-    return redirect(auth_url)
+    session.clear()  # Wipe out user and its token cache from session
+    return redirect(  # Also logout from your tenant's web session
+        app_config.AUTHORITY
+        + "/oauth2/v2.0/logout"
+        + "?post_logout_redirect_uri="
+        + url_for("app.index", _external=True)
+    )
+
+# *********************************************
+#       INDIRECT API CALLS & REDIRECTION - BELOW
+# *********************************************
 
 @app_blueprint.route("/redirect")
 def authorized():
@@ -180,22 +374,6 @@ def authorized():
     except ValueError:  # Usually caused by CSRF
         pass  # Simply ignore them
     return redirect(url_for("app.index"))
-
-@app_blueprint.route("/logout")
-def logout():
-    """
-    The `logout` function clears the user's session and redirects them to the logout page of the
-    tenant's web session.
-
-    :return: a redirect response.
-    """
-    session.clear()  # Wipe out user and its token cache from session
-    return redirect(  # Also logout from your tenant's web session
-        app_config.AUTHORITY
-        + "/oauth2/v2.0/logout"
-        + "?post_logout_redirect_uri="
-        + url_for("app.index", _external=True)
-    )
 
 def _load_cache():
     """
