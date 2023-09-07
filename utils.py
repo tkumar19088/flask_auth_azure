@@ -4,7 +4,7 @@ import os
 from flask import jsonify
 from azure.storage.blob import BlobServiceClient
 import pyarrow.parquet as pq
-from io import BytesIO
+import io
 import pandas as pd
 from flask_cors import CORS, cross_origin
 import json
@@ -95,7 +95,7 @@ class UserDataReaderBlobStorage:
 
         # Build stream for data from blob
         stream_downloader = blob_client.download_blob()
-        stream = BytesIO()
+        stream = io.BytesIO()
         stream_downloader.readinto(stream)
         return stream
 
@@ -153,7 +153,6 @@ class AzureBlobReader:
         from the Azure Blob Storage container
         :return: a stream object that contains the data from the specified blob.
         """
-        
         # Get container name
         blobcontainer = os.getenv("container_name")
 
@@ -163,19 +162,32 @@ class AzureBlobReader:
 
         # Build stream for data from blob
         stream_downloader = blob_client.download_blob()
-        stream = BytesIO()
-        stream_downloader.readinto(stream)
-        return stream
+        return stream_downloader
 
     def read_xls(self, blob_name=None, sheet=None):
         """
         The function reads an Excel file from a blob storage and returns the data as a pandas DataFrame.
-        
+
         :param blob_name: The parameter "blob_name" is the name of the blob file that you want to read.
         It is used to identify the specific blob file that you want to read data from
         :return: a pandas DataFrame object that is created by reading an Excel file.
         """
-        
         # Get blob client
-        stream = self.buildclient(blob_name)
+        stream_downloader = self.buildclient(blob_name)
+        stream = io.BytesIO()
+        stream_downloader.readinto(stream)
         return pd.read_excel(stream, sheet_name=sheet)
+
+    def read_csvfile(self, blob_name=None):
+        """
+        The function reads a CSV file from a blob storage and returns the data as a pandas DataFrame.
+
+        :param blob_name: The `blob_name` parameter is the name of the blob file that you want to read.
+        It is used to identify the specific blob file that you want to retrieve and read as a CSV file
+        :return: a pandas DataFrame object that contains the data read from the CSV file.
+        """
+        # Get blob client
+        stream_downloader = self.buildclient(blob_name)
+        blob_content = stream_downloader.content_as_bytes()
+        csv_data = io.StringIO(blob_content.decode('utf-8'))
+        return pd.read_csv(csv_data)
