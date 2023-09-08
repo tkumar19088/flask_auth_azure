@@ -1776,6 +1776,16 @@ const OhrTable = ({ onData }) => {
             </TableRow>
           </TableHead>
           <TableBody>
+            {data.length == 0 && (
+              <TableRow>
+                <TableCell
+                  colSpan={20}
+                  style={{ textAlign: "center", fontSize: "16px" }}
+                >
+                  No Records Found
+                </TableCell>
+              </TableRow>
+            )}
             {data ? (
               data.map((item, index) => (
                 <React.Fragment key={item["RB SKU"]}>
@@ -1882,7 +1892,7 @@ const OhrTable = ({ onData }) => {
                     </TableCell>
                     <TableCell style={{ textAlign: "center" }}>
                       <Typography mx="7px" fontSize="13px">
-                        {item["Reckitt WOC"]}
+                        {item["WOC CW"] == null ? "-" : item["WOC CW"]}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -1899,22 +1909,22 @@ const OhrTable = ({ onData }) => {
                           fontSize: "13px",
                         }}
                       >
-                        {item["SL CW"]}
+                        {item["Service CW"]}
                       </Typography>
                     </TableCell>
                     <TableCell style={{ textAlign: "center", width: "20px" }}>
                       <Typography mx="6px" fontSize="13px">
-                        {item["SL CW+1"]}
+                        {item["Service CW+1"]}
                       </Typography>
                     </TableCell>
                     <TableCell style={{ textAlign: "center", width: "20px" }}>
                       <Typography mx="6px" fontSize="13px">
-                        {item["SL CW+2"]}
+                        {item["Service CW+2"]}
                       </Typography>
                     </TableCell>
                     <TableCell style={{ textAlign: "center", width: "20px" }}>
                       <Typography mx="6px" fontSize="13px">
-                        {item["SL CW+3"]}
+                        {item["Service CW+3"]}
                       </Typography>
                     </TableCell>
                     <TableCell style={{ textAlign: "center", width: "20px" }}>

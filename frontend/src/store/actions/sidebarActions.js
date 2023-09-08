@@ -49,6 +49,12 @@ export const fetchoverviewhighriskdata = (newValue) => {
     payload: newValue,
   };
 };
+export const fetchoverviewcustomerdata = (newValue) => {
+  return {
+    type: "FETCH_OVERVIEWCUSTOMERDATA",
+    payload: newValue,
+  };
+};
 export const fetchexpandeditem = (newValue) => {
   return {
     type: "FETCH_EXPANDEDITEM",
@@ -61,9 +67,87 @@ export const updateloader = (newValue) => {
     payload: newValue,
   };
 };
+export const updatecustomer = (newValue) => {
+  return {
+    type: "UPDATE_CUSTOMER",
+    payload: newValue,
+  };
+};
 export const fetchstockreallocatedata = (newValue) => {
   return {
     type: "FETCH_STOCKREALLOCATIONDATA",
+    payload: newValue,
+  };
+};
+export const fetchreckittsupply = (newValue) => {
+  return {
+    type: "FETCH_RECKITTSUPPLY",
+    payload: newValue,
+  };
+};
+export const fetchreckittdemand = (newValue) => {
+  return {
+    type: "FETCH_RECKITTDEMAND",
+    payload: newValue,
+  };
+};
+export const fetchreckittexpectedsoh = (newValue) => {
+  return {
+    type: "FETCH_RECKITTEXPECTEDSOH",
+    payload: newValue,
+  };
+};
+export const fetchreckittwoc = (newValue) => {
+  return {
+    type: "FETCH_RECKITTWOC",
+    payload: newValue,
+  };
+};
+export const fetchreckittcaseshortages = (newValue) => {
+  return {
+    type: "FETCH_RECKITTCASESHORTAGES",
+    payload: newValue,
+  };
+};
+export const fetchreckittexpectedservice = (newValue) => {
+  return {
+    type: "FETCH_RECKITTEXPECTEDSERVICE",
+    payload: newValue,
+  };
+};
+export const fetchreckittstockposition = (newValue) => {
+  return {
+    type: "FETCH_RECKITTSTOCKPOSITION",
+    payload: newValue,
+  };
+};
+export const fetchcustomerhestoric = (newValue) => {
+  return {
+    type: "FETCH_CUSTOMERHESTORIC",
+    payload: newValue,
+  };
+};
+export const fetchcustomersellout = (newValue) => {
+  return {
+    type: "FETCH_CUSTOMERSELLOUT",
+    payload: newValue,
+  };
+};
+export const fetchcustomersellin = (newValue) => {
+  return {
+    type: "FETCH_CUSTOMERSELLIN",
+    payload: newValue,
+  };
+};
+export const fetchcustomerstockposition = (newValue) => {
+  return {
+    type: "FETCH_CUSTOMERSTOCKPOSITION",
+    payload: newValue,
+  };
+};
+export const fetchcustomerola = (newValue) => {
+  return {
+    type: "FETCH_CUSTOMEROLA",
     payload: newValue,
   };
 };

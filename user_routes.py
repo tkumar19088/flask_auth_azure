@@ -86,7 +86,7 @@ def getfilterparams():
 # ************************************
 # Reset filter parameters from homepage
 # ************************************
-@app_blueprint.route('/resetfilterparams', methods=['POST'])
+@app_blueprint.route('/resetfilterparams')
 def resetfilterparams():
     try:
         global_variables.clear()
@@ -120,10 +120,10 @@ def getoverview():
     data = request.json
 
     if data['customer']:
-        ohr = AzureBlobReader().read_csvfile("customeroverviewdatarepo.csv")
+        ohr = AzureBlobReader().read_csvfile("ui_data/customeroverviewdatarepo.csv")
         filters = ['Business Unit', 'Location', 'Customer', 'Brand']
     else:
-        ohr = AzureBlobReader().read_csvfile("reckittoverviewdatarepo.csv")
+        ohr = AzureBlobReader().read_csvfile("ui_data/reckittoverviewdatarepo.csv")
         filters = ['Business Unit', 'Location','Brand']
 
     if global_variables:
@@ -150,7 +150,7 @@ def exportoosriskdata():
 # *****************************************************
 @app_blueprint.route("/getsupply", methods=['POST'])
 def getsupply():
-    ohr = AzureBlobReader().read_csvfile("reckittsupply.csv")
+    ohr = AzureBlobReader().read_csvfile("ui_data/reckittsupply.csv")
     filters = ['Business Unit', 'Location','Brand']
     for filter_key in filters:
         if filter_key in global_variables.keys():
@@ -163,7 +163,7 @@ def getsupply():
 # *****************************************************
 @app_blueprint.route("/getdemand", methods=['POST'])
 def getdemand():
-    ohr = AzureBlobReader().read_csvfile("reckittdemand.csv")
+    ohr = AzureBlobReader().read_csvfile("ui_data/reckittdemand.csv")
     filters = ['Business Unit', 'Location','Brand']
     for filter_key in filters:
         if filter_key in global_variables.keys():
@@ -176,7 +176,7 @@ def getdemand():
 # *****************************************************
 @app_blueprint.route("/getsohateow", methods=['POST'])
 def getsohateow():
-    ohr = AzureBlobReader().read_csvfile("reckittexpecsohateow.csv")
+    ohr = AzureBlobReader().read_csvfile("ui_data/reckittexpecsohateow.csv")
     filters = ['Business Unit', 'Location','Brand']
     for filter_key in filters:
         if filter_key in global_variables.keys():
@@ -189,7 +189,7 @@ def getsohateow():
 # *****************************************************
 @app_blueprint.route("/getwocateow", methods=['POST'])
 def getwocateow():
-    ohr = AzureBlobReader().read_csvfile("wocateow.csv")
+    ohr = AzureBlobReader().read_csvfile("ui_data/wocateow.csv")
     filters = ['Business Unit', 'Location','Brand']
     for filter_key in filters:
         if filter_key in global_variables.keys():
@@ -202,7 +202,7 @@ def getwocateow():
 # *****************************************************
 @app_blueprint.route("/getcaseshortages", methods=['POST'])
 def getcaseshortages():
-    ohr = AzureBlobReader().read_csvfile("caseshortages.csv")
+    ohr = AzureBlobReader().read_csvfile("ui_data/caseshortages.csv")
     filters = ['Business Unit', 'Location','Brand']
     for filter_key in filters:
         if filter_key in global_variables.keys():
@@ -215,7 +215,7 @@ def getcaseshortages():
 # *****************************************************
 @app_blueprint.route("/getexpectedservice", methods=['POST'])
 def getexpectedservice():
-    ohr = AzureBlobReader().read_csvfile("expectedservice.csv")
+    ohr = AzureBlobReader().read_csvfile("ui_data/expectedservice.csv")
     filters = ['Business Unit', 'Location','Brand']
     for filter_key in filters:
         if filter_key in global_variables.keys():
@@ -230,10 +230,10 @@ def getexpectedservice():
 def getstockposition():
     data = request.json
     if data['customer']:
-        ohr = AzureBlobReader().read_csvfile("customerstockposition.csv")
+        ohr = AzureBlobReader().read_csvfile("ui_data/customerstockposition.csv")
         filters = ['Business Unit', 'Location', 'Customer', 'Brand']
     else:
-        ohr = AzureBlobReader().read_csvfile("stockposition.csv")
+        ohr = AzureBlobReader().read_csvfile("ui_data/stockposition.csv")
         filters = ['Business Unit', 'Location','Brand']
     for filter_key in filters:
         if filter_key in global_variables.keys():
@@ -246,7 +246,7 @@ def getstockposition():
 # *****************************************************
 @app_blueprint.route("/getcustepos", methods=['POST'])
 def getcustepos():
-    ohr = AzureBlobReader().read_csvfile("customerhistoricepos.csv")
+    ohr = AzureBlobReader().read_csvfile("ui_data/customerhistoricepos.csv")
     filters = ['Business Unit', 'Location', 'Customer','Brand']
     for filter_key in filters:
         if filter_key in global_variables.keys():
@@ -259,7 +259,7 @@ def getcustepos():
 # *****************************************************
 @app_blueprint.route("/getcustsellout", methods=['POST'])
 def getcustsellout():
-    ohr = AzureBlobReader().read_csvfile("customersellout.csv")
+    ohr = AzureBlobReader().read_csvfile("ui_data/customersellout.csv")
     filters = ['Business Unit', 'Location', 'Customer','Brand']
     for filter_key in filters:
         if filter_key in global_variables.keys():
@@ -272,7 +272,7 @@ def getcustsellout():
 # *****************************************************
 @app_blueprint.route("/getcustsellin", methods=['POST'])
 def getcustsellin():
-    ohr = AzureBlobReader().read_csvfile("customersellin.csv")
+    ohr = AzureBlobReader().read_csvfile("ui_data/customersellin.csv")
     filters = ['Business Unit', 'Location', 'Customer','Brand']
     for filter_key in filters:
         if filter_key in global_variables.keys():
@@ -285,7 +285,7 @@ def getcustsellin():
 # *****************************************************
 @app_blueprint.route("/getcustola", methods=['POST'])
 def getcustola():
-    ohr = AzureBlobReader().read_csvfile("customerola.csv")
+    ohr = AzureBlobReader().read_csvfile("ui_data/customerola.csv")
     filters = ['Business Unit', 'Location', 'Customer','Brand']
     for filter_key in filters:
         if filter_key in global_variables.keys():
@@ -299,7 +299,7 @@ def getcustola():
 @app_blueprint.route("/getcampaigns", methods=['POST'])
 def getcampaigns():
     data = request.json
-    campaigns = AzureBlobReader().read_csvfile("reckittcampaignsbysku.csv")
+    campaigns = AzureBlobReader().read_csvfile("ui_data/reckittcampaignsbysku.csv")
     campaignsbysku = campaigns[campaigns['RB SKU'] == data['rbsku']]
     filters = ['Business Unit', 'Location', 'Customer', 'Brand']
     for filter_key in filters:

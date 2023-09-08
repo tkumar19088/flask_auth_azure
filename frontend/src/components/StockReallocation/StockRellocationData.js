@@ -266,179 +266,194 @@ const StockReallocationData = ({ onData }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
-              <TableCell
-                sx={{
-                  backgroundColor: "rgb(198 223 215)",
-                  textAlign: "center",
-                }}
-              >
-                {data[0].Customer}
-              </TableCell>
-              <TableCell
-                sx={{
-                  backgroundColor: "rgb(198 223 215)",
-                  textAlign: "center",
-                }}
-              >
-                {data[0].Channel}
-              </TableCell>
-              <TableCell
-                sx={{
-                  backgroundColor: "rgb(198 223 215)",
-                  textAlign: "center",
-                }}
-              >
-                <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                  <Typography fontSize={15}>{data[0]["sif-atf"]}</Typography>
-                  <Typography
-                    fontSize={13}
-                    sx={{
-                      marginLeft: "12px",
-                      marginTop: "10px",
-                      color: "#6e8c78",
-                    }}
-                  >
-                    {data[0]["sif-reckitt"]}
-                  </Typography>
-                </Box>
-              </TableCell>{" "}
-              <TableCell
-                sx={{
-                  backgroundColor: "rgb(198 223 215)",
-                  textAlign: "center",
-                }}
-              >
-                {data[0].currentallocation}
-              </TableCell>
-              <TableCell
-                sx={{
-                  backgroundColor: "rgb(198 223 215)",
-                  textAlign: "center",
-                  width: 80,
-                }}
-              >
-                {data[0].allocationconsumed}
-              </TableCell>
-              <TableCell
-                sx={{
-                  backgroundColor: "rgb(198 223 215)",
-                  textAlign: "center",
-                }}
-              >
-                {data[0].remainingallocation}
-              </TableCell>
-              <TableCell
-                sx={{
-                  backgroundColor: "rgb(198 223 215)",
-                  textAlign: "center",
-                }}
-              >
-                {data[0].openorders}
-              </TableCell>
-              <TableCell
-                sx={{
-                  backgroundColor: "rgb(198 223 215)",
-                  textAlign: "center",
-                }}
-              >
-                {data[0].expectedservicelevel}
-              </TableCell>
-              <TableCell
-                sx={{
-                  backgroundColor: "rgb(198 223 215)",
-                  textAlign: "center",
-                }}
-              >
-                <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                  <Typography
-                    fontSize={15}
-                    sx={{
-                      color:
-                        data[0]["custsoh-current"] >= data[0]["custsoh-target"]
-                          ? "green"
-                          : "red",
-                    }}
-                  >
-                    {data[0]["custsoh-current"]}
-                  </Typography>
-                  <Typography
-                    fontSize={13}
-                    sx={{
-                      marginLeft: "12px",
-                      marginTop: "10px",
-                      fontWeight: "600",
-                      color: "#6e8c78",
-                    }}
-                  >
-                    {data[0]["custsoh-target"]}
-                  </Typography>
-                </Box>
-              </TableCell>
-              <TableCell
-                sx={{
-                  backgroundColor: "rgb(198 223 215)",
-                  textAlign: "center",
-                }}
-              >
-                <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                  <Typography
-                    fontSize={15}
-                    sx={{
-                      color:
-                        data[0]["custwoc-current"] >= data[0]["custwoc-target"]
-                          ? "green"
-                          : "red",
-                    }}
-                  >
-                    {data[0]["custwoc-current"]}
-                  </Typography>
-                  <Typography
-                    fontSize={13}
-                    sx={{
-                      marginLeft: "12px",
-                      marginTop: "10px",
-                      fontWeight: "600",
-                      color: "#6e8c78",
-                    }}
-                  >
-                    {data[0]["custwoc-target"]}
-                  </Typography>
-                </Box>
-              </TableCell>
-              <TableCell
-                sx={{
-                  backgroundColor: "rgb(198 223 215)",
-                  textAlign: "center",
-                }}
-              >
-                {data[0].cmuscore}
-              </TableCell>
-              <TableCell
-                sx={{
-                  backgroundColor: "rgb(198 223 215)",
-                  textAlign: "center",
-                }}
-              >
-                {data[0].stocksafetoreallocate}
-              </TableCell>
-              <TableCell
-                sx={{
-                  backgroundColor: "rgb(198 223 215)",
-                  textAlign: "center",
-                }}
-              >
-                {data[0].suggestedallocation}
-              </TableCell>
-              <TableCell
-                sx={{
-                  backgroundColor: "rgb(198 223 215)",
-                  textAlign: "center",
-                }}
-              >
-                0
-              </TableCell>
-            </TableRow>
+            {data.length == 0 && (
+              <TableRow>
+                <TableCell
+                  colSpan={20}
+                  style={{ textAlign: "center", fontSize: "16px" }}
+                >
+                  No Records Found
+                </TableCell>
+              </TableRow>
+            )}
+            {data.length > 0 && (
+              <TableRow>
+                <TableCell
+                  sx={{
+                    backgroundColor: "rgb(198 223 215)",
+                    textAlign: "center",
+                  }}
+                >
+                  {data[0].Customer}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    backgroundColor: "rgb(198 223 215)",
+                    textAlign: "center",
+                  }}
+                >
+                  {data[0].Channel}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    backgroundColor: "rgb(198 223 215)",
+                    textAlign: "center",
+                  }}
+                >
+                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                    <Typography fontSize={15}>{data[0]["sif-atf"]}</Typography>
+                    <Typography
+                      fontSize={13}
+                      sx={{
+                        marginLeft: "12px",
+                        marginTop: "10px",
+                        color: "#6e8c78",
+                      }}
+                    >
+                      {data[0]["sif-reckitt"]}
+                    </Typography>
+                  </Box>
+                </TableCell>{" "}
+                <TableCell
+                  sx={{
+                    backgroundColor: "rgb(198 223 215)",
+                    textAlign: "center",
+                  }}
+                >
+                  {data[0].currentallocation}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    backgroundColor: "rgb(198 223 215)",
+                    textAlign: "center",
+                    width: 80,
+                  }}
+                >
+                  {data[0].allocationconsumed}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    backgroundColor: "rgb(198 223 215)",
+                    textAlign: "center",
+                  }}
+                >
+                  {data[0].remainingallocation}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    backgroundColor: "rgb(198 223 215)",
+                    textAlign: "center",
+                  }}
+                >
+                  {data[0].openorders}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    backgroundColor: "rgb(198 223 215)",
+                    textAlign: "center",
+                  }}
+                >
+                  {data[0].expectedservicelevel}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    backgroundColor: "rgb(198 223 215)",
+                    textAlign: "center",
+                  }}
+                >
+                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                    <Typography
+                      fontSize={15}
+                      sx={{
+                        color:
+                          data[0]["custsoh-current"] >=
+                          data[0]["custsoh-target"]
+                            ? "green"
+                            : "red",
+                      }}
+                    >
+                      {data[0]["custsoh-current"]}
+                    </Typography>
+                    <Typography
+                      fontSize={13}
+                      sx={{
+                        marginLeft: "12px",
+                        marginTop: "10px",
+                        fontWeight: "600",
+                        color: "#6e8c78",
+                      }}
+                    >
+                      {data[0]["custsoh-target"]}
+                    </Typography>
+                  </Box>
+                </TableCell>
+                <TableCell
+                  sx={{
+                    backgroundColor: "rgb(198 223 215)",
+                    textAlign: "center",
+                  }}
+                >
+                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                    <Typography
+                      fontSize={15}
+                      sx={{
+                        color:
+                          data[0]["custwoc-current"] >=
+                          data[0]["custwoc-target"]
+                            ? "green"
+                            : "red",
+                      }}
+                    >
+                      {data[0]["custwoc-current"]}
+                    </Typography>
+                    <Typography
+                      fontSize={13}
+                      sx={{
+                        marginLeft: "12px",
+                        marginTop: "10px",
+                        fontWeight: "600",
+                        color: "#6e8c78",
+                      }}
+                    >
+                      {data[0]["custwoc-target"]}
+                    </Typography>
+                  </Box>
+                </TableCell>
+                <TableCell
+                  sx={{
+                    backgroundColor: "rgb(198 223 215)",
+                    textAlign: "center",
+                  }}
+                >
+                  {data[0].cmuscore}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    backgroundColor: "rgb(198 223 215)",
+                    textAlign: "center",
+                  }}
+                >
+                  {data[0].stocksafetoreallocate}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    backgroundColor: "rgb(198 223 215)",
+                    textAlign: "center",
+                  }}
+                >
+                  {data[0].suggestedallocation}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    backgroundColor: "rgb(198 223 215)",
+                    textAlign: "center",
+                  }}
+                >
+                  0
+                </TableCell>
+              </TableRow>
+            )}
+
             {data.map((item, index) => (
               <TableRow
                 key={item.skucode}

@@ -10,25 +10,44 @@ import StockPosition from "./stockPositionTable";
 import OhrTable from "./ohrTable";
 import "react-tabs/style/react-tabs.css";
 import "./FunctionalTabs.css";
-import { useDispatch } from "react-redux";
-import { updateloader } from "../../store/actions/sidebarActions";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  updateloader,
+  fetchoverviewhighriskdata,
+  fetchreckittsupply,
+  fetchreckittdemand,
+  fetchreckittexpectedsoh,
+  fetchreckittwoc,
+  fetchreckittcaseshortages,
+  fetchreckittexpectedservice,
+  fetchreckittstockposition,
+} from "../../store/actions/sidebarActions";
 
 const FunctionalTabs = () => {
   const dispatch = useDispatch();
 
   const [activeTab, setActiveTab] = useState(0);
+  const customer = useSelector((state) => state.sidebar.customer);
 
   const handleTabChange = (index) => {
     setActiveTab(index);
   };
   const handleOverview = async () => {
     dispatch(updateloader(true));
+    var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getuserdata");
+      const response = await fetch("http://localhost:5000/getoverview", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       if (response.ok) {
         const json = await response.json();
         console.log(json);
-        //dispatch(fetchuserdetails(json));
+        // setuserDetails(json.name);
+        dispatch(fetchoverviewhighriskdata(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -40,12 +59,20 @@ const FunctionalTabs = () => {
   };
   const handleSupply = async () => {
     dispatch(updateloader(true));
+    var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getuserdata");
+      const response = await fetch("http://localhost:5000/getsupply", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       if (response.ok) {
         const json = await response.json();
         console.log(json);
-        //dispatch(fetchuserdetails(json));
+        // setuserDetails(json.name);
+        dispatch(fetchreckittsupply(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -57,12 +84,20 @@ const FunctionalTabs = () => {
   };
   const handleDemand = async () => {
     dispatch(updateloader(true));
+    var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getuserdata");
+      const response = await fetch("http://localhost:5000/getdemand", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       if (response.ok) {
         const json = await response.json();
         console.log(json);
-        //dispatch(fetchuserdetails(json));
+        // setuserDetails(json.name);
+        dispatch(fetchreckittdemand(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -74,12 +109,20 @@ const FunctionalTabs = () => {
   };
   const handleExpectedSOH = async () => {
     dispatch(updateloader(true));
+    var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getuserdata");
+      const response = await fetch("http://localhost:5000/getsohateow", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       if (response.ok) {
         const json = await response.json();
         console.log(json);
-        //dispatch(fetchuserdetails(json));
+        // setuserDetails(json.name);
+        dispatch(fetchreckittexpectedsoh(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -91,12 +134,20 @@ const FunctionalTabs = () => {
   };
   const handleWOCatEOW = async () => {
     dispatch(updateloader(true));
+    var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getuserdata");
+      const response = await fetch("http://localhost:5000/getwocateow", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       if (response.ok) {
         const json = await response.json();
         console.log(json);
-        //dispatch(fetchuserdetails(json));
+        // setuserDetails(json.name);
+        dispatch(fetchreckittwoc(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -108,12 +159,20 @@ const FunctionalTabs = () => {
   };
   const handleCaseShortages = async () => {
     dispatch(updateloader(true));
+    var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getuserdata");
+      const response = await fetch("http://localhost:5000/getcaseshortages", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       if (response.ok) {
         const json = await response.json();
         console.log(json);
-        //dispatch(fetchuserdetails(json));
+        // setuserDetails(json.name);
+        dispatch(fetchreckittcaseshortages(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -125,12 +184,20 @@ const FunctionalTabs = () => {
   };
   const handleExpectedService = async () => {
     dispatch(updateloader(true));
+    var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getuserdata");
+      const response = await fetch("http://localhost:5000/getexpectedservice", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       if (response.ok) {
         const json = await response.json();
         console.log(json);
-        //dispatch(fetchuserdetails(json));
+        // setuserDetails(json.name);
+        dispatch(fetchreckittexpectedservice(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -142,12 +209,20 @@ const FunctionalTabs = () => {
   };
   const handleStockPosition = async () => {
     dispatch(updateloader(true));
+    var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getuserdata");
+      const response = await fetch("http://localhost:5000/getstockposition", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       if (response.ok) {
         const json = await response.json();
         console.log(json);
-        //dispatch(fetchuserdetails(json));
+        // setuserDetails(json.name);
+        dispatch(fetchreckittstockposition(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }

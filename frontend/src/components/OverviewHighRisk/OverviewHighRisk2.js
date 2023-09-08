@@ -17,7 +17,12 @@ import "./OverviewHighRisk.css";
 import CustomerTable from "../DataTable/CustomerTable";
 import Ragfilters from "./Ragfiltersdropdown";
 import OhrCustomerTabs from "../DataTable/ohrCustomerTabs";
-import { updateloader } from "../../store/actions/sidebarActions";
+import {
+  updateloader,
+  updatecustomer,
+  fetchoverviewhighriskdata,
+  fetchoverviewcustomerdata,
+} from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 import loaderImage from "../../images/Logo-bar.png";
 
@@ -25,6 +30,7 @@ const OverviewHighRisk2 = () => {
   const dispatch = useDispatch();
 
   const loader = useSelector((state) => state.sidebar.loader);
+  const customer = useSelector((state) => state.sidebar.customer);
 
   const [activeTab, setActiveTab] = useState(0);
 
@@ -65,13 +71,22 @@ const OverviewHighRisk2 = () => {
   }));
 
   const handleReckittOverview = async () => {
+    dispatch(updatecustomer(0));
     dispatch(updateloader(true));
+    var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getuserdata");
+      const response = await fetch("http://localhost:5000/getoverview", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       if (response.ok) {
         const json = await response.json();
         console.log(json);
-        //dispatch(fetchuserdetails(json));
+        // setuserDetails(json.name);
+        dispatch(fetchoverviewhighriskdata(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -82,13 +97,22 @@ const OverviewHighRisk2 = () => {
     }
   };
   const handleCustomerOverview = async () => {
+    dispatch(updatecustomer(1));
     dispatch(updateloader(true));
+    var data = { customer: 1 };
     try {
-      const response = await fetch("http://localhost:5000/getuserdata");
+      const response = await fetch("http://localhost:5000/getoverview", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       if (response.ok) {
         const json = await response.json();
         console.log(json);
-        //dispatch(fetchuserdetails(json));
+        // setuserDetails(json.name);
+        dispatch(fetchoverviewcustomerdata(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }

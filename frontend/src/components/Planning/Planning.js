@@ -16,11 +16,9 @@ const Planning = ({ filterStatus }) => {
 
   const [oosriskselectedBG, setoosriskselectedBG] = useState(false);
   const [irregularselectedBG, setirregularselectedBG] = useState(false);
-  const [reallocationselectedBG, setreallocationselectedBG] = useState(false);
   const handleOOSRisk = () => {
     filterStatus(true);
     setirregularselectedBG(false);
-    setreallocationselectedBG(false);
     setoosriskselectedBG(true);
     fetchData();
   };
@@ -28,16 +26,13 @@ const Planning = ({ filterStatus }) => {
     dispatch(updateloader(true));
     var data = { customer: 0 };
     try {
-      const response = await fetch(
-        "http://localhost:5000/getfilteredoverview",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      const response = await fetch("http://localhost:5000/getoverview", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       if (response.ok) {
         const json = await response.json();
         console.log(json);
@@ -56,14 +51,12 @@ const Planning = ({ filterStatus }) => {
   const handleirregularpo = () => {
     filterStatus(true);
     setoosriskselectedBG(false);
-    setreallocationselectedBG(false);
     setirregularselectedBG(true);
   };
   const handleReallocation = () => {
     filterStatus(true);
     setoosriskselectedBG(false);
     setirregularselectedBG(false);
-    setreallocationselectedBG(true);
   };
 
   const handleSellinforecast = () => {
@@ -171,8 +164,8 @@ const Planning = ({ filterStatus }) => {
               className="pln-card-bd"
               onClick={handleReallocation}
               style={{
-                backgroundColor: reallocationselectedBG ? "#ff007e" : "#fff",
-                color: reallocationselectedBG ? "#fff" : "black",
+                backgroundColor: "#fff",
+                color: "black",
               }}
             >
               <Box className="pln-cards-cnt">

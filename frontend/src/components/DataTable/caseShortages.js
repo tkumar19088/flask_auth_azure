@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const startingWeek = 28;
 
@@ -18,133 +19,135 @@ const CaseShortages = ({ onData }) => {
     navigate(-1);
   };
 
-  const [data, setData] = useState([
-    {
-      rbsku: "010613",
-      ppg: "1234567",
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-      cw4: "6120",
-      cw5: "107",
-      cw6: "1052",
-      cw7: "3200",
-      cw8: "0",
-      cw9: "298",
-    },
-    {
-      rbsku: "010613",
-      ppg: "1234567",
+  const data = useSelector((state) => state.sidebar.reckittcaseshortages);
 
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-      cw4: "6120",
-      cw5: "107",
-      cw6: "1052",
-      cw7: "3200",
-      cw8: "0",
-      cw9: "298",
-    },
-    {
-      rbsku: "010613",
-      ppg: "1234567",
+  // const [data, setData] = useState([
+  //   {
+  //     rbsku: "010613",
+  //     ppg: "1234567",
+  //     desc: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     initsohweek: "743",
+  //     cw: "3429",
+  //     cw1: "0",
+  //     cw2: "0",
+  //     cw3: "2100",
+  //     cw4: "6120",
+  //     cw5: "107",
+  //     cw6: "1052",
+  //     cw7: "3200",
+  //     cw8: "0",
+  //     cw9: "298",
+  //   },
+  //   {
+  //     rbsku: "010613",
+  //     ppg: "1234567",
 
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-      cw4: "6120",
-      cw5: "107",
-      cw6: "1052",
-      cw7: "3200",
-      cw8: "0",
-      cw9: "298",
-    },
-    {
-      rbsku: "010613",
-      ppg: "1234567",
+  //     desc: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     initsohweek: "743",
+  //     cw: "3429",
+  //     cw1: "0",
+  //     cw2: "0",
+  //     cw3: "2100",
+  //     cw4: "6120",
+  //     cw5: "107",
+  //     cw6: "1052",
+  //     cw7: "3200",
+  //     cw8: "0",
+  //     cw9: "298",
+  //   },
+  //   {
+  //     rbsku: "010613",
+  //     ppg: "1234567",
 
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-      cw4: "6120",
-      cw5: "107",
-      cw6: "1052",
-      cw7: "3200",
-      cw8: "0",
-      cw9: "298",
-    },
-    {
-      rbsku: "010613",
-      ppg: "1234567",
+  //     desc: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     initsohweek: "743",
+  //     cw: "3429",
+  //     cw1: "0",
+  //     cw2: "0",
+  //     cw3: "2100",
+  //     cw4: "6120",
+  //     cw5: "107",
+  //     cw6: "1052",
+  //     cw7: "3200",
+  //     cw8: "0",
+  //     cw9: "298",
+  //   },
+  //   {
+  //     rbsku: "010613",
+  //     ppg: "1234567",
 
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-      cw4: "6120",
-      cw5: "107",
-      cw6: "1052",
-      cw7: "3200",
-      cw8: "0",
-      cw9: "298",
-    },
-    {
-      rbsku: "010613",
-      ppg: "1234567",
+  //     desc: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     initsohweek: "743",
+  //     cw: "3429",
+  //     cw1: "0",
+  //     cw2: "0",
+  //     cw3: "2100",
+  //     cw4: "6120",
+  //     cw5: "107",
+  //     cw6: "1052",
+  //     cw7: "3200",
+  //     cw8: "0",
+  //     cw9: "298",
+  //   },
+  //   {
+  //     rbsku: "010613",
+  //     ppg: "1234567",
 
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-      cw4: "6120",
-      cw5: "107",
-      cw6: "1052",
-      cw7: "3200",
-      cw8: "0",
-      cw9: "298",
-    },
-    {
-      rbsku: "010613",
-      ppg: "1234567",
+  //     desc: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     initsohweek: "743",
+  //     cw: "3429",
+  //     cw1: "0",
+  //     cw2: "0",
+  //     cw3: "2100",
+  //     cw4: "6120",
+  //     cw5: "107",
+  //     cw6: "1052",
+  //     cw7: "3200",
+  //     cw8: "0",
+  //     cw9: "298",
+  //   },
+  //   {
+  //     rbsku: "010613",
+  //     ppg: "1234567",
 
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-      cw4: "6120",
-      cw5: "107",
-      cw6: "1052",
-      cw7: "3200",
-      cw8: "0",
-      cw9: "298",
-    },
-  ]);
+  //     desc: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     initsohweek: "743",
+  //     cw: "3429",
+  //     cw1: "0",
+  //     cw2: "0",
+  //     cw3: "2100",
+  //     cw4: "6120",
+  //     cw5: "107",
+  //     cw6: "1052",
+  //     cw7: "3200",
+  //     cw8: "0",
+  //     cw9: "298",
+  //   },
+  //   {
+  //     rbsku: "010613",
+  //     ppg: "1234567",
+
+  //     desc: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     initsohweek: "743",
+  //     cw: "3429",
+  //     cw1: "0",
+  //     cw2: "0",
+  //     cw3: "2100",
+  //     cw4: "6120",
+  //     cw5: "107",
+  //     cw6: "1052",
+  //     cw7: "3200",
+  //     cw8: "0",
+  //     cw9: "298",
+  //   },
+  // ]);
 
   return (
     <div>
@@ -190,8 +193,7 @@ const CaseShortages = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                    Brand
-
+                Brand
               </TableCell>
               <TableCell
                 sx={{
@@ -316,61 +318,71 @@ const CaseShortages = ({ onData }) => {
             </TableRow>
           </TableHead>
           <TableBody>
+            {data.length == 0 && (
+              <TableRow>
+                <TableCell
+                  colSpan={20}
+                  style={{ textAlign: "center", fontSize: "16px" }}
+                >
+                  No Records Found
+                </TableCell>
+              </TableRow>
+            )}
             {data.map((item) => (
-              <TableRow key={item.rbsku}>
+              <TableRow key={item["RB SKU"]}>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item.rbsku}</div>
+                  <div className="alignment">{item["RB SKU"]}</div>
                 </TableCell>{" "}
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item.ppg}</div>
+                  <div className="alignment">{item.PPG}</div>
                 </TableCell>{" "}
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item.desc}</div>
+                  <div className="alignment">{item.Description}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item.rrsegment}</div>
+                  <div className="alignment">{item.Brand}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="alignment">{item.initsohweek}</div>
+                  <div className="alignment">{item["Initial SOH"]}</div>
                 </TableCell>{" "}
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item.cw}</div>
+                  <div className="alignment">{item["Shorts CW"]}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item.cw1}</div>
+                  <div className="alignment">{item["Shorts CW+1"]}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="alignment">{item.cw2}</div>
+                  <div className="alignment">{item["Shorts CW+2"]}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="alignment">{item.cw3}</div>
+                  <div className="alignment">{item["Shorts CW+3"]}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="alignment">{item.cw4}</div>
-                </TableCell>
-                <TableCell>
-                  {" "}
-                  <div className="alignment">{item.cw5}</div>
-                </TableCell>
-                <TableCell>
-                  <div className="alignment">{item.cw6}</div>
-                </TableCell>
-                <TableCell>
-                  <div className="alignment">{item.cw7}</div>
+                  <div className="alignment">{item["Shorts CW+4"]}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item.cw8}</div>
+                  <div className="alignment">{item["Shorts CW+5"]}</div>
+                </TableCell>
+                <TableCell>
+                  <div className="alignment">{item["Shorts CW+6"]}</div>
+                </TableCell>
+                <TableCell>
+                  <div className="alignment">{item["Shorts CW+7"]}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item.cw9}</div>
+                  <div className="alignment">{item["Shorts CW+8"]}</div>
+                </TableCell>
+                <TableCell>
+                  {" "}
+                  <div className="alignment">{item["Shorts CW+9"]}</div>
                 </TableCell>
               </TableRow>
             ))}
