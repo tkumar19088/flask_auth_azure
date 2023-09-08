@@ -61,16 +61,13 @@ const OhrTable = ({ onData }) => {
       dispatch(updateloader(true));
       var data = { customer: 0, rbsku: rowId };
       try {
-        const response = await fetch(
-          "http://localhost:5000/getfilteredcampaigns",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-          }
-        );
+        const response = await fetch("http://localhost:5000/getcampaigns", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
         if (response.ok) {
           const json = await response.json();
           console.log(json);
