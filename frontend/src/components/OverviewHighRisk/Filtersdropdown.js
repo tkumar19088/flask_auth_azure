@@ -182,16 +182,6 @@ function Filtersdropdown() {
                 backgroundColor: "#415A6C",
               }}
             >
-              Reset
-            </Button>
-            <Button
-              variant="contained"
-              size="small"
-              className="btn-apply"
-              sx={{
-                backgroundColor: "#415A6C",
-              }}
-            >
               Cancel
             </Button>
           </Box>

@@ -1261,12 +1261,7 @@ const OhrTable = ({ onData }) => {
         textAlign="center"
         className="choosems-stack"
       >
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          sx={{ marginTop: "-3px", marginBottom: "10px" }}
-        >
+        <Box display="flex" justifyContent="center" alignItems="center" my={1}>
           <Button
             variant="contained"
             size="medium"
@@ -1283,10 +1278,28 @@ const OhrTable = ({ onData }) => {
           </Button>
         </Box>
         <Box display="flex" className="ms-buttons">
-          <Box className="ms-grid" onClick={handlePushAlternative}>
+          <Box
+            className="ms-grid"
+            onClick={handlePushAlternative}
+            sx={{
+              backgroundColor: "#415A6C",
+              "&:hover": {
+                backgroundColor: "#FF007F",
+              },
+            }}
+          >
             <Typography className="ms-gridtitle">Push Alternative</Typography>
           </Box>
-          <Box className="ms-grid" onClick={handleReallocate}>
+          <Box
+            className="ms-grid"
+            onClick={handleReallocate}
+            sx={{
+              backgroundColor: "#415A6C",
+              "&:hover": {
+                backgroundColor: "#FF007F",
+              },
+            }}
+          >
             <Typography className="ms-gridtitle">Reallocate</Typography>
           </Box>
           <Box className="ms-grid">
@@ -1472,7 +1485,7 @@ const OhrTable = ({ onData }) => {
                       {item["sif-reckitt"]}
                     </Typography>
                   </Box>
-                </TableCell> 
+                </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
                   <Typography fontSize="13px">{item.sof}</Typography>
                 </TableCell>

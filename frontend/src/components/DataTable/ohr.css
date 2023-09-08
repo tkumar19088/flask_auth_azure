@@ -64,7 +64,7 @@
     color: #fff;
   }
   .ms-grid:hover {
-    background-color: #FF007F,
+    /* background-color: #FF007F; */
   }
 
   .table-h1-title{
@@ -128,6 +128,7 @@
 .ms-buttons{
   justify-content: space-between;
   width: 650px;
+  margin-block: 14px;
   
 }
 
