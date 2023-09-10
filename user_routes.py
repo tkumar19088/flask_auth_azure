@@ -96,20 +96,48 @@ def resetfilterparams():
 
 
 # ************************************
-#     Current Status / Alerts API  #TODO
+#     Current Status / Alerts API
 # ************************************
 @app_blueprint.route('/getalertsdata', methods=['POST'])
 def getalertsdata():
-    alertsdata = AzureBlobReader().read_csvfile("alertsoverview.csv")
+    oosalertsdata = AzureBlobReader().read_csvfile("alertsoverview.csv")
+    irrpoalerts = AzureBlobReader().read_csvfile("irrpoalerts.csv")
     filters = ['Business Unit', 'Customer', 'Location','Brand']
 
-    if global_userDetails:
+    if not global_variables:
+        # If no filters are selected, return all data after filtering for user details
         for filter_key in filters:
             if filter_key in global_userDetails.keys():
-                alertsdata = alertsdata[alertsdata[filter_key] == global_userDetails[filter_key]]
-        return json.loads(alertsdata.to_json(orient='records'))
+                oosalertsdata = oosalertsdata[oosalertsdata[filter_key].isin(global_userDetails[filter_key])]
+                irrpoalertsdata = irrpoalerts[irrpoalerts[filter_key].isin(global_userDetails[filter_key])]
+        # return json.loads(alertsdata.to_json(orient='records'))
     else:
-        return jsonify(status="Error", message="Choose above filters to view data"), 500
+        # If filters are selected, return data after filtering for selected filters
+        for filter_key in filters:
+            if filter_key in global_variables.keys():
+                oosalertsdata = oosalertsdata[oosalertsdata[filter_key] == global_variables[filter_key]]
+                irrpoalertsdata = irrpoalerts[irrpoalerts[filter_key] == global_variables[filter_key]]
+        # return json.loads(alertsdata.to_json(orient='records'))
+
+    a = oosalertsdata.groupby(['Business Unit', 'Location', 'Brand']).apply(lambda x: x.sort_values(['Reckitt WOC'], ascending=True)).reset_index(drop=True)[['Location','Brand',"Description","Reckitt WOC","SL CW"]]
+    OOSALERTS=[]
+    for name, group in a.groupby(['Location', 'Brand']):
+        obj = {}
+        obj['Location'] = name[0]
+        obj['Brand'] = name[1]
+        obj['DATA'] = group[["Description","SL CW"]].head(3).to_dict('records')
+        OOSALERTS.append(obj)
+
+    b = irrpoalertsdata.groupby(['Business Unit', 'Location', 'Brand']).apply(lambda x: x.sort_values(['Reckitt WOC'], ascending=True)).reset_index(drop=True)[['Location','Brand',"Description","Reckitt WOC","SL CW"]]
+    IRPPOALERTS=[]
+    for name, group in b.groupby(['Location', 'Brand']):
+        obj = {}
+        obj['Location'] = name[0]
+        obj['Brand'] = name[1]
+        obj['DATA'] = group[["Description","SL CW"]].head(3).to_dict('records')
+        IRPPOALERTS.append(obj)
+    alerts = {"OOSRiskDetection": OOSALERTS, "IRRPO": IRPPOALERTS}
+    return alerts
 
 
 # *****************************************************
@@ -136,12 +164,11 @@ def getoverview():
 
 
 # ************************************************************************************************
-#    Reckitt Tab Overview |||| Customer Tab Overview  --  EXPORT DATA: Get all RAG filters params 
-# TODO : Should it export data of all tabs or only active tab?
+#    Reckitt Tab Overview |||| Customer Tab Overview  --  EXPORT DATA: Get all RAG filters params
+#    TODO : Should it export data of all tabs or only active tab?
 # ************************************************************************************************
-@app_blueprint.route("/exportoosriskdata", methods=['POST'])
+@app_blueprint.route("/exportoosriskdata")
 def exportoosriskdata():
-    data = request.json # request contains the rag filters params & customer = 0|1
     return jsonify(status="success", message="Data Received!"), 200
 
 
