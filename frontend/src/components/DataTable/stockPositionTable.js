@@ -265,21 +265,21 @@ const StockPosition = ({ onData }) => {
                   <div className="alignment">{item.Brand}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="alignment">{item["Initial SOH"]}</div>
+                  <div className="alignment">{item.initialsoh}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item["Stk Pos EOW CW"]}</div>
+                  <div className="alignment">{item["StkPos CW"]}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item["Stk Pos EOW CW+1"]}</div>
+                  <div className="alignment">{item["StkPos CW+1"]}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="alignment">{item["Stk Pos EOW CW+2"]}</div>
+                  <div className="alignment">{item["StkPos CW+2"]}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="alignment">{item["Stk Pos EOW CW+3"]}</div>
+                  <div className="alignment">{item["StkPos CW+3"]}</div>
                 </TableCell>
               </TableRow>
             ))}

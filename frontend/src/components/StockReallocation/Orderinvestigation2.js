@@ -10,13 +10,20 @@ import UpdateIcon from "@mui/icons-material/Update";
 import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 import Tooltip from "@mui/material/Tooltip";
 import { useNavigate } from "react-router-dom";
+import { fetchupdateresults } from "../../store/actions/sidebarActions";
+import { useSelector, useDispatch } from "react-redux";
 
 const Orderinvestigation2 = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const updateresults = useSelector((state) => state.sidebar.updateresults);
 
   const [counter, setCounter] = useState(0);
   const [weeksOnConv, setweeksOnConv] = useState(0);
 
+  const handleUpdateResults = () => {
+    dispatch(fetchupdateresults(true));
+  };
   // Function is called everytime increment button is clicked
   const handleweeksOnCovUp = () => {
     // Counter state is incremented
@@ -41,7 +48,7 @@ const Orderinvestigation2 = () => {
   return (
     <div>
       <Stack>
-        <Box display="flex" className="sg-main">
+        <Box display="flex" className="sg-main" mt={0}>
           <Box className="sg-title">
             Scenario Generation: Airwick Electrical Lemon 112345
           </Box>
@@ -322,7 +329,7 @@ const Orderinvestigation2 = () => {
         </Stack>
       </Grid>
       <Grid>
-        <Typography fontSize={28} mt="1px" color="#145A6C" mx="3px">
+        <Typography fontSize={24} mt="1px" color="#145A6C" mx="3px">
           Results
         </Typography>
 
@@ -367,6 +374,7 @@ const Orderinvestigation2 = () => {
               arrow
               placement="top-start"
               // ml={{ lg: "-19px" }}
+              onClick={handleUpdateResults}
             >
               <Box className="sa-boxbtn">
                 Update results

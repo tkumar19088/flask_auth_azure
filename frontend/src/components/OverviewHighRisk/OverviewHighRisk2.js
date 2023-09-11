@@ -16,6 +16,7 @@ import "react-tabs/style/react-tabs.css";
 import "./OverviewHighRisk.css";
 import CustomerTable from "../DataTable/CustomerTable";
 import Ragfilters from "./Ragfiltersdropdown";
+import CustomerRagfilters from "./CustomerRagfiltersdropdown";
 import OhrCustomerTabs from "../DataTable/ohrCustomerTabs";
 import {
   updateloader,
@@ -222,9 +223,18 @@ const OverviewHighRisk2 = () => {
                 <Box className="nestmenu-box">
                   <Filtersdropdown />
                 </Box>
-                <Box className="nestmenu-box">
-                  <Ragfilters />
-                </Box>
+
+                {customer == 0 && (
+                  <Box className="nestmenu-box">
+                    <Ragfilters />
+                  </Box>
+                )}
+                {customer == 1 && (
+                  <Box className="nestmenu-box">
+                    <CustomerRagfilters />
+                  </Box>
+                )}
+
                 <Box>
                   <Button
                     variant="contained"

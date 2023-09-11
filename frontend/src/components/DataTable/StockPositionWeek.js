@@ -202,7 +202,7 @@ const StockPositionWeek = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Initial SOH Week{" "}
+                Initial Reckitt SoH{" "}
               </TableCell>
               <TableCell
                 sx={{
@@ -346,42 +346,42 @@ const StockPositionWeek = ({ onData }) => {
                   <div className="alignment">{item.Brand}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="alignment">{item["Initial SOH"]}</div>
+                  <div className="alignment">{item.intialreckittsoh}</div>
                 </TableCell>{" "}
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item["Stk Pos CW"]}</div>
+                  <div className="alignment">{item["EXPSOHATEOW CW"]}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item["Stk Pos CW+1"]}</div>
+                  <div className="alignment">{item["EXPSOHATEOW CW+1"]}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="alignment">{item["Stk Pos CW+2"]}</div>
+                  <div className="alignment">{item["EXPSOHATEOW CW+2"]}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="alignment">{item["Stk Pos CW+3"]}</div>
+                  <div className="alignment">{item["EXPSOHATEOW CW+3"]}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="alignment">{item["Stk Pos CW+4"]}</div>
-                </TableCell>
-                <TableCell>
-                  {" "}
-                  <div className="alignment">{item["Stk Pos CW+5"]}</div>
-                </TableCell>
-                <TableCell>
-                  <div className="alignment">{item["Stk Pos CW+6"]}</div>
-                </TableCell>
-                <TableCell>
-                  <div className="alignment">{item["Stk Pos CW+7"]}</div>
+                  <div className="alignment">{item["EXPSOHATEOW CW+4"]}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item["Stk Pos CW+8"]}</div>
+                  <div className="alignment">{item["EXPSOHATEOW CW+5"]}</div>
+                </TableCell>
+                <TableCell>
+                  <div className="alignment">{item["EXPSOHATEOW CW+6"]}</div>
+                </TableCell>
+                <TableCell>
+                  <div className="alignment">{item["EXPSOHATEOW CW+7"]}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item["Stk Pos CW+9"]}</div>
+                  <div className="alignment">{item["EXPSOHATEOW CW+8"]}</div>
+                </TableCell>
+                <TableCell>
+                  {" "}
+                  <div className="alignment">{item["EXPSOHATEOW CW+9"]}</div>
                 </TableCell>
               </TableRow>
             ))}

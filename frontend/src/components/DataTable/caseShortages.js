@@ -203,7 +203,7 @@ const CaseShortages = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Initial SOH Week{" "}
+                Initial Reckitt SoH{" "}
               </TableCell>
               <TableCell
                 sx={{
@@ -347,42 +347,42 @@ const CaseShortages = ({ onData }) => {
                   <div className="alignment">{item.Brand}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="alignment">{item["Initial SOH"]}</div>
+                  <div className="alignment">{item.intialreckittsoh}</div>
                 </TableCell>{" "}
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item["Shorts CW"]}</div>
+                  <div className="alignment">{item["CaseShort CW"]}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item["Shorts CW+1"]}</div>
+                  <div className="alignment">{item["CaseShort CW+1"]}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="alignment">{item["Shorts CW+2"]}</div>
+                  <div className="alignment">{item["CaseShort CW+2"]}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="alignment">{item["Shorts CW+3"]}</div>
+                  <div className="alignment">{item["CaseShort CW+3"]}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="alignment">{item["Shorts CW+4"]}</div>
-                </TableCell>
-                <TableCell>
-                  {" "}
-                  <div className="alignment">{item["Shorts CW+5"]}</div>
-                </TableCell>
-                <TableCell>
-                  <div className="alignment">{item["Shorts CW+6"]}</div>
-                </TableCell>
-                <TableCell>
-                  <div className="alignment">{item["Shorts CW+7"]}</div>
+                  <div className="alignment">{item["CaseShort CW+4"]}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item["Shorts CW+8"]}</div>
+                  <div className="alignment">{item["CaseShort CW+5"]}</div>
+                </TableCell>
+                <TableCell>
+                  <div className="alignment">{item["CaseShort CW+6"]}</div>
+                </TableCell>
+                <TableCell>
+                  <div className="alignment">{item["CaseShort CW+7"]}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item["Shorts CW+9"]}</div>
+                  <div className="alignment">{item["CaseShort CW+8"]}</div>
+                </TableCell>
+                <TableCell>
+                  {" "}
+                  <div className="alignment">{item["CaseShort CW+9"]}</div>
                 </TableCell>
               </TableRow>
             ))}

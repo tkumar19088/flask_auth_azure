@@ -202,7 +202,7 @@ const DemandTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Initial SOH Week{" "}
+                Initial Reckitt SoH{" "}
               </TableCell>
               <TableCell
                 sx={{
@@ -346,7 +346,7 @@ const DemandTable = ({ onData }) => {
                   <div className="alignment">{item.Brand}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="alignment">{item["Initial SOH"]}</div>
+                  <div className="alignment">{item.intialreckittsoh}</div>
                 </TableCell>{" "}
                 <TableCell>
                   {" "}

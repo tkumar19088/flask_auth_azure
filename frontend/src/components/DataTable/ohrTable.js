@@ -90,7 +90,6 @@ const OhrTable = ({ onData }) => {
       setExpandedRow(rowId);
     }
   };
-
   const handlePushAlternative = async () => {
     setpushAlternative(true);
     dispatch(updateloader(true));
@@ -1284,7 +1283,7 @@ const OhrTable = ({ onData }) => {
             className="ms-grid"
             onClick={handlePushAlternative}
             sx={{
-              backgroundColor: "#415A6C",
+              backgroundColor: pushAlternative ? "#FF007F" : "#415A6C",
               "&:hover": {
                 backgroundColor: "#FF007F",
               },
@@ -1894,7 +1893,7 @@ const OhrTable = ({ onData }) => {
                     </TableCell>
                     <TableCell style={{ textAlign: "center" }}>
                       <Typography mx="7px" fontSize="13px">
-                        {item["WOC CW"]}
+                        {item["Reckitt WOC"]}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -1911,22 +1910,22 @@ const OhrTable = ({ onData }) => {
                           fontSize: "13px",
                         }}
                       >
-                        {item["Service CW"]}
+                        {item["SL CW"]}
                       </Typography>
                     </TableCell>
                     <TableCell style={{ textAlign: "center", width: "20px" }}>
                       <Typography mx="6px" fontSize="13px">
-                        {item["Service CW+1"]}
+                        {item["SL CW+1"]}
                       </Typography>
                     </TableCell>
                     <TableCell style={{ textAlign: "center", width: "20px" }}>
                       <Typography mx="6px" fontSize="13px">
-                        {item["Service CW+2"]}
+                        {item["SL CW+2"]}
                       </Typography>
                     </TableCell>
                     <TableCell style={{ textAlign: "center", width: "20px" }}>
                       <Typography mx="6px" fontSize="13px">
-                        {item["Service CW+3"]}
+                        {item["SL CW+3"]}
                       </Typography>
                     </TableCell>
                     <TableCell style={{ textAlign: "center", width: "20px" }}>

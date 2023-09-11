@@ -66,6 +66,23 @@ export const flagragfiltersohr = (newValue) => {
     payload: newValue,
   };
 };
+export const fetchofilteredcustomerdata = (newValue) => {
+  return {
+    type: "FETCH_FILTEREDCUSTOMERDATA",
+    payload: newValue,
+  };
+};
+export const resetragfilterscustomer = () => {
+  return {
+    type: "RESET_RAGFILTERSCUSTOMER",
+  };
+};
+export const flagragfiltercustomer = (newValue) => {
+  return {
+    type: "FLAG_RAGFILTERSCUSTOMER",
+    payload: newValue,
+  };
+};
 export const fetchoverviewcustomerdata = (newValue) => {
   return {
     type: "FETCH_OVERVIEWCUSTOMERDATA",
@@ -165,6 +182,12 @@ export const fetchcustomerstockposition = (newValue) => {
 export const fetchcustomerola = (newValue) => {
   return {
     type: "FETCH_CUSTOMEROLA",
+    payload: newValue,
+  };
+};
+export const fetchupdateresults = (newValue) => {
+  return {
+    type: "UPDATE_RESULTS",
     payload: newValue,
   };
 };

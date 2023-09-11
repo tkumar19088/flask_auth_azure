@@ -202,7 +202,7 @@ const ExpectedServices = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Initial SOH Week{" "}
+                Initial Reckitt SoH{" "}
               </TableCell>
               <TableCell
                 sx={{
@@ -346,42 +346,42 @@ const ExpectedServices = ({ onData }) => {
                 </TableCell>{" "}
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item["Initial SOH"]}</div>
+                  <div className="alignment">{item.intialreckittsoh}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item["Service CW"]}</div>
+                  <div className="alignment">{item["ExpSL CW"]}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item["Service CW+1"]}</div>
+                  <div className="alignment">{item["ExpSL CW+1"]}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="alignment">{item["Service CW+2"]}</div>
+                  <div className="alignment">{item["ExpSL CW+2"]}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="alignment">{item["Service CW+3"]}</div>
+                  <div className="alignment">{item["ExpSL CW+3"]}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="alignment">{item["Service CW+4"]}</div>
-                </TableCell>
-                <TableCell>
-                  {" "}
-                  <div className="alignment">{item["Service CW+5"]}</div>
-                </TableCell>
-                <TableCell>
-                  <div className="alignment">{item["Service CW+6"]}</div>
-                </TableCell>
-                <TableCell>
-                  <div className="alignment">{item["Service CW+7"]}</div>
+                  <div className="alignment">{item["ExpSL CW+4"]}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item["Service CW+8"]}</div>
+                  <div className="alignment">{item["ExpSL CW+5"]}</div>
+                </TableCell>
+                <TableCell>
+                  <div className="alignment">{item["ExpSL CW+6"]}</div>
+                </TableCell>
+                <TableCell>
+                  <div className="alignment">{item["ExpSL CW+7"]}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item["Service CW+9"]}</div>
+                  <div className="alignment">{item["ExpSL CW+8"]}</div>
+                </TableCell>
+                <TableCell>
+                  {" "}
+                  <div className="alignment">{item["ExpSL CW+9"]}</div>
                 </TableCell>
               </TableRow>
             ))}
