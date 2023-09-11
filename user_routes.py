@@ -77,14 +77,48 @@ def getfilterparams():
         for key, value in data.items():
             global_variables[key] = value
             print(global_variables)
-        return jsonify(status="success", message="Data Received!"), 200
+            allalerts = getallalerts()
+        return allalerts
     except Exception as e:
         return jsonify(status="error", message=str(e)), 500
 
+def getallalerts():
+    oosalertsdata = AzureBlobReader().read_csvfile("ui_data/currentalertsoos.csv")
+    irrpoalerts = AzureBlobReader().read_csvfile("ui_data/currentalertsirrpo.csv")
+    filters = ['Business Unit', 'Customer', 'Location','Brand']
 
-# ************************************
-# Reset filter parameters from homepage
-# ************************************
+    for filter_key in filters:
+        if filter_key in global_userDetails.keys():
+            aoosalertsdata = oosalertsdata[oosalertsdata[filter_key].isin(global_userDetails[filter_key])]
+            airrpoalertsdata = irrpoalerts[irrpoalerts[filter_key].isin(global_userDetails[filter_key])]
+
+    aoosalertsdata.replace("", "-", inplace=True)
+    airrpoalertsdata.replace("", "-", inplace=True)
+
+    aa = aoosalertsdata.groupby(['Business Unit', 'Location', 'Brand']).apply(lambda x: x.sort_values(['Reckitt WOC'], ascending=True)).reset_index(drop=True)[['Location','Brand',"Description","Reckitt WOC","SL CW"]]
+    aOOSALERTS=[]
+    for name, group in aa.groupby(['Location', 'Brand']):
+        obj = {}
+        obj['Location'] = name[0]
+        obj['Brand'] = name[1]
+        obj['DATA'] = group[["Description","SL CW"]].head(3).to_dict('records')
+        aOOSALERTS.append(obj)
+
+    ab = airrpoalertsdata.groupby(['Business Unit', 'Location', 'Brand']).apply(lambda x: x.sort_values(['Reckitt WOC'], ascending=True)).reset_index(drop=True)[['Location','Brand',"Description","Reckitt WOC","SL CW"]]
+    aIRPPOALERTS=[]
+    for name, group in ab.groupby(['Location', 'Brand']):
+        obj = {}
+        obj['Location'] = name[0]
+        obj['Brand'] = name[1]
+        obj['DATA'] = group[["Description","SL CW"]].head(3).to_dict('records')
+        aIRPPOALERTS.append(obj)
+    allalerts = {"OOSRiskDetection": aOOSALERTS, "IRRPO": aIRPPOALERTS}
+    return allalerts
+
+
+# ************************************************
+#      Reset filter parameters from homepage
+# ************************************************
 @app_blueprint.route('/resetfilterparams')
 def resetfilterparams():
     try:
@@ -94,29 +128,19 @@ def resetfilterparams():
         return jsonify(status="error", message=str(e)), 500
 
 
-# ************************************
-#     Current Status / Alerts API
-# ************************************
+# ***********************************************
+#     Filtered : Current Status / Alerts API
+# ***********************************************
 @app_blueprint.route('/getalertsdata', methods=['POST'])
 def getalertsdata():
     oosalertsdata = AzureBlobReader().read_csvfile("ui_data/currentalertsoos.csv")
     irrpoalerts = AzureBlobReader().read_csvfile("ui_data/currentalertsirrpo.csv")
     filters = ['Business Unit', 'Customer', 'Location','Brand']
 
-    if not global_variables:
-        # If no filters are selected, return all data after filtering for user details
-        for filter_key in filters:
-            if filter_key in global_userDetails.keys():
-                oosalertsdata = oosalertsdata[oosalertsdata[filter_key].isin(global_userDetails[filter_key])]
-                irrpoalertsdata = irrpoalerts[irrpoalerts[filter_key].isin(global_userDetails[filter_key])]
-        # return json.loads(alertsdata.to_json(orient='records'))
-    else:
-        # If filters are selected, return data after filtering for selected filters
-        for filter_key in filters:
-            if filter_key in global_variables.keys():
-                oosalertsdata = oosalertsdata[oosalertsdata[filter_key] == global_variables[filter_key]]
-                irrpoalertsdata = irrpoalerts[irrpoalerts[filter_key] == global_variables[filter_key]]
-        # return json.loads(alertsdata.to_json(orient='records'))
+    for filter_key in filters:
+        if filter_key in global_variables.keys():
+            oosalertsdata = oosalertsdata[oosalertsdata[filter_key] == global_variables[filter_key]]
+            irrpoalertsdata = irrpoalerts[irrpoalerts[filter_key] == global_variables[filter_key]]
 
     oosalertsdata.replace("", "-", inplace=True)
     irrpoalertsdata.replace("", "-", inplace=True)
