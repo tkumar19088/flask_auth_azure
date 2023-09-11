@@ -7,7 +7,6 @@ import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 import UpdateIcon from "@mui/icons-material/Update";
-import RunCircleOutlinedIcon from '@mui/icons-material/RunCircleOutlined';
 import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 import Tooltip from "@mui/material/Tooltip";
 import { useNavigate } from "react-router-dom";
@@ -361,18 +360,8 @@ const Orderinvestigation2 = () => {
           <Box
             display="flex"
             justifyContent="space-around"
-            sx={{ width: "750px" }}
+            sx={{ width: "500px" }}
           >
-            <Tooltip
-              title="Reallocate Suggested Supply"
-              arrow
-              placement="top-start"
-            >
-              <Box className="sa-boxbtn">
-                Run Optimisation
-                <RunCircleOutlinedIcon className="btn-refresh" />
-              </Box>
-            </Tooltip>
             <Tooltip
               title="Reallocate Suggested Supply"
               arrow

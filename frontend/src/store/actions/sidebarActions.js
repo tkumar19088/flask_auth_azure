@@ -49,6 +49,23 @@ export const fetchoverviewhighriskdata = (newValue) => {
     payload: newValue,
   };
 };
+export const fetchofilteredverviewhighriskdata = (newValue) => {
+  return {
+    type: "FETCH_FILTEREDOVERVIEWHIGHRISKDATA",
+    payload: newValue,
+  };
+};
+export const resetragfiltersohr = () => {
+  return {
+    type: "RESET_RAGFILTERSOHR",
+  };
+};
+export const flagragfiltersohr = (newValue) => {
+  return {
+    type: "FLAG_RAGFILTERSOHR",
+    payload: newValue,
+  };
+};
 export const fetchoverviewcustomerdata = (newValue) => {
   return {
     type: "FETCH_OVERVIEWCUSTOMERDATA",

@@ -17,150 +17,199 @@ import { useSelector } from "react-redux";
 
 const StockReallocationData = ({ onData }) => {
   const navigate = useNavigate();
-  const data = useSelector((state) => state.sidebar.stockreallocation);
-  console.log(data);
-  // const [data, setData] = useState([
-  //   {
-  //     customer: "Amazon",
-  //     channel: "Pureplay",
-  //     sellinforecastartefact: "300",
-  //     sellinforecastreckitt: "500",
-  //     currentallocation: "200.X",
-  //     allcConsumedDate: "50",
-  //     remAllocation: "150",
-  //     openOrders: "50",
-  //     expectServiceLevel: "100%",
-  //     custSohcurrent: "600",
-  //     custSohTarget: "600",
-  //     custWoccurrent: "300",
-  //     custWocTarget: "400",
-  //     price: "£6.00",
-  //     cmuScore: "4.4",
-  //     stockSafeRealloc: "100",
-  //     suggAlloc: "100",
-  //     testReallocation: "20",
-  //   },
-  //   {
-  //     customer: "Amazon",
-  //     channel: "Pureplay",
-  //     sellinforecastartefact: "300",
-  //     sellinforecastreckitt: "500",
-  //     currentallocation: "200.Y",
-  //     allcConsumedDate: "50",
-  //     remAllocation: "150",
-  //     openOrders: "50",
-  //     expectServiceLevel: "100%",
-  //     custSohcurrent: "500",
-  //     custSohTarget: "600",
-  //     custWoccurrent: "300",
-  //     custWocTarget: "400",
-  //     price: "£6.00",
-  //     cmuScore: "4.4",
-  //     stockSafeRealloc: "100",
-  //     suggAlloc: "100",
-  //     testReallocation: "20",
-  //   },
-  //   {
-  //     customer: "Amazon",
-  //     channel: "Pureplay",
-  //     sellinforecastartefact: "300",
-  //     sellinforecastreckitt: "500",
-  //     currentallocation: "200.Y",
-  //     allcConsumedDate: "50",
-  //     remAllocation: "150",
-  //     openOrders: "50",
-  //     expectServiceLevel: "100%",
-  //     custSohcurrent: "500",
-  //     custSohTarget: "600",
-  //     custWoccurrent: "300",
-  //     custWocTarget: "400",
-  //     price: "£6.00",
-  //     cmuScore: "4.4",
-  //     stockSafeRealloc: "100",
-  //     suggAlloc: "100",
-  //     testReallocation: "20",
-  //   },
-  //   {
-  //     customer: "Amazon",
-  //     channel: "Pureplay",
-  //     sellinforecastartefact: "300",
-  //     sellinforecastreckitt: "500",
-  //     currentallocation: "200.X",
-  //     allcConsumedDate: "50",
-  //     remAllocation: "150",
-  //     openOrders: "50",
-  //     expectServiceLevel: "100%",
-  //     custSohcurrent: "500",
-  //     custSohTarget: "600",
-  //     custWoccurrent: "300",
-  //     custWocTarget: "400",
-  //     price: "£6.00",
-  //     cmuScore: "4.4",
-  //     stockSafeRealloc: "100",
-  //     suggAlloc: "100",
-  //     testReallocation: "20",
-  //   },
-  //   {
-  //     customer: "Amazon",
-  //     channel: "Pureplay",
-  //     sellinforecastartefact: "300",
-  //     sellinforecastreckitt: "500",
-  //     currentallocation: "200.Y",
-  //     allcConsumedDate: "50",
-  //     remAllocation: "150",
-  //     openOrders: "50",
-  //     expectServiceLevel: "100%",
-  //     custSohcurrent: "500",
-  //     custSohTarget: "600",
-  //     custWoccurrent: "300",
-  //     custWocTarget: "400",
-  //     price: "£6.00",
-  //     cmuScore: "4.4",
-  //     stockSafeRealloc: "100",
-  //     suggAlloc: "100",
-  //     testReallocation: "20",
-  //   },
-  //   {
-  //     customer: "Amazon",
-  //     channel: "Pureplay",
-  //     sellinforecastartefact: "300",
-  //     sellinforecastreckitt: "500",
-  //     currentallocation: "200.X",
-  //     allcConsumedDate: "50",
-  //     remAllocation: "150",
-  //     openOrders: "50",
-  //     expectServiceLevel: "100%",
-  //     custSohcurrent: "500",
-  //     custSohTarget: "600",
-  //     custWoccurrent: "300",
-  //     custWocTarget: "400",
-  //     price: "£6.00",
-  //     cmuScore: "4.4",
-  //     stockSafeRealloc: "100",
-  //     suggAlloc: "100",
-  //     testReallocation: "20",
-  //   },
-  //   {
-  //     customer: "Amazon",
-  //     channel: "Pureplay",
-  //     sellinforecastartefact: "300",
-  //     sellinforecastreckitt: "500",
-  //     currentallocation: "200.Y",
-  //     allcConsumedDate: "50",
-  //     remAllocation: "150",
-  //     openOrders: "50",
-  //     expectServiceLevel: "100%",
-  //     custSohcurrent: "500",
-  //     custSohTarget: "600",
-  //     custWoccurrent: "300",
-  //     custWocTarget: "400",
-  //     price: "£6.00",
-  //     cmuScore: "4.4",
-  //     stockSafeRealloc: "100",
-  //     suggAlloc: "100",
-  //     testReallocation: "20",
-  //   },
-  // ]);
+  // const data = useSelector((state) => state.sidebar.stockreallocation);
+  // console.log(data);
+  const [data, setData] = useState([
+    {
+      customer: "Amazon",
+      channel: "Pureplay",
+      sellinforecastartefact: "300",
+      sellinforecastreckitt: "500",
+      currentallocation: "200.X",
+      allcConsumedDate: "50",
+      remAllocation: "150",
+      openOrders: "50",
+      expectServiceLevel: "100%",
+      custSohcurrent: "600",
+      custSohTarget: "600",
+      custWoccurrent: "300",
+      custWocTarget: "400",
+      price: "£6.00",
+      cmuScore: "4.4",
+      stockSafeRealloc: "100",
+      idealallocation: "400",
+      suggAlloc: "100",
+      testReallocation: "20",
+    },
+    {
+      customer: "Amazon",
+      channel: "Pureplay",
+      sellinforecastartefact: "300",
+      sellinforecastreckitt: "500",
+      currentallocation: "200.Y",
+      allcConsumedDate: "50",
+      remAllocation: "150",
+      openOrders: "50",
+      expectServiceLevel: "100%",
+      custSohcurrent: "500",
+      custSohTarget: "600",
+      custWoccurrent: "300",
+      custWocTarget: "400",
+      price: "£6.00",
+      cmuScore: "4.4",
+      stockSafeRealloc: "100",
+      idealallocation: "400",
+      suggAlloc: "100",
+      testReallocation: "20",
+    },
+    {
+      customer: "Amazon",
+      channel: "Pureplay",
+      sellinforecastartefact: "300",
+      sellinforecastreckitt: "500",
+      currentallocation: "200.Y",
+      allcConsumedDate: "50",
+      remAllocation: "150",
+      openOrders: "50",
+      expectServiceLevel: "100%",
+      custSohcurrent: "500",
+      custSohTarget: "600",
+      custWoccurrent: "300",
+      custWocTarget: "400",
+      price: "£6.00",
+      cmuScore: "4.4",
+      stockSafeRealloc: "100",
+      idealallocation: "400",
+      suggAlloc: "100",
+      testReallocation: "20",
+    },
+    {
+      customer: "Amazon",
+      channel: "Pureplay",
+      sellinforecastartefact: "300",
+      sellinforecastreckitt: "500",
+      currentallocation: "200.X",
+      allcConsumedDate: "50",
+      remAllocation: "150",
+      openOrders: "50",
+      expectServiceLevel: "100%",
+      custSohcurrent: "500",
+      custSohTarget: "600",
+      custWoccurrent: "300",
+      custWocTarget: "400",
+      price: "£6.00",
+      cmuScore: "4.4",
+      stockSafeRealloc: "100",
+      idealallocation: "400",
+      suggAlloc: "100",
+      testReallocation: "20",
+    },
+    {
+      customer: "Amazon",
+      channel: "Pureplay",
+      sellinforecastartefact: "300",
+      sellinforecastreckitt: "500",
+      currentallocation: "200.Y",
+      allcConsumedDate: "50",
+      remAllocation: "150",
+      openOrders: "50",
+      expectServiceLevel: "100%",
+      custSohcurrent: "500",
+      custSohTarget: "600",
+      custWoccurrent: "300",
+      custWocTarget: "400",
+      price: "£6.00",
+      cmuScore: "4.4",
+      stockSafeRealloc: "100",
+      idealallocation: "400",
+      suggAlloc: "100",
+      testReallocation: "20",
+    },
+    {
+      customer: "Amazon",
+      channel: "Pureplay",
+      sellinforecastartefact: "300",
+      sellinforecastreckitt: "500",
+      currentallocation: "200.X",
+      allcConsumedDate: "50",
+      remAllocation: "150",
+      openOrders: "50",
+      expectServiceLevel: "100%",
+      custSohcurrent: "500",
+      custSohTarget: "600",
+      custWoccurrent: "300",
+      custWocTarget: "400",
+      price: "£6.00",
+      cmuScore: "4.4",
+      stockSafeRealloc: "100",
+      idealallocation: "400",
+      suggAlloc: "100",
+      testReallocation: "20",
+    },
+    {
+      customer: "Amazon",
+      channel: "Pureplay",
+      sellinforecastartefact: "300",
+      sellinforecastreckitt: "500",
+      currentallocation: "200.Y",
+      allcConsumedDate: "50",
+      remAllocation: "150",
+      openOrders: "50",
+      expectServiceLevel: "100%",
+      custSohcurrent: "500",
+      custSohTarget: "600",
+      custWoccurrent: "300",
+      custWocTarget: "400",
+      price: "£6.00",
+      cmuScore: "4.4",
+      stockSafeRealloc: "100",
+      idealallocation: "400",
+      suggAlloc: "100",
+      testReallocation: "20",
+    },
+    {
+      customer: "Amazon",
+      channel: "Pureplay",
+      sellinforecastartefact: "300",
+      sellinforecastreckitt: "500",
+      currentallocation: "200.Y",
+      allcConsumedDate: "50",
+      remAllocation: "150",
+      openOrders: "50",
+      expectServiceLevel: "100%",
+      custSohcurrent: "500",
+      custSohTarget: "600",
+      custWoccurrent: "300",
+      custWocTarget: "400",
+      price: "£6.00",
+      cmuScore: "4.4",
+      stockSafeRealloc: "100",
+      idealallocation: "400",
+      suggAlloc: "100",
+      testReallocation: "20",
+    },
+    {
+      customer: "Amazon",
+      channel: "Pureplay",
+      sellinforecastartefact: "300",
+      sellinforecastreckitt: "500",
+      currentallocation: "200.Y",
+      allcConsumedDate: "50",
+      remAllocation: "150",
+      openOrders: "50",
+      expectServiceLevel: "100%",
+      custSohcurrent: "500",
+      custSohTarget: "600",
+      custWoccurrent: "300",
+      custWocTarget: "400",
+      price: "£6.00",
+      cmuScore: "4.4",
+      stockSafeRealloc: "100",
+      idealallocation: "400",
+      suggAlloc: "100",
+      testReallocation: "20",
+    },
+  ]);
   const [selectAll, setSelectAll] = useState(false);
   const [selectedRowsData, setselectedRowsData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: "id", direction: "asc" });
@@ -222,7 +271,7 @@ const StockReallocationData = ({ onData }) => {
   };
   return (
     <div style={{ border: "" }}>
-      <TableContainer style={{ maxHeight: 451, width: "100%" }}>
+      <TableContainer style={{ maxHeight: 477, width: "100%" }}>
         <Table stickyHeader className="stockReallocation">
           <TableHead>
             <TableRow>
@@ -258,6 +307,9 @@ const StockReallocationData = ({ onData }) => {
                 Stock safe to reallocate
               </TableCell>
               <TableCell className="stable-header">
+                Ideal Allocation Values
+              </TableCell>
+              <TableCell className="stable-header">
                 Suggested Allocation
               </TableCell>
               <TableCell className="stable-header">
@@ -277,7 +329,7 @@ const StockReallocationData = ({ onData }) => {
               </TableRow>
             )}
             {data.length > 0 && (
-              <TableRow>
+              <TableRow className="s-row1">
                 <TableCell
                   sx={{
                     backgroundColor: "rgb(198 223 215)",
@@ -441,12 +493,21 @@ const StockReallocationData = ({ onData }) => {
                     textAlign: "center",
                   }}
                 >
+                  {data[0].idealallocation}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    backgroundColor: "rgb(198 223 215)",
+                    textAlign: "center",
+                  }}
+                >
                   {data[0].suggestedallocation}
                 </TableCell>
                 <TableCell
                   sx={{
                     backgroundColor: "rgb(198 223 215)",
                     textAlign: "center",
+                    // padding: "0px",
                   }}
                 >
                   0
@@ -479,7 +540,7 @@ const StockReallocationData = ({ onData }) => {
                     </Typography>
                   </Box>
                 </TableCell>
-                <TableCell sx={{ textAlign: "center" }}>
+                <TableCell sx={{ textAlign: "center", padding: "0px" }}>
                   {item.currentallocation}
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
@@ -552,16 +613,19 @@ const StockReallocationData = ({ onData }) => {
                 <TableCell sx={{ textAlign: "center" }}>
                   {item.stocksafetoreallocate}
                 </TableCell>
+                <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                  {item.idealallocation}
+                </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
                   {item.suggestedallocation}
                 </TableCell>
-                <TableCell sx={{ textAlign: "center" }}>
+                <TableCell sx={{ textAlign: "center", padding: "0px" }}>
                   <Box
                     component="form"
                     sx={{
                       "& > :not(style)": {
                         width: "10ch",
-                        height: "3ch",
+                        height: "2ch",
                       },
                     }}
                     noValidate

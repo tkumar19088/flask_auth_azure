@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Menu from "@mui/material/Menu";
-import {
-  Box,
-  Button,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import "./Filtersdropdown.css";
+import {
+  fetchofilteredverviewhighriskdata,
+  resetragfiltersohr,
+  flagragfiltersohr,
+} from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
-
 
 function Ragfilters() {
   const [anchorEl, setAnchorEl] = useState(null);
+  // const [isFilterOpen, setisFilterOpen] = useState(false);
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.sidebar.overviewhighriskdata);
+  const isragfilterohr = useSelector((state) => state.sidebar.isragfilterohr);
+  console.log(isragfilterohr);
+
+  const [ragfilteredDATA, setragfilteredDATA] = useState([]);
 
   const [cwr, setcwr] = useState(false);
   const [cwa, setcwa] = useState(false);
@@ -29,62 +35,202 @@ function Ragfilters() {
   const [cw3a, setcw3a] = useState(false);
   const [cw3g, setcw3g] = useState(false);
 
-  var selectedCW = [];
+  const [selectedCW, setselectedCW] = useState({});
+  const [selectedCW1, setselectedCW1] = useState({});
+  const [selectedCW2, setselectedCW2] = useState({});
+  const [selectedCW3, setselectedCW3] = useState({});
+
   const handleCWR = () => {
     setcwr(!cwr);
-    getcwr();
-  };
-  const getcwr = () => {
-    if (cwr == true) {
-      selectedCW.push({ key: "cwr", value: cwr });
+    if (!cwr === true) {
+      const updatedObj = { ...selectedCW, ["R"]: "R" };
+      setselectedCW(updatedObj);
+    } else {
+      delete selectedCW["R"];
     }
   };
   const handleCWA = () => {
     setcwa(!cwa);
-    if (cwa === true) {
-      selectedCW.push("cwa", cwa);
+    if (!cwa === true) {
+      const updatedObj = { ...selectedCW, ["A"]: "A" };
+      setselectedCW(updatedObj);
+    } else {
+      delete selectedCW["A"];
     }
   };
   const handleCWG = () => {
     setcwg(!cwg);
-    if (cwr === true) {
-      selectedCW.push("cwg, cwg");
+    if (!cwg === true) {
+      const updatedObj = { ...selectedCW, ["G"]: "G" };
+      setselectedCW(updatedObj);
+    } else {
+      delete selectedCW["G"];
     }
   };
-  console.log(selectedCW);
-
-  if (cwr === true) {
-    selectedCW.push(selectedCW);
-  }
 
   const handleCW1R = () => {
     setcw1r(!cw1r);
+    if (!cw1r === true) {
+      const updatedObj = { ...selectedCW1, ["R"]: "R" };
+      setselectedCW1(updatedObj);
+    } else {
+      delete selectedCW1["R"];
+    }
   };
   const handleCW1A = () => {
     setcw1a(!cw1a);
+    if (!cw1a === true) {
+      const updatedObj = { ...selectedCW1, ["A"]: "A" };
+      setselectedCW1(updatedObj);
+    } else {
+      delete selectedCW1["A"];
+    }
   };
   const handleCW1G = () => {
     setcw1g(!cw1g);
+    if (!cw1g === true) {
+      const updatedObj = { ...selectedCW1, ["G"]: "G" };
+      setselectedCW1(updatedObj);
+    } else {
+      delete selectedCW1["G"];
+    }
   };
+
+  // console.log(selectedCW1);
 
   const handleCW2R = () => {
     setcw2r(!cw2r);
+    if (!cw2r === true) {
+      const updatedObj = { ...selectedCW2, ["R"]: "R" };
+      setselectedCW2(updatedObj);
+    } else {
+      delete selectedCW2["R"];
+    }
   };
   const handleCW2A = () => {
     setcw2a(!cw2a);
+    if (!cw2a === true) {
+      const updatedObj = { ...selectedCW2, ["A"]: "A" };
+      setselectedCW2(updatedObj);
+    } else {
+      delete selectedCW2["A"];
+    }
   };
   const handleCW2G = () => {
     setcw2g(!cw2g);
+    if (!cw2g === true) {
+      const updatedObj = { ...selectedCW2, ["G"]: "G" };
+      setselectedCW2(updatedObj);
+    } else {
+      delete selectedCW2["G"];
+    }
   };
+
+  // console.log(selectedCW2);
 
   const handleCW3R = () => {
     setcw3r(!cw3r);
+    if (!cw3r === true) {
+      const updatedObj = { ...selectedCW3, ["R"]: "R" };
+      setselectedCW3(updatedObj);
+    } else {
+      delete selectedCW3["R"];
+    }
   };
   const handleCW3A = () => {
     setcw3a(!cw3a);
+    if (!cw3a === true) {
+      const updatedObj = { ...selectedCW3, ["A"]: "A" };
+      setselectedCW3(updatedObj);
+    } else {
+      delete selectedCW3["A"];
+    }
   };
   const handleCW3G = () => {
     setcw3g(!cw3g);
+    if (!cw3g === true) {
+      const updatedObj = { ...selectedCW3, ["G"]: "G" };
+      setselectedCW3(updatedObj);
+    } else {
+      delete selectedCW3["G"];
+    }
+  };
+
+  // console.log(selectedCW3);
+
+  const handleApply = () => {
+    var cwLength = Object.keys(selectedCW).length;
+    var cwquery = [];
+    if (cwLength > 0) {
+      for (const key in selectedCW) {
+        if (selectedCW.hasOwnProperty(key)) {
+          const value = selectedCW[key];
+          cwquery.push(value);
+        }
+      }
+    }
+
+    var cw1Length = Object.keys(selectedCW1).length;
+    var cw1query = [];
+    if (cw1Length > 0) {
+      for (const key in selectedCW1) {
+        if (selectedCW1.hasOwnProperty(key)) {
+          const value = selectedCW1[key];
+          cw1query.push(value);
+        }
+      }
+    }
+
+    var cw2Length = Object.keys(selectedCW2).length;
+    var cw2query = [];
+    if (cw2Length > 0) {
+      for (const key in selectedCW2) {
+        if (selectedCW2.hasOwnProperty(key)) {
+          const value = selectedCW2[key];
+          cw2query.push(value);
+        }
+      }
+    }
+
+    var cw3Length = Object.keys(selectedCW3).length;
+    var cw3query = [];
+    if (cw3Length > 0) {
+      for (const key in selectedCW3) {
+        if (selectedCW3.hasOwnProperty(key)) {
+          const value = selectedCW3[key];
+          cw3query.push(value);
+        }
+      }
+    }
+
+    const filterCondition = (item) => cwquery.includes(item["RAG CW"]);
+    const filterCondition1 = (item) => cw1query.includes(item["RAG CW+1"]);
+    const filterCondition2 = (item) => cw2query.includes(item["RAG CW+2"]);
+    const filterCondition3 = (item) => cw3query.includes(item["RAG CW+3"]);
+    var allfilters = [];
+    if (cwquery.length > 0) {
+      allfilters.push(filterCondition);
+    }
+    if (cw1query.length > 0) {
+      allfilters.push(filterCondition1);
+    }
+    if (cw2query.length > 0) {
+      allfilters.push(filterCondition2);
+    }
+    if (cw3query.length > 0) {
+      allfilters.push(filterCondition3);
+    }
+
+    console.log(allfilters);
+    // const filteredData = data.filter(filterCondition);
+
+    const filteredData = data.filter((item) => {
+      // Apply all filters conditionally
+      return allfilters.every((filter) => filter(item));
+    });
+
+    console.log(filteredData);
+    dispatch(fetchofilteredverviewhighriskdata(filteredData));
   };
 
   const handleReset = () => {
@@ -103,14 +249,17 @@ function Ragfilters() {
     setcw3r(false);
     setcw3a(false);
     setcw3g(false);
+    dispatch(resetragfiltersohr());
   };
 
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
+    dispatch(flagragfiltersohr(true));
   };
 
   const handleMenuClose = () => {
     setAnchorEl(null);
+    dispatch(flagragfiltersohr(false));
   };
 
   return (
@@ -315,6 +464,7 @@ function Ragfilters() {
               sx={{
                 backgroundColor: "#415A6C",
               }}
+              onClick={handleApply}
             >
               Apply
             </Button>
@@ -336,6 +486,7 @@ function Ragfilters() {
               sx={{
                 backgroundColor: "#415A6C",
               }}
+              onClick={handleMenuClose}
             >
               Cancel
             </Button>

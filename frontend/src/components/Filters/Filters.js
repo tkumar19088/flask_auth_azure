@@ -104,7 +104,7 @@ const Filters = () => {
       >
         Filters
       </Typography>
-      <Grid container mt={-2}>
+      <Grid container mt={-2} className="flt-bx">
         <Grid
           container
           spacing={3}

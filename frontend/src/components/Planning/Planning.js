@@ -70,7 +70,7 @@ const Planning = ({ filterStatus }) => {
   return (
     <div style={{ marginTop: "20px" }}>
       <Grid>
-        <Grid container spacing={{ md: 2, lg: 2, xl: 5 }} item xs={12} mt={1}>
+        <Grid container spacing={{ md: 2, lg: 2, xl: 5 }} item xs={12} mt={1} className="fcst-bx">
           <Grid item xs={4}>
             <Box className="pln-cards-header">
               <Typography color="#fff" className="plan-title">

@@ -4,7 +4,12 @@
 
 
 
-
+.flt-bx{
+  /* margin-inline: 60px !important; */
+  /* padding: 17px !important; */
+  padding-left: 16px;
+  padding-right: 16px;
+}
 .flt-grid{
   align-self: center;
 }

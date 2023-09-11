@@ -36,7 +36,12 @@ const OhrTable = ({ onData }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const data = useSelector((state) => state.sidebar.overviewhighriskdata);
+  const ohrdata = useSelector((state) => state.sidebar.overviewhighriskdata);
+  const isragfilterohr = useSelector((state) => state.sidebar.isragfilterohr);
+  const filteredohrdata = useSelector(
+    (state) => state.sidebar.filteredoverviewhighriskdata
+  );
+  const data = isragfilterohr ? filteredohrdata : ohrdata;
   console.log(data);
 
   const [expandedRow, setExpandedRow] = useState(null);
@@ -1889,7 +1894,7 @@ const OhrTable = ({ onData }) => {
                     </TableCell>
                     <TableCell style={{ textAlign: "center" }}>
                       <Typography mx="7px" fontSize="13px">
-                        {item["WOC CW"] == null ? "-" : item["WOC CW"]}
+                        {item["WOC CW"]}
                       </Typography>
                     </TableCell>
                     <TableCell
