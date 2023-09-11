@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const startingWeek = 28;
 
@@ -17,119 +18,120 @@ const StockPosition = ({ onData }) => {
   const handleBack = () => {
     navigate(-1);
   };
+  const data = useSelector((state) => state.sidebar.reckittstockposition);
 
-  const [data, setData] = useState([
-    {
-      rbsku: "010613",
-      ppg: "1234567",
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-    },
-    {
-      rbsku: "010613",      ppg: "1234567",
+  // const [data, setData] = useState([
+  //   {
+  //     rbsku: "010613",
+  //     ppg: "1234567",
+  //     desc: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     initsohweek: "743",
+  //     cw: "3429",
+  //     cw1: "0",
+  //     cw2: "0",
+  //     cw3: "2100",
+  //   },
+  //   {
+  //     rbsku: "010613",      ppg: "1234567",
 
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-    },
-    {
-      rbsku: "010613",      ppg: "1234567",
+  //     desc: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     initsohweek: "743",
+  //     cw: "3429",
+  //     cw1: "0",
+  //     cw2: "0",
+  //     cw3: "2100",
+  //   },
+  //   {
+  //     rbsku: "010613",      ppg: "1234567",
 
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-    },
-    {
-      rbsku: "010613",      ppg: "1234567",
+  //     desc: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     initsohweek: "743",
+  //     cw: "3429",
+  //     cw1: "0",
+  //     cw2: "0",
+  //     cw3: "2100",
+  //   },
+  //   {
+  //     rbsku: "010613",      ppg: "1234567",
 
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-    },
-    {
-      rbsku: "010613",      ppg: "1234567",
+  //     desc: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     initsohweek: "743",
+  //     cw: "3429",
+  //     cw1: "0",
+  //     cw2: "0",
+  //     cw3: "2100",
+  //   },
+  //   {
+  //     rbsku: "010613",      ppg: "1234567",
 
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-    },
-    {
-      rbsku: "010613",      ppg: "1234567",
+  //     desc: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     initsohweek: "743",
+  //     cw: "3429",
+  //     cw1: "0",
+  //     cw2: "0",
+  //     cw3: "2100",
+  //   },
+  //   {
+  //     rbsku: "010613",      ppg: "1234567",
 
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-    },
-    {
-      rbsku: "010613",      ppg: "1234567",
+  //     desc: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     initsohweek: "743",
+  //     cw: "3429",
+  //     cw1: "0",
+  //     cw2: "0",
+  //     cw3: "2100",
+  //   },
+  //   {
+  //     rbsku: "010613",      ppg: "1234567",
 
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-    },
-    {
-      rbsku: "010613",      ppg: "1234567",
+  //     desc: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     initsohweek: "743",
+  //     cw: "3429",
+  //     cw1: "0",
+  //     cw2: "0",
+  //     cw3: "2100",
+  //   },
+  //   {
+  //     rbsku: "010613",      ppg: "1234567",
 
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-    },
-    {
-      rbsku: "010613",      ppg: "1234567",
+  //     desc: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     initsohweek: "743",
+  //     cw: "3429",
+  //     cw1: "0",
+  //     cw2: "0",
+  //     cw3: "2100",
+  //   },
+  //   {
+  //     rbsku: "010613",      ppg: "1234567",
 
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-    },
-    {
-      rbsku: "010613",      ppg: "1234567",
+  //     desc: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     initsohweek: "743",
+  //     cw: "3429",
+  //     cw1: "0",
+  //     cw2: "0",
+  //     cw3: "2100",
+  //   },
+  //   {
+  //     rbsku: "010613",      ppg: "1234567",
 
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-    },
-  ]);
+  //     desc: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     initsohweek: "743",
+  //     cw: "3429",
+  //     cw1: "0",
+  //     cw2: "0",
+  //     cw3: "2100",
+  //   },
+  // ]);
 
   return (
     <div>
@@ -175,8 +177,7 @@ const StockPosition = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                    Brand
-
+                Brand
               </TableCell>
               <TableCell
                 sx={{
@@ -235,40 +236,50 @@ const StockPosition = ({ onData }) => {
             </TableRow>
           </TableHead>
           <TableBody>
+            {data.length == 0 && (
+              <TableRow>
+                <TableCell
+                  colSpan={20}
+                  style={{ textAlign: "center", fontSize: "16px" }}
+                >
+                  No Records Found
+                </TableCell>
+              </TableRow>
+            )}
             {data.map((item) => (
-              <TableRow key={item.rbsku}>
+              <TableRow key={item["RB SKU"]}>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item.rbsku}</div>
+                  <div className="alignment">{item["RB SKU"]}</div>
                 </TableCell>{" "}
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item.ppg}</div>
+                  <div className="alignment">{item.PPG}</div>
                 </TableCell>{" "}
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item.desc}</div>
+                  <div className="alignment">{item.Description}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item.rrsegment}</div>
+                  <div className="alignment">{item.Brand}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="alignment">{item.initsohweek}</div>
-                </TableCell>
-                <TableCell>
-                  {" "}
-                  <div className="alignment">{item.cw}</div>
+                  <div className="alignment">{item.initialsoh}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item.cw1}</div>
+                  <div className="alignment">{item["StkPos CW"]}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="alignment">{item.cw2}</div>
+                  {" "}
+                  <div className="alignment">{item["StkPos CW+1"]}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="alignment">{item.cw3}</div>
+                  <div className="alignment">{item["StkPos CW+2"]}</div>
+                </TableCell>
+                <TableCell>
+                  <div className="alignment">{item["StkPos CW+3"]}</div>
                 </TableCell>
               </TableRow>
             ))}

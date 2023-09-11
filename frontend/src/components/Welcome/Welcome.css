@@ -1,20 +1,16 @@
 .multicolor {
-  /* background-color: black; */
   background: linear-gradient(90deg, #FF007F 7.83%, #FF007F 47.51%, #FF593D 87.2%);
   border-radius: 8px;
   padding: 5px;
   color: white;
-  /* margin-top: -20px; */
 
 }
 
-.we{
-
+.wlcm-grid{
+ align-self: center;
 }
 
-/* .logoutSpace {
-  margin-top: 870px !important;
-} */
+
 
 @media screen and (min-width: 1920px) {
   .css-1yn0t5k-MuiTypography-root {

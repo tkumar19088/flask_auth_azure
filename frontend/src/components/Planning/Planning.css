@@ -1,3 +1,9 @@
+.fcst-bx{
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+
 .pln-cards-header{
   border-radius: 5px 5px;
   background-color:rgb(65, 90, 108); ;
@@ -203,8 +209,8 @@
     color: #fff;
   }
   .sku-badge .MuiBadge-badge {
-    margin-top: -15px !important;
-    margin-right: -354px !important;
+    margin-top: 10px !important;
+    margin-right: -55px !important;
     background-color: #FF007F;
     color: #fff;
   }
@@ -215,8 +221,8 @@
     color: #fff;
   }
   .systamatic-badge .MuiBadge-badge {
-    margin-top: -15px !important;
-    margin-right: -233px !important;
+    margin-top: 10px !important;
+    margin-right: -55px !important;
     background-color: #FF007F;
     color: #fff;
   }

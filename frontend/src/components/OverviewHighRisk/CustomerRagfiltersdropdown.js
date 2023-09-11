@@ -3,18 +3,20 @@ import Menu from "@mui/material/Menu";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import "./Filtersdropdown.css";
 import {
-  fetchofilteredverviewhighriskdata,
-  resetragfiltersohr,
-  flagragfiltersohr,
+  fetchofilteredcustomerdata,
+  resetragfilterscustomer,
+  flagragfiltercustomer,
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 
-function Ragfilters() {
+function CustomerRagfilters() {
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.sidebar.overviewhighriskdata);
-  const isragfilterohr = useSelector((state) => state.sidebar.isragfilterohr);
-  console.log(isragfilterohr);
+  const data = useSelector((state) => state.sidebar.overviewcustomerdata);
+  const isragfiltercustomer = useSelector(
+    (state) => state.sidebar.isragfiltercustomer
+  );
+  console.log(isragfiltercustomer);
 
   const [cwr, setcwr] = useState(false);
   const [cwa, setcwa] = useState(false);
@@ -227,8 +229,8 @@ function Ragfilters() {
     });
 
     console.log(filteredData);
-    dispatch(fetchofilteredverviewhighriskdata(filteredData));
-    dispatch(flagragfiltersohr(true));
+    dispatch(fetchofilteredcustomerdata(filteredData));
+    dispatch(flagragfiltercustomer(true));
   };
 
   const handleReset = () => {
@@ -247,8 +249,8 @@ function Ragfilters() {
     setcw3r(false);
     setcw3a(false);
     setcw3g(false);
-    dispatch(resetragfiltersohr());
-    dispatch(flagragfiltersohr(false));
+    dispatch(resetragfilterscustomer());
+    dispatch(flagragfiltercustomer(false));
   };
 
   const handleMenuClick = (event) => {
@@ -257,7 +259,7 @@ function Ragfilters() {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-    dispatch(flagragfiltersohr(false));
+    dispatch(flagragfiltercustomer(false));
   };
 
   return (
@@ -495,4 +497,4 @@ function Ragfilters() {
   );
 }
 
-export default Ragfilters;
+export default CustomerRagfilters;

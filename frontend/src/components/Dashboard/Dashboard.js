@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import Topbar from "../Topbar/Topbar";
 import Sidebar from "../Sidebar/Sidebar";
 import Welcome from "../Welcome/Welcome";
@@ -7,13 +7,14 @@ import Status from "../Status/Status";
 import Planning from "../Planning/Planning";
 // import Filters from "../Filters/Filters";
 import "./Dashboard.css";
+import loaderImage from "../../images/Logo-bar.png"; // Replace with your image path
 
 import { useSelector, useDispatch } from "react-redux";
 import {
   fetchfilterstatus,
   fetchuserdetails,
+  updateloader,
 } from "../../store/actions/sidebarActions";
-import Filtersnew from "../Filters/Filtersnew";
 import CarouselExample from "../Carousel/Carousel";
 import Filters from "../Filters/Filters";
 
@@ -24,6 +25,7 @@ function Dashboard() {
 
   const filterStatusVal = useSelector((state) => state.sidebar.filterStatus);
   const userDetails = useSelector((state) => state.sidebar.userDetails);
+  const loader = useSelector((state) => state.sidebar.loader);
   const dispatch = useDispatch();
 
   const [isFilter, setisFilter] = useState(filterStatusVal);
@@ -35,6 +37,7 @@ function Dashboard() {
 
   useEffect(() => {
     const fetchData = async () => {
+      dispatch(updateloader(true));
       try {
         const response = await fetch("https://testingsmartola.azurewebsites.net/getuserdata");
         if (response.ok) {
@@ -47,6 +50,8 @@ function Dashboard() {
         }
       } catch (error) {
         console.error("Fetch error:", error);
+      } finally {
+        dispatch(updateloader(false));
       }
     };
     fetchData();
@@ -54,6 +59,11 @@ function Dashboard() {
 
   return (
     <div>
+      {loader && (
+        <div className="loader-overlay">
+          <img src={loaderImage} alt="Loading..." className="rotating-image" />
+        </div>
+      )}
       <Topbar />
       <Grid container>
         <Grid item xs={2}>
@@ -62,7 +72,7 @@ function Dashboard() {
         <Grid item xs={10} className="screen-height">
           <Welcome />
           <Filters />
-          <Status filterStatus={handleFilterStatus} />
+          <CarouselExample />
           <Planning filterStatus={handleFilterStatus} />
         </Grid>
       </Grid>

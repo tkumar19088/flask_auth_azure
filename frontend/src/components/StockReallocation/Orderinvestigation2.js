@@ -5,18 +5,25 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import RefreshIcon from "@mui/icons-material/Refresh";
-import UpdateIcon from '@mui/icons-material/Update';
+import RotateLeftIcon from "@mui/icons-material/RotateLeft";
+import UpdateIcon from "@mui/icons-material/Update";
 import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 import Tooltip from "@mui/material/Tooltip";
 import { useNavigate } from "react-router-dom";
+import { fetchupdateresults } from "../../store/actions/sidebarActions";
+import { useSelector, useDispatch } from "react-redux";
 
 const Orderinvestigation2 = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const updateresults = useSelector((state) => state.sidebar.updateresults);
 
   const [counter, setCounter] = useState(0);
   const [weeksOnConv, setweeksOnConv] = useState(0);
 
+  const handleUpdateResults = () => {
+    dispatch(fetchupdateresults(true));
+  };
   // Function is called everytime increment button is clicked
   const handleweeksOnCovUp = () => {
     // Counter state is incremented
@@ -41,7 +48,7 @@ const Orderinvestigation2 = () => {
   return (
     <div>
       <Stack>
-        <Box display="flex" className="sg-main">
+        <Box display="flex" className="sg-main" mt={0}>
           <Box className="sg-title">
             Scenario Generation: Airwick Electrical Lemon 112345
           </Box>
@@ -59,7 +66,6 @@ const Orderinvestigation2 = () => {
           </Box>
         </Box>
       </Stack>
-
       <Typography fontSize={24} color="#145A6C" mx="3px" mt="-3px">
         Constraints (Optional)
       </Typography>
@@ -319,83 +325,6 @@ const Orderinvestigation2 = () => {
               </Box>
             </Box>
           </Grid>
-        </Stack>
-      </Grid>
-      <Grid>
-        <Typography fontSize={28} mt="1px" color="#145A6C" mx="3px">
-          Results
-        </Typography>
-
-        <Stack
-          mt="-30px"
-          direction="row"
-          //   backgroundColor="red"
-          height="120px"
-          justifyContent="space-between"
-          className="sa-stack"
-        >
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            sx={{ width: "380px" }}
-          >
-            <Box className="sa-box">
-              <Typography className="sa-h1">
-                {" "}
-                Average expected service level
-              </Typography>
-              <Typography color="#008824" className="sa-h2">
-                {" "}
-                £7,749.00
-              </Typography>
-            </Box>
-            <Box className="sa-box">
-              <Typography className="sa-h1"> Expected OLA</Typography>
-              <Typography color="#008824" className="sa-h2">
-                {" "}
-                94%
-              </Typography>
-            </Box>
-          </Box>
-          <Box
-            display="flex"
-            justifyContent="space-around"
-            sx={{ width: "500px" }}
-          >
-            <Tooltip
-              title="Reallocate Suggested Supply"
-              arrow
-              placement="top-start"
-              // ml={{ lg: "-19px" }}
-            >
-              <Box className="sa-boxbtn">
-                Update results
-                <UpdateIcon className="btn-refresh" />
-              </Box>
-            </Tooltip>
-            <Tooltip
-              title="Reallocate Suggested Supply"
-              arrow
-              placement="top-start"
-              // ml={{ lg: "-19px" }}
-            >
-              <Box className="sa-boxbtn">
-                Reset results
-                <RefreshIcon className="btn-refresh" />
-              </Box>
-            </Tooltip>
-            <Tooltip
-              title="Download this scenario"
-              arrow
-              placement="top-start"
-              // ml={{ lg: "-19px" }}
-            >
-              <Box className="sa-boxbtn">
-                Download
-                <DownloadForOfflineIcon className="btn-download" />
-              </Box>
-            </Tooltip>
-          </Box>
         </Stack>
       </Grid>
     </div>

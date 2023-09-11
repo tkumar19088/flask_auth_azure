@@ -16,9 +16,23 @@ import "react-tabs/style/react-tabs.css";
 import "./OverviewHighRisk.css";
 import CustomerTable from "../DataTable/CustomerTable";
 import Ragfilters from "./Ragfiltersdropdown";
+import CustomerRagfilters from "./CustomerRagfiltersdropdown";
 import OhrCustomerTabs from "../DataTable/ohrCustomerTabs";
+import {
+  updateloader,
+  updatecustomer,
+  fetchoverviewhighriskdata,
+  fetchoverviewcustomerdata,
+} from "../../store/actions/sidebarActions";
+import { useSelector, useDispatch } from "react-redux";
+import loaderImage from "../../images/Logo-bar.png";
 
 const OverviewHighRisk2 = () => {
+  const dispatch = useDispatch();
+
+  const loader = useSelector((state) => state.sidebar.loader);
+  const customer = useSelector((state) => state.sidebar.customer);
+
   const [activeTab, setActiveTab] = useState(0);
 
   const handleTabChange = (index) => {
@@ -56,8 +70,66 @@ const OverviewHighRisk2 = () => {
       },
     },
   }));
+
+  const handleReckittOverview = async () => {
+    dispatch(updatecustomer(0));
+    dispatch(updateloader(true));
+    var data = { customer: customer };
+    try {
+      const response = await fetch("http://localhost:5000/getoverview", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        // setuserDetails(json.name);
+        dispatch(fetchoverviewhighriskdata(json));
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
+  };
+  const handleCustomerOverview = async () => {
+    dispatch(updatecustomer(1));
+    dispatch(updateloader(true));
+    var data = { customer: 1 };
+    try {
+      const response = await fetch("http://localhost:5000/getoverview", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        // setuserDetails(json.name);
+        dispatch(fetchoverviewcustomerdata(json));
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
+  };
   return (
     <div>
+      {loader && (
+        <div className="loader-overlay">
+          <img src={loaderImage} alt="Loading..." className="rotating-image" />
+        </div>
+      )}
       <Topbar />
       <Grid container>
         <Grid item xs={2}>
@@ -110,6 +182,7 @@ const OverviewHighRisk2 = () => {
                   border: "1px solid #E5EBEF",
                   color: activeTab === 0 ? "white" : "#415A6C",
                 }}
+                onClick={handleReckittOverview}
               >
                 Overview High Risk SKUs - Reckitt
               </Tab>
@@ -118,18 +191,15 @@ const OverviewHighRisk2 = () => {
                   border: "1px solid #E5EBEF",
                   color: activeTab === 1 ? "white" : "#415A6C",
                 }}
+                onClick={handleCustomerOverview}
               >
                 Overview High Risk SKUs - Customer
               </Tab>
 
-              <Stack
-                className="ohr-stack"
-                direction="row"
-                alignItems="center"
-              >
+              <Stack className="ohr-stack" direction="row" alignItems="center">
                 <Box>
                   <Search
-                    className="serch-border"
+                    // className="serch-border"
                     sx={{
                       backgroundColor: "#E7E9EE",
                       "&:hover": {
@@ -138,6 +208,7 @@ const OverviewHighRisk2 = () => {
                       borderRadius: "30px",
                       display: "flex",
                       color: "#415A6C",
+                      height: "35px",
                     }}
                   >
                     <StyledInputBase
@@ -148,12 +219,22 @@ const OverviewHighRisk2 = () => {
                     <img src={search} alt="search" className="search-icon2" />
                   </Search>
                 </Box>
-                <Box className="nestmenu-box">
-                  <Ragfilters />
-                </Box>
+
                 <Box className="nestmenu-box">
                   <Filtersdropdown />
                 </Box>
+
+                {customer == 0 && (
+                  <Box className="nestmenu-box">
+                    <Ragfilters />
+                  </Box>
+                )}
+                {customer == 1 && (
+                  <Box className="nestmenu-box">
+                    <CustomerRagfilters />
+                  </Box>
+                )}
+
                 <Box>
                   <Button
                     variant="contained"
@@ -170,7 +251,7 @@ const OverviewHighRisk2 = () => {
               <FunctionalTabs />
             </TabPanel>
             <TabPanel>
-            <OhrCustomerTabs />
+              <OhrCustomerTabs />
             </TabPanel>
           </Tabs>
         </Grid>

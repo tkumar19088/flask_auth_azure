@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const startingWeek = 19;
 
@@ -20,133 +21,135 @@ const Historic = ({ onData }) => {
     navigate(-1);
   };
 
-  const [data, setData] = useState([
-    {
-      rbsku: "010613",
-      ppg: "1234567",
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-      cw4: "6120",
-      cw5: "107",
-      cw6: "1052",
-      cw7: "3200",
-      cw8: "0",
-      cw9: "298",
-    },
-    {
-      rbsku: "010613",
-      ppg: "1234567",
+  const data = useSelector((state) => state.sidebar.customerhistoric);
 
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-      cw4: "6120",
-      cw5: "107",
-      cw6: "1052",
-      cw7: "3200",
-      cw8: "0",
-      cw9: "298",
-    },
-    {
-      rbsku: "010613",
-      ppg: "1234567",
+  // const [data, setData] = useState([
+  //   {
+  //     rbsku: "010613",
+  //     ppg: "1234567",
+  //     desc: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     initsohweek: "743",
+  //     cw: "3429",
+  //     cw1: "0",
+  //     cw2: "0",
+  //     cw3: "2100",
+  //     cw4: "6120",
+  //     cw5: "107",
+  //     cw6: "1052",
+  //     cw7: "3200",
+  //     cw8: "0",
+  //     cw9: "298",
+  //   },
+  //   {
+  //     rbsku: "010613",
+  //     ppg: "1234567",
 
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-      cw4: "6120",
-      cw5: "107",
-      cw6: "1052",
-      cw7: "3200",
-      cw8: "0",
-      cw9: "298",
-    },
-    {
-      rbsku: "010613",
-      ppg: "1234567",
+  //     desc: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     initsohweek: "743",
+  //     cw: "3429",
+  //     cw1: "0",
+  //     cw2: "0",
+  //     cw3: "2100",
+  //     cw4: "6120",
+  //     cw5: "107",
+  //     cw6: "1052",
+  //     cw7: "3200",
+  //     cw8: "0",
+  //     cw9: "298",
+  //   },
+  //   {
+  //     rbsku: "010613",
+  //     ppg: "1234567",
 
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-      cw4: "6120",
-      cw5: "107",
-      cw6: "1052",
-      cw7: "3200",
-      cw8: "0",
-      cw9: "298",
-    },
-    {
-      rbsku: "010613",
-      ppg: "1234567",
+  //     desc: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     initsohweek: "743",
+  //     cw: "3429",
+  //     cw1: "0",
+  //     cw2: "0",
+  //     cw3: "2100",
+  //     cw4: "6120",
+  //     cw5: "107",
+  //     cw6: "1052",
+  //     cw7: "3200",
+  //     cw8: "0",
+  //     cw9: "298",
+  //   },
+  //   {
+  //     rbsku: "010613",
+  //     ppg: "1234567",
 
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-      cw4: "6120",
-      cw5: "107",
-      cw6: "1052",
-      cw7: "3200",
-      cw8: "0",
-      cw9: "298",
-    },
-    {
-      rbsku: "010613",
-      ppg: "1234567",
+  //     desc: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     initsohweek: "743",
+  //     cw: "3429",
+  //     cw1: "0",
+  //     cw2: "0",
+  //     cw3: "2100",
+  //     cw4: "6120",
+  //     cw5: "107",
+  //     cw6: "1052",
+  //     cw7: "3200",
+  //     cw8: "0",
+  //     cw9: "298",
+  //   },
+  //   {
+  //     rbsku: "010613",
+  //     ppg: "1234567",
 
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-      cw4: "6120",
-      cw5: "107",
-      cw6: "1052",
-      cw7: "3200",
-      cw8: "0",
-      cw9: "298",
-    },
-    {
-      rbsku: "010613",
-      ppg: "1234567",
+  //     desc: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     initsohweek: "743",
+  //     cw: "3429",
+  //     cw1: "0",
+  //     cw2: "0",
+  //     cw3: "2100",
+  //     cw4: "6120",
+  //     cw5: "107",
+  //     cw6: "1052",
+  //     cw7: "3200",
+  //     cw8: "0",
+  //     cw9: "298",
+  //   },
+  //   {
+  //     rbsku: "010613",
+  //     ppg: "1234567",
 
-      desc: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      initsohweek: "743",
-      cw: "3429",
-      cw1: "0",
-      cw2: "0",
-      cw3: "2100",
-      cw4: "6120",
-      cw5: "107",
-      cw6: "1052",
-      cw7: "3200",
-      cw8: "0",
-      cw9: "298",
-    },
-  ]);
+  //     desc: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     initsohweek: "743",
+  //     cw: "3429",
+  //     cw1: "0",
+  //     cw2: "0",
+  //     cw3: "2100",
+  //     cw4: "6120",
+  //     cw5: "107",
+  //     cw6: "1052",
+  //     cw7: "3200",
+  //     cw8: "0",
+  //     cw9: "298",
+  //   },
+  //   {
+  //     rbsku: "010613",
+  //     ppg: "1234567",
+
+  //     desc: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     initsohweek: "743",
+  //     cw: "3429",
+  //     cw1: "0",
+  //     cw2: "0",
+  //     cw3: "2100",
+  //     cw4: "6120",
+  //     cw5: "107",
+  //     cw6: "1052",
+  //     cw7: "3200",
+  //     cw8: "0",
+  //     cw9: "298",
+  //   },
+  // ]);
 
   return (
     <div>
@@ -317,6 +320,16 @@ const Historic = ({ onData }) => {
             </TableRow>
           </TableHead>
           <TableBody>
+            {data.length == 0 && (
+              <TableRow>
+                <TableCell
+                  colSpan={20}
+                  style={{ textAlign: "center", fontSize: "16px" }}
+                >
+                  No Records Found
+                </TableCell>
+              </TableRow>
+            )}
             {data.map((item) => (
               <TableRow key={item.rbsku}>
                 <TableCell>

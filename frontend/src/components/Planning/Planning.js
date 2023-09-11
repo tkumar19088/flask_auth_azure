@@ -3,7 +3,10 @@ import { Box, Grid, Typography } from "@mui/material";
 import "./Planning.css";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import { useNavigate } from "react-router-dom";
-import { fetchoverviewhighriskdata } from "../../store/actions/sidebarActions";
+import {
+  fetchoverviewhighriskdata,
+  updateloader,
+} from "../../store/actions/sidebarActions";
 import { useDispatch } from "react-redux";
 import Badge from "@mui/material/Badge";
 
@@ -13,20 +16,23 @@ const Planning = ({ filterStatus }) => {
 
   const [oosriskselectedBG, setoosriskselectedBG] = useState(false);
   const [irregularselectedBG, setirregularselectedBG] = useState(false);
-  const [reallocationselectedBG, setreallocationselectedBG] = useState(false);
-
   const handleOOSRisk = () => {
     filterStatus(true);
     setirregularselectedBG(false);
-    setreallocationselectedBG(false);
     setoosriskselectedBG(true);
     fetchData();
   };
   const fetchData = async () => {
+    dispatch(updateloader(true));
+    var data = { customer: 0 };
     try {
-      const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/getoverviewhighriskdata"
-      );
+      const response = await fetch("http://localhost:5000/getoverview", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       if (response.ok) {
         const json = await response.json();
         console.log(json);
@@ -38,19 +44,19 @@ const Planning = ({ filterStatus }) => {
       }
     } catch (error) {
       console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
     }
   };
   const handleirregularpo = () => {
     filterStatus(true);
     setoosriskselectedBG(false);
-    setreallocationselectedBG(false);
     setirregularselectedBG(true);
   };
   const handleReallocation = () => {
     filterStatus(true);
     setoosriskselectedBG(false);
     setirregularselectedBG(false);
-    setreallocationselectedBG(true);
   };
 
   const handleSellinforecast = () => {
@@ -62,9 +68,9 @@ const Planning = ({ filterStatus }) => {
   };
 
   return (
-    <div>
-      <Grid mt={3}>
-        <Grid container spacing={{ md: 2, lg: 2, xl: 5 }} item xs={12} mt={1}>
+    <div style={{ marginTop: "20px" }}>
+      <Grid>
+        <Grid container spacing={{ md: 2, lg: 2, xl: 5 }} item xs={12} mt={1} className="fcst-bx">
           <Grid item xs={4}>
             <Box className="pln-cards-header">
               <Typography color="#fff" className="plan-title">
@@ -158,8 +164,8 @@ const Planning = ({ filterStatus }) => {
               className="pln-card-bd"
               onClick={handleReallocation}
               style={{
-                backgroundColor: reallocationselectedBG ? "#ff007e" : "#fff",
-                color: reallocationselectedBG ? "#fff" : "black",
+                backgroundColor: "#fff",
+                color: "black",
               }}
             >
               <Box className="pln-cards-cnt">

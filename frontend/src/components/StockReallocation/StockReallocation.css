@@ -70,7 +70,7 @@
 }
 .sa-boxbtn{
     margin-top: 23px;
-    width: 170px !important;
+    width: 10px !important;
     height: 28px !important;
     /* padding: 4px !important; */
     font-size: 12px;
@@ -215,7 +215,7 @@
 }
 .sa-boxbtn{
     margin-top: 25px;
-    width: 140px !important;
+    width: 160px !important;
     height: 30px !important;
     font-size: 14px;
     /* background-color: palevioletred !important; */
