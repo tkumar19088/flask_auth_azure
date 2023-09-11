@@ -7,7 +7,7 @@ from flask import (
     url_for,
     jsonify
 )
-from flask_cors import CORS, cross_origin
+from flask_cors import cross_origin
 from msal import ConfidentialClientApplication, SerializableTokenCache
 import app_config
 import json
@@ -99,8 +99,8 @@ def resetfilterparams():
 # ************************************
 @app_blueprint.route('/getalertsdata', methods=['POST'])
 def getalertsdata():
-    oosalertsdata = AzureBlobReader().read_csvfile("alertsoverview.csv")
-    irrpoalerts = AzureBlobReader().read_csvfile("irrpoalerts.csv")
+    oosalertsdata = AzureBlobReader().read_csvfile("ui_data/currentalertsoos.csv")
+    irrpoalerts = AzureBlobReader().read_csvfile("ui_data/currentalertsirrpo.csv")
     filters = ['Business Unit', 'Customer', 'Location','Brand']
 
     if not global_variables:
@@ -166,10 +166,10 @@ def getoverview():
         return jsonify(status="Error", message="Choose above filters to view data"), 500
 
 
-# ************************************************************************************************
+# ****************************************************************************************************
 #    Reckitt Tab Overview |||| Customer Tab Overview  --  EXPORT DATA: Get all RAG filters params
-#    TODO : Should it export data of all tabs or only active tab?
-# ************************************************************************************************
+#    TODO : Should it export data of all tabs or only active tab? 
+# ****************************************************************************************************
 @app_blueprint.route("/exportoosriskdata")
 def exportoosriskdata():
     return jsonify(status="success", message="Data Received!"), 200
@@ -350,13 +350,19 @@ def getcampaigns():
     return json.loads(campaignsbysku.to_json(orient='records'))
 
 
+# ******** CHOOSE MITIGATION SCENARIO ***********
+#      #TODO: Integrate with Optimize Model
+# ***********************************************
+
+
+
 # ******** MITIGATION SCENARIO # 1 *********
 #      PUSH ALTERNATIVE SKU API
 # ******************************************
 @app_blueprint.route("/getalternativeskus", methods=['POST'])
 def getalternativeskus():
     data = request.json
-    altskudata = AzureBlobReader().read_xls("smartola_data.xlsx", sheet="pushalternativeskus")
+    altskudata = AzureBlobReader().read_csvfile("ui_data/pushalternativeskus.csv")
     altskubysku = altskudata[altskudata['RB SKU'] == data['rbsku']]
     altskudata.replace("", "-", inplace=True)
     return json.loads(altskubysku.to_json(orient='records'))
@@ -368,11 +374,22 @@ def getalternativeskus():
 @app_blueprint.route("/rarbysku", methods=['POST'])
 def getrarbysku():
     data = request.json
-    reallocationdata = AzureBlobReader().read_xls("smartola_data.xlsx", sheet="retailerreallocation")
+    # reallocationdata = AzureBlobReader().read_xls("smartola_data.xlsx", sheet="retailerreallocation")
+    reallocationdata = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
     # reallocationdatabysku = reallocationdata[reallocationdata['RB SKU'] == data['rbsku']]
     samplereallocationdata = reallocationdata.sample(10)
     samplereallocationdata.replace("", "-", inplace=True)
     return json.loads(samplereallocationdata.to_json(orient='records'))
+
+# ***************************************
+#      ExportData - Overview # TODO
+# ***************************************
+
+
+# ***********************************************
+#     Within Channel, Across Channel # TODO
+# ***********************************************
+
 
 
 # *******************************
