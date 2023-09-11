@@ -21,6 +21,7 @@ import {
   fetchreckittcaseshortages,
   fetchreckittexpectedservice,
   fetchreckittstockposition,
+  updateexporttabledata,
 } from "../../store/actions/sidebarActions";
 
 const FunctionalTabs = () => {
@@ -48,6 +49,7 @@ const FunctionalTabs = () => {
         console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchoverviewhighriskdata(json));
+        dispatch(updateexporttabledata(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -73,6 +75,7 @@ const FunctionalTabs = () => {
         console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchreckittsupply(json));
+        dispatch(updateexporttabledata(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -98,6 +101,7 @@ const FunctionalTabs = () => {
         console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchreckittdemand(json));
+        dispatch(updateexporttabledata(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -123,6 +127,7 @@ const FunctionalTabs = () => {
         console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchreckittexpectedsoh(json));
+        dispatch(updateexporttabledata(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -148,6 +153,7 @@ const FunctionalTabs = () => {
         console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchreckittwoc(json));
+        dispatch(updateexporttabledata(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -173,6 +179,7 @@ const FunctionalTabs = () => {
         console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchreckittcaseshortages(json));
+        dispatch(updateexporttabledata(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -198,6 +205,7 @@ const FunctionalTabs = () => {
         console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchreckittexpectedservice(json));
+        dispatch(updateexporttabledata(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -223,6 +231,7 @@ const FunctionalTabs = () => {
         console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchreckittstockposition(json));
+        dispatch(updateexporttabledata(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }

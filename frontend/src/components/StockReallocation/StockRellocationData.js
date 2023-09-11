@@ -12,6 +12,7 @@ import {
   Grid,
 } from "@mui/material";
 import { useState, useEffect } from "react";
+import html2canvas from "html2canvas";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
@@ -403,6 +404,16 @@ const StockReallocationData = ({ onData }) => {
   };
   const handleBack = () => {
     navigate(-1);
+  };
+
+  const handleDownloadScreenCapture = () => {
+    html2canvas(document.documentElement).then((canvas) => {
+      const screenshotDataUrl = canvas.toDataURL("image/png");
+      const a = document.createElement("a");
+      a.href = screenshotDataUrl;
+      a.download = "screenshot.png";
+      a.click();
+    });
   };
   return (
     <div style={{ border: "" }}>
@@ -851,7 +862,7 @@ const StockReallocationData = ({ onData }) => {
               placement="top-start"
               // ml={{ lg: "-19px" }}
             >
-              <Box className="sa-boxbtn">
+              <Box className="sa-boxbtn" onClick={handleDownloadScreenCapture}>
                 Download
                 <DownloadForOfflineIcon className="btn-download" />
               </Box>

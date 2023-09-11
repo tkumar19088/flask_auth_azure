@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import {
   fetchoverviewhighriskdata,
   updateloader,
+  updateexporttabledata,
 } from "../../store/actions/sidebarActions";
 import { useDispatch } from "react-redux";
 import Badge from "@mui/material/Badge";
@@ -38,6 +39,7 @@ const Planning = ({ filterStatus }) => {
         console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchoverviewhighriskdata(json));
+        dispatch(updateexporttabledata(json));
         navigate("/overviewhighrisk");
       } else {
         console.error("Error fetching data:", response.statusText);
@@ -70,7 +72,14 @@ const Planning = ({ filterStatus }) => {
   return (
     <div style={{ marginTop: "20px" }}>
       <Grid>
-        <Grid container spacing={{ md: 2, lg: 2, xl: 5 }} item xs={12} mt={1} className="fcst-bx">
+        <Grid
+          container
+          spacing={{ md: 2, lg: 2, xl: 5 }}
+          item
+          xs={12}
+          mt={1}
+          className="fcst-bx"
+        >
           <Grid item xs={4}>
             <Box className="pln-cards-header">
               <Typography color="#fff" className="plan-title">

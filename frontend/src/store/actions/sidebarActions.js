@@ -191,3 +191,9 @@ export const fetchupdateresults = (newValue) => {
     payload: newValue,
   };
 };
+export const updateexporttabledata = (newValue) => {
+  return {
+    type: "UPDATE_EXPORTTABLEDATA",
+    payload: newValue,
+  };
+};

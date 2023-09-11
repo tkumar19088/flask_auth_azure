@@ -32,6 +32,7 @@ const OverviewHighRisk2 = () => {
 
   const loader = useSelector((state) => state.sidebar.loader);
   const customer = useSelector((state) => state.sidebar.customer);
+  const exporttabledata = useSelector((state) => state.sidebar.exporttabledata);
 
   const [activeTab, setActiveTab] = useState(0);
 
@@ -122,6 +123,44 @@ const OverviewHighRisk2 = () => {
     } finally {
       dispatch(updateloader(false));
     }
+  };
+  const convertToCSV = (objArray) => {
+    const array =
+      typeof objArray !== "object" ? JSON.parse(objArray) : objArray;
+    let csv = "";
+
+    // Generate the header row
+    let header = "";
+    for (let key in array[0]) {
+      if (header !== "") header += ",";
+      header += key;
+    }
+    csv += header + "\r\n";
+
+    // Generate the data rows
+    for (let i = 0; i < array.length; i++) {
+      let line = "";
+      for (let key in array[i]) {
+        if (line !== "") line += ",";
+        line += array[i][key];
+      }
+      csv += line + "\r\n";
+    }
+
+    return csv;
+  };
+  const handleExportTableData = () => {
+    const csvData = convertToCSV(exporttabledata);
+    const blob = new Blob([csvData], { type: "text/csv" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = url;
+    a.download = "data.csv";
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
   };
   return (
     <div>
@@ -241,6 +280,7 @@ const OverviewHighRisk2 = () => {
                     size="small"
                     className="btn-exp"
                     style={{ textDecoration: "none", textTransform: "none" }}
+                    onClick={handleExportTableData}
                   >
                     Export Data
                   </Button>

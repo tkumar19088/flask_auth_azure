@@ -28,6 +28,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   updateloader,
   fetchstockreallocatedata,
+  updateexporttabledata,
 } from "../../store/actions/sidebarActions";
 
 const startingWeek = 28;
@@ -132,6 +133,7 @@ const OhrTable = ({ onData }) => {
         const json = await response.json();
         console.log(json);
         dispatch(fetchstockreallocatedata(json));
+        dispatch(updateexporttabledata(json));
         navigate("/stockreallocation");
       } else {
         console.error("Error fetching data:", response.statusText);
