@@ -27,7 +27,7 @@ const Planning = ({ filterStatus }) => {
     dispatch(updateloader(true));
     var data = { customer: 0 };
     try {
-      const response = await fetch("http://localhost:5000/getoverview", {
+      const response = await fetch("https://testingsmartola.azurewebsites.net/getoverview", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

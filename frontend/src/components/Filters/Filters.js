@@ -52,7 +52,7 @@ const Filters = () => {
     };
     console.log(data);
     try {
-      const response = await fetch("http://localhost:5000/getfilterparams", {
+      const response = await fetch("https://testingsmartola.azurewebsites.net/getfilterparams", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +74,7 @@ const Filters = () => {
   const handleResetFilters = async () => {
     dispatch(updateloader(true));
     try {
-      const response = await fetch("http://localhost:5000/getresetdata");
+      const response = await fetch("https://testingsmartola.azurewebsites.net/getresetdata");
       if (response.ok) {
         console.log("success");
       }

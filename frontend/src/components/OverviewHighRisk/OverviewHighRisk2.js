@@ -77,7 +77,7 @@ const OverviewHighRisk2 = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getoverview", {
+      const response = await fetch("https://testingsmartola.azurewebsites.net/getoverview", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -103,7 +103,7 @@ const OverviewHighRisk2 = () => {
     dispatch(updateloader(true));
     var data = { customer: 1 };
     try {
-      const response = await fetch("http://localhost:5000/getoverview", {
+      const response = await fetch("https://testingsmartola.azurewebsites.net/getoverview", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

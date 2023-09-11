@@ -42,7 +42,7 @@ const OhrCustomerTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getoverview", {
+      const response = await fetch("https://testingsmartola.azurewebsites.net/getoverview", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -68,7 +68,7 @@ const OhrCustomerTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getcustepos", {
+      const response = await fetch("https://testingsmartola.azurewebsites.net/getcustepos", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -94,7 +94,7 @@ const OhrCustomerTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getcustsellout", {
+      const response = await fetch("https://testingsmartola.azurewebsites.net/getcustsellout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -120,7 +120,7 @@ const OhrCustomerTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getcustsellin", {
+      const response = await fetch("https://testingsmartola.azurewebsites.net/getcustsellin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -146,7 +146,7 @@ const OhrCustomerTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getstockposition", {
+      const response = await fetch("https://testingsmartola.azurewebsites.net/getstockposition", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -172,7 +172,7 @@ const OhrCustomerTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getcustola", {
+      const response = await fetch("https://testingsmartola.azurewebsites.net/getcustola", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

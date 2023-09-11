@@ -37,7 +37,7 @@ const FunctionalTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getoverview", {
+      const response = await fetch("https://testingsmartola.azurewebsites.net/getoverview", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -63,7 +63,7 @@ const FunctionalTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getsupply", {
+      const response = await fetch("https://testingsmartola.azurewebsites.net/getsupply", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -89,7 +89,7 @@ const FunctionalTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getdemand", {
+      const response = await fetch("https://testingsmartola.azurewebsites.net/getdemand", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -115,7 +115,7 @@ const FunctionalTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getsohateow", {
+      const response = await fetch("https://testingsmartola.azurewebsites.net/getsohateow", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -141,7 +141,7 @@ const FunctionalTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getwocateow", {
+      const response = await fetch("https://testingsmartola.azurewebsites.net/getwocateow", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -167,7 +167,7 @@ const FunctionalTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getcaseshortages", {
+      const response = await fetch("https://testingsmartola.azurewebsites.net/getcaseshortages", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -193,7 +193,7 @@ const FunctionalTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getexpectedservice", {
+      const response = await fetch("https://testingsmartola.azurewebsites.net/getexpectedservice", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -219,7 +219,7 @@ const FunctionalTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getstockposition", {
+      const response = await fetch("https://testingsmartola.azurewebsites.net/getstockposition", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
