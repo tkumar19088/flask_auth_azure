@@ -8,15 +8,25 @@ import {
   TableCell,
   Typography,
   Box,
+  Stack,
+  Grid,
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+
+import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
+import Tooltip from "@mui/material/Tooltip";
+import UpdateIcon from "@mui/icons-material/Update";
+import RotateLeftIcon from "@mui/icons-material/RotateLeft";
+
+import Orderinvestigation2 from "./Orderinvestigation2";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 const StockReallocationData = ({ onData }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // const [data, setData] = useState([]);
 
@@ -36,40 +46,113 @@ const StockReallocationData = ({ onData }) => {
 
   const handleInputChange = (index, value) => {
     const newInputValues = [...inputValues];
+    if (value > 0) {
+      value = -value;
+    }
     newInputValues[index] = value;
     setInputValues(newInputValues);
   };
   const [isUpdating, setIsUpdating] = useState(false);
 
-  useEffect(() => {
-    if (updateresults) {
-      if (!isUpdating) {
-        // Check if an update is not already in progress
-        setIsUpdating(true); // Set a flag to indicate that an update is in progress
+  const handleUpdateResults = () => {
+    console.log(inputValues);
+    var testallocation = 0;
+    const updatedData = data.map((item, index) => {
+      if (inputValues[index] !== "") {
+        const currentallocation =
+          item.currentallocation + parseInt(inputValues[index]);
+        const remainingallocation = currentallocation - item.allocationconsumed;
+        const expectedservice = Math.min(
+          currentallocation /
+            Math.max(
+              item["sif-atf"],
+              item.sumofPOsinalloccycle + item.openorders
+            ),
+          2
+        );
+        const expectedservicelevel = parseFloat(expectedservice.toFixed(2));
+        const updatedCustomerSOH = Math.max(
+          item.currentcustSOH +
+            item.allocationconsumed +
+            Math.min(remainingallocation, item.openorders) -
+            item["Sell out"],
+          0
+        );
+        const updatedCustomer = updatedCustomerSOH / item.AvgYTDsellout;
+        const updatedCustomerWOC = parseFloat(updatedCustomer.toFixed(2));
+        const stocksafetoreallocate = Math.max(
+          remainingallocation -
+            Math.max(
+              item["sif-atf"] - item.sumofPOsinalloccycle,
+              item.openorders
+            ),
+          0
+        );
+        const suggestedallocation =
+          item.idealallocationvalues - currentallocation;
 
-        const updatedData = data.map((item, index) => {
-          if (inputValues[index] !== "") {
-            const currentallocation =
-              item.currentallocation - inputValues[index];
-            const remainingallocation =
-              currentallocation - item.allocationconsumed;
-            return {
-              ...item,
-              currentallocation: currentallocation,
-              remainingallocation: remainingallocation,
-            };
-          } else {
-            return item;
-          }
-        });
-
-        setData(updatedData);
-
-        // Reset the flag after the update
-        setIsUpdating(false);
+        //Static row data update//
+        suggectedRecord.currentallocation =
+          suggectedRecord.currentallocation - parseInt(inputValues[index]);
+        suggectedRecord.remainingallocation =
+          suggectedRecord.currentallocation -
+          suggectedRecord.allocationconsumed;
+        const suggexpectedservice = Math.min(
+          suggectedRecord.currentallocation /
+            Math.max(
+              suggectedRecord["sif-atf"],
+              suggectedRecord.sumofPOsinalloccycle + suggectedRecord.openorders
+            ),
+          2
+        );
+        suggectedRecord.expectedservicelevel = parseFloat(
+          suggexpectedservice.toFixed(2)
+        );
+        suggectedRecord["custsoh-current"] = Math.max(
+          suggectedRecord.currentcustSOH +
+            suggectedRecord.allocationconsumed +
+            Math.min(
+              suggectedRecord.remainingallocation,
+              suggectedRecord.openorders
+            ) -
+            suggectedRecord["Sell out"],
+          0
+        );
+        const suggupdatedCustomer =
+          suggectedRecord["custsoh-current"] / suggectedRecord.AvgYTDsellout;
+        suggectedRecord["custwoc-current"] = parseFloat(
+          suggupdatedCustomer.toFixed(2)
+        );
+        suggectedRecord.stocksafetoreallocate = Math.max(
+          suggectedRecord.remainingallocation -
+            Math.max(
+              suggectedRecord["sif-atf"] - suggectedRecord.sumofPOsinalloccycle,
+              suggectedRecord.openorders
+            ),
+          0
+        );
+        suggectedRecord.suggestedallocation =
+          suggectedRecord.idealallocationvalues -
+          suggectedRecord.currentallocation;
+        testallocation += Math.abs(inputValues[index]);
+        return {
+          ...item,
+          currentallocation: currentallocation,
+          remainingallocation: remainingallocation,
+          expectedservicelevel: expectedservicelevel,
+          "custsoh-current": updatedCustomerSOH,
+          "custwoc-current": updatedCustomerWOC,
+          stocksafetoreallocate: stocksafetoreallocate,
+          suggestedallocation: suggestedallocation,
+        };
+      } else {
+        return item;
       }
-    }
-  }, [updateresults, data, inputValues, isUpdating]);
+    });
+    suggectedRecord.testReallocation = testallocation;
+
+    setData(updatedData);
+  };
 
   // const [data, setData] = useState([
   //   {
@@ -564,7 +647,7 @@ const StockReallocationData = ({ onData }) => {
                     // padding: "0px",
                   }}
                 >
-                  0
+                  {suggectedRecord.testReallocation}
                 </TableCell>
               </TableRow>
             )}
@@ -697,6 +780,85 @@ const StockReallocationData = ({ onData }) => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Orderinvestigation2 />
+      <Grid>
+        <Typography fontSize={24} mt="1px" color="#145A6C" mx="3px">
+          Results
+        </Typography>
+
+        <Stack
+          mt="-30px"
+          direction="row"
+          //   backgroundColor="red"
+          height="120px"
+          justifyContent="space-between"
+          className="sa-stack"
+        >
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            sx={{ width: "380px" }}
+          >
+            <Box className="sa-box">
+              <Typography className="sa-h1">
+                {" "}
+                Average expected service level
+              </Typography>
+              <Typography color="#008824" className="sa-h2">
+                {" "}
+                £7,749.00
+              </Typography>
+            </Box>
+            <Box className="sa-box">
+              <Typography className="sa-h1"> Expected OLA</Typography>
+              <Typography color="#008824" className="sa-h2">
+                {" "}
+                94%
+              </Typography>
+            </Box>
+          </Box>
+          <Box
+            display="flex"
+            justifyContent="space-around"
+            sx={{ width: "500px" }}
+          >
+            <Tooltip
+              title="Reallocate Suggested Supply"
+              arrow
+              placement="top-start"
+              // ml={{ lg: "-19px" }}
+              onClick={handleUpdateResults}
+            >
+              <Box className="sa-boxbtn">
+                Update results
+                <UpdateIcon className="btn-refresh" />
+              </Box>
+            </Tooltip>
+            <Tooltip
+              title="Reallocate Suggested Supply"
+              arrow
+              placement="top-start"
+              // ml={{ lg: "-19px" }}
+            >
+              <Box className="sa-boxbtn">
+                Reset results
+                <RotateLeftIcon className="btn-refresh" />
+              </Box>
+            </Tooltip>
+            <Tooltip
+              title="Download this scenario"
+              arrow
+              placement="top-start"
+              // ml={{ lg: "-19px" }}
+            >
+              <Box className="sa-boxbtn">
+                Download
+                <DownloadForOfflineIcon className="btn-download" />
+              </Box>
+            </Tooltip>
+          </Box>
+        </Stack>
+      </Grid>
     </div>
   );
 };

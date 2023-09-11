@@ -922,6 +922,7 @@ const initialState = {
     stocksafetoreallocate: 36,
     suggestedallocation: 2,
     sumofPOsinalloccycle: 900,
+    testReallocation: 0,
   },
   filteredOHRdata: [],
   expandedItem: null,

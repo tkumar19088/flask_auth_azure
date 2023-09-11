@@ -66,7 +66,6 @@ const Orderinvestigation2 = () => {
           </Box>
         </Box>
       </Stack>
-
       <Typography fontSize={24} color="#145A6C" mx="3px" mt="-3px">
         Constraints (Optional)
       </Typography>
@@ -326,84 +325,6 @@ const Orderinvestigation2 = () => {
               </Box>
             </Box>
           </Grid>
-        </Stack>
-      </Grid>
-      <Grid>
-        <Typography fontSize={24} mt="1px" color="#145A6C" mx="3px">
-          Results
-        </Typography>
-
-        <Stack
-          mt="-30px"
-          direction="row"
-          //   backgroundColor="red"
-          height="120px"
-          justifyContent="space-between"
-          className="sa-stack"
-        >
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            sx={{ width: "380px" }}
-          >
-            <Box className="sa-box">
-              <Typography className="sa-h1">
-                {" "}
-                Average expected service level
-              </Typography>
-              <Typography color="#008824" className="sa-h2">
-                {" "}
-                £7,749.00
-              </Typography>
-            </Box>
-            <Box className="sa-box">
-              <Typography className="sa-h1"> Expected OLA</Typography>
-              <Typography color="#008824" className="sa-h2">
-                {" "}
-                94%
-              </Typography>
-            </Box>
-          </Box>
-          <Box
-            display="flex"
-            justifyContent="space-around"
-            sx={{ width: "500px" }}
-          >
-            <Tooltip
-              title="Reallocate Suggested Supply"
-              arrow
-              placement="top-start"
-              // ml={{ lg: "-19px" }}
-              onClick={handleUpdateResults}
-            >
-              <Box className="sa-boxbtn">
-                Update results
-                <UpdateIcon className="btn-refresh" />
-              </Box>
-            </Tooltip>
-            <Tooltip
-              title="Reallocate Suggested Supply"
-              arrow
-              placement="top-start"
-              // ml={{ lg: "-19px" }}
-            >
-              <Box className="sa-boxbtn">
-                Reset results
-                <RotateLeftIcon className="btn-refresh" />
-              </Box>
-            </Tooltip>
-            <Tooltip
-              title="Download this scenario"
-              arrow
-              placement="top-start"
-              // ml={{ lg: "-19px" }}
-            >
-              <Box className="sa-boxbtn">
-                Download
-                <DownloadForOfflineIcon className="btn-download" />
-              </Box>
-            </Tooltip>
-          </Box>
         </Stack>
       </Grid>
     </div>

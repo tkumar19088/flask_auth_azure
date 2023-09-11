@@ -35,7 +35,12 @@ function StockReallocation() {
           <Sidebar />
         </Grid>
         <Grid item xs={10} className="bg-container">
-          <Box display="flex" fontSize={14} mx="1px" className="breadcrumb-sabox">
+          <Box
+            display="flex"
+            fontSize={14}
+            mx="1px"
+            className="breadcrumb-sabox"
+          >
             <Box mt="1px">
               <Button
                 style={{
@@ -139,7 +144,6 @@ function StockReallocation() {
             </Box>
           </Box>
           <StockReallocationData onData={handleDataFromChild} />
-          <Orderinvestigation2 />
         </Grid>
       </Grid>
     </div>
