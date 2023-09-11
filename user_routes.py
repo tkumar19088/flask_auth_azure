@@ -7,6 +7,7 @@ from flask import (
     url_for,
     jsonify
 )
+import os
 from flask_cors import cross_origin
 from msal import ConfidentialClientApplication, SerializableTokenCache
 import app_config
@@ -31,10 +32,11 @@ app_blueprint = Blueprint("app", __name__)
 @app_blueprint.route("/") # Homepage # Default route
 @cross_origin()
 def index():
-    if "user" in session:
-        return render_template("index.html")
-    else:
-        return redirect(url_for("app.login"))
+    # if "user" in session:
+    #     return render_template("index.html")
+    # else:
+    #     return redirect(url_for("app.login"))
+    return render_template("index.html")
 
 # Login page redirected from index (homepage)
 @app_blueprint.route("/login")
@@ -55,15 +57,23 @@ def login():
 @app_blueprint.route("/getuserdata")
 def getuserdata():
     filters = ['Business Unit', 'Customer', 'Location','Brand']
-    if "user" in session:
-        uemail = session["user"]["preferred_username"]
-        userDetails = UserDataReaderBlobStorage().getUserDetails(uemail)
-        for filter_key in filters:
-            if filter_key in userDetails.items():
-                global_userDetails[filter_key] = userDetails[filter_key].value
-        return userDetails
-    else:
-        return redirect(url_for("app.login"))
+    uemail = os.getenv("USER_EMAIL")
+    userDetails = UserDataReaderBlobStorage().getUserDetails(uemail)
+    for filter_key in filters:
+        if filter_key in userDetails.items():
+            global_userDetails[filter_key] = userDetails[filter_key].value
+    return userDetails
+    # filters = ['Business Unit', 'Customer', 'Location','Brand']
+    # if "user" in session:
+    #     uemail = session["user"]["preferred_username"]
+    #     userDetails = UserDataReaderBlobStorage().getUserDetails(uemail)
+    #     for filter_key in filters:
+    #         if filter_key in userDetails.items():
+    #             global_userDetails[filter_key] = userDetails[filter_key].value
+    #     return userDetails
+    # else:
+    #     return redirect(url_for("app.login"))
+    
 
 
 # **************************************************************
