@@ -57,7 +57,7 @@ const Filtersnew = () => {
             <InputLabel>Business Unit</InputLabel>
             <Select value={business} onChange={handleBusinessChange}>
               <MenuItem value={10}>Health</MenuItem>
-              <MenuItem value={20}>Hugeine</MenuItem>
+              <MenuItem value={20}>Hygiene</MenuItem>
               <MenuItem value={30}>Nutrition</MenuItem>
             </Select>
           </FormControl>
@@ -69,7 +69,7 @@ const Filtersnew = () => {
             <InputLabel>Location</InputLabel>
             <Select value={location} onChange={handleLocationChange}>
               <MenuItem value={10}>United Kingdom</MenuItem>
-              <MenuItem value={20}>Hugeine</MenuItem>
+              <MenuItem value={20}>Hygiene</MenuItem>
               <MenuItem value={30}>Nutrition</MenuItem>
             </Select>
           </FormControl>
@@ -81,7 +81,7 @@ const Filtersnew = () => {
             <InputLabel>Customer</InputLabel>
             <Select value={customer} onChange={handleCustomerChange}>
               <MenuItem value={10}>Health</MenuItem>
-              <MenuItem value={20}>Hugeine</MenuItem>
+              <MenuItem value={20}>Hygiene</MenuItem>
               <MenuItem value={30}>Nutrition</MenuItem>
             </Select>
           </FormControl>
