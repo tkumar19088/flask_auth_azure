@@ -941,6 +941,7 @@ const initialState = {
   customerstockposition: [],
   customerola: [],
   updateresults: false,
+  exporttabledata: []
 };
 
 const sidebarReducer = (state = initialState, action) => {
@@ -1124,6 +1125,11 @@ const sidebarReducer = (state = initialState, action) => {
       return {
         ...state,
         updateresults: action.payload,
+      };
+    case "UPDATE_EXPORTTABLEDATA":
+      return {
+        ...state,
+        exporttabledata: action.payload,
       };
     default:
       return state;

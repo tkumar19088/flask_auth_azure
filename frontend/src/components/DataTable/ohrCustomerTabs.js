@@ -25,6 +25,7 @@ import {
   fetchcustomersellin,
   fetchcustomerstockposition,
   fetchcustomerola,
+  updateexporttabledata,
 } from "../../store/actions/sidebarActions";
 
 const OhrCustomerTabs = () => {
@@ -53,6 +54,7 @@ const OhrCustomerTabs = () => {
         console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchoverviewcustomerdata(json));
+        dispatch(updateexporttabledata(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -78,6 +80,7 @@ const OhrCustomerTabs = () => {
         console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchcustomerhestoric(json));
+        dispatch(updateexporttabledata(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -103,6 +106,7 @@ const OhrCustomerTabs = () => {
         console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchcustomersellout(json));
+        dispatch(updateexporttabledata(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -128,6 +132,7 @@ const OhrCustomerTabs = () => {
         console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchcustomersellin(json));
+        dispatch(updateexporttabledata(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -153,6 +158,7 @@ const OhrCustomerTabs = () => {
         console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchcustomerstockposition(json));
+        dispatch(updateexporttabledata(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -178,6 +184,7 @@ const OhrCustomerTabs = () => {
         console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchcustomerola(json));
+        dispatch(updateexporttabledata(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
