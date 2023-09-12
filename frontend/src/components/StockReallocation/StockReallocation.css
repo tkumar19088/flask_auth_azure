@@ -6,7 +6,10 @@
 }
 
 
+.sa-boxbtn:hover{
+    background-color: #FF007E !important;
 
+}
 
 @media (width > 1200px) and (width < 1440px) {
     .bread-crumb{
@@ -91,7 +94,7 @@
     border-radius: 5px;
     background-color: #415A6C;
     color: #F5F6F8;
-    border: 1.2px solid #415A6C;
+    /* border: 1.2px solid #415A6C; */
     cursor: pointer;
 }
 .btn-refresh{
@@ -231,7 +234,7 @@
     border-radius: 5px;
     background-color: #415A6C;
     color: white;
-    border: 1.2px solid #415A6C;
+    /* border: 1.2px solid #415A6C; */
     line-height: 16px;
     cursor: pointer;
 }

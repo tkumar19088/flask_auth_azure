@@ -416,6 +416,10 @@ const StockReallocationData = ({ onData }) => {
       a.click();
     });
   };
+
+  const handleResetResults = () => {
+    setData(initialData);
+  };
   return (
     <div style={{ border: "" }}>
       <TableContainer style={{ maxHeight: 462, width: "100%" }}>
@@ -866,7 +870,7 @@ const StockReallocationData = ({ onData }) => {
               placement="top-start"
               // ml={{ lg: "-19px" }}
             >
-              <Box className="sa-boxbtn">
+              <Box className="sa-boxbtn" onClick={handleResetResults}>
                 Reset results
                 <RotateLeftIcon className="btn-refresh" />
               </Box>

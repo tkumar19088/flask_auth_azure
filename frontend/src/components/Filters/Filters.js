@@ -185,9 +185,17 @@ const Filters = () => {
                 size="small"
               >
                 <InputLabel>Brand</InputLabel>
-                <Select value={brand} onChange={handleBrandChange}>
-                  <MenuItem value="Airwick">Airwick</MenuItem>
-                  <MenuItem value="Durex">Durex</MenuItem>
+                <Select
+                  value={brand}
+                  onChange={handleBrandChange}
+                  disabled={!business}
+                >
+                  {business === "Hygiene" && (
+                    <MenuItem value="Airwick">Airwick</MenuItem>
+                  )}
+                  {business === "Health" && (
+                    <MenuItem value="Gaviscon">Gaviscon</MenuItem>
+                  )}
                 </Select>
               </FormControl>
             </Box>
