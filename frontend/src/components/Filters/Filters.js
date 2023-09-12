@@ -72,16 +72,17 @@ const Filters = () => {
   };
 
   const handleResetFilters = async () => {
-    dispatch(updateloader(true));
+    // dispatch(updateloader(true));
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/getresetdata");
+      const response = await fetch("http://localhost:5000/resetfilterparams");
       if (response.ok) {
         console.log("success");
+        window.location.reload();
       }
     } catch (error) {
       console.error("Fetch error:", error);
     } finally {
-      dispatch(updateloader(false));
+      // dispatch(updateloader(false));
     }
   };
   // const data = {
@@ -184,9 +185,17 @@ const Filters = () => {
                 size="small"
               >
                 <InputLabel>Brand</InputLabel>
-                <Select value={brand} onChange={handleBrandChange}>
-                  <MenuItem value="Airwick">Airwick</MenuItem>
-                  <MenuItem value="Durex">Durex</MenuItem>
+                <Select
+                  value={brand}
+                  onChange={handleBrandChange}
+                  disabled={!business}
+                >
+                  {business === "Hygiene" && (
+                    <MenuItem value="Airwick">Airwick</MenuItem>
+                  )}
+                  {business === "Health" && (
+                    <MenuItem value="Gaviscon">Gaviscon</MenuItem>
+                  )}
                 </Select>
               </FormControl>
             </Box>

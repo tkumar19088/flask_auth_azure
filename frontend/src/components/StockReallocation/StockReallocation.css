@@ -1,4 +1,15 @@
+.s-row1 td{
+    padding: 5px !important;  
+}
+.s-row2 td{
+    padding: 5px !important;  
+}
 
+
+.sa-boxbtn:hover{
+    background-color: #FF007E !important;
+
+}
 
 @media (width > 1200px) and (width < 1440px) {
     .bread-crumb{
@@ -39,11 +50,11 @@
         /* font-weight: 100 !important; */
         /* line-height: 16px; */
     }
-    .css-1ex1afd-MuiTableCell-root {
+    /* .css-1ex1afd-MuiTableCell-root {
         padding: 0px !important;
         text-align: center !important;
         font-size: 0.7rem !important;
-    }
+    } */
     
 .sa-box{
     /* background-color: red !important; */
@@ -83,7 +94,7 @@
     border-radius: 5px;
     background-color: #415A6C;
     color: #F5F6F8;
-    border: 1.2px solid #415A6C;
+    /* border: 1.2px solid #415A6C; */
     cursor: pointer;
 }
 .btn-refresh{
@@ -169,11 +180,7 @@
    .sr-supplyrealocate1{
     font-size: 18px !important;
    }
-   /* .css-1ex1afd-MuiTableCell-root {
-      text-align: center !important;
-      width: 20px !important;
-      font-size: 13px !important;
-   } */
+  
 
    
 
@@ -227,7 +234,7 @@
     border-radius: 5px;
     background-color: #415A6C;
     color: white;
-    border: 1.2px solid #415A6C;
+    /* border: 1.2px solid #415A6C; */
     line-height: 16px;
     cursor: pointer;
 }

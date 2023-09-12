@@ -19,6 +19,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 import Tooltip from "@mui/material/Tooltip";
 import UpdateIcon from "@mui/icons-material/Update";
+import FilterDramaOutlinedIcon from "@mui/icons-material/FilterDramaOutlined";
 import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 
 import Orderinvestigation2 from "./Orderinvestigation2";
@@ -415,9 +416,13 @@ const StockReallocationData = ({ onData }) => {
       a.click();
     });
   };
+
+  const handleResetResults = () => {
+    setData(initialData);
+  };
   return (
     <div style={{ border: "" }}>
-      <TableContainer style={{ maxHeight: 477, width: "100%" }}>
+      <TableContainer style={{ maxHeight: 462, width: "100%" }}>
         <Table stickyHeader className="stockReallocation">
           <TableHead>
             <TableRow>
@@ -479,10 +484,12 @@ const StockReallocationData = ({ onData }) => {
                 <TableCell
                   sx={{
                     backgroundColor: "rgb(198 223 215)",
-                    textAlign: "center",
+                    // textAlign: "center",
                   }}
                 >
-                  {suggectedRecord.Customer}
+                  <Typography fontSize={14}>
+                    {suggectedRecord.Customer}
+                  </Typography>
                 </TableCell>
                 <TableCell
                   sx={{
@@ -499,7 +506,7 @@ const StockReallocationData = ({ onData }) => {
                   }}
                 >
                   <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                    <Typography fontSize={15}>
+                    <Typography fontSize={13}>
                       {suggectedRecord["sif-atf"]}
                     </Typography>
                     <Typography
@@ -563,7 +570,7 @@ const StockReallocationData = ({ onData }) => {
                 >
                   <Box display="flex" sx={{ paddingLeft: "15px" }}>
                     <Typography
-                      fontSize={15}
+                      fontSize={13}
                       sx={{
                         color:
                           suggectedRecord["custsoh-current"] >=
@@ -595,7 +602,7 @@ const StockReallocationData = ({ onData }) => {
                 >
                   <Box display="flex" sx={{ paddingLeft: "15px" }}>
                     <Typography
-                      fontSize={15}
+                      fontSize={13}
                       sx={{
                         color:
                           suggectedRecord["custwoc-current"] >=
@@ -666,7 +673,7 @@ const StockReallocationData = ({ onData }) => {
             {data.map((item, index) => (
               <TableRow
                 key={item.skucode}
-                className={item.checkbox ? "checked-row" : ""}
+                className={item.checkbox ? "checked-row s-row2" : "s-row2"}
                 style={{
                   backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
                 }}
@@ -675,7 +682,7 @@ const StockReallocationData = ({ onData }) => {
                 <TableCell>{item.Channel}</TableCell>
                 <TableCell>
                   <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                    <Typography fontSize={15}>{item["sif-atf"]}</Typography>
+                    <Typography fontSize={13}>{item["sif-atf"]}</Typography>
                     <Typography
                       fontSize={13}
                       sx={{
@@ -706,7 +713,7 @@ const StockReallocationData = ({ onData }) => {
                 <TableCell>
                   <Box display="flex" sx={{ paddingLeft: "15px" }}>
                     <Typography
-                      fontSize={15}
+                      fontSize={13}
                       sx={{
                         color:
                           item["custsoh-current"] >= item["custsoh-target"]
@@ -732,7 +739,7 @@ const StockReallocationData = ({ onData }) => {
                 <TableCell>
                   <Box display="flex" sx={{ paddingLeft: "15px" }}>
                     <Typography
-                      fontSize={15}
+                      fontSize={13}
                       sx={{
                         color:
                           item["custwoc-current"] > item["custwoc-target"]
@@ -831,8 +838,20 @@ const StockReallocationData = ({ onData }) => {
           <Box
             display="flex"
             justifyContent="space-around"
-            sx={{ width: "500px" }}
+            sx={{ width: "730px" }}
           >
+            <Tooltip
+              title="Reallocate Suggested Supply"
+              arrow
+              placement="top-start"
+              // ml={{ lg: "-19px" }}
+              onClick={handleUpdateResults}
+            >
+              <Box className="sa-boxbtn">
+                Run Optimization
+                <FilterDramaOutlinedIcon className="btn-refresh" />
+              </Box>
+            </Tooltip>
             <Tooltip
               title="Reallocate Suggested Supply"
               arrow
@@ -851,7 +870,7 @@ const StockReallocationData = ({ onData }) => {
               placement="top-start"
               // ml={{ lg: "-19px" }}
             >
-              <Box className="sa-boxbtn">
+              <Box className="sa-boxbtn" onClick={handleResetResults}>
                 Reset results
                 <RotateLeftIcon className="btn-refresh" />
               </Box>

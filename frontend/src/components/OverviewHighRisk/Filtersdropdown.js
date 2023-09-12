@@ -20,6 +20,29 @@ function Filtersdropdown() {
   const filteredOHRdata = useSelector((state) => state.sidebar.filteredOHRdata);
   const [selectedCustomerValue, setselectedCustomerValue] = useState("Amazon"); // Initialize with a default value
 
+  const data = useSelector((state) => state.sidebar.userDetails);
+  console.log(data);
+
+  const [business, setBusiness] = useState("");
+  const [location, setLocation] = useState("");
+  const [customer, setCustomer] = useState("");
+  const [brand, setBrand] = useState("");
+
+  const handleBusinessChange = (event) => {
+    setBusiness(event.target.value);
+  };
+
+  const handleLocationChange = (event) => {
+    setLocation(event.target.value);
+  };
+
+  const handleCustomerChange = (event) => {
+    setCustomer(event.target.value);
+  };
+  const handleBrandChange = (event) => {
+    setBrand(event.target.value);
+  };
+
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
   };

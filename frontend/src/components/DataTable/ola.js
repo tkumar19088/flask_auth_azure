@@ -328,60 +328,60 @@ const Ola = ({ onData }) => {
               </TableRow>
             )}
             {data.map((item) => (
-              <TableRow key={item.rbsku}>
+              <TableRow key={item["RB SKU"]}>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item.rbsku}</div>
-                </TableCell>
-                <TableCell>
-                  {" "}
-                  <div className="alignment">{item.ppg}</div>
+                  <div className="alignment">{item["RB SKU"]}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item.desc}</div>
+                  <div className="alignment">{item.PPG}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item.rrsegment}</div>
-                </TableCell>
-                <TableCell>
-                  <div className="alignment">{item.initsohweek}</div>
+                  <div className="alignment">{item.Description}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item.cw}</div>
+                  <div className="alignment">{item.Brand}</div>
+                </TableCell>
+                <TableCell>
+                  <div className="alignment">{item["InitalSOH Week"]}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item.cw1}</div>
-                </TableCell>
-                <TableCell>
-                  <div className="alignment">{item.cw2}</div>
-                </TableCell>
-                <TableCell>
-                  <div className="alignment">{item.cw3}</div>
-                </TableCell>
-                <TableCell>
-                  <div className="alignment">{item.cw4}</div>
+                  <div className="alignment">{item.CW}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item.cw5}</div>
+                  <div className="alignment">{item["CW+1"]}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="alignment">{item.cw6}</div>
+                  <div className="alignment">{item["CW+2"]}</div>
                 </TableCell>
                 <TableCell>
-                  <div className="alignment">{item.cw7}</div>
+                  <div className="alignment">{item["CW+3"]}</div>
+                </TableCell>
+                <TableCell>
+                  <div className="alignment">{item["CW+4"]}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item.cw8}</div>
+                  <div className="alignment">{item["CW+5"]}</div>
+                </TableCell>
+                <TableCell>
+                  <div className="alignment">{item["CW+6"]}</div>
+                </TableCell>
+                <TableCell>
+                  <div className="alignment">{item["CW+7"]}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item.cw9}</div>
+                  <div className="alignment">{item["CW+8"]}</div>
+                </TableCell>
+                <TableCell>
+                  {" "}
+                  <div className="alignment">{item["CW+9"]}</div>
                 </TableCell>
               </TableRow>
             ))}

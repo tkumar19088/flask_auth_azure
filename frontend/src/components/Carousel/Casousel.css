@@ -1,10 +1,10 @@
 .carouselcls.css-ohwg9z .css-1abc02a {
-    top: 98px !important;
-    margin-inline: 670px;
+    top: 105px !important;
+    margin-inline: 685px;
 }
 .carouselcls.css-ohwg9z .css-hn784z {
-    top: 98px !important;
-    margin-inline: 670px;
+    top: 105px !important;
+    margin-inline: 685px;
 
 }
 
@@ -21,4 +21,13 @@
 
 .carouselcls.css-ohwg9z button {
     margin-bottom: 17px !important;
+}
+
+.carouselcls.css-ohwg9z .css-hn784z svg{
+    width: 13px !important;
+    height: 13px !important;
+}
+.carouselcls.css-ohwg9z .css-1abc02a svg{
+    width: 13px !important;
+    height: 13px !important;
 }

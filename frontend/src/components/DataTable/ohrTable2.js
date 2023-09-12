@@ -33,6 +33,8 @@ const OhrTable2 = ({ onData }) => {
   const dispatch = useDispatch();
   const [expandedRow, setExpandedRow] = useState(null);
   const [pushAlternative, setpushAlternative] = useState(false);
+  const [campaignsData, setcampaignsData] = useState([]);
+  const [iscampaigns, setiscampaigns] = useState(false);
   const data = useSelector((state) => state.sidebar.overviewcustomerdata);
   console.log(data);
   const truncateText = (text, maxLength) => {
@@ -47,12 +49,22 @@ const OhrTable2 = ({ onData }) => {
     setpushAlternative(false);
     if (expandedRow === rowId) {
       setExpandedRow(null);
+    } else {
       dispatch(updateloader(true));
+      var data = { customer: 1, rbsku: rowId };
       try {
-        const response = await fetch("https://testingsmartola.azurewebsites.net/getuserdata");
+        const response = await fetch("http://localhost:5000/getcampaigns", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
         if (response.ok) {
           const json = await response.json();
           console.log(json);
+          setiscampaigns(true);
+          setcampaignsData(json);
           //dispatch(fetchuserdetails(json));
         } else {
           console.error("Error fetching data:", response.statusText);
@@ -62,17 +74,16 @@ const OhrTable2 = ({ onData }) => {
       } finally {
         dispatch(updateloader(false));
       }
-    } else {
       setExpandedRow(rowId);
     }
   };
 
-  const handlePushAlternative = () => {
-    setpushAlternative(true);
-  };
-  const handleReallocate = () => {
-    navigate("/stockreallocation");
-  };
+  // const handlePushAlternative = () => {
+  //   setpushAlternative(true);
+  // };
+  // const handleReallocate = () => {
+  //   navigate("/stockreallocation");
+  // };
 
   // const [data, setData] = useState([
   //   {
@@ -1168,7 +1179,7 @@ const OhrTable2 = ({ onData }) => {
                 }}
               >
                 <TableCell style={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.campaignanme}</Typography>
+                  <Typography fontSize="13px">{item.campaignname}</Typography>
                 </TableCell>
                 <TableCell style={{ textAlign: "center" }}>
                   <Typography fontSize="13px">{item.startdate}</Typography>
@@ -1177,199 +1188,25 @@ const OhrTable2 = ({ onData }) => {
                   <Typography fontSize="13px">{item.enddate}</Typography>
                 </TableCell>
                 <TableCell style={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.skufocused}</Typography>
-                </TableCell>
-                <TableCell style={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.activestatus}</Typography>
-                </TableCell>
-                <TableCell style={{ textAlign: "center" }}>
                   <Typography fontSize="13px">
-                    {item.retailersinvolved}
+                    {item.offerdescription}
                   </Typography>
                 </TableCell>
                 <TableCell style={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.status}</Typography>
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.Customer}</Typography>
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
                   <Typography fontSize="13px">
-                    {item.retailerinventory}
+                    {item.customerinventory}
                   </Typography>
                 </TableCell>
                 <TableCell style={{ textAlign: "center" }}>
                   <Typography fontSize="13px">
-                    {item.rbwherehouseinventory}
+                    {item.customerallocation}
                   </Typography>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </div>
-  );
-
-  const PushAlternativeTable = ({ details }) => (
-    <div>
-      <TableContainer component={Paper} className="tablecell-header">
-        <Table className="campaignsTable">
-          <TableHead className="pushalternative-tablehead">
-            <TableRow>
-              <TableCell
-                sx={{
-                  border: "",
-                  width: "60px",
-                  border: "1px solid #dcdcdc",
-                  backgroundColor: "#E5EBEF",
-                  textAlign: "center",
-                  // padding: "0px",
-                  height: "30px",
-                }}
-              >
-                Recom.Score
-              </TableCell>
-              <TableCell
-                sx={{
-                  border: "",
-                  width: "60px",
-                  textAlign: "center",
-                  border: "1px solid #dcdcdc",
-                  backgroundColor: "#E5EBEF",
-                  // padding: "0px",
-                }}
-              >
-                RB SKU
-              </TableCell>
-              <TableCell
-                sx={{
-                  border: "",
-                  width: "60px",
-                  textAlign: "center",
-                  border: "1px solid #dcdcdc",
-                  backgroundColor: "#E5EBEF",
-                }}
-              >
-                PPG
-              </TableCell>
-              <TableCell
-                sx={{
-                  border: "",
-                  width: "60px",
-                  textAlign: "center",
-                  border: "1px solid #dcdcdc",
-                  backgroundColor: "#E5EBEF",
-                }}
-              >
-                Description
-              </TableCell>
-              <TableCell
-                sx={{
-                  border: "",
-                  width: "110px",
-                  textAlign: "center",
-                  border: "1px solid #dcdcdc",
-                  backgroundColor: "#E5EBEF",
-                }}
-              >
-                Active Camplaigns
-              </TableCell>
-              <TableCell
-                sx={{
-                  border: "",
-                  width: "110px",
-                  textAlign: "center",
-                  border: "1px solid #dcdcdc",
-                  backgroundColor: "#E5EBEF",
-                }}
-              >
-                Reckitt Stock on hand
-              </TableCell>
-              <TableCell
-                sx={{
-                  border: "",
-                  width: "130px",
-                  textAlign: "center",
-                  border: "1px solid #dcdcdc",
-                  backgroundColor: "#E5EBEF",
-                }}
-              >
-                Custom inventory
-              </TableCell>
-              <TableCell
-                sx={{
-                  border: "",
-                  width: "110px",
-                  textAlign: "center",
-                  border: "1px solid #dcdcdc",
-                  backgroundColor: "#E5EBEF",
-                }}
-              >
-                Sell-in forecast
-              </TableCell>
-              <TableCell
-                sx={{
-                  border: "",
-                  width: "110px",
-                  textAlign: "center",
-                  border: "1px solid #dcdcdc",
-                  backgroundColor: "#E5EBEF",
-                }}
-              >
-                Sell-out forecast
-              </TableCell>
-              <TableCell
-                sx={{
-                  border: "",
-                  width: "110px",
-                  textAlign: "center",
-                  border: "1px solid #dcdcdc",
-                  backgroundColor: "#E5EBEF",
-                }}
-              >
-                Customer Woc
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {details.map((item, index) => (
-              <TableRow
-                key={index}
-                style={{
-                  backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
-                  padding: "0px",
-                }}
-              >
-                <TableCell sx={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.recomscore}</Typography>
-                </TableCell>
-                <TableCell sx={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.sku}</Typography>
-                </TableCell>
-                <TableCell sx={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.sku}</Typography>
-                </TableCell>
-                <TableCell sx={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.title}</Typography>
-                </TableCell>
-                <TableCell sx={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.activecamp}</Typography>
-                </TableCell>
-                <TableCell sx={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">
-                    {item.stockavailblerb}
-                  </Typography>
-                </TableCell>
-                <TableCell sx={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">
-                    {item.stockavailableamz}
-                  </Typography>
-                </TableCell>
-                <TableCell sx={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.sellinforecast}</Typography>
-                </TableCell>
-                <TableCell sx={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">
-                    {item.selloutforecast}
-                  </Typography>
-                </TableCell>
-                <TableCell sx={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.wocestimation}</Typography>
                 </TableCell>
               </TableRow>
             ))}
@@ -1536,10 +1373,10 @@ const OhrTable2 = ({ onData }) => {
             )}
             {data ? (
               data.map((item, index) => (
-                <React.Fragment key={item.rbsku}>
+                <React.Fragment key={item["RB SKU"]}>
                   <TableRow
-                    onClick={() => handleRowClick(item.rbsku)}
-                    key={item.rbsku}
+                    onClick={() => handleRowClick(item["RB SKU"])}
+                    key={item["RB SKU"]}
                     // className={item.checkbox ? "checked-row" : ""}
                     style={{
                       backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
@@ -1561,7 +1398,7 @@ const OhrTable2 = ({ onData }) => {
                         className="rbsku-expand"
                         sx={{ display: "flex", alignItems: "center" }}
                       >
-                        {expandedRow === item.rbsku ? (
+                        {expandedRow === item["RB SKU"] ? (
                           <RemoveIcon
                             fontSize="medium"
                             sx={{
@@ -1595,7 +1432,7 @@ const OhrTable2 = ({ onData }) => {
                             marginTop: "7px",
                           }}
                         >
-                          {item.rbsku}
+                          {item["RB SKU"]}
                         </Typography>
                       </Box>
                     </TableCell>
@@ -1607,7 +1444,7 @@ const OhrTable2 = ({ onData }) => {
                         padding: "10px",
                       }}
                     >
-                      {item.ppg}
+                      {item.PPG}
                     </TableCell>
                     <TableCell
                       sx={{
@@ -1620,10 +1457,10 @@ const OhrTable2 = ({ onData }) => {
                         textOverflow: "ellipsis",
                       }}
                     >
-                      <Tooltip title={item.description}>
+                      <Tooltip title={item.Description}>
                         {" "}
                         {/* Tooltip component with the full text */}
-                        {truncateText(item.description, 10)}
+                        {truncateText(item.Description, 10)}
                       </Tooltip>
                     </TableCell>
                     <TableCell
@@ -1634,23 +1471,23 @@ const OhrTable2 = ({ onData }) => {
                         padding: "0px",
                       }}
                     >
-                      {item.rrsegment}
+                      {item.Brand}
                     </TableCell>
                     <TableCell style={{ textAlign: "center" }}>
                       <Typography mx="7px" fontSize="13px">
-                        {item.soh}
+                        {item["Cust SOH"]}
                       </Typography>
                     </TableCell>
                     <TableCell style={{ textAlign: "center" }}>
                       <Typography mx="7px" fontSize="13px">
-                        {item.woc}
+                        {item["Cust WOC"]}
                       </Typography>
                     </TableCell>
                     <TableCell
                       style={{ textAlign: "center" }}
                       sx={{ textAlign: "center", padding: "0px" }}
                     >
-                      {item.activepromo}
+                      {item.Promo}
                     </TableCell>
 
                     <TableCell
@@ -1671,9 +1508,9 @@ const OhrTable2 = ({ onData }) => {
                           width: "30px",
                           height: "25px",
                           backgroundColor:
-                            item.ragcw == "G"
+                            item["RAG CW"] == "G"
                               ? "#57a957"
-                              : item.ragcw == "R"
+                              : item["RAG CW"] == "R"
                               ? "#F44444"
                               : "orange",
                           display: "flex",
@@ -1682,7 +1519,7 @@ const OhrTable2 = ({ onData }) => {
                           alignItems: "center",
                         }}
                       >
-                        {item.ragcw}
+                        {item["RAG CW"]}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -1700,9 +1537,9 @@ const OhrTable2 = ({ onData }) => {
                           width: "30px",
                           height: "25px",
                           backgroundColor:
-                            item.ragcw1 == "G"
+                            item["RAG CW +1"] == "G"
                               ? "#57a957"
-                              : item.ragcw1 == "R"
+                              : item["RAG CW +1"] == "R"
                               ? "#F44444"
                               : "orange",
                           display: "flex",
@@ -1711,7 +1548,7 @@ const OhrTable2 = ({ onData }) => {
                           alignItems: "center",
                         }}
                       >
-                        {item.ragcw1}
+                        {item["RAG CW +1"]}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -1729,9 +1566,9 @@ const OhrTable2 = ({ onData }) => {
                           width: "30px",
                           height: "25px",
                           backgroundColor:
-                            item.ragcw2 == "G"
+                            item["RAG CW+2"] == "G"
                               ? "#57a957"
-                              : item.ragcw2 == "R"
+                              : item["RAG CW+2"] == "R"
                               ? "#F44444"
                               : "orange",
                           display: "flex",
@@ -1740,7 +1577,7 @@ const OhrTable2 = ({ onData }) => {
                           alignItems: "center",
                         }}
                       >
-                        {item.ragcw2}
+                        {item["RAG CW+2"]}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -1759,9 +1596,9 @@ const OhrTable2 = ({ onData }) => {
                           width: "30px",
                           height: "25px",
                           backgroundColor:
-                            item.ragcw3 == "G"
+                            item["RAG CW+3"] == "G"
                               ? "#57a957"
-                              : item.ragcw3 == "R"
+                              : item["RAG CW+3"] == "R"
                               ? "#F44444"
                               : "orange",
                           display: "flex",
@@ -1770,25 +1607,15 @@ const OhrTable2 = ({ onData }) => {
                           alignItems: "center",
                         }}
                       >
-                        {item.ragcw3}
+                        {item["RAG CW+3"]}
                       </Typography>
                     </TableCell>
                   </TableRow>
-                  {expandedRow === item.rbsku && (
+                  {expandedRow === item["RB SKU"] && iscampaigns && (
                     <TableRow>
                       <TableCell colSpan={20}>
                         {/* Add your expanded table here */}
-                        <SubTable details={item.campaugns} />
-                      </TableCell>
-                    </TableRow>
-                  )}
-                  {expandedRow === item.rbsku && pushAlternative && (
-                    <TableRow>
-                      <TableCell colSpan={20}>
-                        {/* Add your expanded table here */}
-                        <PushAlternativeTable
-                          details={item.pushAlternativeTable}
-                        />
+                        <SubTable details={campaignsData} />
                       </TableCell>
                     </TableRow>
                   )}

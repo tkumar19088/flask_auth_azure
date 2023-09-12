@@ -337,24 +337,24 @@ const Sellout = ({ onData }) => {
               </TableRow>
             )}
             {data.map((item) => (
-              <TableRow key={item.rbsku}>
+              <TableRow key={item['RB SKU']}>
                 <TableCell sx={{ width: "80px" }}>
-                  <div className="alignment">{item.rbsku}</div>
+                  <div className="alignment">{item['RB SKU']}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item.ppg}</div>
+                  <div className="alignment">{item.PPG}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item.desc}</div>
+                  <div className="alignment">{item.Description}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
-                  <div className="alignment">{item.brand}</div>
+                  <div className="alignment">{item.Brand}</div>
                 </TableCell>
                 <TableCell sx={{ width: "90px" }}>
-                  <div className="alignment">{item.initsohweek}</div>
+                  <div className="alignment">{item['InitalSOH Week']}</div>
                 </TableCell>
                 <TableCell
                   sx={{
