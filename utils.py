@@ -131,6 +131,7 @@ class UserDataReaderBlobStorage:
             resp['Location'] = ast.literal_eval(resp['Location'])
             resp['Business Unit'] = ast.literal_eval(resp['Business Unit'])
             resp['Customer'] = ast.literal_eval(resp['Customer'])
+            resp['Brand'] = ast.literal_eval(res['Brand'])
             return resp
         else:
             return jsonify({"error": "User not found"}, 404)

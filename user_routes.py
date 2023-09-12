@@ -17,8 +17,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-global_variables = {}
-global_userDetails = {}
+global_user = {}
+global_filters = {}
+
 
 # ******************************
 # Create the app access objects
@@ -32,11 +33,11 @@ app_blueprint = Blueprint("app", __name__)
 @app_blueprint.route("/") # Homepage # Default route
 @cross_origin()
 def index():
-    # if "user" in session:
-    #     return render_template("index.html")
-    # else:
-    #     return redirect(url_for("app.login"))
-    return render_template("index.html")
+    if "user" in session:
+        return render_template("index.html")
+    else:
+        return redirect(url_for("app.login"))
+
 
 # Login page redirected from index (homepage)
 @app_blueprint.route("/login")
@@ -56,24 +57,19 @@ def login():
 @cross_origin()
 @app_blueprint.route("/getuserdata")
 def getuserdata():
+    global global_user
     filters = ['Business Unit', 'Customer', 'Location','Brand']
-    uemail = os.getenv("USER_EMAIL")
-    userDetails = UserDataReaderBlobStorage().getUserDetails(uemail)
-    for filter_key in filters:
-        if filter_key in userDetails.items():
-            global_userDetails[filter_key] = userDetails[filter_key].value
-    return userDetails
-    # filters = ['Business Unit', 'Customer', 'Location','Brand']
-    # if "user" in session:
-    #     uemail = session["user"]["preferred_username"]
-    #     userDetails = UserDataReaderBlobStorage().getUserDetails(uemail)
-    #     for filter_key in filters:
-    #         if filter_key in userDetails.items():
-    #             global_userDetails[filter_key] = userDetails[filter_key].value
-    #     return userDetails
-    # else:
-    #     return redirect(url_for("app.login"))
-    
+    if "user" in session:
+        uemail = session["user"]["preferred_username"]
+        userDetails = UserDataReaderBlobStorage().getUserDetails(uemail)
+        for filter_key in filters:
+            if filter_key in userDetails.keys():
+                global_user[filter_key] = userDetails.get(filter_key)
+        alertsdata = getalerts()
+        return userDetails
+        # return {"user":userDetails, "alerts":alertsdata}
+    else:
+        return redirect(url_for("app.login"))
 
 
 # **************************************************************
@@ -82,45 +78,52 @@ def getuserdata():
 # **************************************************************
 @app_blueprint.route('/getfilterparams', methods=['POST'])
 def getfilterparams():
+    global global_filters
     try:
         data = request.json
         for key, value in data.items():
-            global_variables[key] = value
-            print(global_variables)
-            allalerts = getallalerts()
-        return allalerts
+            global_filters[key] = value
+        filtalerts = getalerts()
+        return global_filters
+        # return {"filters":global_filters, "alerts":filtalerts}
     except Exception as e:
         return jsonify(status="error", message=str(e)), 500
 
-def getallalerts():
+def getalerts():
     oosalertsdata = AzureBlobReader().read_csvfile("ui_data/currentalertsoos.csv")
-    irrpoalerts = AzureBlobReader().read_csvfile("ui_data/currentalertsirrpo.csv")
+    irrpoalertsdata = AzureBlobReader().read_csvfile("ui_data/currentalertsirrpo.csv")
     filters = ['Business Unit', 'Customer', 'Location','Brand']
 
-    for filter_key in filters:
-        if filter_key in global_userDetails.keys():
-            aoosalertsdata = oosalertsdata[oosalertsdata[filter_key].isin(global_userDetails[filter_key])]
-            airrpoalertsdata = irrpoalerts[irrpoalerts[filter_key].isin(global_userDetails[filter_key])]
+    if global_filters:
+        for filter_key in filters:
+            if filter_key in global_filters.keys():
+                oosalertsdata = oosalertsdata[oosalertsdata[filter_key]==global_filters[filter_key]]
+                irrpoalertsdata = irrpoalertsdata[irrpoalertsdata[filter_key]==global_filters[filter_key]]
+    else:
+        for filter_key in filters:
+            if filter_key in global_user.keys():
+                oosalertsdata = oosalertsdata[oosalertsdata[filter_key].isin(global_user[filter_key])]
+                irrpoalertsdata = irrpoalertsdata[irrpoalertsdata[filter_key].isin(global_user[filter_key])]
 
-    aoosalertsdata.replace("", "-", inplace=True)
-    airrpoalertsdata.replace("", "-", inplace=True)
+    oosalertsdata.replace("", "-", inplace=True)
+    irrpoalertsdata.replace("", "-", inplace=True)
 
-    aa = aoosalertsdata.groupby(['Business Unit', 'Location', 'Brand']).apply(lambda x: x.sort_values(['Reckitt WOC'], ascending=True)).reset_index(drop=True)[['Location','Brand',"Description","Reckitt WOC","SL CW"]]
+    aa = oosalertsdata.groupby(['Business Unit', 'Location', 'Brand']).apply(lambda x: x.sort_values(['Reckitt WOC'], ascending=True)).reset_index(drop=True)[['Location','Brand',"Description","Reckitt WOC","Service CW"]]
     aOOSALERTS=[]
     for name, group in aa.groupby(['Location', 'Brand']):
         obj = {}
         obj['Location'] = name[0]
         obj['Brand'] = name[1]
-        obj['DATA'] = group[["Description","SL CW"]].head(3).to_dict('records')
+        obj['DATA'] = group[["Description","Service CW"]].head(3).to_dict('records')
         aOOSALERTS.append(obj)
 
-    ab = airrpoalertsdata.groupby(['Business Unit', 'Location', 'Brand']).apply(lambda x: x.sort_values(['Reckitt WOC'], ascending=True)).reset_index(drop=True)[['Location','Brand',"Description","Reckitt WOC","SL CW"]]
+    ab = irrpoalertsdata.groupby(['Business Unit', 'Location', 'Brand']).apply(lambda x: x.sort_values(['Num Irregular SKUs'], ascending=True)).reset_index(drop=True)[['Location','Brand',"PO Number","PO Date"]]
     aIRPPOALERTS=[]
     for name, group in ab.groupby(['Location', 'Brand']):
         obj = {}
         obj['Location'] = name[0]
         obj['Brand'] = name[1]
-        obj['DATA'] = group[["Description","SL CW"]].head(3).to_dict('records')
+        obj['DATA'] = group[["PO Number","PO Date"]].head(3).to_dict('records')
         aIRPPOALERTS.append(obj)
     allalerts = {"OOSRiskDetection": aOOSALERTS, "IRRPO": aIRPPOALERTS}
     return allalerts
@@ -131,49 +134,12 @@ def getallalerts():
 # ************************************************
 @app_blueprint.route('/resetfilterparams')
 def resetfilterparams():
+    global global_filters
     try:
-        global_variables.clear()
+        global_filters.clear()
         return jsonify(status="success", message="Filter params cleared!"), 200
     except Exception as e:
         return jsonify(status="error", message=str(e)), 500
-
-
-# ***********************************************
-#     Filtered : Current Status / Alerts API
-# ***********************************************
-@app_blueprint.route('/getalertsdata', methods=['POST'])
-def getalertsdata():
-    oosalertsdata = AzureBlobReader().read_csvfile("ui_data/currentalertsoos.csv")
-    irrpoalerts = AzureBlobReader().read_csvfile("ui_data/currentalertsirrpo.csv")
-    filters = ['Business Unit', 'Customer', 'Location','Brand']
-
-    for filter_key in filters:
-        if filter_key in global_variables.keys():
-            oosalertsdata = oosalertsdata[oosalertsdata[filter_key] == global_variables[filter_key]]
-            irrpoalertsdata = irrpoalerts[irrpoalerts[filter_key] == global_variables[filter_key]]
-
-    oosalertsdata.replace("", "-", inplace=True)
-    irrpoalertsdata.replace("", "-", inplace=True)
-
-    a = oosalertsdata.groupby(['Business Unit', 'Location', 'Brand']).apply(lambda x: x.sort_values(['Reckitt WOC'], ascending=True)).reset_index(drop=True)[['Location','Brand',"Description","Reckitt WOC","SL CW"]]
-    OOSALERTS=[]
-    for name, group in a.groupby(['Location', 'Brand']):
-        obj = {}
-        obj['Location'] = name[0]
-        obj['Brand'] = name[1]
-        obj['DATA'] = group[["Description","SL CW"]].head(3).to_dict('records')
-        OOSALERTS.append(obj)
-
-    b = irrpoalertsdata.groupby(['Business Unit', 'Location', 'Brand']).apply(lambda x: x.sort_values(['Reckitt WOC'], ascending=True)).reset_index(drop=True)[['Location','Brand',"Description","Reckitt WOC","SL CW"]]
-    IRPPOALERTS=[]
-    for name, group in b.groupby(['Location', 'Brand']):
-        obj = {}
-        obj['Location'] = name[0]
-        obj['Brand'] = name[1]
-        obj['DATA'] = group[["Description","SL CW"]].head(3).to_dict('records')
-        IRPPOALERTS.append(obj)
-    alerts = {"OOSRiskDetection": OOSALERTS, "IRRPO": IRPPOALERTS}
-    return alerts
 
 
 # *****************************************************
@@ -190,10 +156,10 @@ def getoverview():
         ohr = AzureBlobReader().read_csvfile("ui_data/reckittoverviewdatarepo.csv")
         filters = ['Business Unit', 'Location','Brand']
 
-    if global_variables:
+    if global_filters:
         for filter_key in filters:
-            if filter_key in global_variables.keys():
-                ohr = ohr[ohr[filter_key] == global_variables[filter_key]]
+            if filter_key in global_filters.keys():
+                ohr = ohr[ohr[filter_key] == global_filters[filter_key]]
         ohr.replace("", "-", inplace=True)
         return json.loads(ohr.to_json(orient='records'))
     else:
@@ -217,8 +183,8 @@ def getsupply():
     rbsupply = AzureBlobReader().read_csvfile("ui_data/reckittsupply.csv")
     filters = ['Business Unit', 'Location','Brand']
     for filter_key in filters:
-        if filter_key in global_variables.keys():
-            rbsupply = rbsupply[rbsupply[filter_key] == global_variables[filter_key]]
+        if filter_key in global_filters.keys():
+            rbsupply = rbsupply[rbsupply[filter_key] == global_filters[filter_key]]
     rbsupply.replace("", "-", inplace=True)
     return json.loads(rbsupply.to_json(orient='records'))
 
@@ -231,8 +197,8 @@ def getdemand():
     rbdemand = AzureBlobReader().read_csvfile("ui_data/reckittdemand.csv")
     filters = ['Business Unit', 'Location','Brand']
     for filter_key in filters:
-        if filter_key in global_variables.keys():
-            rbdemand = rbdemand[rbdemand[filter_key] == global_variables[filter_key]]
+        if filter_key in global_filters.keys():
+            rbdemand = rbdemand[rbdemand[filter_key] == global_filters[filter_key]]
     rbdemand.replace("", "-", inplace=True)
     return json.loads(rbdemand.to_json(orient='records'))
 
@@ -245,8 +211,8 @@ def getsohateow():
     rbexpsoheow = AzureBlobReader().read_csvfile("ui_data/reckittexpecsohateow.csv")
     filters = ['Business Unit', 'Location','Brand']
     for filter_key in filters:
-        if filter_key in global_variables.keys():
-            rbexpsoheow = rbexpsoheow[rbexpsoheow[filter_key] == global_variables[filter_key]]
+        if filter_key in global_filters.keys():
+            rbexpsoheow = rbexpsoheow[rbexpsoheow[filter_key] == global_filters[filter_key]]
     rbexpsoheow.replace("", "-", inplace=True)
     return json.loads(rbexpsoheow.to_json(orient='records'))
 
@@ -259,8 +225,8 @@ def getwocateow():
     rbwoceow = AzureBlobReader().read_csvfile("ui_data/wocateow.csv")
     filters = ['Business Unit', 'Location','Brand']
     for filter_key in filters:
-        if filter_key in global_variables.keys():
-            rbwoceow = rbwoceow[rbwoceow[filter_key] == global_variables[filter_key]]
+        if filter_key in global_filters.keys():
+            rbwoceow = rbwoceow[rbwoceow[filter_key] == global_filters[filter_key]]
     rbwoceow.replace("", "-", inplace=True)
     return json.loads(rbwoceow.to_json(orient='records'))
 
@@ -273,8 +239,8 @@ def getcaseshortages():
     rbcaseshort = AzureBlobReader().read_csvfile("ui_data/caseshortages.csv")
     filters = ['Business Unit', 'Location','Brand']
     for filter_key in filters:
-        if filter_key in global_variables.keys():
-            rbcaseshort = rbcaseshort[rbcaseshort[filter_key] == global_variables[filter_key]]
+        if filter_key in global_filters.keys():
+            rbcaseshort = rbcaseshort[rbcaseshort[filter_key] == global_filters[filter_key]]
     rbcaseshort.replace("", "-", inplace=True)
     return json.loads(rbcaseshort.to_json(orient='records'))
 
@@ -287,8 +253,8 @@ def getexpectedservice():
     rbexpsl = AzureBlobReader().read_csvfile("ui_data/expectedservice.csv")
     filters = ['Business Unit', 'Location','Brand']
     for filter_key in filters:
-        if filter_key in global_variables.keys():
-            rbexpsl = rbexpsl[rbexpsl[filter_key] == global_variables[filter_key]]
+        if filter_key in global_filters.keys():
+            rbexpsl = rbexpsl[rbexpsl[filter_key] == global_filters[filter_key]]
     rbexpsl.replace("", "-", inplace=True)
     return json.loads(rbexpsl.to_json(orient='records'))
 
@@ -306,8 +272,8 @@ def getstockposition():
         stockpos = AzureBlobReader().read_csvfile("ui_data/stockposition.csv")
         filters = ['Business Unit', 'Location','Brand']
     for filter_key in filters:
-        if filter_key in global_variables.keys():
-            stockpos = stockpos[stockpos[filter_key] == global_variables[filter_key]]
+        if filter_key in global_filters.keys():
+            stockpos = stockpos[stockpos[filter_key] == global_filters[filter_key]]
     stockpos.replace("", "-", inplace=True)
     return json.loads(stockpos.to_json(orient='records'))
 
@@ -320,8 +286,8 @@ def getcustepos():
     custhepos = AzureBlobReader().read_csvfile("ui_data/customerhistoricepos.csv")
     filters = ['Business Unit', 'Location', 'Customer','Brand']
     for filter_key in filters:
-        if filter_key in global_variables.keys():
-            custhepos = custhepos[custhepos[filter_key] == global_variables[filter_key]]
+        if filter_key in global_filters.keys():
+            custhepos = custhepos[custhepos[filter_key] == global_filters[filter_key]]
     custhepos.replace("", "-", inplace=True)
     return json.loads(custhepos.to_json(orient='records'))
 
@@ -334,8 +300,8 @@ def getcustsellout():
     custsellout = AzureBlobReader().read_csvfile("ui_data/customersellout.csv")
     filters = ['Business Unit', 'Location', 'Customer','Brand']
     for filter_key in filters:
-        if filter_key in global_variables.keys():
-            custsellout = custsellout[custsellout[filter_key] == global_variables[filter_key]]
+        if filter_key in global_filters.keys():
+            custsellout = custsellout[custsellout[filter_key] == global_filters[filter_key]]
     custsellout.replace("", "-", inplace=True)
     return json.loads(custsellout.to_json(orient='records'))
 
@@ -348,8 +314,8 @@ def getcustsellin():
     custsellin = AzureBlobReader().read_csvfile("ui_data/customersellin.csv")
     filters = ['Business Unit', 'Location', 'Customer','Brand']
     for filter_key in filters:
-        if filter_key in global_variables.keys():
-            custsellin = custsellin[custsellin[filter_key] == global_variables[filter_key]]
+        if filter_key in global_filters.keys():
+            custsellin = custsellin[custsellin[filter_key] == global_filters[filter_key]]
     custsellin.replace("", "-", inplace=True)
     return json.loads(custsellin.to_json(orient='records'))
 
@@ -362,8 +328,8 @@ def getcustola():
     custola = AzureBlobReader().read_csvfile("ui_data/customerola.csv")
     filters = ['Business Unit', 'Location', 'Customer','Brand']
     for filter_key in filters:
-        if filter_key in global_variables.keys():
-            custola = custola[custola[filter_key] == global_variables[filter_key]]
+        if filter_key in global_filters.keys():
+            custola = custola[custola[filter_key] == global_filters[filter_key]]
     custola.replace("", "-", inplace=True)
     return json.loads(custola.to_json(orient='records'))
 
@@ -378,8 +344,8 @@ def getcampaigns():
     campaignsbysku = campaigns[campaigns['RB SKU'] == data['rbsku']]
     filters = ['Business Unit', 'Location', 'Customer', 'Brand']
     for filter_key in filters:
-        if filter_key in global_variables.keys():
-            campaignsbysku = campaignsbysku[campaignsbysku[filter_key] == global_variables[filter_key]]
+        if filter_key in global_filters.keys():
+            campaignsbysku = campaignsbysku[campaignsbysku[filter_key] == global_filters[filter_key]]
     campaignsbysku.replace("", "-", inplace=True)
     return json.loads(campaignsbysku.to_json(orient='records'))
 
