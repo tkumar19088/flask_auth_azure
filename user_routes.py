@@ -56,6 +56,7 @@ def login():
 def getuserdata():
     filters = ['Business Unit', 'Customer', 'Location','Brand']
     if "user" in session:
+        print(f"\n\n{session}\n\n")
         uemail = session["user"]["preferred_username"]
         userDetails = UserDataReaderBlobStorage().getUserDetails(uemail)
         for filter_key in filters:

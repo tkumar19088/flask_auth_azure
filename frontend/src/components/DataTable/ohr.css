@@ -83,7 +83,7 @@
   
 
    .ms-grid{
-    width:170px;
+    width:200px !important;
     height: 25px !important;
     text-align: center;
     border-radius: 50px;
@@ -95,7 +95,7 @@
 
   .redirect-badge .MuiBadge-badge {
     margin-right: -38px !important;
-    margin-top: -5px !important;
+    margin-top: 11px !important;
     background-color: #FF007F;
     color: #fff;
     font-size: 9px;

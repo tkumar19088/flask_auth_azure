@@ -70,7 +70,7 @@ const Planning = ({ filterStatus }) => {
   };
 
   return (
-    <div style={{ marginTop: "20px" }}>
+    <div style={{ marginTop: "10px" }}>
       <Grid>
         <Grid
           container
@@ -123,7 +123,9 @@ const Planning = ({ filterStatus }) => {
               className="pln-card-bd"
               onClick={handleOOSRisk}
               style={{
-                backgroundColor: oosriskselectedBG ? "#ff007e" : "#fff",
+                backgroundColor: oosriskselectedBG ? "#ff007e" : "#fff", "&:hover": {
+                  backgroundColor: "#FF007F",
+                },
                 color: oosriskselectedBG ? "#fff" : "black",
               }}
             >

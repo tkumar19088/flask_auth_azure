@@ -1386,6 +1386,7 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  lineHeight: "16px",
                 }}
               >
                 Reckitt Stock on hand
@@ -1408,9 +1409,10 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  lineHeight: "16px",
                 }}
               >
-                Sell-in forecast
+                Sell-in forecast (Artefact vs Reckitt)
               </TableCell>
               <TableCell
                 sx={{
