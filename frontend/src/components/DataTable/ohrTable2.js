@@ -53,7 +53,7 @@ const OhrTable2 = ({ onData }) => {
       dispatch(updateloader(true));
       var data = { customer: 1, rbsku: rowId };
       try {
-        const response = await fetch("http://localhost:5000/getcampaigns", {
+        const response = await fetch("https://testingsmartola.azurewebsites.net/getcampaigns", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
