@@ -114,7 +114,6 @@ class UserDataReaderBlobStorage:
         stream = self.buildclient(blob_name)
         return pd.read_excel(stream)
     
-    @cross_origin()
     def getUserDetails(self, uemail):
         """
         The function fetches user details from a database based on the provided username.
@@ -125,18 +124,16 @@ class UserDataReaderBlobStorage:
         on the provided username.
         """
         usersdata = self.fetch_user_excel("users.xlsx")
+        # print(f"\nusersdata:\n{usersdata}\n")
         user_details = usersdata[usersdata["Email"] == uemail]
         if len(user_details) > 0:
-            resp = json.loads(user_details.to_json(orient='records'))[0]
-            resp['Location'] = ast.literal_eval(resp['Location'])
-            resp['Business Unit'] = ast.literal_eval(resp['Business Unit'])
-            resp['Customer'] = ast.literal_eval(resp['Customer'])
-            print(f"\n\n{resp}\n\n")
-            return resp
-            # response = jsonify(user_details.to_dict(orient='records')[0])
-            # return response
+            res = json.loads(user_details.to_json(orient='records'))[0]
+            res['Location'] = ast.literal_eval(res['Location'])
+            res['Business Unit'] = ast.literal_eval(res['Business Unit'])
+            res['Customer'] = ast.literal_eval(res['Customer'])
+            return res
         else:
-            return jsonify({"error": "User not found"}), 404
+            return jsonify({"error": "User not found"}, 404)
 
 
 class AzureBlobReader:
