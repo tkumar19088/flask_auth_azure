@@ -33,10 +33,11 @@ app_blueprint = Blueprint("app", __name__)
 @app_blueprint.route("/") # Homepage # Default route
 @cross_origin()
 def index():
-    if "user" in session:
-        return render_template("index.html")
-    else:
-        return redirect(url_for("app.login"))
+    # if "user" in session:
+    #     return render_template("index.html")
+    # else:
+    #     return redirect(url_for("app.login"))
+    return render_template("index.html")
 
 
 # Login page redirected from index (homepage)
@@ -156,14 +157,12 @@ def getoverview():
         ohr = AzureBlobReader().read_csvfile("ui_data/reckittoverviewdatarepo.csv")
         filters = ['Business Unit', 'Location','Brand']
 
-    if global_filters:
-        for filter_key in filters:
-            if filter_key in global_filters.keys():
-                ohr = ohr[ohr[filter_key] == global_filters[filter_key]]
-        ohr.replace("", "-", inplace=True)
-        return json.loads(ohr.to_json(orient='records'))
-    else:
-        return jsonify(status="Error", message="Choose above filters to view data"), 500
+    for filter_key in filters:
+        if filter_key in global_filters.keys():
+            ohr = ohr[ohr[filter_key] == global_filters[filter_key]]
+    ohr.replace("", "-", inplace=True)
+    return json.loads(ohr.to_json(orient='records'))
+
 
 
 # ****************************************************************************************************
