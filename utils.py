@@ -131,6 +131,7 @@ class UserDataReaderBlobStorage:
             res['Location'] = ast.literal_eval(res['Location'])
             res['Business Unit'] = ast.literal_eval(res['Business Unit'])
             res['Customer'] = ast.literal_eval(res['Customer'])
+            res['Brand'] = ast.literal_eval(res['Brand'])
             return res
         else:
             return jsonify({"error": "User not found"}, 404)
@@ -145,7 +146,7 @@ class AzureBlobReader:
         """
         The function `buildclient` takes a blob name as input, retrieves the container name from an
         environment variable, and returns a stream of data from the specified blob.
-        
+
         :param blob_name: The `blob_name` parameter is the name of the blob that you want to download
         from the Azure Blob Storage container
         :return: a stream object that contains the data from the specified blob.
