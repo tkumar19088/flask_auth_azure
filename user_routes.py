@@ -121,7 +121,16 @@ def getalerts():
         obj['Title'] = f"Irregular PO Detected for {name[1]} {name[0]} SKUs"
         obj['DATA'] = group[["PO Number","PO Date"]].head(3).to_dict('records')
         ALERTS.append(obj)
-    print(f"\n\n{ALERTS}\n\n")
+    print(f"\nBEFORE:\n{ALERTS}\n\n")
+    for i in range(len(ALERTS)):
+        for d in ALERTS[i]["DATA"]:
+            try:
+                d["Name"] = d.pop("Description")
+                d["Value"] = d.pop("Service CW")
+            except:
+                d["Name"] = d.pop("PO Number")
+                d["Value"] = d.pop("PO Date")
+    print(f"\nAFTER:\n{ALERTS}\n\n")
     return ALERTS
 
 
@@ -370,23 +379,35 @@ def getalternativeskus():
 @app_blueprint.route("/rarbysku", methods=['POST'])
 def getrarbysku():
     data = request.json
+    print(data)
     # reallocationdata = AzureBlobReader().read_xls("smartola_data.xlsx", sheet="retailerreallocation")
     reallocationdata = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
     reallocationdatabysku = reallocationdata[reallocationdata['RB SKU'] == data['rbsku']]
     reallocationdatabysku.replace("", "-", inplace=True)
-    filters = ['Business Unit', 'Location', 'Customer', 'Brand']
-    for filter_key in filters:
-        if filter_key in global_filters.keys():
-            reallocationdata = reallocationdata[reallocationdata[filter_key] == reallocationdata[filter_key]]
-            reallocationdata = reallocationdata[reallocationdata['RB SKU'] == data['rbsku']]
-    
-    filters = ['Business Unit','Location']
-    for filter_key in filters:
-        if filter_key in global_filters.keys():
-            reallocationdata = reallocationdata[reallocationdata[filter_key] == reallocationdata[filter_key]]
-    static_row = json.loads(reallocationdata.to_json(orient='records'))
-    other_rows = json.loads(reallocationdatabysku.to_json(orient='records'))
-    print(f"\n\n{static_row}\n")
+
+    print(f"\nglobal_filters:\n{global_filters}\n\n")
+    print(f"\nreallocationdatabysku:\n{reallocationdatabysku}\n\n")
+
+    staticdf = reallocationdatabysku[reallocationdatabysku['Customer'] == global_filters['Customer']]
+    other_customers_df = reallocationdatabysku[reallocationdatabysku['Customer'] != global_filters['Customer']]
+    static_row = json.loads(staticdf.to_json(orient='records'))
+    other_rows = json.loads(other_customers_df.to_json(orient='records'))
+    # # get static row data
+    # filters = ['Business Unit', 'Location', 'Customer', 'Brand']
+    # static_row = reallocationdatabysku.copy()
+    # for filter_key in filters:
+    #     if filter_key in global_filters.keys():
+    #         static_row = static_row[static_row[filter_key] == static_row[filter_key]]
+    # static_row = json.loads(static_row.to_json(orient='records'))
+
+    # # get other_rows
+    # filters = ['Business Unit','Location']
+    # other_rows = reallocationdatabysku.copy()
+    # for filter_key in filters:
+    #     if filter_key in global_filters.keys():
+    #         reallocationdata = reallocationdata[reallocationdata[filter_key] == reallocationdata[filter_key]]
+    # other_rows = json.loads(reallocationdatabysku.to_json(orient='records'))
+    print(f"\n\n{static_row}\n\n{other_rows}\n\n")
     return {"static_row":static_row, "other_rows":other_rows}
 
 
