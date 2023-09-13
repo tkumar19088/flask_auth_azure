@@ -6,6 +6,11 @@ const initialState = {
   irregularpo: false,
   reallocation: false,
   filterstatus: false,
+  business: "",
+  location: "",
+  apply: false,
+  businessEmpty: false,
+  locationEmpty: false,
   userDetails: {
     Name: "Moka Keerthi",
     Email: "keerthi.moka@artefact.com",
@@ -1179,6 +1184,31 @@ const sidebarReducer = (state = initialState, action) => {
       return {
         ...state,
         exporttabledata: action.payload,
+      };
+    case "FETCH_BUSINESS":
+      return {
+        ...state,
+        business: action.payload,
+      };
+    case "FETCH_LOCATION":
+      return {
+        ...state,
+        location: action.payload,
+      };
+    case "FETCH_BUSINESSEMPTY":
+      return {
+        ...state,
+        businessEmpty: action.payload,
+      };
+    case "FETCH_LOCATIONEMPTY":
+      return {
+        ...state,
+        locationEmpty: action.payload,
+      };
+    case "FETCH_FILTERAPPLY":
+      return {
+        ...state,
+        apply: action.payload,
       };
     default:
       return state;

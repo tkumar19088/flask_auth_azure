@@ -197,3 +197,33 @@ export const updateexporttabledata = (newValue) => {
     payload: newValue,
   };
 };
+export const fetchbusiness = (newValue) => {
+  return {
+    type: "FETCH_BUSINESS",
+    payload: newValue,
+  };
+};
+export const fetchlocation = (newValue) => {
+  return {
+    type: "FETCH_LOCATION",
+    payload: newValue,
+  };
+};
+export const fetchbusinessempty = (newValue) => {
+  return {
+    type: "FETCH_BUSINESSEMPTY",
+    payload: newValue,
+  };
+};
+export const fetchlocationempty = (newValue) => {
+  return {
+    type: "FETCH_LOCATIONEMPTY",
+    payload: newValue,
+  };
+};
+export const fetchfilterapply = (newValue) => {
+  return {
+    type: "FETCH_FILTERAPPLY",
+    payload: newValue,
+  };
+};

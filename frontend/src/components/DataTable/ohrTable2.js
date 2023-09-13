@@ -1218,7 +1218,7 @@ const OhrTable2 = ({ onData }) => {
 
   return (
     <div style={{ border: "" }}>
-      <TableContainer style={{ maxHeight: 686, width: "100%" }}>
+      <TableContainer style={{ maxHeight: 691, width: "100%" }}>
         <Table>
           <TableHead className="t-head">
             <TableRow className="tablerow-title">
@@ -1266,9 +1266,18 @@ const OhrTable2 = ({ onData }) => {
                   padding: "0px",
                 }}
               >
+                <Typography className="table-h1-title">Customer</Typography>
+              </TableCell>
+              <TableCell
+                rowSpan={2}
+                sx={{
+                  backgroundColor: "#E5EBEF",
+                  border: "1px solid #dcdcdc",
+                  padding: "0px",
+                }}
+              >
                 <Typography className="table-h1-title">Brand</Typography>
               </TableCell>
-
               <TableCell
                 rowSpan={2}
                 sx={{
@@ -1462,6 +1471,16 @@ const OhrTable2 = ({ onData }) => {
                         {/* Tooltip component with the full text */}
                         {truncateText(item.Description, 10)}
                       </Tooltip>
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        textAlign: "center",
+                        fontSize: "13px",
+                        // border: "1px solid",
+                        padding: "0px",
+                      }}
+                    >
+                      {item.Customer}
                     </TableCell>
                     <TableCell
                       sx={{

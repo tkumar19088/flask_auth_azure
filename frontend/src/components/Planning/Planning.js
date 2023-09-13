@@ -7,8 +7,10 @@ import {
   fetchoverviewhighriskdata,
   updateloader,
   updateexporttabledata,
+  fetchbusinessempty,
+  fetchlocationempty,
 } from "../../store/actions/sidebarActions";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Badge from "@mui/material/Badge";
 
 const Planning = ({ filterStatus }) => {
@@ -17,7 +19,23 @@ const Planning = ({ filterStatus }) => {
 
   const [oosriskselectedBG, setoosriskselectedBG] = useState(false);
   const [irregularselectedBG, setirregularselectedBG] = useState(false);
+  const business = useSelector((state) => state.sidebar.business);
+  const location = useSelector((state) => state.sidebar.location);
+  const apply = useSelector((state) => state.sidebar.apply);
   const handleOOSRisk = () => {
+    if (!business) {
+      dispatch(fetchbusinessempty(true));
+    }
+    if (!location) {
+      dispatch(fetchlocationempty(true));
+    }
+    console.log(apply);
+    if (!business || !location) {
+      return;
+    }
+    if (!apply) {
+      return;
+    }
     filterStatus(true);
     setirregularselectedBG(false);
     setoosriskselectedBG(true);
@@ -123,7 +141,8 @@ const Planning = ({ filterStatus }) => {
               className="pln-card-bd"
               onClick={handleOOSRisk}
               style={{
-                backgroundColor: oosriskselectedBG ? "#ff007e" : "#fff", "&:hover": {
+                backgroundColor: oosriskselectedBG ? "#ff007e" : "#fff",
+                "&:hover": {
                   backgroundColor: "#FF007F",
                 },
                 color: oosriskselectedBG ? "#fff" : "black",

@@ -159,7 +159,7 @@ const Sellout = ({ onData }) => {
 
   return (
     <div>
-      <TableContainer style={{ maxHeight: 730 }}>
+      <TableContainer style={{ maxHeight: 705 }}>
         <Table stickyHeader>
           <TableHead className="supply-tablehead">
             <TableRow className="supply-tablerow">
@@ -192,6 +192,16 @@ const Sellout = ({ onData }) => {
                 }}
               >
                 Description
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  backgroundColor: "#E5EBEF ",
+                  color: "#415A6C",
+                  border: "1px solid #dcdcdc",
+                }}
+              >
+                Customer
               </TableCell>
               <TableCell
                 sx={{
@@ -337,9 +347,9 @@ const Sellout = ({ onData }) => {
               </TableRow>
             )}
             {data.map((item) => (
-              <TableRow key={item['RB SKU']}>
+              <TableRow key={item["RB SKU"]}>
                 <TableCell sx={{ width: "80px" }}>
-                  <div className="alignment">{item['RB SKU']}</div>
+                  <div className="alignment">{item["RB SKU"]}</div>
                 </TableCell>
                 <TableCell>
                   {" "}
@@ -351,10 +361,14 @@ const Sellout = ({ onData }) => {
                 </TableCell>
                 <TableCell>
                   {" "}
+                  <div className="alignment">{item.Customer}</div>
+                </TableCell>
+                <TableCell>
+                  {" "}
                   <div className="alignment">{item.Brand}</div>
                 </TableCell>
                 <TableCell sx={{ width: "90px" }}>
-                  <div className="alignment">{item['InitalSOH Week']}</div>
+                  <div className="alignment">{item["InitalSOH Week"]}</div>
                 </TableCell>
                 <TableCell
                   sx={{

@@ -461,7 +461,7 @@ const StockReallocationData = ({ onData }) => {
                 Ideal Allocation Values
               </TableCell>
               <TableCell className="stable-header">
-                Suggested Allocation
+                Suggested Reallocation
               </TableCell>
               <TableCell className="stable-header">
                 Test reallocation scenario

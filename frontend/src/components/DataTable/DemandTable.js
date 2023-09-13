@@ -150,7 +150,7 @@ const DemandTable = ({ onData }) => {
 
   return (
     <div>
-      <TableContainer style={{ maxHeight: 730 }}>
+      <TableContainer style={{ maxHeight: 705 }}>
         <Table stickyHeader>
           <TableHead>
             <TableRow>

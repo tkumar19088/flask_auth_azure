@@ -22,14 +22,12 @@
 
   
   .filter-buttons{
-    background-color: #415A6C !important;
     text-transform: initial !important;
     height: 30px !important;
   }
 
   .filter-buttons:hover{
     background-color: #FF007F !important;
-
   }
 
  

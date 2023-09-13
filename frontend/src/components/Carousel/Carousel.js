@@ -72,7 +72,7 @@ const CarouselExample = () => {
                 >
                   <Box>
                     <Typography color="#415A6C" fontSize="14px">
-                      OOS Risk Dectected
+                      OOS Risk Detected
                     </Typography>
                     <Typography fontSize={{ lg: 14, xs: 12 }}>
                       Airwick Electrical Lemon
@@ -167,7 +167,7 @@ const CarouselExample = () => {
                 >
                   <Box>
                     <Typography color="#415A6C" fontSize="14px">
-                      OOS Risk Dectected
+                      OOS Risk Detected
                     </Typography>
                     <Typography fontSize={{ lg: 14, xs: 12 }}>
                       Gaviscon double action
@@ -242,7 +242,7 @@ const CarouselExample = () => {
                   </Box>
                   <Box m={1}>
                     <Typography fontSize={{ lg: 18, xs: 13 }}>
-                      Irregular PO Dectected - Airwick
+                      Irregular PO Detected - Airwick
                     </Typography>
                   </Box>
                 </Box>
@@ -328,7 +328,7 @@ const CarouselExample = () => {
                   </Box>
                   <Box m={1}>
                     <Typography fontSize={{ lg: 18, xs: 13 }}>
-                      Irregular PO Dectected - Gaviscon
+                      Irregular PO Detected - Gaviscon
                     </Typography>
                   </Box>
                 </Box>
@@ -446,7 +446,7 @@ const CarouselExample = () => {
                 >
                   <Box>
                     <Typography color="#415A6C" fontSize="14px">
-                      OOS Risk Dectected
+                      OOS Risk Detected
                     </Typography>
                     <Typography fontSize={{ lg: 14, xs: 12 }}>
                       Airwick Electrical Lemon
@@ -541,7 +541,7 @@ const CarouselExample = () => {
                 >
                   <Box>
                     <Typography color="#415A6C" fontSize="14px">
-                      OOS Risk Dectected
+                      OOS Risk Detected
                     </Typography>
                     <Typography fontSize={{ lg: 14, xs: 12 }}>
                       Gaviscon double action
@@ -616,7 +616,7 @@ const CarouselExample = () => {
                   </Box>
                   <Box m={1}>
                     <Typography fontSize={{ lg: 18, xs: 13 }}>
-                      Irregular PO Dectected - Airwick
+                      Irregular PO Detected - Airwick
                     </Typography>
                   </Box>
                 </Box>
@@ -702,7 +702,7 @@ const CarouselExample = () => {
                   </Box>
                   <Box m={1}>
                     <Typography fontSize={{ lg: 18, xs: 13 }}>
-                      Irregular PO Dectected - Gaviscon
+                      Irregular PO Detected - Gaviscon
                     </Typography>
                   </Box>
                 </Box>
@@ -820,7 +820,7 @@ const CarouselExample = () => {
                 >
                   <Box>
                     <Typography color="#415A6C" fontSize="14px">
-                      OOS Risk Dectected
+                      OOS Risk Detected
                     </Typography>
                     <Typography fontSize={{ lg: 14, xs: 12 }}>
                       Airwick Electrical Lemon
@@ -915,7 +915,7 @@ const CarouselExample = () => {
                 >
                   <Box>
                     <Typography color="#415A6C" fontSize="14px">
-                      OOS Risk Dectected
+                      OOS Risk Detected
                     </Typography>
                     <Typography fontSize={{ lg: 14, xs: 12 }}>
                       Gaviscon double action
@@ -990,7 +990,7 @@ const CarouselExample = () => {
                   </Box>
                   <Box m={1}>
                     <Typography fontSize={{ lg: 18, xs: 13 }}>
-                      Irregular PO Dectected - Airwick
+                      Irregular PO Detected - Airwick
                     </Typography>
                   </Box>
                 </Box>
@@ -1076,7 +1076,7 @@ const CarouselExample = () => {
                   </Box>
                   <Box m={1}>
                     <Typography fontSize={{ lg: 18, xs: 13 }}>
-                      Irregular PO Dectected - Gaviscon
+                      Irregular PO Detected - Gaviscon
                     </Typography>
                   </Box>
                 </Box>

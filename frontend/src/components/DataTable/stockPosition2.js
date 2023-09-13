@@ -152,7 +152,7 @@ const StockPosition2 = ({ onData }) => {
 
   return (
     <div>
-      <TableContainer style={{ maxHeight: 730 }}>
+      <TableContainer style={{ maxHeight: 705 }}>
         <Table stickyHeader>
           <TableHead className="supply-tablehead">
             <TableRow className="supply-tablerow">
@@ -185,6 +185,16 @@ const StockPosition2 = ({ onData }) => {
                 }}
               >
                 Description
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  backgroundColor: "#E5EBEF ",
+                  color: "#415A6C",
+                  border: "1px solid #dcdcdc",
+                }}
+              >
+                Customer
               </TableCell>
               <TableCell
                 sx={{
@@ -342,6 +352,10 @@ const StockPosition2 = ({ onData }) => {
                 <TableCell>
                   {" "}
                   <div className="alignment">{item.Description}</div>
+                </TableCell>
+                <TableCell>
+                  {" "}
+                  <div className="alignment">{item.Customer}</div>
                 </TableCell>
                 <TableCell>
                   {" "}

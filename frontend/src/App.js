@@ -6,8 +6,8 @@ import Selloutforecast from "./components/SelloutForecast/Selloutforecast";
 import OverviewHighRisk from "./components/OverviewHighRisk/OverviewHighRisk2";
 import Carousel from "./components/Carousel/Carousel";
 import StockReallocation from "./components/StockReallocation/StockReallocation";
-import ExportCSV from "./components/Export/Exportcsv";
-import ScreenshotComponent from "./components/Printscreen/Printscreen";
+import IrregularPO from "./components/Irregularpo/Irregularpo";
+import HistoricalData from "./components/RetailerNegotation/HistoricalData";
 
 const App = () => {
   return (
@@ -21,8 +21,8 @@ const App = () => {
           <Route path="/stockreallocation" element={<StockReallocation />} />
 
           <Route path="/carousel" element={<Carousel />} />
-          <Route path="/exportcsv" element={<ExportCSV />} />
-          <Route path="/printscreen" element={<ScreenshotComponent />} />
+          <Route path="/irregular" element={<IrregularPO />} />
+          <Route path="/historicaldata" element={<HistoricalData />} />
         </Routes>
       </div>
     </Router>
