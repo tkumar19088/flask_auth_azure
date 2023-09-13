@@ -8,148 +8,588 @@ import {
   TableCell,
   Typography,
   Box,
+  Stack,
+  Button,
+  Paper,
 } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  updateloader,
+  fetchstockreallocatedata,
+  updateexporttabledata,
+} from "../../store/actions/sidebarActions";
+
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import Badge from "@mui/material/Badge";
+import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
 
 const startingWeek = 28;
 
 const Sellin = ({ onData }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleBack = () => {
     navigate(-1);
   };
-  const data = useSelector((state) => state.sidebar.customersellin);
 
-  // const [data, setData] = useState([
-  //   {
-  //     rbsku: "010613",
-  //     ppg: "1234567",
-  //     desc: "AWICK,IE,STICK UP LAVX12",
-  //     brand: "Adhesives (Air Care)",
-  //     initsohweek: "743",
-  //     cw: "3429",
-  //     cw1: "0",
-  //     cw2: "0",
-  //     cw3: "2100",
-  //     cw4: "6120",
-  //     cw5: "107",
-  //     cw6: "1052",
-  //     cw7: "3200",
-  //     cw8: "0",
-  //     cw9: "298",
-  //   },
-  //   {
-  //     rbsku: "010613",
-  //     ppg: "1234567",
+  const [expandedRow, setExpandedRow] = useState(null);
+  const [pushAlternative, setpushAlternative] = useState(false);
+  const [campaignsData, setcampaignsData] = useState([]);
+  const [pushAlternativeData, setpushAlternativeData] = useState([]);
+  const [iscampaigns, setiscampaigns] = useState(false);
 
-  //     desc: "AWICK,IE,STICK UP LAVX12",
-  //     brand: "Adhesives (Air Care)",
-  //     initsohweek: "743",
-  //     cw: "3429",
-  //     cw1: "0",
-  //     cw2: "0",
-  //     cw3: "2100",
-  //     cw4: "6120",
-  //     cw5: "107",
-  //     cw6: "1052",
-  //     cw7: "3200",
-  //     cw8: "0",
-  //     cw9: "298",
-  //   },
-  //   {
-  //     rbsku: "010613",
-  //     ppg: "1234567",
+  // Function to handle row click and expand/collapse accordion
+  const handleRowClick = async (rowId) => {
+    setpushAlternative(false);
+    if (expandedRow === rowId) {
+      setExpandedRow(null);
+    } else {
+      dispatch(updateloader(true));
+      var data = { customer: 0, rbsku: rowId };
+      try {
+        const response = await fetch("http://localhost:5000/getcampaigns", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        if (response.ok) {
+          const json = await response.json();
+          console.log(json);
+          setiscampaigns(true);
+          setcampaignsData(json);
+          //dispatch(fetchuserdetails(json));
+        } else {
+          console.error("Error fetching data:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+      } finally {
+        dispatch(updateloader(false));
+      }
+      setExpandedRow(rowId);
+    }
+  };
+  const handlePushAlternative = async () => {
+    setpushAlternative(true);
+    dispatch(updateloader(true));
+    var data = { rbsku: expandedRow };
+    try {
+      const response = await fetch("http://localhost:5000/getalternativeskus", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        // setiscampaigns(true);
+        setpushAlternativeData(json);
+        //dispatch(fetchuserdetails(json));
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
+  };
+  const handleReallocate = async () => {
+    dispatch(updateloader(true));
+    var data = { rbsku: expandedRow };
+    try {
+      const response = await fetch("http://localhost:5000/rarbysku", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        dispatch(fetchstockreallocatedata(json));
+        dispatch(updateexporttabledata(json));
+        navigate("/stockreallocation");
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
+  };
+  // const data = useSelector((state) => state.sidebar.customersellin);
 
-  //     desc: "AWICK,IE,STICK UP LAVX12",
-  //     brand: "Adhesives (Air Care)",
-  //     initsohweek: "743",
-  //     cw: "3429",
-  //     cw1: "0",
-  //     cw2: "0",
-  //     cw3: "2100",
-  //     cw4: "6120",
-  //     cw5: "107",
-  //     cw6: "1052",
-  //     cw7: "3200",
-  //     cw8: "0",
-  //     cw9: "298",
-  //   },
-  //   {
-  //     rbsku: "010613",
-  //     ppg: "1234567",
+  const [data, setData] = useState([
+    {
+      Brand: "Airwick",
+      "Business Unit": "Hygiene",
+      CW: 4500,
+      "CW+1": 2900,
+      "CW+2": 4500,
+      "CW+3": 4500,
+      "CW+4": 1900,
+      "CW+5": 4900,
+      "CW+6": 2000,
+      "CW+7": 4700,
+      "CW+8": 3900,
+      "CW+9": 2800,
+      Customer: "Amazon",
+      Description: "AWICK,GB,SPNG DEL 4X250ML",
+      "InitalSOH Week": 5000,
+      Location: "United Kingdom",
+      PPG: 6208713,
+      "RB SKU": "3038049",
+    },
+    {
+      Brand: "Airwick",
+      "Business Unit": "Hygiene",
+      CW: 4200,
+      "CW+1": 3700,
+      "CW+2": 1700,
+      "CW+3": 3900,
+      "CW+4": 4400,
+      "CW+5": 3600,
+      "CW+6": 2500,
+      "CW+7": 4900,
+      "CW+8": 3500,
+      "CW+9": 1600,
+      Customer: "Amazon",
+      Description: "AWICK,GB,FM RF PNKSP 392X250ML",
+      "InitalSOH Week": 5000,
+      Location: "United Kingdom",
+      PPG: 2849279,
+      "RB SKU": "3209375",
+    },
+    {
+      Brand: "Airwick",
+      "Business Unit": "Hygiene",
+      CW: 4700,
+      "CW+1": 3600,
+      "CW+2": 2400,
+      "CW+3": 4900,
+      "CW+4": 4300,
+      "CW+5": 4000,
+      "CW+6": 2800,
+      "CW+7": 2600,
+      "CW+8": 2300,
+      "CW+9": 2300,
+      Customer: "Amazon",
+      Description: "AWICK,GB,FM TW RF RW 8X250ML",
+      "InitalSOH Week": 4100,
+      Location: "United Kingdom",
+      PPG: 9014190,
+      "RB SKU": "3232106",
+    },
+    {
+      Brand: "Airwick",
+      "Business Unit": "Hygiene",
+      CW: 1700,
+      "CW+1": 3500,
+      "CW+2": 2200,
+      "CW+3": 2800,
+      "CW+4": 2900,
+      "CW+5": 4300,
+      "CW+6": 3900,
+      "CW+7": 3700,
+      "CW+8": 3400,
+      "CW+9": 2500,
+      Customer: "Amazon",
+      Description: "AWICK,GB,NA3,PSP 6X300ML",
+      "InitalSOH Week": 1500,
+      Location: "United Kingdom",
+      PPG: 4725387,
+      "RB SKU": "3246983",
+    },
+    {
+      Brand: "Airwick",
+      "Business Unit": "Hygiene",
+      CW: 3100,
+      "CW+1": 3900,
+      "CW+2": 1600,
+      "CW+3": 4000,
+      "CW+4": 4500,
+      "CW+5": 2200,
+      "CW+6": 4300,
+      "CW+7": 4900,
+      "CW+8": 2400,
+      "CW+9": 4400,
+      Customer: "Amazon",
+      Description: "AWICK,GB,BOOSTER ROSE 12X300ML",
+      "InitalSOH Week": 1600,
+      Location: "United Kingdom",
+      PPG: 6876698,
+      "RB SKU": "3136081",
+    },
+    {
+      Brand: "Airwick",
+      "Business Unit": "Hygiene",
+      CW: 1600,
+      "CW+1": 4500,
+      "CW+2": 3400,
+      "CW+3": 4800,
+      "CW+4": 1900,
+      "CW+5": 5000,
+      "CW+6": 2200,
+      "CW+7": 3700,
+      "CW+8": 3700,
+      "CW+9": 2800,
+      Customer: "Amazon",
+      Description: "AWICK,GB,REED ESO PBFIG 5X33ML",
+      "InitalSOH Week": 3500,
+      Location: "United Kingdom",
+      PPG: 5227394,
+      "RB SKU": "3167124",
+    },
+    {
+      Brand: "Airwick",
+      "Business Unit": "Hygiene",
+      CW: 2300,
+      "CW+1": 4200,
+      "CW+2": 3600,
+      "CW+3": 2300,
+      "CW+4": 2100,
+      "CW+5": 2400,
+      "CW+6": 4300,
+      "CW+7": 2400,
+      "CW+8": 3600,
+      "CW+9": 3700,
+      Customer: "Amazon",
+      Description: "AWICK,GB,LE RF VAN BEAN 6X19ML",
+      "InitalSOH Week": 1500,
+      Location: "United Kingdom",
+      PPG: 3035131,
+      "RB SKU": "3200683",
+    },
+    {
+      Brand: "Airwick",
+      "Business Unit": "Hygiene",
+      CW: 2300,
+      "CW+1": 4400,
+      "CW+2": 1500,
+      "CW+3": 4400,
+      "CW+4": 4300,
+      "CW+5": 2000,
+      "CW+6": 2100,
+      "CW+7": 2800,
+      "CW+8": 1800,
+      "CW+9": 3500,
+      Customer: "Amazon",
+      Description: "AWICK,GB,LE RF BERRY 2X5X19ML",
+      "InitalSOH Week": 2500,
+      Location: "United Kingdom",
+      PPG: 6572089,
+      "RB SKU": "3205304",
+    },
+    {
+      Brand: "Airwick",
+      "Business Unit": "Hygiene",
+      CW: 4800,
+      "CW+1": 2300,
+      "CW+2": 3600,
+      "CW+3": 4100,
+      "CW+4": 3300,
+      "CW+5": 1900,
+      "CW+6": 4200,
+      "CW+7": 1800,
+      "CW+8": 4000,
+      "CW+9": 4100,
+      Customer: "Amazon",
+      Description: "AWICK,GB,APPLE LE RF 6X19ML",
+      "InitalSOH Week": 4600,
+      Location: "United Kingdom",
+      PPG: 2824041,
+      "RB SKU": "3228650",
+    },
+    {
+      Brand: "Airwick",
+      "Business Unit": "Hygiene",
+      CW: 2400,
+      "CW+1": 4300,
+      "CW+2": 3900,
+      "CW+3": 2500,
+      "CW+4": 5000,
+      "CW+5": 3300,
+      "CW+6": 1700,
+      "CW+7": 2700,
+      "CW+8": 2200,
+      "CW+9": 4300,
+      Customer: "Amazon",
+      Description: "AWICK,GB,LE RF MALDIVES 5X19ML",
+      "InitalSOH Week": 1600,
+      Location: "United Kingdom",
+      PPG: 6439551,
+      "RB SKU": "3252952",
+    },
+    {
+      Brand: "Airwick",
+      "Business Unit": "Hygiene",
+      CW: 1800,
+      "CW+1": 4700,
+      "CW+2": 4300,
+      "CW+3": 2600,
+      "CW+4": 2900,
+      "CW+5": 3200,
+      "CW+6": 2000,
+      "CW+7": 2700,
+      "CW+8": 4200,
+      "CW+9": 2300,
+      Customer: "Amazon",
+      Description: "AWICK,GB,EM RF APP&CIN 6X20ML",
+      "InitalSOH Week": 4700,
+      Location: "United Kingdom",
+      PPG: 5281278,
+      "RB SKU": "3266914",
+    },
+    {
+      Brand: "Airwick",
+      "Business Unit": "Hygiene",
+      CW: 2900,
+      "CW+1": 2200,
+      "CW+2": 4600,
+      "CW+3": 3600,
+      "CW+4": 3800,
+      "CW+5": 2000,
+      "CW+6": 2300,
+      "CW+7": 3800,
+      "CW+8": 1600,
+      "CW+9": 4600,
+      Customer: "Amazon",
+      Description: "AWICK,GB,NOEL CNDL 6X105G",
+      "InitalSOH Week": 3200,
+      Location: "United Kingdom",
+      PPG: 6317266,
+      "RB SKU": "3228482",
+    },
+    {
+      Brand: "Airwick",
+      "Business Unit": "Hygiene",
+      CW: 2100,
+      "CW+1": 4300,
+      "CW+2": 2400,
+      "CW+3": 1900,
+      "CW+4": 1800,
+      "CW+5": 3500,
+      "CW+6": 4000,
+      "CW+7": 2100,
+      "CW+8": 4800,
+      "CW+9": 2600,
+      Customer: "Amazon",
+      Description: "AWICK,GB,PMP FWTR GEL 12X70G",
+      "InitalSOH Week": 2300,
+      Location: "United Kingdom",
+      PPG: 8392919,
+      "RB SKU": "3234661",
+    },
+  ]);
 
-  //     desc: "AWICK,IE,STICK UP LAVX12",
-  //     brand: "Adhesives (Air Care)",
-  //     initsohweek: "743",
-  //     cw: "3429",
-  //     cw1: "0",
-  //     cw2: "0",
-  //     cw3: "2100",
-  //     cw4: "6120",
-  //     cw5: "107",
-  //     cw6: "1052",
-  //     cw7: "3200",
-  //     cw8: "0",
-  //     cw9: "298",
-  //   },
-  //   {
-  //     rbsku: "010613",
-  //     ppg: "1234567",
+  const SubTable = ({ details }) => (
+    <div style={{ marginTop: "-18px", padding: "10px" }} className="mini-table">
+      <Typography
+        fontSize={20}
+        color="#415A6C"
+        className="ms-title"
+        style={{
+          textAlign: "left",
+          marginBottom: "10px",
+        }}
+      >
+        Recent / Current / Upcoming Campaigns
+      </Typography>
 
-  //     desc: "AWICK,IE,STICK UP LAVX12",
-  //     brand: "Adhesives (Air Care)",
-  //     initsohweek: "743",
-  //     cw: "3429",
-  //     cw1: "0",
-  //     cw2: "0",
-  //     cw3: "2100",
-  //     cw4: "6120",
-  //     cw5: "107",
-  //     cw6: "1052",
-  //     cw7: "3200",
-  //     cw8: "0",
-  //     cw9: "298",
-  //   },
-  //   {
-  //     rbsku: "010613",
-  //     ppg: "1234567",
-
-  //     desc: "AWICK,IE,STICK UP LAVX12",
-  //     brand: "Adhesives (Air Care)",
-  //     initsohweek: "743",
-  //     cw: "3429",
-  //     cw1: "0",
-  //     cw2: "0",
-  //     cw3: "2100",
-  //     cw4: "6120",
-  //     cw5: "107",
-  //     cw6: "1052",
-  //     cw7: "3200",
-  //     cw8: "0",
-  //     cw9: "298",
-  //   },
-  //   {
-  //     rbsku: "010613",
-  //     ppg: "1234567",
-
-  //     desc: "AWICK,IE,STICK UP LAVX12",
-  //     brand: "Adhesives (Air Care)",
-  //     initsohweek: "743",
-  //     cw: "3429",
-  //     cw1: "0",
-  //     cw2: "0",
-  //     cw3: "2100",
-  //     cw4: "6120",
-  //     cw5: "107",
-  //     cw6: "1052",
-  //     cw7: "3200",
-  //     cw8: "0",
-  //     cw9: "298",
-  //   },
-  // ]);
-
+      <TableContainer component={Paper} className="tablecell-header">
+        <Table className="campaignsTable">
+          <TableHead>
+            <TableRow className="tablecell-inside">
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
+                border="1px solid #dddddd"
+              >
+                Campaign Name
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
+                Start Date
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
+                End Date
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
+                Offer Description
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
+                Status
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
+                Customer
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                  lineHeight: "16px",
+                }}
+              >
+                Customer
+                <br /> Inventory
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                  lineHeight: "16px",
+                }}
+              >
+                Customer <br />
+                Allocation
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {details.map((item, index) => (
+              <TableRow
+                key={index}
+                style={{
+                  backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
+                  textAlign: "center",
+                }}
+              >
+                <TableCell style={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.campaignname}</Typography>
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.startdate}</Typography>
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.enddate}</Typography>
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">
+                    {item.offerdescription}
+                  </Typography>
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.status}</Typography>
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.Customer}</Typography>
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">
+                    {item.customerinventory}
+                  </Typography>
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">
+                    {item.customerallocation}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Stack
+        // direction="row"
+        justifyContent="center"
+        textAlign="center"
+        className="choosems-stack"
+      >
+        <Box display="flex" justifyContent="center" alignItems="center" my={1}>
+          <Button
+            variant="contained"
+            size="medium"
+            startIcon={<ReportProblemOutlinedIcon sx={{ color: "white" }} />}
+            sx={{
+              backgroundColor: "#415A6C",
+              "&:hover": {
+                backgroundColor: "#FF007F",
+              },
+              borderRadius: "50px",
+            }}
+          >
+            Choose a Mitigation Strategy
+          </Button>
+        </Box>
+        <Box display="flex" className="ms-buttons">
+          <Box
+            className="ms-grid"
+            onClick={handlePushAlternative}
+            sx={{
+              backgroundColor: pushAlternative ? "#FF007F" : "#415A6C",
+              "&:hover": {
+                backgroundColor: "#FF007F",
+              },
+            }}
+          >
+            <Typography className="ms-gridtitle">Push Alternative</Typography>
+          </Box>
+          <Box
+            className="ms-grid"
+            onClick={handleReallocate}
+            sx={{
+              backgroundColor: "#415A6C",
+              "&:hover": {
+                backgroundColor: "#FF007F",
+              },
+            }}
+          >
+            <Typography className="ms-gridtitle">Reallocate</Typography>
+          </Box>
+          <Box className="ms-grid">
+            <Badge badgeContent="Coming Soon" className="redirect-badge">
+              <Typography className="ms-gridtitle">Redirect</Typography>
+            </Badge>
+          </Box>
+        </Box>
+      </Stack>
+    </div>
+  );
   return (
     <div>
       <TableContainer style={{ maxHeight: 705 }}>
@@ -340,220 +780,283 @@ const Sellin = ({ onData }) => {
               </TableRow>
             )}
             {data.map((item) => (
-              <TableRow key={item["RB SKU"]}>
-                <TableCell sx={{ width: "80px" }}>
-                  <div className="alignment">{item["RB SKU"]}</div>
-                </TableCell>
-                <TableCell>
-                  {" "}
-                  <div className="alignment">{item.PPG}</div>
-                </TableCell>
-                <TableCell>
-                  {" "}
-                  <div className="alignment">{item.Description}</div>
-                </TableCell>
-                <TableCell>
-                  {" "}
-                  <div className="alignment">{item.Customer}</div>
-                </TableCell>
-                <TableCell>
-                  {" "}
-                  <div className="alignment">{item.Brand}</div>
-                </TableCell>
-                <TableCell sx={{ width: "90px" }}>
-                  <div className="alignment">{item["InitalSOH Week"]}</div>
-                </TableCell>
-                <TableCell
-                  sx={{
-                    textAlign: "center",
-                  }}
+              <React.Fragment key={item["RB SKU"]}>
+                <TableRow
+                  onClick={() => handleRowClick(item["RB SKU"])}
+                  key={item["RB SKU"]}
                 >
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                    <Typography fontSize={15}>{data[0].cw}</Typography>
-                    <Typography
-                      fontSize={13}
-                      sx={{
-                        marginLeft: "12px",
-                        marginTop: "10px",
-                        color: "#6e8c78",
-                      }}
+                  <TableCell
+                    fontSize={13}
+                    sx={{
+                      display: "flex",
+                      gap: "16px",
+                      padding: "12px",
+                      border: "none",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Box
+                      className="rbsku-expand"
+                      sx={{ display: "flex", alignItems: "center" }}
                     >
-                      {data[0].cw}
-                    </Typography>
-                  </Box>
-                </TableCell>{" "}
-                <TableCell
-                  sx={{
-                    textAlign: "center",
-                  }}
-                >
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                    <Typography fontSize={15}>{data[0].cw1}</Typography>
-                    <Typography
-                      fontSize={13}
-                      sx={{
-                        marginLeft: "12px",
-                        marginTop: "10px",
-                        color: "#6e8c78",
-                      }}
-                    >
-                      {data[0].cw1}
-                    </Typography>
-                  </Box>
-                </TableCell>{" "}
-                <TableCell
-                  sx={{
-                    textAlign: "center",
-                  }}
-                >
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                    <Typography fontSize={15}>{data[0].cw2}</Typography>
-                    <Typography
-                      fontSize={13}
-                      sx={{
-                        marginLeft: "12px",
-                        marginTop: "10px",
-                        color: "#6e8c78",
-                      }}
-                    >
-                      {data[0].cw2}
-                    </Typography>
-                  </Box>
-                </TableCell>{" "}
-                <TableCell
-                  sx={{
-                    textAlign: "center",
-                  }}
-                >
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                    <Typography fontSize={15}>{data[0].cw3}</Typography>
-                    <Typography
-                      fontSize={13}
-                      sx={{
-                        marginLeft: "12px",
-                        marginTop: "10px",
-                        color: "#6e8c78",
-                      }}
-                    >
-                      {data[0].cw3}
-                    </Typography>
-                  </Box>
-                </TableCell>{" "}
-                <TableCell
-                  sx={{
-                    textAlign: "center",
-                  }}
-                >
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                    <Typography fontSize={15}>{data[0].cw4}</Typography>
-                    <Typography
-                      fontSize={13}
-                      sx={{
-                        marginLeft: "12px",
-                        marginTop: "10px",
-                        color: "#6e8c78",
-                      }}
-                    >
-                      {data[0].cw4}
-                    </Typography>
-                  </Box>
-                </TableCell>{" "}
-                <TableCell
-                  sx={{
-                    textAlign: "center",
-                  }}
-                >
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                    <Typography fontSize={15}>{data[0].cw5}</Typography>
-                    <Typography
-                      fontSize={13}
-                      sx={{
-                        marginLeft: "12px",
-                        marginTop: "10px",
-                        color: "#6e8c78",
-                      }}
-                    >
-                      {data[0].cw5}
-                    </Typography>
-                  </Box>
-                </TableCell>{" "}
-                <TableCell
-                  sx={{
-                    textAlign: "center",
-                  }}
-                >
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                    <Typography fontSize={15}>{data[0].cw6}</Typography>
-                    <Typography
-                      fontSize={13}
-                      sx={{
-                        marginLeft: "12px",
-                        marginTop: "10px",
-                        color: "#6e8c78",
-                      }}
-                    >
-                      {data[0].cw6}
-                    </Typography>
-                  </Box>
-                </TableCell>{" "}
-                <TableCell
-                  sx={{
-                    textAlign: "center",
-                  }}
-                >
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                    <Typography fontSize={15}>{data[0].cw7}</Typography>
-                    <Typography
-                      fontSize={13}
-                      sx={{
-                        marginLeft: "12px",
-                        marginTop: "10px",
-                        color: "#6e8c78",
-                      }}
-                    >
-                      {data[0].cw7}
-                    </Typography>
-                  </Box>
-                </TableCell>{" "}
-                <TableCell
-                  sx={{
-                    textAlign: "center",
-                  }}
-                >
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                    <Typography fontSize={15}>{data[0].cw8}</Typography>
-                    <Typography
-                      fontSize={13}
-                      sx={{
-                        marginLeft: "12px",
-                        marginTop: "10px",
-                        color: "#6e8c78",
-                      }}
-                    >
-                      {data[0].cw8}
-                    </Typography>
-                  </Box>
-                </TableCell>{" "}
-                <TableCell
-                  sx={{
-                    textAlign: "center",
-                  }}
-                >
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                    <Typography fontSize={15}>{data[0].cw9}</Typography>
-                    <Typography
-                      fontSize={13}
-                      sx={{
-                        marginLeft: "12px",
-                        marginTop: "10px",
-                        color: "#6e8c78",
-                      }}
-                    >
-                      {data[0].cw9}
-                    </Typography>
-                  </Box>
-                </TableCell>{" "}
-              </TableRow>
+                      {expandedRow === item["RB SKU"] ? (
+                        <RemoveIcon
+                          fontSize="medium"
+                          sx={{
+                            color: "#415A6C",
+                            cursor: "pointer",
+                            fontWeight: "800",
+                            // marginTop: "-1px",
+                            marginTop: "4px",
+                            backgroundColor: "transparent",
+                          }}
+                        />
+                      ) : (
+                        <AddIcon
+                          fontSize="medium"
+                          sx={{
+                            color: "#415A6C",
+                            cursor: "pointer",
+                            fontWeight: "800",
+                            // marginTop: "-1px",
+                            marginTop: "4px",
+                            backgroundColor: "transparent",
+                          }}
+                        />
+                      )}
+                    </Box>
+                    <Box className="rbsku-expand">
+                      <Typography
+                        ml="-8px"
+                        fontSize="13px"
+                        sx={{
+                          marginTop: "7px",
+                        }}
+                      >
+                        {item["RB SKU"]}
+                      </Typography>
+                    </Box>
+                  </TableCell>
+                  <TableCell>
+                    {" "}
+                    <div className="alignment">{item.PPG}</div>
+                  </TableCell>
+                  <TableCell>
+                    {" "}
+                    <div className="alignment">{item.Description}</div>
+                  </TableCell>
+                  <TableCell>
+                    {" "}
+                    <div className="alignment">{item.Customer}</div>
+                  </TableCell>
+                  <TableCell>
+                    {" "}
+                    <div className="alignment">{item.Brand}</div>
+                  </TableCell>
+                  <TableCell sx={{ width: "90px" }}>
+                    <div className="alignment">{item["InitalSOH Week"]}</div>
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
+                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                      <Typography fontSize={15}>{data[0].cw}</Typography>
+                      <Typography
+                        fontSize={13}
+                        sx={{
+                          marginLeft: "12px",
+                          marginTop: "10px",
+                          color: "#6e8c78",
+                        }}
+                      >
+                        {data[0].cw}
+                      </Typography>
+                    </Box>
+                  </TableCell>{" "}
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
+                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                      <Typography fontSize={15}>{data[0].cw1}</Typography>
+                      <Typography
+                        fontSize={13}
+                        sx={{
+                          marginLeft: "12px",
+                          marginTop: "10px",
+                          color: "#6e8c78",
+                        }}
+                      >
+                        {data[0].cw1}
+                      </Typography>
+                    </Box>
+                  </TableCell>{" "}
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
+                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                      <Typography fontSize={15}>{data[0].cw2}</Typography>
+                      <Typography
+                        fontSize={13}
+                        sx={{
+                          marginLeft: "12px",
+                          marginTop: "10px",
+                          color: "#6e8c78",
+                        }}
+                      >
+                        {data[0].cw2}
+                      </Typography>
+                    </Box>
+                  </TableCell>{" "}
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
+                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                      <Typography fontSize={15}>{data[0].cw3}</Typography>
+                      <Typography
+                        fontSize={13}
+                        sx={{
+                          marginLeft: "12px",
+                          marginTop: "10px",
+                          color: "#6e8c78",
+                        }}
+                      >
+                        {data[0].cw3}
+                      </Typography>
+                    </Box>
+                  </TableCell>{" "}
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
+                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                      <Typography fontSize={15}>{data[0].cw4}</Typography>
+                      <Typography
+                        fontSize={13}
+                        sx={{
+                          marginLeft: "12px",
+                          marginTop: "10px",
+                          color: "#6e8c78",
+                        }}
+                      >
+                        {data[0].cw4}
+                      </Typography>
+                    </Box>
+                  </TableCell>{" "}
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
+                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                      <Typography fontSize={15}>{data[0].cw5}</Typography>
+                      <Typography
+                        fontSize={13}
+                        sx={{
+                          marginLeft: "12px",
+                          marginTop: "10px",
+                          color: "#6e8c78",
+                        }}
+                      >
+                        {data[0].cw5}
+                      </Typography>
+                    </Box>
+                  </TableCell>{" "}
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
+                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                      <Typography fontSize={15}>{data[0].cw6}</Typography>
+                      <Typography
+                        fontSize={13}
+                        sx={{
+                          marginLeft: "12px",
+                          marginTop: "10px",
+                          color: "#6e8c78",
+                        }}
+                      >
+                        {data[0].cw6}
+                      </Typography>
+                    </Box>
+                  </TableCell>{" "}
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
+                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                      <Typography fontSize={15}>{data[0].cw7}</Typography>
+                      <Typography
+                        fontSize={13}
+                        sx={{
+                          marginLeft: "12px",
+                          marginTop: "10px",
+                          color: "#6e8c78",
+                        }}
+                      >
+                        {data[0].cw7}
+                      </Typography>
+                    </Box>
+                  </TableCell>{" "}
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
+                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                      <Typography fontSize={15}>{data[0].cw8}</Typography>
+                      <Typography
+                        fontSize={13}
+                        sx={{
+                          marginLeft: "12px",
+                          marginTop: "10px",
+                          color: "#6e8c78",
+                        }}
+                      >
+                        {data[0].cw8}
+                      </Typography>
+                    </Box>
+                  </TableCell>{" "}
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
+                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                      <Typography fontSize={15}>{data[0].cw9}</Typography>
+                      <Typography
+                        fontSize={13}
+                        sx={{
+                          marginLeft: "12px",
+                          marginTop: "10px",
+                          color: "#6e8c78",
+                        }}
+                      >
+                        {data[0].cw9}
+                      </Typography>
+                    </Box>
+                  </TableCell>{" "}
+                </TableRow>
+                {expandedRow === item["RB SKU"] && iscampaigns && (
+                  <TableRow>
+                    <TableCell colSpan={20}>
+                      {/* Add your expanded table here */}
+                      <SubTable details={campaignsData} />
+                    </TableCell>
+                  </TableRow>
+                )}
+              </React.Fragment>
             ))}
           </TableBody>
         </Table>
