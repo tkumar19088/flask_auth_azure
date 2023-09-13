@@ -108,24 +108,21 @@ def getalerts():
     irrpoalertsdata.replace("", "-", inplace=True)
 
     aa = oosalertsdata.groupby(['Business Unit', 'Location', 'Brand']).apply(lambda x: x.sort_values(['Reckitt WOC'], ascending=True)).reset_index(drop=True)[['Location','Brand',"Description","Reckitt WOC","Service CW"]]
-    aOOSALERTS=[]
+    ALERTS=[]
     for name, group in aa.groupby(['Location', 'Brand']):
         obj = {}
-        obj['Location'] = name[0]
-        obj['Brand'] = name[1]
+        obj['Title'] = f"OOS Risk Detected on {name[1]} {name[0]} SKUs"
         obj['DATA'] = group[["Description","Service CW"]].head(3).to_dict('records')
-        aOOSALERTS.append(obj)
+        ALERTS.append(obj)
 
     ab = irrpoalertsdata.groupby(['Business Unit', 'Location', 'Brand']).apply(lambda x: x.sort_values(['Num Irregular SKUs'], ascending=True)).reset_index(drop=True)[['Location','Brand',"PO Number","PO Date"]]
-    aIRPPOALERTS=[]
     for name, group in ab.groupby(['Location', 'Brand']):
         obj = {}
-        obj['Location'] = name[0]
-        obj['Brand'] = name[1]
+        obj['Title'] = f"Irregular PO Detected for {name[1]} {name[0]} SKUs"
         obj['DATA'] = group[["PO Number","PO Date"]].head(3).to_dict('records')
-        aIRPPOALERTS.append(obj)
-    allalerts = {"OOSRiskDetection": aOOSALERTS, "IRRPO": aIRPPOALERTS}
-    return allalerts
+        ALERTS.append(obj)
+    print(f"\n\n{ALERTS}\n\n")
+    return ALERTS
 
 
 # ************************************************
@@ -375,14 +372,27 @@ def getrarbysku():
     data = request.json
     # reallocationdata = AzureBlobReader().read_xls("smartola_data.xlsx", sheet="retailerreallocation")
     reallocationdata = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
-    # reallocationdatabysku = reallocationdata[reallocationdata['RB SKU'] == data['rbsku']]
-    samplereallocationdata = reallocationdata.sample(10)
-    samplereallocationdata.replace("", "-", inplace=True)
-    return json.loads(samplereallocationdata.to_json(orient='records'))
+    reallocationdatabysku = reallocationdata[reallocationdata['RB SKU'] == data['rbsku']]
+    reallocationdatabysku.replace("", "-", inplace=True)
+    filters = ['Business Unit', 'Location', 'Customer', 'Brand']
+    for filter_key in filters:
+        if filter_key in global_filters.keys():
+            reallocationdata = reallocationdata[reallocationdata[filter_key] == reallocationdata[filter_key]]
+            reallocationdata = reallocationdata[reallocationdata['RB SKU'] == data['rbsku']]
+    
+    filters = ['Business Unit','Location']
+    for filter_key in filters:
+        if filter_key in global_filters.keys():
+            reallocationdata = reallocationdata[reallocationdata[filter_key] == reallocationdata[filter_key]]
+    static_row = json.loads(reallocationdata.to_json(orient='records'))
+    other_rows = json.loads(reallocationdatabysku.to_json(orient='records'))
+    print(f"\n\n{static_row}\n")
+    return {"static_row":static_row, "other_rows":other_rows}
 
-# ***************************************
-#      ExportData - Overview # TODO
-# ***************************************
+
+# *****************************************************************
+#           Search SKU by ID API   # TODO: FrontEnd Handled
+# *****************************************************************
 
 
 # ***********************************************
