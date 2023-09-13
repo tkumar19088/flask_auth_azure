@@ -28,6 +28,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   updateloader,
   fetchstockreallocatedata,
+  fetchstaticrow,
   updateexporttabledata,
 } from "../../store/actions/sidebarActions";
 
@@ -132,7 +133,8 @@ const OhrTable = ({ onData }) => {
       if (response.ok) {
         const json = await response.json();
         console.log(json);
-        dispatch(fetchstockreallocatedata(json));
+        dispatch(fetchstockreallocatedata(json.other_rows));
+        dispatch(fetchstaticrow(json.static_row));
         dispatch(updateexporttabledata(json));
         navigate("/stockreallocation");
       } else {
@@ -1215,6 +1217,16 @@ const OhrTable = ({ onData }) => {
             </TableRow>
           </TableHead>
           <TableBody>
+            {details.length == 0 && (
+              <TableRow>
+                <TableCell
+                  colSpan={20}
+                  style={{ textAlign: "center", fontSize: "16px" }}
+                >
+                  No Records Found
+                </TableCell>
+              </TableRow>
+            )}
             {details.map((item, index) => (
               <TableRow
                 key={index}
@@ -1377,7 +1389,7 @@ const OhrTable = ({ onData }) => {
                   backgroundColor: "#E5EBEF",
                 }}
               >
-                Active Camplaigns
+                Active Campaigns
               </TableCell>
               <TableCell
                 sx={{
@@ -1389,7 +1401,7 @@ const OhrTable = ({ onData }) => {
                   lineHeight: "16px",
                 }}
               >
-                Reckitt Stock on hand
+                Reckitt Stock on Hand
               </TableCell>
               <TableCell
                 sx={{
@@ -1400,7 +1412,7 @@ const OhrTable = ({ onData }) => {
                   backgroundColor: "#E5EBEF",
                 }}
               >
-                Custom inventory
+                Customer Inventory
               </TableCell>
               <TableCell
                 sx={{
@@ -1412,7 +1424,8 @@ const OhrTable = ({ onData }) => {
                   lineHeight: "16px",
                 }}
               >
-                Sell-in forecast (Artefact vs Reckitt)
+                Sell-In Forecast <br />
+                (S-OLA vs Kinaxis)
               </TableCell>
               <TableCell
                 sx={{
@@ -1423,7 +1436,7 @@ const OhrTable = ({ onData }) => {
                   backgroundColor: "#E5EBEF",
                 }}
               >
-                Sell-out forecast
+                Sell-Out Forecast
               </TableCell>
               <TableCell
                 sx={{
@@ -1434,11 +1447,21 @@ const OhrTable = ({ onData }) => {
                   backgroundColor: "#E5EBEF",
                 }}
               >
-                Customer Woc
+                Customer WOC
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
+            {details.length == 0 && (
+              <TableRow>
+                <TableCell
+                  colSpan={20}
+                  style={{ textAlign: "center", fontSize: "16px" }}
+                >
+                  No Records Found
+                </TableCell>
+              </TableRow>
+            )}
             {details.map((item, index) => (
               <TableRow
                 key={index}

@@ -16,9 +16,12 @@ import {
   updateloader,
   fetchbusiness,
   fetchlocation,
+  fetchcustomer,
+  fetchbrand,
   fetchbusinessempty,
   fetchlocationempty,
   fetchfilterapply,
+  fetchalerts,
 } from "../../store/actions/sidebarActions";
 import "./Filters.css";
 import "./Filtersnew.css";
@@ -26,35 +29,33 @@ import "./Filtersnew.css";
 const Filters = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const data = useSelector((state) => state.sidebar.userDetails);
-  console.log(data);
 
   const business = useSelector((state) => state.sidebar.business);
   const location = useSelector((state) => state.sidebar.location);
-  const [customer, setCustomer] = useState("");
-  const [brand, setBrand] = useState("");
+  const customer = useSelector((state) => state.sidebar.customer);
+  const brand = useSelector((state) => state.sidebar.brand);
   const apply = useSelector((state) => state.sidebar.apply);
 
   const businessEmpty = useSelector((state) => state.sidebar.businessEmpty);
   const locationEmpty = useSelector((state) => state.sidebar.locationEmpty);
 
   const handleBusinessChange = (event) => {
-    // setBusiness(event.target.value);
     dispatch(fetchbusiness(event.target.value));
     dispatch(fetchbusinessempty(false));
   };
 
   const handleLocationChange = (event) => {
-    // setLocation(event.target.value);
     dispatch(fetchlocation(event.target.value));
     dispatch(fetchlocationempty(false));
   };
 
   const handleCustomerChange = (event) => {
-    setCustomer(event.target.value);
+    dispatch(fetchcustomer(event.target.value));
   };
   const handleBrandChange = (event) => {
-    setBrand(event.target.value);
+    dispatch(fetchbrand(event.target.value));
   };
 
   const handleApplyFilters = async (e) => {
@@ -87,8 +88,10 @@ const Filters = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
+        const json = await response.json();
+        console.log(json);
         dispatch(fetchfilterapply(true));
-        console.log(response);
+        dispatch(fetchalerts(json.alerts));
       }
       // Handle the API response data as needed
     } catch (error) {

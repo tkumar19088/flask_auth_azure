@@ -75,12 +75,12 @@ const OverviewHighRisk2 = () => {
   }));
 
   const handleReckittOverview = async () => {
-    dispatch(updatecustomer(0));
-    await reckittOverview();
+    await dispatch(updatecustomer(0));
+    reckittOverview();
   };
   const reckittOverview = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer };
+    var data = { customer: 0 };
     try {
       const response = await fetch("http://localhost:5000/getoverview", {
         method: "POST",

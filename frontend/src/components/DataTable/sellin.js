@@ -491,6 +491,16 @@ const Sellin = ({ onData }) => {
             </TableRow>
           </TableHead>
           <TableBody>
+            {details.length == 0 && (
+              <TableRow>
+                <TableCell
+                  colSpan={20}
+                  style={{ textAlign: "center", fontSize: "16px" }}
+                >
+                  No Records Found
+                </TableCell>
+              </TableRow>
+            )}
             {details.map((item, index) => (
               <TableRow
                 key={index}
@@ -588,6 +598,206 @@ const Sellin = ({ onData }) => {
           </Box>
         </Box>
       </Stack>
+    </div>
+  );
+  const PushAlternativeTable = ({ details }) => (
+    <div>
+      <TableContainer component={Paper} className="tablecell-header">
+        <Table className="campaignsTable">
+          <TableHead className="pushalternative-tablehead">
+            <TableRow>
+              <TableCell
+                sx={{
+                  border: "",
+                  width: "60px",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                  textAlign: "center",
+                  // padding: "0px",
+                  height: "30px",
+                }}
+              >
+                Recom.Score
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "",
+                  width: "60px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                  // padding: "0px",
+                }}
+              >
+                RB SKU
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "",
+                  width: "60px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
+                PPG
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "",
+                  width: "60px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
+                Description
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "",
+                  width: "110px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
+                Active Campaigns
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "",
+                  width: "110px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                  lineHeight: "16px",
+                }}
+              >
+                Reckitt Stock on Hand
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "",
+                  width: "130px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
+                Customer Inventory
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "",
+                  width: "110px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                  lineHeight: "16px",
+                }}
+              >
+                Sell-In Forecast <br />
+                (S-OLA vs Kinaxis)
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "",
+                  width: "110px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
+                Sell-Out Forecast
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "",
+                  width: "110px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
+                Customer WOC
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {details.length == 0 && (
+              <TableRow>
+                <TableCell
+                  colSpan={20}
+                  style={{ textAlign: "center", fontSize: "16px" }}
+                >
+                  No Records Found
+                </TableCell>
+              </TableRow>
+            )}
+            {details.map((item, index) => (
+              <TableRow
+                key={index}
+                style={{
+                  backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
+                  padding: "0px",
+                }}
+              >
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item["recom-score"]}</Typography>
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item["RB SKU"]}</Typography>
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.PPG}</Typography>
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.Description}</Typography>
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">
+                    {item.activecampaigns}
+                  </Typography>
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.reckittsoh}</Typography>
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">
+                    {item.customerinventory}
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  sx={{
+                    textAlign: "center",
+                  }}
+                >
+                  <Box display="flex" sx={{ paddingLeft: "40px" }}>
+                    <Typography fontSize={15}>{item["sif-atf"]}</Typography>
+                    <Typography
+                      fontSize={13}
+                      sx={{
+                        marginLeft: "12px",
+                        marginTop: "10px",
+                        color: "#6e8c78",
+                      }}
+                    >
+                      {item["sif-reckitt"]}
+                    </Typography>
+                  </Box>
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.sof}</Typography>
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.customerwoc}</Typography>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
   return (
@@ -1053,6 +1263,14 @@ const Sellin = ({ onData }) => {
                     <TableCell colSpan={20}>
                       {/* Add your expanded table here */}
                       <SubTable details={campaignsData} />
+                    </TableCell>
+                  </TableRow>
+                )}
+                {expandedRow === item["RB SKU"] && pushAlternative && (
+                  <TableRow>
+                    <TableCell colSpan={20}>
+                      {/* Add your expanded table here */}
+                      <PushAlternativeTable details={pushAlternativeData} />
                     </TableCell>
                   </TableRow>
                 )}

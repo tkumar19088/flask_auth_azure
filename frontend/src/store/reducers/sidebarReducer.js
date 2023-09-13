@@ -8,16 +8,105 @@ const initialState = {
   filterstatus: false,
   business: "",
   location: "",
+  customer: "",
+  brand: "",
   apply: false,
   businessEmpty: false,
   locationEmpty: false,
+  alerts: [
+    {
+      DATA: [
+        {
+          Name: "AWICK,GB,FM PUR CB 3X2X250ML",
+          Value: "76%",
+        },
+        {
+          Name: "AWICK,GB,AERO M WINE 6X250ML",
+          Value: "94%",
+        },
+        {
+          Name: "AWICK,GB,FM RF MORNIN 4X250ML",
+          Value: "85%",
+        },
+      ],
+      Title: "OOS Risk Detected on Airwick Australia SKUs",
+    },
+    {
+      DATA: [
+        {
+          Name: "AWICK,GB,SPNG DEL 4X250ML",
+          Value: "90%",
+        },
+        {
+          Name: "AWICK,GB,FM RF PNKSP 392X250ML",
+          Value: "80%",
+        },
+        {
+          Name: "AWICK,GB,FM TW RF RW 8X250ML",
+          Value: "83%",
+        },
+      ],
+      Title: "OOS Risk Detected on Airwick United Kingdom SKUs",
+    },
+    {
+      DATA: [
+        {
+          Name: "PONUM 154292",
+          Value: "17-08-2023",
+        },
+        {
+          Name: "PONUM 102343",
+          Value: "08-09-2023",
+        },
+        {
+          Name: "PONUM 18392",
+          Value: "04-09-2023",
+        },
+      ],
+      Title: "Irregular PO Detected for Airwick Australia SKUs",
+    },
+    {
+      DATA: [
+        {
+          Name: "PONUM 44088",
+          Value: "29-08-2023",
+        },
+        {
+          Name: "PONUM 106722",
+          Value: "03-09-2023",
+        },
+        {
+          Name: "PONUM 85306",
+          Value: "01-09-2023",
+        },
+      ],
+      Title: "Irregular PO Detected for Airwick United Kingdom SKUs",
+    },
+    {
+      DATA: [
+        {
+          Name: "PONUM 44088",
+          Value: "29-08-2023",
+        },
+        {
+          Name: "PONUM 106722",
+          Value: "03-09-2023",
+        },
+        {
+          Name: "PONUM 85306",
+          Value: "01-09-2023",
+        },
+      ],
+      Title: "Irregular PO Detected for Airwick United Kingdom SKUs",
+    },
+  ],
   userDetails: {
-    Name: "Moka Keerthi",
-    Email: "keerthi.moka@artefact.com",
-    Customer: ["Asda", "Amazon"],
-    Location: ["United Kingdom", "Australia"],
-    Brand: ["Airwick", "Durex"],
+    Brand: ["Airwick", "Gaviscon"],
     "Business Unit": ["Hygiene", "Health"],
+    Customer: ["Asda", "Amazon"],
+    Email: "keerthi.moka@artefact.com",
+    Location: ["United Kingdom", "Australia"],
+    Name: "Moka  Keerthi",
     Role: "admin",
   },
   overviewhighriskdata: [
@@ -1100,6 +1189,11 @@ const sidebarReducer = (state = initialState, action) => {
         ...state,
         stockreallocation: action.payload,
       };
+    case "FETCH_STATICROW":
+      return {
+        ...state,
+        suggectedRecord: action.payload,
+      };
     case "FETCH_EXPANDEDITEM":
       return {
         ...state,
@@ -1195,6 +1289,16 @@ const sidebarReducer = (state = initialState, action) => {
         ...state,
         location: action.payload,
       };
+    case "FETCH_CUSTOMER":
+      return {
+        ...state,
+        customer: action.payload,
+      };
+    case "FETCH_BRAND":
+      return {
+        ...state,
+        brand: action.payload,
+      };
     case "FETCH_BUSINESSEMPTY":
       return {
         ...state,
@@ -1209,6 +1313,11 @@ const sidebarReducer = (state = initialState, action) => {
       return {
         ...state,
         apply: action.payload,
+      };
+    case "FETCH_ALERTS":
+      return {
+        ...state,
+        alerts: action.payload,
       };
     default:
       return state;

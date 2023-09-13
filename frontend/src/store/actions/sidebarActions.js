@@ -113,6 +113,12 @@ export const fetchstockreallocatedata = (newValue) => {
     payload: newValue,
   };
 };
+export const fetchstaticrow = (newValue) => {
+  return {
+    type: "FETCH_STATICROW",
+    payload: newValue,
+  };
+};
 export const fetchreckittsupply = (newValue) => {
   return {
     type: "FETCH_RECKITTSUPPLY",
@@ -209,6 +215,18 @@ export const fetchlocation = (newValue) => {
     payload: newValue,
   };
 };
+export const fetchcustomer = (newValue) => {
+  return {
+    type: "FETCH_CUSTOMER",
+    payload: newValue,
+  };
+};
+export const fetchbrand = (newValue) => {
+  return {
+    type: "FETCH_BRAND",
+    payload: newValue,
+  };
+};
 export const fetchbusinessempty = (newValue) => {
   return {
     type: "FETCH_BUSINESSEMPTY",
@@ -224,6 +242,12 @@ export const fetchlocationempty = (newValue) => {
 export const fetchfilterapply = (newValue) => {
   return {
     type: "FETCH_FILTERAPPLY",
+    payload: newValue,
+  };
+};
+export const fetchalerts = (newValue) => {
+  return {
+    type: "FETCH_ALERTS",
     payload: newValue,
   };
 };

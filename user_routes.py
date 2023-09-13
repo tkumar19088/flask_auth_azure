@@ -65,8 +65,8 @@ def getuserdata():
             if filter_key in userDetails.keys():
                 global_user[filter_key] = userDetails.get(filter_key)
         alertsdata = getalerts()
-        return userDetails
-        # return {"user":userDetails, "alerts":alertsdata}
+        # return userDetails
+        return {"user":userDetails, "alerts":alertsdata}
     else:
         return redirect(url_for("app.login"))
 
@@ -83,8 +83,8 @@ def getfilterparams():
         for key, value in data.items():
             global_filters[key] = value
         filtalerts = getalerts()
-        return global_filters
-        # return {"filters":global_filters, "alerts":filtalerts}
+        # return global_filters
+        return {"filters":global_filters, "alerts":filtalerts}
     except Exception as e:
         return jsonify(status="error", message=str(e)), 500
 

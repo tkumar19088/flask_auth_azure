@@ -430,7 +430,7 @@ const StockReallocationData = ({ onData }) => {
               <TableCell className="stable-header">Channel</TableCell>
               <TableCell className="stable-header">
                 Sell-In Forecast <br />
-                (Artefact vs Reckitt)
+                (S-OLA vs Kinaxis)
               </TableCell>
               <TableCell className="stable-header">
                 Current Allocation

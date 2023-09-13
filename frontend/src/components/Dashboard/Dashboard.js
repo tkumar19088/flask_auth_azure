@@ -14,6 +14,7 @@ import {
   fetchfilterstatus,
   fetchuserdetails,
   updateloader,
+  fetchalerts,
 } from "../../store/actions/sidebarActions";
 import CarouselExample from "../Carousel/Carousel";
 import Filters from "../Filters/Filters";
@@ -44,7 +45,8 @@ function Dashboard() {
           const json = await response.json();
           console.log(json);
           // setuserDetails(json.name);
-          dispatch(fetchuserdetails(json));
+          dispatch(fetchuserdetails(json.user));
+          dispatch(fetchalerts(json.alerts));
         } else {
           console.error("Error fetching data:", response.statusText);
         }

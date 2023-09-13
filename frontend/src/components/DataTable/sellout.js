@@ -492,6 +492,16 @@ const Sellout = ({ onData }) => {
             </TableRow>
           </TableHead>
           <TableBody>
+            {details.length == 0 && (
+              <TableRow>
+                <TableCell
+                  colSpan={20}
+                  style={{ textAlign: "center", fontSize: "16px" }}
+                >
+                  No Records Found
+                </TableCell>
+              </TableRow>
+            )}
             {details.map((item, index) => (
               <TableRow
                 key={index}
@@ -589,6 +599,206 @@ const Sellout = ({ onData }) => {
           </Box>
         </Box>
       </Stack>
+    </div>
+  );
+  const PushAlternativeTable = ({ details }) => (
+    <div>
+      <TableContainer component={Paper} className="tablecell-header">
+        <Table className="campaignsTable">
+          <TableHead className="pushalternative-tablehead">
+            <TableRow>
+              <TableCell
+                sx={{
+                  border: "",
+                  width: "60px",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                  textAlign: "center",
+                  // padding: "0px",
+                  height: "30px",
+                }}
+              >
+                Recom.Score
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "",
+                  width: "60px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                  // padding: "0px",
+                }}
+              >
+                RB SKU
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "",
+                  width: "60px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
+                PPG
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "",
+                  width: "60px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
+                Description
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "",
+                  width: "110px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
+                Active Campaigns
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "",
+                  width: "110px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                  lineHeight: "16px",
+                }}
+              >
+                Reckitt Stock on Hand
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "",
+                  width: "130px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
+                Customer Inventory
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "",
+                  width: "110px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                  lineHeight: "16px",
+                }}
+              >
+                Sell-In Forecast <br />
+                (S-OLA vs Kinaxis)
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "",
+                  width: "110px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
+                Sell-Out Forecast
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "",
+                  width: "110px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                }}
+              >
+                Customer WOC
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {details.length == 0 && (
+              <TableRow>
+                <TableCell
+                  colSpan={20}
+                  style={{ textAlign: "center", fontSize: "16px" }}
+                >
+                  No Records Found
+                </TableCell>
+              </TableRow>
+            )}
+            {details.map((item, index) => (
+              <TableRow
+                key={index}
+                style={{
+                  backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
+                  padding: "0px",
+                }}
+              >
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item["recom-score"]}</Typography>
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item["RB SKU"]}</Typography>
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.PPG}</Typography>
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.Description}</Typography>
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">
+                    {item.activecampaigns}
+                  </Typography>
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.reckittsoh}</Typography>
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">
+                    {item.customerinventory}
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  sx={{
+                    textAlign: "center",
+                  }}
+                >
+                  <Box display="flex" sx={{ paddingLeft: "40px" }}>
+                    <Typography fontSize={15}>{item["sif-atf"]}</Typography>
+                    <Typography
+                      fontSize={13}
+                      sx={{
+                        marginLeft: "12px",
+                        marginTop: "10px",
+                        color: "#6e8c78",
+                      }}
+                    >
+                      {item["sif-reckitt"]}
+                    </Typography>
+                  </Box>
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.sof}</Typography>
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.customerwoc}</Typography>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
   return (
@@ -782,283 +992,290 @@ const Sellout = ({ onData }) => {
             )}
             {data.map((item) => (
               <React.Fragment key={item["RB SKU"]}>
-
-              <TableRow
-                onClick={() => handleRowClick(item["RB SKU"])}
-                key={item["RB SKU"]}
-              >
-                <TableCell
-                  fontSize={13}
-                  sx={{
-                    display: "flex",
-                    gap: "16px",
-                    padding: "12px",
-                    border: "none",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
+                <TableRow
+                  onClick={() => handleRowClick(item["RB SKU"])}
+                  key={item["RB SKU"]}
                 >
-                  <Box
-                    className="rbsku-expand"
-                    sx={{ display: "flex", alignItems: "center" }}
+                  <TableCell
+                    fontSize={13}
+                    sx={{
+                      display: "flex",
+                      gap: "16px",
+                      padding: "12px",
+                      border: "none",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
                   >
-                    {expandedRow === item["RB SKU"] ? (
-                      <RemoveIcon
-                        fontSize="medium"
+                    <Box
+                      className="rbsku-expand"
+                      sx={{ display: "flex", alignItems: "center" }}
+                    >
+                      {expandedRow === item["RB SKU"] ? (
+                        <RemoveIcon
+                          fontSize="medium"
+                          sx={{
+                            color: "#415A6C",
+                            cursor: "pointer",
+                            fontWeight: "800",
+                            // marginTop: "-1px",
+                            marginTop: "4px",
+                            backgroundColor: "transparent",
+                          }}
+                        />
+                      ) : (
+                        <AddIcon
+                          fontSize="medium"
+                          sx={{
+                            color: "#415A6C",
+                            cursor: "pointer",
+                            fontWeight: "800",
+                            // marginTop: "-1px",
+                            marginTop: "4px",
+                            backgroundColor: "transparent",
+                          }}
+                        />
+                      )}
+                    </Box>
+                    <Box className="rbsku-expand">
+                      <Typography
+                        ml="-8px"
+                        fontSize="13px"
                         sx={{
-                          color: "#415A6C",
-                          cursor: "pointer",
-                          fontWeight: "800",
-                          // marginTop: "-1px",
-                          marginTop: "4px",
-                          backgroundColor: "transparent",
+                          marginTop: "7px",
                         }}
-                      />
-                    ) : (
-                      <AddIcon
-                        fontSize="medium"
-                        sx={{
-                          color: "#415A6C",
-                          cursor: "pointer",
-                          fontWeight: "800",
-                          // marginTop: "-1px",
-                          marginTop: "4px",
-                          backgroundColor: "transparent",
-                        }}
-                      />
-                    )}
-                  </Box>
-                  <Box className="rbsku-expand">
-                    <Typography
-                      ml="-8px"
-                      fontSize="13px"
-                      sx={{
-                        marginTop: "7px",
-                      }}
-                    >
-                      {item["RB SKU"]}
-                    </Typography>
-                  </Box>
-                </TableCell>
-                <TableCell>
-                  {" "}
-                  <div className="alignment">{item.PPG}</div>
-                </TableCell>
-                <TableCell>
-                  {" "}
-                  <div className="alignment">{item.Description}</div>
-                </TableCell>
-                <TableCell>
-                  {" "}
-                  <div className="alignment">{item.Customer}</div>
-                </TableCell>
-                <TableCell>
-                  {" "}
-                  <div className="alignment">{item.Brand}</div>
-                </TableCell>
-                <TableCell sx={{ width: "90px" }}>
-                  <div className="alignment">{item["InitalSOH Week"]}</div>
-                </TableCell>
-                <TableCell
-                  sx={{
-                    textAlign: "center",
-                  }}
-                >
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                    <Typography fontSize={15}>{data[0].cw}</Typography>
-                    <Typography
-                      fontSize={13}
-                      sx={{
-                        marginLeft: "12px",
-                        marginTop: "10px",
-                        color: "#6e8c78",
-                      }}
-                    >
-                      {data[0].cw}
-                    </Typography>
-                  </Box>
-                </TableCell>{" "}
-                <TableCell
-                  sx={{
-                    textAlign: "center",
-                  }}
-                >
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                    <Typography fontSize={15}>{data[0].cw1}</Typography>
-                    <Typography
-                      fontSize={13}
-                      sx={{
-                        marginLeft: "12px",
-                        marginTop: "10px",
-                        color: "#6e8c78",
-                      }}
-                    >
-                      {data[0].cw1}
-                    </Typography>
-                  </Box>
-                </TableCell>{" "}
-                <TableCell
-                  sx={{
-                    textAlign: "center",
-                  }}
-                >
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                    <Typography fontSize={15}>{data[0].cw2}</Typography>
-                    <Typography
-                      fontSize={13}
-                      sx={{
-                        marginLeft: "12px",
-                        marginTop: "10px",
-                        color: "#6e8c78",
-                      }}
-                    >
-                      {data[0].cw2}
-                    </Typography>
-                  </Box>
-                </TableCell>{" "}
-                <TableCell
-                  sx={{
-                    textAlign: "center",
-                  }}
-                >
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                    <Typography fontSize={15}>{data[0].cw3}</Typography>
-                    <Typography
-                      fontSize={13}
-                      sx={{
-                        marginLeft: "12px",
-                        marginTop: "10px",
-                        color: "#6e8c78",
-                      }}
-                    >
-                      {data[0].cw3}
-                    </Typography>
-                  </Box>
-                </TableCell>{" "}
-                <TableCell
-                  sx={{
-                    textAlign: "center",
-                  }}
-                >
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                    <Typography fontSize={15}>{data[0].cw4}</Typography>
-                    <Typography
-                      fontSize={13}
-                      sx={{
-                        marginLeft: "12px",
-                        marginTop: "10px",
-                        color: "#6e8c78",
-                      }}
-                    >
-                      {data[0].cw4}
-                    </Typography>
-                  </Box>
-                </TableCell>{" "}
-                <TableCell
-                  sx={{
-                    textAlign: "center",
-                  }}
-                >
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                    <Typography fontSize={15}>{data[0].cw5}</Typography>
-                    <Typography
-                      fontSize={13}
-                      sx={{
-                        marginLeft: "12px",
-                        marginTop: "10px",
-                        color: "#6e8c78",
-                      }}
-                    >
-                      {data[0].cw5}
-                    </Typography>
-                  </Box>
-                </TableCell>{" "}
-                <TableCell
-                  sx={{
-                    textAlign: "center",
-                  }}
-                >
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                    <Typography fontSize={15}>{data[0].cw6}</Typography>
-                    <Typography
-                      fontSize={13}
-                      sx={{
-                        marginLeft: "12px",
-                        marginTop: "10px",
-                        color: "#6e8c78",
-                      }}
-                    >
-                      {data[0].cw6}
-                    </Typography>
-                  </Box>
-                </TableCell>{" "}
-                <TableCell
-                  sx={{
-                    textAlign: "center",
-                  }}
-                >
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                    <Typography fontSize={15}>{data[0].cw7}</Typography>
-                    <Typography
-                      fontSize={13}
-                      sx={{
-                        marginLeft: "12px",
-                        marginTop: "10px",
-                        color: "#6e8c78",
-                      }}
-                    >
-                      {data[0].cw7}
-                    </Typography>
-                  </Box>
-                </TableCell>{" "}
-                <TableCell
-                  sx={{
-                    textAlign: "center",
-                  }}
-                >
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                    <Typography fontSize={15}>{data[0].cw8}</Typography>
-                    <Typography
-                      fontSize={13}
-                      sx={{
-                        marginLeft: "12px",
-                        marginTop: "10px",
-                        color: "#6e8c78",
-                      }}
-                    >
-                      {data[0].cw8}
-                    </Typography>
-                  </Box>
-                </TableCell>{" "}
-                <TableCell
-                  sx={{
-                    textAlign: "center",
-                  }}
-                >
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                    <Typography fontSize={15}>{data[0].cw9}</Typography>
-                    <Typography
-                      fontSize={13}
-                      sx={{
-                        marginLeft: "12px",
-                        marginTop: "10px",
-                        color: "#6e8c78",
-                      }}
-                    >
-                      {data[0].cw9}
-                    </Typography>
-                  </Box>
-                </TableCell>{" "}
-              </TableRow>
-              {expandedRow === item["RB SKU"] && iscampaigns && (
-                <TableRow>
-                  <TableCell colSpan={20}>
-                    {/* Add your expanded table here */}
-                    <SubTable details={campaignsData} />
+                      >
+                        {item["RB SKU"]}
+                      </Typography>
+                    </Box>
                   </TableCell>
+                  <TableCell>
+                    {" "}
+                    <div className="alignment">{item.PPG}</div>
+                  </TableCell>
+                  <TableCell>
+                    {" "}
+                    <div className="alignment">{item.Description}</div>
+                  </TableCell>
+                  <TableCell>
+                    {" "}
+                    <div className="alignment">{item.Customer}</div>
+                  </TableCell>
+                  <TableCell>
+                    {" "}
+                    <div className="alignment">{item.Brand}</div>
+                  </TableCell>
+                  <TableCell sx={{ width: "90px" }}>
+                    <div className="alignment">{item["InitalSOH Week"]}</div>
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
+                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                      <Typography fontSize={15}>{data[0].cw}</Typography>
+                      <Typography
+                        fontSize={13}
+                        sx={{
+                          marginLeft: "12px",
+                          marginTop: "10px",
+                          color: "#6e8c78",
+                        }}
+                      >
+                        {data[0].cw}
+                      </Typography>
+                    </Box>
+                  </TableCell>{" "}
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
+                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                      <Typography fontSize={15}>{data[0].cw1}</Typography>
+                      <Typography
+                        fontSize={13}
+                        sx={{
+                          marginLeft: "12px",
+                          marginTop: "10px",
+                          color: "#6e8c78",
+                        }}
+                      >
+                        {data[0].cw1}
+                      </Typography>
+                    </Box>
+                  </TableCell>{" "}
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
+                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                      <Typography fontSize={15}>{data[0].cw2}</Typography>
+                      <Typography
+                        fontSize={13}
+                        sx={{
+                          marginLeft: "12px",
+                          marginTop: "10px",
+                          color: "#6e8c78",
+                        }}
+                      >
+                        {data[0].cw2}
+                      </Typography>
+                    </Box>
+                  </TableCell>{" "}
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
+                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                      <Typography fontSize={15}>{data[0].cw3}</Typography>
+                      <Typography
+                        fontSize={13}
+                        sx={{
+                          marginLeft: "12px",
+                          marginTop: "10px",
+                          color: "#6e8c78",
+                        }}
+                      >
+                        {data[0].cw3}
+                      </Typography>
+                    </Box>
+                  </TableCell>{" "}
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
+                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                      <Typography fontSize={15}>{data[0].cw4}</Typography>
+                      <Typography
+                        fontSize={13}
+                        sx={{
+                          marginLeft: "12px",
+                          marginTop: "10px",
+                          color: "#6e8c78",
+                        }}
+                      >
+                        {data[0].cw4}
+                      </Typography>
+                    </Box>
+                  </TableCell>{" "}
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
+                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                      <Typography fontSize={15}>{data[0].cw5}</Typography>
+                      <Typography
+                        fontSize={13}
+                        sx={{
+                          marginLeft: "12px",
+                          marginTop: "10px",
+                          color: "#6e8c78",
+                        }}
+                      >
+                        {data[0].cw5}
+                      </Typography>
+                    </Box>
+                  </TableCell>{" "}
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
+                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                      <Typography fontSize={15}>{data[0].cw6}</Typography>
+                      <Typography
+                        fontSize={13}
+                        sx={{
+                          marginLeft: "12px",
+                          marginTop: "10px",
+                          color: "#6e8c78",
+                        }}
+                      >
+                        {data[0].cw6}
+                      </Typography>
+                    </Box>
+                  </TableCell>{" "}
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
+                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                      <Typography fontSize={15}>{data[0].cw7}</Typography>
+                      <Typography
+                        fontSize={13}
+                        sx={{
+                          marginLeft: "12px",
+                          marginTop: "10px",
+                          color: "#6e8c78",
+                        }}
+                      >
+                        {data[0].cw7}
+                      </Typography>
+                    </Box>
+                  </TableCell>{" "}
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
+                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                      <Typography fontSize={15}>{data[0].cw8}</Typography>
+                      <Typography
+                        fontSize={13}
+                        sx={{
+                          marginLeft: "12px",
+                          marginTop: "10px",
+                          color: "#6e8c78",
+                        }}
+                      >
+                        {data[0].cw8}
+                      </Typography>
+                    </Box>
+                  </TableCell>{" "}
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
+                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                      <Typography fontSize={15}>{data[0].cw9}</Typography>
+                      <Typography
+                        fontSize={13}
+                        sx={{
+                          marginLeft: "12px",
+                          marginTop: "10px",
+                          color: "#6e8c78",
+                        }}
+                      >
+                        {data[0].cw9}
+                      </Typography>
+                    </Box>
+                  </TableCell>{" "}
                 </TableRow>
-              )}
-            </React.Fragment>
+                {expandedRow === item["RB SKU"] && iscampaigns && (
+                  <TableRow>
+                    <TableCell colSpan={20}>
+                      {/* Add your expanded table here */}
+                      <SubTable details={campaignsData} />
+                    </TableCell>
+                  </TableRow>
+                )}
+                {expandedRow === item["RB SKU"] && pushAlternative && (
+                  <TableRow>
+                    <TableCell colSpan={20}>
+                      {/* Add your expanded table here */}
+                      <PushAlternativeTable details={pushAlternativeData} />
+                    </TableCell>
+                  </TableRow>
+                )}
+              </React.Fragment>
             ))}
           </TableBody>
         </Table>

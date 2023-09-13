@@ -150,7 +150,7 @@ function StockReallocation() {
             <Box
               display="flex"
               justifyContent="space-between"
-              width="450px"
+              width="500px"
               marginTop="10px"
             >
               <Button

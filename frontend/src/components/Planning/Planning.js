@@ -134,7 +134,7 @@ const Planning = ({ filterStatus }) => {
           <Grid item xs={4}>
             <Box className="pln-cards-header">
               <Typography color="#fff" className="plan-title">
-                Monitor
+                Mitigate
               </Typography>
             </Box>{" "}
             <Box
@@ -153,7 +153,7 @@ const Planning = ({ filterStatus }) => {
                   fontSize={{ lg: 14, xs: 12 }}
                   className="plan-minititile"
                 >
-                  OOS Risk Detection
+                  OOS Mitigation SKU level
                 </Typography>
               </Box>
               <Box className="pln-cards-cnt">
