@@ -34,7 +34,7 @@ const Filters = () => {
 
   const business = useSelector((state) => state.sidebar.business);
   const location = useSelector((state) => state.sidebar.location);
-  const customer = useSelector((state) => state.sidebar.customer);
+  const customer = useSelector((state) => state.sidebar.customerfilter);
   const brand = useSelector((state) => state.sidebar.brand);
   const apply = useSelector((state) => state.sidebar.apply);
 
@@ -224,12 +224,14 @@ const Filters = () => {
               >
                 <InputLabel>Customer</InputLabel>
                 <Select
-                  id="location-select"
                   value={customer}
+                  id="customer"
                   onChange={handleCustomerChange}
                 >
                   {data.Customer.map((item) => (
-                    <MenuItem value={item}>{item}</MenuItem>
+                    <MenuItem value={item} key={item}>
+                      {item}
+                    </MenuItem>
                   ))}
                 </Select>
               </FormControl>

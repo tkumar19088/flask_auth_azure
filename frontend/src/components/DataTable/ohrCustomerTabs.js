@@ -26,6 +26,7 @@ import {
   fetchcustomerstockposition,
   fetchcustomerola,
   updateexporttabledata,
+  fetchtaburl,
 } from "../../store/actions/sidebarActions";
 
 const OhrCustomerTabs = () => {
@@ -42,7 +43,8 @@ const OhrCustomerTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getoverview", {
+      const url = "http://localhost:5000/getoverview";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -51,10 +53,11 @@ const OhrCustomerTabs = () => {
       });
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchoverviewcustomerdata(json));
         dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -68,7 +71,8 @@ const OhrCustomerTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getcustepos", {
+      const url = "http://localhost:5000/getcustepos";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -77,10 +81,11 @@ const OhrCustomerTabs = () => {
       });
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchcustomerhestoric(json));
         dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -94,7 +99,8 @@ const OhrCustomerTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getcustsellout", {
+      const url = "http://localhost:5000/getcustsellout";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -103,10 +109,11 @@ const OhrCustomerTabs = () => {
       });
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchcustomersellout(json));
         dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -120,7 +127,8 @@ const OhrCustomerTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getcustsellin", {
+      const url = "http://localhost:5000/getcustsellin";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -129,10 +137,11 @@ const OhrCustomerTabs = () => {
       });
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchcustomersellin(json));
         dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -146,7 +155,8 @@ const OhrCustomerTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getstockposition", {
+      const url = "http://localhost:5000/getstockposition";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -155,10 +165,11 @@ const OhrCustomerTabs = () => {
       });
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchcustomerstockposition(json));
         dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -172,7 +183,8 @@ const OhrCustomerTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("http://localhost:5000/getcustola", {
+      const url = "http://localhost:5000/getcustola";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -181,10 +193,11 @@ const OhrCustomerTabs = () => {
       });
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchcustomerola(json));
         dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
       } else {
         console.error("Error fetching data:", response.statusText);
       }

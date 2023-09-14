@@ -403,6 +403,7 @@ const OhrTable2 = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
                 border="1px solid #dddddd"
               >
@@ -413,6 +414,7 @@ const OhrTable2 = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Start Date
@@ -422,6 +424,7 @@ const OhrTable2 = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 End Date
@@ -431,6 +434,7 @@ const OhrTable2 = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Offer Description
@@ -440,6 +444,7 @@ const OhrTable2 = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Status
@@ -449,6 +454,7 @@ const OhrTable2 = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Customer
@@ -459,6 +465,7 @@ const OhrTable2 = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
                 Customer
@@ -470,6 +477,7 @@ const OhrTable2 = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
                 Customer <br />
@@ -602,6 +610,7 @@ const OhrTable2 = ({ onData }) => {
                   textAlign: "center",
                   // padding: "0px",
                   height: "30px",
+                  color: "#415A6C",
                 }}
               >
                 Recom.Score
@@ -613,6 +622,8 @@ const OhrTable2 = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
+
                   // padding: "0px",
                 }}
               >
@@ -625,6 +636,7 @@ const OhrTable2 = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 PPG
@@ -636,6 +648,7 @@ const OhrTable2 = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Description
@@ -647,6 +660,7 @@ const OhrTable2 = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Active Campaigns
@@ -659,6 +673,7 @@ const OhrTable2 = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
                 Reckitt Stock on Hand
@@ -670,6 +685,7 @@ const OhrTable2 = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Customer Inventory
@@ -682,6 +698,7 @@ const OhrTable2 = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
                 Sell-In Forecast <br />
@@ -694,6 +711,7 @@ const OhrTable2 = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Sell-Out Forecast
@@ -705,6 +723,7 @@ const OhrTable2 = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Customer WOC

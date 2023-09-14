@@ -416,6 +416,7 @@ const Ola = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
                 border="1px solid #dddddd"
               >
@@ -426,6 +427,7 @@ const Ola = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Start Date
@@ -435,6 +437,7 @@ const Ola = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 End Date
@@ -444,6 +447,7 @@ const Ola = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Offer Description
@@ -453,6 +457,7 @@ const Ola = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Status
@@ -462,6 +467,7 @@ const Ola = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Customer
@@ -472,6 +478,7 @@ const Ola = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
                 Customer
@@ -483,6 +490,7 @@ const Ola = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
                 Customer <br />
@@ -615,6 +623,7 @@ const Ola = ({ onData }) => {
                   textAlign: "center",
                   // padding: "0px",
                   height: "30px",
+                  color: "#415A6C",
                 }}
               >
                 Recom.Score
@@ -627,6 +636,7 @@ const Ola = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   // padding: "0px",
+                  color: "#415A6C",
                 }}
               >
                 RB SKU
@@ -638,6 +648,7 @@ const Ola = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 PPG
@@ -649,6 +660,7 @@ const Ola = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Description
@@ -660,6 +672,7 @@ const Ola = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Active Campaigns
@@ -672,6 +685,7 @@ const Ola = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
                 Reckitt Stock on Hand
@@ -683,6 +697,7 @@ const Ola = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Customer Inventory
@@ -695,6 +710,7 @@ const Ola = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
                 Sell-In Forecast <br />
@@ -707,6 +723,7 @@ const Ola = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Sell-Out Forecast
@@ -718,6 +735,7 @@ const Ola = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Customer WOC

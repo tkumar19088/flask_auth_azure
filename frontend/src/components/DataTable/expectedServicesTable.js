@@ -281,6 +281,7 @@ const ExpectedServices = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
                 border="1px solid #dddddd"
               >
@@ -291,6 +292,7 @@ const ExpectedServices = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Start Date
@@ -300,6 +302,7 @@ const ExpectedServices = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 End Date
@@ -309,6 +312,7 @@ const ExpectedServices = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Offer Description
@@ -318,6 +322,7 @@ const ExpectedServices = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Status
@@ -327,6 +332,7 @@ const ExpectedServices = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Customer
@@ -337,6 +343,7 @@ const ExpectedServices = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
                 Customer
@@ -348,6 +355,7 @@ const ExpectedServices = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
                 Customer <br />
@@ -480,6 +488,7 @@ const ExpectedServices = ({ onData }) => {
                   textAlign: "center",
                   // padding: "0px",
                   height: "30px",
+                  color: "#415A6C",
                 }}
               >
                 Recom.Score
@@ -492,6 +501,7 @@ const ExpectedServices = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   // padding: "0px",
+                  color: "#415A6C",
                 }}
               >
                 RB SKU
@@ -503,6 +513,7 @@ const ExpectedServices = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 PPG
@@ -514,6 +525,7 @@ const ExpectedServices = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Description
@@ -525,6 +537,7 @@ const ExpectedServices = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Active Campaigns
@@ -537,6 +550,7 @@ const ExpectedServices = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
                 Reckitt Stock on Hand
@@ -548,6 +562,7 @@ const ExpectedServices = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Customer Inventory
@@ -560,6 +575,7 @@ const ExpectedServices = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
                 Sell-In Forecast <br />
@@ -572,6 +588,7 @@ const ExpectedServices = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Sell-Out Forecast
@@ -583,6 +600,7 @@ const ExpectedServices = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Customer WOC

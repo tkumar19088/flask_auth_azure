@@ -22,6 +22,22 @@ import {
   fetchlocationempty,
   fetchfilterapply,
   fetchalerts,
+  fetchcustomerola,
+  fetchcustomerstockposition,
+  fetchcustomersellin,
+  fetchcustomersellout,
+  fetchcustomerhestoric,
+  fetchoverviewcustomerdata,
+  fetchreckittstockposition,
+  fetchreckittexpectedservice,
+  fetchreckittcaseshortages,
+  fetchreckittwoc,
+  fetchreckittexpectedsoh,
+  fetchreckittdemand,
+  fetchreckittsupply,
+  fetchoverviewhighriskdata,
+  updateexporttabledata,
+  fetchtaburl,
 } from "../../store/actions/sidebarActions";
 import "./Filtersdropdown.css";
 
@@ -39,11 +55,13 @@ function Filtersdropdown() {
 
   const business = useSelector((state) => state.sidebar.business);
   const location = useSelector((state) => state.sidebar.location);
-  const customer = useSelector((state) => state.sidebar.customer);
+  const customer = useSelector((state) => state.sidebar.customerfilter);
   const brand = useSelector((state) => state.sidebar.brand);
 
   const businessEmpty = useSelector((state) => state.sidebar.businessEmpty);
   const locationEmpty = useSelector((state) => state.sidebar.locationEmpty);
+  const taburl = useSelector((state) => state.sidebar.taburl);
+  const customerurl = useSelector((state) => state.sidebar.customer);
 
   const handleBusinessChange = (event) => {
     dispatch(fetchbusiness(event.target.value));
@@ -102,14 +120,88 @@ function Filtersdropdown() {
       if (response.ok) {
         const json = await response.json();
         console.log(json);
-        dispatch(fetchfilterapply(true));
-        dispatch(fetchalerts(json.alerts));
+        tabApiCall();
+        // dispatch(fetchfilterapply(true));
+        // dispatch(fetchalerts(json.alerts));
       }
       // Handle the API response data as needed
     } catch (error) {
       console.error("Error:", error);
+    }
+  };
+
+  const tabApiCall = async () => {
+    dispatch(updateloader(true));
+    var data = { customer: customerurl };
+    try {
+      const url = taburl;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        identifySpecificTabdata(json, url);
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
     } finally {
       dispatch(updateloader(false));
+    }
+  };
+
+  const identifySpecificTabdata = (json, url) => {
+    dispatch(updateexporttabledata(json));
+    dispatch(fetchtaburl(url));
+    if (customerurl == 0) {
+      if (url.includes("getoverview")) {
+        dispatch(fetchoverviewhighriskdata(json));
+      }
+      if (url.includes("getsupply")) {
+        dispatch(fetchreckittsupply(json));
+      }
+      if (url.includes("getdemand")) {
+        dispatch(fetchreckittdemand(json));
+      }
+      if (url.includes("getsohateow")) {
+        dispatch(fetchreckittexpectedsoh(json));
+      }
+      if (url.includes("getwocateow")) {
+        dispatch(fetchreckittwoc(json));
+      }
+      if (url.includes("getcaseshortages")) {
+        dispatch(fetchreckittcaseshortages(json));
+      }
+      if (url.includes("getexpectedservice")) {
+        dispatch(fetchreckittexpectedservice(json));
+      }
+      if (url.includes("getstockposition")) {
+        dispatch(fetchreckittstockposition(json));
+      }
+    } else {
+      if (url.includes("getoverview")) {
+        dispatch(fetchoverviewcustomerdata(json));
+      }
+      if (url.includes("getcustepos")) {
+        dispatch(fetchcustomerhestoric(json));
+      }
+      if (url.includes("getcustsellout")) {
+        dispatch(fetchcustomersellout(json));
+      }
+      if (url.includes("getcustsellin")) {
+        dispatch(fetchcustomersellin(json));
+      }
+      if (url.includes("getstockposition")) {
+        dispatch(fetchcustomerstockposition(json));
+      }
+      if (url.includes("getcustola")) {
+        dispatch(fetchcustomerola(json));
+      }
     }
   };
 
@@ -134,7 +226,7 @@ function Filtersdropdown() {
         onClose={handleMenuClose}
       >
         <Grid p={2} className="filter-downbox">
-          <Grid item xs={2} lg={1}>
+          <Grid item xs={2} lg={1} my={2}>
             <Box sx={{ minWidth: 200 }} className="filter-dropdown">
               <FormControl
                 variant="standard"
@@ -163,7 +255,7 @@ function Filtersdropdown() {
             </Box>
           </Grid>
 
-          <Grid item xs={4}>
+          <Grid item xs={4} my={4}>
             <Box sx={{ minWidth: 200 }} className="filter-dropdown">
               <FormControl
                 variant="standard"
@@ -191,7 +283,7 @@ function Filtersdropdown() {
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={4} my={2} className="filter-dropdown">
+          <Grid item xs={4} my={4} className="filter-dropdown">
             <Box sx={{ minWidth: 200 }}>
               <FormControl
                 variant="standard"
@@ -211,7 +303,7 @@ function Filtersdropdown() {
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={4} my={2} className="filter-dropdown">
+          <Grid item xs={2} my={4} className="filter-dropdown">
             <Box sx={{ minWidth: 200 }}>
               <FormControl
                 variant="standard"

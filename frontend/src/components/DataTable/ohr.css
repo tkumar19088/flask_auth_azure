@@ -1,3 +1,12 @@
+.rcuc-h{
+  color: #415A6C !important;
+  text-align: center !important;
+  border: 1px solid #dcdcdc !important;
+  background-color: #E5EBEF !important;
+
+}
+
+
 
 .btn-datatable{
     display: flex;

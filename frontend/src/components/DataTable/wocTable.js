@@ -282,6 +282,7 @@ const WocTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
                 border="1px solid #dddddd"
               >
@@ -292,6 +293,7 @@ const WocTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Start Date
@@ -301,6 +303,7 @@ const WocTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 End Date
@@ -310,6 +313,7 @@ const WocTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Offer Description
@@ -319,6 +323,7 @@ const WocTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Status
@@ -328,6 +333,7 @@ const WocTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Customer
@@ -338,6 +344,7 @@ const WocTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
                 Customer
@@ -349,6 +356,7 @@ const WocTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
                 Customer <br />
@@ -481,6 +489,7 @@ const WocTable = ({ onData }) => {
                   textAlign: "center",
                   // padding: "0px",
                   height: "30px",
+                  color: "#415A6C",
                 }}
               >
                 Recom.Score
@@ -492,6 +501,8 @@ const WocTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
+
                   // padding: "0px",
                 }}
               >
@@ -504,6 +515,7 @@ const WocTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 PPG
@@ -515,6 +527,7 @@ const WocTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Description
@@ -526,6 +539,7 @@ const WocTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Active Campaigns
@@ -538,6 +552,7 @@ const WocTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
                 Reckitt Stock on Hand
@@ -549,6 +564,7 @@ const WocTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Customer Inventory
@@ -561,6 +577,7 @@ const WocTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
                 Sell-In Forecast <br />
@@ -573,6 +590,7 @@ const WocTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Sell-Out Forecast
@@ -584,6 +602,7 @@ const WocTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Customer WOC

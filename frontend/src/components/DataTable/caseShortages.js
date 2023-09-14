@@ -12,6 +12,7 @@ import {
   Typography,
   Box,
 } from "@mui/material";
+import "./ohr.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -282,12 +283,14 @@ const CaseShortages = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
                 border="1px solid #dddddd"
               >
                 Campaign Name
               </TableCell>
               <TableCell
+                className="rcuc-h"
                 sx={{
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
@@ -301,6 +304,8 @@ const CaseShortages = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
+
                 }}
               >
                 End Date
@@ -310,6 +315,8 @@ const CaseShortages = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
+
                 }}
               >
                 Offer Description
@@ -319,6 +326,8 @@ const CaseShortages = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
+
                 }}
               >
                 Status
@@ -328,6 +337,8 @@ const CaseShortages = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
+
                 }}
               >
                 Customer
@@ -338,6 +349,8 @@ const CaseShortages = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
+                  color: "#415A6C",
+
                 }}
               >
                 Customer
@@ -349,6 +362,8 @@ const CaseShortages = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
+                  color: "#415A6C",
+
                 }}
               >
                 Customer <br />
@@ -478,6 +493,7 @@ const CaseShortages = ({ onData }) => {
                   width: "60px",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                   textAlign: "center",
                   // padding: "0px",
                   height: "30px",
@@ -493,6 +509,8 @@ const CaseShortages = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   // padding: "0px",
+                  color: "#415A6C",
+
                 }}
               >
                 RB SKU
@@ -504,6 +522,8 @@ const CaseShortages = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
+
                 }}
               >
                 PPG
@@ -515,6 +535,8 @@ const CaseShortages = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
+
                 }}
               >
                 Description
@@ -526,6 +548,8 @@ const CaseShortages = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
+
                 }}
               >
                 Active Campaigns
@@ -538,6 +562,8 @@ const CaseShortages = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
+                  color: "#415A6C",
+
                 }}
               >
                 Reckitt Stock on Hand
@@ -549,6 +575,8 @@ const CaseShortages = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
+
                 }}
               >
                 Customer Inventory
@@ -561,6 +589,8 @@ const CaseShortages = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
+                  color: "#415A6C",
+
                 }}
               >
                 Sell-In Forecast <br />
@@ -573,6 +603,8 @@ const CaseShortages = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
+
                 }}
               >
                 Sell-Out Forecast
@@ -584,6 +616,8 @@ const CaseShortages = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
+
                 }}
               >
                 Customer WOC

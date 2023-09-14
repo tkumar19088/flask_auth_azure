@@ -23,6 +23,11 @@
   
 }
 
+.pln-card-bd:hover{
+  background-color: #FF007F !important;
+  color: #fff !important;
+}
+
 .pln-card-bd12{
   
   padding:20px 10px 20px 10px ;

@@ -23,6 +23,8 @@ import {
   updatecustomer,
   fetchoverviewhighriskdata,
   fetchoverviewcustomerdata,
+  fetchtaburl,
+  updateexporttabledata,
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 import loaderImage from "../../images/Logo-bar.png";
@@ -82,7 +84,8 @@ const OverviewHighRisk2 = () => {
     dispatch(updateloader(true));
     var data = { customer: 0 };
     try {
-      const response = await fetch("http://localhost:5000/getoverview", {
+      const url = "http://localhost:5000/getoverview";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -91,9 +94,11 @@ const OverviewHighRisk2 = () => {
       });
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchoverviewhighriskdata(json));
+        dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -111,7 +116,8 @@ const OverviewHighRisk2 = () => {
     dispatch(updateloader(true));
     var data = { customer: 1 };
     try {
-      const response = await fetch("http://localhost:5000/getoverview", {
+      const url = "http://localhost:5000/getoverview";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -120,9 +126,11 @@ const OverviewHighRisk2 = () => {
       });
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchoverviewcustomerdata(json));
+        dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
       } else {
         console.error("Error fetching data:", response.statusText);
       }

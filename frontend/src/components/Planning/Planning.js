@@ -9,6 +9,7 @@ import {
   updateexporttabledata,
   fetchbusinessempty,
   fetchlocationempty,
+  fetchtaburl,
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 import Badge from "@mui/material/Badge";
@@ -45,7 +46,8 @@ const Planning = ({ filterStatus }) => {
     dispatch(updateloader(true));
     var data = { customer: 0 };
     try {
-      const response = await fetch("http://localhost:5000/getoverview", {
+      const url = "http://localhost:5000/getoverview";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,10 +56,11 @@ const Planning = ({ filterStatus }) => {
       });
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchoverviewhighriskdata(json));
         dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
         navigate("/overviewhighrisk");
       } else {
         console.error("Error fetching data:", response.statusText);

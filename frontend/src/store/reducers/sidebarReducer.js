@@ -8,7 +8,7 @@ const initialState = {
   filterstatus: false,
   business: "",
   location: "",
-  customer: "",
+  customerfilter: "",
   brand: "",
   apply: false,
   businessEmpty: false,
@@ -780,6 +780,7 @@ const initialState = {
       allocationconsumed: 180,
       cmuscore: 7.44,
       currentallocation: 400,
+      newallocation: "-",
       currentcustSOH: 400,
       "custsoh-current": 1000,
       "custsoh-target": 900,
@@ -807,6 +808,7 @@ const initialState = {
       allocationconsumed: 243,
       cmuscore: 3.84,
       currentallocation: 500,
+      newallocation: "-",
       currentcustSOH: 1000,
       "custsoh-current": 600,
       "custsoh-target": 1000,
@@ -834,6 +836,7 @@ const initialState = {
       allocationconsumed: 12,
       cmuscore: 1.46,
       currentallocation: 400,
+      newallocation: "-",
       currentcustSOH: 700,
       "custsoh-current": 300,
       "custsoh-target": 400,
@@ -861,6 +864,7 @@ const initialState = {
       allocationconsumed: 270,
       cmuscore: 8.0,
       currentallocation: 900,
+      newallocation: "-",
       currentcustSOH: 900,
       "custsoh-current": 600,
       "custsoh-target": 1000,
@@ -888,6 +892,7 @@ const initialState = {
       allocationconsumed: 38,
       cmuscore: 5.69,
       currentallocation: 1000,
+      newallocation: "-",
       currentcustSOH: 700,
       "custsoh-current": 700,
       "custsoh-target": 300,
@@ -915,6 +920,7 @@ const initialState = {
       allocationconsumed: 300,
       cmuscore: 4.18,
       currentallocation: 600,
+      newallocation: "-",
       currentcustSOH: 900,
       "custsoh-current": 200,
       "custsoh-target": 200,
@@ -942,6 +948,7 @@ const initialState = {
       allocationconsumed: 200,
       cmuscore: 5.89,
       currentallocation: 800,
+      newallocation: "-",
       currentcustSOH: 900,
       "custsoh-current": 800,
       "custsoh-target": 900,
@@ -969,6 +976,7 @@ const initialState = {
       allocationconsumed: 200,
       cmuscore: 4.14,
       currentallocation: 1000,
+      newallocation: "-",
       currentcustSOH: 400,
       "custsoh-current": 200,
       "custsoh-target": 1000,
@@ -996,6 +1004,7 @@ const initialState = {
       allocationconsumed: 348,
       cmuscore: 9.23,
       currentallocation: 400,
+      newallocation: "-",
       currentcustSOH: 800,
       "custsoh-current": 1000,
       "custsoh-target": 800,
@@ -1023,6 +1032,7 @@ const initialState = {
       allocationconsumed: 400,
       cmuscore: 0.47,
       currentallocation: 600,
+      newallocation: "-",
       currentcustSOH: 300,
       "custsoh-current": 200,
       "custsoh-target": 500,
@@ -1051,6 +1061,7 @@ const initialState = {
     allocationconsumed: 180,
     cmuscore: 7.44,
     currentallocation: 400,
+    newallocation: "-",
     currentcustSOH: 400,
     "custsoh-current": 1000,
     "custsoh-target": 900,
@@ -1085,6 +1096,7 @@ const initialState = {
   customerola: [],
   updateresults: false,
   exporttabledata: [],
+  taburl: "",
 };
 
 const sidebarReducer = (state = initialState, action) => {
@@ -1292,7 +1304,7 @@ const sidebarReducer = (state = initialState, action) => {
     case "FETCH_CUSTOMER":
       return {
         ...state,
-        customer: action.payload,
+        customerfilter: action.payload,
       };
     case "FETCH_BRAND":
       return {
@@ -1318,6 +1330,11 @@ const sidebarReducer = (state = initialState, action) => {
       return {
         ...state,
         alerts: action.payload,
+      };
+    case "FETCH_TABURL":
+      return {
+        ...state,
+        taburl: action.payload,
       };
     default:
       return state;

@@ -251,3 +251,9 @@ export const fetchalerts = (newValue) => {
     payload: newValue,
   };
 };
+export const fetchtaburl = (newValue) => {
+  return {
+    type: "FETCH_TABURL",
+    payload: newValue,
+  };
+};

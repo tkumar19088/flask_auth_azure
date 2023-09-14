@@ -49,21 +49,20 @@ const CarouselExample = () => {
                   sx={{
                     display: "flex",
                     justifyContent: "space-between",
-                    marginInline: "11px",
+                    marginInline: "8px",
                     marginBottom: "5px",
                   }}
-                  // marginBottom={{lg:1,xs:-1}}
                 >
                   <Box>
-                    <Typography color="#415A6C" fontSize="14px">
+                    <Typography color="#415A6C" fontSize="12px">
                       {item.Title.includes("Irregular PO")
                         ? "PO Number"
                         : "OOS Risk Detected"}
                     </Typography>
                     {item.DATA.map((res) => (
                       <Typography
-                        fontSize={{ lg: 14, xs: 12 }}
-                        lineHeight={{ lg: "16px", xs: "16px" }}
+                        fontSize="12px"
+                        lineHeight="16px"
                       >
                         {res.Name}
                       </Typography>
@@ -74,7 +73,7 @@ const CarouselExample = () => {
                     <Typography
                       color="#415A6C"
                       fontWeight={500}
-                      fontSize="14px"
+                      fontSize="12px"
                     >
                       {item.Title.includes("Irregular PO")
                         ? "PO Date"
@@ -85,7 +84,7 @@ const CarouselExample = () => {
                         color="#F08C2A"
                         fontWeight={500}
                         fontSize={12}
-                        lineHeight={{ lg: "16px", xs: "12px" }}
+                        // lineHeight="16px"
                         textAlign="center"
                       >
                         {res.Value}
