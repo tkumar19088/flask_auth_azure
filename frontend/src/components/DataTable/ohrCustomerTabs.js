@@ -236,8 +236,7 @@ const OhrCustomerTabs = () => {
           }}
           onClick={handleSellOut}
         >
-          Sell Out{" "}
-          <span style={{ fontSize: "14px" }}>( S-OLA vs Kinaxis )</span>
+          Sell Out Forecast <span style={{ fontSize: "14px" }}>( S-OLA )</span>
         </Tab>
         <Tab
           style={{
@@ -246,7 +245,7 @@ const OhrCustomerTabs = () => {
           }}
           onClick={handleSellIn}
         >
-          Sell In{" "}
+          Sell In Forecast{" "}
           <span style={{ fontSize: "14px" }}> ( S-OLA vs Kinaxis )</span>
         </Tab>
         <Tab
