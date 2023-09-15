@@ -52,7 +52,7 @@ const CaseShortages = ({ onData }) => {
       dispatch(updateloader(true));
       var data = { customer: 0, rbsku: rowId };
       try {
-        const response = await fetch("http://localhost:5000/getcampaigns", {
+        const response = await fetch("https://testingsmartola.azurewebsites.net/getcampaigns", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -81,7 +81,7 @@ const CaseShortages = ({ onData }) => {
     dispatch(updateloader(true));
     var data = { rbsku: expandedRow };
     try {
-      const response = await fetch("http://localhost:5000/getalternativeskus", {
+      const response = await fetch("https://testingsmartola.azurewebsites.net/getalternativeskus", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -107,7 +107,7 @@ const CaseShortages = ({ onData }) => {
     dispatch(updateloader(true));
     var data = { rbsku: expandedRow };
     try {
-      const response = await fetch("http://localhost:5000/rarbysku", {
+      const response = await fetch("https://testingsmartola.azurewebsites.net/rarbysku", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
