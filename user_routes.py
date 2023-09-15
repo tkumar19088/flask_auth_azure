@@ -80,8 +80,10 @@ def getfilterparams():
     global global_filters
     try:
         data = request.json
+        print(f"\n\n{data}\n")
         for key, value in data.items():
-            global_filters[key] = value
+            if value != "":
+                global_filters[key] = value
         filtalerts = getalerts()
         # return global_filters
         return {"filters":global_filters, "alerts":filtalerts}
@@ -94,15 +96,21 @@ def getalerts():
     filters = ['Business Unit', 'Customer', 'Location','Brand']
 
     if global_filters:
+        print(global_filters)
         for filter_key in filters:
-            if filter_key in global_filters.keys():
+            print(filter_key)
+            if filter_key != "" and filter_key in global_filters.keys() and global_filters[filter_key] in global_user[filter_key]:
                 oosalertsdata = oosalertsdata[oosalertsdata[filter_key]==global_filters[filter_key]]
                 irrpoalertsdata = irrpoalertsdata[irrpoalertsdata[filter_key]==global_filters[filter_key]]
+            else:
+                continue
     else:
         for filter_key in filters:
-            if filter_key in global_user.keys():
+            if filter_key != "" and filter_key in global_filters.keys() and global_filters[filter_key] in global_user[filter_key]:
                 oosalertsdata = oosalertsdata[oosalertsdata[filter_key].isin(global_user[filter_key])]
                 irrpoalertsdata = irrpoalertsdata[irrpoalertsdata[filter_key].isin(global_user[filter_key])]
+            else:
+                continue
 
     oosalertsdata.replace(" ", "-", inplace=True)
     irrpoalertsdata.replace(" ", "-", inplace=True)
@@ -130,6 +138,8 @@ def getalerts():
             except:
                 d["Name"] = d.pop("PO Number")
                 d["Value"] = d.pop("PO Date")
+
+    print(f"\n\n{ALERTS[:5]}\n\n")
 
     return ALERTS
 
@@ -389,7 +399,7 @@ def getrarbysku():
     other_customers_df = reallocationdatabysku[reallocationdatabysku['Customer'] != global_filters['Customer']]
     other_customers_df.replace(" ", "-", inplace=True)
 
-    static_row = json.loads(staticdf.to_json(orient='records'))
+    static_row = json.loads(staticdf.to_json(orient='records'))[0]
     other_rows = json.loads(other_customers_df.to_json(orient='records'))
 
     return {"static_row":static_row, "other_rows":other_rows}
@@ -401,9 +411,43 @@ def getrarbysku():
 
 
 # ***********************************************
-#     Within Channel, Across Channel # TODO
+#     Optimization Model Response # TODO
 # ***********************************************
+@app_blueprint.route("/getoptmize", methods=['POST'])
+def getoptmize():
+    # Label: 0 for green, 1 for amber, 2 for red
+    constraints = [{
+                            'Name': 'PCT DEVIATION FROM INIT ALLOC',
+                            'Value': '5%',
+                            'Label': 0
+                        }, {
+                            'Name': 'MIN Expected Service Level',
+                            'Value': '95%',
+                            'Label': 1
+                        }, {
+                            'Name': 'MIN Deviation from Target WOC',
+                            'Value': 4,
+                            'Label': 0
+                        }, {
+                            'Name': 'MAZ Deviation from Target WOC',
+                            'Value': 8,
+                            'Label': 0
+                        }]
 
+    results = [{
+                            'Name': 'AVG EXP SERVICE LEVEL',
+                            'Value': '98%'
+                        }, {
+                            'Name': 'EXP OLA',
+                            'Value': "99%"
+                        }]
+
+    data = {
+            'otherrows':[],
+            'staticrow':{},
+            'constraints':constraints,
+            'results':results}
+    return data
 
 # *******************************
 #          LOG OUT API
