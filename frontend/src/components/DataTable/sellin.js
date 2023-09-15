@@ -1071,8 +1071,8 @@ const Sellin = ({ onData }) => {
                     {" "}
                     <div className="alignment">{item.PPG}</div>
                   </TableCell>
-                  <TableCell>
-                    {" "}
+                  <TableCell sx={{ width: "50px" }}>
+                   
                     <div className="alignment">{item.Description}</div>
                   </TableCell>
                   <TableCell>
@@ -1083,7 +1083,7 @@ const Sellin = ({ onData }) => {
                     {" "}
                     <div className="alignment">{item.Brand}</div>
                   </TableCell>
-                  <TableCell sx={{ width: "90px" }}>
+                  <TableCell sx={{ width: "50px" }}>
                     <div className="alignment">{item["InitalSOH Week"]}</div>
                   </TableCell>
                   <TableCell
@@ -1091,12 +1091,12 @@ const Sellin = ({ onData }) => {
                       textAlign: "center",
                     }}
                   >
-                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                    <Box display="flex" sx={{ width: "50px" }}>
                       <Typography fontSize={15}>{item["sola CW"]}</Typography>
                       <Typography
                         fontSize={13}
                         sx={{
-                          marginLeft: "12px",
+                          marginLeft: "5px",
                           marginTop: "10px",
                           color: "#6e8c78",
                         }}
@@ -1110,12 +1110,12 @@ const Sellin = ({ onData }) => {
                       textAlign: "center",
                     }}
                   >
-                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                    <Box display="flex" sx={{ width: "50px" }}>
                       <Typography fontSize={15}>{item["sola CW+1"]}</Typography>
                       <Typography
                         fontSize={13}
                         sx={{
-                          marginLeft: "12px",
+                          marginLeft: "5px",
                           marginTop: "10px",
                           color: "#6e8c78",
                         }}
@@ -1129,12 +1129,12 @@ const Sellin = ({ onData }) => {
                       textAlign: "center",
                     }}
                   >
-                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                    <Box display="flex" sx={{ width: "50px"}}>
                       <Typography fontSize={15}>{item["sola CW+2"]}</Typography>
                       <Typography
                         fontSize={13}
                         sx={{
-                          marginLeft: "12px",
+                          marginLeft: "5px",
                           marginTop: "10px",
                           color: "#6e8c78",
                         }}
@@ -1148,12 +1148,12 @@ const Sellin = ({ onData }) => {
                       textAlign: "center",
                     }}
                   >
-                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                    <Box display="flex" sx={{width: "50px" }}>
                       <Typography fontSize={15}>{item["sola CW+3"]}</Typography>
                       <Typography
                         fontSize={13}
                         sx={{
-                          marginLeft: "12px",
+                          marginLeft: "5px",
                           marginTop: "10px",
                           color: "#6e8c78",
                         }}
@@ -1167,12 +1167,12 @@ const Sellin = ({ onData }) => {
                       textAlign: "center",
                     }}
                   >
-                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                    <Box display="flex" sx={{ width: "50px" }}>
                       <Typography fontSize={15}>{item["sola CW+4"]}</Typography>
                       <Typography
                         fontSize={13}
                         sx={{
-                          marginLeft: "12px",
+                          marginLeft: "5px",
                           marginTop: "10px",
                           color: "#6e8c78",
                         }}
@@ -1186,12 +1186,12 @@ const Sellin = ({ onData }) => {
                       textAlign: "center",
                     }}
                   >
-                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                    <Box display="flex" sx={{ width: "50px" }}>
                       <Typography fontSize={15}>{item["sola CW+5"]}</Typography>
                       <Typography
                         fontSize={13}
                         sx={{
-                          marginLeft: "12px",
+                          marginLeft: "5px",
                           marginTop: "10px",
                           color: "#6e8c78",
                         }}
@@ -1205,12 +1205,12 @@ const Sellin = ({ onData }) => {
                       textAlign: "center",
                     }}
                   >
-                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                    <Box display="flex" sx={{width: "50px" }}>
                       <Typography fontSize={15}>{item["sola CW+6"]}</Typography>
                       <Typography
                         fontSize={13}
                         sx={{
-                          marginLeft: "12px",
+                          marginLeft: "5px",
                           marginTop: "10px",
                           color: "#6e8c78",
                         }}
@@ -1224,12 +1224,12 @@ const Sellin = ({ onData }) => {
                       textAlign: "center",
                     }}
                   >
-                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                    <Box display="flex" sx={{ width: "50px" }}>
                       <Typography fontSize={15}>{item["sola CW+7"]}</Typography>
                       <Typography
                         fontSize={13}
                         sx={{
-                          marginLeft: "12px",
+                          marginLeft: "5px",
                           marginTop: "10px",
                           color: "#6e8c78",
                         }}
@@ -1243,12 +1243,12 @@ const Sellin = ({ onData }) => {
                       textAlign: "center",
                     }}
                   >
-                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                    <Box display="flex" sx={{ width: "50px" }}>
                       <Typography fontSize={15}>{item["sola CW+8"]}</Typography>
                       <Typography
                         fontSize={13}
                         sx={{
-                          marginLeft: "12px",
+                          marginLeft: "5px",
                           marginTop: "10px",
                           color: "#6e8c78",
                         }}
@@ -1262,12 +1262,12 @@ const Sellin = ({ onData }) => {
                       textAlign: "center",
                     }}
                   >
-                    <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                    <Box display="flex" sx={{ width: "50px"}}>
                       <Typography fontSize={15}>{item["sola CW+9"]}</Typography>
                       <Typography
                         fontSize={13}
                         sx={{
-                          marginLeft: "12px",
+                          marginLeft: "5px",
                           marginTop: "10px",
                           color: "#6e8c78",
                         }}
