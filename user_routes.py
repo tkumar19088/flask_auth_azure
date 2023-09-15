@@ -104,8 +104,8 @@ def getalerts():
                 oosalertsdata = oosalertsdata[oosalertsdata[filter_key].isin(global_user[filter_key])]
                 irrpoalertsdata = irrpoalertsdata[irrpoalertsdata[filter_key].isin(global_user[filter_key])]
 
-    oosalertsdata.replace("", "-", inplace=True)
-    irrpoalertsdata.replace("", "-", inplace=True)
+    oosalertsdata.replace(" ", "-", inplace=True)
+    irrpoalertsdata.replace(" ", "-", inplace=True)
 
     aa = oosalertsdata.groupby(['Business Unit', 'Location', 'Brand']).apply(lambda x: x.sort_values(['Reckitt WOC'], ascending=True)).reset_index(drop=True)[['Location','Brand',"Description","Reckitt WOC","Service CW"]]
     ALERTS=[]
@@ -165,7 +165,7 @@ def getoverview():
         for filter_key in filters:
             if filter_key in global_filters.keys():
                 ohr = ohr[ohr[filter_key] == global_filters[filter_key]]
-        ohr.replace("", "-", inplace=True)
+        ohr.replace(" ", "-", inplace=True)
         return json.loads(ohr.to_json(orient='records'))
     else:
         return jsonify(status="Error", message="Choose above filters to view data"), 500
@@ -190,7 +190,7 @@ def getsupply():
     for filter_key in filters:
         if filter_key in global_filters.keys():
             rbsupply = rbsupply[rbsupply[filter_key] == global_filters[filter_key]]
-    rbsupply.replace("", "-", inplace=True)
+    rbsupply.replace(" ", "-", inplace=True)
     return json.loads(rbsupply.to_json(orient='records'))
 
 
@@ -204,7 +204,7 @@ def getdemand():
     for filter_key in filters:
         if filter_key in global_filters.keys():
             rbdemand = rbdemand[rbdemand[filter_key] == global_filters[filter_key]]
-    rbdemand.replace("", "-", inplace=True)
+    rbdemand.replace(" ", "-", inplace=True)
     return json.loads(rbdemand.to_json(orient='records'))
 
 
@@ -218,7 +218,7 @@ def getsohateow():
     for filter_key in filters:
         if filter_key in global_filters.keys():
             rbexpsoheow = rbexpsoheow[rbexpsoheow[filter_key] == global_filters[filter_key]]
-    rbexpsoheow.replace("", "-", inplace=True)
+    rbexpsoheow.replace(" ", "-", inplace=True)
     return json.loads(rbexpsoheow.to_json(orient='records'))
 
 
@@ -232,7 +232,7 @@ def getwocateow():
     for filter_key in filters:
         if filter_key in global_filters.keys():
             rbwoceow = rbwoceow[rbwoceow[filter_key] == global_filters[filter_key]]
-    rbwoceow.replace("", "-", inplace=True)
+    rbwoceow.replace(" ", "-", inplace=True)
     return json.loads(rbwoceow.to_json(orient='records'))
 
 
@@ -246,7 +246,7 @@ def getcaseshortages():
     for filter_key in filters:
         if filter_key in global_filters.keys():
             rbcaseshort = rbcaseshort[rbcaseshort[filter_key] == global_filters[filter_key]]
-    rbcaseshort.replace("", "-", inplace=True)
+    rbcaseshort.replace(" ", "-", inplace=True)
     return json.loads(rbcaseshort.to_json(orient='records'))
 
 
@@ -260,7 +260,7 @@ def getexpectedservice():
     for filter_key in filters:
         if filter_key in global_filters.keys():
             rbexpsl = rbexpsl[rbexpsl[filter_key] == global_filters[filter_key]]
-    rbexpsl.replace("", "-", inplace=True)
+    rbexpsl.replace(" ", "-", inplace=True)
     return json.loads(rbexpsl.to_json(orient='records'))
 
 
@@ -279,7 +279,7 @@ def getstockposition():
     for filter_key in filters:
         if filter_key in global_filters.keys():
             stockpos = stockpos[stockpos[filter_key] == global_filters[filter_key]]
-    stockpos.replace("", "-", inplace=True)
+    stockpos.replace(" ", "-", inplace=True)
     return json.loads(stockpos.to_json(orient='records'))
 
 
@@ -293,7 +293,7 @@ def getcustepos():
     for filter_key in filters:
         if filter_key in global_filters.keys():
             custhepos = custhepos[custhepos[filter_key] == global_filters[filter_key]]
-    custhepos.replace("", "-", inplace=True)
+    custhepos.replace(" ", "-", inplace=True)
     return json.loads(custhepos.to_json(orient='records'))
 
 
@@ -307,7 +307,7 @@ def getcustsellout():
     for filter_key in filters:
         if filter_key in global_filters.keys():
             custsellout = custsellout[custsellout[filter_key] == global_filters[filter_key]]
-    custsellout.replace("", "-", inplace=True)
+    custsellout.replace(" ", "-", inplace=True)
     return json.loads(custsellout.to_json(orient='records'))
 
 
@@ -321,7 +321,7 @@ def getcustsellin():
     for filter_key in filters:
         if filter_key in global_filters.keys():
             custsellin = custsellin[custsellin[filter_key] == global_filters[filter_key]]
-    custsellin.replace("", "-", inplace=True)
+    custsellin.replace(" ", "-", inplace=True)
     return json.loads(custsellin.to_json(orient='records'))
 
 
@@ -335,7 +335,7 @@ def getcustola():
     for filter_key in filters:
         if filter_key in global_filters.keys():
             custola = custola[custola[filter_key] == global_filters[filter_key]]
-    custola.replace("", "-", inplace=True)
+    custola.replace(" ", "-", inplace=True)
     return json.loads(custola.to_json(orient='records'))
 
 
@@ -351,7 +351,7 @@ def getcampaigns():
     for filter_key in filters:
         if filter_key in global_filters.keys():
             campaignsbysku = campaignsbysku[campaignsbysku[filter_key] == global_filters[filter_key]]
-    campaignsbysku.replace("", "-", inplace=True)
+    campaignsbysku.replace(" ", "-", inplace=True)
     return json.loads(campaignsbysku.to_json(orient='records'))
 
 
@@ -369,7 +369,7 @@ def getalternativeskus():
     data = request.json
     altskudata = AzureBlobReader().read_csvfile("ui_data/pushalternativeskus.csv")
     altskubysku = altskudata[altskudata['RB SKU'] == data['rbsku']]
-    altskudata.replace("", "-", inplace=True)
+    altskudata.replace(" ", "-", inplace=True)
     return json.loads(altskubysku.to_json(orient='records'))
 
 
@@ -383,18 +383,15 @@ def getrarbysku():
     # reallocationdata = AzureBlobReader().read_xls("smartola_data.xlsx", sheet="retailerreallocation")
     reallocationdata = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
     reallocationdatabysku = reallocationdata[reallocationdata['RB SKU'] == data['rbsku']]
-    reallocationdatabysku.replace("", "-", inplace=True)
-
-    print(f"\nglobal_filters:\n{global_filters}\n\n")
-    print(f"\nreallocationdatabysku:\n{reallocationdatabysku}\n\n")
 
     staticdf = reallocationdatabysku[reallocationdatabysku['Customer'] == global_filters['Customer']]
+    staticdf.replace(" ", "-", inplace=True)
     other_customers_df = reallocationdatabysku[reallocationdatabysku['Customer'] != global_filters['Customer']]
+    other_customers_df.replace(" ", "-", inplace=True)
 
     static_row = json.loads(staticdf.to_json(orient='records'))
     other_rows = json.loads(other_customers_df.to_json(orient='records'))
 
-    print(f"\n\n{static_row}\n\n{other_rows}\n\n")
     return {"static_row":static_row, "other_rows":other_rows}
 
 
@@ -406,7 +403,6 @@ def getrarbysku():
 # ***********************************************
 #     Within Channel, Across Channel # TODO
 # ***********************************************
-
 
 
 # *******************************
