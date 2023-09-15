@@ -128,270 +128,270 @@ const Sellin = ({ onData }) => {
       dispatch(updateloader(false));
     }
   };
-  // const data = useSelector((state) => state.sidebar.customersellin);
+  const data = useSelector((state) => state.sidebar.customersellin);
 
-  const [data, setData] = useState([
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 4500,
-      "CW+1": 2900,
-      "CW+2": 4500,
-      "CW+3": 4500,
-      "CW+4": 1900,
-      "CW+5": 4900,
-      "CW+6": 2000,
-      "CW+7": 4700,
-      "CW+8": 3900,
-      "CW+9": 2800,
-      Customer: "Amazon",
-      Description: "AWICK,GB,SPNG DEL 4X250ML",
-      "InitalSOH Week": 5000,
-      Location: "United Kingdom",
-      PPG: 6208713,
-      "RB SKU": "3038049",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 4200,
-      "CW+1": 3700,
-      "CW+2": 1700,
-      "CW+3": 3900,
-      "CW+4": 4400,
-      "CW+5": 3600,
-      "CW+6": 2500,
-      "CW+7": 4900,
-      "CW+8": 3500,
-      "CW+9": 1600,
-      Customer: "Amazon",
-      Description: "AWICK,GB,FM RF PNKSP 392X250ML",
-      "InitalSOH Week": 5000,
-      Location: "United Kingdom",
-      PPG: 2849279,
-      "RB SKU": "3209375",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 4700,
-      "CW+1": 3600,
-      "CW+2": 2400,
-      "CW+3": 4900,
-      "CW+4": 4300,
-      "CW+5": 4000,
-      "CW+6": 2800,
-      "CW+7": 2600,
-      "CW+8": 2300,
-      "CW+9": 2300,
-      Customer: "Amazon",
-      Description: "AWICK,GB,FM TW RF RW 8X250ML",
-      "InitalSOH Week": 4100,
-      Location: "United Kingdom",
-      PPG: 9014190,
-      "RB SKU": "3232106",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 1700,
-      "CW+1": 3500,
-      "CW+2": 2200,
-      "CW+3": 2800,
-      "CW+4": 2900,
-      "CW+5": 4300,
-      "CW+6": 3900,
-      "CW+7": 3700,
-      "CW+8": 3400,
-      "CW+9": 2500,
-      Customer: "Amazon",
-      Description: "AWICK,GB,NA3,PSP 6X300ML",
-      "InitalSOH Week": 1500,
-      Location: "United Kingdom",
-      PPG: 4725387,
-      "RB SKU": "3246983",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 3100,
-      "CW+1": 3900,
-      "CW+2": 1600,
-      "CW+3": 4000,
-      "CW+4": 4500,
-      "CW+5": 2200,
-      "CW+6": 4300,
-      "CW+7": 4900,
-      "CW+8": 2400,
-      "CW+9": 4400,
-      Customer: "Amazon",
-      Description: "AWICK,GB,BOOSTER ROSE 12X300ML",
-      "InitalSOH Week": 1600,
-      Location: "United Kingdom",
-      PPG: 6876698,
-      "RB SKU": "3136081",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 1600,
-      "CW+1": 4500,
-      "CW+2": 3400,
-      "CW+3": 4800,
-      "CW+4": 1900,
-      "CW+5": 5000,
-      "CW+6": 2200,
-      "CW+7": 3700,
-      "CW+8": 3700,
-      "CW+9": 2800,
-      Customer: "Amazon",
-      Description: "AWICK,GB,REED ESO PBFIG 5X33ML",
-      "InitalSOH Week": 3500,
-      Location: "United Kingdom",
-      PPG: 5227394,
-      "RB SKU": "3167124",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 2300,
-      "CW+1": 4200,
-      "CW+2": 3600,
-      "CW+3": 2300,
-      "CW+4": 2100,
-      "CW+5": 2400,
-      "CW+6": 4300,
-      "CW+7": 2400,
-      "CW+8": 3600,
-      "CW+9": 3700,
-      Customer: "Amazon",
-      Description: "AWICK,GB,LE RF VAN BEAN 6X19ML",
-      "InitalSOH Week": 1500,
-      Location: "United Kingdom",
-      PPG: 3035131,
-      "RB SKU": "3200683",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 2300,
-      "CW+1": 4400,
-      "CW+2": 1500,
-      "CW+3": 4400,
-      "CW+4": 4300,
-      "CW+5": 2000,
-      "CW+6": 2100,
-      "CW+7": 2800,
-      "CW+8": 1800,
-      "CW+9": 3500,
-      Customer: "Amazon",
-      Description: "AWICK,GB,LE RF BERRY 2X5X19ML",
-      "InitalSOH Week": 2500,
-      Location: "United Kingdom",
-      PPG: 6572089,
-      "RB SKU": "3205304",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 4800,
-      "CW+1": 2300,
-      "CW+2": 3600,
-      "CW+3": 4100,
-      "CW+4": 3300,
-      "CW+5": 1900,
-      "CW+6": 4200,
-      "CW+7": 1800,
-      "CW+8": 4000,
-      "CW+9": 4100,
-      Customer: "Amazon",
-      Description: "AWICK,GB,APPLE LE RF 6X19ML",
-      "InitalSOH Week": 4600,
-      Location: "United Kingdom",
-      PPG: 2824041,
-      "RB SKU": "3228650",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 2400,
-      "CW+1": 4300,
-      "CW+2": 3900,
-      "CW+3": 2500,
-      "CW+4": 5000,
-      "CW+5": 3300,
-      "CW+6": 1700,
-      "CW+7": 2700,
-      "CW+8": 2200,
-      "CW+9": 4300,
-      Customer: "Amazon",
-      Description: "AWICK,GB,LE RF MALDIVES 5X19ML",
-      "InitalSOH Week": 1600,
-      Location: "United Kingdom",
-      PPG: 6439551,
-      "RB SKU": "3252952",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 1800,
-      "CW+1": 4700,
-      "CW+2": 4300,
-      "CW+3": 2600,
-      "CW+4": 2900,
-      "CW+5": 3200,
-      "CW+6": 2000,
-      "CW+7": 2700,
-      "CW+8": 4200,
-      "CW+9": 2300,
-      Customer: "Amazon",
-      Description: "AWICK,GB,EM RF APP&CIN 6X20ML",
-      "InitalSOH Week": 4700,
-      Location: "United Kingdom",
-      PPG: 5281278,
-      "RB SKU": "3266914",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 2900,
-      "CW+1": 2200,
-      "CW+2": 4600,
-      "CW+3": 3600,
-      "CW+4": 3800,
-      "CW+5": 2000,
-      "CW+6": 2300,
-      "CW+7": 3800,
-      "CW+8": 1600,
-      "CW+9": 4600,
-      Customer: "Amazon",
-      Description: "AWICK,GB,NOEL CNDL 6X105G",
-      "InitalSOH Week": 3200,
-      Location: "United Kingdom",
-      PPG: 6317266,
-      "RB SKU": "3228482",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 2100,
-      "CW+1": 4300,
-      "CW+2": 2400,
-      "CW+3": 1900,
-      "CW+4": 1800,
-      "CW+5": 3500,
-      "CW+6": 4000,
-      "CW+7": 2100,
-      "CW+8": 4800,
-      "CW+9": 2600,
-      Customer: "Amazon",
-      Description: "AWICK,GB,PMP FWTR GEL 12X70G",
-      "InitalSOH Week": 2300,
-      Location: "United Kingdom",
-      PPG: 8392919,
-      "RB SKU": "3234661",
-    },
-  ]);
+  // const [data, setData] = useState([
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 4500,
+  //     "CW+1": 2900,
+  //     "CW+2": 4500,
+  //     "CW+3": 4500,
+  //     "CW+4": 1900,
+  //     "CW+5": 4900,
+  //     "CW+6": 2000,
+  //     "CW+7": 4700,
+  //     "CW+8": 3900,
+  //     "CW+9": 2800,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,SPNG DEL 4X250ML",
+  //     "InitalSOH Week": 5000,
+  //     Location: "United Kingdom",
+  //     PPG: 6208713,
+  //     "RB SKU": "3038049",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 4200,
+  //     "CW+1": 3700,
+  //     "CW+2": 1700,
+  //     "CW+3": 3900,
+  //     "CW+4": 4400,
+  //     "CW+5": 3600,
+  //     "CW+6": 2500,
+  //     "CW+7": 4900,
+  //     "CW+8": 3500,
+  //     "CW+9": 1600,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,FM RF PNKSP 392X250ML",
+  //     "InitalSOH Week": 5000,
+  //     Location: "United Kingdom",
+  //     PPG: 2849279,
+  //     "RB SKU": "3209375",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 4700,
+  //     "CW+1": 3600,
+  //     "CW+2": 2400,
+  //     "CW+3": 4900,
+  //     "CW+4": 4300,
+  //     "CW+5": 4000,
+  //     "CW+6": 2800,
+  //     "CW+7": 2600,
+  //     "CW+8": 2300,
+  //     "CW+9": 2300,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,FM TW RF RW 8X250ML",
+  //     "InitalSOH Week": 4100,
+  //     Location: "United Kingdom",
+  //     PPG: 9014190,
+  //     "RB SKU": "3232106",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 1700,
+  //     "CW+1": 3500,
+  //     "CW+2": 2200,
+  //     "CW+3": 2800,
+  //     "CW+4": 2900,
+  //     "CW+5": 4300,
+  //     "CW+6": 3900,
+  //     "CW+7": 3700,
+  //     "CW+8": 3400,
+  //     "CW+9": 2500,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,NA3,PSP 6X300ML",
+  //     "InitalSOH Week": 1500,
+  //     Location: "United Kingdom",
+  //     PPG: 4725387,
+  //     "RB SKU": "3246983",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 3100,
+  //     "CW+1": 3900,
+  //     "CW+2": 1600,
+  //     "CW+3": 4000,
+  //     "CW+4": 4500,
+  //     "CW+5": 2200,
+  //     "CW+6": 4300,
+  //     "CW+7": 4900,
+  //     "CW+8": 2400,
+  //     "CW+9": 4400,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,BOOSTER ROSE 12X300ML",
+  //     "InitalSOH Week": 1600,
+  //     Location: "United Kingdom",
+  //     PPG: 6876698,
+  //     "RB SKU": "3136081",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 1600,
+  //     "CW+1": 4500,
+  //     "CW+2": 3400,
+  //     "CW+3": 4800,
+  //     "CW+4": 1900,
+  //     "CW+5": 5000,
+  //     "CW+6": 2200,
+  //     "CW+7": 3700,
+  //     "CW+8": 3700,
+  //     "CW+9": 2800,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,REED ESO PBFIG 5X33ML",
+  //     "InitalSOH Week": 3500,
+  //     Location: "United Kingdom",
+  //     PPG: 5227394,
+  //     "RB SKU": "3167124",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 2300,
+  //     "CW+1": 4200,
+  //     "CW+2": 3600,
+  //     "CW+3": 2300,
+  //     "CW+4": 2100,
+  //     "CW+5": 2400,
+  //     "CW+6": 4300,
+  //     "CW+7": 2400,
+  //     "CW+8": 3600,
+  //     "CW+9": 3700,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,LE RF VAN BEAN 6X19ML",
+  //     "InitalSOH Week": 1500,
+  //     Location: "United Kingdom",
+  //     PPG: 3035131,
+  //     "RB SKU": "3200683",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 2300,
+  //     "CW+1": 4400,
+  //     "CW+2": 1500,
+  //     "CW+3": 4400,
+  //     "CW+4": 4300,
+  //     "CW+5": 2000,
+  //     "CW+6": 2100,
+  //     "CW+7": 2800,
+  //     "CW+8": 1800,
+  //     "CW+9": 3500,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,LE RF BERRY 2X5X19ML",
+  //     "InitalSOH Week": 2500,
+  //     Location: "United Kingdom",
+  //     PPG: 6572089,
+  //     "RB SKU": "3205304",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 4800,
+  //     "CW+1": 2300,
+  //     "CW+2": 3600,
+  //     "CW+3": 4100,
+  //     "CW+4": 3300,
+  //     "CW+5": 1900,
+  //     "CW+6": 4200,
+  //     "CW+7": 1800,
+  //     "CW+8": 4000,
+  //     "CW+9": 4100,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,APPLE LE RF 6X19ML",
+  //     "InitalSOH Week": 4600,
+  //     Location: "United Kingdom",
+  //     PPG: 2824041,
+  //     "RB SKU": "3228650",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 2400,
+  //     "CW+1": 4300,
+  //     "CW+2": 3900,
+  //     "CW+3": 2500,
+  //     "CW+4": 5000,
+  //     "CW+5": 3300,
+  //     "CW+6": 1700,
+  //     "CW+7": 2700,
+  //     "CW+8": 2200,
+  //     "CW+9": 4300,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,LE RF MALDIVES 5X19ML",
+  //     "InitalSOH Week": 1600,
+  //     Location: "United Kingdom",
+  //     PPG: 6439551,
+  //     "RB SKU": "3252952",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 1800,
+  //     "CW+1": 4700,
+  //     "CW+2": 4300,
+  //     "CW+3": 2600,
+  //     "CW+4": 2900,
+  //     "CW+5": 3200,
+  //     "CW+6": 2000,
+  //     "CW+7": 2700,
+  //     "CW+8": 4200,
+  //     "CW+9": 2300,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,EM RF APP&CIN 6X20ML",
+  //     "InitalSOH Week": 4700,
+  //     Location: "United Kingdom",
+  //     PPG: 5281278,
+  //     "RB SKU": "3266914",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 2900,
+  //     "CW+1": 2200,
+  //     "CW+2": 4600,
+  //     "CW+3": 3600,
+  //     "CW+4": 3800,
+  //     "CW+5": 2000,
+  //     "CW+6": 2300,
+  //     "CW+7": 3800,
+  //     "CW+8": 1600,
+  //     "CW+9": 4600,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,NOEL CNDL 6X105G",
+  //     "InitalSOH Week": 3200,
+  //     Location: "United Kingdom",
+  //     PPG: 6317266,
+  //     "RB SKU": "3228482",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 2100,
+  //     "CW+1": 4300,
+  //     "CW+2": 2400,
+  //     "CW+3": 1900,
+  //     "CW+4": 1800,
+  //     "CW+5": 3500,
+  //     "CW+6": 4000,
+  //     "CW+7": 2100,
+  //     "CW+8": 4800,
+  //     "CW+9": 2600,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,PMP FWTR GEL 12X70G",
+  //     "InitalSOH Week": 2300,
+  //     Location: "United Kingdom",
+  //     PPG: 8392919,
+  //     "RB SKU": "3234661",
+  //   },
+  // ]);
 
   const SubTable = ({ details }) => (
     <div style={{ marginTop: "-18px", padding: "10px" }} className="mini-table">
@@ -1092,7 +1092,7 @@ const Sellin = ({ onData }) => {
                     }}
                   >
                     <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                      <Typography fontSize={15}>{data[0].cw}</Typography>
+                      <Typography fontSize={15}>{item["sola CW"]}</Typography>
                       <Typography
                         fontSize={13}
                         sx={{
@@ -1101,7 +1101,7 @@ const Sellin = ({ onData }) => {
                           color: "#6e8c78",
                         }}
                       >
-                        {data[0].cw}
+                        {item["kinaxis CW"]}
                       </Typography>
                     </Box>
                   </TableCell>{" "}
@@ -1111,7 +1111,7 @@ const Sellin = ({ onData }) => {
                     }}
                   >
                     <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                      <Typography fontSize={15}>{data[0].cw1}</Typography>
+                      <Typography fontSize={15}>{item["sola CW+1"]}</Typography>
                       <Typography
                         fontSize={13}
                         sx={{
@@ -1120,7 +1120,7 @@ const Sellin = ({ onData }) => {
                           color: "#6e8c78",
                         }}
                       >
-                        {data[0].cw1}
+                        {item["kinaxis CW+1"]}
                       </Typography>
                     </Box>
                   </TableCell>{" "}
@@ -1130,7 +1130,7 @@ const Sellin = ({ onData }) => {
                     }}
                   >
                     <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                      <Typography fontSize={15}>{data[0].cw2}</Typography>
+                      <Typography fontSize={15}>{item["sola CW+2"]}</Typography>
                       <Typography
                         fontSize={13}
                         sx={{
@@ -1139,7 +1139,7 @@ const Sellin = ({ onData }) => {
                           color: "#6e8c78",
                         }}
                       >
-                        {data[0].cw2}
+                        {item["kinaxis CW+2"]}
                       </Typography>
                     </Box>
                   </TableCell>{" "}
@@ -1149,7 +1149,7 @@ const Sellin = ({ onData }) => {
                     }}
                   >
                     <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                      <Typography fontSize={15}>{data[0].cw3}</Typography>
+                      <Typography fontSize={15}>{item["sola CW+3"]}</Typography>
                       <Typography
                         fontSize={13}
                         sx={{
@@ -1158,7 +1158,7 @@ const Sellin = ({ onData }) => {
                           color: "#6e8c78",
                         }}
                       >
-                        {data[0].cw3}
+                        {item["kinaxis CW+3"]}
                       </Typography>
                     </Box>
                   </TableCell>{" "}
@@ -1168,7 +1168,7 @@ const Sellin = ({ onData }) => {
                     }}
                   >
                     <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                      <Typography fontSize={15}>{data[0].cw4}</Typography>
+                      <Typography fontSize={15}>{item["sola CW+4"]}</Typography>
                       <Typography
                         fontSize={13}
                         sx={{
@@ -1177,7 +1177,7 @@ const Sellin = ({ onData }) => {
                           color: "#6e8c78",
                         }}
                       >
-                        {data[0].cw4}
+                        {item["kinaxis CW+4"]}
                       </Typography>
                     </Box>
                   </TableCell>{" "}
@@ -1187,7 +1187,7 @@ const Sellin = ({ onData }) => {
                     }}
                   >
                     <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                      <Typography fontSize={15}>{data[0].cw5}</Typography>
+                      <Typography fontSize={15}>{item["sola CW+5"]}</Typography>
                       <Typography
                         fontSize={13}
                         sx={{
@@ -1196,7 +1196,7 @@ const Sellin = ({ onData }) => {
                           color: "#6e8c78",
                         }}
                       >
-                        {data[0].cw5}
+                        {item["kinaxis CW+5"]}
                       </Typography>
                     </Box>
                   </TableCell>{" "}
@@ -1206,7 +1206,7 @@ const Sellin = ({ onData }) => {
                     }}
                   >
                     <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                      <Typography fontSize={15}>{data[0].cw6}</Typography>
+                      <Typography fontSize={15}>{item["sola CW+6"]}</Typography>
                       <Typography
                         fontSize={13}
                         sx={{
@@ -1215,7 +1215,7 @@ const Sellin = ({ onData }) => {
                           color: "#6e8c78",
                         }}
                       >
-                        {data[0].cw6}
+                        {item["kinaxis CW+6"]}
                       </Typography>
                     </Box>
                   </TableCell>{" "}
@@ -1225,7 +1225,7 @@ const Sellin = ({ onData }) => {
                     }}
                   >
                     <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                      <Typography fontSize={15}>{data[0].cw7}</Typography>
+                      <Typography fontSize={15}>{item["sola CW+7"]}</Typography>
                       <Typography
                         fontSize={13}
                         sx={{
@@ -1234,7 +1234,7 @@ const Sellin = ({ onData }) => {
                           color: "#6e8c78",
                         }}
                       >
-                        {data[0].cw7}
+                        {item["kinaxis CW+7"]}
                       </Typography>
                     </Box>
                   </TableCell>{" "}
@@ -1244,7 +1244,7 @@ const Sellin = ({ onData }) => {
                     }}
                   >
                     <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                      <Typography fontSize={15}>{data[0].cw8}</Typography>
+                      <Typography fontSize={15}>{item["sola CW+8"]}</Typography>
                       <Typography
                         fontSize={13}
                         sx={{
@@ -1253,7 +1253,7 @@ const Sellin = ({ onData }) => {
                           color: "#6e8c78",
                         }}
                       >
-                        {data[0].cw8}
+                        {item["kinaxis CW+8"]}
                       </Typography>
                     </Box>
                   </TableCell>{" "}
@@ -1263,7 +1263,7 @@ const Sellin = ({ onData }) => {
                     }}
                   >
                     <Box display="flex" sx={{ paddingLeft: "15px" }}>
-                      <Typography fontSize={15}>{data[0].cw9}</Typography>
+                      <Typography fontSize={15}>{item["sola CW+9"]}</Typography>
                       <Typography
                         fontSize={13}
                         sx={{
@@ -1272,7 +1272,7 @@ const Sellin = ({ onData }) => {
                           color: "#6e8c78",
                         }}
                       >
-                        {data[0].cw9}
+                        {item["kinaxis CW+9"]}
                       </Typography>
                     </Box>
                   </TableCell>{" "}
