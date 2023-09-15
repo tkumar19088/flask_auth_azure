@@ -49,7 +49,7 @@ const StockReallocationData = ({ onData }) => {
       allocationconsumed: 180,
       cmuscore: 7.44,
       currentallocation: 400,
-      newallocation: "-",
+      newallocation: 0,
       currentcustSOH: 400,
       "custsoh-current": 1000,
       "custsoh-target": 900,
@@ -77,7 +77,7 @@ const StockReallocationData = ({ onData }) => {
       allocationconsumed: 243,
       cmuscore: 3.84,
       currentallocation: 500,
-      newallocation: "-",
+      newallocation: 0,
       currentcustSOH: 1000,
       "custsoh-current": 600,
       "custsoh-target": 1000,
@@ -105,7 +105,7 @@ const StockReallocationData = ({ onData }) => {
       allocationconsumed: 12,
       cmuscore: 1.46,
       currentallocation: 400,
-      newallocation: "-",
+      newallocation: 0,
       currentcustSOH: 700,
       "custsoh-current": 300,
       "custsoh-target": 400,
@@ -133,7 +133,7 @@ const StockReallocationData = ({ onData }) => {
       allocationconsumed: 270,
       cmuscore: 8.0,
       currentallocation: 900,
-      newallocation: "-",
+      newallocation: 0,
       currentcustSOH: 900,
       "custsoh-current": 600,
       "custsoh-target": 1000,
@@ -161,7 +161,7 @@ const StockReallocationData = ({ onData }) => {
       allocationconsumed: 38,
       cmuscore: 5.69,
       currentallocation: 1000,
-      newallocation: "-",
+      newallocation: 0,
       currentcustSOH: 700,
       "custsoh-current": 700,
       "custsoh-target": 300,
@@ -189,7 +189,7 @@ const StockReallocationData = ({ onData }) => {
       allocationconsumed: 300,
       cmuscore: 4.18,
       currentallocation: 600,
-      newallocation: "-",
+      newallocation: 0,
       currentcustSOH: 900,
       "custsoh-current": 200,
       "custsoh-target": 200,
@@ -217,7 +217,7 @@ const StockReallocationData = ({ onData }) => {
       allocationconsumed: 200,
       cmuscore: 5.89,
       currentallocation: 800,
-      newallocation: "-",
+      newallocation: 0,
       currentcustSOH: 900,
       "custsoh-current": 800,
       "custsoh-target": 900,
@@ -245,7 +245,7 @@ const StockReallocationData = ({ onData }) => {
       allocationconsumed: 200,
       cmuscore: 4.14,
       currentallocation: 1000,
-      newallocation: "-",
+      newallocation: 0,
       currentcustSOH: 400,
       "custsoh-current": 200,
       "custsoh-target": 1000,
@@ -273,7 +273,7 @@ const StockReallocationData = ({ onData }) => {
       allocationconsumed: 348,
       cmuscore: 9.23,
       currentallocation: 400,
-      newallocation: "-",
+      newallocation: 0,
       currentcustSOH: 800,
       "custsoh-current": 1000,
       "custsoh-target": 800,
@@ -301,7 +301,7 @@ const StockReallocationData = ({ onData }) => {
       allocationconsumed: 400,
       cmuscore: 0.47,
       currentallocation: 600,
-      newallocation: "-",
+      newallocation: 0,
       currentcustSOH: 300,
       "custsoh-current": 200,
       "custsoh-target": 500,
@@ -739,7 +739,7 @@ const StockReallocationData = ({ onData }) => {
   };
   return (
     <div style={{ border: "" }}>
-      <TableContainer style={{ maxHeight: 462, width: "100%" }}>
+      <TableContainer style={{ maxHeight: 465, width: "100%" }}>
         <Table stickyHeader className="stockReallocation">
           <TableHead>
             <TableRow>
@@ -823,7 +823,10 @@ const StockReallocationData = ({ onData }) => {
                     textAlign: "center",
                   }}
                 >
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                  <Box
+                    display="flex"
+                    sx={{ textAlign: "center", justifyContent: "center" }}
+                  >
                     <Typography fontSize={13}>
                       {suggectedRecord["sif-atf"]}
                     </Typography>
@@ -894,7 +897,10 @@ const StockReallocationData = ({ onData }) => {
                     textAlign: "center",
                   }}
                 >
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                  <Box
+                    display="flex"
+                    sx={{ textAlign: "center", justifyContent: "center" }}
+                  >
                     <Typography
                       fontSize={13}
                       sx={{
@@ -926,7 +932,10 @@ const StockReallocationData = ({ onData }) => {
                     textAlign: "center",
                   }}
                 >
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                  <Box
+                    display="flex"
+                    sx={{ textAlign: "center", justifyContent: "center" }}
+                  >
                     <Typography
                       fontSize={13}
                       sx={{
@@ -1012,8 +1021,14 @@ const StockReallocationData = ({ onData }) => {
                   {item.Customer}
                 </TableCell>
                 <TableCell>{item.Channel}</TableCell>
-                <TableCell>
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                <TableCell sx={{ width: "120px" }}>
+                  <Box
+                    display="flex"
+                    sx={{
+                      textAlign: "center",
+                      justifyContent: "center",
+                    }}
+                  >
                     <Typography fontSize={13}>{item["sif-atf"]}</Typography>
                     <Typography
                       fontSize={13}
@@ -1045,8 +1060,14 @@ const StockReallocationData = ({ onData }) => {
                 <TableCell sx={{ textAlign: "center" }}>
                   {item.expectedservicelevel}
                 </TableCell>
-                <TableCell>
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                <TableCell sx={{ width: "120px" }}>
+                  <Box
+                    display="flex"
+                    sx={{
+                      textAlign: "center",
+                      justifyContent: "center",
+                    }}
+                  >
                     <Typography
                       fontSize={13}
                       sx={{
@@ -1071,8 +1092,14 @@ const StockReallocationData = ({ onData }) => {
                     </Typography>
                   </Box>
                 </TableCell>
-                <TableCell>
-                  <Box display="flex" sx={{ paddingLeft: "15px" }}>
+                <TableCell sx={{ width: "120px" }}>
+                  <Box
+                    display="flex"
+                    sx={{
+                      textAlign: "center",
+                      justifyContent: "center",
+                    }}
+                  >
                     <Typography
                       fontSize={13}
                       sx={{

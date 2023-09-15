@@ -1548,7 +1548,7 @@ const OhrTable = ({ onData }) => {
 
   return (
     <div style={{ border: "" }}>
-      <TableContainer style={{ maxHeight: 718, width: "100%" }}>
+      <TableContainer style={{ maxHeight: 711, width: "100%" }}>
         <Table>
           <TableHead className="t-head">
             <TableRow className="tablerow-title">

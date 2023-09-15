@@ -15,6 +15,7 @@ import {
   fetchuserdetails,
   updateloader,
   fetchalerts,
+  updatecurrentweek,
 } from "../../store/actions/sidebarActions";
 import CarouselExample from "../Carousel/Carousel";
 import Filters from "../Filters/Filters";
@@ -59,6 +60,19 @@ function Dashboard() {
     fetchData();
   }, []);
 
+  const currentDate = new Date();
+
+  // Get the current date
+  const currentDay = currentDate.getDate();
+  const currentMonth = currentDate.getMonth();
+  const currentYear = currentDate.getFullYear();
+  const firstDayOfYear = new Date(currentYear, 0, 1);
+  const dayDifference = Math.floor(
+    (currentDate - firstDayOfYear) / (24 * 60 * 60 * 1000)
+  );
+  const currentWeekNumber = Math.ceil((dayDifference + 1) / 7);
+  console.log(currentWeekNumber);
+  dispatch(updatecurrentweek(currentWeekNumber));
   return (
     <div>
       {loader && (

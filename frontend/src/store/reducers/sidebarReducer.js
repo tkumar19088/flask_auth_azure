@@ -1,5 +1,6 @@
 const initialState = {
   // Use "initialState" with a capital "S"
+  currentWeekNumber: "",
   sellinforecast: false,
   selloutforecast: false,
   oosrisk: false,
@@ -1101,6 +1102,11 @@ const initialState = {
 
 const sidebarReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "UPDATE_CURRENTWEEK":
+      return {
+        ...state,
+        currentWeekNumber: action.payload,
+      };
     case "FETCH_SELLINFORECAST":
       return {
         ...state,

@@ -1,3 +1,9 @@
+export const updatecurrentweek = (newValue) => {
+  return {
+    type: "UPDATE_CURRENTWEEK",
+    payload: newValue,
+  };
+};
 export const fetchSellinForecast = (newValue) => {
   return {
     type: "FETCH_SELLINFORECAST",

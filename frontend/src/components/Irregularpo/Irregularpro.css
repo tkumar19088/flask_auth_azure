@@ -4,8 +4,10 @@
 }
 
 
-.ir{
-
+.btn-invst{
+   text-transform: none !important;
+   border: 1px solid #415A6C !important;
+   color: #415A6C !important;
 }
 
 @media (width > 1919px) {
