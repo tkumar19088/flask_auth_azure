@@ -1646,7 +1646,7 @@ const OhrTable = ({ onData }) => {
                   // mt="3px"
                 >
                   <Typography className="table-h1-title" lineHeight="16px">
-                    Expected Net Revenue
+                    Expected Gross Revenue
                   </Typography>
                 </Box>
               </TableCell>
