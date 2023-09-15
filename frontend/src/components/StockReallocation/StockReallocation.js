@@ -67,6 +67,10 @@ function StockReallocation() {
     document.body.removeChild(a);
   };
 
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div>
       <Topbar />
@@ -104,7 +108,9 @@ function StockReallocation() {
                   }}
                 />
                 &#160;
-                <Typography fontSize={12}>Back</Typography>
+                <Typography fontSize={12} onClick={handleBack}>
+                  Back
+                </Typography>
               </Button>
             </Box>{" "}
             &#160;&#160;&#160;&#160;&#160;&#160;
@@ -144,7 +150,7 @@ function StockReallocation() {
             <Box
               display="flex"
               justifyContent="space-between"
-              width="450px"
+              width="500px"
               marginTop="10px"
             >
               <Button
@@ -156,7 +162,7 @@ function StockReallocation() {
                   textTransform: "none",
                 }}
               >
-                Within same channel
+                Within Same Channel
               </Button>
 
               <Button
@@ -168,7 +174,7 @@ function StockReallocation() {
                   textTransform: "none",
                 }}
               >
-                Across channels
+                Across Channels
               </Button>
               <Button
                 variant="contained"
@@ -180,7 +186,7 @@ function StockReallocation() {
                 }}
                 onClick={handleExportTableData}
               >
-                Export Data
+                Export Raw Data
               </Button>
             </Box>
           </Box>

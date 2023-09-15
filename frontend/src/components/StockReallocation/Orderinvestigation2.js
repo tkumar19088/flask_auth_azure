@@ -123,7 +123,7 @@ const Orderinvestigation2 = () => {
               </Box>
               <Box border="" textAlign="center" mx={{ lg: "10px", xs: "10px" }}>
                 <Typography
-                  mt={{ lg: "8px", xs: "10px" }}
+                  mt={{ lg: "13px", xs: "10px" }}
                   sx={{
                     width: { lg: "100px", xs: "70px" },
                     borderRadius: "18px 18px",
@@ -182,7 +182,7 @@ const Orderinvestigation2 = () => {
               </Box>
               <Box border="" textAlign="center" mx={{ lg: "10px", xs: "10px" }}>
                 <Typography
-                  mt={{ lg: "8px", xs: "10px" }}
+                  mt={{ lg: "13px", xs: "10px" }}
                   sx={{
                     width: { lg: "100px", xs: "70px" },
                     borderRadius: "18px 18px",

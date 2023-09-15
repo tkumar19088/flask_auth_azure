@@ -1,0 +1,20 @@
+.thead-main{
+    /* border: 1px solid red !important; */
+    height: 80px;
+}
+
+
+.btn-invst{
+   text-transform: none !important;
+   border: 1px solid #415A6C !important;
+   color: #415A6C !important;
+}
+
+@media (width > 1919px) {
+    .bg-containerdashboard {
+     background-color: #F5F6F8;
+     padding: 30px !important;
+     height: 889px !important ;
+     /* height: 100% !important; */
+    }
+ }

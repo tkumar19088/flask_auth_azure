@@ -22,6 +22,7 @@ import {
   fetchreckittexpectedservice,
   fetchreckittstockposition,
   updateexporttabledata,
+  fetchtaburl,
 } from "../../store/actions/sidebarActions";
 
 const FunctionalTabs = () => {
@@ -37,7 +38,8 @@ const FunctionalTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/getoverview", {
+      const url = "http://localhost:5000/getoverview";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -46,10 +48,11 @@ const FunctionalTabs = () => {
       });
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchoverviewhighriskdata(json));
         dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -63,7 +66,8 @@ const FunctionalTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/getsupply", {
+      const url = "http://localhost:5000/getsupply";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,10 +76,11 @@ const FunctionalTabs = () => {
       });
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchreckittsupply(json));
         dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -89,7 +94,8 @@ const FunctionalTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/getdemand", {
+      const url = "http://localhost:5000/getdemand";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -98,10 +104,11 @@ const FunctionalTabs = () => {
       });
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchreckittdemand(json));
         dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -115,7 +122,8 @@ const FunctionalTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/getsohateow", {
+      const url = "http://localhost:5000/getsohateow";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -124,10 +132,11 @@ const FunctionalTabs = () => {
       });
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchreckittexpectedsoh(json));
         dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -141,7 +150,8 @@ const FunctionalTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/getwocateow", {
+      const url = "http://localhost:5000/getwocateow";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -150,10 +160,11 @@ const FunctionalTabs = () => {
       });
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchreckittwoc(json));
         dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -167,7 +178,8 @@ const FunctionalTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/getcaseshortages", {
+      const url = "http://localhost:5000/getcaseshortages";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -176,10 +188,11 @@ const FunctionalTabs = () => {
       });
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchreckittcaseshortages(json));
         dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -193,7 +206,8 @@ const FunctionalTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/getexpectedservice", {
+      const url = "http://localhost:5000/getexpectedservice";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -202,10 +216,11 @@ const FunctionalTabs = () => {
       });
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchreckittexpectedservice(json));
         dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -219,7 +234,8 @@ const FunctionalTabs = () => {
     dispatch(updateloader(true));
     var data = { customer: customer };
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/getstockposition", {
+      const url = "http://localhost:5000/getstockposition";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -228,10 +244,11 @@ const FunctionalTabs = () => {
       });
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchreckittstockposition(json));
         dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
       } else {
         console.error("Error fetching data:", response.statusText);
       }

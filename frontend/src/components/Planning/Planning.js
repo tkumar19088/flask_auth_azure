@@ -7,8 +7,11 @@ import {
   fetchoverviewhighriskdata,
   updateloader,
   updateexporttabledata,
+  fetchbusinessempty,
+  fetchlocationempty,
+  fetchtaburl,
 } from "../../store/actions/sidebarActions";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Badge from "@mui/material/Badge";
 
 const Planning = ({ filterStatus }) => {
@@ -17,7 +20,23 @@ const Planning = ({ filterStatus }) => {
 
   const [oosriskselectedBG, setoosriskselectedBG] = useState(false);
   const [irregularselectedBG, setirregularselectedBG] = useState(false);
+  const business = useSelector((state) => state.sidebar.business);
+  const location = useSelector((state) => state.sidebar.location);
+  const apply = useSelector((state) => state.sidebar.apply);
   const handleOOSRisk = () => {
+    if (!business) {
+      dispatch(fetchbusinessempty(true));
+    }
+    if (!location) {
+      dispatch(fetchlocationempty(true));
+    }
+    console.log(apply);
+    if (!business || !location) {
+      return;
+    }
+    if (!apply) {
+      return;
+    }
     filterStatus(true);
     setirregularselectedBG(false);
     setoosriskselectedBG(true);
@@ -27,7 +46,8 @@ const Planning = ({ filterStatus }) => {
     dispatch(updateloader(true));
     var data = { customer: 0 };
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/getoverview", {
+      const url = "http://localhost:5000/getoverview";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,10 +56,11 @@ const Planning = ({ filterStatus }) => {
       });
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchoverviewhighriskdata(json));
         dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
         navigate("/overviewhighrisk");
       } else {
         console.error("Error fetching data:", response.statusText);
@@ -116,14 +137,15 @@ const Planning = ({ filterStatus }) => {
           <Grid item xs={4}>
             <Box className="pln-cards-header">
               <Typography color="#fff" className="plan-title">
-                Monitor
+                Mitigate
               </Typography>
             </Box>{" "}
             <Box
               className="pln-card-bd"
               onClick={handleOOSRisk}
               style={{
-                backgroundColor: oosriskselectedBG ? "#ff007e" : "#fff", "&:hover": {
+                backgroundColor: oosriskselectedBG ? "#ff007e" : "#fff",
+                "&:hover": {
                   backgroundColor: "#FF007F",
                 },
                 color: oosriskselectedBG ? "#fff" : "black",
@@ -134,7 +156,7 @@ const Planning = ({ filterStatus }) => {
                   fontSize={{ lg: 14, xs: 12 }}
                   className="plan-minititile"
                 >
-                  OOS Risk Detection
+                  OOS Mitigation SKU level
                 </Typography>
               </Box>
               <Box className="pln-cards-cnt">

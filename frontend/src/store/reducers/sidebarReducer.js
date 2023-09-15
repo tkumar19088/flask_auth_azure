@@ -1,18 +1,113 @@
 const initialState = {
   // Use "initialState" with a capital "S"
+  currentWeekNumber: "",
   sellinforecast: false,
   selloutforecast: false,
   oosrisk: false,
   irregularpo: false,
   reallocation: false,
   filterstatus: false,
+  business: "",
+  location: "",
+  customerfilter: "",
+  brand: "",
+  apply: false,
+  businessEmpty: false,
+  locationEmpty: false,
+  alerts: [
+    {
+      DATA: [
+        {
+          Name: "AWICK,GB,FM PUR CB 3X2X250ML",
+          Value: "76%",
+        },
+        {
+          Name: "AWICK,GB,AERO M WINE 6X250ML",
+          Value: "94%",
+        },
+        {
+          Name: "AWICK,GB,FM RF MORNIN 4X250ML",
+          Value: "85%",
+        },
+      ],
+      Title: "OOS Risk Detected on Airwick Australia SKUs",
+    },
+    {
+      DATA: [
+        {
+          Name: "AWICK,GB,SPNG DEL 4X250ML",
+          Value: "90%",
+        },
+        {
+          Name: "AWICK,GB,FM RF PNKSP 392X250ML",
+          Value: "80%",
+        },
+        {
+          Name: "AWICK,GB,FM TW RF RW 8X250ML",
+          Value: "83%",
+        },
+      ],
+      Title: "OOS Risk Detected on Airwick United Kingdom SKUs",
+    },
+    {
+      DATA: [
+        {
+          Name: "PONUM 154292",
+          Value: "17-08-2023",
+        },
+        {
+          Name: "PONUM 102343",
+          Value: "08-09-2023",
+        },
+        {
+          Name: "PONUM 18392",
+          Value: "04-09-2023",
+        },
+      ],
+      Title: "Irregular PO Detected for Airwick Australia SKUs",
+    },
+    {
+      DATA: [
+        {
+          Name: "PONUM 44088",
+          Value: "29-08-2023",
+        },
+        {
+          Name: "PONUM 106722",
+          Value: "03-09-2023",
+        },
+        {
+          Name: "PONUM 85306",
+          Value: "01-09-2023",
+        },
+      ],
+      Title: "Irregular PO Detected for Airwick United Kingdom SKUs",
+    },
+    {
+      DATA: [
+        {
+          Name: "PONUM 44088",
+          Value: "29-08-2023",
+        },
+        {
+          Name: "PONUM 106722",
+          Value: "03-09-2023",
+        },
+        {
+          Name: "PONUM 85306",
+          Value: "01-09-2023",
+        },
+      ],
+      Title: "Irregular PO Detected for Airwick United Kingdom SKUs",
+    },
+  ],
   userDetails: {
-    Name: "Moka Keerthi",
-    Email: "keerthi.moka@artefact.com",
-    Customer: ["Asda", "Amazon"],
-    Location: ["United Kingdom", "Australia"],
-    Brand: ["Airwick", "Durex"],
+    Brand: ["Airwick", "Gaviscon"],
     "Business Unit": ["Hygiene", "Health"],
+    Customer: ["Asda", "Amazon"],
+    Email: "keerthi.moka@artefact.com",
+    Location: ["United Kingdom", "Australia"],
+    Name: "Moka  Keerthi",
     Role: "admin",
   },
   overviewhighriskdata: [
@@ -686,6 +781,7 @@ const initialState = {
       allocationconsumed: 180,
       cmuscore: 7.44,
       currentallocation: 400,
+      newallocation: "-",
       currentcustSOH: 400,
       "custsoh-current": 1000,
       "custsoh-target": 900,
@@ -713,6 +809,7 @@ const initialState = {
       allocationconsumed: 243,
       cmuscore: 3.84,
       currentallocation: 500,
+      newallocation: "-",
       currentcustSOH: 1000,
       "custsoh-current": 600,
       "custsoh-target": 1000,
@@ -740,6 +837,7 @@ const initialState = {
       allocationconsumed: 12,
       cmuscore: 1.46,
       currentallocation: 400,
+      newallocation: "-",
       currentcustSOH: 700,
       "custsoh-current": 300,
       "custsoh-target": 400,
@@ -767,6 +865,7 @@ const initialState = {
       allocationconsumed: 270,
       cmuscore: 8.0,
       currentallocation: 900,
+      newallocation: "-",
       currentcustSOH: 900,
       "custsoh-current": 600,
       "custsoh-target": 1000,
@@ -794,6 +893,7 @@ const initialState = {
       allocationconsumed: 38,
       cmuscore: 5.69,
       currentallocation: 1000,
+      newallocation: "-",
       currentcustSOH: 700,
       "custsoh-current": 700,
       "custsoh-target": 300,
@@ -821,6 +921,7 @@ const initialState = {
       allocationconsumed: 300,
       cmuscore: 4.18,
       currentallocation: 600,
+      newallocation: "-",
       currentcustSOH: 900,
       "custsoh-current": 200,
       "custsoh-target": 200,
@@ -848,6 +949,7 @@ const initialState = {
       allocationconsumed: 200,
       cmuscore: 5.89,
       currentallocation: 800,
+      newallocation: "-",
       currentcustSOH: 900,
       "custsoh-current": 800,
       "custsoh-target": 900,
@@ -875,6 +977,7 @@ const initialState = {
       allocationconsumed: 200,
       cmuscore: 4.14,
       currentallocation: 1000,
+      newallocation: "-",
       currentcustSOH: 400,
       "custsoh-current": 200,
       "custsoh-target": 1000,
@@ -902,6 +1005,7 @@ const initialState = {
       allocationconsumed: 348,
       cmuscore: 9.23,
       currentallocation: 400,
+      newallocation: "-",
       currentcustSOH: 800,
       "custsoh-current": 1000,
       "custsoh-target": 800,
@@ -929,6 +1033,7 @@ const initialState = {
       allocationconsumed: 400,
       cmuscore: 0.47,
       currentallocation: 600,
+      newallocation: "-",
       currentcustSOH: 300,
       "custsoh-current": 200,
       "custsoh-target": 500,
@@ -957,6 +1062,7 @@ const initialState = {
     allocationconsumed: 180,
     cmuscore: 7.44,
     currentallocation: 400,
+    newallocation: "-",
     currentcustSOH: 400,
     "custsoh-current": 1000,
     "custsoh-target": 900,
@@ -991,10 +1097,16 @@ const initialState = {
   customerola: [],
   updateresults: false,
   exporttabledata: [],
+  taburl: "",
 };
 
 const sidebarReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "UPDATE_CURRENTWEEK":
+      return {
+        ...state,
+        currentWeekNumber: action.payload,
+      };
     case "FETCH_SELLINFORECAST":
       return {
         ...state,
@@ -1095,6 +1207,11 @@ const sidebarReducer = (state = initialState, action) => {
         ...state,
         stockreallocation: action.payload,
       };
+    case "FETCH_STATICROW":
+      return {
+        ...state,
+        suggectedRecord: action.payload,
+      };
     case "FETCH_EXPANDEDITEM":
       return {
         ...state,
@@ -1179,6 +1296,51 @@ const sidebarReducer = (state = initialState, action) => {
       return {
         ...state,
         exporttabledata: action.payload,
+      };
+    case "FETCH_BUSINESS":
+      return {
+        ...state,
+        business: action.payload,
+      };
+    case "FETCH_LOCATION":
+      return {
+        ...state,
+        location: action.payload,
+      };
+    case "FETCH_CUSTOMER":
+      return {
+        ...state,
+        customerfilter: action.payload,
+      };
+    case "FETCH_BRAND":
+      return {
+        ...state,
+        brand: action.payload,
+      };
+    case "FETCH_BUSINESSEMPTY":
+      return {
+        ...state,
+        businessEmpty: action.payload,
+      };
+    case "FETCH_LOCATIONEMPTY":
+      return {
+        ...state,
+        locationEmpty: action.payload,
+      };
+    case "FETCH_FILTERAPPLY":
+      return {
+        ...state,
+        apply: action.payload,
+      };
+    case "FETCH_ALERTS":
+      return {
+        ...state,
+        alerts: action.payload,
+      };
+    case "FETCH_TABURL":
+      return {
+        ...state,
+        taburl: action.payload,
       };
     default:
       return state;

@@ -12,37 +12,65 @@ import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Stack } from "@mui/system";
 import RotateLeftIcon from "@mui/icons-material/RotateLeft";
-import { updateloader } from "../../store/actions/sidebarActions";
+import {
+  updateloader,
+  fetchbusiness,
+  fetchlocation,
+  fetchcustomer,
+  fetchbrand,
+  fetchbusinessempty,
+  fetchlocationempty,
+  fetchfilterapply,
+  fetchalerts,
+} from "../../store/actions/sidebarActions";
 import "./Filters.css";
 import "./Filtersnew.css";
 
 const Filters = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.sidebar.userDetails);
-  console.log(data);
 
-  const [business, setBusiness] = useState("");
-  const [location, setLocation] = useState("");
-  const [customer, setCustomer] = useState("");
-  const [brand, setBrand] = useState("");
+  const data = useSelector((state) => state.sidebar.userDetails);
+
+  const business = useSelector((state) => state.sidebar.business);
+  const location = useSelector((state) => state.sidebar.location);
+  const customer = useSelector((state) => state.sidebar.customerfilter);
+  const brand = useSelector((state) => state.sidebar.brand);
+  const apply = useSelector((state) => state.sidebar.apply);
+
+  const businessEmpty = useSelector((state) => state.sidebar.businessEmpty);
+  const locationEmpty = useSelector((state) => state.sidebar.locationEmpty);
 
   const handleBusinessChange = (event) => {
-    setBusiness(event.target.value);
+    dispatch(fetchbusiness(event.target.value));
+    dispatch(fetchbusinessempty(false));
   };
 
   const handleLocationChange = (event) => {
-    setLocation(event.target.value);
+    dispatch(fetchlocation(event.target.value));
+    dispatch(fetchlocationempty(false));
   };
 
   const handleCustomerChange = (event) => {
-    setCustomer(event.target.value);
+    dispatch(fetchcustomer(event.target.value));
   };
   const handleBrandChange = (event) => {
-    setBrand(event.target.value);
+    dispatch(fetchbrand(event.target.value));
   };
+
   const handleApplyFilters = async (e) => {
     e.preventDefault();
+    if (!business) {
+      dispatch(fetchbusinessempty(true));
+    }
+    if (!location) {
+      dispatch(fetchlocationempty(true));
+    }
+
+    if (!business || !location) {
+      return;
+    }
+
     dispatch(updateloader(true));
     var data = {
       Brand: brand,
@@ -59,9 +87,11 @@ const Filters = () => {
         },
         body: JSON.stringify(data),
       });
-
       if (response.ok) {
-        console.log("success");
+        const json = await response.json();
+        console.log(json);
+        dispatch(fetchfilterapply(true));
+        dispatch(fetchalerts(json.alerts));
       }
       // Handle the API response data as needed
     } catch (error) {
@@ -134,11 +164,23 @@ const Filters = () => {
                 variant="standard"
                 sx={{ minWidth: 200, marginTop: "-20px" }}
                 size="small"
+                style={businessEmpty ? { borderColor: "red" } : {}}
               >
-                <InputLabel>Business Unit</InputLabel>
-                <Select value={business} onChange={handleBusinessChange}>
+                <InputLabel
+                  htmlFor="business-unit"
+                  style={businessEmpty ? { color: "red" } : {}}
+                >
+                  Business Unit*
+                </InputLabel>
+                <Select
+                  value={business}
+                  onChange={handleBusinessChange}
+                  id="business-unit"
+                >
                   {data["Business Unit"].map((item) => (
-                    <MenuItem value={item}>{item}</MenuItem>
+                    <MenuItem value={item} key={item}>
+                      {item}
+                    </MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -151,11 +193,23 @@ const Filters = () => {
                 variant="standard"
                 sx={{ minWidth: 200, marginTop: "-20px" }}
                 size="small"
+                style={locationEmpty ? { borderColor: "red" } : {}}
               >
-                <InputLabel>Location</InputLabel>
-                <Select value={location} onChange={handleLocationChange}>
+                <InputLabel
+                  htmlFor="location"
+                  style={locationEmpty ? { color: "red" } : {}}
+                >
+                  Location*
+                </InputLabel>
+                <Select
+                  value={location}
+                  onChange={handleLocationChange}
+                  id="location"
+                >
                   {data.Location.map((item) => (
-                    <MenuItem value={item}>{item}</MenuItem>
+                    <MenuItem value={item} key={item}>
+                      {item}
+                    </MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -169,9 +223,15 @@ const Filters = () => {
                 size="small"
               >
                 <InputLabel>Customer</InputLabel>
-                <Select value={customer} onChange={handleCustomerChange}>
+                <Select
+                  value={customer}
+                  id="customer"
+                  onChange={handleCustomerChange}
+                >
                   {data.Customer.map((item) => (
-                    <MenuItem value={item}>{item}</MenuItem>
+                    <MenuItem value={item} key={item}>
+                      {item}
+                    </MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -209,6 +269,12 @@ const Filters = () => {
                 size="medium"
                 className="filter-buttons"
                 onClick={handleApplyFilters}
+                style={{
+                  backgroundColor: apply ? "#FF007F" : "#415A6C",
+                  "&:hover": {
+                    backgroundColor: "#FF007F",
+                  },
+                }}
               >
                 Apply Filters
               </Button>
@@ -218,6 +284,12 @@ const Filters = () => {
                 size="medium"
                 className="filter-buttons"
                 onClick={handleResetFilters}
+                style={{
+                  backgroundColor: "#415A6C",
+                  "&:hover": {
+                    backgroundColor: "#FF007F",
+                  },
+                }}
               >
                 Reset Filters
               </Button>

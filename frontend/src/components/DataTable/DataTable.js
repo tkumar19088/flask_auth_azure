@@ -281,7 +281,7 @@ const DataTable2 = ({ onData }) => {
       <Typography p={1} fontSize="26px">
         Overview High-Risk SKUs
       </Typography>
-      <TableContainer style={{ maxHeight: 730 }}>
+      <TableContainer style={{ maxHeight: 705 }}>
         <Table stickyHeader>
           <TableHead>
             <TableRow>

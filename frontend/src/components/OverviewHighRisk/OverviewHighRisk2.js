@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Topbar from "../Topbar/Topbar";
 import Sidebar from "../Sidebar/Sidebar";
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
@@ -23,11 +23,15 @@ import {
   updatecustomer,
   fetchoverviewhighriskdata,
   fetchoverviewcustomerdata,
+  fetchtaburl,
+  updateexporttabledata,
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 import loaderImage from "../../images/Logo-bar.png";
+import { useNavigate } from "react-router-dom";
 
 const OverviewHighRisk2 = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const loader = useSelector((state) => state.sidebar.loader);
@@ -73,11 +77,15 @@ const OverviewHighRisk2 = () => {
   }));
 
   const handleReckittOverview = async () => {
-    dispatch(updatecustomer(0));
+    await dispatch(updatecustomer(0));
+    reckittOverview();
+  };
+  const reckittOverview = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer };
+    var data = { customer: 0 };
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/getoverview", {
+      const url = "http://localhost:5000/getoverview";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -86,9 +94,11 @@ const OverviewHighRisk2 = () => {
       });
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchoverviewhighriskdata(json));
+        dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -100,10 +110,14 @@ const OverviewHighRisk2 = () => {
   };
   const handleCustomerOverview = async () => {
     dispatch(updatecustomer(1));
+    await customerOverview();
+  };
+  const customerOverview = async () => {
     dispatch(updateloader(true));
     var data = { customer: 1 };
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/getoverview", {
+      const url = "http://localhost:5000/getoverview";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -112,9 +126,11 @@ const OverviewHighRisk2 = () => {
       });
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchoverviewcustomerdata(json));
+        dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -162,6 +178,9 @@ const OverviewHighRisk2 = () => {
     window.URL.revokeObjectURL(url);
     document.body.removeChild(a);
   };
+  const handleBack = () => {
+    navigate(-1);
+  };
   return (
     <div>
       {loader && (
@@ -203,7 +222,9 @@ const OverviewHighRisk2 = () => {
                   }}
                 />
                 &#160;
-                <Typography fontSize={12}>Back</Typography>
+                <Typography fontSize={12} onClick={handleBack}>
+                  Back
+                </Typography>
               </Button>
             </Box>{" "}
             &#160;&#160;&#160;&#160;&#160;&#160;
@@ -214,7 +235,11 @@ const OverviewHighRisk2 = () => {
             <Typography fontSize={14}>Overview High-Risk SKUs</Typography>
           </Box>
 
-          <Tabs selectedIndex={activeTab} onSelect={handleTabChange}>
+          <Tabs
+            selectedIndex={activeTab}
+            onSelect={handleTabChange}
+            className="mainTabs"
+          >
             <TabList style={{ marginTop: "20px", display: "flex" }}>
               <Tab
                 style={{

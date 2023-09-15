@@ -28,6 +28,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   updateloader,
   fetchstockreallocatedata,
+  fetchstaticrow,
   updateexporttabledata,
 } from "../../store/actions/sidebarActions";
 
@@ -132,7 +133,8 @@ const OhrTable = ({ onData }) => {
       if (response.ok) {
         const json = await response.json();
         console.log(json);
-        dispatch(fetchstockreallocatedata(json));
+        dispatch(fetchstockreallocatedata(json.other_rows));
+        dispatch(fetchstaticrow(json.static_row));
         dispatch(updateexporttabledata(json));
         navigate("/stockreallocation");
       } else {
@@ -1140,6 +1142,7 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
                 border="1px solid #dddddd"
               >
@@ -1150,6 +1153,7 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Start Date
@@ -1159,6 +1163,7 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 End Date
@@ -1168,6 +1173,7 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Offer Description
@@ -1177,6 +1183,7 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Status
@@ -1186,6 +1193,7 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Customer
@@ -1196,6 +1204,7 @@ const OhrTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
                 Customer
@@ -1207,6 +1216,7 @@ const OhrTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
                 Customer <br />
@@ -1215,6 +1225,16 @@ const OhrTable = ({ onData }) => {
             </TableRow>
           </TableHead>
           <TableBody>
+            {details.length == 0 && (
+              <TableRow>
+                <TableCell
+                  colSpan={20}
+                  style={{ textAlign: "center", fontSize: "16px" }}
+                >
+                  No Records Found
+                </TableCell>
+              </TableRow>
+            )}
             {details.map((item, index) => (
               <TableRow
                 key={index}
@@ -1330,6 +1350,7 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   // padding: "0px",
                   height: "30px",
+                  color: "#415A6C",
                 }}
               >
                 Recom.Score
@@ -1342,6 +1363,7 @@ const OhrTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   // padding: "0px",
+                  color: "#415A6C",
                 }}
               >
                 RB SKU
@@ -1353,6 +1375,7 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 PPG
@@ -1364,6 +1387,7 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Description
@@ -1375,9 +1399,10 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
-                Active Camplaigns
+                Active Campaigns
               </TableCell>
               <TableCell
                 sx={{
@@ -1387,9 +1412,10 @@ const OhrTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
-                Reckitt Stock on hand
+                Reckitt Stock on Hand
               </TableCell>
               <TableCell
                 sx={{
@@ -1398,9 +1424,10 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
-                Custom inventory
+                Customer Inventory
               </TableCell>
               <TableCell
                 sx={{
@@ -1410,9 +1437,11 @@ const OhrTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
-                Sell-in forecast (Artefact vs Reckitt)
+                Sell-In Forecast <br />
+                (S-OLA vs Kinaxis)
               </TableCell>
               <TableCell
                 sx={{
@@ -1421,9 +1450,10 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
-                Sell-out forecast
+                Sell-Out Forecast
               </TableCell>
               <TableCell
                 sx={{
@@ -1432,13 +1462,24 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
-                Customer Woc
+                Customer WOC
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
+            {details.length == 0 && (
+              <TableRow>
+                <TableCell
+                  colSpan={20}
+                  style={{ textAlign: "center", fontSize: "16px" }}
+                >
+                  No Records Found
+                </TableCell>
+              </TableRow>
+            )}
             {details.map((item, index) => (
               <TableRow
                 key={index}
@@ -1507,7 +1548,7 @@ const OhrTable = ({ onData }) => {
 
   return (
     <div style={{ border: "" }}>
-      <TableContainer style={{ maxHeight: 686, width: "100%" }}>
+      <TableContainer style={{ maxHeight: 711, width: "100%" }}>
         <Table>
           <TableHead className="t-head">
             <TableRow className="tablerow-title">
@@ -1605,7 +1646,7 @@ const OhrTable = ({ onData }) => {
                   // mt="3px"
                 >
                   <Typography className="table-h1-title" lineHeight="16px">
-                    Expected Net Revenue
+                    Expected Gross Revenue
                   </Typography>
                 </Box>
               </TableCell>

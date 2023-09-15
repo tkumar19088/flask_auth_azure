@@ -8,12 +8,42 @@ import {
   InputLabel,
   NativeSelect,
 } from "@mui/material";
+import MenuItem from "@mui/material/MenuItem";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  updateloader,
+  fetchbusiness,
+  fetchlocation,
+  fetchcustomer,
+  fetchbrand,
+  fetchbusinessempty,
+  fetchlocationempty,
+  fetchfilterapply,
+  fetchalerts,
+  fetchcustomerola,
+  fetchcustomerstockposition,
+  fetchcustomersellin,
+  fetchcustomersellout,
+  fetchcustomerhestoric,
+  fetchoverviewcustomerdata,
+  fetchreckittstockposition,
+  fetchreckittexpectedservice,
+  fetchreckittcaseshortages,
+  fetchreckittwoc,
+  fetchreckittexpectedsoh,
+  fetchreckittdemand,
+  fetchreckittsupply,
+  fetchoverviewhighriskdata,
+  updateexporttabledata,
+  fetchtaburl,
+} from "../../store/actions/sidebarActions";
 import "./Filtersdropdown.css";
 
 function Filtersdropdown() {
   const [anchorEl, setAnchorEl] = useState(null);
+  const dispatch = useDispatch();
   const overviewhighriskdata = useSelector(
     (state) => state.sidebar.overviewhighriskdata
   );
@@ -23,24 +53,31 @@ function Filtersdropdown() {
   const data = useSelector((state) => state.sidebar.userDetails);
   console.log(data);
 
-  const [business, setBusiness] = useState("");
-  const [location, setLocation] = useState("");
-  const [customer, setCustomer] = useState("");
-  const [brand, setBrand] = useState("");
+  const business = useSelector((state) => state.sidebar.business);
+  const location = useSelector((state) => state.sidebar.location);
+  const customer = useSelector((state) => state.sidebar.customerfilter);
+  const brand = useSelector((state) => state.sidebar.brand);
+
+  const businessEmpty = useSelector((state) => state.sidebar.businessEmpty);
+  const locationEmpty = useSelector((state) => state.sidebar.locationEmpty);
+  const taburl = useSelector((state) => state.sidebar.taburl);
+  const customerurl = useSelector((state) => state.sidebar.customer);
 
   const handleBusinessChange = (event) => {
-    setBusiness(event.target.value);
+    dispatch(fetchbusiness(event.target.value));
+    dispatch(fetchbusinessempty(false));
   };
 
   const handleLocationChange = (event) => {
-    setLocation(event.target.value);
+    dispatch(fetchlocation(event.target.value));
+    dispatch(fetchlocationempty(false));
   };
 
   const handleCustomerChange = (event) => {
-    setCustomer(event.target.value);
+    dispatch(fetchcustomer(event.target.value));
   };
   const handleBrandChange = (event) => {
-    setBrand(event.target.value);
+    dispatch(fetchbrand(event.target.value));
   };
 
   const handleMenuClick = (event) => {
@@ -51,12 +88,121 @@ function Filtersdropdown() {
     setAnchorEl(null);
   };
 
-  const handleApplyFilters = () => {
-    console.log(selectedCustomerValue);
-    const filteredResult = overviewhighriskdata.filter(
-      (item) => item.Brand === selectedCustomerValue
-    );
-    // setFilteredData(filteredResult);
+  const handleApplyFilters = async (e) => {
+    e.preventDefault();
+    if (!business) {
+      dispatch(fetchbusinessempty(true));
+    }
+    if (!location) {
+      dispatch(fetchlocationempty(true));
+    }
+
+    if (!business || !location) {
+      return;
+    }
+
+    dispatch(updateloader(true));
+    var data = {
+      Brand: brand,
+      Customer: customer,
+      Location: location,
+      "Business Unit": business,
+    };
+    console.log(data);
+    try {
+      const response = await fetch("http://localhost:5000/getfilterparams", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        tabApiCall();
+        // dispatch(fetchfilterapply(true));
+        // dispatch(fetchalerts(json.alerts));
+      }
+      // Handle the API response data as needed
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const tabApiCall = async () => {
+    dispatch(updateloader(true));
+    var data = { customer: customerurl };
+    try {
+      const url = taburl;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        identifySpecificTabdata(json, url);
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
+  };
+
+  const identifySpecificTabdata = (json, url) => {
+    dispatch(updateexporttabledata(json));
+    dispatch(fetchtaburl(url));
+    if (customerurl == 0) {
+      if (url.includes("getoverview")) {
+        dispatch(fetchoverviewhighriskdata(json));
+      }
+      if (url.includes("getsupply")) {
+        dispatch(fetchreckittsupply(json));
+      }
+      if (url.includes("getdemand")) {
+        dispatch(fetchreckittdemand(json));
+      }
+      if (url.includes("getsohateow")) {
+        dispatch(fetchreckittexpectedsoh(json));
+      }
+      if (url.includes("getwocateow")) {
+        dispatch(fetchreckittwoc(json));
+      }
+      if (url.includes("getcaseshortages")) {
+        dispatch(fetchreckittcaseshortages(json));
+      }
+      if (url.includes("getexpectedservice")) {
+        dispatch(fetchreckittexpectedservice(json));
+      }
+      if (url.includes("getstockposition")) {
+        dispatch(fetchreckittstockposition(json));
+      }
+    } else {
+      if (url.includes("getoverview")) {
+        dispatch(fetchoverviewcustomerdata(json));
+      }
+      if (url.includes("getcustepos")) {
+        dispatch(fetchcustomerhestoric(json));
+      }
+      if (url.includes("getcustsellout")) {
+        dispatch(fetchcustomersellout(json));
+      }
+      if (url.includes("getcustsellin")) {
+        dispatch(fetchcustomersellin(json));
+      }
+      if (url.includes("getstockposition")) {
+        dispatch(fetchcustomerstockposition(json));
+      }
+      if (url.includes("getcustola")) {
+        dispatch(fetchcustomerola(json));
+      }
+    }
   };
 
   return (
@@ -80,108 +226,103 @@ function Filtersdropdown() {
         onClose={handleMenuClose}
       >
         <Grid p={2} className="filter-downbox">
-          <Grid item xs={2} lg={1}>
+          <Grid item xs={2} lg={1} my={2}>
             <Box sx={{ minWidth: 200 }} className="filter-dropdown">
-              <FormControl fullWidth>
-                <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                  <Typography
-                    fontSize={22}
-                    mt={-1}
-                    className="filter-inside-title"
-                  >
-                    Business Unit
-                  </Typography>
-                </InputLabel>
-                <NativeSelect
-                  defaultValue={10}
-                  inputProps={{
-                    name: "Customer",
-                    id: "uncontrolled-native",
-                  }}
-                  style={{ backgroundColor: "", marginBottom: "20px" }}
+              <FormControl
+                variant="standard"
+                sx={{ minWidth: 200, marginTop: "-20px" }}
+                size="small"
+                style={businessEmpty ? { borderColor: "red" } : {}}
+              >
+                <InputLabel
+                  htmlFor="business-unit"
+                  style={businessEmpty ? { color: "red" } : {}}
                 >
-                  <option value="Nutrition">Nutrition</option>
-                  <option value="Hygiene">Hygiene</option>
-                  <option value="Health">Health</option>
-                </NativeSelect>
+                  Business Unit*
+                </InputLabel>
+                <Select
+                  value={business}
+                  onChange={handleBusinessChange}
+                  id="business-unit"
+                >
+                  {data["Business Unit"].map((item) => (
+                    <MenuItem value={item} key={item}>
+                      {item}
+                    </MenuItem>
+                  ))}
+                </Select>
               </FormControl>
             </Box>
           </Grid>
 
-          <Grid item xs={4}>
+          <Grid item xs={4} my={4}>
             <Box sx={{ minWidth: 200 }} className="filter-dropdown">
-              <FormControl fullWidth>
-                <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                  <Typography
-                    fontSize={22}
-                    mt={-1}
-                    className="filter-inside-title"
-                  >
-                    Location
-                  </Typography>
-                </InputLabel>
-                <NativeSelect
-                  defaultValue={10}
-                  inputProps={{
-                    name: "Country",
-                    id: "uncontrolled-native",
-                  }}
+              <FormControl
+                variant="standard"
+                sx={{ minWidth: 200, marginTop: "-20px" }}
+                size="small"
+                style={locationEmpty ? { borderColor: "red" } : {}}
+              >
+                <InputLabel
+                  htmlFor="location"
+                  style={locationEmpty ? { color: "red" } : {}}
                 >
-                  <option value="United Kingdom">United Kingdom</option>
-                  <option value="Australia">Australia</option>
-                </NativeSelect>
+                  Location*
+                </InputLabel>
+                <Select
+                  value={location}
+                  onChange={handleLocationChange}
+                  id="location"
+                >
+                  {data.Location.map((item) => (
+                    <MenuItem value={item} key={item}>
+                      {item}
+                    </MenuItem>
+                  ))}
+                </Select>
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={4} my={2} className="filter-dropdown">
+          <Grid item xs={4} my={4} className="filter-dropdown">
             <Box sx={{ minWidth: 200 }}>
-              <FormControl fullWidth>
-                <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                  <Typography
-                    fontSize={22}
-                    mt={-1}
-                    className="filter-inside-title"
-                  >
-                    Customer
-                  </Typography>
-                </InputLabel>
-                <NativeSelect
-                  defaultValue="Amazon"
-                  inputProps={{
-                    name: "Brand",
-                    id: "uncontrolled-native",
-                  }}
-                  onChange={(e) => setselectedCustomerValue(e.target.value)} // Update the selectedValue
+              <FormControl
+                variant="standard"
+                sx={{ minWidth: 200, marginTop: "-20px" }}
+                size="small"
+              >
+                <InputLabel>Customer</InputLabel>
+                <Select
+                  id="location-select"
+                  value={customer}
+                  onChange={handleCustomerChange}
                 >
-                  <option value="Amazon">Amazon</option>
-                  <option value="Asda">Asda</option>
-                </NativeSelect>
+                  {data.Customer.map((item) => (
+                    <MenuItem value={item}>{item}</MenuItem>
+                  ))}
+                </Select>
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={4} my={2} className="filter-dropdown">
+          <Grid item xs={2} my={4} className="filter-dropdown">
             <Box sx={{ minWidth: 200 }}>
-              <FormControl fullWidth>
-                <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                  <Typography
-                    fontSize={22}
-                    mt={-1}
-                    className="filter-inside-title"
-                  >
-                    Brand
-                  </Typography>
-                </InputLabel>
-                <NativeSelect
-                  defaultValue="Amazon"
-                  inputProps={{
-                    name: "Brand",
-                    id: "uncontrolled-native",
-                  }}
-                  onChange={(e) => setselectedCustomerValue(e.target.value)} // Update the selectedValue
+              <FormControl
+                variant="standard"
+                sx={{ minWidth: 200, marginTop: "-20px" }}
+                size="small"
+              >
+                <InputLabel>Brand</InputLabel>
+                <Select
+                  value={brand}
+                  onChange={handleBrandChange}
+                  disabled={!business}
                 >
-                  <option value="Airwick">Airwick</option>
-                  <option value="Durex">Durex</option>
-                </NativeSelect>
+                  {business === "Hygiene" && (
+                    <MenuItem value="Airwick">Airwick</MenuItem>
+                  )}
+                  {business === "Health" && (
+                    <MenuItem value="Gaviscon">Gaviscon</MenuItem>
+                  )}
+                </Select>
               </FormControl>
             </Box>
           </Grid>
@@ -204,6 +345,7 @@ function Filtersdropdown() {
               sx={{
                 backgroundColor: "#415A6C",
               }}
+              onClick={handleMenuClose}
             >
               Cancel
             </Button>

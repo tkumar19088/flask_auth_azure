@@ -1,3 +1,9 @@
+export const updatecurrentweek = (newValue) => {
+  return {
+    type: "UPDATE_CURRENTWEEK",
+    payload: newValue,
+  };
+};
 export const fetchSellinForecast = (newValue) => {
   return {
     type: "FETCH_SELLINFORECAST",
@@ -113,6 +119,12 @@ export const fetchstockreallocatedata = (newValue) => {
     payload: newValue,
   };
 };
+export const fetchstaticrow = (newValue) => {
+  return {
+    type: "FETCH_STATICROW",
+    payload: newValue,
+  };
+};
 export const fetchreckittsupply = (newValue) => {
   return {
     type: "FETCH_RECKITTSUPPLY",
@@ -194,6 +206,60 @@ export const fetchupdateresults = (newValue) => {
 export const updateexporttabledata = (newValue) => {
   return {
     type: "UPDATE_EXPORTTABLEDATA",
+    payload: newValue,
+  };
+};
+export const fetchbusiness = (newValue) => {
+  return {
+    type: "FETCH_BUSINESS",
+    payload: newValue,
+  };
+};
+export const fetchlocation = (newValue) => {
+  return {
+    type: "FETCH_LOCATION",
+    payload: newValue,
+  };
+};
+export const fetchcustomer = (newValue) => {
+  return {
+    type: "FETCH_CUSTOMER",
+    payload: newValue,
+  };
+};
+export const fetchbrand = (newValue) => {
+  return {
+    type: "FETCH_BRAND",
+    payload: newValue,
+  };
+};
+export const fetchbusinessempty = (newValue) => {
+  return {
+    type: "FETCH_BUSINESSEMPTY",
+    payload: newValue,
+  };
+};
+export const fetchlocationempty = (newValue) => {
+  return {
+    type: "FETCH_LOCATIONEMPTY",
+    payload: newValue,
+  };
+};
+export const fetchfilterapply = (newValue) => {
+  return {
+    type: "FETCH_FILTERAPPLY",
+    payload: newValue,
+  };
+};
+export const fetchalerts = (newValue) => {
+  return {
+    type: "FETCH_ALERTS",
+    payload: newValue,
+  };
+};
+export const fetchtaburl = (newValue) => {
+  return {
+    type: "FETCH_TABURL",
     payload: newValue,
   };
 };
