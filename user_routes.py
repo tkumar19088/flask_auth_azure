@@ -15,21 +15,16 @@ from utils import AzureBlobReader, UserDataReaderBlobStorage
 from dotenv import load_dotenv
 load_dotenv()
 
+import numpy as np
 
 global_user = {}
 global_filters = {}
 
 
-# ******************************
-# Create the app access objects
-# ******************************
 app_blueprint = Blueprint("app", __name__)
 
 
-# *************************
-# Application login routes
-# *************************
-@app_blueprint.route("/") # Homepage # Default route
+@app_blueprint.route("/")
 @cross_origin()
 def index():
     if "user" in session:
@@ -37,8 +32,6 @@ def index():
     else:
         return redirect(url_for("app.login"))
 
-
-# Login page redirected from index (homepage)
 @app_blueprint.route("/login")
 def login():
     """
@@ -50,9 +43,9 @@ def login():
     return redirect(auth_url)
 
 
-# **********************
-# Get User Data objects
-# **********************
+# ****************************
+# Get User Data from XLS file
+# ****************************
 @cross_origin()
 @app_blueprint.route("/getuserdata")
 def getuserdata():
@@ -65,7 +58,6 @@ def getuserdata():
             if filter_key in userDetails.keys():
                 global_user[filter_key] = userDetails.get(filter_key)
         alertsdata = getalerts()
-        # return userDetails
         return {"user":userDetails, "alerts":alertsdata}
     else:
         return redirect(url_for("app.login"))
@@ -365,22 +357,45 @@ def getcampaigns():
     return json.loads(campaignsbysku.to_json(orient='records'))
 
 
-# ******** CHOOSE MITIGATION SCENARIO ***********
-#      #TODO: Integrate with Optimize Model
-# ***********************************************
+# ****************** CHOOSE MITIGATION SCENARIO ******************
+#          #TODO: CHOOSE MITIGATION SCENARIO
+# ****************************************************************
 
 
 
-# ******** MITIGATION SCENARIO # 1 *********
-#      PUSH ALTERNATIVE SKU API
-# ******************************************
+# ************************** MITIGATION SCENARIO # 1 ***************************
+#        PUSH ALTERNATIVE SKU API #TODO: API Done but Testing Incomplete
+# ******************************************************************************
 @app_blueprint.route("/getalternativeskus", methods=['POST'])
 def getalternativeskus():
     data = request.json
-    altskudata = AzureBlobReader().read_csvfile("ui_data/pushalternativeskus.csv")
-    altskubysku = altskudata[altskudata['RB SKU'] == data['rbsku']]
-    altskudata.replace(" ", "-", inplace=True)
-    return json.loads(altskubysku.to_json(orient='records'))
+    if not data:
+        return jsonify(status="error", message="Missing required parameter: RB SKU!"), 500
+
+    ret, sku_r = global_filters.get('Customer', None), data.get('rbsku', None)
+    if not ret:
+        return jsonify(status="error", message="No customer selected!"), 500
+
+    try:
+        df_price = AzureBlobReader().read_csvfile("ui_data/pushalternativeskus.csv")
+        brand = df_price.loc[df_price['sku'] == sku_r, 'brand'].values[0]
+        conds = (df_price['brand'] == brand) & (df_price['retailer'] == ret)
+        tmp = df_price[conds].drop(columns = ['retailer', 'brand']).drop_duplicates()
+        tmp = tmp.set_index('sku').T
+        tmp_r = tmp[sku_r]
+        tmp = tmp.drop(columns = sku_r)
+        tmp.loc['score_1'] = 1 * (tmp.loc['segment'] == tmp_r['segment'])
+        tmp.loc['score_3'] = (tmp.loc['reckitt_inv'] / tmp_r['reckitt_inv'])
+        tmp.loc['score_4'] = (tmp.loc[['reckitt_inv', 'currentallocation']].min(axis = 1) / tmp_r['sif-reckitt'])
+        tmp.loc['score_5'] = (tmp.loc[['Sell out', 'currentcustSOH', 'sif-reckitt']].apply(lambda x: score5(x[0], x[1], x[2]), axis = 0))
+        tmp.loc['score_6'] = (tmp.loc[['custwoc-target', 'custwoc-current']].apply(lambda x: score6(x[0], x[1]), axis = 0))
+        tmp.loc['score_7'] = 1 - abs(tmp.loc['price'] - tmp_r['price'] / tmp_r['price'])
+        tmp.loc['score_final'] = tmp.loc[['score_1', 'score_3', 'score_4', 'score_5', 'score_6', 'score_7']].sum(axis = 0)
+        tmp = tmp.loc[['score_final']].T
+        tmp.replace(" ", "-", inplace=True)
+        return json.loads(tmp.to_json(orient='records')) if not tmp.empty else jsonify(status="error", message="No alternative SKUs found!"), 500
+    except Exception as e:
+        return jsonify(status="error", message=str(e)), 500
 
 
 # ************* MITIGATION SCENARIO # 2 *************
@@ -389,33 +404,29 @@ def getalternativeskus():
 @app_blueprint.route("/rarbysku", methods=['POST'])
 def getrarbysku():
     data = request.json
-    print(data)
-    # reallocationdata = AzureBlobReader().read_xls("smartola_data.xlsx", sheet="retailerreallocation")
     reallocationdata = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
     reallocationdatabysku = reallocationdata[reallocationdata['RB SKU'] == data['rbsku']]
-
-    staticdf = reallocationdatabysku[reallocationdatabysku['Customer'] == global_filters['Customer']]
-    staticdf.replace(" ", "-", inplace=True)
-    other_customers_df = reallocationdatabysku[reallocationdatabysku['Customer'] != global_filters['Customer']]
-    other_customers_df.replace(" ", "-", inplace=True)
-
-    static_row = json.loads(staticdf.to_json(orient='records'))[0]
-    other_rows = json.loads(other_customers_df.to_json(orient='records'))
-
-    return {"static_row":static_row, "other_rows":other_rows}
-
-
-# *****************************************************************
-#           Search SKU by ID API   # TODO: FrontEnd Handled
-# *****************************************************************
+    try:
+        if global_filters['Customer']:
+            staticdf = reallocationdatabysku[reallocationdatabysku['Customer'] == global_filters['Customer']]
+            other_customers_df = reallocationdatabysku[reallocationdatabysku['Customer'] != global_filters['Customer']]
+            staticdf.replace(" ", "-", inplace=True)
+            other_customers_df.replace(" ", "-", inplace=True)
+            static_row = json.loads(staticdf.to_json(orient='records'))[0] if staticdf else {}
+            other_rows = json.loads(other_customers_df.to_json(orient='records')) if other_customers_df else []
+            return {"static_row":static_row, "other_rows":other_rows}
+        else:
+            return jsonify(status="error", message="No customer selected!"), 500
+    except Exception as e:
+        return jsonify(status="error", message=str(e)), 500
 
 
 # ***********************************************
-#     Optimization Model Response # TODO
+#     Optimization Model Response # TODO # Optimization model execution
 # ***********************************************
 @app_blueprint.route("/getoptmize", methods=['POST'])
 def getoptmize():
-    # Label: 0 for green, 1 for amber, 2 for red
+    # Label: 2 for green, 1 for amber, 0 for red
     constraints = [{
                             'Name': 'PCT DEVIATION FROM INIT ALLOC',
                             'Value': '5%',
@@ -450,6 +461,38 @@ def getoptmize():
     return data
 
 # *******************************
+#       Sell In Graph API #TODO: WHere is the raw data coming from?
+# *******************************
+@app_blueprint.route("/getsellingraph", methods=['POST'])
+def getsellingraph():
+    data = request.json
+    filters = ['Business Unit','Location','Brand', 'Customer', 'RB SKU']
+    if data['customer']:
+        sellin = AzureBlobReader().read_csvfile("ui_data/customersellin.csv")
+    else:
+        sellin = AzureBlobReader().read_csvfile("ui_data/reckittsellin.csv")
+    for filter_key in filters:
+        sellin = sellin[sellin[filter_key] == data[filter_key]]
+    return sellin
+
+
+# *******************************
+#       Sell Out Graph API #TODO: WHere is the raw data coming from?
+# *******************************
+@app_blueprint.route("/getselloutgraph", methods=['POST'])
+def getselloutgraph():
+    data = request.json
+    filters = ['Business Unit','Location','Brand', 'Customer', 'RB SKU']
+    if data['customer']:
+        sellout = AzureBlobReader().read_csvfile("ui_data/customersellout.csv")
+    else:
+        sellout = AzureBlobReader().read_csvfile("ui_data/reckittsellout.csv")
+    for filter_key in filters:
+        sellout = sellout[sellout[filter_key] == data[filter_key]]
+    return sellout
+
+
+# *******************************
 #          LOG OUT API
 # *******************************
 @app_blueprint.route("/logout")
@@ -469,7 +512,7 @@ def logout():
     )
 
 # *********************************************
-#       INDIRECT API CALLS & REDIRECTION - BELOW
+#       HELPER FUNCTIONS INDIRECT API CALLS & REDIRECTION - BELOW
 # *********************************************
 
 @app_blueprint.route("/redirect")
@@ -557,5 +600,24 @@ def _build_auth_code_flow(authority=None, scopes=None):
     return _build_msal_app(authority=authority).initiate_auth_code_flow(
         scopes or [], redirect_uri=url_for("app.authorized", _external=True), 
     )
+
+def score5(a, b, c):
+    try:
+        return (a / (b + c))
+    except:
+        return np.nan
+
+def score6(a, b):
+    try:
+        return a / b
+    except:
+        return np.nan
+
+
+def score7(a, b):
+    try:
+        return 1 - (abs(b - a) / a)
+    except:
+        return np.nan
 
 
