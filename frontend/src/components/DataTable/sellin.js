@@ -26,8 +26,6 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import Badge from "@mui/material/Badge";
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
 
-const startingWeek = 28;
-
 const Sellin = ({ onData }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -36,6 +34,7 @@ const Sellin = ({ onData }) => {
     navigate(-1);
   };
 
+  const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
   const [expandedRow, setExpandedRow] = useState(null);
   const [pushAlternative, setpushAlternative] = useState(false);
   const [campaignsData, setcampaignsData] = useState([]);
@@ -1072,7 +1071,6 @@ const Sellin = ({ onData }) => {
                     <div className="alignment">{item.PPG}</div>
                   </TableCell>
                   <TableCell sx={{ width: "50px" }}>
-                   
                     <div className="alignment">{item.Description}</div>
                   </TableCell>
                   <TableCell>
@@ -1129,7 +1127,7 @@ const Sellin = ({ onData }) => {
                       textAlign: "center",
                     }}
                   >
-                    <Box display="flex" sx={{ width: "50px"}}>
+                    <Box display="flex" sx={{ width: "50px" }}>
                       <Typography fontSize={15}>{item["sola CW+2"]}</Typography>
                       <Typography
                         fontSize={13}
@@ -1148,7 +1146,7 @@ const Sellin = ({ onData }) => {
                       textAlign: "center",
                     }}
                   >
-                    <Box display="flex" sx={{width: "50px" }}>
+                    <Box display="flex" sx={{ width: "50px" }}>
                       <Typography fontSize={15}>{item["sola CW+3"]}</Typography>
                       <Typography
                         fontSize={13}
@@ -1205,7 +1203,7 @@ const Sellin = ({ onData }) => {
                       textAlign: "center",
                     }}
                   >
-                    <Box display="flex" sx={{width: "50px" }}>
+                    <Box display="flex" sx={{ width: "50px" }}>
                       <Typography fontSize={15}>{item["sola CW+6"]}</Typography>
                       <Typography
                         fontSize={13}
@@ -1262,7 +1260,7 @@ const Sellin = ({ onData }) => {
                       textAlign: "center",
                     }}
                   >
-                    <Box display="flex" sx={{ width: "50px"}}>
+                    <Box display="flex" sx={{ width: "50px" }}>
                       <Typography fontSize={15}>{item["sola CW+9"]}</Typography>
                       <Typography
                         fontSize={13}

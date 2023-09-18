@@ -48,7 +48,7 @@ const Orderinvestigation2 = () => {
   return (
     <div>
       <Stack>
-        <Box display="flex" className="sg-main" mt={0}>
+        <Box display="flex" className="sg-main" mt="10px">
           <Box className="sg-title">
             Scenario Generation: Airwick Electrical Lemon 112345
           </Box>

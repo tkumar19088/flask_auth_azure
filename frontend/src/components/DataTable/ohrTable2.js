@@ -30,11 +30,12 @@ import {
   fetchstockreallocatedata,
   updateexporttabledata,
 } from "../../store/actions/sidebarActions";
-const startingWeek = 28;
 
 const OhrTable2 = ({ onData }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
   const [expandedRow, setExpandedRow] = useState(null);
   const [pushAlternative, setpushAlternative] = useState(false);
   const [campaignsData, setcampaignsData] = useState([]);

@@ -26,15 +26,15 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import Badge from "@mui/material/Badge";
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
 
-const startingWeek = 28;
-
 const Ola = ({ onData }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleBack = () => {
-    navigate(-1);
+    navigate(-1); 
   };
+
+  const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
   const [expandedRow, setExpandedRow] = useState(null);
   const [pushAlternative, setpushAlternative] = useState(false);
   const [campaignsData, setcampaignsData] = useState([]);

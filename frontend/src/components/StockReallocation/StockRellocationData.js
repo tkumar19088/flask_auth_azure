@@ -766,7 +766,7 @@ const StockReallocationData = ({ onData }) => {
                 Expected Service level
               </TableCell>
               <TableCell className="stable-header">
-                Customer SOH <br />
+                Customer SoH <br />
                 (current vs target)
               </TableCell>
               <TableCell className="stable-header">

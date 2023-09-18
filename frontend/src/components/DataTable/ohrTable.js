@@ -32,12 +32,11 @@ import {
   updateexporttabledata,
 } from "../../store/actions/sidebarActions";
 
-const startingWeek = 28;
-
 const OhrTable = ({ onData }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
   const ohrdata = useSelector((state) => state.sidebar.overviewhighriskdata);
   const isragfilterohr = useSelector((state) => state.sidebar.isragfilterohr);
   const filteredohrdata = useSelector(
@@ -1415,7 +1414,7 @@ const OhrTable = ({ onData }) => {
                   color: "#415A6C",
                 }}
               >
-                Reckitt Stock on Hand
+                Reckitt SoH
               </TableCell>
               <TableCell
                 sx={{
@@ -1465,7 +1464,7 @@ const OhrTable = ({ onData }) => {
                   color: "#415A6C",
                 }}
               >
-                Customer WOC
+                Customer WoC
               </TableCell>
             </TableRow>
           </TableHead>
@@ -1606,7 +1605,7 @@ const OhrTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <Typography className="table-h1-title">Reckitt WOC</Typography>
+                <Typography className="table-h1-title">Reckitt WoC</Typography>
               </TableCell>
               <TableCell
                 rowSpan={2}
@@ -1630,7 +1629,7 @@ const OhrTable = ({ onData }) => {
                 }}
               >
                 <Typography className="table-h1-title" lineHeight="16px">
-                  Service Level
+                  Service Level %
                 </Typography>
               </TableCell>
               <TableCell

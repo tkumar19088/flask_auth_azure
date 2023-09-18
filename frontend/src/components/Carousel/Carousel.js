@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import Carousel from "react-material-ui-carousel";
 import { Box, Grid, Link, Typography, Paper } from "@mui/material";
 import Error from "../../images/error.png";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import "./Casousel.css";
 import { useSelector } from "react-redux";
+import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
+import { useNavigate } from "react-router-dom";
 
 const CarouselExample = () => {
+  const navigate = useNavigate();
   const data = useSelector((state) => state.sidebar.alerts);
+  const [selectedalert, setselectedalert] = useState(false);
+
+  const handleOOSRishDetection = () => {
+    setselectedalert(true);
+    navigate("/overviewhighrisk");
+  };
+  const handleIrregularPO = () => {
+    setselectedalert(true);
+    navigate("/irregular");
+  };
+
   const maxRecordsPerPage = 4;
   const papers = [];
   for (let i = 0; i < data.length; i += maxRecordsPerPage) {
@@ -20,13 +34,29 @@ const CarouselExample = () => {
       >
         <Grid container spacing={2} mt="-20px" border="">
           {paperData.map((item, index) => (
-            <Grid item xs={3} sx={{ cursor: "pointer" }}>
+            <Grid
+              item
+              xs={3}
+              sx={{ cursor: "pointer" }}
+              onClick={
+                item.Title.includes("Irregular PO")
+                  ? handleIrregularPO
+                  : handleOOSRishDetection
+              }
+            >
               <Box
+                className="status-card"
                 sx={{
                   borderRadius: "5px 5px ",
                   backgroundColor: "#fff",
-                  boxShadow: "0px 2px 0px 0px  rgba(0,0,0,0.3)",
-                  height: "100%",
+                  boxShadow: selectedalert
+                    ? ""
+                    : "0px 2px 0px 0px  rgba(0,0,0,0.3)",
+                  border: selectedalert ? "2px solid orange" : "",
+                  "&:hover": {
+                    border: selectedalert ? "2px solid orange" : "",
+                  },
+                  height: "170px",
                 }}
               >
                 <Box className="cs-cardsheader">
@@ -60,10 +90,7 @@ const CarouselExample = () => {
                         : "OOS Risk Detected"}
                     </Typography>
                     {item.DATA.map((res) => (
-                      <Typography
-                        fontSize="12px"
-                        lineHeight="16px"
-                      >
+                      <Typography fontSize="12px" lineHeight="16px">
                         {res.Name}
                       </Typography>
                     ))}
@@ -115,12 +142,25 @@ const CarouselExample = () => {
           &#160;
         </div>
       </div>
-
-      <Carousel interval={50000} className="carouselcls">
-        {papers.map((paper, index) => (
-          <div key={index}>{paper}</div>
-        ))}
-      </Carousel>
+      {papers.length > 0 && (
+        <Carousel interval={50000} className="carouselcls">
+          {papers.map((paper, index) => (
+            <div key={index}>{paper}</div>
+          ))}
+        </Carousel>
+      )}
+      {papers.length == 0 && (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          gap={1}
+          color="red"
+        >
+          <ReportProblemOutlinedIcon />
+          <Typography fontSize="22px">No Alerts Found</Typography>
+        </Box>
+      )}
     </div>
   );
 };

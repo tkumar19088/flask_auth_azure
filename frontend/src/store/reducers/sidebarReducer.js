@@ -106,8 +106,8 @@ const initialState = {
     "Business Unit": ["Hygiene", "Health"],
     Customer: ["Asda", "Amazon"],
     Email: "keerthi.moka@artefact.com",
-    Location: ["United Kingdom", "Australia"],
-    Name: "Moka  Keerthi",
+    Location: ["United Kingdom"],
+    Name: "",
     Role: "admin",
   },
   overviewhighriskdata: [
