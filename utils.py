@@ -123,16 +123,21 @@ class UserDataReaderBlobStorage:
         :return: The fetch_user_details function returns the details of a user from the UsersTable based
         on the provided username.
         """
+        self.res={}
         usersdata = self.fetch_user_excel("users.xlsx")
         # print(f"\nusersdata:\n{usersdata}\n")
         user_details = usersdata[usersdata["Email"] == uemail]
         if len(user_details) > 0:
-            res = json.loads(user_details.to_json(orient='records'))[0]
-            res['Location'] = ast.literal_eval(res['Location'])
-            res['Business Unit'] = ast.literal_eval(res['Business Unit'])
-            res['Customer'] = ast.literal_eval(res['Customer'])
-            res['Brand'] = ast.literal_eval(res['Brand'])
-            return res
+            try:
+                self.res = json.loads(user_details.to_json(orient='records'))[0]
+                self.res['Location'] = ast.literal_eval(self.res['Location'])
+                self.res['Business Unit'] = ast.literal_eval(self.res['Business Unit'])
+                self.res['Customer'] = ast.literal_eval(self.res['Customer'])
+                self.res['Brand'] = ast.literal_eval(self.res['Brand'])
+                # return json.loads(self.res.to_json(orient='records'))[0]
+                return self.res
+            except Exception as e:
+                return jsonify({"error": str(e)}), 500
         else:
             return jsonify({"error": "User not found"}, 404)
 
@@ -189,3 +194,74 @@ class AzureBlobReader:
         blob_content = stream_downloader.content_as_bytes()
         csv_data = io.StringIO(blob_content.decode('utf-8'))
         return pd.read_csv(csv_data)
+
+
+class AlertsManager:
+    def __init__(self,global_filters, global_user):
+        self.alerts = []
+        self.global_filters = global_filters or {}
+        self.global_user = global_user or {}
+        print(f"\nself.global_filters:\n{self.global_filters}\n")
+        print(f"\nself.global_user:\n{self.global_user}\n")
+
+    def filter_data(self, df, filter_keys):
+        print(f"\nself.global_filters:\n{self.global_filters}\n")
+        print(f"\nself.global_user:\n{self.global_user}\n")
+        print(f"\nfilter_keys:\n{filter_keys}\n")
+        if self.global_filters != {}:
+            for key in filter_keys:
+                if key in self.global_user:
+                    df = df[df[key].isin(self.global_user[key])]
+        else:
+            for key in filter_keys:
+                if key in self.global_user and self.global_filters.get(key) in self.global_user[key]:
+                    print(f"\n{key} : {self.global_filters.get(key)} : {self.global_user.get(key)}")
+                    df = df[df[key] == self.global_filters[key]]
+                print(f"\ndf\n:{df}\n")
+        return df
+
+    def get_sorted_data(self, data, sort_column):
+        return data.groupby(['Business Unit', 'Location', 'Brand']).apply(
+            lambda x: x.sort_values([sort_column], ascending=True)
+        ).reset_index(drop=True)
+
+    def generate_oos_alerts(self):
+        filters = ['Business Unit', 'Customer', 'Location', 'Brand']
+        oos_data = AzureBlobReader().read_csvfile("ui_data/currentalertsoos.csv")#, self.global_filters, self.global_user)
+        oosalertsdata = AlertsManager(self.global_filters, self.global_user).filter_data(oos_data, filters)
+        oosalertsdata.replace(" ", "-", inplace=True)
+        sorted_oos = self.get_sorted_data(oosalertsdata, 'Reckitt WOC')
+        for name, group in sorted_oos.groupby(['Location', 'Brand']):
+            alert = {
+                'Title': f"OOS Risk Detected on {name[1]} {name[0]} SKUs",
+                'DATA': group[["Description", "Service CW"]].head(3).to_dict('records')
+            }
+            self.alerts.append(alert)
+        print(f"\n1. self.alerts:\n{self.alerts}\n")
+
+    def generate_irrpo_alerts(self):
+        filters = ['Business Unit', 'Customer', 'Location', 'Brand']
+        irrpo_data = AzureBlobReader().read_csvfile("ui_data/currentalertsirrpo.csv")#, self.global_filters, self.global_user)
+        irrpoalertsdata= AlertsManager(self.global_filters, self.global_user).filter_data(irrpo_data, filters)
+        irrpoalertsdata.replace(" ", "-", inplace=True)
+        sorted_irrpo = self.get_sorted_data(irrpoalertsdata, 'Num Irregular SKUs')
+        for name, group in sorted_irrpo.groupby(['Location', 'Brand']):
+            alert = {
+                'Title': f"Irregular PO Detected for {name[1]} {name[0]} SKUs",
+                'DATA': group[["PO Number", "PO Date"]].head(3).to_dict('records')
+            }
+            self.alerts.append(alert)
+        print(f"\n2. self.alerts:\n{self.alerts}\n")
+
+    def refine_alerts(self):
+        for alert in self.alerts:
+            for data in alert["DATA"]:
+                data["Name"] = data.pop("Description", data.pop("PO Number", None))
+                data["Value"] = data.pop("Service CW", data.pop("PO Date", None))
+        print(f"\n3. self.alerts:\n{self.alerts}\n")
+
+    def get_alerts(self):
+        self.generate_oos_alerts()
+        self.generate_irrpo_alerts()
+        self.refine_alerts()
+        return self.alerts
