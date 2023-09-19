@@ -1847,16 +1847,17 @@ const OhrTable = ({ onData }) => {
                       fontSize={13}
                       sx={{
                         display: "flex",
-                        gap: "16px",
+                        // gap: "16px",
                         padding: "12px",
                         border: "none",
-                        alignItems: "center",
-                        justifyContent: "center",
                       }}
                     >
                       <Box
                         className="rbsku-expand"
-                        sx={{ display: "flex", alignItems: "center" }}
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
                       >
                         {expandedRow === item["RB SKU"] ? (
                           <RemoveIcon
@@ -1877,7 +1878,6 @@ const OhrTable = ({ onData }) => {
                               color: "#415A6C",
                               cursor: "pointer",
                               fontWeight: "800",
-                              // marginTop: "-1px",
                               marginTop: "4px",
                               backgroundColor: "transparent",
                             }}
@@ -1886,7 +1886,6 @@ const OhrTable = ({ onData }) => {
                       </Box>
                       <Box className="rbsku-expand">
                         <Typography
-                          ml="-8px"
                           fontSize="13px"
                           sx={{
                             marginTop: "7px",
@@ -1911,7 +1910,7 @@ const OhrTable = ({ onData }) => {
                         textAlign: "center",
                         fontSize: "13px",
                         padding: "0px",
-                        maxWidth: "30px", // Set the maximum width of the TableCell
+                        maxWidth: "90px", // Set the maximum width of the TableCell
                         overflow: "hidden",
                         whiteSpace: "nowrap",
                         textOverflow: "ellipsis",
@@ -1930,13 +1929,13 @@ const OhrTable = ({ onData }) => {
                         textAlign: "center",
                         fontSize: "13px",
                         // border: "1px solid",
-                        padding: "0px",
+                        padding: "10px",
                       }}
                     >
                       {item.Brand}
                     </TableCell>
                     <TableCell style={{ textAlign: "center" }}>
-                      <Typography mx="7px" fontSize="13px">
+                      <Typography  fontSize="13px">
                         {item["Reckitt WOC"]}
                       </Typography>
                     </TableCell>
@@ -2119,7 +2118,7 @@ const OhrTable = ({ onData }) => {
                       </Typography>
                     </TableCell>
 
-                    <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                    <TableCell sx={{ textAlign: "center", padding: "0px",width:"60px" }}>
                       {item["Reason Code"]}
                     </TableCell>
                     <TableCell

@@ -1551,11 +1551,11 @@ const CustomerTable = ({ onData }) => {
                     fontSize={13}
                     sx={{
                       display: "flex",
-                      gap: "16px",
+                      // gap: "16px",
                       padding: "12px",
                       border: "none",
                     }}
-                    border="1px solid red"
+                    // border="1px solid red"
                   >
                     <Box
                       className="rbsku-expand"
@@ -1592,7 +1592,7 @@ const CustomerTable = ({ onData }) => {
                         alignItems: "center",
                       }}
                     >
-                      <Typography ml="-8px" fontSize="13px" mt="3px">
+                      <Typography  fontSize="13px" mt="3px">
                         {item.rbsku}
                       </Typography>
                     </Box>
