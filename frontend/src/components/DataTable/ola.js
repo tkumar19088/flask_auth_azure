@@ -1017,11 +1017,10 @@ const Ola = ({ onData }) => {
                     fontSize={13}
                     sx={{
                       display: "flex",
-                      gap: "16px",
+                      // gap: "16px",
                       padding: "12px",
                       border: "none",
-                      alignItems: "center",
-                      justifyContent: "center",
+                     
                     }}
                   >
                     <Box
@@ -1056,7 +1055,6 @@ const Ola = ({ onData }) => {
                     </Box>
                     <Box className="rbsku-expand">
                       <Typography
-                        ml="-8px"
                         fontSize="13px"
                         sx={{
                           marginTop: "7px",

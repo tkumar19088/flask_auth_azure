@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
@@ -45,6 +45,27 @@ const Orderinvestigation2 = () => {
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
+  const [currentDateTime, setCurrentDateTime] = useState("");
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const now = new Date();
+      const formattedDateTime = `${(now.getMonth() + 1)
+        .toString()
+        .padStart(2, "0")}/${now.getDate().toString().padStart(2, "0")}/${now
+        .getFullYear()
+        .toString()
+        .slice(2)
+        .padStart(2, "0")} ${now.getHours().toString().padStart(2, "0")}:${now
+        .getMinutes()
+        .toString()
+        .padStart(2, "0")}:${now.getSeconds().toString().padStart(2, "0")}`;
+      setCurrentDateTime(formattedDateTime);
+    }, 1000);
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, []);
   return (
     <div>
       <Stack>
@@ -62,7 +83,7 @@ const Orderinvestigation2 = () => {
                 }}
               />
             </Typography>
-            <Typography fontSize={14}>01/01/23 05:03:20</Typography>
+            <Typography fontSize={14}>{currentDateTime}</Typography>
           </Box>
         </Box>
       </Stack>

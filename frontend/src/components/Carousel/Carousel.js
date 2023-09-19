@@ -19,7 +19,7 @@ const CarouselExample = () => {
   };
   const handleIrregularPO = () => {
     setselectedalert(true);
-    navigate("/irregular");
+    // navigate("/irregular");
   };
 
   const maxRecordsPerPage = 4;
@@ -49,12 +49,13 @@ const CarouselExample = () => {
                 sx={{
                   borderRadius: "5px 5px ",
                   backgroundColor: "#fff",
-                  boxShadow: selectedalert
-                    ? ""
-                    : "0px 2px 0px 0px  rgba(0,0,0,0.3)",
+                  boxShadow: "0px 2px 0px 0px  rgba(0,0,0,0.3)",
+                  "&:hover": {
+                    boxShadow: "0px 0px 0px 0px  ",
+                  },
                   border: selectedalert ? "2px solid orange" : "",
                   "&:hover": {
-                    border: selectedalert ? "2px solid orange" : "",
+                    border: "2px solid orange",
                   },
                   height: "170px",
                 }}
