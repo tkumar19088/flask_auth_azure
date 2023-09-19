@@ -202,19 +202,17 @@ class AlertsManager:
         self.global_user = global_user or {}
 
     def filter_data(self, df, filter_keys):
-        print(f"\n2. self.global_filters:\n{self.global_filters}\n")
-        print(f"\n2. self.global_user:\n{self.global_user}\n")
-        print(f"\n2. filter_keys:\n{filter_keys}\n")
-        if self.global_filters != {}:
-            for key in filter_keys:
-                if key in self.global_user and self.global_filters.get(key) in self.global_user[key]:
-                    df = df[df[key]==(self.global_filters[key])]
-        else:
-            for key in filter_keys:
-                if key in self.global_user:
-                    df = df[df[key].isin(self.global_user[key])]
-                    df = df.reset_index(drop=True) # reset index
-        return df
+        for key in filter_keys:
+            if key in self.global_user:
+                df = df[df[key].isin(self.global_user[key])]
+            if self.global_filters != {} and key in self.global_filters:
+                df = df[df[key]==(self.global_filters[key])]
+
+        # if self.global_filters != {}:
+        #     for key in filter_keys:
+        #         if key in self.global_filters:
+        #             df = df[df[key]==(self.global_filters[key])]
+        return df.reset_index(drop=True)
 
     def get_sorted_data(self, data, sort_column):
         return data.groupby(['Business Unit', 'Location', 'Brand']).apply(

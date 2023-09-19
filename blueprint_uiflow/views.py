@@ -22,7 +22,7 @@ def get_filter_params():
     try:
         global_filters.update({k: v for k, v in data.items() if v})
         current_app.config['global_filters'] = global_filters
-        alerts = AlertsManager().get_alerts(global_filters, global_user)
+        alerts = AlertsManager(global_filters, global_user).get_alerts() or []
         return {"filters": global_filters, "alerts": alerts}
     except Exception as e:
         return jsonify(status="error", message=str(e)), 500
@@ -30,7 +30,7 @@ def get_filter_params():
 @uiflow_blueprint.route('/resetfilterparams')
 def reset_filter_params():
     try:
-        global_filters = current_app.config['global_filters'] or {}
+        global_filters = current_app.config['global_filters']
         global_filters.clear()
         current_app.config['global_filters'] = global_filters
         return jsonify(status="success", message="Global Filter parameters cleared!"), 200
@@ -41,7 +41,7 @@ def reset_filter_params():
 # *****************************************************
 #    Reckitt Tab Overview |||| Customer Tab Overview
 # *****************************************************
-@uiflow_blueprint.route('/getoverviewdata')
+@uiflow_blueprint.route('/getoverview', methods=['POST'])
 def get_overview():
     global_user = current_app.config['global_user'] or {}
     global_filters = current_app.config['global_filters'] or {}
@@ -65,7 +65,7 @@ def get_overview():
 # *****************************************************
 #                  Reckitt Tab - Supply
 # *****************************************************
-@uiflow_blueprint.route("/getsupplydata", methods=['POST'])
+@uiflow_blueprint.route("/getsupply", methods=['POST'])
 def getsupply():
     global_user = current_app.config['global_user'] or {}
     global_filters = current_app.config['global_filters'] or {}

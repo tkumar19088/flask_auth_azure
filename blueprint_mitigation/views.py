@@ -19,13 +19,13 @@ mitigation_blueprint = Blueprint("mitigation", __name__)
 # ****************************************************************
 @mitigation_blueprint.route("/choosescenario", methods=['POST'])
 def choosescenario():
-    global_user = current_app.config['global_user'] or {}
-    global_filters = current_app.config['global_filters'] or {}
+    global_user = current_app.config['global_user']
+    global_filters = current_app.config['global_filters']
     data = request.json or {}
     if not data:
         return jsonify(status="error", message="Missing required parameter: RB SKU!"), 500
     else:
-        return jsonify(status="success", message="Mitigation scenario chosen successfully!"), 200
+        return jsonify(status="Success", message="Scenario chosen!"), 200
 
 
 # ************************** MITIGATION SCENARIO # 1 ***************************
@@ -45,24 +45,24 @@ def getalternativeskus():
         return jsonify(status="error", message="No customer selected!"), 500
 
     try:
-        # df_price = AzureBlobReader().read_csvfile("ui_data/pushalternativeskus.csv")
-        # brand = df_price.loc[df_price['sku'] == sku_r, 'brand'].values[0]
-        # conds = (df_price['brand'] == brand) & (df_price['retailer'] == ret)
-        # tmp = df_price[conds].drop(columns = ['retailer', 'brand']).drop_duplicates()
-        # tmp = tmp.set_index('sku').T
-        # tmp_r = tmp[sku_r]
-        # tmp = tmp.drop(columns = sku_r)
-        # tmp.loc['score_1'] = 1 * (tmp.loc['segment'] == tmp_r['segment'])
-        # tmp.loc['score_3'] = (tmp.loc['reckitt_inv'] / tmp_r['reckitt_inv'])
-        # tmp.loc['score_4'] = (tmp.loc[['reckitt_inv', 'currentallocation']].min(axis = 1) / tmp_r['sif-reckitt'])
-        # tmp.loc['score_5'] = (tmp.loc[['Sell out', 'currentcustSOH', 'sif-reckitt']].apply(lambda x: score5(x[0], x[1], x[2]), axis = 0))
-        # tmp.loc['score_6'] = (tmp.loc[['custwoc-target', 'custwoc-current']].apply(lambda x: score6(x[0], x[1]), axis = 0))
-        # tmp.loc['score_7'] = 1 - abs(tmp.loc['price'] - tmp_r['price'] / tmp_r['price'])
-        # tmp.loc['score_final'] = tmp.loc[['score_1', 'score_3', 'score_4', 'score_5', 'score_6', 'score_7']].sum(axis = 0)
-        # tmp = tmp.loc[['score_final']].T
-        # tmp.replace(" ", "-", inplace=True)
-        # return json.loads(tmp.to_json(orient='records')) if not tmp.empty else jsonify(status="error", message="No alternative SKUs found!"), 500
-        return jsonify(status="Success", message="5 alternative SKUs found!"), 200
+        df_price = AzureBlobReader().read_csvfile("ui_data/pushalternativeskus.csv")
+        brand = df_price.loc[df_price['sku'] == sku_r, 'brand'].values[0] # type: ignore
+        conds = (df_price['brand'] == brand) & (df_price['retailer'] == ret)
+        tmp = df_price[conds].drop(columns = ['retailer', 'brand']).drop_duplicates()
+        tmp = tmp.set_index('sku').T
+        tmp_r = tmp[sku_r]
+        tmp = tmp.drop(columns = sku_r)
+        tmp.loc['score_1'] = 1 * (tmp.loc['segment'] == tmp_r['segment'])
+        tmp.loc['score_3'] = (tmp.loc['reckitt_inv'] / tmp_r['reckitt_inv'])
+        tmp.loc['score_4'] = (tmp.loc[['reckitt_inv', 'currentallocation']].min(axis = 1) / tmp_r['sif-reckitt'])
+        tmp.loc['score_5'] = (tmp.loc[['Sell out', 'currentcustSOH', 'sif-reckitt']].apply(lambda x: score5(x[0], x[1], x[2]), axis = 0))
+        tmp.loc['score_6'] = (tmp.loc[['custwoc-target', 'custwoc-current']].apply(lambda x: score6(x[0], x[1]), axis = 0))
+        tmp.loc['score_7'] = 1 - abs(tmp.loc['price'] - tmp_r['price'] / tmp_r['price'])
+        tmp.loc['score_final'] = tmp.loc[['score_1', 'score_3', 'score_4', 'score_5', 'score_6', 'score_7']].sum(axis = 0)
+        tmp = tmp.loc[['score_final']].T
+        tmp.replace(" ", "-", inplace=True)
+        return json.loads(tmp.to_json(orient='records')) if not tmp.empty else jsonify(status="error", message="No alternative SKUs found!"), 500
+        # return jsonify(status="Success", message="5 alternative SKUs found!"), 200
     except Exception as e:
         return jsonify(status="error", message=str(e)), 500
 
@@ -100,7 +100,7 @@ def getrarbysku():
 def getoptmize():
     global_user = current_app.config['global_user'] or {}
     global_filters = current_app.config['global_filters'] or {}
-    
+
     # Label: 2 for green, 1 for amber, 0 for red
     constraints = [{
                             'Name': 'PCT DEVIATION FROM INIT ALLOC',
