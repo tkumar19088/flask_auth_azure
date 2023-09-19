@@ -31,6 +31,9 @@ def getuserdata():
         global_user.update({f: userDetails[f] for f in filters if f in userDetails})
         current_app.config['global_user'] = global_user
         alertsdata = AlertsManager(global_filters, global_user).get_alerts()
+        print(f"\nuserDetails: {userDetails}\n")
+        print(f"\nAlerts data: {alertsdata}\n")
+
         return {"user":userDetails, "alerts":alertsdata}
     else:
         return jsonify(status="Error", message="User not found!"), 500

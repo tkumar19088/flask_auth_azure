@@ -125,7 +125,6 @@ class UserDataReaderBlobStorage:
         """
         self.res={}
         usersdata = self.fetch_user_excel("users.xlsx")
-        # print(f"\nusersdata:\n{usersdata}\n")
         user_details = usersdata[usersdata["Email"] == uemail]
         if len(user_details) > 0:
             try:
@@ -201,23 +200,20 @@ class AlertsManager:
         self.alerts = []
         self.global_filters = global_filters or {}
         self.global_user = global_user or {}
-        print(f"\nself.global_filters:\n{self.global_filters}\n")
-        print(f"\nself.global_user:\n{self.global_user}\n")
 
     def filter_data(self, df, filter_keys):
-        print(f"\nself.global_filters:\n{self.global_filters}\n")
-        print(f"\nself.global_user:\n{self.global_user}\n")
-        print(f"\nfilter_keys:\n{filter_keys}\n")
+        print(f"\n2. self.global_filters:\n{self.global_filters}\n")
+        print(f"\n2. self.global_user:\n{self.global_user}\n")
+        print(f"\n2. filter_keys:\n{filter_keys}\n")
         if self.global_filters != {}:
+            for key in filter_keys:
+                if key in self.global_user and self.global_filters.get(key) in self.global_user[key]:
+                    df = df[df[key]==(self.global_filters[key])]
+        else:
             for key in filter_keys:
                 if key in self.global_user:
                     df = df[df[key].isin(self.global_user[key])]
-        else:
-            for key in filter_keys:
-                if key in self.global_user and self.global_filters.get(key) in self.global_user[key]:
-                    print(f"\n{key} : {self.global_filters.get(key)} : {self.global_user.get(key)}")
-                    df = df[df[key] == self.global_filters[key]]
-                print(f"\ndf\n:{df}\n")
+                    df = df.reset_index(drop=True) # reset index
         return df
 
     def get_sorted_data(self, data, sort_column):
@@ -237,7 +233,7 @@ class AlertsManager:
                 'DATA': group[["Description", "Service CW"]].head(3).to_dict('records')
             }
             self.alerts.append(alert)
-        print(f"\n1. self.alerts:\n{self.alerts}\n")
+
 
     def generate_irrpo_alerts(self):
         filters = ['Business Unit', 'Customer', 'Location', 'Brand']
@@ -251,14 +247,14 @@ class AlertsManager:
                 'DATA': group[["PO Number", "PO Date"]].head(3).to_dict('records')
             }
             self.alerts.append(alert)
-        print(f"\n2. self.alerts:\n{self.alerts}\n")
+
 
     def refine_alerts(self):
         for alert in self.alerts:
             for data in alert["DATA"]:
                 data["Name"] = data.pop("Description", data.pop("PO Number", None))
                 data["Value"] = data.pop("Service CW", data.pop("PO Date", None))
-        print(f"\n3. self.alerts:\n{self.alerts}\n")
+
 
     def get_alerts(self):
         self.generate_oos_alerts()
