@@ -122,7 +122,7 @@ const OhrTable = ({ onData }) => {
     dispatch(updateloader(true));
     var data = { rbsku: expandedRow };
     try {
-      const response = await fetch("http://localhost:5000/rarbysku", {
+      const response = await fetch("http://localhost:5000/getoptmize", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -132,7 +132,7 @@ const OhrTable = ({ onData }) => {
       if (response.ok) {
         const json = await response.json();
         console.log(json);
-        dispatch(fetchstockreallocatedata(json.other_rows));
+        dispatch(fetchstockreallocatedata(json));
         dispatch(fetchstaticrow(json.static_row));
         dispatch(updateexporttabledata(json));
         navigate("/stockreallocation");
@@ -1935,7 +1935,7 @@ const OhrTable = ({ onData }) => {
                       {item.Brand}
                     </TableCell>
                     <TableCell style={{ textAlign: "center" }}>
-                      <Typography  fontSize="13px">
+                      <Typography fontSize="13px">
                         {item["Reckitt WOC"]}
                       </Typography>
                     </TableCell>
@@ -2118,7 +2118,13 @@ const OhrTable = ({ onData }) => {
                       </Typography>
                     </TableCell>
 
-                    <TableCell sx={{ textAlign: "center", padding: "0px",width:"60px" }}>
+                    <TableCell
+                      sx={{
+                        textAlign: "center",
+                        padding: "0px",
+                        width: "60px",
+                      }}
+                    >
                       {item["Reason Code"]}
                     </TableCell>
                     <TableCell

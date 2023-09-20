@@ -793,7 +793,7 @@ const StockPosition = ({ onData }) => {
                       // gap: "16px",
                       padding: "12px",
                       border: "none",
-                     
+                      justifyContent: "center",
                     }}
                   >
                     <Box
