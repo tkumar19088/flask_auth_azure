@@ -15,8 +15,8 @@ uiflow_blueprint = Blueprint("uiflow", __name__)
 
 @uiflow_blueprint.route('/getfilterparams', methods=['POST'])
 def get_filter_params():
-    global_user = current_app.config['global_user'] or {}
-    global_filters = current_app.config['global_filters'] or {}
+    global_user = current_app.config.get('global_user', {})
+    global_filters = current_app.config.get('global_filters', {})
 
     data = request.json or {}
     try:
@@ -43,8 +43,8 @@ def reset_filter_params():
 # *****************************************************
 @uiflow_blueprint.route('/getoverview', methods=['POST'])
 def get_overview():
-    global_user = current_app.config['global_user'] or {}
-    global_filters = current_app.config['global_filters'] or {}
+    global_user = current_app.config.get('global_user', {})
+    global_filters = current_app.config.get('global_filters', {})
 
     data = request.json or {}
     filename = "ui_data/customeroverviewdatarepo.csv" if data['customer'] else "ui_data/reckittoverviewdatarepo.csv"
@@ -67,8 +67,8 @@ def get_overview():
 # *****************************************************
 @uiflow_blueprint.route("/getsupply", methods=['POST'])
 def getsupply():
-    global_user = current_app.config['global_user'] or {}
-    global_filters = current_app.config['global_filters'] or {}
+    global_user = current_app.config.get('global_user', {})
+    global_filters = current_app.config.get('global_filters', {})
 
     rbsupply = AzureBlobReader().read_csvfile("ui_data/reckittsupply.csv")
     filters = ['Business Unit', 'Location','Brand']
@@ -84,9 +84,9 @@ def getsupply():
 # *****************************************************
 @uiflow_blueprint.route("/getdemand", methods=['POST'])
 def getdemand():
-    global_user = current_app.config['global_user'] or {}
-    global_filters = current_app.config['global_filters'] or {}
-    
+    global_user = current_app.config.get('global_user', {})
+    global_filters = current_app.config.get('global_filters', {})
+
     rbdemand = AzureBlobReader().read_csvfile("ui_data/reckittdemand.csv")
     filters = ['Business Unit', 'Location','Brand']
     for filter_key in filters:
@@ -101,8 +101,8 @@ def getdemand():
 # *****************************************************
 @uiflow_blueprint.route("/getsohateow", methods=['POST'])
 def getsohateow():
-    global_user = current_app.config['global_user'] or {}
-    global_filters = current_app.config['global_filters'] or {}
+    global_user = current_app.config.get('global_user', {})
+    global_filters = current_app.config.get('global_filters', {})
 
     rbexpsoheow = AzureBlobReader().read_csvfile("ui_data/reckittexpecsohateow.csv")
     filters = ['Business Unit', 'Location','Brand']
@@ -118,8 +118,8 @@ def getsohateow():
 # *****************************************************
 @uiflow_blueprint.route("/getwocateow", methods=['POST'])
 def getwocateow():
-    global_user = current_app.config['global_user'] or {}
-    global_filters = current_app.config['global_filters'] or {}
+    global_user = current_app.config.get('global_user', {})
+    global_filters = current_app.config.get('global_filters', {})
 
     rbwoceow = AzureBlobReader().read_csvfile("ui_data/wocateow.csv")
     filters = ['Business Unit', 'Location','Brand']
@@ -135,8 +135,8 @@ def getwocateow():
 # *****************************************************
 @uiflow_blueprint.route("/getcaseshortages", methods=['POST'])
 def getcaseshortages():
-    global_user = current_app.config['global_user'] or {}
-    global_filters = current_app.config['global_filters'] or {}
+    global_user = current_app.config.get('global_user', {})
+    global_filters = current_app.config.get('global_filters', {})
 
     rbcaseshort = AzureBlobReader().read_csvfile("ui_data/caseshortages.csv")
     filters = ['Business Unit', 'Location','Brand']
@@ -152,8 +152,8 @@ def getcaseshortages():
 # *****************************************************
 @uiflow_blueprint.route("/getexpectedservice", methods=['POST'])
 def getexpectedservice():
-    global_user = current_app.config['global_user'] or {}
-    global_filters = current_app.config['global_filters'] or {}
+    global_user = current_app.config.get('global_user', {})
+    global_filters = current_app.config.get('global_filters', {})
 
     rbexpsl = AzureBlobReader().read_csvfile("ui_data/expectedservice.csv")
     filters = ['Business Unit', 'Location','Brand']
@@ -169,8 +169,8 @@ def getexpectedservice():
 # *******************************************************************
 @uiflow_blueprint.route("/getstockposition", methods=['POST'])
 def get_stock_position():
-    global_user = current_app.config['global_user'] or {}
-    global_filters = current_app.config['global_filters'] or {}
+    global_user = current_app.config.get('global_user', {})
+    global_filters = current_app.config.get('global_filters', {})
 
     data = request.json or {}
     file_path = "ui_data/customerstockposition.csv" if data['customer'] else "ui_data/stockposition.csv"
@@ -190,8 +190,8 @@ def get_stock_position():
 # *****************************************************
 @uiflow_blueprint.route("/getcustepos", methods=['POST'])
 def getcustepos():
-    global_user = current_app.config['global_user'] or {}
-    global_filters = current_app.config['global_filters'] or {}
+    global_user = current_app.config.get('global_user', {})
+    global_filters = current_app.config.get('global_filters', {})
 
     custhepos = AzureBlobReader().read_csvfile("ui_data/customerhistoricepos.csv")
     filters = ['Business Unit', 'Location', 'Customer','Brand']
@@ -206,8 +206,8 @@ def getcustepos():
 # *****************************************************
 @uiflow_blueprint.route("/getcustsellout", methods=['POST'])
 def getcustsellout():
-    global_user = current_app.config['global_user'] or {}
-    global_filters = current_app.config['global_filters'] or {}
+    global_user = current_app.config.get('global_user', {})
+    global_filters = current_app.config.get('global_filters', {})
 
     custsellout = AzureBlobReader().read_csvfile("ui_data/customersellout.csv")
     filters = ['Business Unit', 'Location', 'Customer','Brand']
@@ -222,8 +222,8 @@ def getcustsellout():
 # *****************************************************
 @uiflow_blueprint.route("/getcustsellin", methods=['POST'])
 def getcustsellin():
-    global_user = current_app.config['global_user'] or {}
-    global_filters = current_app.config['global_filters'] or {}
+    global_user = current_app.config.get('global_user', {})
+    global_filters = current_app.config.get('global_filters', {})
 
     custsellin = AzureBlobReader().read_csvfile("ui_data/customersellin.csv")
     filters = ['Business Unit', 'Location', 'Customer','Brand']
@@ -239,8 +239,8 @@ def getcustsellin():
 # *****************************************************
 @uiflow_blueprint.route("/getcustola", methods=['POST'])
 def getcustola():
-    global_user = current_app.config['global_user'] or {}
-    global_filters = current_app.config['global_filters'] or {}
+    global_user = current_app.config.get('global_user', {})
+    global_filters = current_app.config.get('global_filters', {})
 
     custola = AzureBlobReader().read_csvfile("ui_data/customerola.csv")
     filters = ['Business Unit', 'Location', 'Customer','Brand']
@@ -256,8 +256,8 @@ def getcustola():
 # ****************************************************************************
 @uiflow_blueprint.route("/getcampaigns", methods=['POST'])
 def get_campaigns():
-    global_user = current_app.config['global_user'] or {}
-    global_filters = current_app.config['global_filters'] or {}
+    global_user = current_app.config.get('global_user', {})
+    global_filters = current_app.config.get('global_filters', {})
 
     data = request.json or {}
     campaigns = AzureBlobReader().read_csvfile("ui_data/reckittcampaignsbysku.csv")
@@ -272,12 +272,12 @@ def get_campaigns():
     return json.loads(campaignsbysku.to_json(orient='records'))
 
 # *******************************
-#       Sell In Graph API
+#       Sell In Graph API # TODO: WHere is the raw data coming from?
 # *******************************
 @uiflow_blueprint.route("/getsellingraph", methods=['POST'])
 def get_selling_graph():
-    global_user = current_app.config['global_user'] or {}
-    global_filters = current_app.config['global_filters'] or {}
+    global_user = current_app.config.get('global_user', {})
+    global_filters = current_app.config.get('global_filters', {})
 
     data = request.json or {}
     filters = ['Business Unit', 'Location', 'Brand', 'Customer', 'RB SKU']
@@ -288,12 +288,12 @@ def get_selling_graph():
     return json.loads(sellin.to_json(orient='records'))
 
 # *******************************
-#       Sell Out Graph API #TODO: WHere is the raw data coming from?
+#       Sell Out Graph API # TODO: WHere is the raw data coming from?
 # *******************************
 @uiflow_blueprint.route("/getselloutgraph", methods=['POST'])
 def get_sellout_graph():
-    global_user = current_app.config['global_user'] or {}
-    global_filters = current_app.config['global_filters'] or {}
+    global_user = current_app.config.get('global_user', {})
+    global_filters = current_app.config.get('global_filters', {})
 
     data = request.json or {}
     sellout_file = "ui_data/customersellout.csv" if data['customer'] else "ui_data/reckittsellout.csv"
