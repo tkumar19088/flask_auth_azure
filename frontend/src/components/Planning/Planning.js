@@ -190,7 +190,7 @@ const Planning = ({ filterStatus }) => {
           <Grid item xs={4}>
             <Box className="pln-cards-header">
               <Typography color="#fff" className="plan-title">
-                Promotion
+                Promote
               </Typography>
             </Box>{" "}
             <Box

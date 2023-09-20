@@ -75,7 +75,21 @@ const OverviewHighRisk2 = () => {
       },
     },
   }));
+  const [searchValue, setSearchValue] = useState(""); // State to store the search input value
 
+  const handleSearchSKU = () => {
+    var isNumber = containsOnlyNumbers(searchValue);
+    if (isNumber) {
+      var results = exporttabledata.filter(
+        (item) => item["RB SKU"] === searchValue
+      );
+      console.log(results);
+    } else {
+    }
+  };
+  const containsOnlyNumbers = (inputString) => {
+    return /^\d+$/.test(inputString);
+  };
   const handleReckittOverview = async () => {
     await dispatch(updatecustomer(0));
     reckittOverview();
@@ -279,8 +293,15 @@ const OverviewHighRisk2 = () => {
                       className="serch-name"
                       placeholder="Search Sku by name"
                       inputProps={{ "aria-label": "search" }}
+                      value={searchValue} // Bind the input value to the state
+                      onChange={(e) => setSearchValue(e.target.value)}
                     />{" "}
-                    <img src={search} alt="search" className="search-icon2" />
+                    <img
+                      src={search}
+                      alt="search"
+                      className="search-icon2"
+                      onClick={handleSearchSKU}
+                    />
                   </Search>
                 </Box>
 
