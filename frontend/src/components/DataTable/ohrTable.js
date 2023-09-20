@@ -32,12 +32,11 @@ import {
   updateexporttabledata,
 } from "../../store/actions/sidebarActions";
 
-const startingWeek = 28;
-
 const OhrTable = ({ onData }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
   const ohrdata = useSelector((state) => state.sidebar.overviewhighriskdata);
   const isragfilterohr = useSelector((state) => state.sidebar.isragfilterohr);
   const filteredohrdata = useSelector(
@@ -123,7 +122,7 @@ const OhrTable = ({ onData }) => {
     dispatch(updateloader(true));
     var data = { rbsku: expandedRow };
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/rarbysku", {
+      const response = await fetch("http://localhost:5000/getoptmize", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -133,7 +132,7 @@ const OhrTable = ({ onData }) => {
       if (response.ok) {
         const json = await response.json();
         console.log(json);
-        dispatch(fetchstockreallocatedata(json.other_rows));
+        dispatch(fetchstockreallocatedata(json));
         dispatch(fetchstaticrow(json.static_row));
         dispatch(updateexporttabledata(json));
         navigate("/stockreallocation");
@@ -1415,7 +1414,7 @@ const OhrTable = ({ onData }) => {
                   color: "#415A6C",
                 }}
               >
-                Reckitt Stock on Hand
+                Reckitt SoH
               </TableCell>
               <TableCell
                 sx={{
@@ -1465,7 +1464,7 @@ const OhrTable = ({ onData }) => {
                   color: "#415A6C",
                 }}
               >
-                Customer WOC
+                Customer WoC
               </TableCell>
             </TableRow>
           </TableHead>
@@ -1606,7 +1605,7 @@ const OhrTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <Typography className="table-h1-title">Reckitt WOC</Typography>
+                <Typography className="table-h1-title">Reckitt WoC</Typography>
               </TableCell>
               <TableCell
                 rowSpan={2}
@@ -1630,7 +1629,7 @@ const OhrTable = ({ onData }) => {
                 }}
               >
                 <Typography className="table-h1-title" lineHeight="16px">
-                  Service Level
+                  Service Level %
                 </Typography>
               </TableCell>
               <TableCell
@@ -1848,16 +1847,17 @@ const OhrTable = ({ onData }) => {
                       fontSize={13}
                       sx={{
                         display: "flex",
-                        gap: "16px",
+                        // gap: "16px",
                         padding: "12px",
                         border: "none",
-                        alignItems: "center",
-                        justifyContent: "center",
                       }}
                     >
                       <Box
                         className="rbsku-expand"
-                        sx={{ display: "flex", alignItems: "center" }}
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
                       >
                         {expandedRow === item["RB SKU"] ? (
                           <RemoveIcon
@@ -1878,7 +1878,6 @@ const OhrTable = ({ onData }) => {
                               color: "#415A6C",
                               cursor: "pointer",
                               fontWeight: "800",
-                              // marginTop: "-1px",
                               marginTop: "4px",
                               backgroundColor: "transparent",
                             }}
@@ -1887,7 +1886,6 @@ const OhrTable = ({ onData }) => {
                       </Box>
                       <Box className="rbsku-expand">
                         <Typography
-                          ml="-8px"
                           fontSize="13px"
                           sx={{
                             marginTop: "7px",
@@ -1912,7 +1910,7 @@ const OhrTable = ({ onData }) => {
                         textAlign: "center",
                         fontSize: "13px",
                         padding: "0px",
-                        maxWidth: "30px", // Set the maximum width of the TableCell
+                        maxWidth: "90px", // Set the maximum width of the TableCell
                         overflow: "hidden",
                         whiteSpace: "nowrap",
                         textOverflow: "ellipsis",
@@ -1931,13 +1929,13 @@ const OhrTable = ({ onData }) => {
                         textAlign: "center",
                         fontSize: "13px",
                         // border: "1px solid",
-                        padding: "0px",
+                        padding: "10px",
                       }}
                     >
                       {item.Brand}
                     </TableCell>
                     <TableCell style={{ textAlign: "center" }}>
-                      <Typography mx="7px" fontSize="13px">
+                      <Typography fontSize="13px">
                         {item["Reckitt WOC"]}
                       </Typography>
                     </TableCell>
@@ -2120,7 +2118,13 @@ const OhrTable = ({ onData }) => {
                       </Typography>
                     </TableCell>
 
-                    <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                    <TableCell
+                      sx={{
+                        textAlign: "center",
+                        padding: "0px",
+                        width: "60px",
+                      }}
+                    >
                       {item["Reason Code"]}
                     </TableCell>
                     <TableCell

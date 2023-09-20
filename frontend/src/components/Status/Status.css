@@ -1,8 +1,11 @@
 .status{
     display: flex;
     justify-content: space-between;
-   
+}
 
+.status-card{
+    /* border: 1px solid #FF007F !important; */
+    /* height: 300px !important; */
 }
 
 .s-crd{

@@ -30,11 +30,12 @@ import {
   fetchstockreallocatedata,
   updateexporttabledata,
 } from "../../store/actions/sidebarActions";
-const startingWeek = 28;
 
 const OhrTable2 = ({ onData }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
   const [expandedRow, setExpandedRow] = useState(null);
   const [pushAlternative, setpushAlternative] = useState(false);
   const [campaignsData, setcampaignsData] = useState([]);
@@ -986,10 +987,9 @@ const OhrTable2 = ({ onData }) => {
                       fontSize={13}
                       sx={{
                         display: "flex",
-                        gap: "16px",
+                        // gap: "16px",
                         padding: "12px",
                         border: "none",
-                        alignItems: "center",
                         justifyContent: "center",
                       }}
                     >
@@ -1025,7 +1025,6 @@ const OhrTable2 = ({ onData }) => {
                       </Box>
                       <Box className="rbsku-expand">
                         <Typography
-                          ml="-8px"
                           fontSize="13px"
                           sx={{
                             marginTop: "7px",

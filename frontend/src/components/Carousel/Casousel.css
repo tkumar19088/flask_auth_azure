@@ -1,4 +1,4 @@
-.carouselcls.css-ohwg9z .css-1abc02a {
+/* .carouselcls.css-ohwg9z .css-1abc02a {
     top: 98px !important;
     margin-inline: 685px;
 }
@@ -6,7 +6,7 @@
     top: 98px !important;
     margin-inline: 685px;
 
-}
+} */
 
 .carouselcls.css-ohwg9z .css-e8vs8u {
     opacity: 0.3 !important;
@@ -30,4 +30,9 @@
 .carouselcls.css-ohwg9z .css-1abc02a svg{
     width: 13px !important;
     height: 13px !important;
+}
+
+.status-card{
+    /* border: 1px solid red; */
+    /* height: 180px; */
 }

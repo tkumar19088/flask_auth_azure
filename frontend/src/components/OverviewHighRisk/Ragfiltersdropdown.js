@@ -257,7 +257,7 @@ function Ragfilters() {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-    dispatch(flagragfiltersohr(false));
+    // dispatch(flagragfiltersohr(false));
   };
 
   return (

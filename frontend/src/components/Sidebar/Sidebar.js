@@ -162,7 +162,7 @@ const Sidebar = () => {
               fontSize={{ lg: "13px", xs: 10 }}
               p="5px 0 0 0"
             >
-              Sell-In Forecast
+              Sell-in forecast
             </Typography>
           </AccordionDetails>
           <AccordionDetails
@@ -180,7 +180,7 @@ const Sidebar = () => {
             onClick={handleSelloutForecasting}
           >
             <Typography mx="25px" fontSize={{ lg: 13, xs: 10 }} p="5px 0 0 0">
-              Sell-Out Forecast
+              Sell-out forecast
             </Typography>
           </AccordionDetails>
         </Accordion>

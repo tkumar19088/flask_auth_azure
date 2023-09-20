@@ -296,7 +296,7 @@ const FunctionalTabs = () => {
           }}
           onClick={handleExpectedSOH}
         >
-          Expected SOH at EOW
+          Expected SoH at EoW
         </Tab>
         <Tab
           style={{
@@ -305,7 +305,7 @@ const FunctionalTabs = () => {
           }}
           onClick={handleWOCatEOW}
         >
-          WOC at EOW
+          WoC at EoW
         </Tab>
         <Tab
           style={{
@@ -323,7 +323,7 @@ const FunctionalTabs = () => {
           }}
           onClick={handleExpectedService}
         >
-          Expected Service
+          Expected Service %
         </Tab>
         <Tab
           style={{

@@ -27,8 +27,6 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import Badge from "@mui/material/Badge";
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
 
-const startingWeek = 28;
-
 const CaseShortages = ({ onData }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -36,7 +34,7 @@ const CaseShortages = ({ onData }) => {
   const handleBack = () => {
     navigate(-1);
   };
-
+  const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
   const [expandedRow, setExpandedRow] = useState(null);
   const [pushAlternative, setpushAlternative] = useState(false);
   const [campaignsData, setcampaignsData] = useState([]);
@@ -305,7 +303,6 @@ const CaseShortages = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   color: "#415A6C",
-
                 }}
               >
                 End Date
@@ -316,7 +313,6 @@ const CaseShortages = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   color: "#415A6C",
-
                 }}
               >
                 Offer Description
@@ -327,7 +323,6 @@ const CaseShortages = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   color: "#415A6C",
-
                 }}
               >
                 Status
@@ -338,7 +333,6 @@ const CaseShortages = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   color: "#415A6C",
-
                 }}
               >
                 Customer
@@ -350,7 +344,6 @@ const CaseShortages = ({ onData }) => {
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
                   color: "#415A6C",
-
                 }}
               >
                 Customer
@@ -363,7 +356,6 @@ const CaseShortages = ({ onData }) => {
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
                   color: "#415A6C",
-
                 }}
               >
                 Customer <br />
@@ -510,7 +502,6 @@ const CaseShortages = ({ onData }) => {
                   backgroundColor: "#E5EBEF",
                   // padding: "0px",
                   color: "#415A6C",
-
                 }}
               >
                 RB SKU
@@ -523,7 +514,6 @@ const CaseShortages = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   color: "#415A6C",
-
                 }}
               >
                 PPG
@@ -536,7 +526,6 @@ const CaseShortages = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   color: "#415A6C",
-
                 }}
               >
                 Description
@@ -549,7 +538,6 @@ const CaseShortages = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   color: "#415A6C",
-
                 }}
               >
                 Active Campaigns
@@ -563,7 +551,6 @@ const CaseShortages = ({ onData }) => {
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
                   color: "#415A6C",
-
                 }}
               >
                 Reckitt Stock on Hand
@@ -576,7 +563,6 @@ const CaseShortages = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   color: "#415A6C",
-
                 }}
               >
                 Customer Inventory
@@ -590,7 +576,6 @@ const CaseShortages = ({ onData }) => {
                   backgroundColor: "#E5EBEF",
                   lineHeight: "16px",
                   color: "#415A6C",
-
                 }}
               >
                 Sell-In Forecast <br />
@@ -604,7 +589,6 @@ const CaseShortages = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   color: "#415A6C",
-
                 }}
               >
                 Sell-Out Forecast
@@ -617,7 +601,6 @@ const CaseShortages = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   color: "#415A6C",
-
                 }}
               >
                 Customer WOC
@@ -889,11 +872,10 @@ const CaseShortages = ({ onData }) => {
                     fontSize={13}
                     sx={{
                       display: "flex",
-                      gap: "16px",
+                      // gap: "16px",
                       padding: "12px",
                       border: "none",
-                      alignItems: "center",
-                      justifyContent: "center",
+                     
                     }}
                   >
                     <Box
@@ -928,7 +910,6 @@ const CaseShortages = ({ onData }) => {
                     </Box>
                     <Box className="rbsku-expand">
                       <Typography
-                        ml="-8px"
                         fontSize="13px"
                         sx={{
                           marginTop: "7px",

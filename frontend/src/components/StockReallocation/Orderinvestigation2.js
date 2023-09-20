@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
@@ -13,31 +13,47 @@ import { useNavigate } from "react-router-dom";
 import { fetchupdateresults } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 
-const Orderinvestigation2 = () => {
+const Orderinvestigation2 = ({ constraints }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const updateresults = useSelector((state) => state.sidebar.updateresults);
 
   const [counter, setCounter] = useState(0);
-  const [weeksOnConv, setweeksOnConv] = useState(0);
+  const [weeksOnConv, setweeksOnConv] = useState(constraints[3].Value);
+  const [minweeksOnConv, setminweeksOnConv] = useState(constraints[2].Value);
+  const [expectedservice, setexpectedservice] = useState(constraints[1].Value);
+  const [pctdeviation, setpctdeviation] = useState(constraints[0].Value);
 
   const handleUpdateResults = () => {
     dispatch(fetchupdateresults(true));
   };
-  // Function is called everytime increment button is clicked
   const handleweeksOnCovUp = () => {
-    // Counter state is incremented
-    setCounter(weeksOnConv + 1);
+    setweeksOnConv(weeksOnConv + 1);
   };
 
-  // Function is called everytime decrement button is clicked
   const handleweeksOnCovDown = () => {
-    // Counter state is decremented
     setweeksOnConv(weeksOnConv - 1);
   };
-  const handleClick3 = () => {
-    // Counter state is decremented
-    setCounter(counter - 1);
+
+  const handleminweeksOnCovUp = () => {
+    setminweeksOnConv(minweeksOnConv + 1);
+  };
+
+  const handleminweeksOnCovDown = () => {
+    setminweeksOnConv(minweeksOnConv - 1);
+  };
+
+  const handleExpectedserviceUp = () => {
+    setexpectedservice(expectedservice + 1);
+  };
+  const handleExpectedserviceDown = () => {
+    setexpectedservice(expectedservice - 1);
+  };
+  const handlePCTDeviationUp = () => {
+    setpctdeviation(pctdeviation + 1);
+  };
+  const handlePCTDeviationDown = () => {
+    setpctdeviation(pctdeviation - 1);
   };
 
   const [selectedOption, setSelectedOption] = useState("");
@@ -45,10 +61,31 @@ const Orderinvestigation2 = () => {
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
+  const [currentDateTime, setCurrentDateTime] = useState("");
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const now = new Date();
+      const formattedDateTime = `${(now.getMonth() + 1)
+        .toString()
+        .padStart(2, "0")}/${now.getDate().toString().padStart(2, "0")}/${now
+        .getFullYear()
+        .toString()
+        .slice(2)
+        .padStart(2, "0")} ${now.getHours().toString().padStart(2, "0")}:${now
+        .getMinutes()
+        .toString()
+        .padStart(2, "0")}:${now.getSeconds().toString().padStart(2, "0")}`;
+      setCurrentDateTime(formattedDateTime);
+    }, 1000);
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, []);
   return (
     <div>
       <Stack>
-        <Box display="flex" className="sg-main" mt={0}>
+        <Box display="flex" className="sg-main" mt="10px">
           <Box className="sg-title">
             Scenario Generation: Airwick Electrical Lemon 112345
           </Box>
@@ -62,7 +99,7 @@ const Orderinvestigation2 = () => {
                 }}
               />
             </Typography>
-            <Typography fontSize={14}>01/01/23 05:03:20</Typography>
+            <Typography fontSize={14}>{currentDateTime}</Typography>
           </Box>
         </Box>
       </Stack>
@@ -84,7 +121,7 @@ const Orderinvestigation2 = () => {
               sx={{ color: "#415A6C" }}
             >
               <Typography className="constains-h1">
-                % Deviation from initial allocation{" "}
+                {constraints[0].Name}
               </Typography>{" "}
               <Typography>
                 <InfoOutlinedIcon
@@ -109,15 +146,21 @@ const Orderinvestigation2 = () => {
               >
                 <Box margin="auto">
                   <Typography fontSize={20} color="#008824">
-                    {counter}%
+                    {pctdeviation}%{" "}
                   </Typography>
                 </Box>
                 <Box>
                   <Typography mt="-2px" color="#7E919F">
-                    <ArrowDropUpRoundedIcon />
+                    <ArrowDropUpRoundedIcon
+                      onClick={handlePCTDeviationUp}
+                      sx={{ cursor: "pointer" }}
+                    />
                   </Typography>
                   <Typography mt="-19px" color="#7E919F">
-                    <ArrowDropDownRoundedIcon />
+                    <ArrowDropDownRoundedIcon
+                      onClick={handlePCTDeviationDown}
+                      sx={{ cursor: "pointer" }}
+                    />
                   </Typography>
                 </Box>
               </Box>
@@ -127,13 +170,22 @@ const Orderinvestigation2 = () => {
                   sx={{
                     width: { lg: "100px", xs: "70px" },
                     borderRadius: "18px 18px",
-                    backgroundColor: "#55C3F0",
+                    backgroundColor:
+                      constraints[0].Label == 0
+                        ? "#F44444"
+                        : constraints[0].Label == 1
+                        ? "orange"
+                        : "#57a957",
                     color: "#fff",
                     padding: "2px 8px 2px 8px",
                   }}
                   fontSize={{ lg: 12, xs: 8 }}
                 >
-                  Partially Satisfied
+                  {constraints[0].Label == 0
+                    ? "Not Satisfied"
+                    : constraints[0].Label == 1
+                    ? "Partially Satisfied"
+                    : "Fully Satisfied"}
                 </Typography>
               </Box>
             </Box>
@@ -142,7 +194,7 @@ const Orderinvestigation2 = () => {
           <Grid item xs={3} border="" ml={2}>
             <Box display="flex" width="370px" sx={{ color: "#415A6C" }}>
               <Typography className="constains-h1">
-                Minimum expected sevice level
+                {constraints[1].Name}
               </Typography>
               <Typography>
                 <InfoOutlinedIcon
@@ -168,15 +220,21 @@ const Orderinvestigation2 = () => {
               >
                 <Box margin="auto">
                   <Typography fontSize={20} color="#008824">
-                    {counter}%
+                    {expectedservice}%
                   </Typography>
                 </Box>
                 <Box>
                   <Typography mt="-2px" color="#7E919F">
-                    <ArrowDropUpRoundedIcon />
+                    <ArrowDropUpRoundedIcon
+                      onClick={handleExpectedserviceUp}
+                      sx={{ cursor: "pointer" }}
+                    />
                   </Typography>
                   <Typography mt="-19px" color="#7E919F">
-                    <ArrowDropDownRoundedIcon />
+                    <ArrowDropDownRoundedIcon
+                      onClick={handleExpectedserviceDown}
+                      sx={{ cursor: "pointer" }}
+                    />
                   </Typography>
                 </Box>
               </Box>
@@ -186,13 +244,22 @@ const Orderinvestigation2 = () => {
                   sx={{
                     width: { lg: "100px", xs: "70px" },
                     borderRadius: "18px 18px",
-                    backgroundColor: "#55C3F0",
+                    backgroundColor:
+                      constraints[1].Label == 0
+                        ? "#F44444"
+                        : constraints[1].Label == 1
+                        ? "orange"
+                        : "#57a957",
                     color: "#fff",
                     padding: "2px 8px 2px 8px",
                   }}
                   fontSize={{ lg: 12, xs: 8 }}
                 >
-                  Partially Satisfied
+                  {constraints[1].Label == 0
+                    ? "Not Satisfied"
+                    : constraints[1].Label == 1
+                    ? "Partially Satisfied"
+                    : "Fully Satisfied"}
                 </Typography>
               </Box>
             </Box>
@@ -208,7 +275,7 @@ const Orderinvestigation2 = () => {
               marginLeft={0}
             >
               <Typography className="constains-h1">
-                Deviation from target WOC
+                {constraints[2].Name}
               </Typography>
               <Typography>
                 <InfoOutlinedIcon
@@ -246,19 +313,19 @@ const Orderinvestigation2 = () => {
                 >
                   <Box margin="auto">
                     <Typography fontSize={20} color="#DD0000">
-                      {counter}
+                      {minweeksOnConv}
                     </Typography>
                   </Box>
                   <Box>
                     <Typography mt="-2px" color="#7E919F">
                       <ArrowDropUpRoundedIcon
-                        onClick={handleClick3}
+                        onClick={handleminweeksOnCovUp}
                         sx={{ cursor: "pointer" }}
                       />
                     </Typography>
                     <Typography mt="-19px" color="#7E919F">
                       <ArrowDropDownRoundedIcon
-                        onClick={handleClick3}
+                        onClick={handleminweeksOnCovDown}
                         sx={{ cursor: "pointer" }}
                       />
                     </Typography>
@@ -314,13 +381,22 @@ const Orderinvestigation2 = () => {
                   sx={{
                     width: { lg: "100px", xs: "70px" },
                     borderRadius: "18px 18px",
-                    backgroundColor: "#55C3F0",
+                    backgroundColor:
+                      constraints[3].Label == 0
+                        ? "#F44444"
+                        : constraints[3].Label == 1
+                        ? "orange"
+                        : "#57a957",
                     color: "#fff",
                     padding: "2px 8px 2px 8px",
                   }}
                   fontSize={{ lg: 12, xs: 8 }}
                 >
-                  Partially Satisfied
+                  {constraints[3].Label == 0
+                    ? "Not Satisfied"
+                    : constraints[3].Label == 1
+                    ? "Partially Satisfied"
+                    : "Fully Satisfied"}
                 </Typography>
               </Box>
             </Box>

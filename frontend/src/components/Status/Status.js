@@ -31,14 +31,14 @@ const Status = ({ filterStatus }) => {
 
       <Grid container spacing={{ md: 2, lg: 3, xl: 5 }} mt="-20px" border="">
         <Grid item xs={3}>
-          <Box
-            sx={{
+          <Box className="status-card"
+            sx={{ 
               borderRadius: "5px 5px ",
               backgroundColor: "#fff",
               boxShadow: selectedalert
                 ? ""
                 : "0px 2px 0px 0px  rgba(0,0,0,0.3)",
-              height: "100%",
+              // height: "100%",
               border: selectedalert ? "2px solid orange" : "",
               cursor: "pointer",
             }}
@@ -67,7 +67,6 @@ const Status = ({ filterStatus }) => {
                 marginInline: "11px",
                 marginBottom: "5px",
               }}
-              // marginBottom={{lg:1,xs:-1}}
             >
               <Box>
                 <Typography color="#415A6C" fontSize="14px">
@@ -120,7 +119,7 @@ const Status = ({ filterStatus }) => {
                 </Typography>
               </Box>
             </Box>
-          </Box>{" "}
+          </Box>
         </Grid>
         <Grid item xs={3}>
           <Box

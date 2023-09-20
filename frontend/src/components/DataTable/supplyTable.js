@@ -26,8 +26,6 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import Badge from "@mui/material/Badge";
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
 
-const startingWeek = 28;
-
 const SupplyTable = ({ onData }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -35,7 +33,7 @@ const SupplyTable = ({ onData }) => {
   const handleBack = () => {
     navigate(-1);
   };
-
+  const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
   const [expandedRow, setExpandedRow] = useState(null);
   const [pushAlternative, setpushAlternative] = useState(false);
   const [campaignsData, setcampaignsData] = useState([]);
@@ -874,11 +872,10 @@ const SupplyTable = ({ onData }) => {
                     fontSize={13}
                     sx={{
                       display: "flex",
-                      gap: "16px",
+                      // gap: "16px",
                       padding: "12px",
                       border: "none",
-                      alignItems: "center",
-                      justifyContent: "center",
+                      
                     }}
                   >
                     <Box
@@ -913,7 +910,7 @@ const SupplyTable = ({ onData }) => {
                     </Box>
                     <Box className="rbsku-expand">
                       <Typography
-                        ml="-8px"
+                        // ml="-8px"
                         fontSize="13px"
                         sx={{
                           marginTop: "7px",

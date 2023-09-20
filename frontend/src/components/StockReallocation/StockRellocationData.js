@@ -31,9 +31,17 @@ const StockReallocationData = ({ onData }) => {
   const dispatch = useDispatch();
 
   const stockreallocationData = useSelector(
-    (state) => state.sidebar.stockreallocation
+    (state) => state.sidebar.stockreallocation.otherrows
   );
-  const suggRecord = useSelector((state) => state.sidebar.suggectedRecord);
+  const constraints = useSelector(
+    (state) => state.sidebar.stockreallocation.constraints
+  );
+  const results = useSelector(
+    (state) => state.sidebar.stockreallocation.results
+  );
+  const suggRecord = useSelector(
+    (state) => state.sidebar.stockreallocation.staticrow
+  );
   const [suggectedRecord, setsuggectedRecord] = useState(suggRecord);
   // const stockreallocationData = [
   //   {
@@ -766,7 +774,7 @@ const StockReallocationData = ({ onData }) => {
                 Expected Service level
               </TableCell>
               <TableCell className="stable-header">
-                Customer SOH <br />
+                Customer SoH <br />
                 (current vs target)
               </TableCell>
               <TableCell className="stable-header">
@@ -799,7 +807,7 @@ const StockReallocationData = ({ onData }) => {
                 </TableCell>
               </TableRow>
             )}
-            {data.length > 0 && (
+            {suggectedRecord.length > 0 && (
               <TableRow className="s-row1">
                 <TableCell
                   sx={{
@@ -1162,7 +1170,7 @@ const StockReallocationData = ({ onData }) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Orderinvestigation2 />
+      <Orderinvestigation2 constraints={constraints} />
       <Grid>
         <Typography fontSize={24} mt="1px" color="#145A6C" mx="3px">
           Results
@@ -1182,20 +1190,17 @@ const StockReallocationData = ({ onData }) => {
             sx={{ width: "380px" }}
           >
             <Box className="sa-box">
-              <Typography className="sa-h1">
-                {" "}
-                Average expected service level
-              </Typography>
+              <Typography className="sa-h1"> {results[0].Name}</Typography>
               <Typography color="#008824" className="sa-h2">
                 {" "}
-                £7,749.00
+                {results[0].Value}
               </Typography>
             </Box>
             <Box className="sa-box">
-              <Typography className="sa-h1"> Expected OLA</Typography>
+              <Typography className="sa-h1"> {results[1].Name}</Typography>
               <Typography color="#008824" className="sa-h2">
                 {" "}
-                94%
+                {results[1].Value}
               </Typography>
             </Box>
           </Box>
