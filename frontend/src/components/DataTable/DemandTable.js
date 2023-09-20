@@ -874,7 +874,6 @@ const DemandTable = ({ onData }) => {
                       // gap: "16px",
                       padding: "12px",
                       border: "none",
-                     
                     }}
                   >
                     <Box

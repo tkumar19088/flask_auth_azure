@@ -37,12 +37,19 @@ const OhrTable = ({ onData }) => {
   const dispatch = useDispatch();
 
   const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
+  const search = useSelector((state) => state.sidebar.search);
+  const exporttabledata = useSelector((state) => state.sidebar.exporttabledata);
   const ohrdata = useSelector((state) => state.sidebar.overviewhighriskdata);
   const isragfilterohr = useSelector((state) => state.sidebar.isragfilterohr);
   const filteredohrdata = useSelector(
     (state) => state.sidebar.filteredoverviewhighriskdata
   );
-  const data = isragfilterohr ? filteredohrdata : ohrdata;
+  console.log(search);
+  const data = isragfilterohr
+    ? filteredohrdata
+    : search
+    ? exporttabledata
+    : ohrdata;
   console.log(data);
 
   const [expandedRow, setExpandedRow] = useState(null);
@@ -79,7 +86,6 @@ const OhrTable = ({ onData }) => {
           console.log(json);
           setiscampaigns(true);
           setcampaignsData(json);
-          //dispatch(fetchuserdetails(json));
         } else {
           console.error("Error fetching data:", response.statusText);
         }
@@ -106,9 +112,7 @@ const OhrTable = ({ onData }) => {
       if (response.ok) {
         const json = await response.json();
         console.log(json);
-        // setiscampaigns(true);
         setpushAlternativeData(json);
-        //dispatch(fetchuserdetails(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }

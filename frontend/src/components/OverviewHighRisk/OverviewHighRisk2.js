@@ -25,6 +25,7 @@ import {
   fetchoverviewcustomerdata,
   fetchtaburl,
   updateexporttabledata,
+  updatesearch,
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 import loaderImage from "../../images/Logo-bar.png";
@@ -77,14 +78,22 @@ const OverviewHighRisk2 = () => {
   }));
   const [searchValue, setSearchValue] = useState(""); // State to store the search input value
 
-  const handleSearchSKU = () => {
-    var isNumber = containsOnlyNumbers(searchValue);
+  const handleSearchSKU = async () => {
+    dispatch(updatesearch(true));
+    var isNumber = await containsOnlyNumbers(searchValue);
     if (isNumber) {
-      var results = exporttabledata.filter(
-        (item) => item["RB SKU"] === searchValue
+      console.log(exporttabledata);
+      var results = exporttabledata.filter((item) =>
+        String(item["RB SKU"]).includes(searchValue)
       );
+      dispatch(updateexporttabledata(results));
       console.log(results);
     } else {
+      var results = exporttabledata.filter((item) =>
+        item.Description.includes(searchValue)
+      );
+      dispatch(updateexporttabledata(results));
+      console.log(results);
     }
   };
   const containsOnlyNumbers = (inputString) => {
