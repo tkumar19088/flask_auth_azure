@@ -33,6 +33,8 @@ app_blueprint = Blueprint("app", __name__)
 @app_blueprint.route("/") # Homepage # Default route
 @cross_origin()
 def index():
+    # To add user authentication, uncomment below code (ln 38 - 41) 
+    # and comment the last line of this function (ln 42)
     # if "user" in session:
     #     return render_template("index.html")
     # else:
