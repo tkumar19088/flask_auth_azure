@@ -126,7 +126,7 @@ const OhrTable = ({ onData }) => {
     dispatch(updateloader(true));
     var data = { rbsku: expandedRow };
     try {
-      const response = await fetch("http://localhost:5000/getoptmize", {
+      const response = await fetch("http://localhost:5000/rarbysku", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
