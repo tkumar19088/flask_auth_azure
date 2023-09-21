@@ -1947,7 +1947,9 @@ const OhrTable = ({ onData }) => {
                       }}
                     >
                       <Typography fontSize="13px">
-                        {item["Reckitt WOC"]}
+                        {item["Reckitt WOC"]
+                          ? parseFloat(item["Reckitt WOC"].toFixed(2))
+                          : "-"}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -1970,7 +1972,7 @@ const OhrTable = ({ onData }) => {
                           fontSize: "13px",
                         }}
                       >
-                        {item["SL CW"]}
+                        {item["ExpSL CW"]}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -1981,17 +1983,17 @@ const OhrTable = ({ onData }) => {
                       }}
                     >
                       <Typography mx="6px" fontSize="13px">
-                        {item["SL CW+1"]}
+                        {item["ExpSL CW+1"]}
                       </Typography>
                     </TableCell>
                     <TableCell style={{ textAlign: "center", width: "20px" }}>
                       <Typography mx="6px" fontSize="13px">
-                        {item["SL CW+2"]}
+                        {item["ExpSL CW+2"]}
                       </Typography>
                     </TableCell>
                     <TableCell style={{ textAlign: "center", width: "20px" }}>
                       <Typography mx="6px" fontSize="13px">
-                        {item["SL CW+3"]}
+                        {item["ExpSL CW+3"]}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -2008,7 +2010,7 @@ const OhrTable = ({ onData }) => {
                           fontSize: "13px",
                         }}
                       >
-                        {item["Exp NR CW"]}
+                        {parseFloat(item["Exp NR CW"].toFixed(2))}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -2019,7 +2021,7 @@ const OhrTable = ({ onData }) => {
                       }}
                     >
                       <Typography fontSize="13px">
-                        {item["Exp NR CW+1"]}
+                        {parseFloat(item["Exp NR CW+1"].toFixed(2))}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -2030,7 +2032,7 @@ const OhrTable = ({ onData }) => {
                       }}
                     >
                       <Typography fontSize="13px">
-                        {item["Exp NR CW+2"]}
+                        {parseFloat(item["Exp NR CW+2"].toFixed(2))}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -2041,7 +2043,7 @@ const OhrTable = ({ onData }) => {
                       }}
                     >
                       <Typography fontSize="13px">
-                        {item["Exp NR CW+3"]}
+                        {parseFloat(item["Exp NR CW+3"].toFixed(2))}
                       </Typography>
                     </TableCell>
                     <TableCell

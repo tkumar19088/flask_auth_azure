@@ -1082,42 +1082,46 @@ const Historic = ({ onData }) => {
                     <div className="alignment">{item.Brand}</div>
                   </TableCell>
                   <TableCell>
-                    <div className="alignment">{item["InitalSOH Week"]}</div>
+                    <div className="alignment">
+                      {item.InitialSOHWeek
+                        ? parseFloat(item.InitialSOHWeek).toFixed(2)
+                        : "-"}
+                    </div>
                   </TableCell>
                   <TableCell>
                     {" "}
-                    <div className="alignment">{item["CW-9"]}</div>
+                    <div className="alignment">{parseFloat(item["CW-9"]).toFixed(2)}</div>
                   </TableCell>
                   <TableCell>
                     {" "}
-                    <div className="alignment">{item["CW-8"]}</div>
+                    <div className="alignment">{parseFloat(item["CW-8"]).toFixed(2)}</div>
                   </TableCell>
                   <TableCell>
-                    <div className="alignment">{item["CW-7"]}</div>
+                    <div className="alignment">{parseFloat(item["CW-7"]).toFixed(2)}</div>
                   </TableCell>
                   <TableCell>
-                    <div className="alignment">{item["CW-6"]}</div>
+                    <div className="alignment">{parseFloat(item["CW-6"]).toFixed(2)}</div>
                   </TableCell>
                   <TableCell>
-                    <div className="alignment">{item["CW-5"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    {" "}
-                    <div className="alignment">{item["CW-4"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="alignment">{item["CW-3"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="alignment">{item["CW-2"]}</div>
+                    <div className="alignment">{parseFloat(item["CW-5"]).toFixed(2)}</div>
                   </TableCell>
                   <TableCell>
                     {" "}
-                    <div className="alignment">{item["CW-1"]}</div>
+                    <div className="alignment">{parseFloat(item["CW-4"]).toFixed(2)}</div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="alignment">{parseFloat(item["CW-3"]).toFixed(2)}</div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="alignment">{parseFloat(item["CW-2"]).toFixed(2)}</div>
                   </TableCell>
                   <TableCell>
                     {" "}
-                    <div className="alignment">{item.CW}</div>
+                    <div className="alignment">{parseFloat(item["CW-1"]).toFixed(2)}</div>
+                  </TableCell>
+                  <TableCell>
+                    {" "}
+                    <div className="alignment">{parseFloat(item.CW).toFixed(2)}</div>
                   </TableCell>
                 </TableRow>
                 {expandedRow === item["RB SKU"] && iscampaigns && (

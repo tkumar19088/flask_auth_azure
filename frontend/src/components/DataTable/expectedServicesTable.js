@@ -873,7 +873,6 @@ const ExpectedServices = ({ onData }) => {
                       // gap: "16px",
                       padding: "12px",
                       border: "none",
-                     
                     }}
                   >
                     <Box
@@ -930,42 +929,64 @@ const ExpectedServices = ({ onData }) => {
                   </TableCell>{" "}
                   <TableCell>
                     {" "}
-                    <div className="alignment">{item.intialreckittsoh}</div>
+                    <div className="alignment">
+                      {parseFloat(item.initialreckittsoh.toFixed(2))}
+                    </div>
                   </TableCell>
                   <TableCell>
                     {" "}
-                    <div className="alignment">{item["ExpSL CW"]}</div>
+                    <div className="alignment">
+                      {parseFloat(item["ExpSL CW"]).toFixed(2)}
+                    </div>
                   </TableCell>
                   <TableCell>
                     {" "}
-                    <div className="alignment">{item["ExpSL CW+1"]}</div>
+                    <div className="alignment">
+                      {parseFloat(item["ExpSL CW+1"]).toFixed(2)}
+                    </div>
                   </TableCell>
                   <TableCell>
-                    <div className="alignment">{item["ExpSL CW+2"]}</div>
+                    <div className="alignment">
+                      {parseFloat(item["ExpSL CW+2"]).toFixed(2)}
+                    </div>
                   </TableCell>
                   <TableCell>
-                    <div className="alignment">{item["ExpSL CW+3"]}</div>
+                    <div className="alignment">
+                      {parseFloat(item["ExpSL CW+3"]).toFixed(2)}
+                    </div>
                   </TableCell>
                   <TableCell>
-                    <div className="alignment">{item["ExpSL CW+4"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    {" "}
-                    <div className="alignment">{item["ExpSL CW+5"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="alignment">{item["ExpSL CW+6"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="alignment">{item["ExpSL CW+7"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    {" "}
-                    <div className="alignment">{item["ExpSL CW+8"]}</div>
+                    <div className="alignment">
+                      {parseFloat(item["ExpSL CW+4"]).toFixed(2)}
+                    </div>
                   </TableCell>
                   <TableCell>
                     {" "}
-                    <div className="alignment">{item["ExpSL CW+9"]}</div>
+                    <div className="alignment">
+                      {parseFloat(item["ExpSL CW+5"]).toFixed(2)}
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="alignment">
+                      {parseFloat(item["ExpSL CW+6"]).toFixed(2)}
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="alignment">
+                      {parseFloat(item["ExpSL CW+7"]).toFixed(2)}
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    {" "}
+                    <div className="alignment">
+                      {parseFloat(item["ExpSL CW+8"]).toFixed(2)}
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    {" "}
+                    <div className="alignment">
+                      {parseFloat(item["ExpSL CW+9"]).toFixed(2)}
+                    </div>
                   </TableCell>
                 </TableRow>
                 {expandedRow === item["RB SKU"] && iscampaigns && (

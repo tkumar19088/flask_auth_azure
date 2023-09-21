@@ -1083,19 +1083,19 @@ const OhrTable2 = ({ onData }) => {
                     </TableCell>
                     <TableCell style={{ textAlign: "center", width: "30px" }}>
                       <Typography mx="7px" fontSize="13px">
-                        {item["Cust SOH"]}
+                        {item.InitialSOHWeek}
                       </Typography>
                     </TableCell>
                     <TableCell style={{ textAlign: "center", width: "30px" }}>
                       <Typography mx="7px" fontSize="13px">
-                        {item["Cust WOC"]}
+                        {item["Cust WOC"] == null ? "-" : item["Cust WOC"]}
                       </Typography>
                     </TableCell>
                     <TableCell
                       style={{ textAlign: "center" }}
                       sx={{ textAlign: "center", padding: "0px" }}
                     >
-                      {item.Promo}
+                      {item.Promo == null ? "-" : item.Promo}
                     </TableCell>
 
                     <TableCell
