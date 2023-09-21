@@ -1,6 +1,13 @@
+const currentDate = new Date();
+const currentYear = currentDate.getFullYear();
+const firstDayOfYear = new Date(currentYear, 0, 1);
+const dayDifference = Math.floor(
+  (currentDate - firstDayOfYear) / (24 * 60 * 60 * 1000)
+);
+const currentWeek = Math.ceil((dayDifference + 1) / 7);
 const initialState = {
   // Use "initialState" with a capital "S"
-  currentWeekNumber: "",
+  currentWeekNumber: currentWeek,
   sellinforecast: false,
   selloutforecast: false,
   oosrisk: false,

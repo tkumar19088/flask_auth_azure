@@ -1195,7 +1195,7 @@ const StockReallocationData = ({ onData }) => {
           <Box
             display="flex"
             justifyContent="space-between"
-            sx={{ width: "380px" }}
+            sx={{ width: "310px" }}
           >
             <Box className="sa-box">
               <Typography className="sa-h1"> {results[0].Name}</Typography>
@@ -1220,7 +1220,7 @@ const StockReallocationData = ({ onData }) => {
             <Tooltip
               title="Run Optimization Model"
               arrow
-              placement="top-start"
+              placement="top"
               // ml={{ lg: "-19px" }}
               onClick={handleUpdateResults}
             >
@@ -1232,7 +1232,7 @@ const StockReallocationData = ({ onData }) => {
             <Tooltip
               title="Reallocate Suggested Supply"
               arrow
-              placement="top-start"
+              placement="top"
               // ml={{ lg: "-19px" }}
               onClick={handleUpdateResults}
             >
@@ -1244,7 +1244,7 @@ const StockReallocationData = ({ onData }) => {
             <Tooltip
               title="Reset Results"
               arrow
-              placement="top-start"
+              placement="top"
               // ml={{ lg: "-19px" }}
             >
               <Box className="sa-boxbtn" onClick={handleResetResults}>
@@ -1255,7 +1255,7 @@ const StockReallocationData = ({ onData }) => {
             <Tooltip
               title="Download this scenario"
               arrow
-              placement="top-start"
+              placement="top"
               // ml={{ lg: "-19px" }}
             >
               <Box className="sa-boxbtn" onClick={handleDownloadScreenCapture}>
