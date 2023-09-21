@@ -11,16 +11,29 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import StockReallocationData from "./StockRellocationData";
 import Orderinvestigation2 from "./Orderinvestigation2";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { updateiswithinchannel } from "../../store/actions/sidebarActions";
 
 function StockReallocation() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [selectedData, setselectedData] = useState();
   const exporttabledata = useSelector((state) => state.sidebar.exporttabledata);
-
+  const isWithinChannel = useSelector((state) => state.sidebar.isWithinChannel);
+  const [acrossChannel, setacrossChannel] = useState(false);
   const handleClick = () => {
     // Navigate to another URL
     navigate("/orderinvestigation", { state: { data: selectedData } });
+  };
+
+  const handleWithinSameChannel = () => {
+    setacrossChannel(false);
+    dispatch(updateiswithinchannel(true));
+  };
+  const handleAcreossChannels = () => {
+    setacrossChannel(true);
+    dispatch(updateiswithinchannel(false));
   };
 
   const handleDataFromChild = (data) => {
@@ -157,10 +170,11 @@ function StockReallocation() {
                 variant="contained"
                 className="srbr-btnshvr"
                 sx={{
-                  backgroundColor: "#FF007E",
+                  backgroundColor: isWithinChannel ? "#FF007E" : "#415A6C",
                   textDecoration: "none",
                   textTransform: "none",
                 }}
+                onClick={handleWithinSameChannel}
               >
                 Within Same Channel
               </Button>
@@ -169,10 +183,11 @@ function StockReallocation() {
                 variant="contained"
                 className="srbr-btns"
                 sx={{
-                  backgroundColor: "#415A6C",
+                  backgroundColor: acrossChannel ? "#FF007E" : "#415A6C",
                   textDecoration: "none",
                   textTransform: "none",
                 }}
+                onClick={handleAcreossChannels}
               >
                 Across Channels
               </Button>

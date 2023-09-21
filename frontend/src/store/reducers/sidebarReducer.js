@@ -115,6 +115,7 @@ const initialState = {
   exporttabledata: [],
   taburl: "",
   search: false,
+  isWithinChannel: true,
 };
 
 const sidebarReducer = (state = initialState, action) => {
@@ -363,6 +364,11 @@ const sidebarReducer = (state = initialState, action) => {
       return {
         ...state,
         search: action.payload,
+      };
+    case "UPDATE_ISWITHINCHANNEL":
+      return {
+        ...state,
+        isWithinChannel: action.payload,
       };
     default:
       return state;

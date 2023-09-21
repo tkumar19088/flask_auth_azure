@@ -269,3 +269,9 @@ export const updatesearch = (newValue) => {
     payload: newValue,
   };
 };
+export const updateiswithinchannel = (newValue) => {
+  return {
+    type: "UPDATE_ISWITHINCHANNEL",
+    payload: newValue,
+  };
+};

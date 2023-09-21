@@ -30,6 +30,7 @@ const StockReallocationData = ({ onData }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const isWithinChannel = useSelector((state) => state.sidebar.isWithinChannel);
   const stockreallocationData = useSelector(
     (state) => state.sidebar.stockreallocation.otherrows
   );
@@ -364,9 +365,16 @@ const StockReallocationData = ({ onData }) => {
     : [];
   // setData(results);
   const [data, setData] = useState(initialData);
-  // console.log(data);
-  const [inputValues, setInputValues] = useState(initialData.map(() => ""));
 
+  const channel = "Pharmacy";
+  const filteredSamechannelResults = initialData.filter(
+    (item) => item.Channel == channel
+  );
+  const dataSets = isWithinChannel ? filteredSamechannelResults : initialData;
+  const [inputValues, setInputValues] = useState(initialData.map(() => ""));
+  useEffect(() => {
+    setData(dataSets);
+  }, [isWithinChannel, dataSets]);
   const handleInputChange = (index, value) => {
     const newInputValues = [...inputValues];
     if (value > 0) {
@@ -807,7 +815,7 @@ const StockReallocationData = ({ onData }) => {
                 </TableCell>
               </TableRow>
             )}
-            {suggectedRecord.length > 0 && (
+            {Object.keys(suggectedRecord).length > 0 && (
               <TableRow className="s-row1">
                 <TableCell
                   sx={{
