@@ -756,7 +756,7 @@ const StockReallocationData = ({ onData }) => {
     setData(initialData);
   };
   return (
-    <div style={{ border: "" }}>
+    <div style={{ border: "" }} id="captureMe">
       <TableContainer style={{ maxHeight: 465, width: "100%" }}>
         <Table stickyHeader className="stockReallocation">
           <TableHead>

@@ -8,6 +8,7 @@ import Carousel from "./components/Carousel/Carousel";
 import StockReallocation from "./components/StockReallocation/StockReallocation";
 import IrregularPO from "./components/Irregularpo/Irregularpo";
 import HistoricalData from "./components/RetailerNegotation/HistoricalData";
+import Printscreen from "./components/Printscreen/Printscreen";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/carousel" element={<Carousel />} />
           <Route path="/irregular" element={<IrregularPO />} />
           <Route path="/historicaldata" element={<HistoricalData />} />
+          <Route path="/print" element={<Printscreen />} />
         </Routes>
       </div>
     </Router>

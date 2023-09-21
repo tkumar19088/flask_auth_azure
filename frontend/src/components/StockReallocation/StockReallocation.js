@@ -50,7 +50,7 @@ function StockReallocation() {
     let header = "";
     for (let key in array[0]) {
       if (header !== "") header += ",";
-      header += key;
+      header += `"${key}"`; // Enclose headers in double quotes
     }
     csv += header + "\r\n";
 
@@ -59,7 +59,17 @@ function StockReallocation() {
       let line = "";
       for (let key in array[i]) {
         if (line !== "") line += ",";
-        line += array[i][key];
+        let value = array[i][key];
+
+        // Check if value is null
+        if (value === null) {
+          value = "";
+        } else {
+          value = value.toString(); // Convert to string
+          value = value.replace(/"/g, '""'); // Enclose values in double quotes and escape existing double quotes
+        }
+
+        line += `"${value}"`;
       }
       csv += line + "\r\n";
     }
