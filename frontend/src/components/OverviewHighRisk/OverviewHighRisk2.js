@@ -38,6 +38,7 @@ const OverviewHighRisk2 = () => {
   const loader = useSelector((state) => state.sidebar.loader);
   const customer = useSelector((state) => state.sidebar.customer);
   const exporttabledata = useSelector((state) => state.sidebar.exporttabledata);
+  const [searchValue, setSearchValue] = useState(""); // State to store the search input value
 
   const [activeTab, setActiveTab] = useState(0);
 
@@ -76,7 +77,6 @@ const OverviewHighRisk2 = () => {
       },
     },
   }));
-  const [searchValue, setSearchValue] = useState(""); // State to store the search input value
 
   const handleSearchSKU = async () => {
     dispatch(updatesearch(true));

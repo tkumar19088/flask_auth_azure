@@ -1607,6 +1607,7 @@ const OhrTable = ({ onData }) => {
                 sx={{
                   backgroundColor: "#E5EBEF",
                   border: "1px solid #dcdcdc",
+                  // width: "60px",
                 }}
               >
                 <Typography className="table-h1-title">Reckitt WoC</Typography>
@@ -1938,7 +1939,13 @@ const OhrTable = ({ onData }) => {
                     >
                       {item.Brand}
                     </TableCell>
-                    <TableCell style={{ textAlign: "center" }}>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        width: "40px",
+                        padding: "0px",
+                      }}
+                    >
                       <Typography fontSize="13px">
                         {item["Reckitt WOC"]}
                       </Typography>
@@ -1949,9 +1956,15 @@ const OhrTable = ({ onData }) => {
                     >
                       {item["Active Promo"]}
                     </TableCell>
-                    <TableCell style={{ textAlign: "center", width: "20px" }}>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        width: "20px",
+                        padding: "0px",
+                      }}
+                    >
                       <Typography
-                        mx="10px"
+                        // mx="10px"
                         sx={{
                           textAlign: "center",
                           fontSize: "13px",
@@ -1960,7 +1973,13 @@ const OhrTable = ({ onData }) => {
                         {item["SL CW"]}
                       </Typography>
                     </TableCell>
-                    <TableCell style={{ textAlign: "center", width: "20px" }}>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        width: "20px",
+                        padding: "0px",
+                      }}
+                    >
                       <Typography mx="6px" fontSize="13px">
                         {item["SL CW+1"]}
                       </Typography>
@@ -1975,7 +1994,13 @@ const OhrTable = ({ onData }) => {
                         {item["SL CW+3"]}
                       </Typography>
                     </TableCell>
-                    <TableCell style={{ textAlign: "center", width: "20px" }}>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        width: "20px",
+                        padding: "0px",
+                      }}
+                    >
                       <Typography
                         // mx="10px"
                         sx={{
@@ -1986,17 +2011,35 @@ const OhrTable = ({ onData }) => {
                         {item["Exp NR CW"]}
                       </Typography>
                     </TableCell>
-                    <TableCell style={{ textAlign: "center", width: "20px" }}>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        width: "20px",
+                        padding: "0px",
+                      }}
+                    >
                       <Typography fontSize="13px">
                         {item["Exp NR CW+1"]}
                       </Typography>
                     </TableCell>
-                    <TableCell style={{ textAlign: "center", width: "20px" }}>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        width: "20px",
+                        padding: "0px",
+                      }}
+                    >
                       <Typography fontSize="13px">
                         {item["Exp NR CW+2"]}
                       </Typography>
                     </TableCell>
-                    <TableCell style={{ textAlign: "center", width: "20px" }}>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        width: "20px",
+                        padding: "0px",
+                      }}
+                    >
                       <Typography fontSize="13px">
                         {item["Exp NR CW+3"]}
                       </Typography>
