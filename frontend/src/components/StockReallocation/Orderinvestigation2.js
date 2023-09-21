@@ -124,13 +124,19 @@ const Orderinvestigation2 = ({ constraints }) => {
                 {constraints[0].Name}
               </Typography>{" "}
               <Typography>
-                <InfoOutlinedIcon
-                  sx={{
-                    height: "22px",
-                    marginTop: { lg: "0px", xs: "1px" },
-                    marginLeft: "5px",
-                  }}
-                />
+                <Tooltip
+                  placement="top"
+                  arrow
+                  title="This constraint determines the maximum allowable deviation from the initial allocation that the reallocation engine can suggest."
+                >
+                  <InfoOutlinedIcon
+                    sx={{
+                      height: "22px",
+                      marginTop: { lg: "0px", xs: "1px" },
+                      marginLeft: "5px",
+                    }}
+                  />
+                </Tooltip>
               </Typography>
             </Box>
             <Box display="flex">
@@ -197,13 +203,19 @@ const Orderinvestigation2 = ({ constraints }) => {
                 {constraints[1].Name}
               </Typography>
               <Typography>
-                <InfoOutlinedIcon
-                  sx={{
-                    height: "22px",
-                    marginTop: { lg: "0px", xs: "0px" },
-                    marginLeft: "8px",
-                  }}
-                />
+                <Tooltip
+                  placement="top"
+                  arrow
+                  title="This constraint establishes the minimum expected service level for any individual customer and restricts the maximum quantity of stock that can be reallocated from a customer."
+                >
+                  <InfoOutlinedIcon
+                    sx={{
+                      height: "22px",
+                      marginTop: { lg: "0px", xs: "0px" },
+                      marginLeft: "8px",
+                    }}
+                  />
+                </Tooltip>
               </Typography>
             </Box>
 
@@ -278,13 +290,19 @@ const Orderinvestigation2 = ({ constraints }) => {
                 {constraints[2].Name}
               </Typography>
               <Typography>
-                <InfoOutlinedIcon
-                  sx={{
-                    height: "22px",
-                    marginTop: { lg: "0px", xs: "1px" },
-                    marginLeft: "8px",
-                  }}
-                />
+                <Tooltip
+                  placement="top"
+                  arrow
+                  title="This constraint defines the minimum and maximum stock that can be reallocated to any one customer based on resultant deviation from the customer target stock level."
+                >
+                  <InfoOutlinedIcon
+                    sx={{
+                      height: "22px",
+                      marginTop: { lg: "0px", xs: "1px" },
+                      marginLeft: "8px",
+                    }}
+                  />
+                </Tooltip>
               </Typography>
             </Box>
 

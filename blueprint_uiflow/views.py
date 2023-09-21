@@ -17,6 +17,7 @@ uiflow_blueprint = Blueprint("uiflow", __name__)
 def get_filter_params():
     global_user = current_app.config.get('global_user', {})
     global_filters = current_app.config.get('global_filters', {})
+    global_filters = dict((k, v.lower()) for k, v in global_filters.items())
 
     data = request.json or {}
     try:
@@ -43,8 +44,8 @@ def reset_filter_params():
 # *****************************************************
 @uiflow_blueprint.route('/getoverview', methods=['POST'])
 def get_overview():
-    global_user = current_app.config.get('global_user', {})
     global_filters = current_app.config.get('global_filters', {})
+    global_filters = dict((k, v.lower()) for k, v in global_filters.items())
 
     data = request.json or {}
     filename = "ui_data/customeroverviewdatarepo.csv" if data['customer'] else "ui_data/reckittoverviewdatarepo.csv"
@@ -53,11 +54,14 @@ def get_overview():
     filters = ['Business Unit', 'Location', 'Customer', 'Brand'] if data['customer'] else ['Business Unit', 'Location', 'Brand']
 
     if global_filters:
+        print(f"\n\nGlobal Filters: {global_filters}\n\n")
         for filter_key in filters:
-            if filter_key in global_filters:
-                ohr = ohr[ohr[filter_key] == global_filters[filter_key]]
+            if filter_key in global_filters and global_filters[filter_key] != None:
+                print(f"\nif {filter_key} in global_filters and {global_filters[filter_key]} != None:")
+                ohr = ohr[ohr[filter_key].str.lower() == global_filters[filter_key]]
         ohr.replace(" ", "-", inplace=True)
-        return json.loads(ohr.to_json(orient='records'))
+        ohrsorted = ohr.sort_values(by='Reckitt WOC', ascending=True)
+        return json.loads(ohrsorted.to_json(orient='records'))
 
     return jsonify(status="Error", message="Choose above filters to view data"), 500
 
@@ -67,14 +71,14 @@ def get_overview():
 # *****************************************************
 @uiflow_blueprint.route("/getsupply", methods=['POST'])
 def getsupply():
-    global_user = current_app.config.get('global_user', {})
     global_filters = current_app.config.get('global_filters', {})
+    global_filters = dict((k, v.lower()) for k, v in global_filters.items())
 
     rbsupply = AzureBlobReader().read_csvfile("ui_data/reckittsupply.csv")
     filters = ['Business Unit', 'Location','Brand']
     for filter_key in filters:
-        if filter_key in global_filters.keys():
-            rbsupply = rbsupply[rbsupply[filter_key] == global_filters[filter_key]]
+        if filter_key in global_filters and global_filters[filter_key] != None:
+            rbsupply = rbsupply[rbsupply[filter_key].str.lower() == global_filters[filter_key]]
     rbsupply.replace(" ", "-", inplace=True)
     return json.loads(rbsupply.to_json(orient='records'))
 
@@ -84,14 +88,14 @@ def getsupply():
 # *****************************************************
 @uiflow_blueprint.route("/getdemand", methods=['POST'])
 def getdemand():
-    global_user = current_app.config.get('global_user', {})
     global_filters = current_app.config.get('global_filters', {})
+    global_filters = dict((k, v.lower()) for k, v in global_filters.items())
 
     rbdemand = AzureBlobReader().read_csvfile("ui_data/reckittdemand.csv")
     filters = ['Business Unit', 'Location','Brand']
     for filter_key in filters:
-        if filter_key in global_filters.keys():
-            rbdemand = rbdemand[rbdemand[filter_key] == global_filters[filter_key]]
+        if filter_key in global_filters and global_filters[filter_key] != None:
+            rbdemand = rbdemand[rbdemand[filter_key].str.lower() == global_filters[filter_key]]
     rbdemand.replace(" ", "-", inplace=True)
     return json.loads(rbdemand.to_json(orient='records'))
 
@@ -101,14 +105,14 @@ def getdemand():
 # *****************************************************
 @uiflow_blueprint.route("/getsohateow", methods=['POST'])
 def getsohateow():
-    global_user = current_app.config.get('global_user', {})
     global_filters = current_app.config.get('global_filters', {})
+    global_filters = dict((k, v.lower()) for k, v in global_filters.items())
 
     rbexpsoheow = AzureBlobReader().read_csvfile("ui_data/reckittexpecsohateow.csv")
     filters = ['Business Unit', 'Location','Brand']
     for filter_key in filters:
-        if filter_key in global_filters.keys():
-            rbexpsoheow = rbexpsoheow[rbexpsoheow[filter_key] == global_filters[filter_key]]
+        if filter_key in global_filters and global_filters[filter_key] != None:
+            rbexpsoheow = rbexpsoheow[rbexpsoheow[filter_key].str.lower() == global_filters[filter_key]]
     rbexpsoheow.replace(" ", "-", inplace=True)
     return json.loads(rbexpsoheow.to_json(orient='records'))
 
@@ -118,14 +122,14 @@ def getsohateow():
 # *****************************************************
 @uiflow_blueprint.route("/getwocateow", methods=['POST'])
 def getwocateow():
-    global_user = current_app.config.get('global_user', {})
     global_filters = current_app.config.get('global_filters', {})
+    global_filters = dict((k, v.lower()) for k, v in global_filters.items())
 
     rbwoceow = AzureBlobReader().read_csvfile("ui_data/wocateow.csv")
     filters = ['Business Unit', 'Location','Brand']
     for filter_key in filters:
-        if filter_key in global_filters.keys():
-            rbwoceow = rbwoceow[rbwoceow[filter_key] == global_filters[filter_key]]
+        if filter_key in global_filters and global_filters[filter_key] != None:
+            rbwoceow = rbwoceow[rbwoceow[filter_key].str.lower() == global_filters[filter_key]]
     rbwoceow.replace(" ", "-", inplace=True)
     return json.loads(rbwoceow.to_json(orient='records'))
 
@@ -135,14 +139,14 @@ def getwocateow():
 # *****************************************************
 @uiflow_blueprint.route("/getcaseshortages", methods=['POST'])
 def getcaseshortages():
-    global_user = current_app.config.get('global_user', {})
     global_filters = current_app.config.get('global_filters', {})
+    global_filters = dict((k, v.lower()) for k, v in global_filters.items())
 
     rbcaseshort = AzureBlobReader().read_csvfile("ui_data/caseshortages.csv")
     filters = ['Business Unit', 'Location','Brand']
     for filter_key in filters:
-        if filter_key in global_filters.keys():
-            rbcaseshort = rbcaseshort[rbcaseshort[filter_key] == global_filters[filter_key]]
+        if filter_key in global_filters and global_filters[filter_key] != None:
+            rbcaseshort = rbcaseshort[rbcaseshort[filter_key].str.lower() == global_filters[filter_key]]
     rbcaseshort.replace(" ", "-", inplace=True)
     return json.loads(rbcaseshort.to_json(orient='records'))
 
@@ -152,14 +156,14 @@ def getcaseshortages():
 # *****************************************************
 @uiflow_blueprint.route("/getexpectedservice", methods=['POST'])
 def getexpectedservice():
-    global_user = current_app.config.get('global_user', {})
     global_filters = current_app.config.get('global_filters', {})
+    global_filters = dict((k, v.lower()) for k, v in global_filters.items())
 
     rbexpsl = AzureBlobReader().read_csvfile("ui_data/expectedservice.csv")
     filters = ['Business Unit', 'Location','Brand']
     for filter_key in filters:
-        if filter_key in global_filters.keys():
-            rbexpsl = rbexpsl[rbexpsl[filter_key] == global_filters[filter_key]]
+        if filter_key in global_filters and global_filters[filter_key] != None:
+            rbexpsl = rbexpsl[rbexpsl[filter_key].str.lower() == global_filters[filter_key]]
     rbexpsl.replace(" ", "-", inplace=True)
     return json.loads(rbexpsl.to_json(orient='records'))
 
@@ -169,8 +173,8 @@ def getexpectedservice():
 # *******************************************************************
 @uiflow_blueprint.route("/getstockposition", methods=['POST'])
 def get_stock_position():
-    global_user = current_app.config.get('global_user', {})
     global_filters = current_app.config.get('global_filters', {})
+    global_filters = dict((k, v.lower()) for k, v in global_filters.items())
 
     data = request.json or {}
     file_path = "ui_data/customerstockposition.csv" if data['customer'] else "ui_data/stockposition.csv"
@@ -179,7 +183,7 @@ def get_stock_position():
 
     for filter_key in filters:
         if filter_key in global_filters:
-            stock_pos = stock_pos[stock_pos[filter_key] == global_filters[filter_key]]
+            stock_pos = stock_pos[stock_pos[filter_key].str.lower() == global_filters[filter_key]]
 
     stock_pos.replace(" ", "-", inplace=True)
     return json.loads(stock_pos.to_json(orient='records'))
@@ -190,14 +194,14 @@ def get_stock_position():
 # *****************************************************
 @uiflow_blueprint.route("/getcustepos", methods=['POST'])
 def getcustepos():
-    global_user = current_app.config.get('global_user', {})
     global_filters = current_app.config.get('global_filters', {})
+    global_filters = dict((k, v.lower()) for k, v in global_filters.items())
 
     custhepos = AzureBlobReader().read_csvfile("ui_data/customerhistoricepos.csv")
     filters = ['Business Unit', 'Location', 'Customer','Brand']
     for filter_key in filters:
-        if filter_key in global_filters.keys():
-            custhepos = custhepos[custhepos[filter_key] == global_filters[filter_key]]
+        if filter_key in global_filters and global_filters[filter_key] != None:
+            custhepos = custhepos[custhepos[filter_key].str.lower() == global_filters[filter_key]]
     custhepos.replace(" ", "-", inplace=True)
     return json.loads(custhepos.to_json(orient='records'))
 
@@ -206,14 +210,14 @@ def getcustepos():
 # *****************************************************
 @uiflow_blueprint.route("/getcustsellout", methods=['POST'])
 def getcustsellout():
-    global_user = current_app.config.get('global_user', {})
     global_filters = current_app.config.get('global_filters', {})
+    global_filters = dict((k, v.lower()) for k, v in global_filters.items())
 
     custsellout = AzureBlobReader().read_csvfile("ui_data/customersellout.csv")
     filters = ['Business Unit', 'Location', 'Customer','Brand']
     for filter_key in filters:
-        if filter_key in global_filters.keys():
-            custsellout = custsellout[custsellout[filter_key] == global_filters[filter_key]]
+        if filter_key in global_filters and global_filters[filter_key] != None:
+            custsellout = custsellout[custsellout[filter_key].str.lower() == global_filters[filter_key]]
     custsellout.replace(" ", "-", inplace=True)
     return json.loads(custsellout.to_json(orient='records'))
 
@@ -222,14 +226,14 @@ def getcustsellout():
 # *****************************************************
 @uiflow_blueprint.route("/getcustsellin", methods=['POST'])
 def getcustsellin():
-    global_user = current_app.config.get('global_user', {})
     global_filters = current_app.config.get('global_filters', {})
+    global_filters = dict((k, v.lower()) for k, v in global_filters.items())
 
     custsellin = AzureBlobReader().read_csvfile("ui_data/customersellin.csv")
     filters = ['Business Unit', 'Location', 'Customer','Brand']
     for filter_key in filters:
-        if filter_key in global_filters.keys():
-            custsellin = custsellin[custsellin[filter_key] == global_filters[filter_key]]
+        if filter_key in global_filters and global_filters[filter_key] != None:
+            custsellin = custsellin[custsellin[filter_key].str.lower() == global_filters[filter_key]]
     custsellin.replace(" ", "-", inplace=True)
     return json.loads(custsellin.to_json(orient='records'))
 
@@ -239,14 +243,14 @@ def getcustsellin():
 # *****************************************************
 @uiflow_blueprint.route("/getcustola", methods=['POST'])
 def getcustola():
-    global_user = current_app.config.get('global_user', {})
     global_filters = current_app.config.get('global_filters', {})
+    global_filters = dict((k, v.lower()) for k, v in global_filters.items())
 
     custola = AzureBlobReader().read_csvfile("ui_data/customerola.csv")
     filters = ['Business Unit', 'Location', 'Customer','Brand']
     for filter_key in filters:
-        if filter_key in global_filters.keys():
-            custola = custola[custola[filter_key] == global_filters[filter_key]]
+        if filter_key in global_filters and global_filters[filter_key] != None:
+            custola = custola[custola[filter_key].str.lower() == global_filters[filter_key]]
     custola.replace(" ", "-", inplace=True)
     return json.loads(custola.to_json(orient='records'))
 
@@ -256,8 +260,8 @@ def getcustola():
 # ****************************************************************************
 @uiflow_blueprint.route("/getcampaigns", methods=['POST'])
 def get_campaigns():
-    global_user = current_app.config.get('global_user', {})
     global_filters = current_app.config.get('global_filters', {})
+    global_filters = dict((k, v.lower()) for k, v in global_filters.items())
 
     data = request.json or {}
     campaigns = AzureBlobReader().read_csvfile("ui_data/reckittcampaignsbysku.csv")
@@ -266,7 +270,7 @@ def get_campaigns():
 
     for filter_key in filters:
         if filter_key in global_filters:
-            campaignsbysku = campaignsbysku[campaignsbysku[filter_key] == global_filters[filter_key]]
+            campaignsbysku = campaignsbysku[campaignsbysku[filter_key].str.lower() == global_filters[filter_key]]
 
     campaignsbysku.replace(" ", "-", inplace=True)
     return json.loads(campaignsbysku.to_json(orient='records'))
@@ -280,11 +284,11 @@ def get_selling_graph():
     global_filters = current_app.config.get('global_filters', {})
 
     data = request.json or {}
-    filters = ['Business Unit', 'Location', 'Brand', 'Customer', 'RB SKU']
     file_path = "ui_data/customersellin.csv" if data['customer'] else "ui_data/reckittsellin.csv"
     sellin = AzureBlobReader().read_csvfile(file_path)
-    for filter_key in filters:
-        sellin = sellin[sellin[filter_key] == data[filter_key]]
+    for filter_key in ['Business Unit','Location','Brand', 'Customer', 'RB SKU']:
+        if filter_key in global_user:
+            sellin = sellin[sellin[filter_key].isin(global_user[filter_key])]
     return json.loads(sellin.to_json(orient='records'))
 
 # *******************************
@@ -296,8 +300,9 @@ def get_sellout_graph():
     global_filters = current_app.config.get('global_filters', {})
 
     data = request.json or {}
-    sellout_file = "ui_data/customersellout.csv" if data['customer'] else "ui_data/reckittsellout.csv"
-    sellout = AzureBlobReader().read_csvfile(sellout_file)
+    file_path = "ui_data/customersellout.csv" if data['customer'] else "ui_data/reckittsellout.csv"
+    sellout = AzureBlobReader().read_csvfile(file_path)
     for filter_key in ['Business Unit','Location','Brand', 'Customer', 'RB SKU']:
-        sellout = sellout[sellout[filter_key] == data[filter_key]]
+        if filter_key in global_user:
+            sellout = sellout[sellout[filter_key].isin(global_user[filter_key])]
     return json.loads(sellout.to_json(orient='records'))

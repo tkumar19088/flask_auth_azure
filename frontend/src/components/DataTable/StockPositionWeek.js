@@ -782,72 +782,6 @@ const StockPositionWeek = ({ onData }) => {
                 <div>CW+3</div>
                 <div className="brack-number">({startingWeek + 3})</div>
               </TableCell>
-              <TableCell
-                sx={{
-                  textAlign: "center",
-                  backgroundColor: "#E5EBEF ",
-                  color: "#415A6C",
-                  border: "1px solid #dcdcdc",
-                }}
-              >
-                <div>CW+4</div>
-                <div className="brack-number">({startingWeek + 4})</div>
-              </TableCell>
-              <TableCell
-                sx={{
-                  textAlign: "center",
-                  backgroundColor: "#E5EBEF ",
-                  color: "#415A6C",
-                  border: "1px solid #dcdcdc",
-                }}
-              >
-                <div>CW+5</div>
-                <div className="brack-number">({startingWeek + 5})</div>
-              </TableCell>
-              <TableCell
-                sx={{
-                  textAlign: "center",
-                  backgroundColor: "#E5EBEF ",
-                  color: "#415A6C",
-                  border: "1px solid #dcdcdc",
-                }}
-              >
-                <div>CW+6</div>
-                <div className="brack-number">({startingWeek + 6})</div>
-              </TableCell>
-              <TableCell
-                sx={{
-                  textAlign: "center",
-                  backgroundColor: "#E5EBEF ",
-                  color: "#415A6C",
-                  border: "1px solid #dcdcdc",
-                }}
-              >
-                <div>CW+7</div>
-                <div className="brack-number">({startingWeek + 7})</div>
-              </TableCell>
-              <TableCell
-                sx={{
-                  textAlign: "center",
-                  backgroundColor: "#E5EBEF ",
-                  color: "#415A6C",
-                  border: "1px solid #dcdcdc",
-                }}
-              >
-                <div>CW+8</div>
-                <div className="brack-number">({startingWeek + 8})</div>
-              </TableCell>
-              <TableCell
-                sx={{
-                  textAlign: "center",
-                  backgroundColor: "#E5EBEF ",
-                  color: "#415A6C",
-                  border: "1px solid #dcdcdc",
-                }}
-              >
-                <div>CW+9</div>
-                <div className="brack-number">({startingWeek + 9})</div>{" "}
-              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -874,7 +808,7 @@ const StockPositionWeek = ({ onData }) => {
                       // gap: "16px",
                       padding: "12px",
                       border: "none",
-                     
+                      justifyContent: "center",
                     }}
                   >
                     <Box
@@ -931,42 +865,31 @@ const StockPositionWeek = ({ onData }) => {
                     <div className="alignment">{item.Brand}</div>
                   </TableCell>
                   <TableCell>
-                    <div className="alignment">{item.intialreckittsoh}</div>
+                    <div className="alignment">
+                      {parseFloat(item.initialreckittsoh.toFixed(2))}
+                    </div>
                   </TableCell>{" "}
                   <TableCell>
                     {" "}
-                    <div className="alignment">{item["EXPSOHATEOW CW"]}</div>
+                    <div className="alignment">
+                      {parseFloat(item["EXPSOHATEOW CW"]).toFixed(2)}
+                    </div>
                   </TableCell>
                   <TableCell>
                     {" "}
-                    <div className="alignment">{item["EXPSOHATEOW CW+1"]}</div>
+                    <div className="alignment">
+                      {parseFloat(item["EXPSOHATEOW CW+1"]).toFixed(2)}
+                    </div>
                   </TableCell>
                   <TableCell>
-                    <div className="alignment">{item["EXPSOHATEOW CW+2"]}</div>
+                    <div className="alignment">
+                      {parseFloat(item["EXPSOHATEOW CW+2"]).toFixed(2)}
+                    </div>
                   </TableCell>
                   <TableCell>
-                    <div className="alignment">{item["EXPSOHATEOW CW+3"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="alignment">{item["EXPSOHATEOW CW+4"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    {" "}
-                    <div className="alignment">{item["EXPSOHATEOW CW+5"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="alignment">{item["EXPSOHATEOW CW+6"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="alignment">{item["EXPSOHATEOW CW+7"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    {" "}
-                    <div className="alignment">{item["EXPSOHATEOW CW+8"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    {" "}
-                    <div className="alignment">{item["EXPSOHATEOW CW+9"]}</div>
+                    <div className="alignment">
+                      {parseFloat(item["EXPSOHATEOW CW+3"]).toFixed(2)}
+                    </div>
                   </TableCell>
                 </TableRow>
                 {expandedRow === item["RB SKU"] && iscampaigns && (

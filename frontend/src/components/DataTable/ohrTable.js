@@ -37,12 +37,19 @@ const OhrTable = ({ onData }) => {
   const dispatch = useDispatch();
 
   const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
+  const search = useSelector((state) => state.sidebar.search);
+  const exporttabledata = useSelector((state) => state.sidebar.exporttabledata);
   const ohrdata = useSelector((state) => state.sidebar.overviewhighriskdata);
   const isragfilterohr = useSelector((state) => state.sidebar.isragfilterohr);
   const filteredohrdata = useSelector(
     (state) => state.sidebar.filteredoverviewhighriskdata
   );
-  const data = isragfilterohr ? filteredohrdata : ohrdata;
+  console.log(search);
+  const data = isragfilterohr
+    ? filteredohrdata
+    : search
+    ? exporttabledata
+    : ohrdata;
   console.log(data);
 
   const [expandedRow, setExpandedRow] = useState(null);
@@ -79,7 +86,6 @@ const OhrTable = ({ onData }) => {
           console.log(json);
           setiscampaigns(true);
           setcampaignsData(json);
-          //dispatch(fetchuserdetails(json));
         } else {
           console.error("Error fetching data:", response.statusText);
         }
@@ -106,9 +112,7 @@ const OhrTable = ({ onData }) => {
       if (response.ok) {
         const json = await response.json();
         console.log(json);
-        // setiscampaigns(true);
         setpushAlternativeData(json);
-        //dispatch(fetchuserdetails(json));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -122,7 +126,7 @@ const OhrTable = ({ onData }) => {
     dispatch(updateloader(true));
     var data = { rbsku: expandedRow };
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/getoptmize", {
+      const response = await fetch("http://localhost:5000/rarbysku", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -1603,6 +1607,7 @@ const OhrTable = ({ onData }) => {
                 sx={{
                   backgroundColor: "#E5EBEF",
                   border: "1px solid #dcdcdc",
+                  // width: "60px",
                 }}
               >
                 <Typography className="table-h1-title">Reckitt WoC</Typography>
@@ -1934,9 +1939,17 @@ const OhrTable = ({ onData }) => {
                     >
                       {item.Brand}
                     </TableCell>
-                    <TableCell style={{ textAlign: "center" }}>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        width: "40px",
+                        padding: "0px",
+                      }}
+                    >
                       <Typography fontSize="13px">
-                        {item["Reckitt WOC"]}
+                        {item["Reckitt WOC"]
+                          ? parseFloat(item["Reckitt WOC"].toFixed(2))
+                          : "-"}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -1945,33 +1958,13 @@ const OhrTable = ({ onData }) => {
                     >
                       {item["Active Promo"]}
                     </TableCell>
-                    <TableCell style={{ textAlign: "center", width: "20px" }}>
-                      <Typography
-                        mx="10px"
-                        sx={{
-                          textAlign: "center",
-                          fontSize: "13px",
-                        }}
-                      >
-                        {item["SL CW"]}
-                      </Typography>
-                    </TableCell>
-                    <TableCell style={{ textAlign: "center", width: "20px" }}>
-                      <Typography mx="6px" fontSize="13px">
-                        {item["SL CW+1"]}
-                      </Typography>
-                    </TableCell>
-                    <TableCell style={{ textAlign: "center", width: "20px" }}>
-                      <Typography mx="6px" fontSize="13px">
-                        {item["SL CW+2"]}
-                      </Typography>
-                    </TableCell>
-                    <TableCell style={{ textAlign: "center", width: "20px" }}>
-                      <Typography mx="6px" fontSize="13px">
-                        {item["SL CW+3"]}
-                      </Typography>
-                    </TableCell>
-                    <TableCell style={{ textAlign: "center", width: "20px" }}>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        width: "20px",
+                        padding: "0px",
+                      }}
+                    >
                       <Typography
                         // mx="10px"
                         sx={{
@@ -1979,22 +1972,78 @@ const OhrTable = ({ onData }) => {
                           fontSize: "13px",
                         }}
                       >
-                        {item["Exp NR CW"]}
+                        {item["ExpSL CW"]}
+                      </Typography>
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        width: "20px",
+                        padding: "0px",
+                      }}
+                    >
+                      <Typography mx="6px" fontSize="13px">
+                        {item["ExpSL CW+1"]}
                       </Typography>
                     </TableCell>
                     <TableCell style={{ textAlign: "center", width: "20px" }}>
-                      <Typography fontSize="13px">
-                        {item["Exp NR CW+1"]}
+                      <Typography mx="6px" fontSize="13px">
+                        {item["ExpSL CW+2"]}
                       </Typography>
                     </TableCell>
                     <TableCell style={{ textAlign: "center", width: "20px" }}>
-                      <Typography fontSize="13px">
-                        {item["Exp NR CW+2"]}
+                      <Typography mx="6px" fontSize="13px">
+                        {item["ExpSL CW+3"]}
                       </Typography>
                     </TableCell>
-                    <TableCell style={{ textAlign: "center", width: "20px" }}>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        width: "20px",
+                        padding: "0px",
+                      }}
+                    >
+                      <Typography
+                        // mx="10px"
+                        sx={{
+                          textAlign: "center",
+                          fontSize: "13px",
+                        }}
+                      >
+                        {parseFloat(item["Exp NR CW"].toFixed(2))}
+                      </Typography>
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        width: "20px",
+                        padding: "0px",
+                      }}
+                    >
                       <Typography fontSize="13px">
-                        {item["Exp NR CW+3"]}
+                        {parseFloat(item["Exp NR CW+1"].toFixed(2))}
+                      </Typography>
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        width: "20px",
+                        padding: "0px",
+                      }}
+                    >
+                      <Typography fontSize="13px">
+                        {parseFloat(item["Exp NR CW+2"].toFixed(2))}
+                      </Typography>
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        width: "20px",
+                        padding: "0px",
+                      }}
+                    >
+                      <Typography fontSize="13px">
+                        {parseFloat(item["Exp NR CW+3"].toFixed(2))}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -2013,12 +2062,13 @@ const OhrTable = ({ onData }) => {
                           fontSize: "13px",
                           width: "30px",
                           height: "25px",
-                          backgroundColor:
-                            item["RAG CW"] == "G"
+                          backgroundColor: item["RAG CW"]
+                            ? item["RAG CW"] == "G"
                               ? "#57a957"
                               : item["RAG CW"] == "R"
                               ? "#F44444"
-                              : "orange",
+                              : "orange"
+                            : "",
                           display: "flex",
                           justifyContent: "center",
                           textAlign: "center",
@@ -2042,12 +2092,13 @@ const OhrTable = ({ onData }) => {
                           color: "#fff",
                           width: "30px",
                           height: "25px",
-                          backgroundColor:
-                            item["RAG CW+1"] == "G"
+                          backgroundColor: item["RAG CW+1"]
+                            ? item["RAG CW+1"] == "G"
                               ? "#57a957"
                               : item["RAG CW+1"] == "R"
                               ? "#F44444"
-                              : "orange",
+                              : "orange"
+                            : "",
                           display: "flex",
                           justifyContent: "center",
                           textAlign: "center",
@@ -2072,12 +2123,13 @@ const OhrTable = ({ onData }) => {
                           color: "#fff",
                           width: "30px",
                           height: "25px",
-                          backgroundColor:
-                            item["RAG CW+2"] == "G"
+                          backgroundColor: item["RAG CW+2"]
+                            ? item["RAG CW+2"] == "G"
                               ? "#57a957"
                               : item["RAG CW+2"] == "R"
                               ? "#F44444"
-                              : "orange",
+                              : "orange"
+                            : "",
                           display: "flex",
                           justifyContent: "center",
                           textAlign: "center",
@@ -2102,12 +2154,13 @@ const OhrTable = ({ onData }) => {
                           color: "#fff",
                           width: "30px",
                           height: "25px",
-                          backgroundColor:
-                            item["RAG CW+3"] == "G"
+                          backgroundColor: item["RAG CW+3"]
+                            ? item["RAG CW+3"] == "G"
                               ? "#57a957"
                               : item["RAG CW+3"] == "R"
                               ? "#F44444"
-                              : "orange",
+                              : "orange"
+                            : "",
                           display: "flex",
                           justifyContent: "center",
                           textAlign: "center",

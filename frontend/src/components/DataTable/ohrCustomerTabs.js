@@ -257,15 +257,6 @@ const OhrCustomerTabs = () => {
         >
           Stock Position
         </Tab>
-        <Tab
-          style={{
-            border: "1px solid #E5EBEF",
-            color: activeTab === 5 ? "white" : "#415A6C",
-          }}
-          onClick={handleOLA}
-        >
-          OLA
-        </Tab>
       </TabList>
 
       <TabPanel>
@@ -282,9 +273,6 @@ const OhrCustomerTabs = () => {
       </TabPanel>
       <TabPanel>
         <StockPosition2 />
-      </TabPanel>
-      <TabPanel>
-        <Ola />
       </TabPanel>
     </Tabs>
   );

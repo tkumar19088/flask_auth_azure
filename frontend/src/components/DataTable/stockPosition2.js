@@ -41,6 +41,13 @@ const StockPosition2 = ({ onData }) => {
   const [pushAlternativeData, setpushAlternativeData] = useState([]);
   const [iscampaigns, setiscampaigns] = useState(false);
 
+  const truncateText = (text, maxLength) => {
+    if (text.length <= maxLength) {
+      return text;
+    }
+    return text.slice(0, maxLength) + "...";
+  };
+
   // Function to handle row click and expand/collapse accordion
   const handleRowClick = async (rowId) => {
     setpushAlternative(false);
@@ -128,270 +135,270 @@ const StockPosition2 = ({ onData }) => {
     }
   };
 
-  // const data = useSelector((state) => state.sidebar.customerstockposition);
+  const data = useSelector((state) => state.sidebar.customerstockposition);
 
-  const [data, setData] = useState([
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 3063,
-      "CW+1": 9142,
-      "CW+2": 6497,
-      "CW+3": 3559,
-      "CW+4": 6915,
-      "CW+5": 7245,
-      "CW+6": 5677,
-      "CW+7": 8086,
-      "CW+8": 291,
-      "CW+9": 7378,
-      Customer: "Amazon",
-      Description: "AWICK,GB,SPNG DEL 4X250ML",
-      "InitalSOH Week": 5833,
-      Location: "United Kingdom",
-      PPG: 6208713,
-      "RB SKU": "3038049",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 6000,
-      "CW+1": 5648,
-      "CW+2": 6372,
-      "CW+3": 2817,
-      "CW+4": 2273,
-      "CW+5": 8551,
-      "CW+6": 7886,
-      "CW+7": 9920,
-      "CW+8": 5010,
-      "CW+9": 1859,
-      Customer: "Amazon",
-      Description: "AWICK,GB,FM RF PNKSP 392X250ML",
-      "InitalSOH Week": 5887,
-      Location: "United Kingdom",
-      PPG: 2849279,
-      "RB SKU": "3209375",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 1889,
-      "CW+1": 9916,
-      "CW+2": 2504,
-      "CW+3": 1894,
-      "CW+4": 5771,
-      "CW+5": 605,
-      "CW+6": 5825,
-      "CW+7": 1178,
-      "CW+8": 8977,
-      "CW+9": 328,
-      Customer: "Amazon",
-      Description: "AWICK,GB,FM TW RF RW 8X250ML",
-      "InitalSOH Week": 7482,
-      Location: "United Kingdom",
-      PPG: 9014190,
-      "RB SKU": "3232106",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 9673,
-      "CW+1": 7826,
-      "CW+2": 9681,
-      "CW+3": 1098,
-      "CW+4": 3927,
-      "CW+5": 1791,
-      "CW+6": 927,
-      "CW+7": 7564,
-      "CW+8": 6877,
-      "CW+9": 4465,
-      Customer: "Amazon",
-      Description: "AWICK,GB,NA3,PSP 6X300ML",
-      "InitalSOH Week": 3818,
-      Location: "United Kingdom",
-      PPG: 4725387,
-      "RB SKU": "3246983",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 9186,
-      "CW+1": 9979,
-      "CW+2": 8372,
-      "CW+3": 6183,
-      "CW+4": 3016,
-      "CW+5": 5243,
-      "CW+6": 3526,
-      "CW+7": 2408,
-      "CW+8": 8770,
-      "CW+9": 9957,
-      Customer: "Amazon",
-      Description: "AWICK,GB,BOOSTER ROSE 12X300ML",
-      "InitalSOH Week": 8859,
-      Location: "United Kingdom",
-      PPG: 6876698,
-      "RB SKU": "3136081",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 8290,
-      "CW+1": 4653,
-      "CW+2": 2987,
-      "CW+3": 4167,
-      "CW+4": 7603,
-      "CW+5": 526,
-      "CW+6": 9082,
-      "CW+7": 8204,
-      "CW+8": 4829,
-      "CW+9": 4845,
-      Customer: "Amazon",
-      Description: "AWICK,GB,REED ESO PBFIG 5X33ML",
-      "InitalSOH Week": 6421,
-      Location: "United Kingdom",
-      PPG: 5227394,
-      "RB SKU": "3167124",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 9896,
-      "CW+1": 9850,
-      "CW+2": 2337,
-      "CW+3": 5529,
-      "CW+4": 8030,
-      "CW+5": 9949,
-      "CW+6": 7978,
-      "CW+7": 5186,
-      "CW+8": 5918,
-      "CW+9": 6839,
-      Customer: "Amazon",
-      Description: "AWICK,GB,LE RF VAN BEAN 6X19ML",
-      "InitalSOH Week": 1922,
-      Location: "United Kingdom",
-      PPG: 3035131,
-      "RB SKU": "3200683",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 5111,
-      "CW+1": 6169,
-      "CW+2": 9584,
-      "CW+3": 7952,
-      "CW+4": 4303,
-      "CW+5": 7825,
-      "CW+6": 1303,
-      "CW+7": 2611,
-      "CW+8": 357,
-      "CW+9": 384,
-      Customer: "Amazon",
-      Description: "AWICK,GB,LE RF BERRY 2X5X19ML",
-      "InitalSOH Week": 3667,
-      Location: "United Kingdom",
-      PPG: 6572089,
-      "RB SKU": "3205304",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 9746,
-      "CW+1": 7282,
-      "CW+2": 7393,
-      "CW+3": 948,
-      "CW+4": 3383,
-      "CW+5": 6284,
-      "CW+6": 6737,
-      "CW+7": 9832,
-      "CW+8": 5270,
-      "CW+9": 3373,
-      Customer: "Amazon",
-      Description: "AWICK,GB,APPLE LE RF 6X19ML",
-      "InitalSOH Week": 2218,
-      Location: "United Kingdom",
-      PPG: 2824041,
-      "RB SKU": "3228650",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 9167,
-      "CW+1": 4338,
-      "CW+2": 5851,
-      "CW+3": 2586,
-      "CW+4": 5427,
-      "CW+5": 8906,
-      "CW+6": 3857,
-      "CW+7": 8614,
-      "CW+8": 5220,
-      "CW+9": 4752,
-      Customer: "Amazon",
-      Description: "AWICK,GB,LE RF MALDIVES 5X19ML",
-      "InitalSOH Week": 4974,
-      Location: "United Kingdom",
-      PPG: 6439551,
-      "RB SKU": "3252952",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 7537,
-      "CW+1": 3571,
-      "CW+2": 4404,
-      "CW+3": 3149,
-      "CW+4": 1221,
-      "CW+5": 2767,
-      "CW+6": 8324,
-      "CW+7": 9035,
-      "CW+8": 5039,
-      "CW+9": 7935,
-      Customer: "Amazon",
-      Description: "AWICK,GB,EM RF APP&CIN 6X20ML",
-      "InitalSOH Week": 7105,
-      Location: "United Kingdom",
-      PPG: 5281278,
-      "RB SKU": "3266914",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 5459,
-      "CW+1": 2663,
-      "CW+2": 4075,
-      "CW+3": 755,
-      "CW+4": 8631,
-      "CW+5": 7605,
-      "CW+6": 831,
-      "CW+7": 9090,
-      "CW+8": 9154,
-      "CW+9": 7125,
-      Customer: "Amazon",
-      Description: "AWICK,GB,NOEL CNDL 6X105G",
-      "InitalSOH Week": 1777,
-      Location: "United Kingdom",
-      PPG: 6317266,
-      "RB SKU": "3228482",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      CW: 2652,
-      "CW+1": 4447,
-      "CW+2": 7247,
-      "CW+3": 8711,
-      "CW+4": 8371,
-      "CW+5": 8424,
-      "CW+6": 5953,
-      "CW+7": 1246,
-      "CW+8": 9623,
-      "CW+9": 8627,
-      Customer: "Amazon",
-      Description: "AWICK,GB,PMP FWTR GEL 12X70G",
-      "InitalSOH Week": 4237,
-      Location: "United Kingdom",
-      PPG: 8392919,
-      "RB SKU": "3234661",
-    },
-  ]);
+  // const [data, setData] = useState([
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 3063,
+  //     "CW+1": 9142,
+  //     "CW+2": 6497,
+  //     "CW+3": 3559,
+  //     "CW+4": 6915,
+  //     "CW+5": 7245,
+  //     "CW+6": 5677,
+  //     "CW+7": 8086,
+  //     "CW+8": 291,
+  //     "CW+9": 7378,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,SPNG DEL 4X250ML",
+  //     "InitalSOH Week": 5833,
+  //     Location: "United Kingdom",
+  //     PPG: 6208713,
+  //     "RB SKU": "3038049",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 6000,
+  //     "CW+1": 5648,
+  //     "CW+2": 6372,
+  //     "CW+3": 2817,
+  //     "CW+4": 2273,
+  //     "CW+5": 8551,
+  //     "CW+6": 7886,
+  //     "CW+7": 9920,
+  //     "CW+8": 5010,
+  //     "CW+9": 1859,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,FM RF PNKSP 392X250ML",
+  //     "InitalSOH Week": 5887,
+  //     Location: "United Kingdom",
+  //     PPG: 2849279,
+  //     "RB SKU": "3209375",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 1889,
+  //     "CW+1": 9916,
+  //     "CW+2": 2504,
+  //     "CW+3": 1894,
+  //     "CW+4": 5771,
+  //     "CW+5": 605,
+  //     "CW+6": 5825,
+  //     "CW+7": 1178,
+  //     "CW+8": 8977,
+  //     "CW+9": 328,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,FM TW RF RW 8X250ML",
+  //     "InitalSOH Week": 7482,
+  //     Location: "United Kingdom",
+  //     PPG: 9014190,
+  //     "RB SKU": "3232106",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 9673,
+  //     "CW+1": 7826,
+  //     "CW+2": 9681,
+  //     "CW+3": 1098,
+  //     "CW+4": 3927,
+  //     "CW+5": 1791,
+  //     "CW+6": 927,
+  //     "CW+7": 7564,
+  //     "CW+8": 6877,
+  //     "CW+9": 4465,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,NA3,PSP 6X300ML",
+  //     "InitalSOH Week": 3818,
+  //     Location: "United Kingdom",
+  //     PPG: 4725387,
+  //     "RB SKU": "3246983",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 9186,
+  //     "CW+1": 9979,
+  //     "CW+2": 8372,
+  //     "CW+3": 6183,
+  //     "CW+4": 3016,
+  //     "CW+5": 5243,
+  //     "CW+6": 3526,
+  //     "CW+7": 2408,
+  //     "CW+8": 8770,
+  //     "CW+9": 9957,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,BOOSTER ROSE 12X300ML",
+  //     "InitalSOH Week": 8859,
+  //     Location: "United Kingdom",
+  //     PPG: 6876698,
+  //     "RB SKU": "3136081",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 8290,
+  //     "CW+1": 4653,
+  //     "CW+2": 2987,
+  //     "CW+3": 4167,
+  //     "CW+4": 7603,
+  //     "CW+5": 526,
+  //     "CW+6": 9082,
+  //     "CW+7": 8204,
+  //     "CW+8": 4829,
+  //     "CW+9": 4845,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,REED ESO PBFIG 5X33ML",
+  //     "InitalSOH Week": 6421,
+  //     Location: "United Kingdom",
+  //     PPG: 5227394,
+  //     "RB SKU": "3167124",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 9896,
+  //     "CW+1": 9850,
+  //     "CW+2": 2337,
+  //     "CW+3": 5529,
+  //     "CW+4": 8030,
+  //     "CW+5": 9949,
+  //     "CW+6": 7978,
+  //     "CW+7": 5186,
+  //     "CW+8": 5918,
+  //     "CW+9": 6839,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,LE RF VAN BEAN 6X19ML",
+  //     "InitalSOH Week": 1922,
+  //     Location: "United Kingdom",
+  //     PPG: 3035131,
+  //     "RB SKU": "3200683",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 5111,
+  //     "CW+1": 6169,
+  //     "CW+2": 9584,
+  //     "CW+3": 7952,
+  //     "CW+4": 4303,
+  //     "CW+5": 7825,
+  //     "CW+6": 1303,
+  //     "CW+7": 2611,
+  //     "CW+8": 357,
+  //     "CW+9": 384,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,LE RF BERRY 2X5X19ML",
+  //     "InitalSOH Week": 3667,
+  //     Location: "United Kingdom",
+  //     PPG: 6572089,
+  //     "RB SKU": "3205304",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 9746,
+  //     "CW+1": 7282,
+  //     "CW+2": 7393,
+  //     "CW+3": 948,
+  //     "CW+4": 3383,
+  //     "CW+5": 6284,
+  //     "CW+6": 6737,
+  //     "CW+7": 9832,
+  //     "CW+8": 5270,
+  //     "CW+9": 3373,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,APPLE LE RF 6X19ML",
+  //     "InitalSOH Week": 2218,
+  //     Location: "United Kingdom",
+  //     PPG: 2824041,
+  //     "RB SKU": "3228650",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 9167,
+  //     "CW+1": 4338,
+  //     "CW+2": 5851,
+  //     "CW+3": 2586,
+  //     "CW+4": 5427,
+  //     "CW+5": 8906,
+  //     "CW+6": 3857,
+  //     "CW+7": 8614,
+  //     "CW+8": 5220,
+  //     "CW+9": 4752,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,LE RF MALDIVES 5X19ML",
+  //     "InitalSOH Week": 4974,
+  //     Location: "United Kingdom",
+  //     PPG: 6439551,
+  //     "RB SKU": "3252952",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 7537,
+  //     "CW+1": 3571,
+  //     "CW+2": 4404,
+  //     "CW+3": 3149,
+  //     "CW+4": 1221,
+  //     "CW+5": 2767,
+  //     "CW+6": 8324,
+  //     "CW+7": 9035,
+  //     "CW+8": 5039,
+  //     "CW+9": 7935,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,EM RF APP&CIN 6X20ML",
+  //     "InitalSOH Week": 7105,
+  //     Location: "United Kingdom",
+  //     PPG: 5281278,
+  //     "RB SKU": "3266914",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 5459,
+  //     "CW+1": 2663,
+  //     "CW+2": 4075,
+  //     "CW+3": 755,
+  //     "CW+4": 8631,
+  //     "CW+5": 7605,
+  //     "CW+6": 831,
+  //     "CW+7": 9090,
+  //     "CW+8": 9154,
+  //     "CW+9": 7125,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,NOEL CNDL 6X105G",
+  //     "InitalSOH Week": 1777,
+  //     Location: "United Kingdom",
+  //     PPG: 6317266,
+  //     "RB SKU": "3228482",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     CW: 2652,
+  //     "CW+1": 4447,
+  //     "CW+2": 7247,
+  //     "CW+3": 8711,
+  //     "CW+4": 8371,
+  //     "CW+5": 8424,
+  //     "CW+6": 5953,
+  //     "CW+7": 1246,
+  //     "CW+8": 9623,
+  //     "CW+9": 8627,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,PMP FWTR GEL 12X70G",
+  //     "InitalSOH Week": 4237,
+  //     Location: "United Kingdom",
+  //     PPG: 8392919,
+  //     "RB SKU": "3234661",
+  //   },
+  // ]);
 
   const SubTable = ({ details }) => (
     <div style={{ marginTop: "-18px", padding: "10px" }} className="mini-table">
@@ -1021,7 +1028,6 @@ const StockPosition2 = ({ onData }) => {
                       // gap: "16px",
                       padding: "12px",
                       border: "none",
-                     
                     }}
                   >
                     <Box
@@ -1071,7 +1077,9 @@ const StockPosition2 = ({ onData }) => {
                   </TableCell>
                   <TableCell>
                     {" "}
-                    <div className="alignment">{item.Description}</div>
+                    <div className="alignment">
+                      {truncateText(item.Description, 10)}
+                    </div>
                   </TableCell>
                   <TableCell>
                     {" "}
@@ -1082,42 +1090,64 @@ const StockPosition2 = ({ onData }) => {
                     <div className="alignment">{item.Brand}</div>
                   </TableCell>
                   <TableCell>
-                    <div className="alignment">{item["InitalSOH Week"]}</div>
+                    <div className="alignment">
+                      {parseFloat(item.InitialSOHWeek).toFixed(2)}
+                    </div>
                   </TableCell>
                   <TableCell>
                     {" "}
-                    <div className="alignment">{item.CW}</div>
+                    <div className="alignment">
+                      {parseFloat(item.CW).toFixed(2)}
+                    </div>
                   </TableCell>
                   <TableCell>
                     {" "}
-                    <div className="alignment">{item["CW+1"]}</div>
+                    <div className="alignment">
+                      {parseFloat(item["CW+1"]).toFixed(2)}
+                    </div>
                   </TableCell>
                   <TableCell>
-                    <div className="alignment">{item["CW+2"]}</div>
+                    <div className="alignment">
+                      {parseFloat(item["CW+2"]).toFixed(2)}
+                    </div>
                   </TableCell>
                   <TableCell>
-                    <div className="alignment">{item[["CW+3"]]}</div>
+                    <div className="alignment">
+                      {parseFloat(item["CW+3"]).toFixed(2)}
+                    </div>
                   </TableCell>
                   <TableCell>
-                    <div className="alignment">{item["CW+4"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    {" "}
-                    <div className="alignment">{item["CW+5"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="alignment">{item["CW+6"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="alignment">{item["CW+7"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    {" "}
-                    <div className="alignment">{item["CW+8"]}</div>
+                    <div className="alignment">
+                      {parseFloat(item["CW+4"]).toFixed(2)}
+                    </div>
                   </TableCell>
                   <TableCell>
                     {" "}
-                    <div className="alignment">{item["CW+9"]}</div>
+                    <div className="alignment">
+                      {parseFloat(item["CW+5"]).toFixed(2)}
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="alignment">
+                      {parseFloat(item["CW+6"]).toFixed(2)}
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="alignment">
+                      {parseFloat(item["CW+7"]).toFixed(2)}
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    {" "}
+                    <div className="alignment">
+                      {parseFloat(item["CW+8"]).toFixed(2)}
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    {" "}
+                    <div className="alignment">
+                      {parseFloat(item["CW+9"]).toFixed(2)}
+                    </div>
                   </TableCell>
                 </TableRow>
                 {expandedRow === item["RB SKU"] && iscampaigns && (

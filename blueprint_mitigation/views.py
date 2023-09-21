@@ -58,11 +58,13 @@ def getalternativeskus():
     sku_manager = SKUManager(current_app.config, request.json)
     try:
         altskus = sku_manager.get_alternative_skus()
+        print(altskus)
         if len(altskus) < 1:
             return jsonify(status="error", message="No alternative SKUs found!"), 500
         else:
-            return jsonify(altskus), 200
+            return altskus
     except Exception as e:
+        print(e)
         return jsonify(status="error", message=str(e)), 500
 
 
@@ -85,8 +87,9 @@ def getrarbysku():
         reallocation_data_by_sku = reallocation_data[reallocation_data['RB SKU'] == data['rbsku']]
         _, _, reallocatedf = optimise_supply(reallocation_data_by_sku)
         reallocatedf.replace(" ", "-", inplace=True)
-        static_row = json.loads(reallocatedf[reallocatedf['Customer'] == global_filters['Customer']].to_json(orient='records'))[0]
-        other_rows = json.loads(reallocatedf[reallocatedf['Customer'] != global_filters['Customer']].to_json(orient='records')) 
+        print(reallocatedf)
+        static_row = json.loads(reallocation_data_by_sku[reallocation_data_by_sku['Customer'] == reallocation_data_by_sku['Customer']].to_json(orient='records'))[0]
+        other_rows = json.loads(reallocation_data_by_sku[reallocation_data_by_sku['Customer'] != reallocation_data_by_sku['Customer']].to_json(orient='records')) 
         return {"static_row":static_row, "other_rows":other_rows}
     except Exception as e:
         return jsonify(status="error", message=str(e)), 500

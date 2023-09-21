@@ -1020,7 +1020,6 @@ const Sellin = ({ onData }) => {
                       // gap: "16px",
                       padding: "12px",
                       border: "none",
-                   
                     }}
                   >
                     <Box
@@ -1080,7 +1079,9 @@ const Sellin = ({ onData }) => {
                     <div className="alignment">{item.Brand}</div>
                   </TableCell>
                   <TableCell sx={{ width: "50px" }}>
-                    <div className="alignment">{item["InitalSOH Week"]}</div>
+                    <div className="alignment">
+                      {parseFloat(item.InitialSOHWeek).toFixed(2)}
+                    </div>
                   </TableCell>
                   <TableCell
                     sx={{
@@ -1088,7 +1089,9 @@ const Sellin = ({ onData }) => {
                     }}
                   >
                     <Box display="flex" sx={{ width: "50px" }}>
-                      <Typography fontSize={15}>{item["sola CW"]}</Typography>
+                      <Typography fontSize={15}>
+                        {parseFloat(item["sola CW"]).toFixed(2)}
+                      </Typography>
                       <Typography
                         fontSize={13}
                         sx={{
@@ -1107,7 +1110,9 @@ const Sellin = ({ onData }) => {
                     }}
                   >
                     <Box display="flex" sx={{ width: "50px" }}>
-                      <Typography fontSize={15}>{item["sola CW+1"]}</Typography>
+                      <Typography fontSize={15}>
+                        {parseFloat(item["sola CW+1"]).toFixed(2)}
+                      </Typography>
                       <Typography
                         fontSize={13}
                         sx={{
@@ -1126,7 +1131,9 @@ const Sellin = ({ onData }) => {
                     }}
                   >
                     <Box display="flex" sx={{ width: "50px" }}>
-                      <Typography fontSize={15}>{item["sola CW+2"]}</Typography>
+                      <Typography fontSize={15}>
+                        {parseFloat(item["sola CW+2"]).toFixed(2)}
+                      </Typography>
                       <Typography
                         fontSize={13}
                         sx={{
@@ -1145,7 +1152,9 @@ const Sellin = ({ onData }) => {
                     }}
                   >
                     <Box display="flex" sx={{ width: "50px" }}>
-                      <Typography fontSize={15}>{item["sola CW+3"]}</Typography>
+                      <Typography fontSize={15}>
+                        {parseFloat(item["sola CW+3"]).toFixed(2)}
+                      </Typography>
                       <Typography
                         fontSize={13}
                         sx={{
@@ -1164,7 +1173,9 @@ const Sellin = ({ onData }) => {
                     }}
                   >
                     <Box display="flex" sx={{ width: "50px" }}>
-                      <Typography fontSize={15}>{item["sola CW+4"]}</Typography>
+                      <Typography fontSize={15}>
+                        {parseFloat(item["sola CW+4"]).toFixed(2)}
+                      </Typography>
                       <Typography
                         fontSize={13}
                         sx={{
@@ -1183,7 +1194,9 @@ const Sellin = ({ onData }) => {
                     }}
                   >
                     <Box display="flex" sx={{ width: "50px" }}>
-                      <Typography fontSize={15}>{item["sola CW+5"]}</Typography>
+                      <Typography fontSize={15}>
+                        {parseFloat(item["sola CW+5"]).toFixed(2)}
+                      </Typography>
                       <Typography
                         fontSize={13}
                         sx={{
@@ -1202,7 +1215,9 @@ const Sellin = ({ onData }) => {
                     }}
                   >
                     <Box display="flex" sx={{ width: "50px" }}>
-                      <Typography fontSize={15}>{item["sola CW+6"]}</Typography>
+                      <Typography fontSize={15}>
+                        {parseFloat(item["sola CW+6"]).toFixed(2)}
+                      </Typography>
                       <Typography
                         fontSize={13}
                         sx={{
@@ -1221,7 +1236,9 @@ const Sellin = ({ onData }) => {
                     }}
                   >
                     <Box display="flex" sx={{ width: "50px" }}>
-                      <Typography fontSize={15}>{item["sola CW+7"]}</Typography>
+                      <Typography fontSize={15}>
+                        {parseFloat(item["sola CW+7"]).toFixed(2)}
+                      </Typography>
                       <Typography
                         fontSize={13}
                         sx={{
@@ -1240,7 +1257,9 @@ const Sellin = ({ onData }) => {
                     }}
                   >
                     <Box display="flex" sx={{ width: "50px" }}>
-                      <Typography fontSize={15}>{item["sola CW+8"]}</Typography>
+                      <Typography fontSize={15}>
+                        {parseFloat(item["sola CW+8"]).toFixed(2)}
+                      </Typography>
                       <Typography
                         fontSize={13}
                         sx={{
@@ -1259,7 +1278,9 @@ const Sellin = ({ onData }) => {
                     }}
                   >
                     <Box display="flex" sx={{ width: "50px" }}>
-                      <Typography fontSize={15}>{item["sola CW+9"]}</Typography>
+                      <Typography fontSize={15}>
+                        {parseFloat(item["sola CW+9"]).toFixed(2)}
+                      </Typography>
                       <Typography
                         fontSize={13}
                         sx={{

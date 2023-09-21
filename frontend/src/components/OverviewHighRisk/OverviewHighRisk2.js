@@ -25,6 +25,7 @@ import {
   fetchoverviewcustomerdata,
   fetchtaburl,
   updateexporttabledata,
+  updatesearch,
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 import loaderImage from "../../images/Logo-bar.png";
@@ -37,6 +38,7 @@ const OverviewHighRisk2 = () => {
   const loader = useSelector((state) => state.sidebar.loader);
   const customer = useSelector((state) => state.sidebar.customer);
   const exporttabledata = useSelector((state) => state.sidebar.exporttabledata);
+  const [searchValue, setSearchValue] = useState(""); // State to store the search input value
 
   const [activeTab, setActiveTab] = useState(0);
 
@@ -75,16 +77,23 @@ const OverviewHighRisk2 = () => {
       },
     },
   }));
-  const [searchValue, setSearchValue] = useState(""); // State to store the search input value
 
-  const handleSearchSKU = () => {
-    var isNumber = containsOnlyNumbers(searchValue);
+  const handleSearchSKU = async () => {
+    dispatch(updatesearch(true));
+    var isNumber = await containsOnlyNumbers(searchValue);
     if (isNumber) {
-      var results = exporttabledata.filter(
-        (item) => item["RB SKU"] === searchValue
+      console.log(exporttabledata);
+      var results = exporttabledata.filter((item) =>
+        String(item["RB SKU"]).includes(searchValue)
       );
+      dispatch(updateexporttabledata(results));
       console.log(results);
     } else {
+      var results = exporttabledata.filter((item) =>
+        item.Description.includes(searchValue)
+      );
+      dispatch(updateexporttabledata(results));
+      console.log(results);
     }
   };
   const containsOnlyNumbers = (inputString) => {
@@ -163,7 +172,7 @@ const OverviewHighRisk2 = () => {
     let header = "";
     for (let key in array[0]) {
       if (header !== "") header += ",";
-      header += key;
+      header += `"${key}"`; // Enclose headers in double quotes
     }
     csv += header + "\r\n";
 
@@ -172,13 +181,24 @@ const OverviewHighRisk2 = () => {
       let line = "";
       for (let key in array[i]) {
         if (line !== "") line += ",";
-        line += array[i][key];
+        let value = array[i][key];
+
+        // Check if value is null
+        if (value === null) {
+          value = "";
+        } else {
+          value = value.toString(); // Convert to string
+          value = value.replace(/"/g, '""'); // Enclose values in double quotes and escape existing double quotes
+        }
+
+        line += `"${value}"`;
       }
       csv += line + "\r\n";
     }
 
     return csv;
   };
+
   const handleExportTableData = () => {
     const csvData = convertToCSV(exporttabledata);
     const blob = new Blob([csvData], { type: "text/csv" });

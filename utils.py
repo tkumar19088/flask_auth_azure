@@ -272,7 +272,7 @@ class AlertsManager:
         self.refine_alerts()
         return self.alerts
 
-# ************************** MITIGATION # 1 REALLOCATION CLASS ********************************
+# ************************** MITIGATION # 1 REALLOCATION BY RETAILER ****************************
 #
 #       Contains functions to optimize reallocation of supply for alternate retailers
 #
@@ -288,29 +288,29 @@ class ReallocationOptimizer:
     @staticmethod
     def get_data_dict():
         return {
-            0: 'customer',
-            1: 'Channel',
-            2: 'Expct_Sell_in_',
-            3: 'Current_Allocation',
-            4: 'Allocation_consumed_to_date',
-            5: 'Open_orders',
-            6: 'customer_Target_SOH',
-            7: 'customer_Target_WoC',
-            8: 'CMU_Score',
-            9: 'Sum_of_POs_to_date',
-            10: 'current_customer_SOH',
-            11: 'Sell_out'
+            0: 'Customer',#
+            1: 'Channel',#
+            2: 'sif-atf',#
+            3: 'currentallocation',#
+            4: 'allocationconsumed',#
+            5: 'openorders',#
+            6: 'custsoh-target',#
+            7: 'custwoc-target',#
+            8: 'cmuscore',#
+            9: 'sumofPOsinalloccycle',#
+            10: 'currentcustSOH',#
+            11: 'Sell out'#
         }
 
     @staticmethod
     def get_var_dict():
         return {
-            0: 'Remaining_allocation',
-            1: 'Expected_weekly_service_level',
-            2: 'Updated_customer_SOH',
-            3: 'Updated_Customer_WoC',
-            4: 'SOH_safe_to_reallocate',
-            5: 'Suggested_Supply'
+            0: 'remainingallocation',#
+            1: 'expectedservicelevel',#
+            2: 'custsoh-current',#
+            3: 'custwoc-current',#
+            4: 'stocksafetoreallocate',#
+            5: 'idealallocationvalues'#
         }
 
     def initiate_variables(self):
@@ -366,42 +366,46 @@ class ReallocationOptimizer:
         self.problem += pulp.lpSum([self.X_vars[i][5] for i in range(self.num_rows)]) == 0
 
     def optimize(self, MINIMUM_SERVICE_LEVEL, WOC_MIN_PCT, WOC_MAX_PCT):
-        data_dict = self.get_data_dict()
-        var_dict = self.get_var_dict()
+        try:
+            data_dict = self.get_data_dict()
+            var_dict = self.get_var_dict()
 
-        WOC_MIN = self.df[data_dict[7]] * WOC_MIN_PCT
-        WOC_MAX = self.df[data_dict[7]] * WOC_MAX_PCT
+            WOC_MIN = self.df[data_dict[7]] * WOC_MIN_PCT
+            WOC_MAX = self.df[data_dict[7]] * WOC_MAX_PCT
 
-        X_0 = self.initiate_variables()
-        self.problem += X_0
-        self.add_constraints(X_0, WOC_MIN, WOC_MAX, MINIMUM_SERVICE_LEVEL)
+            X_0 = self.initiate_variables()
+            self.problem += X_0
+            self.add_constraints(X_0, WOC_MIN, WOC_MAX, MINIMUM_SERVICE_LEVEL)
 
-        self.problem.solve()
+            self.problem.solve()
 
-        status = pulp.LpStatus[self.problem.status]
-        arr = np.zeros((self.num_rows, len(var_dict.keys())))
-        for k1 in self.X_vars.keys():
-            for k2, v in self.X_vars[k1].items():
-                arr[k1, k2] = v.varValue
-        df_res = pd.DataFrame(np.round(arr, 4), columns=var_dict.values())
-        constraints = [{
-                        'Name': 'PCT DEVIATION FROM INIT ALLOC',
-                        'Value': '5%',
-                        'Label': 0
-                    }, {
-                        'Name': 'MIN Expected Service Level',
-                        'Value': f'{MINIMUM_SERVICE_LEVEL}',
-                        'Label': 1
-                    }, {
-                        'Name': 'MIN Deviation from Target WOC',
-                        'Value': f'{WOC_MIN}',
-                        'Label': 0
-                    }, {
-                        'Name': 'MAX Deviation from Target WOC',
-                        'Value': f'{WOC_MAX}',
-                        'Label': 0
-                    }]
-        return constraints, status, df_res
+            status = pulp.LpStatus[self.problem.status]
+            arr = np.zeros((self.num_rows, len(var_dict.keys())))
+            for k1 in self.X_vars.keys():
+                for k2, v in self.X_vars[k1].items():
+                    arr[k1, k2] = v.varValue
+            df_res = pd.DataFrame(np.round(arr, 4), columns=var_dict.values())
+            constraints = [{
+                            'Name': 'PCT DEVIATION FROM INIT ALLOC',
+                            'Value': '5%',
+                            'Label': 0
+                        }, {
+                            'Name': 'MIN Expected Service Level',
+                            'Value': f'{MINIMUM_SERVICE_LEVEL}',
+                            'Label': 1
+                        }, {
+                            'Name': 'MIN Deviation from Target WOC',
+                            'Value': f'{WOC_MIN}',
+                            'Label': 0
+                        }, {
+                            'Name': 'MAX Deviation from Target WOC',
+                            'Value': f'{WOC_MAX}',
+                            'Label': 0
+                        }]
+            return constraints, status, df_res
+        except Exception as e:
+            print(f"\nRARBYRET ERROR: {e}")
+            return [], str(e), pd.DataFrame()
 
 # Run Optimization model
 # Return Constraints, Results and dataframe for alternate retailers
@@ -437,11 +441,25 @@ class SKUManager:
             return self._error_response("No customer selected!")
 
         try:
-            df_price = AzureBlobReader().read_csvfile("ui_data/pushalternativeskus.csv")
+            df_price = AzureBlobReader().read_csvfile("ui_data/df_price.csv")
             alternative_skus_calculator = AlternativeSKUsCalculator(df_price, sku_r, customer)
             alternative_skus = alternative_skus_calculator.calculate()
-            return json.loads(alternative_skus.to_json(orient='records')) if not alternative_skus.empty else self._error_response("No alternative SKUs found!")
+            altskus_sorted = alternative_skus.sort_values(by='score_final', ascending=False).head(5)
+            altskus_sorted['skuid'] = altskus_sorted.index
+
+            bensfile = AzureBlobReader().read_csvfile("ui_data/alternative_sku_template.csv")
+
+            merged = bensfile.merge(altskus_sorted, left_on='RB SKU', right_on='skuid', how='inner')
+            rename_cols = {
+                            'score_final': 'recom-score',
+                        }
+            merged = merged.rename(columns=rename_cols)
+            merged.sort_values(by='recom-score', ascending=False, inplace=True)
+            print(f"\nMerged:\n{merged}\n")
+
+            return json.loads(merged.to_json(orient='records')) if not merged.empty else self._error_response("No alternative SKUs found!")
         except Exception as e:
+            print(f"\nError:\n{e}\n")
             return self._error_response(str(e))
 
     def _error_response(self, message):
@@ -457,19 +475,33 @@ class AlternativeSKUsCalculator:
     def calculate(self):
         brand = self.df.loc[self.df['sku'] == self.sku_r, 'brand'].values[0]
         conds = (self.df['brand'] == brand) & (self.df['retailer'] == self.ret)
-        skus_df = self.df[conds].drop(columns=['retailer', 'brand']).drop_duplicates().set_index('sku').T
-        sku_r_values = skus_df[self.sku_r]
-        skus_df = skus_df.drop(columns=self.sku_r)
+        tmp = self.df[conds].drop(columns = ['retailer', 'brand']).drop_duplicates().copy()
+        tmp = tmp.set_index('sku').T
 
-        skus_df.loc['score_1'] = 1 * (skus_df.loc['segment'] == sku_r_values['segment'])
-        skus_df.loc['score_3'] = skus_df.loc['reckitt_inv'] / sku_r_values['reckitt_inv']
-        skus_df.loc['score_4'] = skus_df[['reckitt_inv', 'currentallocation']].min(axis=1) / sku_r_values['sif-reckitt']
-        skus_df.loc['score_5'] = skus_df[['Sell out', 'currentcustSOH', 'sif-reckitt']].apply(lambda x: self._score5(x[0], x[1], x[2]), axis=0)
-        skus_df.loc['score_6'] = skus_df[['custwoc-target', 'custwoc-current']].apply(lambda x: self._score6(x[0], x[1]), axis=0)
-        skus_df.loc['score_7'] = 1 - abs(skus_df.loc['price'] - sku_r_values['price'] / sku_r_values['price'])
-        skus_df.loc['score_final'] = skus_df[['score_1', 'score_3', 'score_4', 'score_5', 'score_6', 'score_7']].sum(axis=0)
+        try:
+            if self.sku_r in tmp.columns:
+                tmp_r = tmp[self.sku_r]
+            else:
+                return pd.DataFrame()
+        except Exception as e:
+            return self._error_response(str(e))
 
-        return skus_df.loc[['score_final']].T.replace(" ", "-")
+        tmp = tmp.drop(columns = self.sku_r)
+        tmp.loc['score_1'] = 1 * (tmp.loc['segment'] == tmp_r['segment'])
+        tmp.loc['score_3'] = (tmp.loc['reckitt_inv'] / tmp_r['reckitt_inv'])
+
+        tmp.loc['score_4'] = (tmp.loc[['reckitt_inv', 'currentallocation']].min(axis = 1) / tmp_r['sif-reckitt'])
+        tmp.loc['score_5'] = (tmp.loc[['Sell out', 'currentcustSOH', 'sif-reckitt']].apply(lambda x: self._score5(x[0], x[1], x[2]), axis = 0))
+        tmp.loc['score_6'] = (tmp.loc[['custwoc-target', 'custwoc-current']].apply(lambda x: self._score6(x[0], x[1]), axis = 0))
+        tmp.loc['score_7'] = 1 - abs(tmp.loc['price'] - tmp_r['price'] / tmp_r['price'])
+        # tmp.loc[['score_1', 'score_3', 'score_4', 'score_5', 'score_6', 'score_7']] /= tmp.loc[['score_1', 'score_3', 'score_4', 'score_5', 'score_6', 'score_7']].max(axis = 1).values.reshape(-1,1)
+        tmp.loc['score_final'] = tmp.loc[['score_1', 'score_3', 'score_4', 'score_5', 'score_6', 'score_7']].sum(axis = 0)
+        tmp = tmp.loc[['score_final']].T
+        tmp['score_final'] = (tmp['score_final'] - tmp['score_final'].min()) / (tmp['score_final'].max() - tmp['score_final'].min())
+        return tmp
+
+    def _error_response(self, message):
+        return jsonify(status="error", message=message), 500
 
     def _score5(self, a, b, c):
         try:

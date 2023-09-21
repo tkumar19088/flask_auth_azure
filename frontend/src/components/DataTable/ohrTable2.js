@@ -41,8 +41,8 @@ const OhrTable2 = ({ onData }) => {
   const [campaignsData, setcampaignsData] = useState([]);
   const [pushAlternativeData, setpushAlternativeData] = useState([]);
   const [iscampaigns, setiscampaigns] = useState(false);
-  // const data = useSelector((state) => state.sidebar.overviewcustomerdata);
-  // console.log(data);
+  const data = useSelector((state) => state.sidebar.overviewcustomerdata);
+  console.log(data);
   const truncateText = (text, maxLength) => {
     if (text.length <= maxLength) {
       return text;
@@ -138,216 +138,216 @@ const OhrTable2 = ({ onData }) => {
     }
   };
 
-  const [data, setData] = useState([
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      "Cust SOH": 3400,
-      "Cust WOC": 8,
-      Customer: "Amazon",
-      Description: "AWICK,GB,SPNG DEL 4X250ML",
-      Location: "United Kingdom",
-      PPG: 6208713,
-      Promo: "No",
-      "RAG CW": "G",
-      "RAG CW +1": "R",
-      "RAG CW+2": "A",
-      "RAG CW+3": "G",
-      "RB SKU": "3038049",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      "Cust SOH": 4200,
-      "Cust WOC": 3,
-      Customer: "Amazon",
-      Description: "AWICK,GB,FM RF PNKSP 392X250ML",
-      Location: "United Kingdom",
-      PPG: 2849279,
-      Promo: "Yes",
-      "RAG CW": "A",
-      "RAG CW +1": "G",
-      "RAG CW+2": "R",
-      "RAG CW+3": "A",
-      "RB SKU": "3209375",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      "Cust SOH": 3200,
-      "Cust WOC": 6,
-      Customer: "Amazon",
-      Description: "AWICK,GB,FM TW RF RW 8X250ML",
-      Location: "United Kingdom",
-      PPG: 9014190,
-      Promo: "No",
-      "RAG CW": "R",
-      "RAG CW +1": "A",
-      "RAG CW+2": "R",
-      "RAG CW+3": "G",
-      "RB SKU": "3232106",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      "Cust SOH": 2200,
-      "Cust WOC": 2,
-      Customer: "Amazon",
-      Description: "AWICK,GB,NA3,PSP 6X300ML",
-      Location: "United Kingdom",
-      PPG: 4725387,
-      Promo: "Yes",
-      "RAG CW": "R",
-      "RAG CW +1": "R",
-      "RAG CW+2": "R",
-      "RAG CW+3": "G",
-      "RB SKU": "3246983",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      "Cust SOH": 3000,
-      "Cust WOC": 7,
-      Customer: "Amazon",
-      Description: "AWICK,GB,BOOSTER ROSE 12X300ML",
-      Location: "United Kingdom",
-      PPG: 6876698,
-      Promo: "Yes",
-      "RAG CW": "A",
-      "RAG CW +1": "R",
-      "RAG CW+2": "G",
-      "RAG CW+3": "G",
-      "RB SKU": "3136081",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      "Cust SOH": 1600,
-      "Cust WOC": 9,
-      Customer: "Amazon",
-      Description: "AWICK,GB,REED ESO PBFIG 5X33ML",
-      Location: "United Kingdom",
-      PPG: 5227394,
-      Promo: "Yes",
-      "RAG CW": "A",
-      "RAG CW +1": "A",
-      "RAG CW+2": "G",
-      "RAG CW+3": "G",
-      "RB SKU": "3167124",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      "Cust SOH": 2100,
-      "Cust WOC": 7,
-      Customer: "Amazon",
-      Description: "AWICK,GB,LE RF VAN BEAN 6X19ML",
-      Location: "United Kingdom",
-      PPG: 3035131,
-      Promo: "Yes",
-      "RAG CW": "A",
-      "RAG CW +1": "R",
-      "RAG CW+2": "R",
-      "RAG CW+3": "R",
-      "RB SKU": "3200683",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      "Cust SOH": 2500,
-      "Cust WOC": 4,
-      Customer: "Amazon",
-      Description: "AWICK,GB,LE RF BERRY 2X5X19ML",
-      Location: "United Kingdom",
-      PPG: 6572089,
-      Promo: "Yes",
-      "RAG CW": "G",
-      "RAG CW +1": "G",
-      "RAG CW+2": "R",
-      "RAG CW+3": "G",
-      "RB SKU": "3205304",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      "Cust SOH": 4100,
-      "Cust WOC": 8,
-      Customer: "Amazon",
-      Description: "AWICK,GB,APPLE LE RF 6X19ML",
-      Location: "United Kingdom",
-      PPG: 2824041,
-      Promo: "Yes",
-      "RAG CW": "G",
-      "RAG CW +1": "A",
-      "RAG CW+2": "G",
-      "RAG CW+3": "G",
-      "RB SKU": "3228650",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      "Cust SOH": 1800,
-      "Cust WOC": 7,
-      Customer: "Amazon",
-      Description: "AWICK,GB,LE RF MALDIVES 5X19ML",
-      Location: "United Kingdom",
-      PPG: 6439551,
-      Promo: "Yes",
-      "RAG CW": "G",
-      "RAG CW +1": "A",
-      "RAG CW+2": "G",
-      "RAG CW+3": "G",
-      "RB SKU": "3252952",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      "Cust SOH": 3300,
-      "Cust WOC": 10,
-      Customer: "Amazon",
-      Description: "AWICK,GB,EM RF APP&CIN 6X20ML",
-      Location: "United Kingdom",
-      PPG: 5281278,
-      Promo: "No",
-      "RAG CW": "G",
-      "RAG CW +1": "G",
-      "RAG CW+2": "A",
-      "RAG CW+3": "G",
-      "RB SKU": "3266914",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      "Cust SOH": 4500,
-      "Cust WOC": 4,
-      Customer: "Amazon",
-      Description: "AWICK,GB,NOEL CNDL 6X105G",
-      Location: "United Kingdom",
-      PPG: 6317266,
-      Promo: "Yes",
-      "RAG CW": "R",
-      "RAG CW +1": "A",
-      "RAG CW+2": "A",
-      "RAG CW+3": "A",
-      "RB SKU": "3228482",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      "Cust SOH": 2100,
-      "Cust WOC": 9,
-      Customer: "Amazon",
-      Description: "AWICK,GB,PMP FWTR GEL 12X70G",
-      Location: "United Kingdom",
-      PPG: 8392919,
-      Promo: "Yes",
-      "RAG CW": "G",
-      "RAG CW +1": "G",
-      "RAG CW+2": "G",
-      "RAG CW+3": "A",
-      "RB SKU": "3234661",
-    },
-  ]);
+  // const [data, setData] = useState([
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     "Cust SOH": 3400,
+  //     "Cust WOC": 8,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,SPNG DEL 4X250ML",
+  //     Location: "United Kingdom",
+  //     PPG: 6208713,
+  //     Promo: "No",
+  //     "RAG CW": "G",
+  //     "RAG CW +1": "R",
+  //     "RAG CW+2": "A",
+  //     "RAG CW+3": "G",
+  //     "RB SKU": "3038049",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     "Cust SOH": 4200,
+  //     "Cust WOC": 3,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,FM RF PNKSP 392X250ML",
+  //     Location: "United Kingdom",
+  //     PPG: 2849279,
+  //     Promo: "Yes",
+  //     "RAG CW": "A",
+  //     "RAG CW +1": "G",
+  //     "RAG CW+2": "R",
+  //     "RAG CW+3": "A",
+  //     "RB SKU": "3209375",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     "Cust SOH": 3200,
+  //     "Cust WOC": 6,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,FM TW RF RW 8X250ML",
+  //     Location: "United Kingdom",
+  //     PPG: 9014190,
+  //     Promo: "No",
+  //     "RAG CW": "R",
+  //     "RAG CW +1": "A",
+  //     "RAG CW+2": "R",
+  //     "RAG CW+3": "G",
+  //     "RB SKU": "3232106",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     "Cust SOH": 2200,
+  //     "Cust WOC": 2,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,NA3,PSP 6X300ML",
+  //     Location: "United Kingdom",
+  //     PPG: 4725387,
+  //     Promo: "Yes",
+  //     "RAG CW": "R",
+  //     "RAG CW +1": "R",
+  //     "RAG CW+2": "R",
+  //     "RAG CW+3": "G",
+  //     "RB SKU": "3246983",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     "Cust SOH": 3000,
+  //     "Cust WOC": 7,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,BOOSTER ROSE 12X300ML",
+  //     Location: "United Kingdom",
+  //     PPG: 6876698,
+  //     Promo: "Yes",
+  //     "RAG CW": "A",
+  //     "RAG CW +1": "R",
+  //     "RAG CW+2": "G",
+  //     "RAG CW+3": "G",
+  //     "RB SKU": "3136081",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     "Cust SOH": 1600,
+  //     "Cust WOC": 9,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,REED ESO PBFIG 5X33ML",
+  //     Location: "United Kingdom",
+  //     PPG: 5227394,
+  //     Promo: "Yes",
+  //     "RAG CW": "A",
+  //     "RAG CW +1": "A",
+  //     "RAG CW+2": "G",
+  //     "RAG CW+3": "G",
+  //     "RB SKU": "3167124",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     "Cust SOH": 2100,
+  //     "Cust WOC": 7,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,LE RF VAN BEAN 6X19ML",
+  //     Location: "United Kingdom",
+  //     PPG: 3035131,
+  //     Promo: "Yes",
+  //     "RAG CW": "A",
+  //     "RAG CW +1": "R",
+  //     "RAG CW+2": "R",
+  //     "RAG CW+3": "R",
+  //     "RB SKU": "3200683",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     "Cust SOH": 2500,
+  //     "Cust WOC": 4,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,LE RF BERRY 2X5X19ML",
+  //     Location: "United Kingdom",
+  //     PPG: 6572089,
+  //     Promo: "Yes",
+  //     "RAG CW": "G",
+  //     "RAG CW +1": "G",
+  //     "RAG CW+2": "R",
+  //     "RAG CW+3": "G",
+  //     "RB SKU": "3205304",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     "Cust SOH": 4100,
+  //     "Cust WOC": 8,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,APPLE LE RF 6X19ML",
+  //     Location: "United Kingdom",
+  //     PPG: 2824041,
+  //     Promo: "Yes",
+  //     "RAG CW": "G",
+  //     "RAG CW +1": "A",
+  //     "RAG CW+2": "G",
+  //     "RAG CW+3": "G",
+  //     "RB SKU": "3228650",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     "Cust SOH": 1800,
+  //     "Cust WOC": 7,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,LE RF MALDIVES 5X19ML",
+  //     Location: "United Kingdom",
+  //     PPG: 6439551,
+  //     Promo: "Yes",
+  //     "RAG CW": "G",
+  //     "RAG CW +1": "A",
+  //     "RAG CW+2": "G",
+  //     "RAG CW+3": "G",
+  //     "RB SKU": "3252952",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     "Cust SOH": 3300,
+  //     "Cust WOC": 10,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,EM RF APP&CIN 6X20ML",
+  //     Location: "United Kingdom",
+  //     PPG: 5281278,
+  //     Promo: "No",
+  //     "RAG CW": "G",
+  //     "RAG CW +1": "G",
+  //     "RAG CW+2": "A",
+  //     "RAG CW+3": "G",
+  //     "RB SKU": "3266914",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     "Cust SOH": 4500,
+  //     "Cust WOC": 4,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,NOEL CNDL 6X105G",
+  //     Location: "United Kingdom",
+  //     PPG: 6317266,
+  //     Promo: "Yes",
+  //     "RAG CW": "R",
+  //     "RAG CW +1": "A",
+  //     "RAG CW+2": "A",
+  //     "RAG CW+3": "A",
+  //     "RB SKU": "3228482",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     "Cust SOH": 2100,
+  //     "Cust WOC": 9,
+  //     Customer: "Amazon",
+  //     Description: "AWICK,GB,PMP FWTR GEL 12X70G",
+  //     Location: "United Kingdom",
+  //     PPG: 8392919,
+  //     Promo: "Yes",
+  //     "RAG CW": "G",
+  //     "RAG CW +1": "G",
+  //     "RAG CW+2": "G",
+  //     "RAG CW+3": "A",
+  //     "RB SKU": "3234661",
+  //   },
+  // ]);
   const [selectAll, setSelectAll] = useState(false);
   const [selectedRowsData, setselectedRowsData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: "id", direction: "asc" });
@@ -1083,19 +1083,19 @@ const OhrTable2 = ({ onData }) => {
                     </TableCell>
                     <TableCell style={{ textAlign: "center", width: "30px" }}>
                       <Typography mx="7px" fontSize="13px">
-                        {item["Cust SOH"]}
+                        {item.InitialSOHWeek}
                       </Typography>
                     </TableCell>
                     <TableCell style={{ textAlign: "center", width: "30px" }}>
                       <Typography mx="7px" fontSize="13px">
-                        {item["Cust WOC"]}
+                        {item["Cust WOC"] == null ? "-" : item["Cust WOC"]}
                       </Typography>
                     </TableCell>
                     <TableCell
                       style={{ textAlign: "center" }}
                       sx={{ textAlign: "center", padding: "0px" }}
                     >
-                      {item.Promo}
+                      {item.Promo == null ? "-" : item.Promo}
                     </TableCell>
 
                     <TableCell
@@ -1115,12 +1115,13 @@ const OhrTable2 = ({ onData }) => {
                           // border:"1px solid",
                           width: "30px",
                           height: "25px",
-                          backgroundColor:
-                            item["RAG CW"] == "G"
+                          backgroundColor: item["RAG CW"]
+                            ? item["RAG CW"] == "G"
                               ? "#57a957"
                               : item["RAG CW"] == "R"
                               ? "#F44444"
-                              : "orange",
+                              : "orange"
+                            : "",
                           display: "flex",
                           justifyContent: "center",
                           textAlign: "center",
@@ -1144,12 +1145,13 @@ const OhrTable2 = ({ onData }) => {
                           color: "#fff",
                           width: "30px",
                           height: "25px",
-                          backgroundColor:
-                            item["RAG CW +1"] == "G"
+                          backgroundColor: item["RAG CW +1"]
+                            ? item["RAG CW +1"] == "G"
                               ? "#57a957"
                               : item["RAG CW +1"] == "R"
                               ? "#F44444"
-                              : "orange",
+                              : "orange"
+                            : "",
                           display: "flex",
                           justifyContent: "center",
                           textAlign: "center",
@@ -1173,12 +1175,13 @@ const OhrTable2 = ({ onData }) => {
                           color: "#fff",
                           width: "30px",
                           height: "25px",
-                          backgroundColor:
-                            item["RAG CW+2"] == "G"
+                          backgroundColor: item["RAG CW+2"]
+                            ? item["RAG CW+2"] == "G"
                               ? "#57a957"
                               : item["RAG CW+2"] == "R"
                               ? "#F44444"
-                              : "orange",
+                              : "orange"
+                            : "",
                           display: "flex",
                           justifyContent: "center",
                           textAlign: "center",
@@ -1203,12 +1206,13 @@ const OhrTable2 = ({ onData }) => {
                           color: "#fff",
                           width: "30px",
                           height: "25px",
-                          backgroundColor:
-                            item["RAG CW+3"] == "G"
+                          backgroundColor: item["RAG CW+3"]
+                            ? item["RAG CW+3"] == "G"
                               ? "#57a957"
                               : item["RAG CW+3"] == "R"
                               ? "#F44444"
-                              : "orange",
+                              : "orange"
+                            : "",
                           display: "flex",
                           justifyContent: "center",
                           textAlign: "center",
