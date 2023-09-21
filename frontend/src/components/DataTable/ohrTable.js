@@ -2060,12 +2060,13 @@ const OhrTable = ({ onData }) => {
                           fontSize: "13px",
                           width: "30px",
                           height: "25px",
-                          backgroundColor:
-                            item["RAG CW"] == "G"
+                          backgroundColor: item["RAG CW"]
+                            ? item["RAG CW"] == "G"
                               ? "#57a957"
                               : item["RAG CW"] == "R"
                               ? "#F44444"
-                              : "orange",
+                              : "orange"
+                            : "",
                           display: "flex",
                           justifyContent: "center",
                           textAlign: "center",
@@ -2089,12 +2090,13 @@ const OhrTable = ({ onData }) => {
                           color: "#fff",
                           width: "30px",
                           height: "25px",
-                          backgroundColor:
-                            item["RAG CW+1"] == "G"
+                          backgroundColor: item["RAG CW+1"]
+                            ? item["RAG CW+1"] == "G"
                               ? "#57a957"
                               : item["RAG CW+1"] == "R"
                               ? "#F44444"
-                              : "orange",
+                              : "orange"
+                            : "",
                           display: "flex",
                           justifyContent: "center",
                           textAlign: "center",
@@ -2119,12 +2121,13 @@ const OhrTable = ({ onData }) => {
                           color: "#fff",
                           width: "30px",
                           height: "25px",
-                          backgroundColor:
-                            item["RAG CW+2"] == "G"
+                          backgroundColor: item["RAG CW+2"]
+                            ? item["RAG CW+2"] == "G"
                               ? "#57a957"
                               : item["RAG CW+2"] == "R"
                               ? "#F44444"
-                              : "orange",
+                              : "orange"
+                            : "",
                           display: "flex",
                           justifyContent: "center",
                           textAlign: "center",
@@ -2149,12 +2152,13 @@ const OhrTable = ({ onData }) => {
                           color: "#fff",
                           width: "30px",
                           height: "25px",
-                          backgroundColor:
-                            item["RAG CW+3"] == "G"
+                          backgroundColor: item["RAG CW+3"]
+                            ? item["RAG CW+3"] == "G"
                               ? "#57a957"
                               : item["RAG CW+3"] == "R"
                               ? "#F44444"
-                              : "orange",
+                              : "orange"
+                            : "",
                           display: "flex",
                           justifyContent: "center",
                           textAlign: "center",
