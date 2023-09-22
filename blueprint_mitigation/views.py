@@ -7,9 +7,10 @@ from flask import (
 
 import json
 import numpy as np
-from utils import AzureBlobReader
+from utils import AzureBlobReader, replace_missing_values
 from dotenv import load_dotenv
 load_dotenv()
+from utils import AlternativeSKUsCalculator
 
 from utils import optimise_supply, SKUManager
 
@@ -49,7 +50,6 @@ def choose_scenario():
         return jsonify(status="error", message=str(e)), 500
 
 
-
 # ************************** MITIGATION SCENARIO # 1 ***************************
 #                            PUSH ALTERNATIVE SKU API
 # ******************************************************************************
@@ -86,8 +86,8 @@ def getrarbysku():
         reallocation_data = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
         reallocation_data_by_sku = reallocation_data[reallocation_data['RB SKU'] == data['rbsku']]
         _, _, reallocatedf = optimise_supply(reallocation_data_by_sku)
-        reallocatedf.replace(" ", "-", inplace=True)
-        print(reallocatedf)
+        reallocatedf = replace_missing_values(reallocatedf)
+        print(f"\nreallocatedf: \n{reallocatedf}\n")
         static_row = json.loads(reallocation_data_by_sku[reallocation_data_by_sku['Customer'] == reallocation_data_by_sku['Customer']].to_json(orient='records'))[0]
         other_rows = json.loads(reallocation_data_by_sku[reallocation_data_by_sku['Customer'] != reallocation_data_by_sku['Customer']].to_json(orient='records')) 
         return {"static_row":static_row, "other_rows":other_rows}
@@ -107,6 +107,7 @@ def getoptimize():
         if global_filters['Customer']:
             reallocationdata = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
             reallocationdatabysku = reallocationdata[reallocationdata['RB SKU'] == data['rbsku']]
+            reallocationdatabysku = replace_missing_values(reallocationdatabysku)
             staticdf = reallocationdatabysku[reallocationdatabysku['Customer'] == global_filters['Customer']]
             other_customers_df = reallocationdatabysku[reallocationdatabysku['Customer'] != global_filters['Customer']]
             static_row = json.loads(staticdf.to_json(orient='records'))[0] if staticdf else {}
@@ -133,28 +134,5 @@ def getoptimize():
     except Exception as e:
         return jsonify(status="error", message=str(e)), 500
 
-
-# ***********************************************************************
-#       HELPER FUNCTIONS INDIRECT API CALLS & REDIRECTION - BELOW
-# ***********************************************************************
-
-def score5(a, b, c):
-    try:
-        return (a / (b + c))
-    except:
-        return np.nan
-
-def score6(a, b):
-    try:
-        return a / b
-    except:
-        return np.nan
-
-
-def score7(a, b):
-    try:
-        return 1 - (abs(b - a) / a)
-    except:
-        return np.nan
 
 

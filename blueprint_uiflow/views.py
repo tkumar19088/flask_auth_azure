@@ -5,7 +5,7 @@ from flask import (
     jsonify
 )
 import json
-from utils import AzureBlobReader, AlertsManager
+from utils import AzureBlobReader, AlertsManager, replace_missing_values
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -59,8 +59,11 @@ def get_overview():
             if filter_key in global_filters and global_filters[filter_key] != None:
                 print(f"\nif {filter_key} in global_filters and {global_filters[filter_key]} != None:")
                 ohr = ohr[ohr[filter_key].str.lower() == global_filters[filter_key]]
-        ohr.replace(" ", "-", inplace=True)
-        ohrsorted = ohr.sort_values(by='Reckitt WOC', ascending=True)
+        ohr = replace_missing_values(ohr)
+        if data['customer']:
+            ohrsorted = ohr.sort_values(by='Cust WOC', ascending=True)
+        else:
+            ohrsorted = ohr.sort_values(by='Reckitt WOC', ascending=True)
         return json.loads(ohrsorted.to_json(orient='records'))
 
     return jsonify(status="Error", message="Choose above filters to view data"), 500
@@ -79,7 +82,7 @@ def getsupply():
     for filter_key in filters:
         if filter_key in global_filters and global_filters[filter_key] != None:
             rbsupply = rbsupply[rbsupply[filter_key].str.lower() == global_filters[filter_key]]
-    rbsupply.replace(" ", "-", inplace=True)
+    rbsupply = replace_missing_values(rbsupply)
     return json.loads(rbsupply.to_json(orient='records'))
 
 
@@ -96,7 +99,7 @@ def getdemand():
     for filter_key in filters:
         if filter_key in global_filters and global_filters[filter_key] != None:
             rbdemand = rbdemand[rbdemand[filter_key].str.lower() == global_filters[filter_key]]
-    rbdemand.replace(" ", "-", inplace=True)
+    rbdemand = replace_missing_values(rbdemand)
     return json.loads(rbdemand.to_json(orient='records'))
 
 
@@ -113,7 +116,7 @@ def getsohateow():
     for filter_key in filters:
         if filter_key in global_filters and global_filters[filter_key] != None:
             rbexpsoheow = rbexpsoheow[rbexpsoheow[filter_key].str.lower() == global_filters[filter_key]]
-    rbexpsoheow.replace(" ", "-", inplace=True)
+    rbexpsoheow = replace_missing_values(rbexpsoheow)
     return json.loads(rbexpsoheow.to_json(orient='records'))
 
 
@@ -130,7 +133,7 @@ def getwocateow():
     for filter_key in filters:
         if filter_key in global_filters and global_filters[filter_key] != None:
             rbwoceow = rbwoceow[rbwoceow[filter_key].str.lower() == global_filters[filter_key]]
-    rbwoceow.replace(" ", "-", inplace=True)
+    rbwoceow = replace_missing_values(rbwoceow)
     return json.loads(rbwoceow.to_json(orient='records'))
 
 
@@ -147,7 +150,7 @@ def getcaseshortages():
     for filter_key in filters:
         if filter_key in global_filters and global_filters[filter_key] != None:
             rbcaseshort = rbcaseshort[rbcaseshort[filter_key].str.lower() == global_filters[filter_key]]
-    rbcaseshort.replace(" ", "-", inplace=True)
+    rbcaseshort = replace_missing_values(rbcaseshort)
     return json.loads(rbcaseshort.to_json(orient='records'))
 
 
@@ -164,7 +167,7 @@ def getexpectedservice():
     for filter_key in filters:
         if filter_key in global_filters and global_filters[filter_key] != None:
             rbexpsl = rbexpsl[rbexpsl[filter_key].str.lower() == global_filters[filter_key]]
-    rbexpsl.replace(" ", "-", inplace=True)
+    rbexpsl = replace_missing_values(rbexpsl)
     return json.loads(rbexpsl.to_json(orient='records'))
 
 
@@ -185,7 +188,7 @@ def get_stock_position():
         if filter_key in global_filters:
             stock_pos = stock_pos[stock_pos[filter_key].str.lower() == global_filters[filter_key]]
 
-    stock_pos.replace(" ", "-", inplace=True)
+    stock_pos = replace_missing_values(stock_pos)
     return json.loads(stock_pos.to_json(orient='records'))
 
 
@@ -202,7 +205,7 @@ def getcustepos():
     for filter_key in filters:
         if filter_key in global_filters and global_filters[filter_key] != None:
             custhepos = custhepos[custhepos[filter_key].str.lower() == global_filters[filter_key]]
-    custhepos.replace(" ", "-", inplace=True)
+    custhepos = replace_missing_values(custhepos)
     return json.loads(custhepos.to_json(orient='records'))
 
 # *****************************************************
@@ -218,7 +221,7 @@ def getcustsellout():
     for filter_key in filters:
         if filter_key in global_filters and global_filters[filter_key] != None:
             custsellout = custsellout[custsellout[filter_key].str.lower() == global_filters[filter_key]]
-    custsellout.replace(" ", "-", inplace=True)
+    custsellout = replace_missing_values(custsellout)
     return json.loads(custsellout.to_json(orient='records'))
 
 # *****************************************************
@@ -234,7 +237,7 @@ def getcustsellin():
     for filter_key in filters:
         if filter_key in global_filters and global_filters[filter_key] != None:
             custsellin = custsellin[custsellin[filter_key].str.lower() == global_filters[filter_key]]
-    custsellin.replace(" ", "-", inplace=True)
+    custsellin = replace_missing_values(custsellin)
     return json.loads(custsellin.to_json(orient='records'))
 
 
@@ -251,7 +254,7 @@ def getcustola():
     for filter_key in filters:
         if filter_key in global_filters and global_filters[filter_key] != None:
             custola = custola[custola[filter_key].str.lower() == global_filters[filter_key]]
-    custola.replace(" ", "-", inplace=True)
+    custola = replace_missing_values(custola)
     return json.loads(custola.to_json(orient='records'))
 
 
@@ -272,11 +275,11 @@ def get_campaigns():
         if filter_key in global_filters:
             campaignsbysku = campaignsbysku[campaignsbysku[filter_key].str.lower() == global_filters[filter_key]]
 
-    campaignsbysku.replace(" ", "-", inplace=True)
+    campaignsbysku = replace_missing_values(campaignsbysku)
     return json.loads(campaignsbysku.to_json(orient='records'))
 
 # *******************************
-#       Sell In Graph API # TODO: WHere is the raw data coming from?
+#       Sell In Graph API
 # *******************************
 @uiflow_blueprint.route("/getsellingraph", methods=['POST'])
 def get_selling_graph():
@@ -284,15 +287,16 @@ def get_selling_graph():
     global_filters = current_app.config.get('global_filters', {})
 
     data = request.json or {}
-    file_path = "ui_data/customersellin.csv" if data['customer'] else "ui_data/reckittsellin.csv"
+    file_path = "ui_data/customersellin.csv" if data['customer'] else "ui_data/forecastbuildersellin.csv"
     sellin = AzureBlobReader().read_csvfile(file_path)
     for filter_key in ['Business Unit','Location','Brand', 'Customer', 'RB SKU']:
         if filter_key in global_user:
             sellin = sellin[sellin[filter_key].isin(global_user[filter_key])]
+    sellin = replace_missing_values(sellin)
     return json.loads(sellin.to_json(orient='records'))
 
 # *******************************
-#       Sell Out Graph API # TODO: WHere is the raw data coming from?
+#       Sell Out Graph API
 # *******************************
 @uiflow_blueprint.route("/getselloutgraph", methods=['POST'])
 def get_sellout_graph():
@@ -300,9 +304,10 @@ def get_sellout_graph():
     global_filters = current_app.config.get('global_filters', {})
 
     data = request.json or {}
-    file_path = "ui_data/customersellout.csv" if data['customer'] else "ui_data/reckittsellout.csv"
+    file_path = "ui_data/customersellout.csv" if data['customer'] else "ui_data/forecastbuildersellout.csv"
     sellout = AzureBlobReader().read_csvfile(file_path)
     for filter_key in ['Business Unit','Location','Brand', 'Customer', 'RB SKU']:
         if filter_key in global_user:
             sellout = sellout[sellout[filter_key].isin(global_user[filter_key])]
+    sellout = replace_missing_values(sellout)
     return json.loads(sellout.to_json(orient='records'))

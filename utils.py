@@ -219,11 +219,6 @@ class AlertsManager:
                 df = df[df[key].isin(self.global_user[key])]
             if self.global_filters != {} and key in self.global_filters:
                 df = df[df[key]==(self.global_filters[key])]
-
-        # if self.global_filters != {}:
-        #     for key in filter_keys:
-        #         if key in self.global_filters:
-        #             df = df[df[key]==(self.global_filters[key])]
         return df.reset_index(drop=True)
 
     def get_sorted_data(self, data, sort_column):
@@ -385,6 +380,7 @@ class ReallocationOptimizer:
                 for k2, v in self.X_vars[k1].items():
                     arr[k1, k2] = v.varValue
             df_res = pd.DataFrame(np.round(arr, 4), columns=var_dict.values())
+            df_res = replace_missing_values(df_res)
             constraints = [{
                             'Name': 'PCT DEVIATION FROM INIT ALLOC',
                             'Value': '5%',
@@ -455,8 +451,7 @@ class SKUManager:
                         }
             merged = merged.rename(columns=rename_cols)
             merged.sort_values(by='recom-score', ascending=False, inplace=True)
-            print(f"\nMerged:\n{merged}\n")
-
+            merged = replace_missing_values(merged)
             return json.loads(merged.to_json(orient='records')) if not merged.empty else self._error_response("No alternative SKUs found!")
         except Exception as e:
             print(f"\nError:\n{e}\n")
@@ -521,3 +516,14 @@ class AlternativeSKUsCalculator:
             return 1 - (abs(b - a) / a)
         except:
             return np.nan
+
+
+
+# ************************** HELPER FUNCTIONS  *****************************
+#
+#
+# **************************************************************************
+def replace_missing_values(df):
+    missing_values = [None, 'null', 'NULL', 'Null', 'Nan', 'nan', 'NaN',' ', '']
+    cleaned_df = df.replace(missing_values, '-')
+    return cleaned_df
