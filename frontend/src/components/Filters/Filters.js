@@ -22,6 +22,8 @@ import {
   fetchlocationempty,
   fetchfilterapply,
   fetchalerts,
+  updateapplyfilterserror,
+  fetchuserdetails,
 } from "../../store/actions/sidebarActions";
 import "./Filters.css";
 import "./Filtersnew.css";
@@ -37,9 +39,17 @@ const Filters = () => {
   const customer = useSelector((state) => state.sidebar.customerfilter);
   const brand = useSelector((state) => state.sidebar.brand);
   const apply = useSelector((state) => state.sidebar.apply);
+  const userDetailsreset = useSelector(
+    (state) => state.sidebar.userDetailsreset
+  );
+  const alertsreset = useSelector((state) => state.sidebar.alertsreset);
+  const applyfilterserror = useSelector(
+    (state) => state.sidebar.applyfilterserror
+  );
 
   const businessEmpty = useSelector((state) => state.sidebar.businessEmpty);
   const locationEmpty = useSelector((state) => state.sidebar.locationEmpty);
+  const [isReset, setIsReset] = useState(false);
 
   const handleBusinessChange = (event) => {
     dispatch(fetchbusiness(event.target.value));
@@ -60,6 +70,7 @@ const Filters = () => {
 
   const handleApplyFilters = async (e) => {
     e.preventDefault();
+    dispatch(updateapplyfilterserror(false));
     if (!business) {
       dispatch(fetchbusinessempty(true));
     }
@@ -107,7 +118,12 @@ const Filters = () => {
       const response = await fetch("http://localhost:5000/resetfilterparams");
       if (response.ok) {
         console.log("success");
-        window.location.reload();
+        dispatch(fetchbusiness(""));
+        dispatch(fetchlocation(""));
+        dispatch(fetchcustomer(""));
+        dispatch(fetchbrand(""));
+        dispatch(fetchalerts(alertsreset));
+        dispatch(fetchfilterapply(false));
       }
     } catch (error) {
       console.error("Fetch error:", error);
@@ -115,26 +131,25 @@ const Filters = () => {
       // dispatch(updateloader(false));
     }
   };
-  // const data = {
-  //   Name: "Moka  Keerthi",
-  //   Email: "keerthi.moka@artefact.com",
-  //   Customer: ["Asda", "Amazon"],
-  //   Location: ["United Kingdom", "Australia"],
-  //   Brand: ["Airwick", "Durex"],
-  //   "Business Unit": ["Nutrition", "Hygiene", "Health"],
-  //   Role: "admin",
-  // };
   return (
     <div className="filter-main">
-      <Typography
-        className="filter-title"
-        color="#415A6C"
-        marginBottom="20px"
-        marginTop="20px"
-        // p={1}
-      >
-        Filters
-      </Typography>
+      <Box display="flex" gap={2}>
+        <Typography
+          className="filter-title"
+          color="#415A6C"
+          marginBottom="20px"
+          marginTop="20px"
+          // p={1}
+        >
+          Filters
+        </Typography>
+        {applyfilterserror && (
+          <Typography color="red" marginTop="26px">
+            {" "}
+            Please Select Apply Filters
+          </Typography>
+        )}
+      </Box>
       <Grid container mt={-2} className="flt-bx">
         <Grid
           container
@@ -177,11 +192,16 @@ const Filters = () => {
                   onChange={handleBusinessChange}
                   id="business-unit"
                 >
-                  {data["Business Unit"].map((item) => (
-                    <MenuItem value={item} key={item}>
-                      {item}
-                    </MenuItem>
-                  ))}
+                  <MenuItem value="">Select</MenuItem>
+                  {data ? (
+                    data["Business Unit"].map((item) => (
+                      <MenuItem value={item} key={item}>
+                        {item}
+                      </MenuItem>
+                    ))
+                  ) : (
+                    <MenuItem>Select</MenuItem>
+                  )}
                 </Select>
               </FormControl>
             </Box>
@@ -206,6 +226,7 @@ const Filters = () => {
                   onChange={handleLocationChange}
                   id="location"
                 >
+                  <MenuItem value="">Select</MenuItem>
                   {data.Location.map((item) => (
                     <MenuItem value={item} key={item}>
                       {item}
@@ -228,6 +249,7 @@ const Filters = () => {
                   id="customer"
                   onChange={handleCustomerChange}
                 >
+                  <MenuItem value="">Select</MenuItem>
                   {data.Customer.map((item) => (
                     <MenuItem value={item} key={item}>
                       {item}
@@ -250,6 +272,7 @@ const Filters = () => {
                   onChange={handleBrandChange}
                   disabled={!business}
                 >
+                  <MenuItem value="">Select</MenuItem>
                   {business === "Hygiene" && (
                     <MenuItem value="Airwick">Airwick</MenuItem>
                   )}

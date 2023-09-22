@@ -10,6 +10,7 @@ import {
   fetchbusinessempty,
   fetchlocationempty,
   fetchtaburl,
+  updateapplyfilterserror,
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 import Badge from "@mui/material/Badge";
@@ -23,6 +24,7 @@ const Planning = ({ filterStatus }) => {
   const business = useSelector((state) => state.sidebar.business);
   const location = useSelector((state) => state.sidebar.location);
   const apply = useSelector((state) => state.sidebar.apply);
+
   const handleOOSRisk = () => {
     if (!business) {
       dispatch(fetchbusinessempty(true));
@@ -30,11 +32,11 @@ const Planning = ({ filterStatus }) => {
     if (!location) {
       dispatch(fetchlocationempty(true));
     }
-    console.log(apply);
     if (!business || !location) {
       return;
     }
     if (!apply) {
+      dispatch(updateapplyfilterserror(true));
       return;
     }
     filterStatus(true);
