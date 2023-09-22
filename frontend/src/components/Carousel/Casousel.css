@@ -32,7 +32,8 @@
     height: 13px !important;
 }
 
-.status-card{
-    /* border: 1px solid red; */
-    /* height: 180px; */
+.status-card:hover{
+    border: 1px solid orange;
+   
+
 }

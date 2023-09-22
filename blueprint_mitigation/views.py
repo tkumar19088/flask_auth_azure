@@ -42,7 +42,7 @@ def choose_scenario():
         _, _, reallocatedf = optimise_supply(reallocation_data_by_sku)
         count = (reallocatedf['stocksafetoreallocate'] > 0).sum()
         resp_scen.append({"rarbysku": count > 0})
-
+        print(f"\nresp_scen:\n{resp_scen}\n")
         return jsonify(resp_scen), 200
 
     except Exception as e:
