@@ -64,6 +64,12 @@ def get_overview():
             ohrsorted = ohr.sort_values(by='Cust WOC', ascending=True)
         else:
             ohrsorted = ohr.sort_values(by='Reckitt WOC', ascending=True)
+        
+        # replacing RAG values with 0/1/2
+        columns_to_replace = ['RAG CW', 'RAG CW+1', 'RAG CW+2', 'RAG CW+3']
+        replace_dict = {'R': 0, 'A': 1, 'G': 2}
+        ohrsorted[columns_to_replace] = ohrsorted[columns_to_replace].replace(replace_dict)
+
         return json.loads(ohrsorted.to_json(orient='records'))
 
     return jsonify(status="Error", message="Choose above filters to view data"), 500
