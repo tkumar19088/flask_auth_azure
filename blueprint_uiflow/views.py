@@ -82,6 +82,7 @@ def getsupply():
     for filter_key in filters:
         if filter_key in global_filters and global_filters[filter_key] != None:
             rbsupply = rbsupply[rbsupply[filter_key].str.lower() == global_filters[filter_key]]
+    rbsupply = rbsupply.sort_values(by='initialreckittsoh', ascending=True)
     rbsupply = replace_missing_values(rbsupply)
     return json.loads(rbsupply.to_json(orient='records'))
 
@@ -99,6 +100,7 @@ def getdemand():
     for filter_key in filters:
         if filter_key in global_filters and global_filters[filter_key] != None:
             rbdemand = rbdemand[rbdemand[filter_key].str.lower() == global_filters[filter_key]]
+    rbdemand = rbdemand.sort_values(by='initialreckittsoh', ascending=True)
     rbdemand = replace_missing_values(rbdemand)
     return json.loads(rbdemand.to_json(orient='records'))
 
@@ -116,6 +118,7 @@ def getsohateow():
     for filter_key in filters:
         if filter_key in global_filters and global_filters[filter_key] != None:
             rbexpsoheow = rbexpsoheow[rbexpsoheow[filter_key].str.lower() == global_filters[filter_key]]
+    rbexpsoheow = rbexpsoheow.sort_values(by='initialreckittsoh', ascending=True)
     rbexpsoheow = replace_missing_values(rbexpsoheow)
     return json.loads(rbexpsoheow.to_json(orient='records'))
 
@@ -133,6 +136,7 @@ def getwocateow():
     for filter_key in filters:
         if filter_key in global_filters and global_filters[filter_key] != None:
             rbwoceow = rbwoceow[rbwoceow[filter_key].str.lower() == global_filters[filter_key]]
+    rbwoceow = rbwoceow.sort_values(by='initialreckittsoh', ascending=True)
     rbwoceow = replace_missing_values(rbwoceow)
     return json.loads(rbwoceow.to_json(orient='records'))
 
@@ -150,6 +154,7 @@ def getcaseshortages():
     for filter_key in filters:
         if filter_key in global_filters and global_filters[filter_key] != None:
             rbcaseshort = rbcaseshort[rbcaseshort[filter_key].str.lower() == global_filters[filter_key]]
+    rbcaseshort = rbcaseshort.sort_values(by='initialreckittsoh', ascending=True)
     rbcaseshort = replace_missing_values(rbcaseshort)
     return json.loads(rbcaseshort.to_json(orient='records'))
 
@@ -167,6 +172,7 @@ def getexpectedservice():
     for filter_key in filters:
         if filter_key in global_filters and global_filters[filter_key] != None:
             rbexpsl = rbexpsl[rbexpsl[filter_key].str.lower() == global_filters[filter_key]]
+    rbexpsl = rbexpsl.sort_values(by='initialreckittsoh', ascending=True)
     rbexpsl = replace_missing_values(rbexpsl)
     return json.loads(rbexpsl.to_json(orient='records'))
 
@@ -187,6 +193,11 @@ def get_stock_position():
     for filter_key in filters:
         if filter_key in global_filters:
             stock_pos = stock_pos[stock_pos[filter_key].str.lower() == global_filters[filter_key]]
+    
+    if data['customer']:
+        stock_pos = stock_pos.sort_values(by='InitialSOHWeek', ascending=True)
+    else:
+        stock_pos = stock_pos.sort_values(by='initialreckittsoh', ascending=True)
 
     stock_pos = replace_missing_values(stock_pos)
     return json.loads(stock_pos.to_json(orient='records'))
@@ -205,6 +216,7 @@ def getcustepos():
     for filter_key in filters:
         if filter_key in global_filters and global_filters[filter_key] != None:
             custhepos = custhepos[custhepos[filter_key].str.lower() == global_filters[filter_key]]
+    custhepos = custhepos.sort_values(by='InitialSOHWeek', ascending=True)
     custhepos = replace_missing_values(custhepos)
     return json.loads(custhepos.to_json(orient='records'))
 
@@ -221,6 +233,7 @@ def getcustsellout():
     for filter_key in filters:
         if filter_key in global_filters and global_filters[filter_key] != None:
             custsellout = custsellout[custsellout[filter_key].str.lower() == global_filters[filter_key]]
+    custsellout = custsellout.sort_values(by='InitialSOHWeek', ascending=True)
     custsellout = replace_missing_values(custsellout)
     return json.loads(custsellout.to_json(orient='records'))
 
@@ -237,6 +250,7 @@ def getcustsellin():
     for filter_key in filters:
         if filter_key in global_filters and global_filters[filter_key] != None:
             custsellin = custsellin[custsellin[filter_key].str.lower() == global_filters[filter_key]]
+    custsellin = custsellin.sort_values(by='InitialSOHWeek', ascending=True)
     custsellin = replace_missing_values(custsellin)
     return json.loads(custsellin.to_json(orient='records'))
 
@@ -254,6 +268,7 @@ def getcustola():
     for filter_key in filters:
         if filter_key in global_filters and global_filters[filter_key] != None:
             custola = custola[custola[filter_key].str.lower() == global_filters[filter_key]]
+    custola = custola.sort_values(by='InitalSOH Week', ascending=True)
     custola = replace_missing_values(custola)
     return json.loads(custola.to_json(orient='records'))
 
