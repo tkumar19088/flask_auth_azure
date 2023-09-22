@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Carousel from "react-material-ui-carousel";
-import { Box, Grid, Link, Typography, Paper } from "@mui/material";
+import { Box, Grid, Link, Typography, Paper, Card } from "@mui/material";
 import Error from "../../images/error.png";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import "./Casousel.css";
@@ -29,10 +29,15 @@ const CarouselExample = () => {
     papers.push(
       <Paper
         elevation={3}
-        sx={{ padding: 2, backgroundColor: "#E7E9EE", boxShadow: "none" }}
+        sx={{
+          padding: 2,
+          backgroundColor: "#E7E9EE",
+          boxShadow: "none",
+          // border: "1px solid red",
+        }}
         key={i}
       >
-        <Grid container spacing={2} mt="-20px" border="">
+        <Grid container spacing={2} mt="0px" border="">
           {paperData.map((item, index) => (
             <Grid
               item
@@ -44,21 +49,9 @@ const CarouselExample = () => {
                   : handleOOSRishDetection
               }
             >
-              <Box
+              <Card
                 className="status-card"
-                sx={{
-                  borderRadius: "5px 5px ",
-                  backgroundColor: "#fff",
-                  boxShadow: "0px 2px 0px 0px  rgba(0,0,0,0.3)",
-                  "&:hover": {
-                    boxShadow: "0px 0px 0px 0px  ",
-                  },
-                  border: selectedalert ? "2px solid orange" : "",
-                  "&:hover": {
-                    border: "2px solid orange",
-                  },
-                  height: "170px",
-                }}
+                sx={{ height: "170px", border: "1px solid #fff" }}
               >
                 <Box className="cs-cardsheader">
                   <Box>
@@ -120,7 +113,7 @@ const CarouselExample = () => {
                     ))}
                   </Box>
                 </Box>
-              </Box>{" "}
+              </Card>
             </Grid>
           ))}
         </Grid>

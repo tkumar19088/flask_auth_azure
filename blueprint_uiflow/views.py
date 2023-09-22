@@ -60,8 +60,9 @@ def get_overview():
                 print(f"\nif {filter_key} in global_filters and {global_filters[filter_key]} != None:")
                 ohr = ohr[ohr[filter_key].str.lower() == global_filters[filter_key]]
         ohr.replace(" ", "-", inplace=True)
-        ohrsorted = ohr.sort_values(by='Reckitt WOC', ascending=True)
-        return json.loads(ohrsorted.to_json(orient='records'))
+        if not data['customer']:
+            ohr = ohr.sort_values(by='Reckitt WOC', ascending=True)
+        return json.loads(ohr.to_json(orient='records'))
 
     return jsonify(status="Error", message="Choose above filters to view data"), 500
 
