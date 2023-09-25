@@ -1081,63 +1081,37 @@ const Sellout = ({ onData }) => {
                     <div className="alignment">{item.Brand}</div>
                   </TableCell>
                   <TableCell sx={{ width: "90px" }}>
-                    <div className="alignment">
-                      {item.InitialSOHWeek == null
-                        ? "-"
-                        : parseFloat(item.InitialSOHWeek).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item.InitialSOHWeek}</div>
                   </TableCell>
                   <TableCell sx={{ width: "90px" }}>
-                    <div className="alignment">
-                      {item["sola CW"]
-                        ? "-"
-                        : parseFloat(item["sola CW"]).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item["sola CW"]}</div>
                   </TableCell>
                   <TableCell sx={{ width: "90px" }}>
-                    <div className="alignment">
-                      {parseFloat(item["sola CW+1"]).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item["sola CW+1"]}</div>
                   </TableCell>
                   <TableCell sx={{ width: "90px" }}>
-                    <div className="alignment">
-                      {parseFloat(item["sola CW+2"]).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item["sola CW+2"]}</div>
                   </TableCell>
                   <TableCell sx={{ width: "90px" }}>
-                    <div className="alignment">
-                      {parseFloat(item["sola CW+3"]).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item["sola CW+3"]}</div>
                   </TableCell>
                   <TableCell sx={{ width: "90px" }}>
-                    <div className="alignment">
-                      {parseFloat(item["sola CW+4"]).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item["sola CW+4"]}</div>
                   </TableCell>
                   <TableCell sx={{ width: "90px" }}>
-                    <div className="alignment">
-                      {parseFloat(item["sola CW+5"]).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item["sola CW+5"]}</div>
                   </TableCell>
                   <TableCell sx={{ width: "90px" }}>
-                    <div className="alignment">
-                      {parseFloat(item["sola CW+6"]).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item["sola CW+6"]}</div>
                   </TableCell>
                   <TableCell sx={{ width: "90px" }}>
-                    <div className="alignment">
-                      {parseFloat(item["sola CW+7"]).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item["sola CW+7"]}</div>
                   </TableCell>
                   <TableCell sx={{ width: "90px" }}>
-                    <div className="alignment">
-                      {parseFloat(item["sola CW+8"]).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item["sola CW+8"]}</div>
                   </TableCell>
                   <TableCell sx={{ width: "90px" }}>
-                    <div className="alignment">
-                      {parseFloat(item["sola CW+9"]).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item["sola CW+9"]}</div>
                   </TableCell>
                 </TableRow>
                 {expandedRow === item["RB SKU"] && iscampaigns && (

@@ -850,31 +850,21 @@ const StockPosition = ({ onData }) => {
                     <div className="alignment">{item.Brand}</div>
                   </TableCell>
                   <TableCell>
-                    <div className="alignment">
-                      {parseFloat(item.initialreckittsoh.toFixed(2))}
-                    </div>
+                    <div className="alignment">{item.initialreckittsoh}</div>
                   </TableCell>
                   <TableCell>
                     {" "}
-                    <div className="alignment">
-                      {parseFloat(item["StkPos CW"]).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item["StkPos CW"]}</div>
                   </TableCell>
                   <TableCell>
                     {" "}
-                    <div className="alignment">
-                      {parseFloat(item["StkPos CW+1"]).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item["StkPos CW+1"]}</div>
                   </TableCell>
                   <TableCell>
-                    <div className="alignment">
-                      {parseFloat(item["StkPos CW+2"]).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item["StkPos CW+2"]}</div>
                   </TableCell>
                   <TableCell>
-                    <div className="alignment">
-                      {parseFloat(item["StkPos CW+3"]).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item["StkPos CW+3"]}</div>
                   </TableCell>
                 </TableRow>
                 {expandedRow === item["RB SKU"] && iscampaigns && (
