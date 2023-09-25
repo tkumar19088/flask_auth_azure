@@ -219,11 +219,6 @@ class AlertsManager:
                 df = df[df[key].isin(self.global_user[key])]
             if self.global_filters != {} and key in self.global_filters:
                 df = df[df[key]==(self.global_filters[key])]
-
-        # if self.global_filters != {}:
-        #     for key in filter_keys:
-        #         if key in self.global_filters:
-        #             df = df[df[key]==(self.global_filters[key])]
         return df.reset_index(drop=True)
 
     def get_sorted_data(self, data, sort_column):
@@ -235,7 +230,9 @@ class AlertsManager:
         filters = ['Business Unit', 'Customer', 'Location', 'Brand']
         oos_data = AzureBlobReader().read_csvfile("ui_data/currentalertsoos.csv")#, self.global_filters, self.global_user)
         oosalertsdata = AlertsManager(self.global_filters, self.global_user).filter_data(oos_data, filters)
-        oosalertsdata.replace(" ", "-", inplace=True)
+        oosalertsdata = replace_missing_values(oosalertsdata)
+        oosalertsdata =  oosalertsdata.replace(np.nan, '-', regex=True, inplace=False)
+
         sorted_oos = self.get_sorted_data(oosalertsdata, 'Reckitt WOC')
         for name, group in sorted_oos.groupby(['Location', 'Brand']):
             alert = {
@@ -249,7 +246,7 @@ class AlertsManager:
         filters = ['Business Unit', 'Customer', 'Location', 'Brand']
         irrpo_data = AzureBlobReader().read_csvfile("ui_data/currentalertsirrpo.csv")#, self.global_filters, self.global_user)
         irrpoalertsdata= AlertsManager(self.global_filters, self.global_user).filter_data(irrpo_data, filters)
-        irrpoalertsdata.replace(" ", "-", inplace=True)
+        irrpoalertsdata = replace_missing_values(irrpoalertsdata)
         sorted_irrpo = self.get_sorted_data(irrpoalertsdata, 'Num Irregular SKUs')
         for name, group in sorted_irrpo.groupby(['Location', 'Brand']):
             alert = {
@@ -385,6 +382,11 @@ class ReallocationOptimizer:
                 for k2, v in self.X_vars[k1].items():
                     arr[k1, k2] = v.varValue
             df_res = pd.DataFrame(np.round(arr, 4), columns=var_dict.values())
+            df_res = replace_missing_values(df_res)
+            df_res = df_res.replace(np.nan, '-', regex=True, inplace=False)
+
+            print(df_res)
+
             constraints = [{
                             'Name': 'PCT DEVIATION FROM INIT ALLOC',
                             'Value': '5%',
@@ -404,7 +406,6 @@ class ReallocationOptimizer:
                         }]
             return constraints, status, df_res
         except Exception as e:
-            print(f"\nRARBYRET ERROR: {e}")
             return [], str(e), pd.DataFrame()
 
 # Run Optimization model
@@ -455,11 +456,11 @@ class SKUManager:
                         }
             merged = merged.rename(columns=rename_cols)
             merged.sort_values(by='recom-score', ascending=False, inplace=True)
-            print(f"\nMerged:\n{merged}\n")
+            merged = replace_missing_values(merged)
+            merged = merged.replace(np.nan, '-', regex=True, inplace=False)
 
             return json.loads(merged.to_json(orient='records')) if not merged.empty else self._error_response("No alternative SKUs found!")
         except Exception as e:
-            print(f"\nError:\n{e}\n")
             return self._error_response(str(e))
 
     def _error_response(self, message):
@@ -521,3 +522,16 @@ class AlternativeSKUsCalculator:
             return 1 - (abs(b - a) / a)
         except:
             return np.nan
+
+
+# ************************** HELPER FUNCTIONS  *****************************
+#
+#
+# **************************************************************************
+def replace_missing_values(df):
+    missing_values = [None, 'null', 'NULL', 'Null', 'Nan', 'nan', 'NaN',' ', '']
+    cleaned_df = df.replace(missing_values, '-')
+     # limit float values to 2 decimal places
+    cleaned_df = cleaned_df.applymap(lambda x: round(x, 2) if isinstance(x, float) and x not in [0, 0.00] else x)
+    cleaned_df = cleaned_df.replace(0.00, 0, regex=True, inplace=False)
+    return cleaned_df
