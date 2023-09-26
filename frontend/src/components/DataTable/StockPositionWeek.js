@@ -857,8 +857,7 @@ const StockPositionWeek = ({ onData }) => {
                     <div className="alignment">{item.PPG}</div>
                   </TableCell>{" "}
                   <TableCell>
-                    {" "}
-                    <div className="alignment">{item.Description}</div>
+                   {item.Description}
                   </TableCell>
                   <TableCell>
                     {" "}

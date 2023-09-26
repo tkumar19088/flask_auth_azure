@@ -137,7 +137,7 @@ const Filters = () => {
         <Typography
           className="filter-title"
           color="#415A6C"
-          marginBottom="20px"
+          marginBottom="30px"
           marginTop="20px"
           // p={1}
         >

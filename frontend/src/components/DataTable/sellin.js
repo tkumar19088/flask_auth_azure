@@ -1068,7 +1068,7 @@ const Sellin = ({ onData }) => {
                     <div className="alignment">{item.PPG}</div>
                   </TableCell>
                   <TableCell sx={{ width: "50px" }}>
-                    <div className="alignment">{item.Description}</div>
+                    <div>{item.Description}</div>
                   </TableCell>
                   <TableCell>
                     {" "}

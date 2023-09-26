@@ -71,6 +71,7 @@ const CarouselExample = () => {
           backgroundColor: "#E7E9EE",
           boxShadow: "none",
           // border: "1px solid red",
+          marginTop: "-15px",
         }}
         key={i}
       >

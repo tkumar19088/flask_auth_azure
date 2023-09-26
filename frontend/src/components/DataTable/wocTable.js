@@ -922,10 +922,7 @@ const WocTable = ({ onData }) => {
                     {" "}
                     <div className="alignment">{item.PPG}</div>
                   </TableCell>{" "}
-                  <TableCell>
-                    {" "}
-                    <div className="alignment">{item.Description}</div>
-                  </TableCell>
+                  <TableCell>{item.Description}</TableCell>
                   <TableCell>
                     {" "}
                     <div className="alignment">{item.Brand}</div>

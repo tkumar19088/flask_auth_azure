@@ -2074,11 +2074,13 @@ const OhrTable = ({ onData }) => {
                           alignItems: "center",
                         }}
                       >
-                        {item["RAG CW"] == 2
-                          ? "G"
-                          : item["RAG CW"] == 0
-                          ? "R"
-                          : "A"}
+                        {item["RAG CW"] != "-"
+                          ? item["RAG CW"] == 2
+                            ? "G"
+                            : item["RAG CW"] == 0
+                            ? "R"
+                            : "A"
+                          : ""}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -2109,11 +2111,13 @@ const OhrTable = ({ onData }) => {
                           alignItems: "center",
                         }}
                       >
-                        {item["RAG CW+1"] == 2
-                          ? "G"
-                          : item["RAG CW+1"] == 0
-                          ? "R"
-                          : "A"}
+                        {item["RAG CW+1"] != "-"
+                          ? item["RAG CW+1"] == 2
+                            ? "G"
+                            : item["RAG CW+1"] == 0
+                            ? "R"
+                            : "A"
+                          : ""}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -2145,11 +2149,13 @@ const OhrTable = ({ onData }) => {
                           alignItems: "center",
                         }}
                       >
-                        {item["RAG CW+2"] == 2
-                          ? "G"
-                          : item["RAG CW+2"] == 0
-                          ? "R"
-                          : "A"}
+                        {item["RAG CW+2"] != "-"
+                          ? item["RAG CW+2"] == 2
+                            ? "G"
+                            : item["RAG CW+2"] == 0
+                            ? "R"
+                            : "A"
+                          : ""}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -2181,11 +2187,13 @@ const OhrTable = ({ onData }) => {
                           alignItems: "center",
                         }}
                       >
-                        {item["RAG CW+3"] == 2
-                          ? "G"
-                          : item["RAG CW+3"] == 0
-                          ? "R"
-                          : "A"}
+                        {item["RAG CW+3"] != "-"
+                          ? item["RAG CW+3"] == 2
+                            ? "G"
+                            : item["RAG CW+3"] == 0
+                            ? "R"
+                            : "A"
+                          : ""}
                       </Typography>
                     </TableCell>
 

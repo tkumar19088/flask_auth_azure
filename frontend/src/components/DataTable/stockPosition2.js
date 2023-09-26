@@ -1076,10 +1076,7 @@ const StockPosition2 = ({ onData }) => {
                     <div className="alignment">{item.PPG}</div>
                   </TableCell>
                   <TableCell>
-                    {" "}
-                    <div className="alignment">
-                      {truncateText(item.Description, 10)}
-                    </div>
+                    <div>{truncateText(item.Description, 10)}</div>
                   </TableCell>
                   <TableCell>
                     {" "}

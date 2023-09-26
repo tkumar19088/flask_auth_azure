@@ -921,8 +921,7 @@ const ExpectedServices = ({ onData }) => {
                     <div className="alignment">{item.PPG}</div>
                   </TableCell>{" "}
                   <TableCell>
-                    {" "}
-                    <div className="alignment">{item.Description}</div>
+                    <div>{item.Description}</div>
                   </TableCell>
                   <TableCell>
                     <div className="alignment">{item.Brand}</div>

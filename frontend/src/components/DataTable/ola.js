@@ -770,7 +770,7 @@ const Ola = ({ onData }) => {
                 <TableCell sx={{ textAlign: "center" }}>
                   <Typography fontSize="13px">{item.PPG}</Typography>
                 </TableCell>
-                <TableCell sx={{ textAlign: "center" }}>
+                <TableCell>
                   <Typography fontSize="13px">{item.Description}</Typography>
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
