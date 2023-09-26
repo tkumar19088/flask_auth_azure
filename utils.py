@@ -536,7 +536,8 @@ def replace_missing_values(df):
     df = cleaned_df.replace(0.00, 0, regex=True, inplace=False)
     for col in df.columns:
         if 'ExpSL' in col:
-            df[col] = df[col].apply(lambda x: f"{int(x)*100}%")
+            df[col] = df[col].apply(lambda x: f"{x*100:.2f}%")
         if 'RB SKU' not in col:
             df[col] = df[col].apply(lambda x: f"{x:,}" if isinstance(x, (int, float)) else x)
+    df = df.replace(np.nan, '-', regex=True, inplace=False)
     return df
