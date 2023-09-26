@@ -53,7 +53,7 @@ const Sidebar = () => {
     setreallocation(false);
     setirregular(false);
 
-    setoosrick(true);
+    // setoosrick(true);
   };
   const handleIrregular = () => {
     dispatch(fetchIrregular(true));
@@ -61,7 +61,7 @@ const Sidebar = () => {
     setoosrick(false);
     setreallocation(false);
 
-    setirregular(true);
+    // setirregular(true);
   };
   const handleReallocation = () => {
     dispatch(fetchReallocation(true));
@@ -69,7 +69,7 @@ const Sidebar = () => {
     setoosrick(false);
     setirregular(false);
 
-    setreallocation(true);
+    // setreallocation(true);
   };
   const handleSelloutForecasting = () => {
     dispatch(fetchSelloutForecast(true));
@@ -96,7 +96,11 @@ const Sidebar = () => {
 
   const handleMenuItemClick = (itemId) => {
     // Update the selected item when a menu item is clicked
-    dispatch(fetchexpandeditem(itemId));
+    if (expandedItem === itemId) {
+      dispatch(fetchexpandeditem(null));
+    } else {
+      dispatch(fetchexpandeditem(itemId));
+    }
   };
 
   return (
