@@ -215,6 +215,11 @@ const OverviewHighRisk2 = () => {
   const handleBack = () => {
     navigate(-1);
   };
+  const handleInputChange = (e) => {
+    setSearchValue((prevValue) => {
+      return e.target.value;
+    });
+  };
   return (
     <div>
       {loader && (
@@ -296,7 +301,7 @@ const OverviewHighRisk2 = () => {
 
               <Stack className="ohr-stack" direction="row" alignItems="center">
                 <Box>
-                  <Search
+                  <Box
                     // className="serch-border"
                     sx={{
                       backgroundColor: "#E7E9EE",
@@ -309,12 +314,12 @@ const OverviewHighRisk2 = () => {
                       height: "35px",
                     }}
                   >
-                    <StyledInputBase
+                    <input
                       className="serch-name"
                       placeholder="Search Sku by name"
                       inputProps={{ "aria-label": "search" }}
                       value={searchValue} // Bind the input value to the state
-                      onChange={(e) => setSearchValue(e.target.value)}
+                      onChange={handleInputChange}
                     />{" "}
                     <img
                       src={search}
@@ -322,7 +327,7 @@ const OverviewHighRisk2 = () => {
                       className="search-icon2"
                       onClick={handleSearchSKU}
                     />
-                  </Search>
+                  </Box>
                 </Box>
 
                 <Box className="nestmenu-box">
