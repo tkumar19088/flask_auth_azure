@@ -381,7 +381,7 @@ class ReallocationOptimizer:
             for k1 in self.X_vars.keys():
                 for k2, v in self.X_vars[k1].items():
                     arr[k1, k2] = v.varValue
-            df_res = pd.DataFrame(np.round(arr, 4), columns=var_dict.values())
+            df_res = pd.DataFrame(np.round(arr, 4), columns=list(var_dict.values()))
             df_res = replace_missing_values(df_res)
             df_res = df_res.replace(np.nan, '-', regex=True, inplace=False)
 
@@ -445,7 +445,7 @@ class SKUManager:
             df_price = AzureBlobReader().read_csvfile("ui_data/df_price.csv")
             alternative_skus_calculator = AlternativeSKUsCalculator(df_price, sku_r, customer)
             alternative_skus = alternative_skus_calculator.calculate()
-            altskus_sorted = alternative_skus.sort_values(by='score_final', ascending=False).head(5)
+            altskus_sorted = alternative_skus.sort_values(by='score_final', ascending=False).head(5) # type: ignore
             altskus_sorted['skuid'] = altskus_sorted.index
 
             bensfile = AzureBlobReader().read_csvfile("ui_data/alternative_sku_template.csv")
@@ -533,5 +533,10 @@ def replace_missing_values(df):
     cleaned_df = df.replace(missing_values, '-')
      # limit float values to 2 decimal places
     cleaned_df = cleaned_df.applymap(lambda x: round(x, 2) if isinstance(x, float) and x not in [0, 0.00] else x)
-    cleaned_df = cleaned_df.replace(0.00, 0, regex=True, inplace=False)
-    return cleaned_df
+    df = cleaned_df.replace(0.00, 0, regex=True, inplace=False)
+    for col in df.columns:
+        if 'ExpSL' in col:
+            df[col] = df[col].apply(lambda x: f"{int(x)*100}%")
+        if 'RB SKU' not in col:
+            df[col] = df[col].apply(lambda x: f"{x:,}" if isinstance(x, (int, float)) else x)
+    return df
