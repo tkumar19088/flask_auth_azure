@@ -314,7 +314,7 @@ const OverviewHighRisk2 = () => {
                       height: "35px",
                     }}
                   >
-                    <input
+                    <StyledInputBase
                       className="serch-name"
                       placeholder="Search Sku by name"
                       inputProps={{ "aria-label": "search" }}

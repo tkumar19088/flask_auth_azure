@@ -57,7 +57,7 @@ const OhrTable = ({ onData }) => {
   const [campaignsData, setcampaignsData] = useState([]);
   const [pushAlternativeData, setpushAlternativeData] = useState([]);
   const [iscampaigns, setiscampaigns] = useState(false);
-
+  const [chooseData, setchooseData] = useState({});
   const truncateText = (text, maxLength) => {
     if (text.length <= maxLength) {
       return text;
@@ -1122,6 +1122,35 @@ const OhrTable = ({ onData }) => {
     navigate(-1);
   };
 
+  const handleChooseMitigation = async () => {
+    dispatch(updateloader(true));
+    var data = { rbsku: expandedRow };
+    try {
+      const response = await fetch("http://localhost:5000/choosescenario", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        setchooseData(json);
+        // dispatch(fetchstockreallocatedata(json));
+        // dispatch(fetchstaticrow(json.static_row));
+        // dispatch(updateexporttabledata(json));
+        // navigate("/stockreallocation");
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
+  };
+
   const SubTable = ({ details }) => (
     <div style={{ marginTop: "-18px", padding: "10px" }} className="mini-table">
       <Typography
@@ -1299,6 +1328,7 @@ const OhrTable = ({ onData }) => {
               },
               borderRadius: "50px",
             }}
+            onClick={handleChooseMitigation}
           >
             Choose a Mitigation Strategy
           </Button>
@@ -1308,7 +1338,13 @@ const OhrTable = ({ onData }) => {
             className="ms-grid"
             onClick={handlePushAlternative}
             sx={{
-              backgroundColor: pushAlternative ? "#FF007F" : "#415A6C",
+              backgroundColor:
+                chooseData.pushaltskus == "True" && !pushAlternative
+                  ? "green"
+                  : pushAlternative
+                  ? "#FF007F"
+                  : "#415A6C",
+              // backgroundColor: pushAlternative ? "#FF007F" : "#415A6C",
               "&:hover": {
                 backgroundColor: "#FF007F",
               },
@@ -1320,7 +1356,8 @@ const OhrTable = ({ onData }) => {
             className="ms-grid"
             onClick={handleReallocate}
             sx={{
-              backgroundColor: "#415A6C",
+              backgroundColor:
+                chooseData.rarbysku == "True" ? "green" : "#415A6C",
               "&:hover": {
                 backgroundColor: "#FF007F",
               },
