@@ -230,30 +230,28 @@ class AlertsManager:
         filters = ['Business Unit', 'Customer', 'Location', 'Brand']
         oos_data = AzureBlobReader().read_csvfile("ui_data/currentalertsoos.csv")#, self.global_filters, self.global_user)
         oosalertsdata = AlertsManager(self.global_filters, self.global_user).filter_data(oos_data, filters)
-        oosalertsdata = replace_missing_values(oosalertsdata)
-        oosalertsdata =  oosalertsdata.replace(np.nan, '-', regex=True, inplace=False)
-
-        sorted_oos = self.get_sorted_data(oosalertsdata, 'Reckitt WOC')
-        for name, group in sorted_oos.groupby(['Location', 'Brand']):
-            alert = {
-                'Title': f"OOS Risk Detected on {name[1]} {name[0]} SKUs",
-                'DATA': group[["Description", "Service CW"]].head(3).to_dict('records')
-            }
-            self.alerts.append(alert)
+        if len(oosalertsdata) > 0:
+            sorted_oos = self.get_sorted_data(oosalertsdata, 'Reckitt WOC')
+            for name, group in sorted_oos.groupby(['Location', 'Brand']):
+                alert = {
+                    'Title': f"OOS Risk Detected on {name[1]} {name[0]} SKUs",
+                    'DATA': group[["Description", "Service CW"]].head(3).to_dict('records')
+                }
+                self.alerts.append(alert)
 
 
     def generate_irrpo_alerts(self):
         filters = ['Business Unit', 'Customer', 'Location', 'Brand']
         irrpo_data = AzureBlobReader().read_csvfile("ui_data/currentalertsirrpo.csv")#, self.global_filters, self.global_user)
         irrpoalertsdata= AlertsManager(self.global_filters, self.global_user).filter_data(irrpo_data, filters)
-        irrpoalertsdata = replace_missing_values(irrpoalertsdata)
-        sorted_irrpo = self.get_sorted_data(irrpoalertsdata, 'Num Irregular SKUs')
-        for name, group in sorted_irrpo.groupby(['Location', 'Brand']):
-            alert = {
-                'Title': f"Irregular PO Detected for {name[1]} {name[0]} SKUs",
-                'DATA': group[["PO Number", "PO Date"]].head(3).to_dict('records')
-            }
-            self.alerts.append(alert)
+        if len(irrpoalertsdata) > 0:
+            sorted_irrpo = self.get_sorted_data(irrpoalertsdata, 'Num Irregular SKUs')
+            for name, group in sorted_irrpo.groupby(['Location', 'Brand']):
+                alert = {
+                    'Title': f"Irregular PO Detected for {name[1]} {name[0]} SKUs",
+                    'DATA': group[["PO Number", "PO Date"]].head(3).to_dict('records')
+                }
+                self.alerts.append(alert)
 
 
     def refine_alerts(self):
@@ -314,52 +312,84 @@ class ReallocationOptimizer:
         X_0 = pulp.LpVariable("X_0", lowBound=0)
         data_dict = self.get_data_dict()
 
+        # Variables to define in the data
+        self.X_vars = {}
+
+        # Auxiliary variables to apply constraints
+        self.aux_vars = {}
+
+        # Initiate variables
         for i in range(self.num_rows):
             self.X_vars[i] = {}
             self.aux_vars[i] = {}
-            for j, var_name in self.get_var_dict().items():
-                self.X_vars[i][j] = pulp.LpVariable(f"X_var_{i}_{j}", lowBound=0 if j != 5 else None)
-                if j in [1, 2, 4]:
-                    self.aux_vars[i][j] = pulp.LpVariable(f"aux_var_{i}_{j}", lowBound=None)
+
+            # Variables
+            # Remaining allocation
+            self.X_vars[i][0] = pulp.LpVariable(f"X_var_{i}_0", lowBound=0)
+
+            # Expected weekly service level
+            self.X_vars[i][1] = pulp.LpVariable(f"X_var_{i}_1", lowBound=0)
+
+            # Updated customer SOH
+            self.X_vars[i][2] = pulp.LpVariable(f"X_var_{i}_2", lowBound=0)
+
+            # Updated customer WOC
+            self.X_vars[i][3] = pulp.LpVariable(f"X_var_{i}_3", lowBound=0)
+
+            # SOH safe to reallocate
+            self.X_vars[i][4] = pulp.LpVariable(f"X_var_{i}_4", lowBound=0)
+
+            # Suggested supply - No lower bound for the suggested supply
+            self.X_vars[i][5] = pulp.LpVariable(f"X_var_{i}_5", lowBound=None)
+
+            # Initiate auxiliary variables
+            # Auxiliary variables - Expected weekly service level
+            self.aux_vars[i][1] = pulp.LpVariable(f"aux_var_{i}_1_", lowBound=None)
+
+            # Auxiliary variables - Updated customer SOH
+            self.aux_vars[i][2] = pulp.LpVariable(f"aux_var_{i}_2", lowBound=None)
+
+            # Auxiliary variables - SOH safe to reallocate
+            self.aux_vars[i][4] = pulp.LpVariable(f"aux_var_{i}_4", lowBound=None)
         return X_0
 
     def add_constraints(self, X_0, WOC_MIN, WOC_MAX, MINIMUM_SERVICE_LEVEL):
         data_dict = self.get_data_dict()
-
         for i in range(self.num_rows):
-            # Remaining allocation
+            # print(f"\nself.problem += self.X_vars[i][0] == self.df[data_dict[3]][i] - self.df[data_dict[4]][i] + self.X_vars[i][5]:\n\n'{self.problem} += {self.X_vars[i][0]} == {self.df[data_dict[3]][i]} - {self.df[data_dict[4]][i]} + {self.X_vars[i][5]}'")
             self.problem += self.X_vars[i][0] == self.df[data_dict[3]][i] - self.df[data_dict[4]][i] + self.X_vars[i][5]
 
-            # Updated customer SOH
+            # Expected SOH considers both current stock and potential change in allocation
             self.problem += self.X_vars[i][2] == self.df[data_dict[10]][i] - self.df[data_dict[11]][i] + self.df[data_dict[4]][i] + self.X_vars[i][0] + self.X_vars[i][5] - self.df[data_dict[5]][i]
             self.problem += self.X_vars[i][2] >= 0
 
-            # Updated customer WOC
+            # Apply thresholds for weeks of coverage
             self.problem += self.X_vars[i][3] >= WOC_MIN[i]
             self.problem += self.X_vars[i][3] <= WOC_MAX[i]
             self.problem += self.X_vars[i][2] == self.X_vars[i][3] * self.df[data_dict[11]][i]
-
-            # SOH safe to reallocate
             self.problem += self.aux_vars[i][2] >= self.X_vars[i][0] - self.df[data_dict[5]][i]
             self.problem += self.aux_vars[i][2] >= 0
             self.problem += self.X_vars[i][4] == self.aux_vars[i][2]
-
             self.problem += self.aux_vars[i][4] >= self.X_vars[i][0] - max(self.df[data_dict[2]][i] - self.df[data_dict[9]][i], self.df[data_dict[5]][i])
             self.problem += self.aux_vars[i][4] >= 0
             self.problem += self.X_vars[i][4] == self.aux_vars[i][4]
 
-            # Expected weekly service level
+            # Expected service level considers both current allocation and potential change in allocation
             self.problem += self.aux_vars[i][1] <= (self.df[data_dict[3]][i] + self.X_vars[i][5]) / max(self.df[data_dict[2]][i], self.df[data_dict[9]][i] + self.df[data_dict[5]][i])
             self.problem += self.aux_vars[i][1] <= 1
             self.problem += self.aux_vars[i][1] >= MINIMUM_SERVICE_LEVEL
             self.problem += self.X_vars[i][1] == self.aux_vars[i][1]
 
-            # Suggested Supply Constraints
+            # Suggested supply should be below SOH safe to reallocate
             self.problem += self.X_vars[i][5] <= self.X_vars[i][4]
+
+            # Suggested supply cannot be greater than current allocation
             self.problem += self.X_vars[i][5] <= self.df[data_dict[3]][i]
 
-        # Other constraints
+        # Trying to minimise 1 - service level <--> maximise service level
         self.problem += X_0 == self.num_rows - pulp.lpSum([self.X_vars[i][1] for i in range(self.num_rows)])
+
+        # Sum of suggested reallocation equals to 0 since it is a closed system
         self.problem += pulp.lpSum([self.X_vars[i][5] for i in range(self.num_rows)]) == 0
 
     def optimize(self, MINIMUM_SERVICE_LEVEL, WOC_MIN_PCT, WOC_MAX_PCT):
@@ -373,7 +403,6 @@ class ReallocationOptimizer:
             X_0 = self.initiate_variables()
             self.problem += X_0
             self.add_constraints(X_0, WOC_MIN, WOC_MAX, MINIMUM_SERVICE_LEVEL)
-
             self.problem.solve()
 
             status = pulp.LpStatus[self.problem.status]
@@ -381,12 +410,7 @@ class ReallocationOptimizer:
             for k1 in self.X_vars.keys():
                 for k2, v in self.X_vars[k1].items():
                     arr[k1, k2] = v.varValue
-            df_res = pd.DataFrame(np.round(arr, 4), columns=list(var_dict.values()))
-            df_res = replace_missing_values(df_res)
-            df_res = df_res.replace(np.nan, '-', regex=True, inplace=False)
-
-            print(df_res)
-
+            df_res = pd.DataFrame(np.round(arr, 4), columns=var_dict.values())
             constraints = [{
                             'Name': 'PCT DEVIATION FROM INIT ALLOC',
                             'Value': '5%',
@@ -457,7 +481,6 @@ class SKUManager:
             merged = merged.rename(columns=rename_cols)
             merged.sort_values(by='recom-score', ascending=False, inplace=True)
             merged = replace_missing_values(merged)
-            merged = merged.replace(np.nan, '-', regex=True, inplace=False)
 
             return json.loads(merged.to_json(orient='records')) if not merged.empty else self._error_response("No alternative SKUs found!")
         except Exception as e:
@@ -475,7 +498,8 @@ class AlternativeSKUsCalculator:
 
     def calculate(self):
         brand = self.df.loc[self.df['sku'] == self.sku_r, 'brand'].values[0]
-        conds = (self.df['brand'] == brand) & (self.df['retailer'] == self.ret)
+        segment = self.df.loc[self.df['sku'] == self.sku_r, 'segment'].values[0]
+        conds = (self.df['brand'] == brand) & (self.df['retailer'] == self.ret) & (self.df['segment'] == segment)
         tmp = self.df[conds].drop(columns = ['retailer', 'brand']).drop_duplicates().copy()
         tmp = tmp.set_index('sku').T
 
@@ -539,5 +563,5 @@ def replace_missing_values(df):
             df[col] = df[col].apply(lambda x: f"{x*100:.2f}%")
         if 'RB SKU' not in col:
             df[col] = df[col].apply(lambda x: f"{x:,}" if isinstance(x, (int, float)) else x)
-    df = df.replace(np.nan, '-', regex=True, inplace=False)
-    return df
+    cleandf = df.fillna('-')
+    return cleandf

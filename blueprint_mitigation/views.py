@@ -82,11 +82,12 @@ def getrarbysku():
 
         reallocation_data = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
         reallocation_data_by_sku = reallocation_data[reallocation_data['RB SKU'] == data['rbsku']]
+        static_row = json.loads(reallocation_data_by_sku[reallocation_data_by_sku['Customer'] == global_filters['Customer']].to_json(orient='records'))[0]
+        other_rows = json.loads(reallocation_data_by_sku[reallocation_data_by_sku['Customer'] != global_filters['Customer']].to_json(orient='records'))
 
         _, _, reallocatedf = optimise_supply(reallocation_data_by_sku)
         reallocatedf = replace_missing_values(reallocatedf)
-        static_row = json.loads(reallocation_data_by_sku[reallocation_data_by_sku['Customer'] == reallocation_data_by_sku['Customer']].to_json(orient='records'))[0]
-        other_rows = json.loads(reallocation_data_by_sku[reallocation_data_by_sku['Customer'] != reallocation_data_by_sku['Customer']].to_json(orient='records'))
+
         return {"static_row":static_row, "other_rows":other_rows}
     except Exception as e:
         return jsonify(status="error", message=str(e)), 500

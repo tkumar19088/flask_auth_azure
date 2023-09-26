@@ -170,3 +170,4 @@ cython_debug/
 irregularpograph.py
 *.json
 frontend/build/asset-manifest.json
+*.ipynb
