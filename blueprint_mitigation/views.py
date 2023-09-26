@@ -21,12 +21,12 @@ mitigation_blueprint = Blueprint("mitigation", __name__)
 @mitigation_blueprint.route("/choosescenario", methods=['POST'])
 def choose_scenario():
     global_filters = current_app.config.get('global_filters', {})
-    resp_scen = []
+    resp_scen = {}
 
     # pushaltskus
     sku_manager = SKUManager(current_app.config, request.json)
     altskus = sku_manager.get_alternative_skus()
-    resp_scen.append({"pushaltskus": len(altskus) > 0})
+    resp_scen.update({"pushaltskus": str(len(altskus) > 0)})
 
     # rarbysku
     try:
@@ -41,7 +41,7 @@ def choose_scenario():
         reallocation_data_by_sku = reallocation_data[reallocation_data['RB SKU'] == data['rbsku']]
         _, _, reallocatedf = optimise_supply(reallocation_data_by_sku)
         count = (reallocatedf['stocksafetoreallocate'] > 0).sum()
-        resp_scen.append({"rarbysku": count > 0})
+        resp_scen.update({"rarbysku": str(count > 0)})
         return jsonify(resp_scen), 200
 
     except Exception as e:

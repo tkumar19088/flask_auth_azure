@@ -321,14 +321,12 @@ def get_campaigns():
     return json.loads(campaignsbysku.to_json(orient='records'))
 
 # *******************************
-#       Sell In Graph API # TODO: WHere is the raw data coming from?
+#       Sell In Graph API
 # *******************************
 @uiflow_blueprint.route("/getsellingraph", methods=['POST'])
 def get_selling_graph():
     global_user = current_app.config.get('global_user', {})
-    global_filters = current_app.config.get('global_filters', {})
 
-    data = request.json or {}
     file_path = "ui_data/forecastbuildersellin.csv"
     sellin = AzureBlobReader().read_csvfile(file_path)
     for filter_key in ['Business Unit','Location','Brand', 'Customer', 'RB SKU']:
@@ -338,14 +336,12 @@ def get_selling_graph():
     return json.loads(sellin.to_json(orient='records'))
 
 # *******************************
-#       Sell Out Graph API # TODO: WHere is the raw data coming from?
+#       Sell Out Graph API
 # *******************************
-@uiflow_blueprint.route("/getselloutgraph", methods=['POST'])
+@uiflow_blueprint.route("/getselloutgraph")
 def get_sellout_graph():
     global_user = current_app.config.get('global_user', {})
-    global_filters = current_app.config.get('global_filters', {})
 
-    data = request.json or {}
     file_path = "ui_data/reckittsellout.csv"
     sellout = AzureBlobReader().read_csvfile(file_path)
     for filter_key in ['Business Unit','Location','Brand', 'Customer', 'RB SKU']:
