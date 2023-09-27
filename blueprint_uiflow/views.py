@@ -322,7 +322,7 @@ def get_campaigns():
 # *******************************
 #       Sell In Graph API
 # *******************************
-@uiflow_blueprint.route("/getsellingraph", methods=['POST'])
+@uiflow_blueprint.route("/getsellingraph")
 def get_selling_graph():
     global_user = current_app.config.get('global_user', {})
 
