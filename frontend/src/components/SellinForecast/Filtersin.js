@@ -111,7 +111,7 @@ function Filtersin() {
     };
     console.log(data);
     try {
-      const response = await fetch("http://localhost:5000/getfilterparams", {
+      const response = await fetch("https://testingsmartola.azurewebsites.net/getfilterparams", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
