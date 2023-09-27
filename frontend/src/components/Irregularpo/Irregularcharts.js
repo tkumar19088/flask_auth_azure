@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import Historicalbarchart from "./Historicalbarchart";
 import Customerwocbarchart from "./Customerwocbarchart";
 import Sellinselloutbarchart from "./Sellinselloutbarchart";
+import Promo from "./Promo";
 
 const Irregularcharts = () => {
   const [value, setValue] = useState("one");
@@ -114,7 +115,7 @@ const Irregularcharts = () => {
                   marginLeft: "10px",
                 }}
               >
-                Service Level
+                Promo
               </Box>
             </Box>
             <Box>
@@ -128,6 +129,31 @@ const Irregularcharts = () => {
           </Grid>
           {lineChartData && (
             <Grid spacing={1} container>
+              <Grid
+                container
+                sx={{
+                  backgroundColor: "#415A6C",
+                  color: "#fff",
+                  alignItems: "center",
+                }}
+              >
+                <Grid item xs={6}>
+                  <Typography fontSize="28px">
+                    Po issue : (incorrect SKU/Price/Volume)
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Box display="flex" justifyContent="">
+                    <Typography fontSize={20}>PO price: £1.00</Typography>
+                    <Typography fontSize={20}>Agreed price: £10.00</Typography>
+                  </Box>
+                  <Box display="flex" justifyContent="">
+                    <Typography fontSize={20}>Quantity Ordered: 200</Typography>
+                    <Typography fontSize={20}>Quantity forecasted: 500</Typography>
+                  </Box>
+                </Grid>
+              </Grid>
+
               <Grid item xs={6}>
                 <Historicalbarchart />
               </Grid>
@@ -139,7 +165,11 @@ const Irregularcharts = () => {
               </Grid>
             </Grid>
           )}
-          {barChartData && <Box>create a new file for table </Box>}
+          {barChartData && (
+            <Box>
+              <Promo />
+            </Box>
+          )}
 
           <Box mx="1px" mt={{ lg: "20px", xs: 5 }}>
             <Typography fontSize={28} color="#415A6C">

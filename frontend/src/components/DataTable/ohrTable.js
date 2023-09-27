@@ -57,9 +57,6 @@ const OhrTable = ({ onData }) => {
   const [campaignsData, setcampaignsData] = useState([]);
   const [pushAlternativeData, setpushAlternativeData] = useState([]);
   const [iscampaigns, setiscampaigns] = useState(false);
-  const [chooseData, setchooseData] = useState({});
-  const [displayMigitates, setdisplayMigitates] = useState(false);
-
   const truncateText = (text, maxLength) => {
     if (text.length <= maxLength) {
       return text;
@@ -1124,6 +1121,9 @@ const OhrTable = ({ onData }) => {
     navigate(-1);
   };
 
+  const [chooseData, setchooseData] = useState({});
+  const [displayMigitates, setdisplayMigitates] = useState(false);
+
   const handleChooseMitigation = async () => {
     dispatch(updateloader(true));
     var data = { rbsku: expandedRow };
@@ -1137,13 +1137,8 @@ const OhrTable = ({ onData }) => {
       });
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
         setchooseData(json);
         setdisplayMigitates(true);
-        // dispatch(fetchstockreallocatedata(json));
-        // dispatch(fetchstaticrow(json.static_row));
-        // dispatch(updateexporttabledata(json));
-        // navigate("/stockreallocation");
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -1769,6 +1764,7 @@ const OhrTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   color: "#415A6C",
                   backgroundColor: "#E5EBEF",
+                  textAlign: "center",
                 }}
               >
                 CW+2
@@ -1779,6 +1775,8 @@ const OhrTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   color: "#415A6C",
                   backgroundColor: "#E5EBEF",
+                  textAlign: "center",
+
                 }}
               >
                 CW+3 <div className="brack-number">({startingWeek + 3})</div>
