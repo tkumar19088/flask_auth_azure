@@ -556,19 +556,20 @@ class AlternativeSKUsCalculator:
 def replace_missing_values(df):
     missing_values = [None, 'null', 'NULL', 'Null', 'Nan', 'nan', 'NaN', ' ', '', 'None; None']
     cleaned_df = df.replace(missing_values, '-')
-
-    # Limit float values to 2 decimal places and replace 0.00 with 0
-    cleaned_df = cleaned_df.applymap(lambda x: round(x, 2) if isinstance(x, float) and x not in [0, 0.00] else x).replace(0.00, 0)
+    cleaned_df = cleaned_df.applymap(lambda x: round(x, 2) if isinstance(x, float) and x not in [0, 0.00] else x)
     df = cleaned_df.fillna('-')
     for col in df.columns:
         if 'ExpSL' in col or 'recom-score' in col:
             df[col] = df[col].apply(lambda x: f"{int(x)*100}%" if isinstance(x, (int, float)) else x)
-        if 'Exp NR' in col:
-            df[col] = df[col].apply(lambda x: f"{x:.2f}" if isinstance(x, (int, float)) and x != 0 else x)
-        if 'SOH' in col or 'SoH' in col or 'EXPSOHATEOW' in col or 'soh' in col:
-            df[col] = df[col].apply(lambda x: int(x) if isinstance(x, (float)) else x)
-        if 'RB SKU' not in col:
-            df[col] = df[col].apply(lambda x: f"{x:,}" if isinstance(x, (int, float)) else x)
+
+        if 'Supply CW' in col or 'Demand CW' in col or 'WOC CW' in col or 'CaseShort' in col or 'Exp NR' in col or 'StkPos' in col or 'sola' in col or 'kinaxis' in col:
+            df[col] = df[col].apply(lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x)
+
+        if "Promo" in col:
+            df[col] = df[col].map({1: 'Yes', 0: 'No', '-': '-'})
+
+        if 'SOH' in col or 'SoH' in col or 'EXPSOHATEOW' in col or 'soh' in col or 'CW-' in col:
+            df[col] = df[col].apply(lambda x: f"{int(x):,}" if isinstance(x, (int, float)) else x)
+
     df = df.replace([0.00, 0.0, "0.00", "0.0"], 0)
-    # df = df.apply(lambda x: f"{int(x)*100}%" if isinstance(x, (int, float)) else x)
     return df
