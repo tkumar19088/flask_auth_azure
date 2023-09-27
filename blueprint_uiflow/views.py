@@ -325,7 +325,7 @@ def get_campaigns():
 def get_selling_graph():
     global_user = current_app.config.get('global_user', {})
 
-    file_path = "ui_data/forecastbuildersellin.csv"
+    file_path = "ui_data/customersellin.csv"
     sellin = AzureBlobReader().read_csvfile(file_path)
     for filter_key in ['Business Unit','Location','Brand', 'Customer', 'RB SKU']:
         if filter_key in global_user:
@@ -340,7 +340,7 @@ def get_selling_graph():
 def get_sellout_graph():
     global_user = current_app.config.get('global_user', {})
 
-    file_path = "ui_data/reckittsellout.csv"
+    file_path = "ui_data/customersellout.csv"
     sellout = AzureBlobReader().read_csvfile(file_path)
     for filter_key in ['Business Unit','Location','Brand', 'Customer', 'RB SKU']:
         if filter_key in global_user:
