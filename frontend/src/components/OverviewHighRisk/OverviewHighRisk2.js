@@ -314,13 +314,14 @@ const OverviewHighRisk2 = () => {
                       height: "35px",
                     }}
                   >
-                    <StyledInputBase
+                    <input
                       className="serch-name"
                       placeholder="Search Sku by name"
                       inputProps={{ "aria-label": "search" }}
                       value={searchValue} // Bind the input value to the state
                       onChange={handleInputChange}
-                    />{" "}
+                      // style={{ border: "1px solid red" }}
+                    />
                     <img
                       src={search}
                       alt="search"

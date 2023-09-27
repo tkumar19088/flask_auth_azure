@@ -12,6 +12,8 @@ import {
   Typography,
   Box,
 } from "@mui/material";
+
+import "./ohr.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -862,24 +864,31 @@ const SupplyTable = ({ onData }) => {
                 </TableCell>
               </TableRow>
             )}
-            {data.map((item) => (
+            {data.map((item, index) => (
               <React.Fragment key={item["RB SKU"]}>
                 <TableRow
                   onClick={() => handleRowClick(item["RB SKU"])}
                   key={item["RB SKU"]}
+                  sx={{
+                    backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
+                    // border: "1px solid #dcdcdc",
+                  }}
                 >
                   <TableCell
                     fontSize={13}
                     sx={{
                       display: "flex",
-                      // gap: "16px",
                       padding: "12px",
                       border: "none",
+                      borderBottom: "1px solid #dcdcdc",
                     }}
                   >
                     <Box
                       className="rbsku-expand"
-                      sx={{ display: "flex", alignItems: "center" }}
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
                     >
                       {expandedRow === item["RB SKU"] ? (
                         <RemoveIcon
@@ -888,7 +897,6 @@ const SupplyTable = ({ onData }) => {
                             color: "#415A6C",
                             cursor: "pointer",
                             fontWeight: "800",
-                            // marginTop: "-1px",
                             marginTop: "4px",
                             backgroundColor: "transparent",
                           }}
@@ -900,7 +908,6 @@ const SupplyTable = ({ onData }) => {
                             color: "#415A6C",
                             cursor: "pointer",
                             fontWeight: "800",
-                            // marginTop: "-1px",
                             marginTop: "4px",
                             backgroundColor: "transparent",
                           }}
@@ -909,7 +916,6 @@ const SupplyTable = ({ onData }) => {
                     </Box>
                     <Box className="rbsku-expand">
                       <Typography
-                        // ml="-8px"
                         fontSize="13px"
                         sx={{
                           marginTop: "7px",

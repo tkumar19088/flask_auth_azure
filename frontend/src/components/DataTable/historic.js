@@ -894,7 +894,7 @@ const Historic = ({ onData }) => {
                 }}
               >
                 <div>CW-9</div>
-                <div>({startingWeek})</div>
+                <div>({startingWeek - 9})</div>
               </TableCell>
               <TableCell
                 sx={{
@@ -905,7 +905,7 @@ const Historic = ({ onData }) => {
                 }}
               >
                 <div>CW-8</div>
-                <div className="brack-number">({startingWeek + 1})</div>
+                <div className="brack-number">({startingWeek - 8})</div>
               </TableCell>
               <TableCell
                 sx={{
@@ -916,7 +916,7 @@ const Historic = ({ onData }) => {
                 }}
               >
                 <div>CW-7</div>
-                <div className="brack-number">({startingWeek + 2})</div>
+                <div className="brack-number">({startingWeek - 7})</div>
               </TableCell>
               <TableCell
                 sx={{
@@ -927,7 +927,7 @@ const Historic = ({ onData }) => {
                 }}
               >
                 <div>CW-6</div>
-                <div className="brack-number">({startingWeek + 3})</div>
+                <div className="brack-number">({startingWeek - 6})</div>
               </TableCell>
               <TableCell
                 sx={{
@@ -938,7 +938,7 @@ const Historic = ({ onData }) => {
                 }}
               >
                 <div>CW-5</div>
-                <div className="brack-number">({startingWeek + 4})</div>
+                <div className="brack-number">({startingWeek - 5})</div>
               </TableCell>
               <TableCell
                 sx={{
@@ -949,7 +949,7 @@ const Historic = ({ onData }) => {
                 }}
               >
                 <div>CW-4</div>
-                <div className="brack-number">({startingWeek + 5})</div>
+                <div className="brack-number">({startingWeek - 4})</div>
               </TableCell>
               <TableCell
                 sx={{
@@ -960,7 +960,7 @@ const Historic = ({ onData }) => {
                 }}
               >
                 <div>CW-3</div>
-                <div className="brack-number">({startingWeek + 6})</div>
+                <div className="brack-number">({startingWeek - 3})</div>
               </TableCell>
               <TableCell
                 sx={{
@@ -971,7 +971,7 @@ const Historic = ({ onData }) => {
                 }}
               >
                 <div>CW-2</div>
-                <div className="brack-number">({startingWeek + 7})</div>
+                <div className="brack-number">({startingWeek - 2})</div>
               </TableCell>
               <TableCell
                 sx={{
@@ -982,7 +982,7 @@ const Historic = ({ onData }) => {
                 }}
               >
                 <div>CW-1</div>
-                <div className="brack-number">({startingWeek + 8})</div>
+                <div className="brack-number">({startingWeek - 1})</div>
               </TableCell>
               <TableCell
                 sx={{
@@ -993,7 +993,7 @@ const Historic = ({ onData }) => {
                 }}
               >
                 <div>CW</div>
-                <div className="brack-number">({startingWeek + 9})</div>{" "}
+                <div className="brack-number">({startingWeek})</div>{" "}
               </TableCell>
             </TableRow>
           </TableHead>
@@ -1008,20 +1008,24 @@ const Historic = ({ onData }) => {
                 </TableCell>
               </TableRow>
             )}
-            {data.map((item) => (
+            {data.map((item, index) => (
               <React.Fragment key={item["RB SKU"]}>
                 <TableRow
                   onClick={() => handleRowClick(item["RB SKU"])}
                   key={item["RB SKU"]}
+                  sx={{
+                    backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
+                    // borderBottom: "1px solid #dcdcdc",
+                  }}
                 >
                   <TableCell
-                    className="h-td"
                     fontSize={13}
                     sx={{
                       display: "flex",
                       // gap: "16px",
                       padding: "12px",
                       border: "none",
+                      borderBottom: "1px solid #dcdcdc",
                     }}
                   >
                     <Box

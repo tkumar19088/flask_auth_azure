@@ -780,11 +780,15 @@ const StockPosition = ({ onData }) => {
                 </TableCell>
               </TableRow>
             )}
-            {data.map((item) => (
+            {data.map((item, index) => (
               <React.Fragment key={item["RB SKU"]}>
                 <TableRow
                   onClick={() => handleRowClick(item["RB SKU"])}
                   key={item["RB SKU"]}
+                  sx={{
+                    backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
+                    // borderBottom: "1px solid #dcdcdc",
+                  }}
                 >
                   <TableCell
                     fontSize={13}
@@ -794,6 +798,7 @@ const StockPosition = ({ onData }) => {
                       padding: "12px",
                       border: "none",
                       justifyContent: "center",
+                      borderBottom: "1px solid #dcdcdc",
                     }}
                   >
                     <Box
@@ -841,9 +846,7 @@ const StockPosition = ({ onData }) => {
                     {" "}
                     <div className="alignment">{item.PPG}</div>
                   </TableCell>{" "}
-                  <TableCell>
-                    {item.Description}
-                  </TableCell>
+                  <TableCell>{item.Description}</TableCell>
                   <TableCell>
                     {" "}
                     <div className="alignment">{item.Brand}</div>

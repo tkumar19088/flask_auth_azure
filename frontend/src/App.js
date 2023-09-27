@@ -9,6 +9,7 @@ import StockReallocation from "./components/StockReallocation/StockReallocation"
 import IrregularPO from "./components/Irregularpo/Irregularpo";
 import HistoricalData from "./components/RetailerNegotation/HistoricalData";
 import Printscreen from "./components/Printscreen/Printscreen";
+import Irregularcharts from "./components/Irregularpo/Irregularcharts";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
 
           <Route path="/carousel" element={<Carousel />} />
           <Route path="/irregular" element={<IrregularPO />} />
+          <Route path="/irregularcharts" element={<Irregularcharts />} />
           <Route path="/historicaldata" element={<HistoricalData />} />
           <Route path="/print" element={<Printscreen />} />
         </Routes>

@@ -43,7 +43,8 @@ const Irregularpo = () => {
   }, []);
 
   const handleClick = () => {
-    navigate("/historicaldata");
+    // navigate("/historicaldata");
+    navigate("/irregularcharts");
   };
 
   const handleBack = () => {

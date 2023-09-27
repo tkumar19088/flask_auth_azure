@@ -227,7 +227,7 @@ function Filtersin() {
         onClose={handleMenuClose}
       >
         <Grid p={2} className="filter-downbox">
-          <Grid item xs={2} lg={1} my={2}>
+          <Grid item xs={2} lg={1} mt="15px">
             <Box sx={{ minWidth: 200 }} className="filter-dropdown">
               <FormControl
                 variant="standard"
@@ -256,7 +256,7 @@ function Filtersin() {
             </Box>
           </Grid>
 
-          <Grid item xs={4} my={4}>
+          <Grid item xs={4} mt="25px">
             <Box sx={{ minWidth: 200 }} className="filter-dropdown">
               <FormControl
                 variant="standard"
@@ -284,7 +284,7 @@ function Filtersin() {
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={4} my={4} className="filter-dropdown">
+          <Grid item xs={4} mt="25px" className="filter-dropdown">
             <Box sx={{ minWidth: 200 }}>
               <FormControl
                 variant="standard"
@@ -304,7 +304,7 @@ function Filtersin() {
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={2} my={4} className="filter-dropdown">
+          <Grid item xs={2} mt="25px" className="filter-dropdown">
             <Box sx={{ minWidth: 200 }}>
               <FormControl
                 variant="standard"
@@ -327,7 +327,7 @@ function Filtersin() {
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={2} my={4} className="filter-dropdown">
+          <Grid item xs={2}  mt="25px" className="filter-dropdown">
             <Box sx={{ minWidth: 200 }}>
               <FormControl
                 variant="standard"
@@ -343,7 +343,7 @@ function Filtersin() {
               </FormControl>
             </Box>
           </Grid>
-          <Box className="filterdropdown-insidebtn">
+          <Box className="filterdropdown-insidebtn"  mt="15px">
             <Button
               variant="contained"
               size="small"

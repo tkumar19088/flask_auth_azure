@@ -20,7 +20,7 @@ const Welcome = () => {
           Welcome, {userDetails.Name}
         </Typography>
       </Grid>
-      <Grid item xs={5} marginBottom="5px">
+      <Grid item xs={5} marginBottom="20px">
         <Calendar />
       </Grid>
     </Grid>
