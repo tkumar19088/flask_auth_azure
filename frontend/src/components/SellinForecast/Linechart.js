@@ -1,6 +1,7 @@
 import React from "react";
 import { Chart as ChartJS } from "chart.js/auto";
 import { Line } from "react-chartjs-2";
+import { Box } from "@mui/material";
 // import "./LineChart.css";
 
 const Linechart = () => {
@@ -8,7 +9,15 @@ const Linechart = () => {
     { name: "week1", value: 55 },
     { name: "week2", value: 50 },
     { name: "week3", value: 40 },
-    { name: "week4", value: 40 },
+    { name: "week4", value: 30 },
+    { name: "week5", value: 20 },
+    { name: "week6", value: 40 },
+    { name: "week7", value: 35 },
+    { name: "week8", value: 55 },
+    { name: "week9", value: 20 },
+    { name: "week10", value: 30 },
+    { name: "week11", value: 40 },
+    { name: "week12", value: 20 },
   ];
 
   const datasets = [
@@ -36,7 +45,7 @@ const Linechart = () => {
         },
         title: {
           display: true,
-          text: "Weeks",
+          text: "Forecasted Weeks",
           font: {
             size: 18, // Adjust the font size as needed
           },
@@ -70,7 +79,9 @@ const Linechart = () => {
 
   return (
     <div>
-      <Line data={chartData} options={chartOptions} className="l-chart" />
+      <Box sx={{ border: "", width: 1550, height: 755 }}>
+        <Line data={chartData} options={chartOptions} className="l-chart" />
+      </Box>
     </div>
   );
 };

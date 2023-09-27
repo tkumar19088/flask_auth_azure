@@ -10,6 +10,7 @@ import {
   Box,
   Paper,
   Stack,
+  Button,
 } from "@mui/material";
 import { useState } from "react";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
@@ -18,971 +19,1075 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import Badge from "@mui/material/Badge";
 import "./ohr.css";
+import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
+import CheckIcon from "@mui/icons-material/Check";
+import Tooltip from "@mui/material/Tooltip";
 
 import { useNavigate } from "react-router-dom";
-const startingWeek = 28;
+import { useSelector, useDispatch } from "react-redux";
+import {
+  updateloader,
+  fetchstockreallocatedata,
+  fetchstaticrow,
+  updateexporttabledata,
+} from "../../store/actions/sidebarActions";
 
 const OhrTable = ({ onData }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
+  const search = useSelector((state) => state.sidebar.search);
+  const exporttabledata = useSelector((state) => state.sidebar.exporttabledata);
+  const ohrdata = useSelector((state) => state.sidebar.overviewhighriskdata);
+  const isragfilterohr = useSelector((state) => state.sidebar.isragfilterohr);
+  const filteredohrdata = useSelector(
+    (state) => state.sidebar.filteredoverviewhighriskdata
+  );
+  console.log(search);
+  const data = isragfilterohr
+    ? filteredohrdata
+    : search
+    ? exporttabledata
+    : ohrdata;
+  console.log(data);
+
   const [expandedRow, setExpandedRow] = useState(null);
   const [pushAlternative, setpushAlternative] = useState(false);
+  const [campaignsData, setcampaignsData] = useState([]);
+  const [pushAlternativeData, setpushAlternativeData] = useState([]);
+  const [iscampaigns, setiscampaigns] = useState(false);
+  const truncateText = (text, maxLength) => {
+    if (text.length <= maxLength) {
+      return text;
+    }
+    return text.slice(0, maxLength) + "...";
+  };
 
   // Function to handle row click and expand/collapse accordion
-  const handleRowClick = (rowId) => {
+  const handleRowClick = async (rowId) => {
     setpushAlternative(false);
     if (expandedRow === rowId) {
       setExpandedRow(null);
     } else {
+      dispatch(updateloader(true));
+      var data = { customer: 0, rbsku: rowId };
+      try {
+        const response = await fetch("http://localhost:5000/getcampaigns", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        if (response.ok) {
+          const json = await response.json();
+          console.log(json);
+          setiscampaigns(true);
+          setcampaignsData(json);
+        } else {
+          console.error("Error fetching data:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+      } finally {
+        dispatch(updateloader(false));
+      }
       setExpandedRow(rowId);
     }
   };
-
-  const handlePushAlternative = () => {
+  const handlePushAlternative = async () => {
     setpushAlternative(true);
+    dispatch(updateloader(true));
+    var data = { rbsku: expandedRow };
+    try {
+      const response = await fetch("http://localhost:5000/getalternativeskus", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        setpushAlternativeData(json);
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
   };
-  const handleReallocate = () => {
-    navigate("/stockreallocation");
+  const handleReallocate = async () => {
+    dispatch(updateloader(true));
+    var data = { rbsku: expandedRow };
+    try {
+      const response = await fetch("http://localhost:5000/rarbysku", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        dispatch(fetchstockreallocatedata(json));
+        dispatch(fetchstaticrow(json.static_row));
+        dispatch(updateexporttabledata(json));
+        navigate("/stockreallocation");
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
   };
 
-  const [data, setData] = useState([
-    {
-      rbsku: "010612",
-      ppg: "1234567",
-      description: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      woc: "743",
-      activepromo: "Yes",
-      olacw: "84%",
-      olacw1: "84%",
-      olacw2: "84%",
-      olacw3: "84%",
-      exptnetrevcw: "£100",
-      exptnetrevcw1: "£100",
-      exptnetrevcw2: "£100",
-      exptnetrevcw3: "£100",
-      ragcw: "G",
-      ragcw1: "R",
-      ragcw2: "A",
-      ragcw3: "G",
-      reasoncode: "E0",
-      comments: "Soft change to 3234328",
-      campaugns: [
-        {
-          campaignanme: "Airwick special",
-          startdate: "12/05/2023",
-          enddate: "31/08/2023",
-          skufocused: "Clubcard- CC Air freshener",
-          activestatus: "Active",
-          retailersinvolved: "Tesco",
-          retailerinventory: "250",
-          rbwherehouseinventory: "1000",
-          requestdeactivation: "No",
-        },
-        {
-          campaignanme: "Airwick special",
-          startdate: "12/05/2023",
-          enddate: "31/08/2023",
-          skufocused: "Clubcard- Was 9.25 Now 6.00",
-          activestatus: "Active",
-          retailersinvolved: "Tesco",
-          retailerinventory: "250",
-          rbwherehouseinventory: "1000",
-          requestdeactivation: "No",
-        },
-        {
-          campaignanme: "Airwick special",
-          startdate: "12/05/2023",
-          enddate: "31/08/2023",
-          skufocused: "Clubcard- Was 9.25 Now 6.00",
-          activestatus: "Active",
-          retailersinvolved: "Tesco",
-          retailerinventory: "250",
-          rbwherehouseinventory: "1000",
-          requestdeactivation: "No",
-        },
-      ],
-      pushAlternativeTable: [
-        {
-          recomscore: "96%",
-          title: "Airwick Electric Strawberry",
-          sku: "1236467867",
-          activecamp: "Active",
-          stockavailblerb: "1,345",
-          stockavailableamz: "234",
-          sellinforecast: "234",
-          selloutforecast: "100",
-          wocestimation: "100",
-          olaupliftestimation: "100",
-          costestimation: "500",
-          select: "Yes",
-        },
-        {
-          recomscore: "96%",
-          title: "Airwick Electric Strawberry",
-          sku: "1236467867",
-          activecamp: "Active",
-          stockavailblerb: "1,345",
-          stockavailableamz: "234",
-          sellinforecast: "234",
-          selloutforecast: "100",
-          wocestimation: "100",
-          olaupliftestimation: "100",
-          costestimation: "500",
-          select: "Yes",
-        },
-      ],
+  // const [data, setData] = useState([
+  //   {
+  //     rbsku: "010612",
+  //     ppg: "1234567",
+  //     description: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     woc: "743",
+  //     activepromo: "Yes",
+  //     olacw: "84%",
+  //     olacw1: "84%",
+  //     olacw2: "84%",
+  //     olacw3: "84%",
+  //     exptnetrevcw: "£100",
+  //     exptnetrevcw1: "£100",
+  //     exptnetrevcw2: "£100",
+  //     exptnetrevcw3: "£100",
+  //     ragcw: "G",
+  //     ragcw1: "R",
+  //     ragcw2: "A",
+  //     ragcw3: "G",
+  //     reasoncode: "E0",
+  //     comments: "Soft change to 3234328",
+  //     campaugns: [
+  //       {
+  //         campaignanme: "Airwick special",
+  //         startdate: "12/05/2023",
+  //         enddate: "31/08/2023",
+  //         skufocused: "Clubcard- CC Air freshener",
+  //         activestatus: "Active",
+  //         retailersinvolved: "Tesco",
+  //         retailerinventory: "250",
+  //         rbwherehouseinventory: "1000.X",
+  //         requestdeactivation: "No",
+  //       },
+  //       {
+  //         campaignanme: "Airwick special",
+  //         startdate: "12/05/2023",
+  //         enddate: "31/08/2023",
+  //         skufocused: "Clubcard- Was 9.25 Now 6.00",
+  //         activestatus: "Active",
+  //         retailersinvolved: "Tesco",
+  //         retailerinventory: "250",
+  //         rbwherehouseinventory: "1000.Y",
+  //         requestdeactivation: "No",
+  //       },
+  //       {
+  //         campaignanme: "Airwick special",
+  //         startdate: "12/05/2023",
+  //         enddate: "31/08/2023",
+  //         skufocused: "Clubcard- Was 9.25 Now 6.00",
+  //         activestatus: "Active",
+  //         retailersinvolved: "Tesco",
+  //         retailerinventory: "250",
+  //         rbwherehouseinventory: "1000.Y",
+  //         requestdeactivation: "No",
+  //       },
+  //     ],
+  //     pushAlternativeTable: [
+  //       {
+  //         recomscore: "96%",
+  //         title: "Airwick Electric Strawberry",
+  //         sku: "1236467867",
+  //         activecamp: "Active",
+  //         stockavailblerb: "1,345",
+  //         stockavailableamz: "234",
+  //         sellinforecast: "234",
+  //         selloutforecast: "100",
+  //         wocestimation: "100",
+  //         olaupliftestimation: "100",
+  //         costestimation: "500",
+  //         select: "Yes",
+  //       },
+  //       {
+  //         recomscore: "96%",
+  //         title: "Airwick Electric Strawberry",
+  //         sku: "1236467867",
+  //         activecamp: "Active",
+  //         stockavailblerb: "1,345",
+  //         stockavailableamz: "234",
+  //         sellinforecast: "234",
+  //         selloutforecast: "100",
+  //         wocestimation: "100",
+  //         olaupliftestimation: "100",
+  //         costestimation: "500",
+  //         select: "Yes",
+  //       },
+  //     ],
 
-      details: [
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-      ],
-    },
-    {
-      rbsku: "010613",
-      ppg: "1234567",
-      description: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      woc: "743",
-      activepromo: "Yes",
-      olacw: "84%",
-      olacw1: "84%",
-      olacw2: "84%",
-      olacw3: "84%",
-      exptnetrevcw: "£100",
-      exptnetrevcw1: "£100",
-      exptnetrevcw2: "£100",
-      exptnetrevcw3: "£100",
-      ragcw: "G",
-      ragcw1: "R",
-      ragcw2: "A",
-      ragcw3: "G",
-      reasoncode: "E0",
-      comments: "Soft change to 3234328",
-      campaugns: [
-        {
-          campaignanme: "Airwick special",
-          startdate: "12/05/2023",
-          enddate: "31/08/2023",
-          skufocused: "Clubcard- CC Air freshener",
-          activestatus: "Active",
-          retailersinvolved: "Tesco",
-          retailerinventory: "250",
-          rbwherehouseinventory: "1000",
-          requestdeactivation: "No",
-        },
-        {
-          campaignanme: "Airwick special",
-          startdate: "12/05/2023",
-          enddate: "31/08/2023",
-          skufocused: "Clubcard- Was 9.25 Now 6.00",
-          activestatus: "Active",
-          retailersinvolved: "Tesco",
-          retailerinventory: "250",
-          rbwherehouseinventory: "1000",
-          requestdeactivation: "No",
-        },
-        {
-          campaignanme: "Airwick special",
-          startdate: "12/05/2023",
-          enddate: "31/08/2023",
-          skufocused: "Clubcard- Was 9.25 Now 6.00",
-          activestatus: "Active",
-          retailersinvolved: "Tesco",
-          retailerinventory: "250",
-          rbwherehouseinventory: "1000",
-          requestdeactivation: "No",
-        },
-      ],
-      pushAlternativeTable: [
-        {
-          recomscore: "96%",
-          title: "Airwick Electric Strawberry",
-          sku: "1236467867",
-          activecamp: "Active",
-          stockavailblerb: "1,345",
-          stockavailableamz: "234",
-          sellinforecast: "234",
-          selloutforecast: "100",
-          wocestimation: "100",
-          olaupliftestimation: "100",
-          costestimation: "500",
-          select: "Yes",
-        },
-        {
-          recomscore: "96%",
-          title: "Airwick Electric Strawberry",
-          sku: "1236467867",
-          activecamp: "Active",
-          stockavailblerb: "1,345",
-          stockavailableamz: "234",
-          sellinforecast: "234",
-          selloutforecast: "100",
-          wocestimation: "100",
-          olaupliftestimation: "100",
-          costestimation: "500",
-          select: "Yes",
-        },
-      ],
+  //     details: [
+  //       {
+  //         skuname: "Airwick",
+  //         skucode: "23434534693dlf",
+  //         timeframe: 4,
+  //         netrevenue: "£12,246.43",
+  //         expectedola: "84%",
+  //         servicelevel: "60",
+  //         expectednetrevenue: "(£5,749.00)",
+  //         bestseller: "High",
+  //         risk: "10",
+  //         checkbox: false,
+  //         costtoserve: "(£903.00)",
+  //         reviewed: "No",
+  //         quantityOrdered: "300",
+  //         quantityForcasted: "500",
+  //         percentageDescrepency: "-63.64%",
+  //       },
+  //       {
+  //         skuname: "Airwick",
+  //         skucode: "23434534693dlf",
+  //         timeframe: 4,
+  //         netrevenue: "£12,246.43",
+  //         expectedola: "84%",
+  //         servicelevel: "60",
+  //         expectednetrevenue: "(£5,749.00)",
+  //         bestseller: "High",
+  //         risk: "10",
+  //         checkbox: false,
+  //         costtoserve: "(£903.00)",
+  //         reviewed: "No",
+  //         quantityOrdered: "300",
+  //         quantityForcasted: "500",
+  //         percentageDescrepency: "-63.64%",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     rbsku: "010613",
+  //     ppg: "1234567",
+  //     description: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     woc: "743",
+  //     activepromo: "Yes",
+  //     olacw: "84%",
+  //     olacw1: "84%",
+  //     olacw2: "84%",
+  //     olacw3: "84%",
+  //     exptnetrevcw: "£100",
+  //     exptnetrevcw1: "£100",
+  //     exptnetrevcw2: "£100",
+  //     exptnetrevcw3: "£100",
+  //     ragcw: "G",
+  //     ragcw1: "R",
+  //     ragcw2: "A",
+  //     ragcw3: "G",
+  //     reasoncode: "E0",
+  //     comments: "Soft change to 3234328",
+  //     campaugns: [
+  //       {
+  //         campaignanme: "Airwick special",
+  //         startdate: "12/05/2023",
+  //         enddate: "31/08/2023",
+  //         skufocused: "Clubcard- CC Air freshener",
+  //         activestatus: "Active",
+  //         retailersinvolved: "Tesco",
+  //         retailerinventory: "250",
+  //         rbwherehouseinventory: "1000",
+  //         requestdeactivation: "No",
+  //       },
+  //       {
+  //         campaignanme: "Airwick special",
+  //         startdate: "12/05/2023",
+  //         enddate: "31/08/2023",
+  //         skufocused: "Clubcard- Was 9.25 Now 6.00",
+  //         activestatus: "Active",
+  //         retailersinvolved: "Tesco",
+  //         retailerinventory: "250",
+  //         rbwherehouseinventory: "1000",
+  //         requestdeactivation: "No",
+  //       },
+  //       {
+  //         campaignanme: "Airwick special",
+  //         startdate: "12/05/2023",
+  //         enddate: "31/08/2023",
+  //         skufocused: "Clubcard- Was 9.25 Now 6.00",
+  //         activestatus: "Active",
+  //         retailersinvolved: "Tesco",
+  //         retailerinventory: "250",
+  //         rbwherehouseinventory: "1000",
+  //         requestdeactivation: "No",
+  //       },
+  //     ],
+  //     pushAlternativeTable: [
+  //       {
+  //         recomscore: "96%",
+  //         title: "Airwick Electric Strawberry",
+  //         sku: "1236467867",
+  //         activecamp: "Active",
+  //         stockavailblerb: "1,345",
+  //         stockavailableamz: "234",
+  //         sellinforecast: "234",
+  //         selloutforecast: "100",
+  //         wocestimation: "100",
+  //         olaupliftestimation: "100",
+  //         costestimation: "500",
+  //         select: "Yes",
+  //       },
+  //       {
+  //         recomscore: "96%",
+  //         title: "Airwick Electric Strawberry",
+  //         sku: "1236467867",
+  //         activecamp: "Active",
+  //         stockavailblerb: "1,345",
+  //         stockavailableamz: "234",
+  //         sellinforecast: "234",
+  //         selloutforecast: "100",
+  //         wocestimation: "100",
+  //         olaupliftestimation: "100",
+  //         costestimation: "500",
+  //         select: "Yes",
+  //       },
+  //     ],
 
-      details: [
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-      ],
-    },
-    {
-      rbsku: "010614",
-      ppg: "1234567",
-      description: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      woc: "743",
-      activepromo: "No",
-      olacw: "84%",
-      olacw1: "84%",
-      olacw2: "84%",
-      olacw3: "84%",
-      exptnetrevcw: "£100",
-      exptnetrevcw1: "£100",
-      exptnetrevcw2: "£100",
-      exptnetrevcw3: "£100",
-      ragcw: "G",
-      ragcw1: "R",
-      ragcw2: "A",
-      ragcw3: "G",
-      reasoncode: "E0",
-      comments: "Soft change to 3234328",
-      campaugns: [
-        {
-          campaignanme: "Airwick special",
-          startdate: "12/05/2023",
-          enddate: "31/08/2023",
-          skufocused: "Yes",
-          activestatus: "Active",
-          retailersinvolved: "Tesco",
-          retailerinventory: "250",
-          rbwherehouseinventory: "1000",
-          requestdeactivation: "No",
-        },
-        {
-          campaignanme: "Airwick special",
-          startdate: "12/05/2023",
-          enddate: "31/08/2023",
-          skufocused: "Yes",
-          activestatus: "Active",
-          retailersinvolved: "Tesco",
-          retailerinventory: "250",
-          rbwherehouseinventory: "1000",
-          requestdeactivation: "No",
-        },
-        {
-          campaignanme: "Airwick special",
-          startdate: "12/05/2023",
-          enddate: "31/08/2023",
-          skufocused: "Yes",
-          activestatus: "Active",
-          retailersinvolved: "Tesco",
-          retailerinventory: "250",
-          rbwherehouseinventory: "1000",
-          requestdeactivation: "No",
-        },
-      ],
-      pushAlternativeTable: [
-        {
-          recomscore: "96%",
-          title: "Airwick Electric Strawberry",
-          sku: "1236467867",
-          activecamp: "Active",
-          stockavailblerb: "1,345",
-          stockavailableamz: "234",
-          sellinforecast: "234",
-          selloutforecast: "100",
-          wocestimation: "100",
-          olaupliftestimation: "100",
-          costestimation: "500",
-          select: "Yes",
-        },
-        {
-          recomscore: "96%",
-          title: "Airwick Electric Strawberry",
-          sku: "1236467867",
-          activecamp: "Active",
-          stockavailblerb: "1,345",
-          stockavailableamz: "234",
-          sellinforecast: "234",
-          selloutforecast: "100",
-          wocestimation: "100",
-          olaupliftestimation: "100",
-          costestimation: "500",
-          select: "Yes",
-        },
-      ],
+  //     details: [
+  //       {
+  //         skuname: "Airwick",
+  //         skucode: "23434534693dlf",
+  //         timeframe: 4,
+  //         netrevenue: "£12,246.43",
+  //         expectedola: "84%",
+  //         servicelevel: "60",
+  //         expectednetrevenue: "(£5,749.00)",
+  //         bestseller: "High",
+  //         risk: "10",
+  //         checkbox: false,
+  //         costtoserve: "(£903.00)",
+  //         reviewed: "No",
+  //         quantityOrdered: "300",
+  //         quantityForcasted: "500",
+  //         percentageDescrepency: "-63.64%",
+  //       },
+  //       {
+  //         skuname: "Airwick",
+  //         skucode: "23434534693dlf",
+  //         timeframe: 4,
+  //         netrevenue: "£12,246.43",
+  //         expectedola: "84%",
+  //         servicelevel: "60",
+  //         expectednetrevenue: "(£5,749.00)",
+  //         bestseller: "High",
+  //         risk: "10",
+  //         checkbox: false,
+  //         costtoserve: "(£903.00)",
+  //         reviewed: "No",
+  //         quantityOrdered: "300",
+  //         quantityForcasted: "500",
+  //         percentageDescrepency: "-63.64%",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     rbsku: "010614",
+  //     ppg: "1234567",
+  //     description: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     woc: "743",
+  //     activepromo: "No",
+  //     olacw: "84%",
+  //     olacw1: "84%",
+  //     olacw2: "84%",
+  //     olacw3: "84%",
+  //     exptnetrevcw: "£100",
+  //     exptnetrevcw1: "£100",
+  //     exptnetrevcw2: "£100",
+  //     exptnetrevcw3: "£100",
+  //     ragcw: "G",
+  //     ragcw1: "R",
+  //     ragcw2: "A",
+  //     ragcw3: "G",
+  //     reasoncode: "E0",
+  //     comments: "Soft change to 3234328",
+  //     campaugns: [
+  //       {
+  //         campaignanme: "Airwick special",
+  //         startdate: "12/05/2023",
+  //         enddate: "31/08/2023",
+  //         skufocused: "Yes",
+  //         activestatus: "Active",
+  //         retailersinvolved: "Tesco",
+  //         retailerinventory: "250",
+  //         rbwherehouseinventory: "1000",
+  //         requestdeactivation: "No",
+  //       },
+  //       {
+  //         campaignanme: "Airwick special",
+  //         startdate: "12/05/2023",
+  //         enddate: "31/08/2023",
+  //         skufocused: "Yes",
+  //         activestatus: "Active",
+  //         retailersinvolved: "Tesco",
+  //         retailerinventory: "250",
+  //         rbwherehouseinventory: "1000",
+  //         requestdeactivation: "No",
+  //       },
+  //       {
+  //         campaignanme: "Airwick special",
+  //         startdate: "12/05/2023",
+  //         enddate: "31/08/2023",
+  //         skufocused: "Yes",
+  //         activestatus: "Active",
+  //         retailersinvolved: "Tesco",
+  //         retailerinventory: "250",
+  //         rbwherehouseinventory: "1000",
+  //         requestdeactivation: "No",
+  //       },
+  //     ],
+  //     pushAlternativeTable: [
+  //       {
+  //         recomscore: "96%",
+  //         title: "Airwick Electric Strawberry",
+  //         sku: "1236467867",
+  //         activecamp: "Active",
+  //         stockavailblerb: "1,345",
+  //         stockavailableamz: "234",
+  //         sellinforecast: "234",
+  //         selloutforecast: "100",
+  //         wocestimation: "100",
+  //         olaupliftestimation: "100",
+  //         costestimation: "500",
+  //         select: "Yes",
+  //       },
+  //       {
+  //         recomscore: "96%",
+  //         title: "Airwick Electric Strawberry",
+  //         sku: "1236467867",
+  //         activecamp: "Active",
+  //         stockavailblerb: "1,345",
+  //         stockavailableamz: "234",
+  //         sellinforecast: "234",
+  //         selloutforecast: "100",
+  //         wocestimation: "100",
+  //         olaupliftestimation: "100",
+  //         costestimation: "500",
+  //         select: "Yes",
+  //       },
+  //     ],
 
-      details: [
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-      ],
-    },
-    {
-      rbsku: "010615",
-      ppg: "1234567",
-      description: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      woc: "743",
-      activepromo: "Yes",
-      olacw: "84%",
-      olacw1: "84%",
-      olacw2: "84%",
-      olacw3: "84%",
-      exptnetrevcw: "£100",
-      exptnetrevcw1: "£100",
-      exptnetrevcw2: "£100",
-      exptnetrevcw3: "£100",
-      ragcw: "G",
-      ragcw1: "R",
-      ragcw2: "A",
-      ragcw3: "G",
-      reasoncode: "E0",
-      comments: "Soft change to 3234328",
-      campaugns: [
-        {
-          campaignanme: "Airwick special",
-          startdate: "12/05/2023",
-          enddate: "31/08/2023",
-          skufocused: "Yes",
-          activestatus: "Active",
-          retailersinvolved: "Tesco",
-          retailerinventory: "250",
-          rbwherehouseinventory: "1000",
-          requestdeactivation: "No",
-        },
-        {
-          campaignanme: "Airwick special",
-          startdate: "12/05/2023",
-          enddate: "31/08/2023",
-          skufocused: "Yes",
-          activestatus: "Active",
-          retailersinvolved: "Tesco",
-          retailerinventory: "250",
-          rbwherehouseinventory: "1000",
-          requestdeactivation: "No",
-        },
-      ],
-      pushAlternativeTable: [
-        {
-          recomscore: "96%",
-          title: "Airwick Electric Strawberry",
-          sku: "1236467867",
-          activecamp: "Active",
-          stockavailblerb: "1,345",
-          stockavailableamz: "234",
-          sellinforecast: "234",
-          selloutforecast: "100",
-          wocestimation: "100",
-          olaupliftestimation: "100",
-          costestimation: "500",
-          select: "Yes",
-        },
-        {
-          recomscore: "96%",
-          title: "Airwick Electric Strawberry",
-          sku: "1236467867",
-          activecamp: "Active",
-          stockavailblerb: "1,345",
-          stockavailableamz: "234",
-          sellinforecast: "234",
-          selloutforecast: "100",
-          wocestimation: "100",
-          olaupliftestimation: "100",
-          costestimation: "500",
-          select: "Yes",
-        },
-      ],
+  //     details: [
+  //       {
+  //         skuname: "Airwick",
+  //         skucode: "23434534693dlf",
+  //         timeframe: 4,
+  //         netrevenue: "£12,246.43",
+  //         expectedola: "84%",
+  //         servicelevel: "60",
+  //         expectednetrevenue: "(£5,749.00)",
+  //         bestseller: "High",
+  //         risk: "10",
+  //         checkbox: false,
+  //         costtoserve: "(£903.00)",
+  //         reviewed: "No",
+  //         quantityOrdered: "300",
+  //         quantityForcasted: "500",
+  //         percentageDescrepency: "-63.64%",
+  //       },
+  //       {
+  //         skuname: "Airwick",
+  //         skucode: "23434534693dlf",
+  //         timeframe: 4,
+  //         netrevenue: "£12,246.43",
+  //         expectedola: "84%",
+  //         servicelevel: "60",
+  //         expectednetrevenue: "(£5,749.00)",
+  //         bestseller: "High",
+  //         risk: "10",
+  //         checkbox: false,
+  //         costtoserve: "(£903.00)",
+  //         reviewed: "No",
+  //         quantityOrdered: "300",
+  //         quantityForcasted: "500",
+  //         percentageDescrepency: "-63.64%",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     rbsku: "010615",
+  //     ppg: "1234567",
+  //     description: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     woc: "743",
+  //     activepromo: "Yes",
+  //     olacw: "84%",
+  //     olacw1: "84%",
+  //     olacw2: "84%",
+  //     olacw3: "84%",
+  //     exptnetrevcw: "£100",
+  //     exptnetrevcw1: "£100",
+  //     exptnetrevcw2: "£100",
+  //     exptnetrevcw3: "£100",
+  //     ragcw: "G",
+  //     ragcw1: "R",
+  //     ragcw2: "A",
+  //     ragcw3: "G",
+  //     reasoncode: "E0",
+  //     comments: "Soft change to 3234328",
+  //     campaugns: [
+  //       {
+  //         campaignanme: "Airwick special",
+  //         startdate: "12/05/2023",
+  //         enddate: "31/08/2023",
+  //         skufocused: "Yes",
+  //         activestatus: "Active",
+  //         retailersinvolved: "Tesco",
+  //         retailerinventory: "250",
+  //         rbwherehouseinventory: "1000",
+  //         requestdeactivation: "No",
+  //       },
+  //       {
+  //         campaignanme: "Airwick special",
+  //         startdate: "12/05/2023",
+  //         enddate: "31/08/2023",
+  //         skufocused: "Yes",
+  //         activestatus: "Active",
+  //         retailersinvolved: "Tesco",
+  //         retailerinventory: "250",
+  //         rbwherehouseinventory: "1000",
+  //         requestdeactivation: "No",
+  //       },
+  //     ],
+  //     pushAlternativeTable: [
+  //       {
+  //         recomscore: "96%",
+  //         title: "Airwick Electric Strawberry",
+  //         sku: "1236467867",
+  //         activecamp: "Active",
+  //         stockavailblerb: "1,345",
+  //         stockavailableamz: "234",
+  //         sellinforecast: "234",
+  //         selloutforecast: "100",
+  //         wocestimation: "100",
+  //         olaupliftestimation: "100",
+  //         costestimation: "500",
+  //         select: "Yes",
+  //       },
+  //       {
+  //         recomscore: "96%",
+  //         title: "Airwick Electric Strawberry",
+  //         sku: "1236467867",
+  //         activecamp: "Active",
+  //         stockavailblerb: "1,345",
+  //         stockavailableamz: "234",
+  //         sellinforecast: "234",
+  //         selloutforecast: "100",
+  //         wocestimation: "100",
+  //         olaupliftestimation: "100",
+  //         costestimation: "500",
+  //         select: "Yes",
+  //       },
+  //     ],
 
-      details: [
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-      ],
-    },
-    {
-      rbsku: "010616",
-      ppg: "1234567",
-      description: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      woc: "743",
-      activepromo: "No",
-      olacw: "84%",
-      olacw1: "84%",
-      olacw2: "84%",
-      olacw3: "84%",
-      exptnetrevcw: "£100",
-      exptnetrevcw1: "£100",
-      exptnetrevcw2: "£100",
-      exptnetrevcw3: "£100",
-      ragcw: "G",
-      ragcw1: "R",
-      ragcw2: "A",
-      ragcw3: "G",
-      reasoncode: "E0",
-      comments: "Soft change to 3234328",
-      campaugns: [
-        {
-          campaignanme: "Airwick special",
-          startdate: "12/05/2023",
-          enddate: "31/08/2023",
-          skufocused: "Yes",
-          activestatus: "Active",
-          retailersinvolved: "Tesco",
-          retailerinventory: "250",
-          rbwherehouseinventory: "1000",
-          requestdeactivation: "No",
-        },
-        {
-          campaignanme: "Airwick special",
-          startdate: "12/05/2023",
-          enddate: "31/08/2023",
-          skufocused: "Yes",
-          activestatus: "Active",
-          retailersinvolved: "Tesco",
-          retailerinventory: "250",
-          rbwherehouseinventory: "1000",
-          requestdeactivation: "No",
-        },
-      ],
-      pushAlternativeTable: [
-        {
-          recomscore: "96%",
-          title: "Airwick Electric Strawberry",
-          sku: "1236467867",
-          activecamp: "Active",
-          stockavailblerb: "1,345",
-          stockavailableamz: "234",
-          sellinforecast: "234",
-          selloutforecast: "100",
-          wocestimation: "100",
-          olaupliftestimation: "100",
-          costestimation: "500",
-          select: "Yes",
-        },
-        {
-          recomscore: "96%",
-          title: "Airwick Electric Strawberry",
-          sku: "1236467867",
-          activecamp: "Active",
-          stockavailblerb: "1,345",
-          stockavailableamz: "234",
-          sellinforecast: "234",
-          selloutforecast: "100",
-          wocestimation: "100",
-          olaupliftestimation: "100",
-          costestimation: "500",
-          select: "Yes",
-        },
-      ],
+  //     details: [
+  //       {
+  //         skuname: "Airwick",
+  //         skucode: "23434534693dlf",
+  //         timeframe: 4,
+  //         netrevenue: "£12,246.43",
+  //         expectedola: "84%",
+  //         servicelevel: "60",
+  //         expectednetrevenue: "(£5,749.00)",
+  //         bestseller: "High",
+  //         risk: "10",
+  //         checkbox: false,
+  //         costtoserve: "(£903.00)",
+  //         reviewed: "No",
+  //         quantityOrdered: "300",
+  //         quantityForcasted: "500",
+  //         percentageDescrepency: "-63.64%",
+  //       },
+  //       {
+  //         skuname: "Airwick",
+  //         skucode: "23434534693dlf",
+  //         timeframe: 4,
+  //         netrevenue: "£12,246.43",
+  //         expectedola: "84%",
+  //         servicelevel: "60",
+  //         expectednetrevenue: "(£5,749.00)",
+  //         bestseller: "High",
+  //         risk: "10",
+  //         checkbox: false,
+  //         costtoserve: "(£903.00)",
+  //         reviewed: "No",
+  //         quantityOrdered: "300",
+  //         quantityForcasted: "500",
+  //         percentageDescrepency: "-63.64%",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     rbsku: "010616",
+  //     ppg: "1234567",
+  //     description: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     woc: "743",
+  //     activepromo: "No",
+  //     olacw: "84%",
+  //     olacw1: "84%",
+  //     olacw2: "84%",
+  //     olacw3: "84%",
+  //     exptnetrevcw: "£100",
+  //     exptnetrevcw1: "£100",
+  //     exptnetrevcw2: "£100",
+  //     exptnetrevcw3: "£100",
+  //     ragcw: "G",
+  //     ragcw1: "R",
+  //     ragcw2: "A",
+  //     ragcw3: "G",
+  //     reasoncode: "E0",
+  //     comments: "Soft change to 3234328",
+  //     campaugns: [
+  //       {
+  //         campaignanme: "Airwick special",
+  //         startdate: "12/05/2023",
+  //         enddate: "31/08/2023",
+  //         skufocused: "Yes",
+  //         activestatus: "Active",
+  //         retailersinvolved: "Tesco",
+  //         retailerinventory: "250",
+  //         rbwherehouseinventory: "1000",
+  //         requestdeactivation: "No",
+  //       },
+  //       {
+  //         campaignanme: "Airwick special",
+  //         startdate: "12/05/2023",
+  //         enddate: "31/08/2023",
+  //         skufocused: "Yes",
+  //         activestatus: "Active",
+  //         retailersinvolved: "Tesco",
+  //         retailerinventory: "250",
+  //         rbwherehouseinventory: "1000",
+  //         requestdeactivation: "No",
+  //       },
+  //     ],
+  //     pushAlternativeTable: [
+  //       {
+  //         recomscore: "96%",
+  //         title: "Airwick Electric Strawberry",
+  //         sku: "1236467867",
+  //         activecamp: "Active",
+  //         stockavailblerb: "1,345",
+  //         stockavailableamz: "234",
+  //         sellinforecast: "234",
+  //         selloutforecast: "100",
+  //         wocestimation: "100",
+  //         olaupliftestimation: "100",
+  //         costestimation: "500",
+  //         select: "Yes",
+  //       },
+  //       {
+  //         recomscore: "96%",
+  //         title: "Airwick Electric Strawberry",
+  //         sku: "1236467867",
+  //         activecamp: "Active",
+  //         stockavailblerb: "1,345",
+  //         stockavailableamz: "234",
+  //         sellinforecast: "234",
+  //         selloutforecast: "100",
+  //         wocestimation: "100",
+  //         olaupliftestimation: "100",
+  //         costestimation: "500",
+  //         select: "Yes",
+  //       },
+  //     ],
 
-      details: [
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-      ],
-    },
-    {
-      rbsku: "010617",
-      ppg: "1234567",
-      description: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      woc: "743",
-      activepromo: "Yes",
-      olacw: "84%",
-      olacw1: "84%",
-      olacw2: "84%",
-      olacw3: "84%",
-      exptnetrevcw: "£100",
-      exptnetrevcw1: "£100",
-      exptnetrevcw2: "£100",
-      exptnetrevcw3: "£100",
-      ragcw: "G",
-      ragcw1: "R",
-      ragcw2: "A",
-      ragcw3: "G",
-      reasoncode: "E0",
-      comments: "Soft change to 3234328",
-      campaugns: [
-        {
-          campaignanme: "Airwick special",
-          startdate: "12/05/2023",
-          enddate: "31/08/2023",
-          skufocused: "Yes",
-          activestatus: "Active",
-          retailersinvolved: "Tesco",
-          retailerinventory: "250",
-          rbwherehouseinventory: "1000",
-          requestdeactivation: "No",
-        },
-        {
-          campaignanme: "Airwick special",
-          startdate: "12/05/2023",
-          enddate: "31/08/2023",
-          skufocused: "Yes",
-          activestatus: "Active",
-          retailersinvolved: "Tesco",
-          retailerinventory: "250",
-          rbwherehouseinventory: "1000",
-          requestdeactivation: "No",
-        },
-      ],
-      pushAlternativeTable: [
-        {
-          recomscore: "96%",
-          title: "Airwick Electric Strawberry",
-          sku: "1236467867",
-          activecamp: "Active",
-          stockavailblerb: "1,345",
-          stockavailableamz: "234",
-          sellinforecast: "234",
-          selloutforecast: "100",
-          wocestimation: "100",
-          olaupliftestimation: "100",
-          costestimation: "500",
-          select: "Yes",
-        },
-        {
-          recomscore: "96%",
-          title: "Airwick Electric Strawberry",
-          sku: "1236467867",
-          activecamp: "Active",
-          stockavailblerb: "1,345",
-          stockavailableamz: "234",
-          sellinforecast: "234",
-          selloutforecast: "100",
-          wocestimation: "100",
-          olaupliftestimation: "100",
-          costestimation: "500",
-          select: "Yes",
-        },
-      ],
+  //     details: [
+  //       {
+  //         skuname: "Airwick",
+  //         skucode: "23434534693dlf",
+  //         timeframe: 4,
+  //         netrevenue: "£12,246.43",
+  //         expectedola: "84%",
+  //         servicelevel: "60",
+  //         expectednetrevenue: "(£5,749.00)",
+  //         bestseller: "High",
+  //         risk: "10",
+  //         checkbox: false,
+  //         costtoserve: "(£903.00)",
+  //         reviewed: "No",
+  //         quantityOrdered: "300",
+  //         quantityForcasted: "500",
+  //         percentageDescrepency: "-63.64%",
+  //       },
+  //       {
+  //         skuname: "Airwick",
+  //         skucode: "23434534693dlf",
+  //         timeframe: 4,
+  //         netrevenue: "£12,246.43",
+  //         expectedola: "84%",
+  //         servicelevel: "60",
+  //         expectednetrevenue: "(£5,749.00)",
+  //         bestseller: "High",
+  //         risk: "10",
+  //         checkbox: false,
+  //         costtoserve: "(£903.00)",
+  //         reviewed: "No",
+  //         quantityOrdered: "300",
+  //         quantityForcasted: "500",
+  //         percentageDescrepency: "-63.64%",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     rbsku: "010617",
+  //     ppg: "1234567",
+  //     description: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     woc: "743",
+  //     activepromo: "Yes",
+  //     olacw: "84%",
+  //     olacw1: "84%",
+  //     olacw2: "84%",
+  //     olacw3: "84%",
+  //     exptnetrevcw: "£100",
+  //     exptnetrevcw1: "£100",
+  //     exptnetrevcw2: "£100",
+  //     exptnetrevcw3: "£100",
+  //     ragcw: "G",
+  //     ragcw1: "R",
+  //     ragcw2: "A",
+  //     ragcw3: "G",
+  //     reasoncode: "E0",
+  //     comments: "Soft change to 3234328",
+  //     campaugns: [
+  //       {
+  //         campaignanme: "Airwick special",
+  //         startdate: "12/05/2023",
+  //         enddate: "31/08/2023",
+  //         skufocused: "Yes",
+  //         activestatus: "Active",
+  //         retailersinvolved: "Tesco",
+  //         retailerinventory: "250",
+  //         rbwherehouseinventory: "1000",
+  //         requestdeactivation: "No",
+  //       },
+  //       {
+  //         campaignanme: "Airwick special",
+  //         startdate: "12/05/2023",
+  //         enddate: "31/08/2023",
+  //         skufocused: "Yes",
+  //         activestatus: "Active",
+  //         retailersinvolved: "Tesco",
+  //         retailerinventory: "250",
+  //         rbwherehouseinventory: "1000",
+  //         requestdeactivation: "No",
+  //       },
+  //     ],
+  //     pushAlternativeTable: [
+  //       {
+  //         recomscore: "96%",
+  //         title: "Airwick Electric Strawberry",
+  //         sku: "1236467867",
+  //         activecamp: "Active",
+  //         stockavailblerb: "1,345",
+  //         stockavailableamz: "234",
+  //         sellinforecast: "234",
+  //         selloutforecast: "100",
+  //         wocestimation: "100",
+  //         olaupliftestimation: "100",
+  //         costestimation: "500",
+  //         select: "Yes",
+  //       },
+  //       {
+  //         recomscore: "96%",
+  //         title: "Airwick Electric Strawberry",
+  //         sku: "1236467867",
+  //         activecamp: "Active",
+  //         stockavailblerb: "1,345",
+  //         stockavailableamz: "234",
+  //         sellinforecast: "234",
+  //         selloutforecast: "100",
+  //         wocestimation: "100",
+  //         olaupliftestimation: "100",
+  //         costestimation: "500",
+  //         select: "Yes",
+  //       },
+  //     ],
 
-      details: [
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-      ],
-    },
-    {
-      rbsku: "010619",
-      ppg: "1234567",
-      description: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      woc: "743",
-      activepromo: "Yes",
-      olacw: "84%",
-      olacw1: "84%",
-      olacw2: "84%",
-      olacw3: "84%",
-      exptnetrevcw: "£100",
-      exptnetrevcw1: "£100",
-      exptnetrevcw2: "£100",
-      exptnetrevcw3: "£100",
-      ragcw: "G",
-      ragcw1: "R",
-      ragcw2: "A",
-      ragcw3: "G",
-      reasoncode: "E0",
-      comments: "Soft change to 3234328",
-      campaugns: [
-        {
-          campaignanme: "Airwick special",
-          startdate: "12/05/2023",
-          enddate: "31/08/2023",
-          skufocused: "Yes",
-          activestatus: "Active",
-          retailersinvolved: "Tesco",
-          retailerinventory: "250",
-          rbwherehouseinventory: "1000",
-          requestdeactivation: "No",
-        },
-        {
-          campaignanme: "Airwick special",
-          startdate: "12/05/2023",
-          enddate: "31/08/2023",
-          skufocused: "Yes",
-          activestatus: "Active",
-          retailersinvolved: "Tesco",
-          retailerinventory: "250",
-          rbwherehouseinventory: "1000",
-          requestdeactivation: "No",
-        },
-      ],
-      pushAlternativeTable: [
-        {
-          recomscore: "96%",
-          title: "Airwick Electric Strawberry",
-          sku: "1236467867",
-          activecamp: "Active",
-          stockavailblerb: "1,345",
-          stockavailableamz: "234",
-          sellinforecast: "234",
-          selloutforecast: "100",
-          wocestimation: "100",
-          olaupliftestimation: "100",
-          costestimation: "500",
-          select: "Yes",
-        },
-        {
-          recomscore: "96%",
-          title: "Airwick Electric Strawberry",
-          sku: "1236467867",
-          activecamp: "Active",
-          stockavailblerb: "1,345",
-          stockavailableamz: "234",
-          sellinforecast: "234",
-          selloutforecast: "100",
-          wocestimation: "100",
-          olaupliftestimation: "100",
-          costestimation: "500",
-          select: "Yes",
-        },
-      ],
+  //     details: [
+  //       {
+  //         skuname: "Airwick",
+  //         skucode: "23434534693dlf",
+  //         timeframe: 4,
+  //         netrevenue: "£12,246.43",
+  //         expectedola: "84%",
+  //         servicelevel: "60",
+  //         expectednetrevenue: "(£5,749.00)",
+  //         bestseller: "High",
+  //         risk: "10",
+  //         checkbox: false,
+  //         costtoserve: "(£903.00)",
+  //         reviewed: "No",
+  //         quantityOrdered: "300",
+  //         quantityForcasted: "500",
+  //         percentageDescrepency: "-63.64%",
+  //       },
+  //       {
+  //         skuname: "Airwick",
+  //         skucode: "23434534693dlf",
+  //         timeframe: 4,
+  //         netrevenue: "£12,246.43",
+  //         expectedola: "84%",
+  //         servicelevel: "60",
+  //         expectednetrevenue: "(£5,749.00)",
+  //         bestseller: "High",
+  //         risk: "10",
+  //         checkbox: false,
+  //         costtoserve: "(£903.00)",
+  //         reviewed: "No",
+  //         quantityOrdered: "300",
+  //         quantityForcasted: "500",
+  //         percentageDescrepency: "-63.64%",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     rbsku: "010619",
+  //     ppg: "1234567",
+  //     description: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     woc: "743",
+  //     activepromo: "Yes",
+  //     olacw: "84%",
+  //     olacw1: "84%",
+  //     olacw2: "84%",
+  //     olacw3: "84%",
+  //     exptnetrevcw: "£100",
+  //     exptnetrevcw1: "£100",
+  //     exptnetrevcw2: "£100",
+  //     exptnetrevcw3: "£100",
+  //     ragcw: "G",
+  //     ragcw1: "R",
+  //     ragcw2: "A",
+  //     ragcw3: "G",
+  //     reasoncode: "E0",
+  //     comments: "Soft change to 3234328",
+  //     campaugns: [
+  //       {
+  //         campaignanme: "Airwick special",
+  //         startdate: "12/05/2023",
+  //         enddate: "31/08/2023",
+  //         skufocused: "Yes",
+  //         activestatus: "Active",
+  //         retailersinvolved: "Tesco",
+  //         retailerinventory: "250",
+  //         rbwherehouseinventory: "1000",
+  //         requestdeactivation: "No",
+  //       },
+  //       {
+  //         campaignanme: "Airwick special",
+  //         startdate: "12/05/2023",
+  //         enddate: "31/08/2023",
+  //         skufocused: "Yes",
+  //         activestatus: "Active",
+  //         retailersinvolved: "Tesco",
+  //         retailerinventory: "250",
+  //         rbwherehouseinventory: "1000",
+  //         requestdeactivation: "No",
+  //       },
+  //     ],
+  //     pushAlternativeTable: [
+  //       {
+  //         recomscore: "96%",
+  //         title: "Airwick Electric Strawberry",
+  //         sku: "1236467867",
+  //         activecamp: "Active",
+  //         stockavailblerb: "1,345",
+  //         stockavailableamz: "234",
+  //         sellinforecast: "234",
+  //         selloutforecast: "100",
+  //         wocestimation: "100",
+  //         olaupliftestimation: "100",
+  //         costestimation: "500",
+  //         select: "Yes",
+  //       },
+  //       {
+  //         recomscore: "96%",
+  //         title: "Airwick Electric Strawberry",
+  //         sku: "1236467867",
+  //         activecamp: "Active",
+  //         stockavailblerb: "1,345",
+  //         stockavailableamz: "234",
+  //         sellinforecast: "234",
+  //         selloutforecast: "100",
+  //         wocestimation: "100",
+  //         olaupliftestimation: "100",
+  //         costestimation: "500",
+  //         select: "Yes",
+  //       },
+  //     ],
 
-      details: [
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-      ],
-    },
-    {
-      rbsku: "010620",
-      ppg: "1234567",
-      description: "AWICK,IE,STICK UP LAVX12",
-      rrsegment: "Adhesives (Air Care)",
-      woc: "743",
-      activepromo: "Yes",
-      olacw: "84%",
-      olacw1: "84%",
-      olacw2: "84%",
-      olacw3: "84%",
-      exptnetrevcw: "£100",
-      exptnetrevcw1: "£100",
-      exptnetrevcw2: "£100",
-      exptnetrevcw3: "£100",
-      ragcw: "G",
-      ragcw1: "R",
-      ragcw2: "A",
-      ragcw3: "G",
-      reasoncode: "E0",
-      comments: "Soft change to 3234328",
-      campaugns: [
-        {
-          campaignanme: "Airwick special",
-          startdate: "12/05/2023",
-          enddate: "31/08/2023",
-          skufocused: "Yes",
-          activestatus: "Active",
-          retailersinvolved: "Tesco",
-          retailerinventory: "250",
-          rbwherehouseinventory: "1000",
-          requestdeactivation: "No",
-        },
-        {
-          campaignanme: "Airwick special",
-          startdate: "12/05/2023",
-          enddate: "31/08/2023",
-          skufocused: "Yes",
-          activestatus: "Active",
-          retailersinvolved: "Tesco",
-          retailerinventory: "250",
-          rbwherehouseinventory: "1000",
-          requestdeactivation: "No",
-        },
-      ],
-      pushAlternativeTable: [
-        {
-          recomscore: "96%",
-          title: "Airwick Electric Strawberry",
-          sku: "1236467867",
-          activecamp: "Active",
-          stockavailblerb: "1,345",
-          stockavailableamz: "234",
-          sellinforecast: "234",
-          selloutforecast: "100",
-          wocestimation: "100",
-          olaupliftestimation: "100",
-          costestimation: "500",
-          select: "Yes",
-        },
-        {
-          recomscore: "96%",
-          title: "Airwick Electric Strawberry",
-          sku: "1236467867",
-          activecamp: "Active",
-          stockavailblerb: "1,345",
-          stockavailableamz: "234",
-          sellinforecast: "234",
-          selloutforecast: "100",
-          wocestimation: "100",
-          olaupliftestimation: "100",
-          costestimation: "500",
-          select: "Yes",
-        },
-      ],
+  //     details: [
+  //       {
+  //         skuname: "Airwick",
+  //         skucode: "23434534693dlf",
+  //         timeframe: 4,
+  //         netrevenue: "£12,246.43",
+  //         expectedola: "84%",
+  //         servicelevel: "60",
+  //         expectednetrevenue: "(£5,749.00)",
+  //         bestseller: "High",
+  //         risk: "10",
+  //         checkbox: false,
+  //         costtoserve: "(£903.00)",
+  //         reviewed: "No",
+  //         quantityOrdered: "300",
+  //         quantityForcasted: "500",
+  //         percentageDescrepency: "-63.64%",
+  //       },
+  //       {
+  //         skuname: "Airwick",
+  //         skucode: "23434534693dlf",
+  //         timeframe: 4,
+  //         netrevenue: "£12,246.43",
+  //         expectedola: "84%",
+  //         servicelevel: "60",
+  //         expectednetrevenue: "(£5,749.00)",
+  //         bestseller: "High",
+  //         risk: "10",
+  //         checkbox: false,
+  //         costtoserve: "(£903.00)",
+  //         reviewed: "No",
+  //         quantityOrdered: "300",
+  //         quantityForcasted: "500",
+  //         percentageDescrepency: "-63.64%",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     rbsku: "010620",
+  //     ppg: "1234567",
+  //     description: "AWICK,IE,STICK UP LAVX12",
+  //     rrsegment: "Adhesives (Air Care)",
+  //     woc: "743",
+  //     activepromo: "Yes",
+  //     olacw: "84%",
+  //     olacw1: "84%",
+  //     olacw2: "84%",
+  //     olacw3: "84%",
+  //     exptnetrevcw: "£100",
+  //     exptnetrevcw1: "£100",
+  //     exptnetrevcw2: "£100",
+  //     exptnetrevcw3: "£100",
+  //     ragcw: "G",
+  //     ragcw1: "R",
+  //     ragcw2: "A",
+  //     ragcw3: "G",
+  //     reasoncode: "E0",
+  //     comments: "Soft change to 3234328",
+  //     campaugns: [
+  //       {
+  //         campaignanme: "Airwick special",
+  //         startdate: "12/05/2023",
+  //         enddate: "31/08/2023",
+  //         skufocused: "Yes",
+  //         activestatus: "Active",
+  //         retailersinvolved: "Tesco",
+  //         retailerinventory: "250",
+  //         rbwherehouseinventory: "1000",
+  //         requestdeactivation: "No",
+  //       },
+  //       {
+  //         campaignanme: "Airwick special",
+  //         startdate: "12/05/2023",
+  //         enddate: "31/08/2023",
+  //         skufocused: "Yes",
+  //         activestatus: "Active",
+  //         retailersinvolved: "Tesco",
+  //         retailerinventory: "250",
+  //         rbwherehouseinventory: "1000",
+  //         requestdeactivation: "No",
+  //       },
+  //     ],
+  //     pushAlternativeTable: [
+  //       {
+  //         recomscore: "96%",
+  //         title: "Airwick Electric Strawberry",
+  //         sku: "1236467867",
+  //         activecamp: "Active",
+  //         stockavailblerb: "1,345",
+  //         stockavailableamz: "234",
+  //         sellinforecast: "234",
+  //         selloutforecast: "100",
+  //         wocestimation: "100",
+  //         olaupliftestimation: "100",
+  //         costestimation: "500",
+  //         select: "Yes",
+  //       },
+  //       {
+  //         recomscore: "96%",
+  //         title: "Airwick Electric Strawberry",
+  //         sku: "1236467867",
+  //         activecamp: "Active",
+  //         stockavailblerb: "1,345",
+  //         stockavailableamz: "234",
+  //         sellinforecast: "234",
+  //         selloutforecast: "100",
+  //         wocestimation: "100",
+  //         olaupliftestimation: "100",
+  //         costestimation: "500",
+  //         select: "Yes",
+  //       },
+  //     ],
 
-      details: [
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-      ],
-    },
-  ]);
+  //     details: [
+  //       {
+  //         skuname: "Airwick",
+  //         skucode: "23434534693dlf",
+  //         timeframe: 4,
+  //         netrevenue: "£12,246.43",
+  //         expectedola: "84%",
+  //         servicelevel: "60",
+  //         expectednetrevenue: "(£5,749.00)",
+  //         bestseller: "High",
+  //         risk: "10",
+  //         checkbox: false,
+  //         costtoserve: "(£903.00)",
+  //         reviewed: "No",
+  //         quantityOrdered: "300",
+  //         quantityForcasted: "500",
+  //         percentageDescrepency: "-63.64%",
+  //       },
+  //       {
+  //         skuname: "Airwick",
+  //         skucode: "23434534693dlf",
+  //         timeframe: 4,
+  //         netrevenue: "£12,246.43",
+  //         expectedola: "84%",
+  //         servicelevel: "60",
+  //         expectednetrevenue: "(£5,749.00)",
+  //         bestseller: "High",
+  //         risk: "10",
+  //         checkbox: false,
+  //         costtoserve: "(£903.00)",
+  //         reviewed: "No",
+  //         quantityOrdered: "300",
+  //         quantityForcasted: "500",
+  //         percentageDescrepency: "-63.64%",
+  //       },
+  //     ],
+  //   },
+  // ]);
   const [selectAll, setSelectAll] = useState(false);
   const [selectedRowsData, setselectedRowsData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: "id", direction: "asc" });
@@ -997,7 +1102,7 @@ const OhrTable = ({ onData }) => {
       if (a[property] > b[property]) return direction === "asc" ? 1 : -1;
       return 0;
     });
-    setData(sortedData);
+    // setData(sortedData);
     setSortConfig({ key: property, direction });
   };
 
@@ -1016,15 +1121,43 @@ const OhrTable = ({ onData }) => {
     navigate(-1);
   };
 
+  const [chooseData, setchooseData] = useState({});
+  const [displayMigitates, setdisplayMigitates] = useState(false);
+
+  const handleChooseMitigation = async () => {
+    dispatch(updateloader(true));
+    var data = { rbsku: expandedRow };
+    try {
+      const response = await fetch("http://localhost:5000/choosescenario", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        setchooseData(json);
+        setdisplayMigitates(true);
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
+  };
+
   const SubTable = ({ details }) => (
     <div style={{ marginTop: "-18px", padding: "10px" }} className="mini-table">
       <Typography
         fontSize={20}
-        my={2}
         color="#415A6C"
         className="ms-title"
         style={{
           textAlign: "left",
+          marginBottom: "10px",
         }}
       >
         Recent / Current / Upcoming Campaigns
@@ -1039,6 +1172,7 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
                 border="1px solid #dddddd"
               >
@@ -1049,6 +1183,7 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Start Date
@@ -1058,6 +1193,7 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 End Date
@@ -1067,6 +1203,7 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Offer Description
@@ -1076,6 +1213,7 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Status
@@ -1085,6 +1223,7 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
                 Customer
@@ -1094,22 +1233,38 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
-                Customer Inventory
+                Customer
+                <br /> Inventory
               </TableCell>
               <TableCell
                 sx={{
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
-                Customer Allocation
+                Customer <br />
+                Allocation
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
+            {details.length == 0 && (
+              <TableRow>
+                <TableCell
+                  colSpan={20}
+                  style={{ textAlign: "center", fontSize: "16px" }}
+                >
+                  No Records Found
+                </TableCell>
+              </TableRow>
+            )}
             {details.map((item, index) => (
               <TableRow
                 key={index}
@@ -1119,7 +1274,7 @@ const OhrTable = ({ onData }) => {
                 }}
               >
                 <TableCell style={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.campaignanme}</Typography>
+                  <Typography fontSize="13px">{item.campaignname}</Typography>
                 </TableCell>
                 <TableCell style={{ textAlign: "center" }}>
                   <Typography fontSize="13px">{item.startdate}</Typography>
@@ -1128,24 +1283,24 @@ const OhrTable = ({ onData }) => {
                   <Typography fontSize="13px">{item.enddate}</Typography>
                 </TableCell>
                 <TableCell style={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.skufocused}</Typography>
+                  <Typography fontSize="13px">
+                    {item.offerdescription}
+                  </Typography>
                 </TableCell>
                 <TableCell style={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.activestatus}</Typography>
+                  <Typography fontSize="13px">{item.status}</Typography>
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.Customer}</Typography>
                 </TableCell>
                 <TableCell style={{ textAlign: "center" }}>
                   <Typography fontSize="13px">
-                    {item.retailersinvolved}
+                    {item.customerinventory}
                   </Typography>
                 </TableCell>
                 <TableCell style={{ textAlign: "center" }}>
                   <Typography fontSize="13px">
-                    {item.retailerinventory}
-                  </Typography>
-                </TableCell>
-                <TableCell style={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">
-                    {item.rbwherehouseinventory}
+                    {item.customerallocation}
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -1154,57 +1309,68 @@ const OhrTable = ({ onData }) => {
         </Table>
       </TableContainer>
       <Stack
-        direction="row"
-        justifyContent="space-between"
-        // backgroundColor="#E5EBEF"
+        // direction="row"
+        justifyContent="center"
+        textAlign="center"
         className="choosems-stack"
-        // my={2}
       >
-        <Typography color="#415A6C" className="ms-title">
-          Choose a Mitigation Strategy
-        </Typography>
-        <Box display="flex" className="ms-buttons">
-          <Box
-            className="ms-grid"
-            bgcolor="#57a957"
-            color="white"
-            borderRadius="50px"
-            onClick={handlePushAlternative}
+        <Box display="flex" justifyContent="center" alignItems="center" my={1}>
+          <Button
+            variant="contained"
+            size="medium"
+            startIcon={<ReportProblemOutlinedIcon sx={{ color: "white" }} />}
+            sx={{
+              backgroundColor: "#415A6C",
+              "&:hover": {
+                backgroundColor: "#FF007F",
+              },
+              borderRadius: "50px",
+            }}
+            onClick={handleChooseMitigation}
           >
-            <Typography className="ms-gridtitle">Push Alternative</Typography>
-          </Box>
-          <Box
-            className="ms-grid"
-            bgcolor="#f44444"
-            color="white"
-            borderRadius="50px"
-            onClick={handleReallocate}
-          >
-            <Typography className="ms-gridtitle">Reallocate</Typography>
-          </Box>
-          <Box
-            className="ms-grid"
-            bgcolor="#b6acac"
-            color="white"
-            borderRadius="50px"
-          >
-            <Badge badgeContent="Coming Soon" className="redirect-badge">
-              <Typography className="ms-gridtitle">Redirect</Typography>
-            </Badge>
-          </Box>
-          <Box
-            className="ms-grid"
-            bgcolor="#b6acac"
-            color="white"
-            borderRadius="50px"
-          >
-            <Badge badgeContent="Coming Soon" className="retailer-badge">
-              <Typography className="ms-gridtitle">
-                Retailer Negotiation
-              </Typography>
-            </Badge>
-          </Box>
+            Choose a Mitigation Strategy
+          </Button>
         </Box>
+        {displayMigitates && (
+          <Box display="flex" className="ms-buttons">
+            <Box
+              className="ms-grid"
+              onClick={handlePushAlternative}
+              sx={{
+                backgroundColor:
+                  chooseData.pushaltskus == "True" && !pushAlternative
+                    ? "green"
+                    : pushAlternative
+                    ? "#FF007F"
+                    : "#415A6C",
+                // backgroundColor: pushAlternative ? "#FF007F" : "#415A6C",
+                "&:hover": {
+                  backgroundColor: "#FF007F",
+                },
+              }}
+            >
+              <Typography className="ms-gridtitle">Push Alternative</Typography>
+            </Box>
+            <Box
+              className="ms-grid"
+              onClick={handleReallocate}
+              sx={{
+                backgroundColor:
+                  chooseData.rarbysku == "True" ? "green" : "#415A6C",
+                "&:hover": {
+                  backgroundColor: "#FF007F",
+                },
+              }}
+            >
+              <Typography className="ms-gridtitle">Reallocate</Typography>
+            </Box>
+            <Box className="ms-grid">
+              <Badge badgeContent="Coming Soon" className="redirect-badge">
+                <Typography className="ms-gridtitle">Redirect</Typography>
+              </Badge>
+            </Box>
+          </Box>
+        )}
       </Stack>
     </div>
   );
@@ -1224,6 +1390,7 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   // padding: "0px",
                   height: "30px",
+                  color: "#415A6C",
                 }}
               >
                 Recom.Score
@@ -1236,9 +1403,10 @@ const OhrTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
                   // padding: "0px",
+                  color: "#415A6C",
                 }}
               >
-                Title
+                RB SKU
               </TableCell>
               <TableCell
                 sx={{
@@ -1247,9 +1415,22 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
-                SKU
+                PPG
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "",
+                  width: "60px",
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
+                }}
+              >
+                Description
               </TableCell>
               <TableCell
                 sx={{
@@ -1258,9 +1439,10 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
-                Active Camplaigns
+                Active Campaigns
               </TableCell>
               <TableCell
                 sx={{
@@ -1269,9 +1451,11 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
-                Stock Available RB
+                Reckitt SoH
               </TableCell>
               <TableCell
                 sx={{
@@ -1280,9 +1464,10 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
-                Stock Available AMZ
+                Customer Inventory
               </TableCell>
               <TableCell
                 sx={{
@@ -1291,9 +1476,12 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
-                Sell-in forecast
+                Sell-In Forecast <br />
+                (S-OLA vs Kinaxis)
               </TableCell>
               <TableCell
                 sx={{
@@ -1302,9 +1490,10 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
-                Sell-out forecast
+                Sell-Out Forecast
               </TableCell>
               <TableCell
                 sx={{
@@ -1313,46 +1502,24 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
-                Customer Woc
-              </TableCell>
-              <TableCell
-                sx={{
-                  border: "",
-                  width: "110px",
-                  textAlign: "center",
-                  border: "1px solid #dcdcdc",
-                  backgroundColor: "#E5EBEF",
-                }}
-              >
-                OLA Uplift estimation
-              </TableCell>
-              <TableCell
-                sx={{
-                  border: "",
-                  width: "110px",
-                  textAlign: "center",
-                  border: "1px solid #dcdcdc",
-                  backgroundColor: "#E5EBEF",
-                }}
-              >
-                Cost estimation
-              </TableCell>
-              <TableCell
-                sx={{
-                  border: "",
-                  width: "110px",
-                  textAlign: "center",
-                  border: "1px solid #dcdcdc",
-                  backgroundColor: "#E5EBEF",
-                }}
-              >
-                Select
+                Customer WoC
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
+            {details.length == 0 && (
+              <TableRow>
+                <TableCell
+                  colSpan={20}
+                  style={{ textAlign: "center", fontSize: "16px" }}
+                >
+                  No Records Found
+                </TableCell>
+              </TableRow>
+            )}
             {details.map((item, index) => (
               <TableRow
                 key={index}
@@ -1361,69 +1528,55 @@ const OhrTable = ({ onData }) => {
                   padding: "0px",
                 }}
               >
-                <TableCell>
-                  <Typography fontSize="13px">{item.recomscore}</Typography>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item["recom-score"]}</Typography>
                 </TableCell>
-                <TableCell>
-                  <Typography fontSize="13px">{item.title}</Typography>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item["RB SKU"]}</Typography>
                 </TableCell>
-
-                <TableCell>
-                  <Typography fontSize="13px">{item.sku}</Typography>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.PPG}</Typography>
                 </TableCell>
-                <TableCell>
-                  <Typography fontSize="13px">{item.activecamp}</Typography>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.Description}</Typography>
                 </TableCell>
-                <TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
                   <Typography fontSize="13px">
-                    {item.stockavailblerb}
+                    {item.activecampaigns}
                   </Typography>
                 </TableCell>
-                <TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.reckittsoh}</Typography>
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
                   <Typography fontSize="13px">
-                    {item.stockavailableamz}
+                    {item.customerinventory}
                   </Typography>
                 </TableCell>
-                <TableCell>
-                  <Typography fontSize="13px">{item.sellinforecast}</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography fontSize="13px">
-                    {item.selloutforecast}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography fontSize="13px">{item.wocestimation}</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography fontSize="13px">
-                    {item.olaupliftestimation}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography fontSize="13px">{item.costestimation}</Typography>
-                </TableCell>
-                <TableCell sx={{ color: "#F08C2A", textAlign: "center" }}>
-                  <Box
-                    sx={{
-                      borderRadius: "5px 5px",
-                      border: "1px solid #415A6C",
-                      padding: "4px 0px 0px 8px",
-                      display: "flex",
-                      justifyContent: "space-around",
-                      color: "#415A6C",
-                      cursor: "pointer",
-                    }}
-                    width={{ lg: "90px" }}
-                    ml={{ lg: "-10px" }}
-                  >
+                <TableCell
+                  sx={{
+                    textAlign: "center",
+                  }}
+                >
+                  <Box display="flex" sx={{ paddingLeft: "40px" }}>
+                    <Typography fontSize={15}>{item["sif-atf"]}</Typography>
                     <Typography
-                      fontSize={{ lg: "11px" }}
-                      sx={{ paddingBottom: "5px" }}
+                      fontSize={13}
+                      sx={{
+                        marginLeft: "12px",
+                        marginTop: "10px",
+                        color: "#6e8c78",
+                      }}
                     >
-                      Push
+                      {item["sif-reckitt"]}
                     </Typography>
                   </Box>
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.sof}</Typography>
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.customerwoc}</Typography>
                 </TableCell>
               </TableRow>
             ))}
@@ -1435,7 +1588,7 @@ const OhrTable = ({ onData }) => {
 
   return (
     <div style={{ border: "" }}>
-      <TableContainer style={{ maxHeight: 686, width: "100%" }}>
+      <TableContainer style={{ maxHeight: 711, width: "100%" }}>
         <Table>
           <TableHead className="t-head">
             <TableRow className="tablerow-title">
@@ -1491,9 +1644,10 @@ const OhrTable = ({ onData }) => {
                 sx={{
                   backgroundColor: "#E5EBEF",
                   border: "1px solid #dcdcdc",
+                  // width: "60px",
                 }}
               >
-                <Typography className="table-h1-title">WOC</Typography>
+                <Typography className="table-h1-title">Reckitt WoC</Typography>
               </TableCell>
               <TableCell
                 rowSpan={2}
@@ -1516,7 +1670,9 @@ const OhrTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <Typography className="table-h1-title">OLA %</Typography>
+                <Typography className="table-h1-title" lineHeight="16px">
+                  Service Level %
+                </Typography>
               </TableCell>
               <TableCell
                 colSpan={4}
@@ -1531,7 +1687,7 @@ const OhrTable = ({ onData }) => {
                   // mt="3px"
                 >
                   <Typography className="table-h1-title" lineHeight="16px">
-                    Expected Net Revenue
+                    Expected Gross Revenue
                   </Typography>
                 </Box>
               </TableCell>
@@ -1587,7 +1743,10 @@ const OhrTable = ({ onData }) => {
                   backgroundColor: "#E5EBEF",
                 }}
               >
-                <Typography className="cw"> CW </Typography>
+                <Typography className="cw" sx={{ fontSize: "0.875rem" }}>
+                  {" "}
+                  CW{" "}
+                </Typography>
                 <div className="brack-number">({startingWeek + 0})</div>
               </TableCell>
               <TableCell
@@ -1605,6 +1764,7 @@ const OhrTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   color: "#415A6C",
                   backgroundColor: "#E5EBEF",
+                  textAlign: "center",
                 }}
               >
                 CW+2
@@ -1615,6 +1775,8 @@ const OhrTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                   color: "#415A6C",
                   backgroundColor: "#E5EBEF",
+                  textAlign: "center",
+
                 }}
               >
                 CW+3 <div className="brack-number">({startingWeek + 3})</div>
@@ -1627,7 +1789,10 @@ const OhrTable = ({ onData }) => {
                   backgroundColor: "#E5EBEF",
                 }}
               >
-                <Typography className="cw"> CW </Typography>
+                <Typography className="cw" sx={{ fontSize: "0.875rem" }}>
+                  {" "}
+                  CW{" "}
+                </Typography>
                 <div className="brack-number">({startingWeek + 0})</div>
               </TableCell>
               <TableCell
@@ -1665,7 +1830,10 @@ const OhrTable = ({ onData }) => {
                   backgroundColor: "#E5EBEF",
                 }}
               >
-                <Typography className="cw"> CW </Typography>
+                <Typography className="cw" sx={{ fontSize: "0.875rem" }}>
+                  {" "}
+                  CW{" "}
+                </Typography>
                 <div className="brack-number">({startingWeek + 0})</div>
               </TableCell>
               <TableCell
@@ -1698,287 +1866,426 @@ const OhrTable = ({ onData }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((item, index) => (
-              <React.Fragment key={item.rbsku}>
-                <TableRow
-                  onClick={() => handleRowClick(item.rbsku)}
-                  key={item.rbsku}
-                  // className={item.checkbox ? "checked-row" : ""}
-                  style={{
-                    backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
-                    border: "1px solid #dcdcdc",
-                  }}
+            {data.length == 0 && (
+              <TableRow>
+                <TableCell
+                  colSpan={20}
+                  style={{ textAlign: "center", fontSize: "16px" }}
                 >
-                  <TableCell
-                    fontSize={13}
-                    sx={{ display: "flex", gap: "16px", padding: "12px",border:"none" }}
-                    border="1px solid red"
-
+                  No Records Found
+                </TableCell>
+              </TableRow>
+            )}
+            {data ? (
+              data.map((item, index) => (
+                <React.Fragment key={item["RB SKU"]}>
+                  <TableRow
+                    onClick={() => handleRowClick(item["RB SKU"])}
+                    key={item["RB SKU"]}
+                    // className={item.checkbox ? "checked-row" : ""}
+                    style={{
+                      backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
+                      border: "1px solid #dcdcdc",
+                    }}
                   >
-                    <Box
-                      className="rbsku-expand"
-                      sx={{ display: "flex", alignItems: "center" }}
+                    <TableCell
+                      fontSize={13}
+                      sx={{
+                        display: "flex",
+                        padding: "12px",
+                        border: "none",
+                      }}
                     >
-                      {expandedRow === item.rbsku ? (
-                        <RemoveIcon
-                          fontSize="medium"
-                          sx={{
-                            color: "#415A6C",
-                            cursor: "pointer",
-                            fontWeight: "800",
-                            // marginTop: "-1px",
-                            marginTop: "21px",
-                            backgroundColor: "transparent",
-                          }}
-                        />
-                      ) : (
-                        <AddIcon
-                          fontSize="medium"
-                          sx={{
-                            color: "#415A6C",
-                            cursor: "pointer",
-                            fontWeight: "800",
-                            // marginTop: "-1px",
-                            marginTop: "21px",
-                            backgroundColor: "transparent",
-                          }}
-                        />
-                      )}
-                    </Box>
-                    <Box className="rbsku-expand">
-                      <Typography
-                        ml="-8px"
-                        fontSize="13px"
+                      <Box
+                        className="rbsku-expand"
                         sx={{
-                          marginTop: "23px",
+                          display: "flex",
+                          alignItems: "center",
                         }}
                       >
-                        {item.rbsku}
+                        {expandedRow === item["RB SKU"] ? (
+                          <RemoveIcon
+                            fontSize="medium"
+                            sx={{
+                              color: "#415A6C",
+                              cursor: "pointer",
+                              fontWeight: "800",
+                              marginTop: "4px",
+                              backgroundColor: "transparent",
+                            }}
+                          />
+                        ) : (
+                          <AddIcon
+                            fontSize="medium"
+                            sx={{
+                              color: "#415A6C",
+                              cursor: "pointer",
+                              fontWeight: "800",
+                              marginTop: "4px",
+                              backgroundColor: "transparent",
+                            }}
+                          />
+                        )}
+                      </Box>
+                      <Box className="rbsku-expand">
+                        <Typography
+                          fontSize="13px"
+                          sx={{
+                            marginTop: "7px",
+                          }}
+                        >
+                          {item["RB SKU"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        textAlign: "center",
+                        fontSize: "13px",
+                        // border: "1px solid",
+                        padding: "10px",
+                      }}
+                    >
+                      {item.PPG}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        textAlign: "center",
+                        fontSize: "13px",
+                        padding: "0px",
+                        maxWidth: "90px", // Set the maximum width of the TableCell
+                        overflow: "hidden",
+                        whiteSpace: "nowrap",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      <Tooltip title={item.Description}>
+                        {" "}
+                        {/* Tooltip component with the full text */}
+                        {item.Description
+                          ? truncateText(item.Description, 10)
+                          : "-"}
+                      </Tooltip>
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        textAlign: "center",
+                        fontSize: "13px",
+                        // border: "1px solid",
+                        padding: "10px",
+                      }}
+                    >
+                      {item.Brand}
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        width: "40px",
+                        padding: "0px",
+                      }}
+                    >
+                      <Typography fontSize="13px">
+                        {item["Reckitt WOC"]}
                       </Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      textAlign: "center",
-                      fontSize: "13px",
-                      // border: "1px solid",
-                      padding: "10px",
-                    }}
-                  >
-                    {item.ppg}
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      textAlign: "center",
-                      fontSize: "13px",
-                      padding: "0px",
-                    }}
-                  >
-                    {item.description}
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      textAlign: "center",
-                      fontSize: "13px",
-                      // border: "1px solid",
-                      padding: "0px",
-                    }}
-                  >
-                    {item.rrsegment}
-                  </TableCell>
-                  <TableCell style={{ textAlign: "center" }}>
-                    <Typography mx="7px" fontSize="13px">
-                      {item.woc}
-                    </Typography>
-                  </TableCell>
-                  <TableCell
-                    style={{ textAlign: "center" }}
-                    sx={{ textAlign: "center", padding: "0px" }}
-                  >
-                    {item.activepromo}
-                  </TableCell>
-                  <TableCell style={{ textAlign: "center" }}>
-                    <Typography
-                      mx="10px"
-                      sx={{
+                    </TableCell>
+                    <TableCell
+                      style={{ textAlign: "center" }}
+                      sx={{ textAlign: "center", padding: "0px" }}
+                    >
+                      {item["Active Promo"]}
+                    </TableCell>
+                    <TableCell
+                      style={{
                         textAlign: "center",
-                        fontSize: "13px",
+                        width: "20px",
+                        padding: "0px",
                       }}
                     >
-                      {item.olacw}
-                    </Typography>
-                  </TableCell>
-                  <TableCell style={{ textAlign: "center" }}>
-                    <Typography mx="6px" fontSize="13px">
-                      {item.olacw1}
-                    </Typography>
-                  </TableCell>
-                  <TableCell style={{ textAlign: "center" }}>
-                    <Typography mx="6px" fontSize="13px">
-                      {item.olacw2}
-                    </Typography>
-                  </TableCell>
-                  <TableCell style={{ textAlign: "center" }}>
-                    <Typography mx="6px" fontSize="13px">
-                      {item.olacw3}
-                    </Typography>
-                  </TableCell>
-                  <TableCell style={{ textAlign: "center" }}>
-                    <Typography
-                      mx="10px"
-                      sx={{
+                      <Typography
+                        // mx="10px"
+                        sx={{
+                          textAlign: "center",
+                          fontSize: "13px",
+                        }}
+                      >
+                        {item["ExpSL CW"]}
+                      </Typography>
+                    </TableCell>
+                    <TableCell
+                      style={{
                         textAlign: "center",
-                        fontSize: "13px",
+                        width: "20px",
+                        padding: "0px",
                       }}
                     >
-                      {item.exptnetrevcw}
-                    </Typography>
-                  </TableCell>
-                  <TableCell style={{ textAlign: "center" }}>
-                    <Typography mx="6px" fontSize="13px">
-                      {item.exptnetrevcw1}
-                    </Typography>
-                  </TableCell>
-                  <TableCell style={{ textAlign: "center" }}>
-                    <Typography mx="6px" fontSize="13px">
-                      {item.exptnetrevcw2}
-                    </Typography>
-                  </TableCell>
-                  <TableCell style={{ textAlign: "center" }}>
-                    <Typography mx="6px" fontSize="13px">
-                      {item.exptnetrevcw3}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography
-                      // mx="30px"
-                      sx={{
-                        marginLeft: "20px",
-                        color: "#fff",
+                      <Typography mx="6px" fontSize="13px">
+                        {item["ExpSL CW+1"]}
+                      </Typography>
+                    </TableCell>
+                    <TableCell style={{ textAlign: "center", width: "20px" }}>
+                      <Typography mx="6px" fontSize="13px">
+                        {item["ExpSL CW+2"]}
+                      </Typography>
+                    </TableCell>
+                    <TableCell style={{ textAlign: "center", width: "20px" }}>
+                      <Typography mx="6px" fontSize="13px">
+                        {item["ExpSL CW+3"]}
+                      </Typography>
+                    </TableCell>
+                    <TableCell
+                      style={{
                         textAlign: "center",
-                        fontSize: "13px",
-                        // border:"1px solid",
-                        width: "30px",
-                        height: "25px",
-                        backgroundColor:
-                          item.ragcw == "G"
-                            ? "#57a957"
-                            : item.ragcw == "R"
-                            ? "#F44444"
-                            : "orange",
-                        display: "flex",
+                        width: "20px",
+                        padding: "0px",
+                      }}
+                    >
+                      <Typography
+                        // mx="10px"
+                        sx={{
+                          textAlign: "center",
+                          fontSize: "13px",
+                        }}
+                      >
+                        {item["Exp NR CW"]}
+                      </Typography>
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        width: "20px",
+                        padding: "0px",
+                      }}
+                    >
+                      <Typography fontSize="13px">
+                        {item["Exp NR CW+1"]}
+                      </Typography>
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        width: "20px",
+                        padding: "0px",
+                      }}
+                    >
+                      <Typography fontSize="13px">
+                        {item["Exp NR CW+2"]}
+                      </Typography>
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        width: "20px",
+                        padding: "0px",
+                      }}
+                    >
+                      <Typography fontSize="13px">
+                        {item["Exp NR CW+3"]}
+                      </Typography>
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        width: "20px",
                         justifyContent: "center",
+                        alignContent: "center",
+                      }}
+                    >
+                      <Typography
+                        margin="auto"
+                        sx={{
+                          color: "#fff",
+                          textAlign: "center",
+                          fontSize: "13px",
+                          width: "30px",
+                          height: "25px",
+                          backgroundColor:
+                            item["RAG CW"] != "-"
+                              ? item["RAG CW"] == 2
+                                ? "#57a957"
+                                : item["RAG CW"] == 0
+                                ? "#F44444"
+                                : "orange"
+                              : "",
+                          display: "flex",
+                          justifyContent: "center",
+                          textAlign: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        {item["RAG CW"] != "-"
+                          ? item["RAG CW"] == 2
+                            ? "G"
+                            : item["RAG CW"] == 0
+                            ? "R"
+                            : "A"
+                          : ""}
+                      </Typography>
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        justifyContent: "center",
+                        alignItems: "center",
+                        width: "20px",
+                      }}
+                    >
+                      <Typography
+                        margin="auto"
+                        sx={{
+                          fontSize: "13px",
+                          color: "#fff",
+                          width: "30px",
+                          height: "25px",
+                          backgroundColor:
+                            item["RAG CW+1"] != "-"
+                              ? item["RAG CW+1"] == 2
+                                ? "#57a957"
+                                : item["RAG CW+1"] == 0
+                                ? "#F44444"
+                                : "orange"
+                              : "",
+                          display: "flex",
+                          justifyContent: "center",
+                          textAlign: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        {item["RAG CW+1"] != "-"
+                          ? item["RAG CW+1"] == 2
+                            ? "G"
+                            : item["RAG CW+1"] == 0
+                            ? "R"
+                            : "A"
+                          : ""}
+                      </Typography>
+                    </TableCell>
+                    <TableCell
+                      style={{
                         textAlign: "center",
+                        width: "20px",
+                        justifyContent: "center",
                         alignItems: "center",
                       }}
                     >
-                      {item.ragcw}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography
-                      // mx="6px"
-                      sx={{
-                        marginLeft: "20px",
+                      <Typography
+                        margin="auto"
+                        sx={{
+                          fontSize: "13px",
+                          color: "#fff",
+                          width: "30px",
+                          height: "25px",
+                          backgroundColor:
+                            item["RAG CW+2"] != "-"
+                              ? item["RAG CW+2"] == 2
+                                ? "#57a957"
+                                : item["RAG CW+2"] == 0
+                                ? "#F44444"
+                                : "orange"
+                              : "",
+                          display: "flex",
+                          justifyContent: "center",
+                          textAlign: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        {item["RAG CW+2"] != "-"
+                          ? item["RAG CW+2"] == 2
+                            ? "G"
+                            : item["RAG CW+2"] == 0
+                            ? "R"
+                            : "A"
+                          : ""}
+                      </Typography>
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        width: "20px",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Typography
+                        margin="auto"
+                        sx={{
+                          fontSize: "13px",
+                          color: "#fff",
+                          width: "30px",
+                          height: "25px",
+                          backgroundColor:
+                            item["RAG CW+3"] != "-"
+                              ? item["RAG CW+3"] == 2
+                                ? "#57a957"
+                                : item["RAG CW+3"] == 0
+                                ? "#F44444"
+                                : "orange"
+                              : "",
+                          display: "flex",
+                          justifyContent: "center",
+                          textAlign: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        {item["RAG CW+3"] != "-"
+                          ? item["RAG CW+3"] == 2
+                            ? "G"
+                            : item["RAG CW+3"] == 0
+                            ? "R"
+                            : "A"
+                          : ""}
+                      </Typography>
+                    </TableCell>
 
-                        fontSize: "13px",
-                        color: "#fff",
-                        width: "30px",
-                        height: "25px",
-                        backgroundColor:
-                          item.ragcw1 == "G"
-                            ? "#57a957"
-                            : item.ragcw1 == "R"
-                            ? "#F44444"
-                            : "orange",
-                        display: "flex",
-                        justifyContent: "center",
-                        textAlign: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      {item.ragcw1}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography
-                      // mx="6px"
+                    <TableCell
                       sx={{
-                        marginLeft: "20px",
-                        fontSize: "13px",
-                        color: "#fff",
-                        width: "30px",
-                        height: "25px",
-                        backgroundColor:
-                          item.ragcw2 == "G"
-                            ? "#57a957"
-                            : item.ragcw2 == "R"
-                            ? "#F44444"
-                            : "orange",
-                        display: "flex",
-                        justifyContent: "center",
                         textAlign: "center",
-                        alignItems: "center",
+                        padding: "0px",
+                        width: "60px",
                       }}
                     >
-                      {item.ragcw2}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography
-                      // mx="6px"
+                      {item["Reason Code"]}
+                    </TableCell>
+                    <TableCell
                       sx={{
-                        marginLeft: "20px",
-                        fontSize: "13px",
-                        color: "#fff",
-                        width: "30px",
-                        height: "25px",
-                        backgroundColor:
-                          item.ragcw3 == "G"
-                            ? "#57a957"
-                            : item.ragcw3 == "R"
-                            ? "#F44444"
-                            : "orange",
-                        display: "flex",
-                        justifyContent: "center",
                         textAlign: "center",
-                        alignItems: "center",
+                        maxWidth: "30px", // Set the maximum width of the TableCell
+                        overflow: "hidden",
+                        whiteSpace: "nowrap",
+                        textOverflow: "ellipsis",
+                        // with: "80px",
                       }}
                     >
-                      {item.ragcw3}
-                    </Typography>
-                  </TableCell>
-
-                  <TableCell sx={{ textAlign: "center", padding: "0px" }}>
-                    {item.reasoncode}
-                  </TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>
-                    <Typography mx="9px" fontSize="13px">
-                      {" "}
-                      {item.comments}
-                    </Typography>
-                  </TableCell>
-                </TableRow>
-                {expandedRow === item.rbsku && (
-                  <TableRow>
-                    <TableCell colSpan={20}>
-                      {/* Add your expanded table here */}
-                      <SubTable details={item.campaugns} />
+                      <Typography mx="9px" fontSize="13px">
+                        <Tooltip title={item["Comment RootCause"]}>
+                          {" "}
+                          {/* Tooltip component with the full text */}
+                          {item["Comment RootCause"]
+                            ? truncateText(item["Comment RootCause"], 10)
+                            : "-"}
+                        </Tooltip>
+                      </Typography>
                     </TableCell>
                   </TableRow>
-                )}
-                {expandedRow === item.rbsku && pushAlternative && (
-                  <TableRow>
-                    <TableCell colSpan={20}>
-                      {/* Add your expanded table here */}
-                      <PushAlternativeTable
-                        details={item.pushAlternativeTable}
-                      />
-                    </TableCell>
-                  </TableRow>
-                )}
-              </React.Fragment>
-            ))}
+                  {expandedRow === item["RB SKU"] && iscampaigns && (
+                    <TableRow>
+                      <TableCell colSpan={20}>
+                        {/* Add your expanded table here */}
+                        <SubTable details={campaignsData} />
+                      </TableCell>
+                    </TableRow>
+                  )}
+                  {expandedRow === item["RB SKU"] && pushAlternative && (
+                    <TableRow>
+                      <TableCell colSpan={20}>
+                        {/* Add your expanded table here */}
+                        <PushAlternativeTable details={pushAlternativeData} />
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </React.Fragment>
+              ))
+            ) : (
+              <div>Loading...</div>
+            )}
           </TableBody>
         </Table>
       </TableContainer>

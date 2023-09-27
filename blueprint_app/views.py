@@ -1,70 +1,38 @@
 from flask import (
     Blueprint,
-    jsonify,
     render_template,
     redirect,
     session,
     request,
-    url_for,
+    url_for
 )
-import os
+from flask_cors import cross_origin
 from msal import ConfidentialClientApplication, SerializableTokenCache
 import app_config
-
-from utils import UserDataReader, AzureBlobReader
-
 from dotenv import load_dotenv
 load_dotenv()
-excel_blob_name = os.getenv("excel_blob_name")
-parquet_blob_name = os.getenv("parquet_blob_name")
 
-# *******************************
-# Create the app access objects
-# *******************************
+
 app_blueprint = Blueprint("app", __name__)
 
 
-
-# *******************************
-# Application login routes
-# *******************************
 @app_blueprint.route("/")
+@cross_origin()
 def index():
-    """
-    The function checks if a user is logged in, retrieves their details, and renders the index.html
-    template with the user's details if they are logged in, otherwise it redirects to the login page.
-
-    :return: either the rendered template "index.html" with the user details if the "user" key is
-    present in the session, or it is redirecting to the "login" route if the "user" key is not present
-    in the session.
-    """
-    ### #UnComment below lines if bypassing user authentication
-
-    # if "user" in session:
-    #     uname = session["user"]["name"]
-    #     # userDetails = UserDataReader.get_user_details(uname) # type: ignore
-    #     # print(f"\n\n{userDetails}\n\n")
-    #     # overviewdata = AzureBlobReader.read_excel(excel_blob_name) # type: ignore
-    #     return render_template("index.html", user=uname)
-    # else:
-    #     return redirect(url_for("app.login"))
-
-    ### #Comment below line if uncommenting above lines
-    # data = {'user': 'Moka, keerthi (Contractor)'}
-    # return jsonify(data)
-    return render_template("index.html")
+    if "user" in session:
+        return render_template("index.html")
+    else:
+        return redirect(url_for("app.login"))
 
 @app_blueprint.route("/login")
 def login():
     """
     The `login` function redirects the user to the authentication URL for logging in.
-
     :return: a redirect to the authentication URL.
     """
     session["flow"] = _build_auth_code_flow(scopes=app_config.SCOPE)
     auth_url = session["flow"]["auth_uri"]
     return redirect(auth_url)
-
 
 @app_blueprint.route("/redirect")
 def authorized():
@@ -87,24 +55,6 @@ def authorized():
         pass  # Simply ignore them
     return redirect(url_for("app.index"))
 
-
-@app_blueprint.route("/logout")
-def logout():
-    """
-    The `logout` function clears the user's session and redirects them to the logout page of the
-    tenant's web session.
-
-    :return: a redirect response.
-    """
-    session.clear()  # Wipe out user and its token cache from session
-    return redirect(  # Also logout from your tenant's web session
-        app_config.AUTHORITY
-        + "/oauth2/v2.0/logout"
-        + "?post_logout_redirect_uri="
-        + url_for("app.index", _external=True)
-    )
-
-
 def _load_cache():
     """
     The function `_load_cache` loads a cache object from the session if it exists.
@@ -115,7 +65,6 @@ def _load_cache():
     if session.get("token_cache"):
         cache.deserialize(session["token_cache"])
     return cache
-
 
 def _save_cache(cache):
     """
@@ -128,7 +77,6 @@ def _save_cache(cache):
     """
     if cache.has_state_changed:
         session["token_cache"] = cache.serialize()
-
 
 def _build_msal_app(cache=None, authority=None):
     """
@@ -152,7 +100,6 @@ def _build_msal_app(cache=None, authority=None):
         token_cache=cache,
     )
 
-
 def _build_auth_code_flow(authority=None, scopes=None):
     """
     The function initiates an authorization code flow using the Microsoft Authentication Library (MSAL)
@@ -170,7 +117,21 @@ def _build_auth_code_flow(authority=None, scopes=None):
     function.
     """
     return _build_msal_app(authority=authority).initiate_auth_code_flow(
-        scopes or [], redirect_uri=url_for("app.authorized", _external=True)
+        scopes or [], redirect_uri=url_for("app.authorized", _external=True), 
     )
 
+@app_blueprint.route("/logout")
+def logout():
+    """
+    The `logout` function clears the user's session and redirects them to the logout page of the
+    tenant's web session.
 
+    :return: a redirect response.
+    """
+    session.clear()  # Wipe out user and its token cache from session
+    return redirect(  # Also logout from your tenant's web session
+        app_config.AUTHORITY
+        + "/oauth2/v2.0/logout"
+        + "?post_logout_redirect_uri="
+        + url_for("app.index", _external=True)
+    )

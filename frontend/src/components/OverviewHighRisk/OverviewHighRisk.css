@@ -89,11 +89,15 @@ table {
       padding: 10px !important;
       height: 889px !important ;
     }
+
+    .breadcrumb-tabbox{
+      margin-top: 14px;
+    }
     .ohr-stack{
-      width: 420px;
+      width: 520px;
       justify-content: space-between;  
       margin-top: -6px;
-      margin-left: 401px; 
+      margin-left: 315px; 
      }
     
     /* .css-7mt4h1-MuiInputBase-root .MuiInputBase-input{
@@ -179,22 +183,35 @@ table {
   align-self: center;
  }
  .search-icon2{
-  width: 28px;
-  height: 28px;
+  width: 23px;
+  height: 23px;
   align-items: center;
   margin-right: 14px;
-  margin-top: -10px;
+  margin-top: 7px;
+  cursor: pointer;
+  /* border: 1px solid red; */
 } 
-.search-icon2 {
-   margin-top: 0px;
-}
+
 
  .serch-name input {
   width: 19ch !important;
   height: 10px !important;
-  font-size: 12px;
+  font-size: 13px;
   margin-top: 1px;
   padding-left: 24px !important;
+  border: 1px solid red !important;
  }
  
+}
+
+.serch-name{
+  border:1px solid #E7E9EE!important;
+  background-color: #E7E9EE;
+  border-radius: 30px ;
+  padding-left: 8px !important;
+}
+
+.serch-name::after {
+  border:1px solid red !important;
+
 }

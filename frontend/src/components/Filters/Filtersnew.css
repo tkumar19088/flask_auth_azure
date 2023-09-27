@@ -1,0 +1,39 @@
+.filters-newstack{
+    background-color: white;
+    border-radius: 5px;
+    align-items: center;
+    height: 90px;
+    /* padding: 5px 20px; */
+    /* gap: 20px; */
+   justify-content: space-around;
+   margin-block: 20px;
+    
+}
+
+.f-h1{
+    font-size: 23px !important;
+    color: #415A6C;
+}
+
+/* .css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper {
+    width: 200px;
+} */
+
+.css-6hp17o-MuiList-root-MuiMenu-list {
+    width: auto!important ;
+}
+
+.filter-buttons{
+    /* background-color:#415A6C !important; */
+    text-transform: none !important;
+
+}
+
+.filter-buttons:hover{
+    background-color:#FF007E  !important;
+
+}
+
+.filtersDispaly {
+    justify-content: center;
+}

@@ -1,0 +1,39 @@
+/* .carouselcls.css-ohwg9z .css-1abc02a {
+    top: 98px !important;
+    margin-inline: 685px;
+}
+.carouselcls.css-ohwg9z .css-hn784z {
+    top: 98px !important;
+    margin-inline: 685px;
+
+} */
+
+.carouselcls.css-ohwg9z .css-e8vs8u {
+    opacity: 0.3 !important;
+    background-color: "415A6C";
+
+}
+.carouselcls.css-ohwg9z .css-ktslay-MuiButtonBase-root-MuiIconButton-root {
+    background-color: "415A6C" !important;
+    opacity: 0.3 !important;
+
+}
+
+.carouselcls.css-ohwg9z button {
+    margin-bottom: 17px !important;
+}
+
+.carouselcls.css-ohwg9z .css-hn784z svg{
+    width: 13px !important;
+    height: 13px !important;
+}
+.carouselcls.css-ohwg9z .css-1abc02a svg{
+    width: 13px !important;
+    height: 13px !important;
+}
+
+.status-card:hover{
+    border: 1px solid orange;
+   
+
+}

@@ -11,20 +11,90 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import StockReallocationData from "./StockRellocationData";
 import Orderinvestigation2 from "./Orderinvestigation2";
+import { useSelector, useDispatch } from "react-redux";
+import { updateiswithinchannel } from "../../store/actions/sidebarActions";
 
 function StockReallocation() {
   const navigate = useNavigate();
-  const [selectedData, setselectedData] = useState();
+  const dispatch = useDispatch();
 
+  const [selectedData, setselectedData] = useState();
+  const exporttabledata = useSelector((state) => state.sidebar.exporttabledata);
+  const isWithinChannel = useSelector((state) => state.sidebar.isWithinChannel);
+  const suggRecord = useSelector(
+    (state) => state.sidebar.stockreallocation.staticrow
+  );
+  const [acrossChannel, setacrossChannel] = useState(false);
   const handleClick = () => {
     // Navigate to another URL
     navigate("/orderinvestigation", { state: { data: selectedData } });
+  };
+
+  const handleWithinSameChannel = () => {
+    setacrossChannel(false);
+    dispatch(updateiswithinchannel(true));
+  };
+  const handleAcreossChannels = () => {
+    setacrossChannel(true);
+    dispatch(updateiswithinchannel(false));
   };
 
   const handleDataFromChild = (data) => {
     console.log("Data received from child:", data);
     setselectedData(data);
     // Do something with the data in the parent component
+  };
+  const convertToCSV = (objArray) => {
+    const array =
+      typeof objArray !== "object" ? JSON.parse(objArray) : objArray;
+    let csv = "";
+
+    // Generate the header row
+    let header = "";
+    for (let key in array[0]) {
+      if (header !== "") header += ",";
+      header += `"${key}"`; // Enclose headers in double quotes
+    }
+    csv += header + "\r\n";
+
+    // Generate the data rows
+    for (let i = 0; i < array.length; i++) {
+      let line = "";
+      for (let key in array[i]) {
+        if (line !== "") line += ",";
+        let value = array[i][key];
+
+        // Check if value is null
+        if (value === null) {
+          value = "";
+        } else {
+          value = value.toString(); // Convert to string
+          value = value.replace(/"/g, '""'); // Enclose values in double quotes and escape existing double quotes
+        }
+
+        line += `"${value}"`;
+      }
+      csv += line + "\r\n";
+    }
+
+    return csv;
+  };
+  const handleExportTableData = () => {
+    const csvData = convertToCSV(exporttabledata);
+    const blob = new Blob([csvData], { type: "text/csv" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = url;
+    a.download = "data.csv";
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  };
+
+  const handleBack = () => {
+    navigate(-1);
   };
 
   return (
@@ -35,7 +105,12 @@ function StockReallocation() {
           <Sidebar />
         </Grid>
         <Grid item xs={10} className="bg-container">
-          <Box display="flex" fontSize={14} mx="1px" className="bread-crumb">
+          <Box
+            display="flex"
+            fontSize={14}
+            mx="1px"
+            className="breadcrumb-sabox"
+          >
             <Box mt="1px">
               <Button
                 style={{
@@ -59,7 +134,9 @@ function StockReallocation() {
                   }}
                 />
                 &#160;
-                <Typography fontSize={12}>Back</Typography>
+                <Typography fontSize={12} onClick={handleBack}>
+                  Back
+                </Typography>
               </Button>
             </Box>{" "}
             &#160;&#160;&#160;&#160;&#160;&#160;
@@ -74,7 +151,9 @@ function StockReallocation() {
             sx={{ color: "#415A6C" }}
             margin="5px 0px -10px 3px"
           >
-            Scenario Generation: Airwick Electrical Lemon 112345
+            Scenario Generation:{" "}
+            {suggRecord.Discription ? suggRecord.Discription + " " : ""}
+            {suggRecord["RB SKU"] ? suggRecord["RB SKU"] : ""}
           </Typography>
           <Box
             mx="1px"
@@ -99,31 +178,33 @@ function StockReallocation() {
             <Box
               display="flex"
               justifyContent="space-between"
-              width="450px"
+              width="500px"
               marginTop="10px"
             >
               <Button
                 variant="contained"
                 className="srbr-btnshvr"
                 sx={{
-                  backgroundColor: "#FF007E",
+                  backgroundColor: isWithinChannel ? "#FF007E" : "#415A6C",
                   textDecoration: "none",
                   textTransform: "none",
                 }}
+                onClick={handleWithinSameChannel}
               >
-                Within same channel
+                Within Same Channel
               </Button>
 
               <Button
                 variant="contained"
                 className="srbr-btns"
                 sx={{
-                  backgroundColor: "#415A6C",
+                  backgroundColor: acrossChannel ? "#FF007E" : "#415A6C",
                   textDecoration: "none",
                   textTransform: "none",
                 }}
+                onClick={handleAcreossChannels}
               >
-                Across channels
+                Across Channels
               </Button>
               <Button
                 variant="contained"
@@ -133,13 +214,13 @@ function StockReallocation() {
                   textDecoration: "none",
                   textTransform: "none",
                 }}
+                onClick={handleExportTableData}
               >
-                Export Data
+                Export Raw Data
               </Button>
             </Box>
           </Box>
           <StockReallocationData onData={handleDataFromChild} />
-          <Orderinvestigation2 />
         </Grid>
       </Grid>
     </div>

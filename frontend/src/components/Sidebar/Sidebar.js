@@ -20,6 +20,7 @@ import {
   fetchOOSRisk,
   fetchIrregular,
   fetchReallocation,
+  fetchexpandeditem,
 } from "../../store/actions/sidebarActions";
 
 const Sidebar = () => {
@@ -32,6 +33,8 @@ const Sidebar = () => {
   const oosriskVal = useSelector((state) => state.sidebar.oosrisk);
   const irregularpoVal = useSelector((state) => state.sidebar.irregularpo);
   const reallocationVal = useSelector((state) => state.sidebar.reallocation);
+
+  const expandedItem = useSelector((state) => state.sidebar.expandedItem);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -50,7 +53,7 @@ const Sidebar = () => {
     setreallocation(false);
     setirregular(false);
 
-    setoosrick(true);
+    // setoosrick(true);
   };
   const handleIrregular = () => {
     dispatch(fetchIrregular(true));
@@ -58,7 +61,7 @@ const Sidebar = () => {
     setoosrick(false);
     setreallocation(false);
 
-    setirregular(true);
+    // setirregular(true);
   };
   const handleReallocation = () => {
     dispatch(fetchReallocation(true));
@@ -66,7 +69,7 @@ const Sidebar = () => {
     setoosrick(false);
     setirregular(false);
 
-    setreallocation(true);
+    // setreallocation(true);
   };
   const handleSelloutForecasting = () => {
     dispatch(fetchSelloutForecast(true));
@@ -83,11 +86,21 @@ const Sidebar = () => {
   };
 
   const handleDashboard = () => {
+    dispatch(fetchexpandeditem(null));
     navigate("/");
   };
 
   const handleForecast = () => {
     setforecast(!forecast);
+  };
+
+  const handleMenuItemClick = (itemId) => {
+    // Update the selected item when a menu item is clicked
+    if (expandedItem === itemId) {
+      dispatch(fetchexpandeditem(null));
+    } else {
+      dispatch(fetchexpandeditem(itemId));
+    }
   };
 
   return (
@@ -104,7 +117,12 @@ const Sidebar = () => {
       </div>
 
       <div style={{ marginInline: "20px", marginTop: "20px" }}>
-        <Accordion className="acrdn-main">
+        <Accordion
+          className={expandedItem === 1 ? "acrdn-main expanded" : "acrdn-main"}
+          key={1}
+          expanded={expandedItem === 1}
+          onChange={() => handleMenuItemClick(1)}
+        >
           <AccordionSummary
             onClick={handleForecast}
             className="acrdn-s"
@@ -148,7 +166,7 @@ const Sidebar = () => {
               fontSize={{ lg: "13px", xs: 10 }}
               p="5px 0 0 0"
             >
-              Sell-In Forecast
+              Sell-in forecast
             </Typography>
           </AccordionDetails>
           <AccordionDetails
@@ -166,13 +184,18 @@ const Sidebar = () => {
             onClick={handleSelloutForecasting}
           >
             <Typography mx="25px" fontSize={{ lg: 13, xs: 10 }} p="5px 0 0 0">
-              Sell-Out Forecast
+              Sell-out forecast
             </Typography>
           </AccordionDetails>
         </Accordion>
       </div>
       <div style={{ marginInline: "20px", marginTop: "20px" }}>
-        <Accordion className="acrdn-main">
+        <Accordion
+          className={expandedItem === 2 ? "acrdn-main expanded" : "acrdn-main"}
+          key={2}
+          expanded={expandedItem === 2}
+          onChange={() => handleMenuItemClick(2)}
+        >
           <AccordionSummary
             className="acrdn-s"
             expandIcon={<ArrowDropDownIcon />}
@@ -231,7 +254,12 @@ const Sidebar = () => {
         </Accordion>
       </div>
       <div style={{ marginInline: "20px", marginTop: "20px" }}>
-        <Accordion className="acrdn-main">
+        <Accordion
+          className={expandedItem === 3 ? "acrdn-main expanded" : "acrdn-main"}
+          key={3}
+          expanded={expandedItem === 3}
+          onChange={() => handleMenuItemClick(3)}
+        >
           <AccordionSummary
             className="acrdn-s"
             expandIcon={<ArrowDropDownIcon />}
@@ -250,7 +278,7 @@ const Sidebar = () => {
                 width={{ lg: "100%", xs: "100%" }}
                 className="sidebar-minititle"
               >
-                Allocate / Reallocate
+                Promotion
               </Typography>
             </Box>
           </AccordionSummary>
@@ -272,7 +300,7 @@ const Sidebar = () => {
               fontSize={{ lg: "13px", xs: 10 }}
               p="5px 0 0 0"
             >
-              Customer Reallocation
+              SKU prioritization for promotion
             </Typography>
           </AccordionDetails>
         </Accordion>

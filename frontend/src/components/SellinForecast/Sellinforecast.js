@@ -8,6 +8,8 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import "./Sellinforecast.css";
 import { useNavigate } from "react-router-dom";
+// import Filtersdropdown from "../OverviewHighRisk/Filtersdropdown";
+import Filtersin from "./Filtersin";
 
 const Sellinforecast = () => {
   const [lineChartData, setlineChartData] = useState(true);
@@ -34,6 +36,8 @@ const Sellinforecast = () => {
           p={2}
           sx={{
             backgroundColor: "#F5F6F8",
+            // border: "1px solid red",
+            height: "889px",
           }}
         >
           <Box display="flex" fontSize={14} mx="1px">
@@ -81,19 +85,30 @@ const Sellinforecast = () => {
                 Forecast Builder - Sell-In
               </Typography>
             </Box>
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              sx={{ marginBottom: "20px" }}
-            >
-              <Button variant="contained" className="exportButton">
-                Export Data
-              </Button>
+            <Box sx={{ display: "flex", gap: "20px" }}>
+              <Box sx={{ border: "", marginTop: "10px" }}>
+                <Filtersin />
+              </Box>
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                sx={{ marginBottom: "20px" }}
+              >
+                <Button
+                  variant="contained"
+                  size="small"
+                  className="exportButton"
+                >
+                  Export Data
+                </Button>
+              </Box>
             </Box>
           </Grid>
-          <Box sx={{ width: "100%" }}></Box>
           {lineChartData && (
-            <Box>
+            <Box
+              sx={{ border: "", width: 1550, height: 755 }}
+              paddingLeft="30px"
+            >
               <Linechart />
             </Box>
           )}

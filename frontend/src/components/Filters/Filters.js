@@ -1,5 +1,5 @@
-import React from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Box, Grid, Button, Typography } from "@mui/material";
 
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
@@ -7,32 +7,157 @@ import NativeSelect from "@mui/material/NativeSelect";
 
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { useNavigate } from "react-router-dom";
-
+import { useSelector, useDispatch } from "react-redux";
+import MenuItem from "@mui/material/MenuItem";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { Stack } from "@mui/system";
+import RotateLeftIcon from "@mui/icons-material/RotateLeft";
+import {
+  updateloader,
+  fetchbusiness,
+  fetchlocation,
+  fetchcustomer,
+  fetchbrand,
+  fetchbusinessempty,
+  fetchlocationempty,
+  fetchfilterapply,
+  fetchalerts,
+  updateapplyfilterserror,
+  fetchuserdetails,
+} from "../../store/actions/sidebarActions";
 import "./Filters.css";
+import "./Filtersnew.css";
 
 const Filters = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handleClick = () => {
-    navigate("/overviewhighrisk");
+  const data = useSelector((state) => state.sidebar.userDetails);
+
+  const business = useSelector((state) => state.sidebar.business);
+  const location = useSelector((state) => state.sidebar.location);
+  const customer = useSelector((state) => state.sidebar.customerfilter);
+  const brand = useSelector((state) => state.sidebar.brand);
+  const apply = useSelector((state) => state.sidebar.apply);
+  const userDetailsreset = useSelector(
+    (state) => state.sidebar.userDetailsreset
+  );
+  const alertsreset = useSelector((state) => state.sidebar.alertsreset);
+  const applyfilterserror = useSelector(
+    (state) => state.sidebar.applyfilterserror
+  );
+
+  const businessEmpty = useSelector((state) => state.sidebar.businessEmpty);
+  const locationEmpty = useSelector((state) => state.sidebar.locationEmpty);
+  const [isReset, setIsReset] = useState(false);
+
+  const handleBusinessChange = (event) => {
+    dispatch(fetchbusiness(event.target.value));
+    dispatch(fetchbusinessempty(false));
+    dispatch(fetchbrand(""));
   };
 
+  const handleLocationChange = (event) => {
+    dispatch(fetchlocation(event.target.value));
+    dispatch(fetchlocationempty(false));
+  };
+
+  const handleCustomerChange = (event) => {
+    dispatch(fetchcustomer(event.target.value));
+  };
+  const handleBrandChange = (event) => {
+    dispatch(fetchbrand(event.target.value));
+  };
+
+  const handleApplyFilters = async (e) => {
+    e.preventDefault();
+    dispatch(updateapplyfilterserror(false));
+    if (!business) {
+      dispatch(fetchbusinessempty(true));
+    }
+    if (!location) {
+      dispatch(fetchlocationempty(true));
+    }
+
+    if (!business || !location) {
+      return;
+    }
+
+    dispatch(updateloader(true));
+    var data = {
+      Brand: brand,
+      Customer: customer,
+      Location: location,
+      "Business Unit": business,
+    };
+    console.log(data);
+    try {
+      const response = await fetch("http://localhost:5000/getfilterparams", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        dispatch(fetchfilterapply(true));
+        dispatch(fetchalerts(json.alerts));
+      }
+      // Handle the API response data as needed
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
+  };
+
+  const handleResetFilters = async () => {
+    // dispatch(updateloader(true));
+    try {
+      const response = await fetch("http://localhost:5000/resetfilterparams");
+      if (response.ok) {
+        console.log("success");
+        dispatch(fetchbusiness(""));
+        dispatch(fetchlocation(""));
+        dispatch(fetchcustomer(""));
+        dispatch(fetchbrand(""));
+        dispatch(fetchalerts(alertsreset));
+        dispatch(fetchfilterapply(false));
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      // dispatch(updateloader(false));
+    }
+  };
   return (
     <div className="filter-main">
-      <Typography
-        className="filter-title"
-        // fontSize={23}
-        color="#415A6C"
-        marginLeft="3px"
-        marginBottom="10px"
-        p={1}
-      >
-        Filters
-      </Typography>
-      <Grid container mt={-2}>
+      <Box display="flex" gap={2}>
+        <Typography
+          className="filter-title"
+          color="#415A6C"
+          marginBottom="25px"
+          marginTop="10px"
+          // p={1}
+        >
+          Filters
+        </Typography>
+        {applyfilterserror && (
+          <Typography color="red" marginTop="26px">
+            {" "}
+            Please Select Apply Filters
+          </Typography>
+        )}
+      </Box>
+      <Grid container mt={-2} className="flt-bx">
         <Grid
           container
           spacing={3}
+          justifyContent="space-between"
+          alignSelf="center"
+          alignItems="center"
           item
           xs={12}
           sx={{
@@ -43,105 +168,155 @@ const Filters = () => {
             color: (theme) =>
               theme.palette.mode === "dark" ? "grey.300" : "grey.800",
             // p: 1,
-            m: 1,
+            m: 0,
             borderRadius: 2,
-            fontSize: "0.875rem",
-            fontWeight: "700",
+            // fontSize: "0.875rem",
+            // fontWeight: "700",
           }}
         >
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <Box sx={{ minWidth: 120 }} ml={2}>
-              <FormControl fullWidth>
+              <FormControl
+                variant="standard"
+                sx={{ minWidth: 200, marginTop: "-20px" }}
+                size="small"
+                style={businessEmpty ? { borderColor: "red" } : {}}
+              >
                 <InputLabel
-                  variant="standard"
-                  htmlFor="uncontrolled-native"
-                  // sx={{ marginLeft:"30px" }}
+                  htmlFor="business-unit"
+                  style={businessEmpty ? { color: "red" } : {}}
                 >
-                  <Typography
-                    fontSize={22}
-                    mt={-1}
-                    className="filter-inside-title"
-                  >
-                    Customer
-                  </Typography>
+                  Business Unit*
                 </InputLabel>
-                <NativeSelect
-                  defaultValue={10}
-                  inputProps={{
-                    name: "Customer",
-                    id: "uncontrolled-native",
-                  }}
-                  style={{ backgroundColor: "", marginBottom: "20px" }}
+                <Select
+                  value={business}
+                  onChange={handleBusinessChange}
+                  id="business-unit"
                 >
-                  <option value="Amazon">Amazon</option>
-                  <option value="Tesco">Tesco</option>
-                </NativeSelect>
+                  <MenuItem value="">Select</MenuItem>
+                  {data ? (
+                    data["Business Unit"].map((item) => (
+                      <MenuItem value={item} key={item}>
+                        {item}
+                      </MenuItem>
+                    ))
+                  ) : (
+                    <MenuItem>Select</MenuItem>
+                  )}
+                </Select>
               </FormControl>
             </Box>
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <Box sx={{ minWidth: 120 }}>
-              <FormControl fullWidth>
-                <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                  <Typography
-                    fontSize={22}
-                    mt={-1}
-                    className="filter-inside-title"
-                  >
-                    Location
-                  </Typography>
-                </InputLabel>
-                <NativeSelect
-                  defaultValue={10}
-                  inputProps={{
-                    name: "Country",
-                    id: "uncontrolled-native",
-                  }}
+              <FormControl
+                variant="standard"
+                sx={{ minWidth: 200, marginTop: "-20px" }}
+                size="small"
+                style={locationEmpty ? { borderColor: "red" } : {}}
+              >
+                <InputLabel
+                  htmlFor="location"
+                  style={locationEmpty ? { color: "red" } : {}}
                 >
-                  <option value="United Kingdom">United Kingdom</option>
-                </NativeSelect>
+                  Location*
+                </InputLabel>
+                <Select
+                  value={location}
+                  onChange={handleLocationChange}
+                  id="location"
+                >
+                  <MenuItem value="">Select</MenuItem>
+                  {data.Location.map((item) => (
+                    <MenuItem value={item} key={item}>
+                      {item}
+                    </MenuItem>
+                  ))}
+                </Select>
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <Box sx={{ minWidth: 120 }}>
-              <FormControl fullWidth>
-                <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                  <Typography
-                    fontSize={22}
-                    mt={-1}
-                    className="filter-inside-title"
-                  >
-                    Business Unit
-                  </Typography>
-                </InputLabel>
-                <NativeSelect
-                  defaultValue={10}
-                  inputProps={{
-                    name: "Brand",
-                    id: "uncontrolled-native",
-                  }}
+              <FormControl
+                variant="standard"
+                sx={{ minWidth: 200, marginTop: "-20px" }}
+                size="small"
+              >
+                <InputLabel>Customer</InputLabel>
+                <Select
+                  value={customer}
+                  id="customer"
+                  onChange={handleCustomerChange}
                 >
-                  <option value="Health">Health</option>
-                  <option value="Hygeine">Hygeine</option>
-                  <option value="Nutrition">Nutrition</option>
-                </NativeSelect>
+                  <MenuItem value="">Select</MenuItem>
+                  {data.Customer.map((item) => (
+                    <MenuItem value={item} key={item}>
+                      {item}
+                    </MenuItem>
+                  ))}
+                </Select>
               </FormControl>
             </Box>
           </Grid>
-          <Grid
-            item
-            xs={3}
-            textAlign="center"
-            alignItems="center"
-            onClick={handleClick}
-          >
-            <Box className="btn-filters">
-              <Typography className="filter-btn-name">
-                APPLY FILTERS{" "}
-              </Typography>{" "}
-              <PlayArrowIcon />
+          <Grid item xs={2}>
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl
+                variant="standard"
+                sx={{ minWidth: 200, marginTop: "-20px" }}
+                size="small"
+              >
+                <InputLabel>Brand</InputLabel>
+                <Select
+                  value={brand}
+                  onChange={handleBrandChange}
+                  disabled={!business}
+                >
+                  <MenuItem value="">Select</MenuItem>
+                  {business === "Hygiene" && (
+                    <MenuItem value="Airwick">Airwick</MenuItem>
+                  )}
+                  {business === "Health" && (
+                    <MenuItem value="Gaviscon">Gaviscon</MenuItem>
+                  )}
+                </Select>
+              </FormControl>
+            </Box>
+          </Grid>
+
+          <Grid item xs={3} className="flt-grid">
+            <Box className="filter-boxmain">
+              <Button
+                endIcon={<PlayArrowIcon />}
+                variant="contained"
+                size="medium"
+                className="filter-buttons"
+                onClick={handleApplyFilters}
+                style={{
+                  backgroundColor: apply ? "#FF007F" : "#415A6C",
+                  "&:hover": {
+                    backgroundColor: "#FF007F",
+                  },
+                }}
+              >
+                Apply Filters
+              </Button>
+              <Button
+                endIcon={<RotateLeftIcon />}
+                variant="contained"
+                size="medium"
+                className="filter-buttons"
+                onClick={handleResetFilters}
+                style={{
+                  backgroundColor: "#415A6C",
+                  "&:hover": {
+                    backgroundColor: "#FF007F",
+                  },
+                }}
+              >
+                Reset Filters
+              </Button>
             </Box>
           </Grid>
         </Grid>

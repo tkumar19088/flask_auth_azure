@@ -38,6 +38,50 @@
         /* font-size: 1.435rem !important; */
         font-size: 18px !important;
     }
+    .mainTabs .react-tabs__tab {
+        bottom: 2px;
+        padding: 8px 40.9px;
+        /* font-size: 1.435rem !important; */
+        font-size: 18px !important;
+    }
+    .css-y8ay40-MuiTableCell-root {
+        background-color: #E5EBEF !important;
+        color: #415A6C !important;
+        padding: 10px !important;
+        line-height: 18px !important;
+        letter-spacing: 0.02071em !important;
+        /* text-align: center; */
+        font-weight: 600 !important;
+    }
+
+    tr:nth-child(odd) {
+        background-color: #fff;
+    }
+    .css-1q1u3t4-MuiTableRow-root {
+        background-color: rgb(245,245,245);
+    }
+
+    .brack-number{
+        margin-left:8px;
+    }
+    .isw{
+        margin-left:40px !important;
+    }
+    .react-tabs__tab-list {
+        margin: 0 0 5px;
+    }
+}
+
+@media screen and (min-width: 2560px) {
+    .react-tabs__tab-list{
+        border-bottom: none;
+    }
+    .react-tabs__tab {
+        bottom: 2px;
+        padding: 8px 77.9px;
+        /* font-size: 1.435rem !important; */
+        font-size: 18px !important;
+    }
     .css-y8ay40-MuiTableCell-root {
         background-color: #E5EBEF !important;
         color: #415A6C !important;
@@ -67,11 +111,3 @@
 }
 
 
-@media (width > 2559px) {
-    .react-tabs__tab {
-        bottom: 2px;
-        padding: 8px 35.3px;
-        font-size: 2.156rem !important;
-        /* background-color: pink; */
-    }
-}

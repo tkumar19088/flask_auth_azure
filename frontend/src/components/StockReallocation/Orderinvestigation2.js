@@ -1,35 +1,61 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
 import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import RefreshIcon from "@mui/icons-material/Refresh";
+import RotateLeftIcon from "@mui/icons-material/RotateLeft";
+import UpdateIcon from "@mui/icons-material/Update";
 import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 import Tooltip from "@mui/material/Tooltip";
 import { useNavigate } from "react-router-dom";
+import { fetchupdateresults } from "../../store/actions/sidebarActions";
+import { useSelector, useDispatch } from "react-redux";
 
-const Orderinvestigation2 = () => {
+const Orderinvestigation2 = ({ constraints }) => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const updateresults = useSelector((state) => state.sidebar.updateresults);
+  const suggRecord = useSelector(
+    (state) => state.sidebar.stockreallocation.staticrow
+  );
   const [counter, setCounter] = useState(0);
-  const [weeksOnConv, setweeksOnConv] = useState(0);
+  const [weeksOnConv, setweeksOnConv] = useState(constraints[3].Value);
+  const [minweeksOnConv, setminweeksOnConv] = useState(constraints[2].Value);
+  const [expectedservice, setexpectedservice] = useState(constraints[1].Value);
+  const [pctdeviation, setpctdeviation] = useState(constraints[0].Value);
 
-  // Function is called everytime increment button is clicked
+  const handleUpdateResults = () => {
+    dispatch(fetchupdateresults(true));
+  };
   const handleweeksOnCovUp = () => {
-    // Counter state is incremented
-    setCounter(weeksOnConv + 1);
+    setweeksOnConv(weeksOnConv + 1);
   };
 
-  // Function is called everytime decrement button is clicked
   const handleweeksOnCovDown = () => {
-    // Counter state is decremented
     setweeksOnConv(weeksOnConv - 1);
   };
-  const handleClick3 = () => {
-    // Counter state is decremented
-    setCounter(counter - 1);
+
+  const handleminweeksOnCovUp = () => {
+    setminweeksOnConv(minweeksOnConv + 1);
+  };
+
+  const handleminweeksOnCovDown = () => {
+    setminweeksOnConv(minweeksOnConv - 1);
+  };
+
+  const handleExpectedserviceUp = () => {
+    setexpectedservice(expectedservice + 1);
+  };
+  const handleExpectedserviceDown = () => {
+    setexpectedservice(expectedservice - 1);
+  };
+  const handlePCTDeviationUp = () => {
+    setpctdeviation(pctdeviation + 1);
+  };
+  const handlePCTDeviationDown = () => {
+    setpctdeviation(pctdeviation - 1);
   };
 
   const [selectedOption, setSelectedOption] = useState("");
@@ -37,45 +63,35 @@ const Orderinvestigation2 = () => {
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
-  return (
-    <div style={{ marginTop: "5px" }}>
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        // className="optimistarion-box"
-        my={1}
-      >
-        <Box display="flex" className="optimistarion-box">
-          <Typography fontSize={24} color="#415A6C" className="radiobtn-title">
-            Optimisation Target :
-          </Typography>
+  const [currentDateTime, setCurrentDateTime] = useState("");
 
-          <Box>
-            <label>
-              <input
-                type="radio"
-                value="red"
-                checked={selectedOption === "red"}
-                onChange={handleOptionChange}
-              />
-              Minimise Current woc - Target woc
-            </label>
-          </Box>
-          <Box mt="5px" mx={2}>
-            <label>
-              <input
-                type="radio"
-                value="green"
-                checked={selectedOption === "green"}
-                onChange={handleOptionChange}
-              />
-              Maximise revenue
-            </label>
-          </Box>
-        </Box>
-        <Box display="flex">
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const now = new Date();
+      const formattedDateTime = `${(now.getMonth() + 1)
+        .toString()
+        .padStart(2, "0")}/${now.getDate().toString().padStart(2, "0")}/${now
+        .getFullYear()
+        .toString()
+        .slice(2)
+        .padStart(2, "0")} ${now.getHours().toString().padStart(2, "0")}:${now
+        .getMinutes()
+        .toString()
+        .padStart(2, "0")}:${now.getSeconds().toString().padStart(2, "0")}`;
+      setCurrentDateTime(formattedDateTime);
+    }, 1000);
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, []);
+  return (
+    <div>
+      <Stack>
+        <Box display="flex" className="sg-main" mt="10px">
           <Box className="sg-title">
-            Scenario Generation: Airwick Electrical Lemon 112345
+            Scenario Generation:{" "}
+            {suggRecord.Discription ? suggRecord.Discription + " " : ""}
+            {suggRecord["RB SKU"] ? suggRecord["RB SKU"] : ""}
           </Box>
           <Box display="flex" marginTop="2px">
             <Typography>
@@ -87,18 +103,17 @@ const Orderinvestigation2 = () => {
                 }}
               />
             </Typography>
-            <Typography fontSize={14}>01/01/23 05:03:20</Typography>
+            <Typography fontSize={14}>{currentDateTime}</Typography>
           </Box>
         </Box>
       </Stack>
-
-      <Typography fontSize={24} color="#145A6C" mx="3px">
+      <Typography fontSize={24} color="#145A6C" mx="3px" mt="-3px">
         Constraints (Optional)
       </Typography>
       <Grid
         container
         spacing={1}
-        mt="5px"
+        mt="3px"
         mx={{ lg: "1px", xs: "1px" }}
         // border="1px solid red"
       >
@@ -110,16 +125,22 @@ const Orderinvestigation2 = () => {
               sx={{ color: "#415A6C" }}
             >
               <Typography className="constains-h1">
-                % Deviation from initial allocation{" "}
+                {constraints[0].Name}
               </Typography>{" "}
               <Typography>
-                <InfoOutlinedIcon
-                  sx={{
-                    height: "22px",
-                    marginTop: { lg: "0px", xs: "1px" },
-                    marginLeft: "5px",
-                  }}
-                />
+                <Tooltip
+                  placement="top"
+                  arrow
+                  title="This constraint determines the maximum allowable deviation from the initial allocation that the reallocation engine can suggest."
+                >
+                  <InfoOutlinedIcon
+                    sx={{
+                      height: "22px",
+                      marginTop: { lg: "0px", xs: "1px" },
+                      marginLeft: "5px",
+                    }}
+                  />
+                </Tooltip>
               </Typography>
             </Box>
             <Box display="flex">
@@ -135,31 +156,46 @@ const Orderinvestigation2 = () => {
               >
                 <Box margin="auto">
                   <Typography fontSize={20} color="#008824">
-                    {counter}%
+                    {pctdeviation}%{" "}
                   </Typography>
                 </Box>
                 <Box>
                   <Typography mt="-2px" color="#7E919F">
-                    <ArrowDropUpRoundedIcon />
+                    <ArrowDropUpRoundedIcon
+                      onClick={handlePCTDeviationUp}
+                      sx={{ cursor: "pointer" }}
+                    />
                   </Typography>
                   <Typography mt="-19px" color="#7E919F">
-                    <ArrowDropDownRoundedIcon />
+                    <ArrowDropDownRoundedIcon
+                      onClick={handlePCTDeviationDown}
+                      sx={{ cursor: "pointer" }}
+                    />
                   </Typography>
                 </Box>
               </Box>
               <Box border="" textAlign="center" mx={{ lg: "10px", xs: "10px" }}>
                 <Typography
-                  mt={{ lg: "8px", xs: "10px" }}
+                  mt={{ lg: "13px", xs: "10px" }}
                   sx={{
                     width: { lg: "100px", xs: "70px" },
                     borderRadius: "18px 18px",
-                    backgroundColor: "#55C3F0",
+                    backgroundColor:
+                      constraints[0].Label == 0
+                        ? "#F44444"
+                        : constraints[0].Label == 1
+                        ? "orange"
+                        : "#57a957",
                     color: "#fff",
                     padding: "2px 8px 2px 8px",
                   }}
                   fontSize={{ lg: 12, xs: 8 }}
                 >
-                  Partially Satisfied
+                  {constraints[0].Label == 0
+                    ? "Not Satisfied"
+                    : constraints[0].Label == 1
+                    ? "Partially Satisfied"
+                    : "Fully Satisfied"}
                 </Typography>
               </Box>
             </Box>
@@ -168,16 +204,22 @@ const Orderinvestigation2 = () => {
           <Grid item xs={3} border="" ml={2}>
             <Box display="flex" width="370px" sx={{ color: "#415A6C" }}>
               <Typography className="constains-h1">
-                Minimum expected sevice level
+                {constraints[1].Name}
               </Typography>
               <Typography>
-                <InfoOutlinedIcon
-                  sx={{
-                    height: "22px",
-                    marginTop: { lg: "0px", xs: "0px" },
-                    marginLeft: "8px",
-                  }}
-                />
+                <Tooltip
+                  placement="top"
+                  arrow
+                  title="This constraint establishes the minimum expected service level for any individual customer and restricts the maximum quantity of stock that can be reallocated from a customer."
+                >
+                  <InfoOutlinedIcon
+                    sx={{
+                      height: "22px",
+                      marginTop: { lg: "0px", xs: "0px" },
+                      marginLeft: "8px",
+                    }}
+                  />
+                </Tooltip>
               </Typography>
             </Box>
 
@@ -194,31 +236,46 @@ const Orderinvestigation2 = () => {
               >
                 <Box margin="auto">
                   <Typography fontSize={20} color="#008824">
-                    {counter}%
+                    {expectedservice}%
                   </Typography>
                 </Box>
                 <Box>
                   <Typography mt="-2px" color="#7E919F">
-                    <ArrowDropUpRoundedIcon />
+                    <ArrowDropUpRoundedIcon
+                      onClick={handleExpectedserviceUp}
+                      sx={{ cursor: "pointer" }}
+                    />
                   </Typography>
                   <Typography mt="-19px" color="#7E919F">
-                    <ArrowDropDownRoundedIcon />
+                    <ArrowDropDownRoundedIcon
+                      onClick={handleExpectedserviceDown}
+                      sx={{ cursor: "pointer" }}
+                    />
                   </Typography>
                 </Box>
               </Box>
               <Box border="" textAlign="center" mx={{ lg: "10px", xs: "10px" }}>
                 <Typography
-                  mt={{ lg: "8px", xs: "10px" }}
+                  mt={{ lg: "13px", xs: "10px" }}
                   sx={{
                     width: { lg: "100px", xs: "70px" },
                     borderRadius: "18px 18px",
-                    backgroundColor: "#55C3F0",
+                    backgroundColor:
+                      constraints[1].Label == 0
+                        ? "#F44444"
+                        : constraints[1].Label == 1
+                        ? "orange"
+                        : "#57a957",
                     color: "#fff",
                     padding: "2px 8px 2px 8px",
                   }}
                   fontSize={{ lg: 12, xs: 8 }}
                 >
-                  Partially Satisfied
+                  {constraints[1].Label == 0
+                    ? "Not Satisfied"
+                    : constraints[1].Label == 1
+                    ? "Partially Satisfied"
+                    : "Fully Satisfied"}
                 </Typography>
               </Box>
             </Box>
@@ -234,16 +291,22 @@ const Orderinvestigation2 = () => {
               marginLeft={0}
             >
               <Typography className="constains-h1">
-                Deviation from target WOC
+                {constraints[2].Name}
               </Typography>
               <Typography>
-                <InfoOutlinedIcon
-                  sx={{
-                    height: "22px",
-                    marginTop: { lg: "0px", xs: "1px" },
-                    marginLeft: "8px",
-                  }}
-                />
+                <Tooltip
+                  placement="top"
+                  arrow
+                  title="This constraint defines the minimum and maximum stock that can be reallocated to any one customer based on resultant deviation from the customer target stock level."
+                >
+                  <InfoOutlinedIcon
+                    sx={{
+                      height: "22px",
+                      marginTop: { lg: "0px", xs: "1px" },
+                      marginLeft: "8px",
+                    }}
+                  />
+                </Tooltip>
               </Typography>
             </Box>
 
@@ -272,19 +335,19 @@ const Orderinvestigation2 = () => {
                 >
                   <Box margin="auto">
                     <Typography fontSize={20} color="#DD0000">
-                      {counter}
+                      {minweeksOnConv}
                     </Typography>
                   </Box>
                   <Box>
                     <Typography mt="-2px" color="#7E919F">
                       <ArrowDropUpRoundedIcon
-                        onClick={handleClick3}
+                        onClick={handleminweeksOnCovUp}
                         sx={{ cursor: "pointer" }}
                       />
                     </Typography>
                     <Typography mt="-19px" color="#7E919F">
                       <ArrowDropDownRoundedIcon
-                        onClick={handleClick3}
+                        onClick={handleminweeksOnCovDown}
                         sx={{ cursor: "pointer" }}
                       />
                     </Typography>
@@ -340,80 +403,26 @@ const Orderinvestigation2 = () => {
                   sx={{
                     width: { lg: "100px", xs: "70px" },
                     borderRadius: "18px 18px",
-                    backgroundColor: "#55C3F0",
+                    backgroundColor:
+                      constraints[3].Label == 0
+                        ? "#F44444"
+                        : constraints[3].Label == 1
+                        ? "orange"
+                        : "#57a957",
                     color: "#fff",
                     padding: "2px 8px 2px 8px",
                   }}
                   fontSize={{ lg: 12, xs: 8 }}
                 >
-                  Partially Satisfied
+                  {constraints[3].Label == 0
+                    ? "Not Satisfied"
+                    : constraints[3].Label == 1
+                    ? "Partially Satisfied"
+                    : "Fully Satisfied"}
                 </Typography>
               </Box>
             </Box>
           </Grid>
-        </Stack>
-        
-      </Grid>
-      <Grid>
-        <Typography fontSize={28} mt="5px" color="#145A6C" mx="3px">
-          Results
-        </Typography>
-
-        <Stack
-          mt="-20px"
-          direction="row"
-          //   backgroundColor="red"
-          height="120px"
-          justifyContent="space-between"
-          className="sa-stack"
-        >
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            sx={{ width: "450px" }}
-          >
-            <Box className="sa-box">
-              <Typography className="sa-h1"> Expected Net Revenue</Typography>
-              <Typography color="#008824" className="sa-h2">
-                {" "}
-                £7,749.00
-              </Typography>
-            </Box>
-            <Box className="sa-box">
-              <Typography className="sa-h1"> Expected OLA</Typography>
-              <Typography color="#008824" className="sa-h2">
-                {" "}
-                94%
-              </Typography>
-            </Box>
-          </Box>
-          <Box
-            display="flex"
-            justifyContent="space-around"
-            sx={{ width: "320px" }}
-          >
-            <Tooltip
-              title="Reallocate Suggested Supply"
-              arrow
-              placement="top-start"
-              // ml={{ lg: "-19px" }}
-            >
-              <Box className="sa-boxbtn">
-                Reallocate <RefreshIcon className="btn-refresh" />
-              </Box>
-            </Tooltip>
-            <Tooltip
-              title="Download this scenario"
-              arrow
-              placement="top-start"
-              // ml={{ lg: "-19px" }}
-            >
-              <Box className="sa-boxbtn">
-                Download
-                <DownloadForOfflineIcon className="btn-download" />
-              </Box>
-            </Tooltip>
-          </Box>
         </Stack>
       </Grid>
     </div>

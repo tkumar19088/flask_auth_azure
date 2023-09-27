@@ -1,10 +1,16 @@
 .status{
     display: flex;
     justify-content: space-between;
-   
-
 }
 
+.status-card{
+    /* border: 1px solid #FF007F !important; */
+    /* height: 300px !important; */
+}
+
+.s-crd{
+    cursor: pointer !important;
+}
 
 
 .btn-alert{
@@ -17,8 +23,8 @@
     background-color: #fff; 
     height: 17px;
     /* margin-inline: 5px; */
-    padding: 3px 4px 5px 4px;
-    margin-top: 12px;
+    padding: 3px 3px 4px 3px;
+    margin-top: 13px;
     /* margin-bottom: 12px; */
     cursor: pointer;
 }
@@ -54,4 +60,10 @@
     margin-block: 5px;
     padding: 0px 35px;
     border-radius: 5px;
+}
+
+.cs-cardsheader{
+    display: flex;
+    align-items: center;
+    height: 70px;
 }

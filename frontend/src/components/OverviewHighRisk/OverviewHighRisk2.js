@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Topbar from "../Topbar/Topbar";
 import Sidebar from "../Sidebar/Sidebar";
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
@@ -11,13 +11,35 @@ import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import search from "../../images/search.png";
 import Filtersdropdown from "./Filtersdropdown";
-import OhrTabs from "../DataTable/OhrTab";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import "./OverviewHighRisk.css";
 import CustomerTable from "../DataTable/CustomerTable";
+import Ragfilters from "./Ragfiltersdropdown";
+import CustomerRagfilters from "./CustomerRagfiltersdropdown";
+import OhrCustomerTabs from "../DataTable/ohrCustomerTabs";
+import {
+  updateloader,
+  updatecustomer,
+  fetchoverviewhighriskdata,
+  fetchoverviewcustomerdata,
+  fetchtaburl,
+  updateexporttabledata,
+  updatesearch,
+} from "../../store/actions/sidebarActions";
+import { useSelector, useDispatch } from "react-redux";
+import loaderImage from "../../images/Logo-bar.png";
+import { useNavigate } from "react-router-dom";
 
 const OverviewHighRisk2 = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const loader = useSelector((state) => state.sidebar.loader);
+  const customer = useSelector((state) => state.sidebar.customer);
+  const exporttabledata = useSelector((state) => state.sidebar.exporttabledata);
+  const [searchValue, setSearchValue] = useState(""); // State to store the search input value
+
   const [activeTab, setActiveTab] = useState(0);
 
   const handleTabChange = (index) => {
@@ -55,15 +77,168 @@ const OverviewHighRisk2 = () => {
       },
     },
   }));
+
+  const handleSearchSKU = async () => {
+    dispatch(updatesearch(true));
+    var isNumber = await containsOnlyNumbers(searchValue);
+    if (isNumber) {
+      console.log(exporttabledata);
+      var results = exporttabledata.filter((item) =>
+        String(item["RB SKU"]).includes(searchValue)
+      );
+      dispatch(updateexporttabledata(results));
+      console.log(results);
+    } else {
+      var results = exporttabledata.filter((item) =>
+        item.Description.includes(searchValue)
+      );
+      dispatch(updateexporttabledata(results));
+      console.log(results);
+    }
+  };
+  const containsOnlyNumbers = (inputString) => {
+    return /^\d+$/.test(inputString);
+  };
+  const handleReckittOverview = async () => {
+    await dispatch(updatecustomer(0));
+    reckittOverview();
+  };
+  const reckittOverview = async () => {
+    dispatch(updateloader(true));
+    var data = { customer: 0 };
+    try {
+      const url = "http://localhost:5000/getoverview";
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        // console.log(json);
+        // setuserDetails(json.name);
+        dispatch(fetchoverviewhighriskdata(json));
+        dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
+  };
+  const handleCustomerOverview = async () => {
+    dispatch(updatecustomer(1));
+    await customerOverview();
+  };
+  const customerOverview = async () => {
+    dispatch(updateloader(true));
+    var data = { customer: 1 };
+    try {
+      const url = "http://localhost:5000/getoverview";
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        // console.log(json);
+        // setuserDetails(json.name);
+        dispatch(fetchoverviewcustomerdata(json));
+        dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
+  };
+  const convertToCSV = (objArray) => {
+    const array =
+      typeof objArray !== "object" ? JSON.parse(objArray) : objArray;
+    let csv = "";
+
+    // Generate the header row
+    let header = "";
+    for (let key in array[0]) {
+      if (header !== "") header += ",";
+      header += `"${key}"`; // Enclose headers in double quotes
+    }
+    csv += header + "\r\n";
+
+    // Generate the data rows
+    for (let i = 0; i < array.length; i++) {
+      let line = "";
+      for (let key in array[i]) {
+        if (line !== "") line += ",";
+        let value = array[i][key];
+
+        // Check if value is null
+        if (value === null) {
+          value = "";
+        } else {
+          value = value.toString(); // Convert to string
+          value = value.replace(/"/g, '""'); // Enclose values in double quotes and escape existing double quotes
+        }
+
+        line += `"${value}"`;
+      }
+      csv += line + "\r\n";
+    }
+
+    return csv;
+  };
+
+  const handleExportTableData = () => {
+    const csvData = convertToCSV(exporttabledata);
+    const blob = new Blob([csvData], { type: "text/csv" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = url;
+    a.download = "data.csv";
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  };
+  const handleBack = () => {
+    navigate(-1);
+  };
+  const handleInputChange = (e) => {
+    setSearchValue((prevValue) => {
+      return e.target.value;
+    });
+  };
   return (
     <div>
+      {loader && (
+        <div className="loader-overlay">
+          <img src={loaderImage} alt="Loading..." className="rotating-image" />
+        </div>
+      )}
       <Topbar />
       <Grid container>
         <Grid item xs={2}>
           <Sidebar />
         </Grid>
         <Grid item xs={10} className="bg-containerOHR">
-          <Box display="flex" fontSize={14} mx="1px">
+          <Box
+            display="flex"
+            fontSize={14}
+            mx="1px"
+            className="breadcrumb-tabbox"
+          >
             <Box mt="1px">
               <Button
                 style={{
@@ -86,7 +261,9 @@ const OverviewHighRisk2 = () => {
                   }}
                 />
                 &#160;
-                <Typography fontSize={12}>Back</Typography>
+                <Typography fontSize={12} onClick={handleBack}>
+                  Back
+                </Typography>
               </Button>
             </Box>{" "}
             &#160;&#160;&#160;&#160;&#160;&#160;
@@ -97,13 +274,18 @@ const OverviewHighRisk2 = () => {
             <Typography fontSize={14}>Overview High-Risk SKUs</Typography>
           </Box>
 
-          <Tabs selectedIndex={activeTab} onSelect={handleTabChange}>
+          <Tabs
+            selectedIndex={activeTab}
+            onSelect={handleTabChange}
+            className="mainTabs"
+          >
             <TabList style={{ marginTop: "20px", display: "flex" }}>
               <Tab
                 style={{
                   border: "1px solid #E5EBEF",
                   color: activeTab === 0 ? "white" : "#415A6C",
                 }}
+                onClick={handleReckittOverview}
               >
                 Overview High Risk SKUs - Reckitt
               </Tab>
@@ -112,43 +294,65 @@ const OverviewHighRisk2 = () => {
                   border: "1px solid #E5EBEF",
                   color: activeTab === 1 ? "white" : "#415A6C",
                 }}
+                onClick={handleCustomerOverview}
               >
                 Overview High Risk SKUs - Customer
               </Tab>
 
-              <Stack
-                className="ohr-stack"
-                direction="row"
-                alignItems="center"
-                // border="1px solid red"
-              >
+              <Stack className="ohr-stack" direction="row" alignItems="center">
                 <Box>
-                  <Search
-                    className="serch-border"
+                  <Box
+                    // className="serch-border"
                     sx={{
-                      backgroundColor: "#F5F6F8",
-                      border: "1px solid",
+                      backgroundColor: "#E7E9EE",
+                      "&:hover": {
+                        backgroundColor: "#E7E9EE",
+                      },
+                      borderRadius: "30px",
                       display: "flex",
                       color: "#415A6C",
+                      height: "35px",
                     }}
                   >
-                    <StyledInputBase
+                    <input
                       className="serch-name"
                       placeholder="Search Sku by name"
                       inputProps={{ "aria-label": "search" }}
-                    />{" "}
-                    <img src={search} alt="search" className="search-icon2" />
-                  </Search>
+                      value={searchValue} // Bind the input value to the state
+                      onChange={handleInputChange}
+                      // style={{ border: "1px solid red" }}
+                    />
+                    <img
+                      src={search}
+                      alt="search"
+                      className="search-icon2"
+                      onClick={handleSearchSKU}
+                    />
+                  </Box>
                 </Box>
+
                 <Box className="nestmenu-box">
                   <Filtersdropdown />
                 </Box>
+
+                {customer == 0 && (
+                  <Box className="nestmenu-box">
+                    <Ragfilters />
+                  </Box>
+                )}
+                {customer == 1 && (
+                  <Box className="nestmenu-box">
+                    <CustomerRagfilters />
+                  </Box>
+                )}
+
                 <Box>
                   <Button
                     variant="contained"
                     size="small"
                     className="btn-exp"
                     style={{ textDecoration: "none", textTransform: "none" }}
+                    onClick={handleExportTableData}
                   >
                     Export Data
                   </Button>
@@ -159,7 +363,7 @@ const OverviewHighRisk2 = () => {
               <FunctionalTabs />
             </TabPanel>
             <TabPanel>
-              <CustomerTable />
+              <OhrCustomerTabs />
             </TabPanel>
           </Tabs>
         </Grid>

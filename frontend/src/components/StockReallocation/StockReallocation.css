@@ -1,3 +1,15 @@
+.s-row1 td{
+    padding: 5px !important;  
+}
+.s-row2 td{
+    padding: 5px !important;  
+}
+
+
+.sa-boxbtn:hover{
+    background-color: #FF007E !important;
+
+}
 
 
 @media (width > 1200px) and (width < 1440px) {
@@ -39,11 +51,11 @@
         /* font-weight: 100 !important; */
         /* line-height: 16px; */
     }
-    .css-1ex1afd-MuiTableCell-root {
+    /* .css-1ex1afd-MuiTableCell-root {
         padding: 0px !important;
         text-align: center !important;
         font-size: 0.7rem !important;
-    }
+    } */
     
 .sa-box{
     /* background-color: red !important; */
@@ -70,7 +82,7 @@
 }
 .sa-boxbtn{
     margin-top: 23px;
-    width: 170px !important;
+    width: 10px !important;
     height: 28px !important;
     /* padding: 4px !important; */
     font-size: 12px;
@@ -83,7 +95,7 @@
     border-radius: 5px;
     background-color: #415A6C;
     color: #F5F6F8;
-    border: 1.2px solid #415A6C;
+    /* border: 1.2px solid #415A6C; */
     cursor: pointer;
 }
 .btn-refresh{
@@ -108,7 +120,9 @@
 }
 
 @media screen and (min-width: 1920px) {
-   
+   .breadcrumb-sabox{
+    margin-top: 4px;
+   }
     .srbr-btns{
         height: 30px !important;
         /* margin-top: 1px !important; */
@@ -167,11 +181,7 @@
    .sr-supplyrealocate1{
     font-size: 18px !important;
    }
-   .css-1ex1afd-MuiTableCell-root {
-      text-align: center !important;
-      width: 20px !important;
-      font-size: 13px !important;
-   }
+  
 
    
 
@@ -192,7 +202,8 @@
 }
 
 .sa-box{
-    width: 215px !important;
+    /* width: 215px !important; */
+    padding: 0px 16px;
     height: 63px !important;
     background-color: white;
     border-radius: 5px!important;
@@ -212,7 +223,7 @@
 }
 .sa-boxbtn{
     margin-top: 25px;
-    width: 140px !important;
+    width: 160px !important;
     height: 30px !important;
     font-size: 14px;
     /* background-color: palevioletred !important; */
@@ -224,7 +235,7 @@
     border-radius: 5px;
     background-color: #415A6C;
     color: white;
-    border: 1.2px solid #415A6C;
+    /* border: 1.2px solid #415A6C; */
     line-height: 16px;
     cursor: pointer;
 }
@@ -276,18 +287,32 @@
     padding:  10px 20px ;
 }
 
+.sg-main{
+    /* margin-top: 10px !important; */
+    justify-content: end !important;
+}
 .sg-title{
     border-radius: 5px;
     background-color: rgb(198 223 215);
     padding: 2px 8px !important;
     font-size: 14px;
     color: black;
+    height: 22px !important;
+}
+.radibtn-left{
+    margin-top: 3px;
+    margin-left: -10px;
+
+}
+.radiobtn-right{
+      margin-top: 5px;
+      margin-left: 10px;
 }
 
 
 .radiobtn-title{
     /* margin-top: 2px !important; */
-    margin-left: 5px !important;
+    margin-left: 3px !important;
     margin-right: 15px !important;
 }
 
@@ -297,6 +322,7 @@
     align-items: center;
     justify-content: center;
     align-self: center;
+    margin-top: -12px;
 }
 
 
@@ -304,6 +330,9 @@
     background-color: #E5EBEF !important;
     color:#415A6C !important;
     border:1px solid #dcdcdc !important;
+    padding: 5px 2px !important;
+    text-align: center !important;
+    line-height: 16px !important;
 }
 
 

@@ -8,6 +8,8 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import "./Selloutforecast.css";
 import { useNavigate } from "react-router-dom";
+// import Filtersdropdown from "../OverviewHighRisk/Filtersdropdown";
+import Filtersout from "./Filterout";
 
 const Selloutforecast = () => {
   const [lineChartData, setlineChartData] = useState(true);
@@ -81,19 +83,31 @@ const Selloutforecast = () => {
                 Forecast Builder - Sell-Out
               </Typography>
             </Box>
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              sx={{ marginBottom: "20px" }}
-            >
-              <Button variant="contained" className="exportButton">
-                Export Data
-              </Button>
+            <Box sx={{ display: "flex", gap: "20px" }}>
+              <Box sx={{ border: "", marginTop: "10px" }}>
+                <Filtersout />
+              </Box>
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                sx={{ marginBottom: "20px" }}
+              >
+                <Button
+                  variant="contained"
+                  size="small"
+                  className="exportButton"
+                >
+                  Export Data
+                </Button>
+              </Box>
             </Box>
           </Grid>
           <Box sx={{ width: "100%" }}></Box>
           {lineChartData && (
-            <Box>
+            <Box
+              sx={{ border: "", width: 1550, height: 755 }}
+              paddingLeft="30px"
+            >
               <Linechart />
             </Box>
           )}

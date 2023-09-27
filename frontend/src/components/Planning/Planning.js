@@ -3,35 +3,113 @@ import { Box, Grid, Typography } from "@mui/material";
 import "./Planning.css";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import { useNavigate } from "react-router-dom";
+import {
+  fetchoverviewhighriskdata,
+  updateloader,
+  updateexporttabledata,
+  fetchbusinessempty,
+  fetchlocationempty,
+  fetchtaburl,
+  updateapplyfilterserror,
+} from "../../store/actions/sidebarActions";
+import { useSelector, useDispatch } from "react-redux";
+import Badge from "@mui/material/Badge";
 
 const Planning = ({ filterStatus }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [oosriskselectedBG, setoosriskselectedBG] = useState(false);
   const [irregularselectedBG, setirregularselectedBG] = useState(false);
-  const [reallocationselectedBG, setreallocationselectedBG] = useState(false);
+  const business = useSelector((state) => state.sidebar.business);
+  const location = useSelector((state) => state.sidebar.location);
+  const apply = useSelector((state) => state.sidebar.apply);
 
   const handleOOSRisk = () => {
+    if (!business) {
+      dispatch(fetchbusinessempty(true));
+    }
+    if (!location) {
+      dispatch(fetchlocationempty(true));
+    }
+    if (!business || !location) {
+      return;
+    }
+    if (!apply) {
+      dispatch(updateapplyfilterserror(true));
+      return;
+    }
     filterStatus(true);
     setirregularselectedBG(false);
-    setreallocationselectedBG(false);
     setoosriskselectedBG(true);
+    fetchData();
+  };
+  const fetchData = async () => {
+    dispatch(updateloader(true));
+    var data = { customer: 0 };
+    try {
+      const url = "http://localhost:5000/getoverview";
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        // console.log(json);
+        // setuserDetails(json.name);
+        dispatch(fetchoverviewhighriskdata(json));
+        dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
+        navigate("/overviewhighrisk");
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
   };
   const handleirregularpo = () => {
     filterStatus(true);
     setoosriskselectedBG(false);
-    setreallocationselectedBG(false);
     setirregularselectedBG(true);
   };
   const handleReallocation = () => {
     filterStatus(true);
     setoosriskselectedBG(false);
     setirregularselectedBG(false);
-    setreallocationselectedBG(true);
   };
 
-  const handleSellinforecast = () => {
-    navigate("/sellinforecast");
+  const handleSellinforecast = async () => {
+    dispatch(updateloader(true));
+    // var data = { rbsku: expandedRow };
+    try {
+      const response = await fetch("http://localhost:5000/getsellingraph", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        // dispatch(fetchstockreallocatedata(json));
+        // dispatch(fetchstaticrow(json.static_row));
+        // dispatch(updateexporttabledata(json));
+        navigate("/sellinforecast");
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
   };
 
   const handleSelloutforecast = () => {
@@ -39,9 +117,16 @@ const Planning = ({ filterStatus }) => {
   };
 
   return (
-    <div>
-      <Grid mt={3}>
-        <Grid container spacing={{ md: 2, lg: 2, xl: 5 }} item xs={12} mt={1}>
+    <div style={{ marginTop: "10px" }}>
+      <Grid>
+        <Grid
+          container
+          spacing={{ md: 2, lg: 2, xl: 5 }}
+          item
+          xs={12}
+          mt={1}
+          className="fcst-bx"
+        >
           <Grid item xs={4}>
             <Box className="pln-cards-header">
               <Typography color="#fff" className="plan-title">
@@ -78,7 +163,7 @@ const Planning = ({ filterStatus }) => {
           <Grid item xs={4}>
             <Box className="pln-cards-header">
               <Typography color="#fff" className="plan-title">
-                Monitor
+                Mitigate
               </Typography>
             </Box>{" "}
             <Box
@@ -86,6 +171,9 @@ const Planning = ({ filterStatus }) => {
               onClick={handleOOSRisk}
               style={{
                 backgroundColor: oosriskselectedBG ? "#ff007e" : "#fff",
+                "&:hover": {
+                  backgroundColor: "#FF007F",
+                },
                 color: oosriskselectedBG ? "#fff" : "black",
               }}
             >
@@ -94,7 +182,7 @@ const Planning = ({ filterStatus }) => {
                   fontSize={{ lg: 14, xs: 12 }}
                   className="plan-minititile"
                 >
-                  OOS Risk Dectection
+                  OOS Mitigation SKU level
                 </Typography>
               </Box>
               <Box className="pln-cards-cnt">
@@ -110,12 +198,14 @@ const Planning = ({ filterStatus }) => {
               }}
             >
               <Box className="pln-cards-cnt">
-                <Typography
-                  fontSize={{ lg: 14, xs: 12 }}
-                  className="plan-minititile"
-                >
-                  Irregular PO
-                </Typography>
+                <Badge badgeContent="Coming Soon" className="sku-badge">
+                  <Typography
+                    fontSize={{ lg: 14, xs: 12 }}
+                    className="plan-minititile"
+                  >
+                    Irregular PO
+                  </Typography>
+                </Badge>
               </Box>
               <Box className="pln-cards-cnt">
                 <GridViewRoundedIcon />
@@ -126,24 +216,26 @@ const Planning = ({ filterStatus }) => {
           <Grid item xs={4}>
             <Box className="pln-cards-header">
               <Typography color="#fff" className="plan-title">
-                Allocate / Reallocate
+                Promote
               </Typography>
             </Box>{" "}
             <Box
               className="pln-card-bd"
               onClick={handleReallocation}
               style={{
-                backgroundColor: reallocationselectedBG ? "#ff007e" : "#fff",
-                color: reallocationselectedBG ? "#fff" : "black",
+                backgroundColor: "#fff",
+                color: "black",
               }}
             >
               <Box className="pln-cards-cnt">
-                <Typography
-                  fontSize={{ lg: 14, xs: 12 }}
-                  className="plan-minititile"
-                >
-                  Customer Reallocation
-                </Typography>
+                <Badge badgeContent="Coming Soon" className="systamatic-badge">
+                  <Typography
+                    fontSize={{ lg: 14, xs: 12 }}
+                    className="plan-minititile"
+                  >
+                    SKU Prioritization for Promotion
+                  </Typography>
+                </Badge>
               </Box>
               <Box className="pln-cards-cnt">
                 <GridViewRoundedIcon />

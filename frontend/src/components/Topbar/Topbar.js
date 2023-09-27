@@ -19,11 +19,14 @@ import icon from "../../images/notification.png";
 import search from "../../images/search.png";
 import { useNavigate } from "react-router-dom";
 
-import { Button, Menu, MenuItem } from "@mui/material";
+import { Button, Menu, MenuItem, Typography } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { useSelector } from "react-redux";
 
 const Topbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const userDetails = useSelector((state) => state.sidebar.userDetails);
+  console.log(userDetails);
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -79,41 +82,9 @@ const Topbar = () => {
       <Toolbar>
         <img src={Logo} alt="logo" className="logo" onClick={handleClick} />
         <Box sx={{ flexGrow: 1 }} />
-        {/* search................................ ..........*/}
-        <Box>
-          <Search
-            sx={{
-              backgroundColor: "#E7E9EE",
-              "&:hover": {
-                backgroundColor: "#E7E9EE",
-              },
-              borderRadius: "20px 20px",
-              display: "flex",
-              color: "#415A6C",
-            }}
-          >
-            <StyledInputBase
-              placeholder="Search"
-              inputProps={{ "aria-label": "search" }}
-            />{" "}
-            <img src={search} alt="search" className="search-icon" />
-          </Search>
-        </Box>
-        &#160;&#160;
+        <Typography color="#415A6C">{userDetails.Name}</Typography>
+
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
-          {/* <Badge badgeContent={17} color="error"> */}
-          <img src={icon} alt="notification" className="notification" />
-          {/* </Badge> */}
-          <HelpIcon
-            className="help-icon"
-            style={{ width: "30px", height: "30px", color: "#415A6C" }}
-          />
-          &#160;
-          <ArrowDropDownSharpIcon
-            className="helpdown-icon"
-            sx={{ color: "#466072" }}
-          />
-          &#160;
           <Box className="profile">
             <PersonIcon
               sx={{
