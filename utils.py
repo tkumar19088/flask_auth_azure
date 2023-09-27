@@ -570,5 +570,5 @@ def replace_missing_values(df):
         if 'RB SKU' not in col:
             df[col] = df[col].apply(lambda x: f"{x:,}" if isinstance(x, (int, float)) else x)
     df = df.replace([0.00, 0.0, "0.00", "0.0"], 0)
-    df = df.apply(lambda x: f"{int(x)*100}%" if isinstance(x, (int, float)) else x)
+    # df = df.apply(lambda x: f"{int(x)*100}%" if isinstance(x, (int, float)) else x)
     return df

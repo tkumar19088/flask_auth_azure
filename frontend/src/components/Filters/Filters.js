@@ -54,6 +54,7 @@ const Filters = () => {
   const handleBusinessChange = (event) => {
     dispatch(fetchbusiness(event.target.value));
     dispatch(fetchbusinessempty(false));
+    dispatch(fetchbrand(""));
   };
 
   const handleLocationChange = (event) => {
