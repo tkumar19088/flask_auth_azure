@@ -2,21 +2,16 @@ import React, { useState } from "react";
 import Topbar from "../Topbar/Topbar";
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import Sidebar from "../Sidebar/Sidebar";
-import Linechart2 from "./LineChart2";
-import Barchart from "./Barchart";
-import "./RetailerNegation.css";
+import "./Irregularchart.css";
 
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-
 import { useNavigate } from "react-router-dom";
-import { animateScroll as scroll } from "react-scroll";
+import Historicalbarchart from "./Historicalbarchart";
+import Customerwocbarchart from "./Customerwocbarchart";
+import Sellinselloutbarchart from "./Sellinselloutbarchart";
 
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-
-const HistoricalData = () => {
+const Irregularcharts = () => {
   const [value, setValue] = useState("one");
   const [irregularPO, setirregularPO] = useState(true);
   const [serviceLevel, setserviceLevel] = useState(false);
@@ -133,23 +128,18 @@ const HistoricalData = () => {
           </Grid>
           {lineChartData && (
             <Grid spacing={1} container>
-              {" "}
               <Grid item xs={6}>
-                <Barchart />
+                <Historicalbarchart />
               </Grid>
               <Grid item xs={6}>
-                <Barchart />
+                <Customerwocbarchart />
               </Grid>
               <Grid item xs={12}>
-                <Barchart />
+                <Sellinselloutbarchart />
               </Grid>
             </Grid>
           )}
-          {barChartData && (
-            <Box>
-              <Barchart />
-            </Box>
-          )}
+          {barChartData && <Box>create a new file for table </Box>}
 
           <Box mx="1px" mt={{ lg: "20px", xs: 5 }}>
             <Typography fontSize={28} color="#415A6C">
@@ -360,116 +350,4 @@ const HistoricalData = () => {
   );
 };
 
-export default HistoricalData;
-
-<Grid
-  container
-  item
-  xs={12}
-  // border="1px solid"
-  backgroundColor="#fff"
-  justifyContent="space-around"
-  p="2px 0 0 0"
-  borderRadius="5px 5px"
->
-  <Box className="kpis-box">
-    <Typography
-      lineHeight={{ lg: "16px", xs: "12px" }}
-      fontSize={{ lg: "13px", xs: "11px" }}
-    >
-      current reckitt stock on hand (reckitt inventory)
-    </Typography>
-    <Typography
-      fontSize={{ lg: 20, xs: "18px" }}
-      mt={{ lg: "0px", xs: "3px" }}
-      color="#008824"
-    >
-      1000
-    </Typography>
-  </Box>
-  <Box className="virtical-line"></Box>
-
-  <Box className="kpis-box">
-    <Typography
-      lineHeight={{ lg: "16px", xs: "12px" }}
-      fontSize={{ lg: "13px", xs: "11px" }}
-    >
-      stock allocation to customer
-    </Typography>
-    <Typography
-      fontSize={{ lg: 20, xs: "18px" }}
-      mt={{ lg: "0px", xs: "3px" }}
-      color="#008824"
-    >
-      1000
-    </Typography>
-  </Box>
-  <Box className="virtical-line"></Box>
-
-  <Box className="kpis-box">
-    <Typography
-      lineHeight={{ lg: "16px", xs: "12px" }}
-      fontSize={{ lg: "13px", xs: "11px" }}
-    >
-      stock allocation to customer
-    </Typography>
-    <Typography
-      fontSize={{ lg: 20, xs: "18px" }}
-      mt={{ lg: "0px", xs: "3px" }}
-      color="#008824"
-    >
-      1000
-    </Typography>
-  </Box>
-  <Box className="virtical-line"></Box>
-
-  <Box className="kpis-box">
-    <Typography
-      lineHeight={{ lg: "16px", xs: "12px" }}
-      fontSize={{ lg: "13px", xs: "11px" }}
-    >
-      monthly allocation consumed to date
-    </Typography>
-    <Typography
-      fontSize={{ lg: 20, xs: "18px" }}
-      mt={{ lg: "0px", xs: "3px" }}
-      color="#008824"
-    >
-      1000
-    </Typography>
-  </Box>
-  <Box className="virtical-line"></Box>
-
-  <Box className="kpis-box">
-    <Typography
-      lineHeight={{ lg: "16px", xs: "12px" }}
-      fontSize={{ lg: "13px", xs: "11px" }}
-    >
-      customer 6 months average order quantity
-    </Typography>
-    <Typography
-      fontSize={{ lg: 20, xs: "18px" }}
-      mt={{ lg: "0px", xs: "3px" }}
-      color="#008824"
-    >
-      1000
-    </Typography>
-  </Box>
-  <Box className="virtical-line"></Box>
-
-  <Box className="kpis-box">
-    <Typography
-      lineHeight={{ lg: "16px", xs: "12px" }}
-      fontSize={{ lg: "13px", xs: "11px" }}
-    >
-      Customer's order quantity variance
-    </Typography>
-    <Typography
-      fontSize={{ lg: 20, xs: "18px" }}
-      mt={{ lg: "0px", xs: "3px" }}
-      color="#008824"
-    >
-      1000
-    </Typography>
-  </Box>
-</Grid>;
+export default Irregularcharts;

@@ -189,6 +189,7 @@ table {
   margin-right: 14px;
   margin-top: 7px;
   cursor: pointer;
+  /* border: 1px solid red; */
 } 
 
 
@@ -198,6 +199,19 @@ table {
   font-size: 13px;
   margin-top: 1px;
   padding-left: 24px !important;
+  border: 1px solid red !important;
  }
  
+}
+
+.serch-name{
+  border:1px solid #E7E9EE!important;
+  background-color: #E7E9EE;
+  border-radius: 30px ;
+  padding-left: 8px !important;
+}
+
+.serch-name::after {
+  border:1px solid red !important;
+
 }

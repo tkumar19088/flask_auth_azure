@@ -469,6 +469,7 @@ class SKUManager:
             df_price = AzureBlobReader().read_csvfile("ui_data/df_price.csv")
             alternative_skus_calculator = AlternativeSKUsCalculator(df_price, sku_r, customer)
             alternative_skus = alternative_skus_calculator.calculate()
+            alternative_skus = alternative_skus[alternative_skus['score_final'] > .50]
             altskus_sorted = alternative_skus.sort_values(by='score_final', ascending=False).head(5) # type: ignore
             altskus_sorted['skuid'] = altskus_sorted.index
 
@@ -553,15 +554,19 @@ class AlternativeSKUsCalculator:
 #
 # **************************************************************************
 def replace_missing_values(df):
-    missing_values = [None, 'null', 'NULL', 'Null', 'Nan', 'nan', 'NaN',' ', '']
+    missing_values = [None, 'null', 'NULL', 'Null', 'Nan', 'nan', 'NaN', ' ', '']
     cleaned_df = df.replace(missing_values, '-')
-     # limit float values to 2 decimal places
-    cleaned_df = cleaned_df.applymap(lambda x: round(x, 2) if isinstance(x, float) and x not in [0, 0.00] else x)
-    df = cleaned_df.replace(0.00, 0, regex=True, inplace=False)
+
+    # Limit float values to 2 decimal places and replace 0.00 with 0
+    cleaned_df = cleaned_df.applymap(lambda x: round(x, 2) if isinstance(x, float) and x not in [0, 0.00] else x).replace(0.00, 0)
+    df = cleaned_df.fillna('-')
+
     for col in df.columns:
-        if 'ExpSL' in col:
-            df[col] = df[col].apply(lambda x: f"{x*100:.2f}%")
-        if 'RB SKU' not in col:
+        if 'ExpSL' in col or 'recom-score' in col:
+            df[col] = df[col].apply(lambda x: f"{x*100}%" if isinstance(x, (int, float)) else x)
+        elif 'SOH' in col or 'SoH' in col:
+            df[col] = df[col].apply(lambda x: int(x) if isinstance(x, (float)) else x)
+        elif 'RB SKU' not in col:
             df[col] = df[col].apply(lambda x: f"{x:,}" if isinstance(x, (int, float)) else x)
-    cleandf = df.fillna('-')
-    return cleandf
+
+    return df

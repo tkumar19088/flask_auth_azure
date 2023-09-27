@@ -21,6 +21,9 @@ function StockReallocation() {
   const [selectedData, setselectedData] = useState();
   const exporttabledata = useSelector((state) => state.sidebar.exporttabledata);
   const isWithinChannel = useSelector((state) => state.sidebar.isWithinChannel);
+  const suggRecord = useSelector(
+    (state) => state.sidebar.stockreallocation.staticrow
+  );
   const [acrossChannel, setacrossChannel] = useState(false);
   const handleClick = () => {
     // Navigate to another URL
@@ -148,7 +151,9 @@ function StockReallocation() {
             sx={{ color: "#415A6C" }}
             margin="5px 0px -10px 3px"
           >
-            Scenario Generation: Airwick Electrical Lemon 112345
+            Scenario Generation:{" "}
+            {suggRecord.Discription ? suggRecord.Discription + " " : ""}
+            {suggRecord["RB SKU"] ? suggRecord["RB SKU"] : ""}
           </Typography>
           <Box
             mx="1px"

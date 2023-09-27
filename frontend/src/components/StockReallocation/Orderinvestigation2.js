@@ -17,7 +17,9 @@ const Orderinvestigation2 = ({ constraints }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const updateresults = useSelector((state) => state.sidebar.updateresults);
-
+  const suggRecord = useSelector(
+    (state) => state.sidebar.stockreallocation.staticrow
+  );
   const [counter, setCounter] = useState(0);
   const [weeksOnConv, setweeksOnConv] = useState(constraints[3].Value);
   const [minweeksOnConv, setminweeksOnConv] = useState(constraints[2].Value);
@@ -87,7 +89,9 @@ const Orderinvestigation2 = ({ constraints }) => {
       <Stack>
         <Box display="flex" className="sg-main" mt="10px">
           <Box className="sg-title">
-            Scenario Generation: Airwick Electrical Lemon 112345
+            Scenario Generation:{" "}
+            {suggRecord.Discription ? suggRecord.Discription + " " : ""}
+            {suggRecord["RB SKU"] ? suggRecord["RB SKU"] : ""}
           </Box>
           <Box display="flex" marginTop="2px">
             <Typography>

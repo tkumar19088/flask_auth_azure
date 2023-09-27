@@ -1083,7 +1083,7 @@ const OhrTable2 = ({ onData }) => {
                     </TableCell>
                     <TableCell style={{ textAlign: "center", width: "30px" }}>
                       <Typography mx="7px" fontSize="13px">
-                        {item.InitialSOHWeek}
+                        {item["Cust SOH"]}
                       </Typography>
                     </TableCell>
                     <TableCell style={{ textAlign: "center", width: "30px" }}>

@@ -58,6 +58,8 @@ const OhrTable = ({ onData }) => {
   const [pushAlternativeData, setpushAlternativeData] = useState([]);
   const [iscampaigns, setiscampaigns] = useState(false);
   const [chooseData, setchooseData] = useState({});
+  const [displayMigitates, setdisplayMigitates] = useState(false);
+
   const truncateText = (text, maxLength) => {
     if (text.length <= maxLength) {
       return text;
@@ -1137,6 +1139,7 @@ const OhrTable = ({ onData }) => {
         const json = await response.json();
         console.log(json);
         setchooseData(json);
+        setdisplayMigitates(true);
         // dispatch(fetchstockreallocatedata(json));
         // dispatch(fetchstaticrow(json.static_row));
         // dispatch(updateexporttabledata(json));
@@ -1333,44 +1336,46 @@ const OhrTable = ({ onData }) => {
             Choose a Mitigation Strategy
           </Button>
         </Box>
-        <Box display="flex" className="ms-buttons">
-          <Box
-            className="ms-grid"
-            onClick={handlePushAlternative}
-            sx={{
-              backgroundColor:
-                chooseData.pushaltskus == "True" && !pushAlternative
-                  ? "green"
-                  : pushAlternative
-                  ? "#FF007F"
-                  : "#415A6C",
-              // backgroundColor: pushAlternative ? "#FF007F" : "#415A6C",
-              "&:hover": {
-                backgroundColor: "#FF007F",
-              },
-            }}
-          >
-            <Typography className="ms-gridtitle">Push Alternative</Typography>
+        {displayMigitates && (
+          <Box display="flex" className="ms-buttons">
+            <Box
+              className="ms-grid"
+              onClick={handlePushAlternative}
+              sx={{
+                backgroundColor:
+                  chooseData.pushaltskus == "True" && !pushAlternative
+                    ? "green"
+                    : pushAlternative
+                    ? "#FF007F"
+                    : "#415A6C",
+                // backgroundColor: pushAlternative ? "#FF007F" : "#415A6C",
+                "&:hover": {
+                  backgroundColor: "#FF007F",
+                },
+              }}
+            >
+              <Typography className="ms-gridtitle">Push Alternative</Typography>
+            </Box>
+            <Box
+              className="ms-grid"
+              onClick={handleReallocate}
+              sx={{
+                backgroundColor:
+                  chooseData.rarbysku == "True" ? "green" : "#415A6C",
+                "&:hover": {
+                  backgroundColor: "#FF007F",
+                },
+              }}
+            >
+              <Typography className="ms-gridtitle">Reallocate</Typography>
+            </Box>
+            <Box className="ms-grid">
+              <Badge badgeContent="Coming Soon" className="redirect-badge">
+                <Typography className="ms-gridtitle">Redirect</Typography>
+              </Badge>
+            </Box>
           </Box>
-          <Box
-            className="ms-grid"
-            onClick={handleReallocate}
-            sx={{
-              backgroundColor:
-                chooseData.rarbysku == "True" ? "green" : "#415A6C",
-              "&:hover": {
-                backgroundColor: "#FF007F",
-              },
-            }}
-          >
-            <Typography className="ms-gridtitle">Reallocate</Typography>
-          </Box>
-          <Box className="ms-grid">
-            <Badge badgeContent="Coming Soon" className="redirect-badge">
-              <Typography className="ms-gridtitle">Redirect</Typography>
-            </Badge>
-          </Box>
-        </Box>
+        )}
       </Stack>
     </div>
   );
@@ -1889,7 +1894,6 @@ const OhrTable = ({ onData }) => {
                       fontSize={13}
                       sx={{
                         display: "flex",
-                        // gap: "16px",
                         padding: "12px",
                         border: "none",
                       }}
@@ -1908,7 +1912,6 @@ const OhrTable = ({ onData }) => {
                               color: "#415A6C",
                               cursor: "pointer",
                               fontWeight: "800",
-                              // marginTop: "-1px",
                               marginTop: "4px",
                               backgroundColor: "transparent",
                             }}

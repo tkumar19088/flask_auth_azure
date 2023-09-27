@@ -335,6 +335,7 @@ const StockReallocationData = ({ onData }) => {
   //   Customer: "Asda",
   //   Location: "Germany",
   //   "RB SKU": "3247398",
+  //   Discription:"Airwick Electrical Lemon"
   //   "Sell out": 600,
   //   allocationconsumed: 180,
   //   cmuscore: 7.44,

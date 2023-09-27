@@ -1007,11 +1007,15 @@ const Sellin = ({ onData }) => {
                 </TableCell>
               </TableRow>
             )}
-            {data.map((item) => (
+            {data.map((item, index) => (
               <React.Fragment key={item["RB SKU"]}>
                 <TableRow
                   onClick={() => handleRowClick(item["RB SKU"])}
                   key={item["RB SKU"]}
+                  sx={{
+                    backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
+                    // borderBottom: "1px solid #dcdcdc",
+                  }}
                 >
                   <TableCell
                     fontSize={13}
@@ -1020,6 +1024,7 @@ const Sellin = ({ onData }) => {
                       // gap: "16px",
                       padding: "12px",
                       border: "none",
+                      borderBottom: "1px solid #dcdcdc",
                     }}
                   >
                     <Box
