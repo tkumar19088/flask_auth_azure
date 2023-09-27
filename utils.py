@@ -227,7 +227,7 @@ class AlertsManager:
         ).reset_index(drop=True)
 
     def generate_oos_alerts(self):
-        filters = ['Business Unit', 'Customer', 'Location', 'Brand']
+        filters = ['Business Unit', 'Location', 'Brand']
         oos_data = AzureBlobReader().read_csvfile("ui_data/currentalertsoos.csv")#, self.global_filters, self.global_user)
         oosalertsdata = AlertsManager(self.global_filters, self.global_user).filter_data(oos_data, filters)
         if len(oosalertsdata) > 0:
@@ -554,19 +554,21 @@ class AlternativeSKUsCalculator:
 #
 # **************************************************************************
 def replace_missing_values(df):
-    missing_values = [None, 'null', 'NULL', 'Null', 'Nan', 'nan', 'NaN', ' ', '']
+    missing_values = [None, 'null', 'NULL', 'Null', 'Nan', 'nan', 'NaN', ' ', '', 'None; None']
     cleaned_df = df.replace(missing_values, '-')
 
     # Limit float values to 2 decimal places and replace 0.00 with 0
     cleaned_df = cleaned_df.applymap(lambda x: round(x, 2) if isinstance(x, float) and x not in [0, 0.00] else x).replace(0.00, 0)
     df = cleaned_df.fillna('-')
-
     for col in df.columns:
         if 'ExpSL' in col or 'recom-score' in col:
-            df[col] = df[col].apply(lambda x: f"{x*100}%" if isinstance(x, (int, float)) else x)
-        elif 'SOH' in col or 'SoH' in col:
+            df[col] = df[col].apply(lambda x: f"{int(x)*100}%" if isinstance(x, (int, float)) else x)
+        if 'Exp NR' in col:
+            df[col] = df[col].apply(lambda x: f"{x:.2f}" if isinstance(x, (int, float)) and x != 0 else x)
+        if 'SOH' in col or 'SoH' in col or 'EXPSOHATEOW' in col or 'soh' in col:
             df[col] = df[col].apply(lambda x: int(x) if isinstance(x, (float)) else x)
-        elif 'RB SKU' not in col:
+        if 'RB SKU' not in col:
             df[col] = df[col].apply(lambda x: f"{x:,}" if isinstance(x, (int, float)) else x)
-
+    df = df.replace([0.00, 0.0, "0.00", "0.0"], 0)
+    df = df.apply(lambda x: f"{int(x)*100}%" if isinstance(x, (int, float)) else x)
     return df
