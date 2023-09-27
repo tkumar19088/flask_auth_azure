@@ -57,7 +57,7 @@ const OhrTable = ({ onData }) => {
   const [campaignsData, setcampaignsData] = useState([]);
   const [pushAlternativeData, setpushAlternativeData] = useState([]);
   const [iscampaigns, setiscampaigns] = useState(false);
-
+  const [chooseData, setchooseData] = useState({});
   const truncateText = (text, maxLength) => {
     if (text.length <= maxLength) {
       return text;
@@ -1122,6 +1122,35 @@ const OhrTable = ({ onData }) => {
     navigate(-1);
   };
 
+  const handleChooseMitigation = async () => {
+    dispatch(updateloader(true));
+    var data = { rbsku: expandedRow };
+    try {
+      const response = await fetch("http://localhost:5000/choosescenario", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        setchooseData(json);
+        // dispatch(fetchstockreallocatedata(json));
+        // dispatch(fetchstaticrow(json.static_row));
+        // dispatch(updateexporttabledata(json));
+        // navigate("/stockreallocation");
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
+  };
+
   const SubTable = ({ details }) => (
     <div style={{ marginTop: "-18px", padding: "10px" }} className="mini-table">
       <Typography
@@ -1299,6 +1328,7 @@ const OhrTable = ({ onData }) => {
               },
               borderRadius: "50px",
             }}
+            onClick={handleChooseMitigation}
           >
             Choose a Mitigation Strategy
           </Button>
@@ -1308,7 +1338,13 @@ const OhrTable = ({ onData }) => {
             className="ms-grid"
             onClick={handlePushAlternative}
             sx={{
-              backgroundColor: pushAlternative ? "#FF007F" : "#415A6C",
+              backgroundColor:
+                chooseData.pushaltskus == "True" && !pushAlternative
+                  ? "green"
+                  : pushAlternative
+                  ? "#FF007F"
+                  : "#415A6C",
+              // backgroundColor: pushAlternative ? "#FF007F" : "#415A6C",
               "&:hover": {
                 backgroundColor: "#FF007F",
               },
@@ -1320,7 +1356,8 @@ const OhrTable = ({ onData }) => {
             className="ms-grid"
             onClick={handleReallocate}
             sx={{
-              backgroundColor: "#415A6C",
+              backgroundColor:
+                chooseData.rarbysku == "True" ? "green" : "#415A6C",
               "&:hover": {
                 backgroundColor: "#FF007F",
               },
@@ -1947,9 +1984,7 @@ const OhrTable = ({ onData }) => {
                       }}
                     >
                       <Typography fontSize="13px">
-                        {item["Reckitt WOC"]
-                          ? parseFloat(item["Reckitt WOC"].toFixed(2))
-                          : "-"}
+                        {item["Reckitt WOC"]}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -2010,7 +2045,7 @@ const OhrTable = ({ onData }) => {
                           fontSize: "13px",
                         }}
                       >
-                        {parseFloat(item["Exp NR CW"].toFixed(2))}
+                        {item["Exp NR CW"]}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -2021,7 +2056,7 @@ const OhrTable = ({ onData }) => {
                       }}
                     >
                       <Typography fontSize="13px">
-                        {parseFloat(item["Exp NR CW+1"].toFixed(2))}
+                        {item["Exp NR CW+1"]}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -2032,7 +2067,7 @@ const OhrTable = ({ onData }) => {
                       }}
                     >
                       <Typography fontSize="13px">
-                        {parseFloat(item["Exp NR CW+2"].toFixed(2))}
+                        {item["Exp NR CW+2"]}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -2043,7 +2078,7 @@ const OhrTable = ({ onData }) => {
                       }}
                     >
                       <Typography fontSize="13px">
-                        {parseFloat(item["Exp NR CW+3"].toFixed(2))}
+                        {item["Exp NR CW+3"]}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -2062,20 +2097,27 @@ const OhrTable = ({ onData }) => {
                           fontSize: "13px",
                           width: "30px",
                           height: "25px",
-                          backgroundColor: item["RAG CW"]
-                            ? item["RAG CW"] == "G"
-                              ? "#57a957"
-                              : item["RAG CW"] == "R"
-                              ? "#F44444"
-                              : "orange"
-                            : "",
+                          backgroundColor:
+                            item["RAG CW"] != "-"
+                              ? item["RAG CW"] == 2
+                                ? "#57a957"
+                                : item["RAG CW"] == 0
+                                ? "#F44444"
+                                : "orange"
+                              : "",
                           display: "flex",
                           justifyContent: "center",
                           textAlign: "center",
                           alignItems: "center",
                         }}
                       >
-                        {item["RAG CW"]}
+                        {item["RAG CW"] != "-"
+                          ? item["RAG CW"] == 2
+                            ? "G"
+                            : item["RAG CW"] == 0
+                            ? "R"
+                            : "A"
+                          : ""}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -2092,20 +2134,27 @@ const OhrTable = ({ onData }) => {
                           color: "#fff",
                           width: "30px",
                           height: "25px",
-                          backgroundColor: item["RAG CW+1"]
-                            ? item["RAG CW+1"] == "G"
-                              ? "#57a957"
-                              : item["RAG CW+1"] == "R"
-                              ? "#F44444"
-                              : "orange"
-                            : "",
+                          backgroundColor:
+                            item["RAG CW+1"] != "-"
+                              ? item["RAG CW+1"] == 2
+                                ? "#57a957"
+                                : item["RAG CW+1"] == 0
+                                ? "#F44444"
+                                : "orange"
+                              : "",
                           display: "flex",
                           justifyContent: "center",
                           textAlign: "center",
                           alignItems: "center",
                         }}
                       >
-                        {item["RAG CW+1"]}
+                        {item["RAG CW+1"] != "-"
+                          ? item["RAG CW+1"] == 2
+                            ? "G"
+                            : item["RAG CW+1"] == 0
+                            ? "R"
+                            : "A"
+                          : ""}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -2123,20 +2172,27 @@ const OhrTable = ({ onData }) => {
                           color: "#fff",
                           width: "30px",
                           height: "25px",
-                          backgroundColor: item["RAG CW+2"]
-                            ? item["RAG CW+2"] == "G"
-                              ? "#57a957"
-                              : item["RAG CW+2"] == "R"
-                              ? "#F44444"
-                              : "orange"
-                            : "",
+                          backgroundColor:
+                            item["RAG CW+2"] != "-"
+                              ? item["RAG CW+2"] == 2
+                                ? "#57a957"
+                                : item["RAG CW+2"] == 0
+                                ? "#F44444"
+                                : "orange"
+                              : "",
                           display: "flex",
                           justifyContent: "center",
                           textAlign: "center",
                           alignItems: "center",
                         }}
                       >
-                        {item["RAG CW+2"]}
+                        {item["RAG CW+2"] != "-"
+                          ? item["RAG CW+2"] == 2
+                            ? "G"
+                            : item["RAG CW+2"] == 0
+                            ? "R"
+                            : "A"
+                          : ""}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -2154,20 +2210,27 @@ const OhrTable = ({ onData }) => {
                           color: "#fff",
                           width: "30px",
                           height: "25px",
-                          backgroundColor: item["RAG CW+3"]
-                            ? item["RAG CW+3"] == "G"
-                              ? "#57a957"
-                              : item["RAG CW+3"] == "R"
-                              ? "#F44444"
-                              : "orange"
-                            : "",
+                          backgroundColor:
+                            item["RAG CW+3"] != "-"
+                              ? item["RAG CW+3"] == 2
+                                ? "#57a957"
+                                : item["RAG CW+3"] == 0
+                                ? "#F44444"
+                                : "orange"
+                              : "",
                           display: "flex",
                           justifyContent: "center",
                           textAlign: "center",
                           alignItems: "center",
                         }}
                       >
-                        {item["RAG CW+3"]}
+                        {item["RAG CW+3"] != "-"
+                          ? item["RAG CW+3"] == 2
+                            ? "G"
+                            : item["RAG CW+3"] == 0
+                            ? "R"
+                            : "A"
+                          : ""}
                       </Typography>
                     </TableCell>
 

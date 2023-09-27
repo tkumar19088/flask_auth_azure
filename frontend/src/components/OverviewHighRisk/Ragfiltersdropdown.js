@@ -40,7 +40,7 @@ function Ragfilters() {
   const handleCWR = () => {
     setcwr(!cwr);
     if (!cwr === true) {
-      const updatedObj = { ...selectedCW, ["R"]: "R" };
+      const updatedObj = { ...selectedCW, ["R"]: 0 };
       setselectedCW(updatedObj);
     } else {
       delete selectedCW["R"];
@@ -49,7 +49,7 @@ function Ragfilters() {
   const handleCWA = () => {
     setcwa(!cwa);
     if (!cwa === true) {
-      const updatedObj = { ...selectedCW, ["A"]: "A" };
+      const updatedObj = { ...selectedCW, ["A"]: 1 };
       setselectedCW(updatedObj);
     } else {
       delete selectedCW["A"];
@@ -58,7 +58,7 @@ function Ragfilters() {
   const handleCWG = () => {
     setcwg(!cwg);
     if (!cwg === true) {
-      const updatedObj = { ...selectedCW, ["G"]: "G" };
+      const updatedObj = { ...selectedCW, ["G"]: 2 };
       setselectedCW(updatedObj);
     } else {
       delete selectedCW["G"];
@@ -68,7 +68,7 @@ function Ragfilters() {
   const handleCW1R = () => {
     setcw1r(!cw1r);
     if (!cw1r === true) {
-      const updatedObj = { ...selectedCW1, ["R"]: "R" };
+      const updatedObj = { ...selectedCW1, ["R"]: 0 };
       setselectedCW1(updatedObj);
     } else {
       delete selectedCW1["R"];
@@ -77,7 +77,7 @@ function Ragfilters() {
   const handleCW1A = () => {
     setcw1a(!cw1a);
     if (!cw1a === true) {
-      const updatedObj = { ...selectedCW1, ["A"]: "A" };
+      const updatedObj = { ...selectedCW1, ["A"]: 1 };
       setselectedCW1(updatedObj);
     } else {
       delete selectedCW1["A"];
@@ -86,7 +86,7 @@ function Ragfilters() {
   const handleCW1G = () => {
     setcw1g(!cw1g);
     if (!cw1g === true) {
-      const updatedObj = { ...selectedCW1, ["G"]: "G" };
+      const updatedObj = { ...selectedCW1, ["G"]: 2 };
       setselectedCW1(updatedObj);
     } else {
       delete selectedCW1["G"];
@@ -98,7 +98,7 @@ function Ragfilters() {
   const handleCW2R = () => {
     setcw2r(!cw2r);
     if (!cw2r === true) {
-      const updatedObj = { ...selectedCW2, ["R"]: "R" };
+      const updatedObj = { ...selectedCW2, ["R"]: 0 };
       setselectedCW2(updatedObj);
     } else {
       delete selectedCW2["R"];
@@ -107,7 +107,7 @@ function Ragfilters() {
   const handleCW2A = () => {
     setcw2a(!cw2a);
     if (!cw2a === true) {
-      const updatedObj = { ...selectedCW2, ["A"]: "A" };
+      const updatedObj = { ...selectedCW2, ["A"]: 1 };
       setselectedCW2(updatedObj);
     } else {
       delete selectedCW2["A"];
@@ -116,7 +116,7 @@ function Ragfilters() {
   const handleCW2G = () => {
     setcw2g(!cw2g);
     if (!cw2g === true) {
-      const updatedObj = { ...selectedCW2, ["G"]: "G" };
+      const updatedObj = { ...selectedCW2, ["G"]: 2 };
       setselectedCW2(updatedObj);
     } else {
       delete selectedCW2["G"];
@@ -128,7 +128,7 @@ function Ragfilters() {
   const handleCW3R = () => {
     setcw3r(!cw3r);
     if (!cw3r === true) {
-      const updatedObj = { ...selectedCW3, ["R"]: "R" };
+      const updatedObj = { ...selectedCW3, ["R"]: 0 };
       setselectedCW3(updatedObj);
     } else {
       delete selectedCW3["R"];
@@ -137,7 +137,7 @@ function Ragfilters() {
   const handleCW3A = () => {
     setcw3a(!cw3a);
     if (!cw3a === true) {
-      const updatedObj = { ...selectedCW3, ["A"]: "A" };
+      const updatedObj = { ...selectedCW3, ["A"]: 1 };
       setselectedCW3(updatedObj);
     } else {
       delete selectedCW3["A"];
@@ -146,7 +146,7 @@ function Ragfilters() {
   const handleCW3G = () => {
     setcw3g(!cw3g);
     if (!cw3g === true) {
-      const updatedObj = { ...selectedCW3, ["G"]: "G" };
+      const updatedObj = { ...selectedCW3, ["G"]: 2 };
       setselectedCW3(updatedObj);
     } else {
       delete selectedCW3["G"];
@@ -229,6 +229,7 @@ function Ragfilters() {
     console.log(filteredData);
     dispatch(fetchofilteredverviewhighriskdata(filteredData));
     dispatch(flagragfiltersohr(true));
+    setAnchorEl(null);
   };
 
   const handleReset = () => {
@@ -247,8 +248,9 @@ function Ragfilters() {
     setcw3r(false);
     setcw3a(false);
     setcw3g(false);
-    dispatch(resetragfiltersohr());
+    // dispatch(resetragfiltersohr());
     dispatch(flagragfiltersohr(false));
+    setAnchorEl(null);
   };
 
   const handleMenuClick = (event) => {

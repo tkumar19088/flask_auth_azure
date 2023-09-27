@@ -6,3 +6,52 @@
     text-transform: none !important;
 
 }
+
+
+@media screen and (min-width: 1920px) {
+
+    .ragfilter-title{
+        color: #415A6C;
+        /* margin-block: 5px; */
+    }
+    .grag{
+        width: 25px;
+        height: 25px;
+        text-align: center;
+        margin: auto;
+        
+    }
+
+    .css-6hp17o-MuiList-root-MuiMenu-list {
+        list-style: none;
+        margin: 0px;
+        padding: 0;
+        position: relative;
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+        width: 235px;
+     
+
+}
+
+.filterdropdown-insidebtn{
+    display: flex;
+    justify-content: space-around !important;
+
+}
+.btn-minibtns{
+    height: 24px !important;
+    text-transform: none !important;
+}
+
+
+.btn-minibtns:hover{
+    
+    background-color: #FF007E !important;
+}
+
+
+
+
+
+}

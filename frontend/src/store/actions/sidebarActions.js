@@ -49,6 +49,12 @@ export const fetchuserdetails = (newValue) => {
     payload: newValue,
   };
 };
+export const fetchuserdetailsreset = (newValue) => {
+  return {
+    type: "FETCH_USERDETAILSRESET",
+    payload: newValue,
+  };
+};
 export const fetchoverviewhighriskdata = (newValue) => {
   return {
     type: "FETCH_OVERVIEWHIGHRISKDATA",
@@ -257,6 +263,12 @@ export const fetchalerts = (newValue) => {
     payload: newValue,
   };
 };
+export const fetchalertsreset = (newValue) => {
+  return {
+    type: "FETCH_ALERTSRESET",
+    payload: newValue,
+  };
+};
 export const fetchtaburl = (newValue) => {
   return {
     type: "FETCH_TABURL",
@@ -272,6 +284,12 @@ export const updatesearch = (newValue) => {
 export const updateiswithinchannel = (newValue) => {
   return {
     type: "UPDATE_ISWITHINCHANNEL",
+    payload: newValue,
+  };
+};
+export const updateapplyfilterserror = (newValue) => {
+  return {
+    type: "UPDATE_APPLYFILTERSERROR",
     payload: newValue,
   };
 };

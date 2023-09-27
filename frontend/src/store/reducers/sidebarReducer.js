@@ -22,6 +22,7 @@ const initialState = {
   businessEmpty: false,
   locationEmpty: false,
   alerts: [],
+  alertsreset: [],
   userDetails: {
     Brand: ["Airwick", "Gaviscon"],
     "Business Unit": ["Hygiene", "Health"],
@@ -31,6 +32,7 @@ const initialState = {
     Name: "",
     Role: "admin",
   },
+  userDetailsreset: {},
   overviewhighriskdata: [],
   filteredoverviewhighriskdata: [],
   isragfilterohr: false,
@@ -123,6 +125,7 @@ const initialState = {
   taburl: "",
   search: false,
   isWithinChannel: true,
+  applyfilterserror: false,
 };
 
 const sidebarReducer = (state = initialState, action) => {
@@ -186,6 +189,11 @@ const sidebarReducer = (state = initialState, action) => {
       return {
         ...state,
         userDetails: action.payload,
+      };
+    case "FETCH_USERDETAILSRESET":
+      return {
+        ...state,
+        userDetailsreset: action.payload,
       };
     case "FETCH_OVERVIEWHIGHRISKDATA":
       return {
@@ -362,6 +370,11 @@ const sidebarReducer = (state = initialState, action) => {
         ...state,
         alerts: action.payload,
       };
+    case "FETCH_ALERTSRESET":
+      return {
+        ...state,
+        alertsreset: action.payload,
+      };
     case "FETCH_TABURL":
       return {
         ...state,
@@ -376,6 +389,11 @@ const sidebarReducer = (state = initialState, action) => {
       return {
         ...state,
         isWithinChannel: action.payload,
+      };
+    case "UPDATE_APPLYFILTERSERROR":
+      return {
+        ...state,
+        applyfilterserror: action.payload,
       };
     default:
       return state;

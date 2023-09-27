@@ -12,6 +12,10 @@
         color: #415A6C;
         /* margin-block: 5px; */
     }
+    .ragfilter-title.first{
+        color: #415A6C;
+        padding: 0px 9px;
+    }
     .grag{
         width: 25px;
         height: 25px;
@@ -54,7 +58,7 @@
 
 }
 
-@media screen and (min-width: 560px) {
+@media screen and (min-width: 2560px) {
 
     .ragfilter-title{
         color: #415A6C;

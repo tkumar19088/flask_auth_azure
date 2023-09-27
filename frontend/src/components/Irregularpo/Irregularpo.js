@@ -54,6 +54,7 @@ const Irregularpo = () => {
     {
       id: 1,
       poNumber: "PO no 123",
+      customerPoNumber: "PO no 123",
       poReceiptDate: "20-07-2023",
       poStatus: "Open",
       noSKUsinPO: 80,
@@ -64,44 +65,31 @@ const Irregularpo = () => {
       perDiscepency: "-84%",
       details: [
         {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
+          rbsku: "Airwick",
+          ppg: "23434534693dlf",
+          description: "AWICK,IE,STICK UP LAVX12",
+          alert: "Incorrect volume",
+          quantity: "400",
+          sellin: "400",
+          percentage: "40%",
+          orderprice: "£2.50",
         },
         {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
+          rbsku: "Airwick",
+          ppg: "23434534693dlf",
+          description: "AWICK,IE,STICK UP LAVX12",
+          alert: "Incorrect volume",
+          quantity: "400",
+          sellin: "400",
+          percentage: "40%",
+          orderprice: "£2.50",
         },
       ],
     },
     {
       id: 2,
       poNumber: "PO no 500",
+      customerPoNumber: "PO no 500",
       poReceiptDate: "10-07-2023",
       poStatus: "Delayed",
       noSKUsinPO: 60,
@@ -150,6 +138,7 @@ const Irregularpo = () => {
     {
       id: 3,
       poNumber: "PO no 500",
+      customerPoNumber: "PO no 500",
       poReceiptDate: "10-07-2023",
       poStatus: "Stock",
       noSKUsinPO: 50,
@@ -198,6 +187,7 @@ const Irregularpo = () => {
     {
       id: 4,
       poNumber: "PO no 500",
+      customerPoNumber: "PO no 500",
       poReceiptDate: "10-07-2023",
       poStatus: "Open",
       noSKUsinPO: 70,
@@ -246,6 +236,7 @@ const Irregularpo = () => {
     {
       id: 5,
       poNumber: "PO no 500",
+      customerPoNumber: "PO no 500",
       poReceiptDate: "10-07-2023",
       poStatus: "Open",
       noSKUsinPO: 70,
@@ -294,6 +285,7 @@ const Irregularpo = () => {
     {
       id: 6,
       poNumber: "PO no 500",
+      customerPoNumber: "PO no 500",
       poReceiptDate: "10-07-2023",
       poStatus: "Open",
       noSKUsinPO: 70,
@@ -342,6 +334,7 @@ const Irregularpo = () => {
     {
       id: 7,
       poNumber: "PO no 500",
+      customerPoNumber: "PO no 500",
       poReceiptDate: "10-07-2023",
       poStatus: "Open",
       noSKUsinPO: 70,
@@ -413,7 +406,7 @@ const Irregularpo = () => {
                 color: "#415A6C",
               }}
             >
-              <Typography fontSize={14}>SKU</Typography>
+              <Typography fontSize={14}>RB SKU</Typography>
             </TableCell>
             <TableCell
               sx={{
@@ -423,7 +416,7 @@ const Irregularpo = () => {
                 color: "#415A6C",
               }}
             >
-              <Typography fontSize={14}>SKU Code</Typography>
+              <Typography fontSize={14}>PPG</Typography>
             </TableCell>
 
             <TableCell
@@ -435,7 +428,7 @@ const Irregularpo = () => {
               }}
             >
               <Typography fontSize={14} lineHeight="16px">
-                Quantity Ordered
+                Description
               </Typography>
             </TableCell>
             <TableCell
@@ -447,7 +440,7 @@ const Irregularpo = () => {
               }}
             >
               <Typography fontSize={14} lineHeight="16px">
-                Quantity Forecasted
+                Alert type
               </Typography>
             </TableCell>
             <TableCell
@@ -459,7 +452,7 @@ const Irregularpo = () => {
               }}
             >
               <Typography fontSize={14} lineHeight="16px">
-                % Discrepancy
+                Quantity ordered
               </Typography>
             </TableCell>
             <TableCell
@@ -470,7 +463,39 @@ const Irregularpo = () => {
                 color: "#415A6C",
               }}
             >
-              <Typography fontSize={14}>Reviewed</Typography>
+              <Typography fontSize={14}>
+                Sell-in forecast (S-OLA vs Kinaxis)
+              </Typography>
+            </TableCell>
+            <TableCell
+              sx={{
+                backgroundColor: "#E5EBEF",
+                border: "1px solid #dcdcdc",
+                textAlign: "center",
+                color: "#415A6C",
+              }}
+            >
+              <Typography fontSize={14}>Percentage discrepancy</Typography>
+            </TableCell>
+            <TableCell
+              sx={{
+                backgroundColor: "#E5EBEF",
+                border: "1px solid #dcdcdc",
+                textAlign: "center",
+                color: "#415A6C",
+              }}
+            >
+              <Typography fontSize={14}>Order Price</Typography>
+            </TableCell>
+            <TableCell
+              sx={{
+                backgroundColor: "#E5EBEF",
+                border: "1px solid #dcdcdc",
+                textAlign: "center",
+                color: "#415A6C",
+              }}
+            >
+              <Typography fontSize={14}>Deep dive</Typography>
             </TableCell>
           </TableRow>
         </TableHead>
@@ -483,29 +508,33 @@ const Irregularpo = () => {
               }}
             >
               <TableCell sx={{ textAlign: "center" }}>
-                <Typography fontSize="13px">{item.skuname}</Typography>
+                <Typography fontSize="13px">{item.rbsku}</Typography>
               </TableCell>
               <TableCell sx={{ textAlign: "center" }}>
-                <Typography fontSize="13px">{item.skucode}</Typography>
+                <Typography fontSize="13px">{item.ppg}</Typography>
               </TableCell>
 
               <TableCell sx={{ textAlign: "center" }}>
-                <Typography fontSize="13px">{item.quantityOrdered}</Typography>
+                <Typography fontSize="13px">{item.description}</Typography>
               </TableCell>
               <TableCell sx={{ textAlign: "center" }}>
-                <Typography fontSize="13px">
-                  {item.quantityForcasted}
-                </Typography>
+                <Typography fontSize="13px">{item.alert}</Typography>
               </TableCell>
               <TableCell sx={{ textAlign: "center" }}>
                 <Typography
                   sx={{
-                    color: "#F08C2A",
                     fontSize: "13px",
                   }}
                 >
-                  {item.percentageDescrepency}
+                  {item.quantity}
                 </Typography>
+              </TableCell>
+              <TableCell sx={{ textAlign: "center" }}>{item.sellin}</TableCell>
+              <TableCell sx={{ textAlign: "center" }}>
+                {item.percentage}
+              </TableCell>
+              <TableCell sx={{ textAlign: "center" }}>
+                {item.orderprice}
               </TableCell>
               <TableCell sx={{ textAlign: "center" }}>
                 <Button
@@ -581,234 +610,84 @@ const Irregularpo = () => {
                   <TableRow>
                     <TableCell
                       style={{
-                        // cursor: "pointer",
                         textAlign: "center",
                         color: "#415A6C",
                         backgroundColor: "#E5EBEF",
                         border: "1px solid #dcdcdc",
                       }}
                     >
-                      <Box>
-                        <Typography fontSize={14} ml={{ lg: "-10px" }}>
-                          PO Number
-                        </Typography>
-                      </Box>
+                      Reckitt PO number
                     </TableCell>
                     <TableCell
-                      sx={{
+                      style={{
+                        textAlign: "center",
+                        color: "#415A6C",
                         backgroundColor: "#E5EBEF",
                         border: "1px solid #dcdcdc",
                       }}
                     >
-                      <Box
-                        sx={{
-                          display: "flex",
-                          textAlign: "center",
-                          color: "#415A6C",
-                        }}
-                      >
-                        <Box marginRight="-3px" mt={{ lg: "7px" }}>
-                          <Box>
-                            <ArrowDropUpIcon
-                              style={{ height: "28px", width: "28px" }}
-                            />
-                          </Box>
-                          <Box mt="-28px">
-                            <ArrowDropDownIcon
-                              style={{ height: "28px", width: "28px" }}
-                            />
-                          </Box>
-                        </Box>
-                        <Box textAlign="center" alignSelf="center">
-                          <Typography
-                            fontSize={14}
-                            // mt="7px"
-                            // mx="-4px"
-                            lineHeight={{ lg: "16px" }}
-                            // width={{ lg: "90px" }}
-                          >
-                            PO Receipt Date
-                          </Typography>
-                        </Box>
-                      </Box>
+                      Customer PO number
                     </TableCell>
                     <TableCell
-                      sx={{
+                      style={{
+                        textAlign: "center",
+                        color: "#415A6C",
                         backgroundColor: "#E5EBEF",
                         border: "1px solid #dcdcdc",
                       }}
                     >
-                      <Box textAlign="center" color="#415A6C">
-                        <Typography fontSize={14}>PO Status</Typography>
-                      </Box>
+                      PO Receipt Date
                     </TableCell>
                     <TableCell
-                      sx={{
+                      style={{
+                        textAlign: "center",
+                        color: "#415A6C",
                         backgroundColor: "#E5EBEF",
                         border: "1px solid #dcdcdc",
                       }}
                     >
-                      <Box textAlign="center" color="#415A6C">
-                        <Typography fontSize={14} lineHeight={{ lg: "16px" }}>
-                          No SKUs in PO
-                        </Typography>
-                      </Box>
+                      PO delivery date
                     </TableCell>
                     <TableCell
-                      sx={{
+                      style={{
+                        textAlign: "center",
+                        color: "#415A6C",
                         backgroundColor: "#E5EBEF",
                         border: "1px solid #dcdcdc",
                       }}
                     >
-                      <Box textAlign="center" color="#415A6C">
-                        <Typography
-                          fontSize={14}
-                          mt="7px"
-                          ml="14px"
-                          lineHeight={{ lg: "16px" }}
-                          width={{ lg: "110px" }}
-                          // border="1px solid"
-                        >
-                          No.Irregular SKUs
-                        </Typography>
-                      </Box>
+                      PO Status
                     </TableCell>
                     <TableCell
-                      sx={{
+                      style={{
+                        textAlign: "center",
+                        color: "#415A6C",
                         backgroundColor: "#E5EBEF",
                         border: "1px solid #dcdcdc",
                       }}
                     >
-                      <Box
-                        sx={{
-                          display: "flex",
-                          textAlign: "center",
-                          color: "#415A6C",
-                        }}
-                      >
-                        <Box sx={{ marginRight: "-10px" }}>
-                          <Box>
-                            <ArrowDropUpIcon
-                              style={{ height: "28px", width: "28px" }}
-                            />
-                          </Box>
-                          <Box mt="-28px">
-                            <ArrowDropDownIcon
-                              style={{ height: "28px", width: "28px" }}
-                            />
-                          </Box>
-                        </Box>
-                        <Box textAlign="center">
-                          <Typography
-                            fontSize={14}
-                            mt="7px"
-                            mx="0px"
-                            width={{ lg: "80px" }}
-                            lineHeight={{ lg: "16px" }}
-                            // sx={{ border: "1px solid" }}
-                          >
-                            Quantity Ordered
-                          </Typography>
-                        </Box>
-                      </Box>
+                      No SKUs in PO
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        color: "#415A6C",
+                        backgroundColor: "#E5EBEF",
+                        border: "1px solid #dcdcdc",
+                      }}
+                    >
+                      No.Irregular SKUs
                     </TableCell>
 
                     <TableCell
-                      sx={{
+                      style={{
+                        textAlign: "center",
+                        color: "#415A6C",
                         backgroundColor: "#E5EBEF",
                         border: "1px solid #dcdcdc",
                       }}
                     >
-                      <Box
-                        sx={{
-                          display: "flex",
-                          textAlign: "center",
-                          color: "#415A6C",
-                          width: "120px",
-                        }}
-                      >
-                        <Box>
-                          <Box>
-                            <ArrowDropUpIcon
-                              style={{ height: "28px", width: "28px" }}
-                            />
-                          </Box>
-                          <Box mt="-28px">
-                            <ArrowDropDownIcon
-                              style={{ height: "28px", width: "28px" }}
-                            />
-                          </Box>
-                        </Box>
-                        <Box display="flex">
-                          <Box textAlign="center">
-                            <Typography
-                              sx={{ fontSize: "14px" }}
-                              mt="6px"
-                              lineHeight={{ lg: "16px" }}
-                            >
-                              Quantity Forecasted
-                            </Typography>
-                          </Box>
-                          <Tooltip
-                            title="Timeframe: 20/7/23 - 27/7/23"
-                            arrow
-                            placement="top-start"
-                            ml={{ lg: "-19px" }}
-                          >
-                            <Box mt={{ lg: "5px" }} ml={{ lg: "-5px" }}>
-                              <InfoOutlinedIcon
-                                sx={{ height: "15px", color: "#000" }}
-                              />
-                            </Box>
-                          </Tooltip>
-                        </Box>
-                      </Box>
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        backgroundColor: "#E5EBEF",
-                        border: "1px solid #dcdcdc",
-                      }}
-                    >
-                      <Box
-                        sx={{
-                          display: "flex",
-                          textAlign: "center",
-                          color: "#415A6C",
-                        }}
-                      >
-                        <Box>
-                          <Box>
-                            <ArrowDropUpIcon
-                              style={{ height: "28px", width: "28px" }}
-                            />
-                          </Box>
-                          <Box mt="-28px">
-                            <ArrowDropDownIcon
-                              style={{ height: "28px", width: "28px" }}
-                            />
-                          </Box>
-                        </Box>
-                        <Box textAlign="center">
-                          <Typography fontSize={14} mt="7px" mx="-4px">
-                            % Discrepancy
-                          </Typography>
-                        </Box>
-                      </Box>
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        backgroundColor: "#E5EBEF",
-                        border: "1px solid #dcdcdc",
-                      }}
-                    >
-                      <Box
-                        textAlign="center"
-                        sx={{ color: "#415A6C" }}
-                        mt={{ lg: "-7px" }}
-                      >
-                        <Typography fontSize={14}>Irregular PO</Typography>
-                      </Box>
+                      Irregular PO
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -824,8 +703,11 @@ const Irregularpo = () => {
                       >
                         <TableCell fontSize={13}>
                           <Box
-                            mt={{ lg: "-1px" }}
-                            sx={{ display: "flex", alignItems: "center" }}
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
                           >
                             {expandedRow === item.id ? (
                               <RemoveIcon
@@ -834,7 +716,7 @@ const Irregularpo = () => {
                                   color: "#415A6C",
                                   cursor: "pointer",
                                   fontWeight: "800",
-                                  marginTop: "-1px",
+                                  // marginTop: "-1px",
                                   backgroundColor: "transparent",
                                 }}
                               />
@@ -853,51 +735,24 @@ const Irregularpo = () => {
                             {item.poNumber}
                           </Box>
                         </TableCell>
-                        <TableCell>
-                          <Typography fontSize={13} textAlign="center">
-                            {item.poReceiptDate}
-                          </Typography>
+                        <TableCell sx={{ textAlign: "center" }}>
+                          {item.customerPoNumber}
                         </TableCell>
-                        <TableCell>
-                          <Typography
-                            mx="20px"
-                            fontSize={13}
-                            textAlign="center"
-                          >
-                            {item.poStatus}
-                          </Typography>
+                        <TableCell sx={{ textAlign: "center" }}>
+                          {item.poReceiptDate}
                         </TableCell>
-                        <TableCell>
-                          <Typography
-                            mx="20px"
-                            fontSize={13}
-                            textAlign="center"
-                          >
-                            {item.noSKUsinPO}
-                          </Typography>
+                        <TableCell sx={{ textAlign: "center" }}>
+                          {item.poReceiptDate}
+                        </TableCell>
+                        <TableCell sx={{ textAlign: "center" }}>
+                          {item.poStatus}
+                        </TableCell>
+                        <TableCell sx={{ textAlign: "center" }}>
+                          {item.noSKUsinPO}
                         </TableCell>
                         <TableCell>
                           <Typography fontSize={13} textAlign="center">
                             {item.noSKUsIrregular}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography
-                            mx="20px"
-                            fontSize={13}
-                            textAlign="center"
-                          >
-                            {item.totalForecastedRevenue}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography fontSize={13} textAlign="center">
-                            {item.totalPORevenue}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography fontSize={13} textAlign="center">
-                            {item.perDiscepency}
                           </Typography>
                         </TableCell>
                         <TableCell>

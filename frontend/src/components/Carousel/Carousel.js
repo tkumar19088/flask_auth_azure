@@ -4,20 +4,57 @@ import { Box, Grid, Link, Typography, Paper, Card } from "@mui/material";
 import Error from "../../images/error.png";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import "./Casousel.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
 import { useNavigate } from "react-router-dom";
+import {
+  fetchbusinessempty,
+  fetchlocationempty,
+  updateapplyfilterserror,
+} from "../../store/actions/sidebarActions";
 
 const CarouselExample = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const data = useSelector((state) => state.sidebar.alerts);
   const [selectedalert, setselectedalert] = useState(false);
-
+  const business = useSelector((state) => state.sidebar.business);
+  const location = useSelector((state) => state.sidebar.location);
+  const apply = useSelector((state) => state.sidebar.apply);
   const handleOOSRishDetection = () => {
+    if (!business) {
+      dispatch(fetchbusinessempty(true));
+    }
+    if (!location) {
+      dispatch(fetchlocationempty(true));
+    }
+    if (!business || !location) {
+      return;
+    }
+    if (!apply) {
+      dispatch(updateapplyfilterserror(true));
+      return;
+    }
+
     setselectedalert(true);
     navigate("/overviewhighrisk");
   };
   const handleIrregularPO = () => {
+    if (!business) {
+      dispatch(fetchbusinessempty(true));
+    }
+    if (!location) {
+      dispatch(fetchlocationempty(true));
+    }
+    if (!business || !location) {
+      return;
+    }
+    if (!apply) {
+      dispatch(updateapplyfilterserror(true));
+      return;
+    }
+
     setselectedalert(true);
     // navigate("/irregular");
   };
@@ -34,6 +71,7 @@ const CarouselExample = () => {
           backgroundColor: "#E7E9EE",
           boxShadow: "none",
           // border: "1px solid red",
+          marginTop: "-15px",
         }}
         key={i}
       >

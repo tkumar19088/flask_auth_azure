@@ -922,72 +922,49 @@ const DemandTable = ({ onData }) => {
                     <div className="alignment">{item.PPG}</div>
                   </TableCell>{" "}
                   <TableCell>
-                    {" "}
-                    <div className="alignment">{item.Description}</div>
+                    <div>{item.Description}</div>
                   </TableCell>
                   <TableCell>
                     {" "}
                     <div className="alignment">{item.Brand}</div>
                   </TableCell>
                   <TableCell>
-                    <div className="alignment">
-                      {parseFloat(item.initialreckittsoh.toFixed(2))}
-                    </div>
+                    <div className="alignment">{item.initialreckittsoh}</div>
                   </TableCell>{" "}
                   <TableCell>
                     {" "}
-                    <div className="alignment">
-                      {parseFloat(item["Demand CW"]).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item["Demand CW"]}</div>
                   </TableCell>
                   <TableCell>
                     {" "}
-                    <div className="alignment">
-                      {parseFloat(item["Demand CW+1"]).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item["Demand CW+1"]}</div>
                   </TableCell>
                   <TableCell>
-                    <div className="alignment">
-                      {parseFloat(item["Demand CW+2"]).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item["Demand CW+2"]}</div>
                   </TableCell>
                   <TableCell>
-                    <div className="alignment">
-                      {parseFloat(item["Demand CW+3"]).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item["Demand CW+3"]}</div>
                   </TableCell>
                   <TableCell>
-                    <div className="alignment">
-                      {parseFloat(item["Demand CW+4"]).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item["Demand CW+4"]}</div>
                   </TableCell>
                   <TableCell>
                     {" "}
-                    <div className="alignment">
-                      {parseFloat(item["Demand CW+5"]).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item["Demand CW+5"]}</div>
                   </TableCell>
                   <TableCell>
-                    <div className="alignment">
-                      {parseFloat(item["Demand CW+6"]).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item["Demand CW+6"]}</div>
                   </TableCell>
                   <TableCell>
-                    <div className="alignment">
-                      {parseFloat(item["Demand CW+7"]).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item["Demand CW+7"]}</div>
                   </TableCell>
                   <TableCell>
                     {" "}
-                    <div className="alignment">
-                      {parseFloat(item["Demand CW+8"]).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item["Demand CW+8"]}</div>
                   </TableCell>
                   <TableCell>
                     {" "}
-                    <div className="alignment">
-                      {parseFloat(item["Demand CW+9"]).toFixed(2)}
-                    </div>
+                    <div className="alignment">{item["Demand CW+9"]}</div>
                   </TableCell>
                 </TableRow>
                 {expandedRow === item["RB SKU"] && iscampaigns && (

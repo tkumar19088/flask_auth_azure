@@ -10,6 +10,7 @@ import {
   fetchbusinessempty,
   fetchlocationempty,
   fetchtaburl,
+  updateapplyfilterserror,
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 import Badge from "@mui/material/Badge";
@@ -23,6 +24,7 @@ const Planning = ({ filterStatus }) => {
   const business = useSelector((state) => state.sidebar.business);
   const location = useSelector((state) => state.sidebar.location);
   const apply = useSelector((state) => state.sidebar.apply);
+
   const handleOOSRisk = () => {
     if (!business) {
       dispatch(fetchbusinessempty(true));
@@ -30,11 +32,11 @@ const Planning = ({ filterStatus }) => {
     if (!location) {
       dispatch(fetchlocationempty(true));
     }
-    console.log(apply);
     if (!business || !location) {
       return;
     }
     if (!apply) {
+      dispatch(updateapplyfilterserror(true));
       return;
     }
     filterStatus(true);
@@ -82,8 +84,32 @@ const Planning = ({ filterStatus }) => {
     setirregularselectedBG(false);
   };
 
-  const handleSellinforecast = () => {
-    navigate("/sellinforecast");
+  const handleSellinforecast = async () => {
+    dispatch(updateloader(true));
+    // var data = { rbsku: expandedRow };
+    try {
+      const response = await fetch("http://localhost:5000/getsellingraph", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        // dispatch(fetchstockreallocatedata(json));
+        // dispatch(fetchstaticrow(json.static_row));
+        // dispatch(updateexporttabledata(json));
+        navigate("/sellinforecast");
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
   };
 
   const handleSelloutforecast = () => {
