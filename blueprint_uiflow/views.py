@@ -23,6 +23,7 @@ def get_filter_params():
 
     data = request.json or {}
     try:
+        global_filters.clear()
         global_filters.update({k: v for k, v in data.items() if v})
         current_app.config['global_filters'] = global_filters
         alerts = AlertsManager(global_filters, global_user).get_alerts() or []
