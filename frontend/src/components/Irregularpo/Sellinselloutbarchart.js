@@ -2,6 +2,7 @@ import React from "react";
 import { Chart as ChartJS } from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
+import "./sellinsellout.css";
 
 const Sellinselloutbarchart = () => {
   const data1 = [
@@ -13,6 +14,7 @@ const Sellinselloutbarchart = () => {
     { name: "w6", value: 97 },
     { name: "w7", value: 93 },
     { name: "w8", value: 91 },
+    { name: "w9", value: 91 },
   ];
 
   const labels = data1.map((data) => data.name);
@@ -51,13 +53,18 @@ const Sellinselloutbarchart = () => {
     },
   };
   const chartContainerStyle = {
-    // height: "300px",
+    // maxheight: "300px",
     flex: "1", // Make it flexible and take up available width
+    // border: "2px solid red",
   };
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      <div style={chartContainerStyle}>
-        <Bar data={chartData} options={chartOptions} className="l-chart"  />
+    <div>
+      <div>
+        <Bar
+          data={chartData}
+          options={chartOptions}
+          className="sellin-sellout"
+        />
       </div>
     </div>
   );

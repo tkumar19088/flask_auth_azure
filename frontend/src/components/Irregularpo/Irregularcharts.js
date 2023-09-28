@@ -135,22 +135,20 @@ const Irregularcharts = () => {
                   backgroundColor: "#415A6C",
                   color: "#fff",
                   alignItems: "center",
+                  borderRadius: "3px",
                 }}
               >
-                <Grid item xs={6}>
+                <Grid container item xs={6} justifyContent="space-around">
                   <Typography fontSize="28px">
                     Po issue : (incorrect SKU/Price/Volume)
                   </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                  <Box display="flex" justifyContent="">
+                  <Box display="flex" justifyContent="space-around">
                     <Typography fontSize={20}>PO price: £1.00</Typography>
                     <Typography fontSize={20}>Agreed price: £10.00</Typography>
                   </Box>
-                  <Box display="flex" justifyContent="">
-                    <Typography fontSize={20}>Quantity Ordered: 200</Typography>
-                    <Typography fontSize={20}>Quantity forecasted: 500</Typography>
-                  </Box>
+                 
                 </Grid>
               </Grid>
 
@@ -177,203 +175,31 @@ const Irregularcharts = () => {
             </Typography>
           </Box>
           <Stack direction="row" spacing={2}>
-            <Box className="kpi-box">Reckitt stock on hand</Box>
-            <Box className="kpi-box">Stock Allocation to Customer</Box>
             <Grid item xs={2} className="kpi-box">
-              Monthly Allocation consumed to date
+              <Typography>Sell in forecast (S-OLA vs Kinaxis)</Typography>
+              <Typography color="green">1000 (800)</Typography>
             </Grid>
             <Grid item xs={2} className="kpi-box">
-              Customer inventory
+              <Typography>Sell out forecast</Typography>
+              <Typography color="green">1000</Typography>
             </Grid>
             <Grid item xs={2} className="kpi-box">
-              Customer 6 month average order quantity
+              <Typography>Quantity ordered</Typography>
+              <Typography color="green">900</Typography>{" "}
             </Grid>
             <Grid item xs={2} className="kpi-box">
-              Customer’s order quantity variance
+              <Typography>Percentage discrepancy</Typography>
+              <Typography color="green">10%</Typography>
+            </Grid>
+            <Grid item xs={2} className="kpi-box">
+              <Typography>Customer SoH (Current vs target)</Typography>
+              <Typography color="green">1000 (800)</Typography>
+            </Grid>
+            <Grid item xs={2} className="kpi-box">
+              <Typography>Customer WoC (Current vs target)</Typography>
+              <Typography color="green">3 (5)</Typography>{" "}
             </Grid>
           </Stack>
-
-          <Grid container spacing={1} item xs={12} border="">
-            <Grid item xs={2}>
-              <Box
-                margin="auto"
-                className="snrio-rslt1"
-                border="1px solid #E7E9EE"
-                width={{ lg: "160px", xs: "130px" }}
-                height={{ lg: "90px" }}
-              >
-                <Typography
-                  mt={{ lg: "15px" }}
-                  fontSize={{ lg: 14, xs: 12 }}
-                  className="scn-txt"
-                >
-                  Reckitt stock on hand
-                </Typography>
-                <Typography
-                  alignSelf="center"
-                  fontSize={{ lg: 18 }}
-                  color="#008824"
-                  className="scn-txt"
-                  textAlign="center"
-                  mt={{ lg: "20px" }}
-                  ml={{ lg: "-30px" }}
-                >
-                  10000
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={2}>
-              <Box
-                className="snrio-rslt1"
-                border="1px solid #E7E9EE"
-                width={{ lg: "160px", xs: "130px" }}
-                height={{ lg: "90px" }}
-              >
-                <Typography
-                  lineHeight={{ lg: "16px" }}
-                  mt={{ lg: "15px", xs: "7px" }}
-                  fontSize={{ lg: 14, xs: 12 }}
-                  className="scn-txt"
-                >
-                  Stock Allocation to Customer
-                </Typography>
-                <Typography
-                  fontSize={{ lg: 18 }}
-                  color="#008824"
-                  className="scn-txt"
-                  textAlign="center"
-                  ml={{ lg: "-30px" }}
-                  mt={{ lg: "10px" }}
-                >
-                  5000
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={2}>
-              <Box
-                className="snrio-rslt1"
-                border="1px solid #E7E9EE"
-                width={{ lg: "160px", xs: "130px" }}
-                height={{ lg: "90px" }}
-              >
-                <Box>
-                  <Typography
-                    lineHeight={{ lg: "16px" }}
-                    mt={{ lg: "15px", xs: "7px" }}
-                    fontSize={{ lg: 14, xs: 12 }}
-                    className="scn-txt"
-                  >
-                    Monthly Allocation consumed to date
-                  </Typography>
-                </Box>
-                <Box
-                  display="flex"
-                  // justifyContent="space-between"
-                  // border="1px solid"
-                >
-                  <Typography
-                    fontSize={{ lg: 18 }}
-                    color="#008824"
-                    className="scn-txt"
-                    ml={{ lg: "10px" }}
-                    mt={{ lg: "10px" }}
-                  >
-                    65%
-                  </Typography>
-                  <Typography
-                    color="#008824"
-                    fontSize={12}
-                    mt={{ lg: "15px" }}
-                    ml={{ lg: "50px" }}
-                  >
-                    3250
-                  </Typography>
-                </Box>
-              </Box>
-            </Grid>
-            <Grid item xs={2}>
-              <Box
-                className="snrio-rslt1"
-                border="1px solid #E7E9EE"
-                width={{ lg: "160px", xs: "130px" }}
-                height={{ lg: "90px" }}
-              >
-                <Typography
-                  // alignSelf="center"
-                  mt={{ lg: "15px", xs: "7px" }}
-                  fontSize={{ lg: 14, xs: 12 }}
-                  className="scn-txt"
-                >
-                  Customer inventory
-                </Typography>
-                <Typography
-                  alignSelf="center"
-                  fontSize={{ lg: 18 }}
-                  color="#008824"
-                  className="scn-txt"
-                  mt={{ lg: "20px" }}
-                  textAlign="center"
-                  ml={{ lg: "-30px" }}
-                >
-                  1400
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={2}>
-              <Box
-                className="snrio-rslt1"
-                border="1px solid #E7E9EE"
-                width={{ lg: "160px", xs: "130px" }}
-                height={{ lg: "90px" }}
-              >
-                <Typography
-                  lineHeight={{ lg: "16px" }}
-                  mt={{ lg: "15px", xs: "7px" }}
-                  fontSize={{ lg: 14, xs: 12 }}
-                  className="scn-txt"
-                >
-                  Customer 6 month average order quantity
-                </Typography>
-                <Typography
-                  fontSize={{ lg: 18 }}
-                  color="#008824"
-                  className="scn-txt"
-                  textAlign="center"
-                  ml={{ lg: "-30px" }}
-                  mt={{ lg: "10px" }}
-                >
-                  5000
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={2}>
-              <Box
-                className="snrio-rslt1"
-                border="1px solid #E7E9EE"
-                width={{ lg: "160px", xs: "130px" }}
-                height={{ lg: "90px" }}
-              >
-                <Typography
-                  lineHeight={{ lg: "16px" }}
-                  mt={{ lg: "15px", xs: "7px" }}
-                  fontSize={{ lg: 14, xs: 12 }}
-                  className="scn-txt"
-                >
-                  Customer’s order quantity variance
-                </Typography>
-                <Typography
-                  fontSize={{ lg: 18 }}
-                  color="#008824"
-                  className="scn-txt"
-                  textAlign="center"
-                  ml={{ lg: "-30px" }}
-                  mt={{ lg: "10px" }}
-                >
-                  +25%
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid>
         </Grid>
       </Grid>
     </div>

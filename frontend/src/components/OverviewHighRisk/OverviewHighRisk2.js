@@ -5,6 +5,7 @@ import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ClearIcon from "@mui/icons-material/Clear";
 
 import FunctionalTabs from "../DataTable/FunctionalTabs";
 import { styled, alpha } from "@mui/material/styles";
@@ -26,6 +27,19 @@ import {
   fetchtaburl,
   updateexporttabledata,
   updatesearch,
+  fetchcustomerola,
+  fetchcustomerstockposition,
+  fetchcustomersellin,
+  fetchcustomersellout,
+  fetchcustomerhestoric,
+  fetchreckittstockposition,
+  fetchreckittexpectedservice,
+  fetchreckittcaseshortages,
+  fetchreckittwoc,
+  fetchreckittexpectedsoh,
+  fetchreckittdemand,
+  fetchreckittsupply,
+  updatesearchvalue,
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 import loaderImage from "../../images/Logo-bar.png";
@@ -38,45 +52,15 @@ const OverviewHighRisk2 = () => {
   const loader = useSelector((state) => state.sidebar.loader);
   const customer = useSelector((state) => state.sidebar.customer);
   const exporttabledata = useSelector((state) => state.sidebar.exporttabledata);
-  const [searchValue, setSearchValue] = useState(""); // State to store the search input value
+  const searchValue = useSelector((state) => state.sidebar.searchvalue);
+  const taburl = useSelector((state) => state.sidebar.taburl);
+  const customerurl = useSelector((state) => state.sidebar.customer);
 
   const [activeTab, setActiveTab] = useState(0);
 
   const handleTabChange = (index) => {
     setActiveTab(index);
   };
-
-  const Search = styled("div")(({ theme }) => ({
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    "&:hover": {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(1),
-      width: "auto",
-    },
-  }));
-
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: "inherit",
-    "& .MuiInputBase-input": {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create("width"),
-      width: "100%",
-      [theme.breakpoints.up("sm")]: {
-        width: "12ch",
-        "&:focus": {
-          width: "20ch",
-        },
-      },
-    },
-  }));
 
   const handleSearchSKU = async () => {
     dispatch(updatesearch(true));
@@ -215,10 +199,83 @@ const OverviewHighRisk2 = () => {
   const handleBack = () => {
     navigate(-1);
   };
+
   const handleInputChange = (e) => {
-    setSearchValue((prevValue) => {
-      return e.target.value;
-    });
+    dispatch(updatesearchvalue(e.target.value));
+  };
+  const handleClearsearch = async () => {
+    dispatch(updateloader(true));
+    var data = { customer: customerurl };
+    try {
+      const url = taburl;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        identifySpecificTabdata(json, url);
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
+    dispatch(updatesearchvalue(""));
+  };
+  const identifySpecificTabdata = (json, url) => {
+    dispatch(updateexporttabledata(json));
+    dispatch(fetchtaburl(url));
+    if (customerurl == 0) {
+      if (url.includes("getoverview")) {
+        dispatch(fetchoverviewhighriskdata(json));
+      }
+      if (url.includes("getsupply")) {
+        dispatch(fetchreckittsupply(json));
+      }
+      if (url.includes("getdemand")) {
+        dispatch(fetchreckittdemand(json));
+      }
+      if (url.includes("getsohateow")) {
+        dispatch(fetchreckittexpectedsoh(json));
+      }
+      if (url.includes("getwocateow")) {
+        dispatch(fetchreckittwoc(json));
+      }
+      if (url.includes("getcaseshortages")) {
+        dispatch(fetchreckittcaseshortages(json));
+      }
+      if (url.includes("getexpectedservice")) {
+        dispatch(fetchreckittexpectedservice(json));
+      }
+      if (url.includes("getstockposition")) {
+        dispatch(fetchreckittstockposition(json));
+      }
+    } else {
+      if (url.includes("getoverview")) {
+        dispatch(fetchoverviewcustomerdata(json));
+      }
+      if (url.includes("getcustepos")) {
+        dispatch(fetchcustomerhestoric(json));
+      }
+      if (url.includes("getcustsellout")) {
+        dispatch(fetchcustomersellout(json));
+      }
+      if (url.includes("getcustsellin")) {
+        dispatch(fetchcustomersellin(json));
+      }
+      if (url.includes("getstockposition")) {
+        dispatch(fetchcustomerstockposition(json));
+      }
+      if (url.includes("getcustola")) {
+        dispatch(fetchcustomerola(json));
+      }
+    }
   };
   return (
     <div>
@@ -228,6 +285,7 @@ const OverviewHighRisk2 = () => {
         </div>
       )}
       <Topbar />
+
       <Grid container>
         <Grid item xs={2}>
           <Sidebar />
@@ -273,7 +331,6 @@ const OverviewHighRisk2 = () => {
             </Typography>
             <Typography fontSize={14}>Overview High-Risk SKUs</Typography>
           </Box>
-
           <Tabs
             selectedIndex={activeTab}
             onSelect={handleTabChange}
@@ -302,7 +359,6 @@ const OverviewHighRisk2 = () => {
               <Stack className="ohr-stack" direction="row" alignItems="center">
                 <Box>
                   <Box
-                    // className="serch-border"
                     sx={{
                       backgroundColor: "#E7E9EE",
                       "&:hover": {
@@ -312,22 +368,44 @@ const OverviewHighRisk2 = () => {
                       display: "flex",
                       color: "#415A6C",
                       height: "35px",
+                      // justifyContent: "space-around",
+                      gap: "15px",
+                      // border: "1px solid",
+                      width: "260px",
+                      alignItems: "center",
                     }}
                   >
-                    <input
-                      className="serch-name"
-                      placeholder="Search Sku by name"
+                    <InputBase
+                      className="search-name"
+                      placeholder="Search by SKU Name / ID"
                       inputProps={{ "aria-label": "search" }}
-                      value={searchValue} // Bind the input value to the state
+                      value={searchValue}
                       onChange={handleInputChange}
-                      // style={{ border: "1px solid red" }}
                     />
-                    <img
-                      src={search}
-                      alt="search"
-                      className="search-icon2"
-                      onClick={handleSearchSKU}
-                    />
+                    <Box sx={{ display: "flex", gap: "5px", color: "grey" }}>
+                      {searchValue.length > 0 && (
+                        <div style={{ display: "flex" }}>
+                          <ClearIcon
+                            sx={{ cursor: "pointer", color: "red" }}
+                            onClick={handleClearsearch}
+                          />
+                          <Box
+                            sx={{
+                              border: "1px solid",
+                              height: "17px",
+                              marginTop: "2px",
+                            }}
+                          ></Box>
+                        </div>
+                      )}
+
+                      <img
+                        src={search}
+                        alt="search"
+                        className="search-icon2"
+                        onClick={handleSearchSKU}
+                      />
+                    </Box>
                   </Box>
                 </Box>
 

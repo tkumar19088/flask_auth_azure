@@ -920,7 +920,7 @@ const Sellin = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Initial SOH Week{" "}
+                Initial SoH Week{" "}
               </TableCell>
               <TableCell
                 sx={{

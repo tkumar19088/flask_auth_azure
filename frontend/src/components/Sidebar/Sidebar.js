@@ -46,7 +46,11 @@ const Sidebar = () => {
   const [irregular, setirregular] = useState(irregularpoVal);
   const [reallocation, setreallocation] = useState(reallocationVal);
   const [forecast, setforecast] = useState(false);
-
+  const currentUrl = window.location.href;
+  console.log(currentUrl);
+  // if (currentUrl.includes("overviewhighrisk")) {
+  //   setoosrick(true);
+  // }
   const handleOOSRick = () => {
     dispatch(fetchOOSRisk(true));
 

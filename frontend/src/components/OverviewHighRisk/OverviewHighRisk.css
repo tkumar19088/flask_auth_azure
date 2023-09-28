@@ -94,10 +94,10 @@ table {
       margin-top: 14px;
     }
     .ohr-stack{
-      width: 520px;
+      width: 570px;
       justify-content: space-between;  
       margin-top: -6px;
-      margin-left: 315px; 
+      margin-left: 265px; 
      }
     
     /* .css-7mt4h1-MuiInputBase-root .MuiInputBase-input{
@@ -186,20 +186,18 @@ table {
   width: 23px;
   height: 23px;
   align-items: center;
-  margin-right: 14px;
-  margin-top: 7px;
+  
   cursor: pointer;
-  /* border: 1px solid red; */
 } 
 
 
- .serch-name input {
-  width: 19ch !important;
+ .search-name input {
+  width: 23ch !important;
   height: 10px !important;
   font-size: 13px;
   margin-top: 1px;
   padding-left: 24px !important;
-  border: 1px solid red !important;
+  /* width: 300px; */
  }
  
 }
@@ -209,9 +207,4 @@ table {
   background-color: #E7E9EE;
   border-radius: 30px ;
   padding-left: 8px !important;
-}
-
-.serch-name::after {
-  border:1px solid red !important;
-
 }

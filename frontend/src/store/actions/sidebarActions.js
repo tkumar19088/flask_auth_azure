@@ -293,3 +293,9 @@ export const updateapplyfilterserror = (newValue) => {
     payload: newValue,
   };
 };
+export const updatesearchvalue = (newValue) => {
+  return {
+    type: "UPDATE_SEARCHVALUE",
+    payload: newValue,
+  };
+};
