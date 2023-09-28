@@ -24,31 +24,28 @@ def choose_scenario():
     resp_scen = {}
 
     # pushaltskus
-    # sku_manager = SKUManager(current_app.config, request.json)
-    # altskus = sku_manager.get_alternative_skus()
-    # resp_scen.update({"pushaltskus": str(len(altskus) > 0)})
-    resp_scen.update({"pushaltskus": True})
+    sku_manager = SKUManager(current_app.config, request.json)
+    altskus = sku_manager.get_alternative_skus()
+    resp_scen.update({"pushaltskus": str(len(altskus) > 0)})
 
     # rarbysku
     try:
-        # data = request.json or {}
-        # if not data:
-        #     raise ValueError("Missing required parameter: RB SKU!")
+        data = request.json or {}
+        if not data:
+            raise ValueError("Missing required parameter: RB SKU!")
 
-        # if not global_filters.get('Customer'):
-        #     raise ValueError("No customer selected!")
+        if not global_filters.get('Customer'):
+            raise ValueError("No customer selected!")
 
-        # reallocation_data = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
-        # reallocation_data_by_sku = reallocation_data[reallocation_data['RB SKU'] == data['rbsku']]
-        # _, _, reallocatedf = optimise_supply(reallocation_data_by_sku)
-        # count = (reallocatedf['stocksafetoreallocate'] > 0).sum()
-        # resp_scen.update({"rarbysku": str(count > 0)})
-        resp_scen.update({"rarbysku_count": True})
+        reallocation_data = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
+        reallocation_data_by_sku = reallocation_data[reallocation_data['RB SKU'] == data['rbsku']]
+        _, _, reallocatedf = optimise_supply(reallocation_data_by_sku)
+        count = (reallocatedf['stocksafetoreallocate'] > 0).sum()
+        resp_scen.update({"rarbysku": str(count > 0)})
         return jsonify(resp_scen), 200
 
     except Exception as e:
         return jsonify(status="error", message=str(e)), 500
-
 
 
 # ************************** MITIGATION SCENARIO # 1 ***************************
