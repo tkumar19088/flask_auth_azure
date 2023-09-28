@@ -400,7 +400,7 @@ const Ola = ({ onData }) => {
     dispatch(updateloader(true));
     var data = { rbsku: expandedRow };
     try {
-      const response = await fetch("http://localhost:5000/choosescenario", {
+      const response = await fetch("https://testingsmartola.azurewebsites.net/choosescenario", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
