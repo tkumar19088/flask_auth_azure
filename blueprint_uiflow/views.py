@@ -47,6 +47,7 @@ def reset_filter_params():
 # *****************************************************
 @uiflow_blueprint.route('/getoverview', methods=['POST'])
 def get_overview():
+    ohrsorted = pd.DataFrame()
     global_filters = current_app.config.get('global_filters', {})
     global_filters = dict((k, v.lower()) for k, v in global_filters.items())
 
@@ -63,9 +64,9 @@ def get_overview():
 
         # sort table by WOC
         if data['customer']:
-            ohrsorted = ohr.sort_values(by='Cust WOC', ascending=True)
+            ohrsorted = pd.DataFrame(ohr.sort_values(by='Cust WOC', ascending=True))
         else:
-            ohrsorted = ohr.sort_values(by='Reckitt WOC', ascending=True)
+            ohrsorted = pd.DataFrame(ohr.sort_values(by='Reckitt WOC', ascending=True))
 
         # replace missing values
         ohrsorted = replace_missing_values(ohrsorted)

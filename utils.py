@@ -222,9 +222,9 @@ class AlertsManager:
         return df.reset_index(drop=True)
 
     def get_sorted_data(self, data, sort_column):
-        return data.groupby(['Business Unit', 'Location', 'Brand']).apply(
-            lambda x: x.sort_values([sort_column], ascending=True)
-        ).reset_index(drop=True)
+        df = data.groupby(['Business Unit', 'Location', 'Brand']).apply(lambda x: x.sort_values([sort_column], ascending=True)).reset_index(drop=True)
+        df = replace_missing_values(df)
+        return df
 
     def generate_oos_alerts(self):
         filters = ['Business Unit', 'Location', 'Brand']
@@ -237,7 +237,10 @@ class AlertsManager:
                     'Title': f"OOS Risk Detected on {name[1]} {name[0]} SKUs",
                     'DATA': group[["Description", "Service CW"]].head(3).to_dict('records')
                 }
-                self.alerts.append(alert)
+                try:
+                    self.alerts.append(alert)
+                except Exception as e:
+                    print(e)
 
 
     def generate_irrpo_alerts(self):
@@ -459,17 +462,18 @@ class SKUManager:
 
     def get_alternative_skus(self):
         if not self.request_data:
-            return self._error_response("Missing required parameter: RB SKU!")
-
-        customer, sku_r = self.global_filters.get('Customer'), self.request_data.get('rbsku')
+            return self._error_response("Missing required parameters: RB SKU & Customer!")
+        else:
+            customer, sku_r = self.global_filters.get('Customer'), self.request_data.get('rbsku')
         if not customer:
             return self._error_response("No customer selected!")
-
+        if not sku_r:
+            return self._error_response("No SKU selected!")
         try:
             df_price = AzureBlobReader().read_csvfile("ui_data/df_price.csv")
             alternative_skus_calculator = AlternativeSKUsCalculator(df_price, sku_r, customer)
             alternative_skus = alternative_skus_calculator.calculate()
-            alternative_skus = alternative_skus[alternative_skus['score_final'] > .50]
+            # alternative_skus = alternative_skus[alternative_skus['score_final'] > 50]
             altskus_sorted = alternative_skus.sort_values(by='score_final', ascending=False).head(5) # type: ignore
             altskus_sorted['skuid'] = altskus_sorted.index
 
