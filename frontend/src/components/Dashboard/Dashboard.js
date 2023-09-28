@@ -40,6 +40,7 @@ function Dashboard() {
       try {
         const response = await fetch("http://localhost:5000/getuserdata");
         if (response.ok) {
+          // const json = await response.json();
           const json = await response.json();
           console.log(json);
           // setuserDetails(json.name);

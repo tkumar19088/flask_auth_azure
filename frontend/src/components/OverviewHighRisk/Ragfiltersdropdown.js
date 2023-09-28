@@ -6,6 +6,7 @@ import {
   fetchofilteredverviewhighriskdata,
   resetragfiltersohr,
   flagragfiltersohr,
+  updateloader,
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -233,6 +234,7 @@ function Ragfilters() {
   };
 
   const handleReset = () => {
+    dispatch(updateloader(true));
     setcwr(false);
     setcwa(false);
     setcwg(false);
@@ -248,9 +250,15 @@ function Ragfilters() {
     setcw3r(false);
     setcw3a(false);
     setcw3g(false);
+
+    setselectedCW({});
+    setselectedCW1({});
+    setselectedCW2({});
+    setselectedCW3({});
     // dispatch(resetragfiltersohr());
     dispatch(flagragfiltersohr(false));
     setAnchorEl(null);
+    dispatch(updateloader(false));
   };
 
   const handleMenuClick = (event) => {
@@ -258,6 +266,26 @@ function Ragfilters() {
   };
 
   const handleMenuClose = () => {
+    setcwr(false);
+    setcwa(false);
+    setcwg(false);
+
+    setcw1r(false);
+    setcw1a(false);
+    setcw1g(false);
+
+    setcw2r(false);
+    setcw2a(false);
+    setcw2g(false);
+
+    setcw3r(false);
+    setcw3a(false);
+    setcw3g(false);
+
+    setselectedCW({});
+    setselectedCW1({});
+    setselectedCW2({});
+    setselectedCW3({});
     setAnchorEl(null);
     // dispatch(flagragfiltersohr(false));
   };

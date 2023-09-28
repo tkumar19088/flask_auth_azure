@@ -11,6 +11,10 @@ import {
   fetchbusinessempty,
   fetchlocationempty,
   updateapplyfilterserror,
+  updateloader,
+  fetchoverviewhighriskdata,
+  updateexporttabledata,
+  fetchtaburl,
 } from "../../store/actions/sidebarActions";
 
 const CarouselExample = () => {
@@ -38,7 +42,34 @@ const CarouselExample = () => {
     }
 
     setselectedalert(true);
-    navigate("/overviewhighrisk");
+    fetchData();
+  };
+  const fetchData = async () => {
+    dispatch(updateloader(true));
+    var data = { customer: 0 };
+    try {
+      const url = "http://localhost:5000/getoverview";
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        dispatch(fetchoverviewhighriskdata(json));
+        dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
+        navigate("/overviewhighrisk");
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
   };
   const handleIrregularPO = () => {
     if (!business) {
@@ -136,7 +167,7 @@ const CarouselExample = () => {
                     >
                       {item.Title.includes("Irregular PO")
                         ? "PO Date"
-                        : "Expected Service"}
+                        : "Reckitt WoC"}
                     </Typography>
                     {item.DATA.map((res) => (
                       <Typography

@@ -126,6 +126,7 @@ const initialState = {
   search: false,
   isWithinChannel: true,
   applyfilterserror: false,
+  searchvalue: "",
 };
 
 const sidebarReducer = (state = initialState, action) => {
@@ -394,6 +395,11 @@ const sidebarReducer = (state = initialState, action) => {
       return {
         ...state,
         applyfilterserror: action.payload,
+      };
+    case "UPDATE_SEARCHVALUE":
+      return {
+        ...state,
+        searchvalue: action.payload,
       };
     default:
       return state;

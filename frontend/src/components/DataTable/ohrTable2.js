@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Table,
   TableContainer,
@@ -41,8 +41,26 @@ const OhrTable2 = ({ onData }) => {
   const [campaignsData, setcampaignsData] = useState([]);
   const [pushAlternativeData, setpushAlternativeData] = useState([]);
   const [iscampaigns, setiscampaigns] = useState(false);
-  const data = useSelector((state) => state.sidebar.overviewcustomerdata);
+  const customerdata = useSelector(
+    (state) => state.sidebar.overviewcustomerdata
+  );
+  console.log(customerdata);
+  const exporttabledata = useSelector((state) => state.sidebar.exporttabledata);
+  const search = useSelector((state) => state.sidebar.search);
+  const isragfiltercustomer = useSelector(
+    (state) => state.sidebar.isragfiltercustomer
+  );
+  const filteredcustomerdata = useSelector(
+    (state) => state.sidebar.filteredcustomerdata
+  );
+  console.log(search);
+  const data = isragfiltercustomer
+    ? filteredcustomerdata
+    : search
+    ? exporttabledata
+    : customerdata;
   console.log(data);
+
   const truncateText = (text, maxLength) => {
     if (text.length <= maxLength) {
       return text;
@@ -961,7 +979,7 @@ const OhrTable2 = ({ onData }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.length == 0 && (
+            {data && data.length == 0 && (
               <TableRow>
                 <TableCell
                   colSpan={20}
@@ -1135,7 +1153,7 @@ const OhrTable2 = ({ onData }) => {
                             : item["RAG CW"] == 0
                             ? "R"
                             : "A"
-                          : ""}
+                          : "-"}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -1172,7 +1190,7 @@ const OhrTable2 = ({ onData }) => {
                             : item["RAG CW+1"] == 0
                             ? "R"
                             : "A"
-                          : ""}
+                          : "-"}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -1209,7 +1227,7 @@ const OhrTable2 = ({ onData }) => {
                             : item["RAG CW+2"] == 0
                             ? "R"
                             : "A"
-                          : ""}
+                          : "-"}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -1247,7 +1265,7 @@ const OhrTable2 = ({ onData }) => {
                             : item["RAG CW+3"] == 0
                             ? "R"
                             : "A"
-                          : ""}
+                          : "-"}
                       </Typography>
                     </TableCell>
                   </TableRow>

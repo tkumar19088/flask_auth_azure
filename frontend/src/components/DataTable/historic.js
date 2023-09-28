@@ -921,7 +921,7 @@ const Historic = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Initial SOH Week{" "}
+                Initial SoH Week{" "}
               </TableCell>
               <TableCell
                 sx={{

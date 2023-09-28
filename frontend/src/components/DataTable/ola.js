@@ -920,7 +920,7 @@ const Ola = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Initial SOH Week{" "}
+                Initial SoH Week{" "}
               </TableCell>
               <TableCell
                 sx={{
@@ -1045,7 +1045,7 @@ const Ola = ({ onData }) => {
                 </TableCell>
               </TableRow>
             )}
-            {data.map((item,index) => (
+            {data.map((item, index) => (
               <React.Fragment key={item["RB SKU"]}>
                 <TableRow
                   onClick={() => handleRowClick(item["RB SKU"])}
@@ -1062,8 +1062,7 @@ const Ola = ({ onData }) => {
                       // gap: "16px",
                       padding: "12px",
                       border: "none",
-                                          borderBottom: "1px solid #dcdcdc",
-
+                      borderBottom: "1px solid #dcdcdc",
                     }}
                   >
                     <Box
