@@ -474,25 +474,18 @@ class SKUManager:
             return self._error_response("No SKU selected!")
         try:
             df_price = AzureBlobReader().read_csvfile("ui_data/df_price.csv")
-            # df_price = AzureBlobReader().read_csvfile("ui_data/pushalternativeskus.csv")
             alternative_skus_calculator = AlternativeSKUsCalculator(df_price, sku_r, customer)
             alternative_skus = alternative_skus_calculator.calculate()
-            print(f"\n1. alternative_skus:\n{alternative_skus}\n")
-            # alternative_skus = alternative_skus[alternative_skus['score_final'] > 50]
-            altskus_sorted = alternative_skus.sort_values(by='score_final', ascending=False).head(5) # type: ignore
+            alternative_skus = alternative_skus[alternative_skus['score_final'] > .50]
+            altskus_sorted = alternative_skus.sort_values(by='score_final', ascending=False).head(3)
             altskus_sorted['skuid'] = altskus_sorted.index
-            print(f"\n2. altskus_sorted:\n{altskus_sorted}\n")
-            pushaltskucsv = AzureBlobReader().read_csvfile("ui_data/alternative_sku_template.csv")
-            # pushaltskucsv = AzureBlobReader().read_csvfile("ui_data/pushalternativeskus.csv")
-            # pushaltskucsv = pushaltskucsv.drop(columns=['recom-score'])
-            # print(f"\n2. pushaltskucsv:\n{pushaltskucsv}\n")
-            # merged = pushaltskucsv.merge(altskus_sorted, left_on='RB SKU', right_on='skuid', how='right')
-            merged = altskus_sorted.merge(pushaltskucsv, left_on='skuid', right_on='RB SKU', how='inner')
+            pushaltskucsv = AzureBlobReader().read_csvfile("ui_data/alternative_sku_template.csv") #ben's file
+            # pushaltskucsv = AzureBlobReader().read_csvfile("ui_data/pushalternativesku.csv")
+            merged = pushaltskucsv.merge(altskus_sorted, left_on='RB SKU', right_on='skuid', how='inner')
             rename_cols = {
                             'score_final': 'recom-score',
                         }
             merged = merged.rename(columns=rename_cols)
-            print(f"\n3. merged:\n{merged}\n")
             merged.sort_values(by='recom-score', ascending=False, inplace=True)
             merged = replace_missing_values(merged)
 
