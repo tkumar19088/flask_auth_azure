@@ -42,6 +42,9 @@ const SupplyTable = ({ onData }) => {
   const [campaignsData, setcampaignsData] = useState([]);
   const [pushAlternativeData, setpushAlternativeData] = useState([]);
   const [iscampaigns, setiscampaigns] = useState(false);
+  const search = useSelector((state) => state.sidebar.search);
+  const searchValue = useSelector((state) => state.sidebar.searchvalue);
+  const exporttabledata = useSelector((state) => state.sidebar.exporttabledata);
 
   const truncateText = (text, maxLength) => {
     if (text.length <= maxLength) {
@@ -137,7 +140,32 @@ const SupplyTable = ({ onData }) => {
     }
   };
 
-  const data = useSelector((state) => state.sidebar.reckittsupply);
+  const supplydata = useSelector((state) => state.sidebar.reckittsupply);
+
+  // search ? exporttabledata : supplydata;
+
+  // const handleSearchSKU = async () => {
+  //   var isNumber = await containsOnlyNumbers(searchValue);
+  //   if (isNumber) {
+  //     console.log(exporttabledata);
+  //     var results = exporttabledata.filter((item) =>
+  //       String(item["RB SKU"]).includes(searchValue)
+  //     );
+  //     dispatch(updateexporttabledata(results));
+  //     return results;
+  //   } else {
+  //     var results = exporttabledata.filter((item) =>
+  //       item.Description.includes(searchValue)
+  //     );
+  //     dispatch(updateexporttabledata(results));
+  //     return results;
+  //   }
+  // };
+  // const containsOnlyNumbers = (inputString) => {
+  //   return /^\d+$/.test(inputString);
+  // };
+
+  const data = search ? supplydata : supplydata;
 
   // const [data, setData] = useState([
   //   {
@@ -527,7 +555,6 @@ const SupplyTable = ({ onData }) => {
             <TableRow>
               <TableCell
                 sx={{
-                  
                   width: "60px",
                   border: "1px solid #dcdcdc",
                   backgroundColor: "#E5EBEF",
@@ -541,7 +568,6 @@ const SupplyTable = ({ onData }) => {
               </TableCell>
               <TableCell
                 sx={{
-                  
                   width: "60px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
@@ -555,7 +581,6 @@ const SupplyTable = ({ onData }) => {
               </TableCell>
               <TableCell
                 sx={{
-                  
                   width: "60px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
@@ -567,7 +592,6 @@ const SupplyTable = ({ onData }) => {
               </TableCell>
               <TableCell
                 sx={{
-                  
                   width: "60px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
@@ -579,7 +603,6 @@ const SupplyTable = ({ onData }) => {
               </TableCell>
               <TableCell
                 sx={{
-                  
                   width: "110px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
@@ -591,7 +614,6 @@ const SupplyTable = ({ onData }) => {
               </TableCell>
               <TableCell
                 sx={{
-                  
                   width: "110px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
@@ -604,7 +626,6 @@ const SupplyTable = ({ onData }) => {
               </TableCell>
               <TableCell
                 sx={{
-                  
                   width: "130px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
@@ -616,7 +637,6 @@ const SupplyTable = ({ onData }) => {
               </TableCell>
               <TableCell
                 sx={{
-                  
                   width: "110px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
@@ -630,7 +650,6 @@ const SupplyTable = ({ onData }) => {
               </TableCell>
               <TableCell
                 sx={{
-                  
                   width: "110px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
@@ -642,7 +661,6 @@ const SupplyTable = ({ onData }) => {
               </TableCell>
               <TableCell
                 sx={{
-                  
                   width: "110px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
@@ -917,133 +935,134 @@ const SupplyTable = ({ onData }) => {
                 </TableCell>
               </TableRow>
             )}
-            {data.map((item, index) => (
-              <React.Fragment key={item["RB SKU"]}>
-                <TableRow
-                  onClick={() => handleRowClick(item["RB SKU"])}
-                  key={item["RB SKU"]}
-                  sx={{
-                    backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
-                    // border: "1px solid #dcdcdc",
-                  }}
-                >
-                  <TableCell
-                    fontSize={13}
+            {data &&
+              data.map((item, index) => (
+                <React.Fragment key={item["RB SKU"]}>
+                  <TableRow
+                    onClick={() => handleRowClick(item["RB SKU"])}
+                    key={item["RB SKU"]}
                     sx={{
-                      display: "flex",
-                      padding: "12px",
-                      border: "none",
-                      borderBottom: "1px solid #dcdcdc",
+                      backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
+                      // border: "1px solid #dcdcdc",
                     }}
                   >
-                    <Box
-                      className="rbsku-expand"
+                    <TableCell
+                      fontSize={13}
                       sx={{
                         display: "flex",
-                        alignItems: "center",
+                        padding: "12px",
+                        border: "none",
+                        borderBottom: "1px solid #dcdcdc",
                       }}
                     >
-                      {expandedRow === item["RB SKU"] ? (
-                        <RemoveIcon
-                          fontSize="medium"
-                          sx={{
-                            color: "#415A6C",
-                            cursor: "pointer",
-                            fontWeight: "800",
-                            marginTop: "4px",
-                            backgroundColor: "transparent",
-                          }}
-                        />
-                      ) : (
-                        <AddIcon
-                          fontSize="medium"
-                          sx={{
-                            color: "#415A6C",
-                            cursor: "pointer",
-                            fontWeight: "800",
-                            marginTop: "4px",
-                            backgroundColor: "transparent",
-                          }}
-                        />
-                      )}
-                    </Box>
-                    <Box className="rbsku-expand">
-                      <Typography
-                        fontSize="13px"
+                      <Box
+                        className="rbsku-expand"
                         sx={{
-                          marginTop: "7px",
+                          display: "flex",
+                          alignItems: "center",
                         }}
                       >
-                        {item["RB SKU"]}
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell>
-                    {" "}
-                    <div className="alignment">{item.PPG}</div>
-                  </TableCell>
-                  <TableCell>{item.Description}</TableCell>
-                  <TableCell>
-                    <div className="alignment">{item.Brand}</div>
-                  </TableCell>
-                  <TableCell>
-                    {" "}
-                    <div className="alignment">{item.initialreckittsoh}</div>
-                  </TableCell>
-                  <TableCell>
-                    {" "}
-                    <div className="alignment">{item["Supply CW"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    {" "}
-                    <div className="alignment">{item["Supply CW+1"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="alignment">{item["Supply CW+2"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="alignment">{item["Supply CW+3"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="alignment">{item["Supply CW+4"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    {" "}
-                    <div className="alignment">{item["Supply CW+5"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="alignment">{item["Supply CW+6"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="alignment">{item["Supply CW+7"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    {" "}
-                    <div className="alignment">{item["Supply CW+8"]}</div>
-                  </TableCell>
-                  <TableCell>
-                    {" "}
-                    <div className="alignment">{item["Supply CW+9"]}</div>
-                  </TableCell>
-                </TableRow>
-                {expandedRow === item["RB SKU"] && iscampaigns && (
-                  <TableRow>
-                    <TableCell colSpan={20}>
-                      {/* Add your expanded table here */}
-                      <SubTable details={campaignsData} />
+                        {expandedRow === item["RB SKU"] ? (
+                          <RemoveIcon
+                            fontSize="medium"
+                            sx={{
+                              color: "#415A6C",
+                              cursor: "pointer",
+                              fontWeight: "800",
+                              marginTop: "4px",
+                              backgroundColor: "transparent",
+                            }}
+                          />
+                        ) : (
+                          <AddIcon
+                            fontSize="medium"
+                            sx={{
+                              color: "#415A6C",
+                              cursor: "pointer",
+                              fontWeight: "800",
+                              marginTop: "4px",
+                              backgroundColor: "transparent",
+                            }}
+                          />
+                        )}
+                      </Box>
+                      <Box className="rbsku-expand">
+                        <Typography
+                          fontSize="13px"
+                          sx={{
+                            marginTop: "7px",
+                          }}
+                        >
+                          {item["RB SKU"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                    <TableCell>
+                      {" "}
+                      <div className="alignment">{item.PPG}</div>
+                    </TableCell>
+                    <TableCell>{item.Description}</TableCell>
+                    <TableCell>
+                      <div className="alignment">{item.Brand}</div>
+                    </TableCell>
+                    <TableCell>
+                      {" "}
+                      <div className="alignment">{item.initialreckittsoh}</div>
+                    </TableCell>
+                    <TableCell>
+                      {" "}
+                      <div className="alignment">{item["Supply CW"]}</div>
+                    </TableCell>
+                    <TableCell>
+                      {" "}
+                      <div className="alignment">{item["Supply CW+1"]}</div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="alignment">{item["Supply CW+2"]}</div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="alignment">{item["Supply CW+3"]}</div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="alignment">{item["Supply CW+4"]}</div>
+                    </TableCell>
+                    <TableCell>
+                      {" "}
+                      <div className="alignment">{item["Supply CW+5"]}</div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="alignment">{item["Supply CW+6"]}</div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="alignment">{item["Supply CW+7"]}</div>
+                    </TableCell>
+                    <TableCell>
+                      {" "}
+                      <div className="alignment">{item["Supply CW+8"]}</div>
+                    </TableCell>
+                    <TableCell>
+                      {" "}
+                      <div className="alignment">{item["Supply CW+9"]}</div>
                     </TableCell>
                   </TableRow>
-                )}
-                {expandedRow === item["RB SKU"] && pushAlternative && (
-                  <TableRow>
-                    <TableCell colSpan={20}>
-                      {/* Add your expanded table here */}
-                      <PushAlternativeTable details={pushAlternativeData} />
-                    </TableCell>
-                  </TableRow>
-                )}
-              </React.Fragment>
-            ))}
+                  {expandedRow === item["RB SKU"] && iscampaigns && (
+                    <TableRow>
+                      <TableCell colSpan={20}>
+                        {/* Add your expanded table here */}
+                        <SubTable details={campaignsData} />
+                      </TableCell>
+                    </TableRow>
+                  )}
+                  {expandedRow === item["RB SKU"] && pushAlternative && (
+                    <TableRow>
+                      <TableCell colSpan={20}>
+                        {/* Add your expanded table here */}
+                        <PushAlternativeTable details={pushAlternativeData} />
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </React.Fragment>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
