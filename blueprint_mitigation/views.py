@@ -4,7 +4,7 @@ from flask import (
     request,
     jsonify
 )
-
+import pandas as pd
 import json
 import numpy as np
 from utils import AzureBlobReader, replace_missing_values
@@ -22,14 +22,13 @@ mitigation_blueprint = Blueprint("mitigation", __name__)
 def choose_scenario():
     global_filters = current_app.config.get('global_filters', {})
     resp_scen = {}
-
-    # pushaltskus
-    sku_manager = SKUManager(current_app.config, request.json)
-    altskus = sku_manager.get_alternative_skus()
-    resp_scen.update({"pushaltskus": str(len(altskus) > 0)})
-
-    # rarbysku
     try:
+        # pushaltskus
+        sku_manager = SKUManager(current_app.config, request.json)
+        altskus = sku_manager.get_alternative_skus()
+        resp_scen.update({"pushaltskus": str(len(altskus) > 0)})
+
+        # rarbysku
         data = request.json or {}
         if not data:
             raise ValueError("Missing required parameter: RB SKU!")
@@ -37,11 +36,12 @@ def choose_scenario():
         if not global_filters.get('Customer'):
             raise ValueError("No customer selected!")
 
-        reallocation_data = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
-        reallocation_data_by_sku = reallocation_data[reallocation_data['RB SKU'] == data['rbsku']]
-        _, _, reallocatedf = optimise_supply(reallocation_data_by_sku)
-        count = (reallocatedf['stocksafetoreallocate'] > 0).sum()
-        resp_scen.update({"rarbysku": str(count > 0)})
+        
+        rardf = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
+        rardf = rardf[rardf['RB SKU'] == data['rbsku']]
+        staticrow = rardf[rardf['Customer'] == global_filters['Customer']]
+        otherrows = rardf[rardf['Customer'] != global_filters['Customer']]
+        resp_scen.update({"rarbysku": str(len(otherrows) > 0)})
         return jsonify(resp_scen), 200
 
     except Exception as e:
@@ -73,20 +73,82 @@ def getrarbysku():
 
     try:
         data = request.json or {}
+        print(f"\n1. data:{data}\n")
+
         if not data:
             raise ValueError("Missing required parameter: RB SKU!")
 
         if not global_filters.get('Customer'):
             raise ValueError("No customer selected!")
 
-        reallocation_data = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
-        reallocation_data_by_sku = reallocation_data[reallocation_data['RB SKU'] == data['rbsku']]
-        static_row = json.loads(reallocation_data_by_sku[reallocation_data_by_sku['Customer'] == global_filters['Customer']].to_json(orient='records'))[0]
-        other_rows = json.loads(reallocation_data_by_sku[reallocation_data_by_sku['Customer'] != global_filters['Customer']].to_json(orient='records'))
+        rardf = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
 
-        _, _, reallocatedf = optimise_supply(reallocation_data_by_sku)
-        reallocatedf = replace_missing_values(reallocatedf)
+        # reallocationdata = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
+        # ovalldata = AzureBlobReader().read_csvfile("ui_data/reckittoverviewdatarepo.csv")
+        # rardf = pd.merge(ovalldata, reallocationdata, on=['RB SKU', 'Customer'], how='inner')
 
-        return {"static_row":static_row, "other_rows":other_rows}
+        rardf = rardf[rardf['RB SKU'] == data['rbsku']]
+        staticrow = rardf[rardf['Customer'] == global_filters['Customer']]
+        otherrows = rardf[rardf['Customer'] != global_filters['Customer']]
+
+        MINIMUM_SERVICE_LEVEL = 0.95
+        WOC_MIN = 3
+        WOC_MAX = 8
+
+        # Labels for Service Level and WOC
+        # # 2 = Green - Completely Satisfied
+        # # 1 = Yellow - Partially Satisfied
+        # # 0 = Red - Not Satisfied
+        sl, woc = 0, 0
+        if len(otherrows) > 0:
+            # Label for Service Level
+            if otherrows['sif-atf'].all() >= MINIMUM_SERVICE_LEVEL:
+                sl = 2
+            elif otherrows['sif-atf'].any() < MINIMUM_SERVICE_LEVEL:
+                sl = 0
+            else:
+                sl = 1
+
+            # Label for WOC
+            if (otherrows["custwoc-current"].all() >= WOC_MIN) and (otherrows["custwoc-current"].all() <= WOC_MAX):
+                woc = 2
+            elif (otherrows["custwoc-current"].any() < WOC_MIN) or (otherrows["custwoc-current"].any() > WOC_MAX):
+                woc = 0
+            else:
+                woc = 1
+        else:
+            otherrows = []
+
+        constraints = [{
+                            'Name': 'PCT DEVIATION FROM INIT ALLOC',
+                            'Value': '5%',
+                            'Label': 0
+                        }, {
+                            'Name': 'MIN Expected Service Level',
+                            'Value': f'{MINIMUM_SERVICE_LEVEL}',
+                            'Label': f'{sl}'
+                        }, {
+                            'Name': 'MIN Deviation from Target WOC',
+                            'Value': f'{WOC_MIN}'
+                        }, {
+                            'Name': 'MAX Deviation from Target WOC',
+                            'Value': f'{WOC_MAX}',
+                            'Label': f'{woc}'
+                        }]
+
+        results = [{
+                    "Name": "AVG EXP SERVICE LEVEL",
+                    "Value": "100%"
+                    },
+                    {
+                    "Name": "EXP OLA",
+                    "Value": "99%"
+                    }]
+
+        srow = staticrow if len(staticrow) > 0 else []
+        orows = otherrows if len(otherrows) > 0 else []
+
+        return {"static_row":srow, "other_rows":orows, "constraints":constraints, "results":results}
+
     except Exception as e:
         return jsonify(status="error", message=str(e)), 500

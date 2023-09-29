@@ -1776,7 +1776,6 @@ const OhrTable = ({ onData }) => {
                   color: "#415A6C",
                   backgroundColor: "#E5EBEF",
                   textAlign: "center",
-
                 }}
               >
                 CW+3 <div className="brack-number">({startingWeek + 3})</div>
@@ -2118,7 +2117,7 @@ const OhrTable = ({ onData }) => {
                             : item["RAG CW"] == 0
                             ? "R"
                             : "A"
-                          : ""}
+                          : "-"}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -2155,7 +2154,7 @@ const OhrTable = ({ onData }) => {
                             : item["RAG CW+1"] == 0
                             ? "R"
                             : "A"
-                          : ""}
+                          : "-"}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -2193,7 +2192,7 @@ const OhrTable = ({ onData }) => {
                             : item["RAG CW+2"] == 0
                             ? "R"
                             : "A"
-                          : ""}
+                          : "-"}
                       </Typography>
                     </TableCell>
                     <TableCell
@@ -2231,7 +2230,7 @@ const OhrTable = ({ onData }) => {
                             : item["RAG CW+3"] == 0
                             ? "R"
                             : "A"
-                          : ""}
+                          : "-"}
                       </Typography>
                     </TableCell>
 

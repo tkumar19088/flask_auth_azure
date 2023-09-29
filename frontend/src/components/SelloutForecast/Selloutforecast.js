@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Topbar from "../Topbar/Topbar";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import Sidebar from "../Sidebar/Sidebar";
 import Linechart from "./Linechart";
 
@@ -74,19 +74,35 @@ const Selloutforecast = () => {
             </Typography>
           </Box>
           <Grid container justifyContent="space-between" mt={1}>
-            <Box mx="1px">
-              <Typography
-                fontSize={24}
-                color="#415A6C"
-                style={{ marginTop: "20px" }}
-              >
-                Forecast Builder - Sell-Out
-              </Typography>
-            </Box>
-            <Box sx={{ display: "flex", gap: "20px" }}>
-              <Box sx={{ border: "", marginTop: "10px" }}>
+            <Box display="flex" justifyItems="center" gap={4}>
+              <Box>
+                <Typography fontSize={24} color="#415A6C">
+                  Forecast Builder - Sell-Out
+                </Typography>
+              </Box>
+              <Box>
+                
                 <Filtersout />
               </Box>
+              <Box>
+                <Box sx={{ minWidth: 200, marginTop: "-12px" }}>
+                  <FormControl
+                    variant="standard"
+                    sx={{ minWidth: 200 }}
+                    size="small"
+                  >
+                    <InputLabel>SKU</InputLabel>
+                    <Select>
+                      <MenuItem value="Airwick">123456</MenuItem>
+
+                      <MenuItem value="Gaviscon">123456</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              </Box>
+            </Box>
+            <Box sx={{ display: "flex", gap: "20px" }}>
+              <Box sx={{ border: "", marginTop: "10px" }}></Box>
               <Box
                 display="flex"
                 justifyContent="space-between"

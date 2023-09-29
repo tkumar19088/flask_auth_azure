@@ -4,28 +4,21 @@ import { Line } from "react-chartjs-2";
 import { Box } from "@mui/material";
 // import "./LineChart.css";
 
-const Linechart = () => {
-  const data = [
-    { name: "week1", value: 55 },
-    { name: "week2", value: 50 },
-    { name: "week3", value: 40 },
-    { name: "week4", value: 30 },
-    { name: "week5", value: 20 },
-    { name: "week6", value: 40 },
-    { name: "week7", value: 35 },
-    { name: "week8", value: 55 },
-    { name: "week9", value: 20 },
-    { name: "week10", value: 30 },
-    { name: "week11", value: 40 },
-    { name: "week12", value: 20 },
-  ];
-
+const Linechart = ({ data }) => {
   const datasets = [
     {
-      label: "Sell in forecast",
+      label: "S-OLA",
       data: data.map((data) => data.value),
       borderColor: "#FF007E",
       backgroundColor: "#FF007E",
+      fill: false,
+      tension: 0.3,
+    },
+    {
+      label: "Kinaxis", // Label for the second line
+      data: data.map((data) => data.kvalue),
+      borderColor: "orange", // Color for the second line
+      backgroundColor: "orange",
       fill: false,
       tension: 0.3,
     },

@@ -269,7 +269,7 @@ class AlertsManager:
 
     def get_alerts(self):
         self.generate_oos_alerts()
-        self.generate_irrpo_alerts()
+        # self.generate_irrpo_alerts()
         self.refine_alerts()
         return self.alerts
 
@@ -479,9 +479,9 @@ class SKUManager:
             alternative_skus = alternative_skus[alternative_skus['score_final'] > .50]
             altskus_sorted = alternative_skus.sort_values(by='score_final', ascending=False).head(3)
             altskus_sorted['skuid'] = altskus_sorted.index
-            pushaltskucsv = AzureBlobReader().read_csvfile("ui_data/alternative_sku_template.csv") #ben's file
+            bensfile = AzureBlobReader().read_csvfile("ui_data/alternative_sku_template.csv") #ben's file
             # pushaltskucsv = AzureBlobReader().read_csvfile("ui_data/pushalternativesku.csv")
-            merged = pushaltskucsv.merge(altskus_sorted, left_on='RB SKU', right_on='skuid', how='inner')
+            merged = bensfile.merge(altskus_sorted, left_on='RB SKU', right_on='skuid', how='inner')
             rename_cols = {
                             'score_final': 'recom-score',
                         }

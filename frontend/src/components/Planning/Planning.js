@@ -85,31 +85,7 @@ const Planning = ({ filterStatus }) => {
   };
 
   const handleSellinforecast = async () => {
-    dispatch(updateloader(true));
-    // var data = { rbsku: expandedRow };
-    try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/getsellingraph", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        // body: JSON.stringify(data),
-      });
-      if (response.ok) {
-        const json = await response.json();
-        console.log(json);
-        // dispatch(fetchstockreallocatedata(json));
-        // dispatch(fetchstaticrow(json.static_row));
-        // dispatch(updateexporttabledata(json));
-        navigate("/sellinforecast");
-      } else {
-        console.error("Error fetching data:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Fetch error:", error);
-    } finally {
-      dispatch(updateloader(false));
-    }
+    navigate("/sellinforecast");
   };
 
   const handleSelloutforecast = () => {

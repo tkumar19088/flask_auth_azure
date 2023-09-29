@@ -54,31 +54,43 @@ function Filtersin() {
   const data = useSelector((state) => state.sidebar.userDetails);
   console.log(data);
 
-  const business = useSelector((state) => state.sidebar.business);
-  const location = useSelector((state) => state.sidebar.location);
-  const customer = useSelector((state) => state.sidebar.customerfilter);
-  const brand = useSelector((state) => state.sidebar.brand);
+  // const business = useSelector((state) => state.sidebar.business);
+  // const location = useSelector((state) => state.sidebar.location);
+  // const customer = useSelector((state) => state.sidebar.customerfilter);
+  // const brand = useSelector((state) => state.sidebar.brand);
 
-  const businessEmpty = useSelector((state) => state.sidebar.businessEmpty);
-  const locationEmpty = useSelector((state) => state.sidebar.locationEmpty);
-  const taburl = useSelector((state) => state.sidebar.taburl);
-  const customerurl = useSelector((state) => state.sidebar.customer);
+  const [business, setbusiness] = useState(false);
+  const [location, setlocation] = useState(false);
+  const [customer, setcustomer] = useState(false);
+  const [brand, setbrand] = useState(false);
+
+  // const businessEmpty = useSelector((state) => state.sidebar.businessEmpty);
+  // const locationEmpty = useSelector((state) => state.sidebar.locationEmpty);
+  // const taburl = useSelector((state) => state.sidebar.taburl);
+  // const customerurl = useSelector((state) => state.sidebar.customer);
+
+  const [businessEmpty, setbusinessEmpty] = useState(false);
+  const [locationEmpty, setlocationEmpty] = useState(false);
+  const [customerEmpty, setcustomerEmpty] = useState(false);
+  const [brandEmpty, setbrandEmpty] = useState(false);
 
   const handleBusinessChange = (event) => {
-    dispatch(fetchbusiness(event.target.value));
-    dispatch(fetchbusinessempty(false));
+    setbusiness(event.target.value);
+    setbusinessEmpty(false);
   };
 
   const handleLocationChange = (event) => {
-    dispatch(fetchlocation(event.target.value));
-    dispatch(fetchlocationempty(false));
+    setlocation(event.target.value);
+    setlocationEmpty(false);
   };
 
   const handleCustomerChange = (event) => {
-    dispatch(fetchcustomer(event.target.value));
+    setcustomer(event.target.value);
+    setcustomerEmpty(false);
   };
   const handleBrandChange = (event) => {
-    dispatch(fetchbrand(event.target.value));
+    setbrand(event.target.value);
+    setbrandEmpty(false);
   };
 
   const handleMenuClick = (event) => {
@@ -92,13 +104,19 @@ function Filtersin() {
   const handleApplyFilters = async (e) => {
     e.preventDefault();
     if (!business) {
-      dispatch(fetchbusinessempty(true));
+      setbusinessEmpty(true);
     }
     if (!location) {
-      dispatch(fetchlocationempty(true));
+      setlocationEmpty(true);
+    }
+    if (!customer) {
+      setcustomerEmpty(true);
+    }
+    if (!brand) {
+      setbrandEmpty(true);
     }
 
-    if (!business || !location) {
+    if (!business || !location || !customer || !brand) {
       return;
     }
 
@@ -111,7 +129,7 @@ function Filtersin() {
     };
     console.log(data);
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/getfilterparams", {
+      const response = await fetch("http://localhost:5000/getsellingraph", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -121,88 +139,13 @@ function Filtersin() {
       if (response.ok) {
         const json = await response.json();
         console.log(json);
-        tabApiCall();
+        // tabApiCall();
         // dispatch(fetchfilterapply(true));
         // dispatch(fetchalerts(json.alerts));
       }
       // Handle the API response data as needed
     } catch (error) {
       console.error("Error:", error);
-    }
-  };
-
-  const tabApiCall = async () => {
-    dispatch(updateloader(true));
-    var data = { customer: customerurl };
-    try {
-      const url = taburl;
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      if (response.ok) {
-        const json = await response.json();
-        identifySpecificTabdata(json, url);
-      } else {
-        console.error("Error fetching data:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Fetch error:", error);
-    } finally {
-      dispatch(updateloader(false));
-    }
-  };
-
-  const identifySpecificTabdata = (json, url) => {
-    dispatch(updateexporttabledata(json));
-    dispatch(fetchtaburl(url));
-    if (customerurl == 0) {
-      if (url.includes("getoverview")) {
-        dispatch(fetchoverviewhighriskdata(json));
-      }
-      if (url.includes("getsupply")) {
-        dispatch(fetchreckittsupply(json));
-      }
-      if (url.includes("getdemand")) {
-        dispatch(fetchreckittdemand(json));
-      }
-      if (url.includes("getsohateow")) {
-        dispatch(fetchreckittexpectedsoh(json));
-      }
-      if (url.includes("getwocateow")) {
-        dispatch(fetchreckittwoc(json));
-      }
-      if (url.includes("getcaseshortages")) {
-        dispatch(fetchreckittcaseshortages(json));
-      }
-      if (url.includes("getexpectedservice")) {
-        dispatch(fetchreckittexpectedservice(json));
-      }
-      if (url.includes("getstockposition")) {
-        dispatch(fetchreckittstockposition(json));
-      }
-    } else {
-      if (url.includes("getoverview")) {
-        dispatch(fetchoverviewcustomerdata(json));
-      }
-      if (url.includes("getcustepos")) {
-        dispatch(fetchcustomerhestoric(json));
-      }
-      if (url.includes("getcustsellout")) {
-        dispatch(fetchcustomersellout(json));
-      }
-      if (url.includes("getcustsellin")) {
-        dispatch(fetchcustomersellin(json));
-      }
-      if (url.includes("getstockposition")) {
-        dispatch(fetchcustomerstockposition(json));
-      }
-      if (url.includes("getcustola")) {
-        dispatch(fetchcustomerola(json));
-      }
     }
   };
 
@@ -327,23 +270,8 @@ function Filtersin() {
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={2}  mt="25px" className="filter-dropdown">
-            <Box sx={{ minWidth: 200 }}>
-              <FormControl
-                variant="standard"
-                sx={{ minWidth: 200, marginTop: "-20px" }}
-                size="small"
-              >
-                <InputLabel>SKU</InputLabel>
-                <Select>
-                  <MenuItem value="Airwick">123456</MenuItem>
 
-                  <MenuItem value="Gaviscon">123456</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-          </Grid>
-          <Box className="filterdropdown-insidebtn"  mt="15px">
+          <Box className="filterdropdown-insidebtn" mt="15px">
             <Button
               variant="contained"
               size="small"

@@ -10,7 +10,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import FunctionalTabs from "../DataTable/FunctionalTabs";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-import search from "../../images/search.png";
+import searchIcon from "../../images/search.png";
 import Filtersdropdown from "./Filtersdropdown";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
@@ -40,6 +40,7 @@ import {
   fetchreckittdemand,
   fetchreckittsupply,
   updatesearchvalue,
+  updateissearch,
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 import loaderImage from "../../images/Logo-bar.png";
@@ -55,12 +56,19 @@ const OverviewHighRisk2 = () => {
   const searchValue = useSelector((state) => state.sidebar.searchvalue);
   const taburl = useSelector((state) => state.sidebar.taburl);
   const customerurl = useSelector((state) => state.sidebar.customer);
+  const search = useSelector((state) => state.sidebar.search);
 
   const [activeTab, setActiveTab] = useState(0);
 
   const handleTabChange = (index) => {
     setActiveTab(index);
   };
+
+  useEffect(() => {
+    if (search) {
+      handleSearchSKU();
+    }
+  }, [search]);
 
   const handleSearchSKU = async () => {
     dispatch(updatesearch(true));
@@ -218,6 +226,7 @@ const OverviewHighRisk2 = () => {
       if (response.ok) {
         const json = await response.json();
         identifySpecificTabdata(json, url);
+        dispatch(updatesearch(false));
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -400,7 +409,7 @@ const OverviewHighRisk2 = () => {
                       )}
 
                       <img
-                        src={search}
+                        src={searchIcon}
                         alt="search"
                         className="search-icon2"
                         onClick={handleSearchSKU}
