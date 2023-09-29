@@ -129,7 +129,7 @@ function Filtersin() {
     };
     console.log(data);
     try {
-      const response = await fetch("http://localhost:5000/getsellingraph", {
+      const response = await fetch("https://testingsmartola.azurewebsites.net/getsellingraph", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

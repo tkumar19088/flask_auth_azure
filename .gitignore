@@ -8,7 +8,7 @@
 __pycache__
 *old*
 /test*
-
+*cache*
 
 # Frontend dependencies
 */node_modules*
