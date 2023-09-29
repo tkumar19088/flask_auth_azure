@@ -54,9 +54,9 @@ const Sellinforecast = () => {
       Location: "United Kingdom",
       PPG: "ADN",
       "RB SKU": 43497,
-      "kinaxis CW+1": "-",
+      "kinaxis CW+1": "10",
       "kinaxis CW+12": "-",
-      "kinaxis CW+4": "-",
+      "kinaxis CW+4": "20",
       "kinaxis CW+8": "-",
       "sola CW": "32.24",
       "sola CW+1": "32.08",
@@ -75,7 +75,8 @@ const Sellinforecast = () => {
   for (let i = 1; i <= 12; i++) {
     const week = `week${i}`;
     const value = parseFloat(json[0][`sola CW+${i}`]) || 0;
-    convertedData.push({ name: week, value: value });
+    const kvalue = parseFloat(json[0][`kinaxis CW+${i}`]) || 0;
+    convertedData.push({ name: week, value: value, kvalue: kvalue });
   }
 
   console.log(convertedData);
@@ -189,7 +190,7 @@ const Sellinforecast = () => {
               sx={{ border: "", width: 1550, height: 755 }}
               paddingLeft="30px"
             >
-              <Linechart data={convertedData} dataTwo={sellinData2} />
+              <Linechart data={convertedData} />
             </Box>
           )}
         </Grid>

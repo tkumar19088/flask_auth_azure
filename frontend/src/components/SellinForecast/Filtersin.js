@@ -104,10 +104,10 @@ function Filtersin() {
   const handleApplyFilters = async (e) => {
     e.preventDefault();
     if (!business) {
-      setlocationEmpty(true);
+      setbusinessEmpty(true);
     }
     if (!location) {
-      setcustomerEmpty(true);
+      setlocationEmpty(true);
     }
     if (!customer) {
       setcustomerEmpty(true);
@@ -116,7 +116,7 @@ function Filtersin() {
       setbrandEmpty(true);
     }
 
-    if (!business || !location || customer || brand) {
+    if (!business || !location || !customer || !brand) {
       return;
     }
 

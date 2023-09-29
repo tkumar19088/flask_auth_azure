@@ -4,7 +4,7 @@ import { Line } from "react-chartjs-2";
 import { Box } from "@mui/material";
 // import "./LineChart.css";
 
-const Linechart = ({ data, dataTwo }) => {
+const Linechart = ({ data }) => {
   const datasets = [
     {
       label: "S-OLA",
@@ -16,7 +16,7 @@ const Linechart = ({ data, dataTwo }) => {
     },
     {
       label: "Kinaxis", // Label for the second line
-      data: dataTwo.map((data) => data.value),
+      data: data.map((data) => data.kvalue),
       borderColor: "orange", // Color for the second line
       backgroundColor: "orange",
       fill: false,
