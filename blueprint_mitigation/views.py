@@ -22,14 +22,13 @@ mitigation_blueprint = Blueprint("mitigation", __name__)
 def choose_scenario():
     global_filters = current_app.config.get('global_filters', {})
     resp_scen = {}
-
-    # pushaltskus
-    sku_manager = SKUManager(current_app.config, request.json)
-    altskus = sku_manager.get_alternative_skus()
-    resp_scen.update({"pushaltskus": str(len(altskus) > 0)})
-
-    # rarbysku
     try:
+        # pushaltskus
+        sku_manager = SKUManager(current_app.config, request.json)
+        altskus = sku_manager.get_alternative_skus()
+        resp_scen.update({"pushaltskus": str(len(altskus) > 0)})
+
+        # rarbysku
         data = request.json or {}
         if not data:
             raise ValueError("Missing required parameter: RB SKU!")
@@ -37,11 +36,12 @@ def choose_scenario():
         if not global_filters.get('Customer'):
             raise ValueError("No customer selected!")
 
-        reallocation_data = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
-        reallocation_data_by_sku = reallocation_data[reallocation_data['RB SKU'] == data['rbsku']]
-        _, _, reallocatedf = optimise_supply(reallocation_data_by_sku)
-        count = (reallocatedf['stocksafetoreallocate'] > 0).sum()
-        resp_scen.update({"rarbysku": str(count > 0)})
+        
+        rardf = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
+        rardf = rardf[rardf['RB SKU'] == data['rbsku']]
+        staticrow = rardf[rardf['Customer'] == global_filters['Customer']]
+        otherrows = rardf[rardf['Customer'] != global_filters['Customer']]
+        resp_scen.update({"rarbysku": str(len(otherrows) > 0)})
         return jsonify(resp_scen), 200
 
     except Exception as e:
@@ -79,14 +79,43 @@ def getrarbysku():
         if not global_filters.get('Customer'):
             raise ValueError("No customer selected!")
 
-        reallocation_data = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
-        reallocation_data_by_sku = reallocation_data[reallocation_data['RB SKU'] == data['rbsku']]
-        static_row = json.loads(reallocation_data_by_sku[reallocation_data_by_sku['Customer'] == global_filters['Customer']].to_json(orient='records'))[0]
-        other_rows = json.loads(reallocation_data_by_sku[reallocation_data_by_sku['Customer'] != global_filters['Customer']].to_json(orient='records'))
+        rardf = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
+        rardf = rardf[rardf['RB SKU'] == data['rbsku']]
+        staticrow = rardf[rardf['Customer'] == global_filters['Customer']]
+        otherrows = rardf[rardf['Customer'] != global_filters['Customer']]
 
-        _, _, reallocatedf = optimise_supply(reallocation_data_by_sku)
-        reallocatedf = replace_missing_values(reallocatedf)
+        print(f"\n1. otherrows:\n{otherrows}\n")
 
-        return {"static_row":static_row, "other_rows":other_rows}
+        MINIMUM_SERVICE_LEVEL = 0.95
+        WOC_MIN = 3
+        WOC_MAX = 8
+
+        constraints = [{
+                            'Name': 'PCT DEVIATION FROM INIT ALLOC',
+                            'Value': '5%',
+                            'Label': 0
+                        }, {
+                            'Name': 'MIN Expected Service Level',
+                            'Value': f'{MINIMUM_SERVICE_LEVEL}',
+                            'Label': 1
+                        }, {
+                            'Name': 'MIN Deviation from Target WOC',
+                            'Value': f'{WOC_MIN}'
+                        }, {
+                            'Name': 'MAX Deviation from Target WOC',
+                            'Value': f'{WOC_MAX}',
+                            'Label': 0
+                        }]
+
+        results = [{
+                    "Name": "AVG EXP SERVICE LEVEL",
+                    "Value": "100%"
+                    },
+                    {
+                    "Name": "EXP OLA",
+                    "Value": "99%"
+                    }]
+        return {"static_row":staticrow, "other_rows":otherrows, "constraints":constraints, "results":results}
+
     except Exception as e:
         return jsonify(status="error", message=str(e)), 500
