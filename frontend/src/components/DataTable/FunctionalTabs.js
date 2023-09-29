@@ -23,6 +23,7 @@ import {
   fetchreckittstockposition,
   updateexporttabledata,
   fetchtaburl,
+  updatesearch,
 } from "../../store/actions/sidebarActions";
 
 const FunctionalTabs = () => {
@@ -30,6 +31,7 @@ const FunctionalTabs = () => {
 
   const [activeTab, setActiveTab] = useState(0);
   const customer = useSelector((state) => state.sidebar.customer);
+  const search = useSelector((state) => state.sidebar.search);
 
   const handleTabChange = (index) => {
     setActiveTab(index);
@@ -79,8 +81,14 @@ const FunctionalTabs = () => {
         // console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchreckittsupply(json));
-        dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
+        if (search) {
+          dispatch(updatesearch(false));
+          dispatch(updateexporttabledata(json));
+          dispatch(updatesearch(true));
+        } else {
+          dispatch(updateexporttabledata(json));
+        }
       } else {
         console.error("Error fetching data:", response.statusText);
       }
