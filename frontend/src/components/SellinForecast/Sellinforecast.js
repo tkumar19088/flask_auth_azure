@@ -17,69 +17,41 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import "./Sellinforecast.css";
 import { useNavigate } from "react-router-dom";
-// import Filtersdropdown from "../OverviewHighRisk/Filtersdropdown";
+import { useSelector } from "react-redux";
+import loaderImage from "../../images/Logo-bar.png";
 import Filtersin from "./Filtersin";
 
 const Sellinforecast = () => {
   const navigate = useNavigate();
-  const [lineChartData, setlineChartData] = useState(true);
-  const [sellinData1, setsellinData1] = useState([
-    { name: "week1", value: 0 },
-    { name: "week2", value: 0 },
-    { name: "week3", value: 0 },
-    { name: "week4", value: 0 },
-    { name: "week5", value: 0 },
-    { name: "week6", value: 0 },
-    { name: "week7", value: 0 },
-    { name: "week8", value: 0 },
-    { name: "week9", value: 0 },
-    { name: "week10", value: 0 },
-    { name: "week11", value: 0 },
-    { name: "week12", value: 0 },
-  ]);
-  const [sellinData2, setsellinData2] = useState([
-    { name: "week2", value: 10 },
-    { name: "week3", value: 0 },
-    { name: "week4", value: 0 },
-    { name: "week5", value: 10 },
+
+  const loader = useSelector((state) => state.sidebar.loader);
+  const [rBSKUdata, setrBSKUdata] = useState([]);
+  const [filteredData, setfilteredData] = useState([]);
+  const [selectedforecast, setselectedforecast] = useState([
+    { name: "week1", value: 0, kvalue: 0 },
+    { name: "week2", value: 0, kvalue: 0 },
+    { name: "week3", value: 0, kvalue: 0 },
+    { name: "week4", value: 0, kvalue: 0 },
+    { name: "week5", value: 0, kvalue: 0 },
+    { name: "week6", value: 0, kvalue: 0 },
+    { name: "week7", value: 0, kvalue: 0 },
+    { name: "week8", value: 0, kvalue: 0 },
+    { name: "week9", value: 0, kvalue: 0 },
+    { name: "week10", value: 0, kvalue: 0 },
+    { name: "week11", value: 0, kvalue: 0 },
+    { name: "week12", value: 0, kvalue: 0 },
   ]);
 
-  const json = [
-    {
-      Brand: "Gaviscon",
-      "Business Unit": "Health",
-      Customer: "Amazon",
-      Description: "GAVIS,GB,ANI LIQ 600MLX6",
-      InitialSOHWeek: "-",
-      Location: "United Kingdom",
-      PPG: "ADN",
-      "RB SKU": 43497,
-      "kinaxis CW+1": "10",
-      "kinaxis CW+12": "-",
-      "kinaxis CW+4": "20",
-      "kinaxis CW+8": "-",
-      "sola CW": "32.24",
-      "sola CW+1": "32.08",
-      "sola CW+2": "36.78",
-      "sola CW+3": "31.77",
-      "sola CW+4": "45.02",
-      "sola CW+5": "46.07",
-      "sola CW+6": "48.03",
-      "sola CW+7": "48.84",
-      "sola CW+8": "52.39",
-      "sola CW+9": "46.58",
-    },
-  ];
-
-  const convertedData = [];
-  for (let i = 1; i <= 12; i++) {
-    const week = `week${i}`;
-    const value = parseFloat(json[0][`sola CW+${i}`]) || 0;
-    const kvalue = parseFloat(json[0][`kinaxis CW+${i}`]) || 0;
-    convertedData.push({ name: week, value: value, kvalue: kvalue });
-  }
-
-  console.log(convertedData);
+  const convertedjson = (json) => {
+    const convertedData = [];
+    for (let i = 1; i <= 12; i++) {
+      const week = `week${i}`;
+      const value = parseFloat(json[0][`sola CW+${i}`]) || 0;
+      const kvalue = parseFloat(json[0][`kinaxis CW+${i}`]) || 0;
+      convertedData.push({ name: week, value: value, kvalue: kvalue });
+    }
+    setselectedforecast(convertedData);
+  };
 
   const handleClick = () => {
     navigate("/");
@@ -88,8 +60,27 @@ const Sellinforecast = () => {
     navigate(-1);
   };
 
+  const handleApply = (jsonData) => {
+    setfilteredData(jsonData);
+    const rbSkuArray = jsonData.map((item) => item["RB SKU"]);
+    setrBSKUdata(rbSkuArray);
+  };
+
+  const handleSKUChange = (e) => {
+    const skucode = e.target.value;
+    if (skucode != "") {
+      const json = filteredData.filter((item) => item["RB SKU"] == skucode);
+      convertedjson(json);
+    }
+  };
+
   return (
     <div>
+      {loader && (
+        <div className="loader-overlay">
+          <img src={loaderImage} alt="Loading..." className="rotating-image" />
+        </div>
+      )}
       <Topbar />
       <Grid container>
         <Grid item xs={2}>
@@ -149,20 +140,34 @@ const Sellinforecast = () => {
               </Box>
               <Box>
                 {" "}
-                <Filtersin />
+                <Filtersin apply={handleApply} />
               </Box>
               <Box>
-                <Box sx={{ minWidth: 200, marginTop: "-12px" }}>
+                <Box
+                  sx={{ minWidth: 200, marginTop: "-12px" }}
+                  className="sku-dropdown"
+                >
                   <FormControl
                     variant="standard"
                     sx={{ minWidth: 200 }}
                     size="small"
                   >
                     <InputLabel>SKU</InputLabel>
-                    <Select>
-                      <MenuItem value="Airwick">123456</MenuItem>
-
-                      <MenuItem value="Gaviscon">123456</MenuItem>
+                    <Select
+                      onChange={handleSKUChange}
+                      MenuProps={{
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250, // Set the maximum height for the dropdown
+                          },
+                        },
+                      }}
+                    >
+                      <MenuItem value="">Select</MenuItem>
+                      {rBSKUdata.length > 0 &&
+                        rBSKUdata.map((item) => (
+                          <MenuItem value={item}>{item}</MenuItem>
+                        ))}
                     </Select>
                   </FormControl>
                 </Box>
@@ -185,14 +190,9 @@ const Sellinforecast = () => {
               </Box>
             </Box>
           </Grid>
-          {lineChartData && (
-            <Box
-              sx={{ border: "", width: 1550, height: 755 }}
-              paddingLeft="30px"
-            >
-              <Linechart data={convertedData} />
-            </Box>
-          )}
+          <Box sx={{ border: "", width: 1550, height: 755 }} paddingLeft="30px">
+            <Linechart data={selectedforecast} />
+          </Box>
         </Grid>
       </Grid>
     </div>
