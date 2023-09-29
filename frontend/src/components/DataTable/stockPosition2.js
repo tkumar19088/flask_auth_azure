@@ -110,6 +110,7 @@ const StockPosition2 = ({ onData }) => {
   };
   const handleReallocate = async () => {
     dispatch(updateloader(true));
+    navigate("/stockreallocation");
     var data = { rbsku: expandedRow };
     try {
       const response = await fetch("http://localhost:5000/rarbysku", {

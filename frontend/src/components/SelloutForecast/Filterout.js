@@ -55,14 +55,14 @@ function Filtersout({ apply }) {
   };
 
   const handleMenuClose = () => {
-    setbusiness("");
-    setlocation("");
-    setcustomer("");
-    setbrand("");
-    setbusinessEmpty(false);
-    setlocationEmpty(false);
-    setcustomerEmpty(false);
-    setbrandEmpty(false);
+    // setbusiness("");
+    // setlocation("");
+    // setcustomer("");
+    // setbrand("");
+    // setbusinessEmpty(false);
+    // setlocationEmpty(false);
+    // setcustomerEmpty(false);
+    // setbrandEmpty(false);
     setAnchorEl(null);
   };
 

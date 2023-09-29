@@ -102,6 +102,7 @@ const DemandTable = ({ onData }) => {
   };
   const handleReallocate = async () => {
     dispatch(updateloader(true));
+    navigate("/stockreallocation");
     var data = { rbsku: expandedRow };
     try {
       const response = await fetch("http://localhost:5000/rarbysku", {
@@ -899,7 +900,7 @@ const DemandTable = ({ onData }) => {
                 </TableCell>
               </TableRow>
             )}
-            {data.map((item,index) => (
+            {data.map((item, index) => (
               <React.Fragment key={item["RB SKU"]}>
                 <TableRow
                   onClick={() => handleRowClick(item["RB SKU"])}
