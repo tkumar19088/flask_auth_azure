@@ -4,7 +4,7 @@ from flask import (
     request,
     jsonify
 )
-
+import pandas as pd
 import json
 import numpy as np
 from utils import AzureBlobReader, replace_missing_values
@@ -73,6 +73,8 @@ def getrarbysku():
 
     try:
         data = request.json or {}
+        print(f"\n1. data:{data}\n")
+
         if not data:
             raise ValueError("Missing required parameter: RB SKU!")
 
@@ -80,15 +82,42 @@ def getrarbysku():
             raise ValueError("No customer selected!")
 
         rardf = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
+
+        # reallocationdata = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
+        # ovalldata = AzureBlobReader().read_csvfile("ui_data/reckittoverviewdatarepo.csv")
+        # rardf = pd.merge(ovalldata, reallocationdata, on=['RB SKU', 'Customer'], how='inner')
+
         rardf = rardf[rardf['RB SKU'] == data['rbsku']]
         staticrow = rardf[rardf['Customer'] == global_filters['Customer']]
         otherrows = rardf[rardf['Customer'] != global_filters['Customer']]
 
-        print(f"\n1. otherrows:\n{otherrows}\n")
-
         MINIMUM_SERVICE_LEVEL = 0.95
         WOC_MIN = 3
         WOC_MAX = 8
+
+        # Labels for Service Level and WOC
+        # # 2 = Green - Completely Satisfied
+        # # 1 = Yellow - Partially Satisfied
+        # # 0 = Red - Not Satisfied
+        sl, woc = 0, 0
+        if len(otherrows) > 0:
+            # Label for Service Level
+            if otherrows['sif-atf'].all() >= MINIMUM_SERVICE_LEVEL:
+                sl = 2
+            elif otherrows['sif-atf'].any() < MINIMUM_SERVICE_LEVEL:
+                sl = 0
+            else:
+                sl = 1
+
+            # Label for WOC
+            if (otherrows["custwoc-current"].all() >= WOC_MIN) and (otherrows["custwoc-current"].all() <= WOC_MAX):
+                woc = 2
+            elif (otherrows["custwoc-current"].any() < WOC_MIN) or (otherrows["custwoc-current"].any() > WOC_MAX):
+                woc = 0
+            else:
+                woc = 1
+        else:
+            otherrows = []
 
         constraints = [{
                             'Name': 'PCT DEVIATION FROM INIT ALLOC',
@@ -97,14 +126,14 @@ def getrarbysku():
                         }, {
                             'Name': 'MIN Expected Service Level',
                             'Value': f'{MINIMUM_SERVICE_LEVEL}',
-                            'Label': 1
+                            'Label': f'{sl}'
                         }, {
                             'Name': 'MIN Deviation from Target WOC',
                             'Value': f'{WOC_MIN}'
                         }, {
                             'Name': 'MAX Deviation from Target WOC',
                             'Value': f'{WOC_MAX}',
-                            'Label': 0
+                            'Label': f'{woc}'
                         }]
 
         results = [{
@@ -115,7 +144,11 @@ def getrarbysku():
                     "Name": "EXP OLA",
                     "Value": "99%"
                     }]
-        return {"static_row":staticrow, "other_rows":otherrows, "constraints":constraints, "results":results}
+
+        srow = staticrow if len(staticrow) > 0 else []
+        orows = otherrows if len(otherrows) > 0 else []
+
+        return {"static_row":srow, "other_rows":orows, "constraints":constraints, "results":results}
 
     except Exception as e:
         return jsonify(status="error", message=str(e)), 500
