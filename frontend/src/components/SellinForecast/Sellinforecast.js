@@ -126,7 +126,7 @@ const Sellinforecast = () => {
               </Button>
             </Box>{" "}
             &#160;&#160;&#160;&#160;&#160;&#160;
-            <Typography fontSize={14}>Forecast Builder - Sell-In</Typography>
+            <Typography fontSize={14}>Forecast Builder : Sell-In</Typography>
             <Typography>
               <ChevronRightIcon sx={{ height: "20px" }} />
             </Typography>
@@ -135,7 +135,7 @@ const Sellinforecast = () => {
             <Box display="flex" justifyItems="center" gap={4}>
               <Box>
                 <Typography fontSize={24} color="#415A6C">
-                  Forecast Builder - Sell-In
+                  Forecast Builder : Sell-In
                 </Typography>
               </Box>
               <Box>

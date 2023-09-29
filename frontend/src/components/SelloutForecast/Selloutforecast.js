@@ -28,24 +28,24 @@ const Selloutforecast = () => {
   const [rBSKUdata, setrBSKUdata] = useState([]);
   const [filteredData, setfilteredData] = useState([]);
   const [selectedforecast, setselectedforecast] = useState([
-    { name: "week1", value: 0 },
-    { name: "week2", value: 0 },
-    { name: "week3", value: 0 },
-    { name: "week4", value: 0 },
-    { name: "week5", value: 0 },
-    { name: "week6", value: 0 },
-    { name: "week7", value: 0 },
-    { name: "week8", value: 0 },
-    { name: "week9", value: 0 },
-    { name: "week10", value: 0 },
-    { name: "week11", value: 0 },
-    { name: "week12", value: 0 },
+    { name: "Week - 1", value: 0 },
+    { name: "Week - 2", value: 0 },
+    { name: "Week - 3", value: 0 },
+    { name: "Week - 4", value: 0 },
+    { name: "Week - 5", value: 0 },
+    { name: "Week - 6", value: 0 },
+    { name: "Week - 7", value: 0 },
+    { name: "Week - 8", value: 0 },
+    { name: "Week - 9", value: 0 },
+    { name: "Week - 10", value: 0 },
+    { name: "Week - 11", value: 0 },
+    { name: "Week - 12", value: 0 },
   ]);
 
   const convertedjson = (json) => {
     const convertedData = [];
     for (let i = 1; i <= 12; i++) {
-      const week = `week${i}`;
+      const week = `Week - ${i}`;
       const value = parseFloat(json[0][`sola CW+${i}`]) || 0;
       convertedData.push({ name: week, value: value });
     }
@@ -125,7 +125,7 @@ const Selloutforecast = () => {
               </Button>
             </Box>{" "}
             &#160;&#160;&#160;&#160;&#160;&#160;
-            <Typography fontSize={14}>Forecast Builder - Sell-In</Typography>
+            <Typography fontSize={14}>Forecast Builder : Sell-In</Typography>
             <Typography>
               <ChevronRightIcon sx={{ height: "20px" }} />
             </Typography>
@@ -134,7 +134,7 @@ const Selloutforecast = () => {
             <Box display="flex" justifyItems="center" gap={4}>
               <Box>
                 <Typography fontSize={24} color="#415A6C">
-                  Forecast Builder - Sell-Out
+                  Forecast Builder : Sell-Out
                 </Typography>
               </Box>
               <Box>
