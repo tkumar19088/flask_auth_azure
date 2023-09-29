@@ -115,6 +115,7 @@ const SupplyTable = ({ onData }) => {
   };
   const handleReallocate = async () => {
     dispatch(updateloader(true));
+    navigate("/stockreallocation");
     var data = { rbsku: expandedRow };
     try {
       const response = await fetch("https://testingsmartola.azurewebsites.net/rarbysku", {
@@ -140,7 +141,7 @@ const SupplyTable = ({ onData }) => {
     }
   };
 
-  const supplydata = useSelector((state) => state.sidebar.reckittsupply);
+  const data = useSelector((state) => state.sidebar.reckittsupply);
 
   // search ? exporttabledata : supplydata;
 
@@ -165,7 +166,7 @@ const SupplyTable = ({ onData }) => {
   //   return /^\d+$/.test(inputString);
   // };
 
-  const data = search ? supplydata : supplydata;
+  // const data = search ? supplydata : supplydata;
 
   // const [data, setData] = useState([
   //   {

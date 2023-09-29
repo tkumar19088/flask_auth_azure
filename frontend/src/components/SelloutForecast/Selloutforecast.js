@@ -1,20 +1,56 @@
 import React, { useState } from "react";
 import Topbar from "../Topbar/Topbar";
-import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+} from "@mui/material";
 import Sidebar from "../Sidebar/Sidebar";
 import Linechart from "./Linechart";
+import FormControl from "@mui/material/FormControl";
 
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import "./Selloutforecast.css";
 import { useNavigate } from "react-router-dom";
-// import Filtersdropdown from "../OverviewHighRisk/Filtersdropdown";
+import { useSelector } from "react-redux";
+import loaderImage from "../../images/Logo-bar.png";
 import Filtersout from "./Filterout";
 
 const Selloutforecast = () => {
-  const [lineChartData, setlineChartData] = useState(true);
-
   const navigate = useNavigate();
+
+  const loader = useSelector((state) => state.sidebar.loader);
+  const [rBSKUdata, setrBSKUdata] = useState([]);
+  const [filteredData, setfilteredData] = useState([]);
+  const [selectedforecast, setselectedforecast] = useState([
+    { name: "week1", value: 0 },
+    { name: "week2", value: 0 },
+    { name: "week3", value: 0 },
+    { name: "week4", value: 0 },
+    { name: "week5", value: 0 },
+    { name: "week6", value: 0 },
+    { name: "week7", value: 0 },
+    { name: "week8", value: 0 },
+    { name: "week9", value: 0 },
+    { name: "week10", value: 0 },
+    { name: "week11", value: 0 },
+    { name: "week12", value: 0 },
+  ]);
+
+  const convertedjson = (json) => {
+    const convertedData = [];
+    for (let i = 1; i <= 12; i++) {
+      const week = `week${i}`;
+      const value = parseFloat(json[0][`sola CW+${i}`]) || 0;
+      convertedData.push({ name: week, value: value });
+    }
+    setselectedforecast(convertedData);
+  };
 
   const handleClick = () => {
     navigate("/");
@@ -23,8 +59,27 @@ const Selloutforecast = () => {
     navigate(-1);
   };
 
+  const handleApply = (jsonData) => {
+    setfilteredData(jsonData);
+    const rbSkuArray = jsonData.map((item) => item["RB SKU"]);
+    setrBSKUdata(rbSkuArray);
+  };
+
+  const handleSKUChange = (e) => {
+    const skucode = e.target.value;
+    if (skucode != "") {
+      const json = filteredData.filter((item) => item["RB SKU"] == skucode);
+      convertedjson(json);
+    }
+  };
+
   return (
     <div>
+      {loader && (
+        <div className="loader-overlay">
+          <img src={loaderImage} alt="Loading..." className="rotating-image" />
+        </div>
+      )}
       <Topbar />
       <Grid container>
         <Grid item xs={2}>
@@ -36,6 +91,8 @@ const Selloutforecast = () => {
           p={2}
           sx={{
             backgroundColor: "#F5F6F8",
+            // border: "1px solid red",
+            height: "889px",
           }}
         >
           <Box display="flex" fontSize={14} mx="1px">
@@ -68,7 +125,7 @@ const Selloutforecast = () => {
               </Button>
             </Box>{" "}
             &#160;&#160;&#160;&#160;&#160;&#160;
-            <Typography fontSize={14}>Forecast Builder - Sell-Out</Typography>
+            <Typography fontSize={14}>Forecast Builder - Sell-In</Typography>
             <Typography>
               <ChevronRightIcon sx={{ height: "20px" }} />
             </Typography>
@@ -81,21 +138,35 @@ const Selloutforecast = () => {
                 </Typography>
               </Box>
               <Box>
-                
-                <Filtersout />
+                {" "}
+                <Filtersout apply={handleApply} />
               </Box>
               <Box>
-                <Box sx={{ minWidth: 200, marginTop: "-12px" }}>
+                <Box
+                  sx={{ minWidth: 200, marginTop: "-12px" }}
+                  className="sku-dropdown"
+                >
                   <FormControl
                     variant="standard"
                     sx={{ minWidth: 200 }}
                     size="small"
                   >
                     <InputLabel>SKU</InputLabel>
-                    <Select>
-                      <MenuItem value="Airwick">123456</MenuItem>
-
-                      <MenuItem value="Gaviscon">123456</MenuItem>
+                    <Select
+                      onChange={handleSKUChange}
+                      MenuProps={{
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250, // Set the maximum height for the dropdown
+                          },
+                        },
+                      }}
+                    >
+                      <MenuItem value="">Select</MenuItem>
+                      {rBSKUdata.length > 0 &&
+                        rBSKUdata.map((item) => (
+                          <MenuItem value={item}>{item}</MenuItem>
+                        ))}
                     </Select>
                   </FormControl>
                 </Box>
@@ -118,15 +189,9 @@ const Selloutforecast = () => {
               </Box>
             </Box>
           </Grid>
-          <Box sx={{ width: "100%" }}></Box>
-          {lineChartData && (
-            <Box
-              sx={{ border: "", width: 1550, height: 755 }}
-              paddingLeft="30px"
-            >
-              <Linechart />
-            </Box>
-          )}
+          <Box sx={{ border: "", width: 1550, height: 755 }} paddingLeft="30px">
+            <Linechart data={selectedforecast} />
+          </Box>
         </Grid>
       </Grid>
     </div>

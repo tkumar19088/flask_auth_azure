@@ -104,6 +104,7 @@ const WocTable = ({ onData }) => {
   };
   const handleReallocate = async () => {
     dispatch(updateloader(true));
+    navigate("/stockreallocation");
     var data = { rbsku: expandedRow };
     try {
       const response = await fetch("https://testingsmartola.azurewebsites.net/rarbysku", {
@@ -541,7 +542,6 @@ const WocTable = ({ onData }) => {
               </TableCell>
               <TableCell
                 sx={{
-                  
                   width: "60px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
@@ -555,7 +555,6 @@ const WocTable = ({ onData }) => {
               </TableCell>
               <TableCell
                 sx={{
-                  
                   width: "60px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
@@ -567,7 +566,6 @@ const WocTable = ({ onData }) => {
               </TableCell>
               <TableCell
                 sx={{
-                  
                   width: "60px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
@@ -579,7 +577,7 @@ const WocTable = ({ onData }) => {
               </TableCell>
               <TableCell
                 sx={{
-                  // 
+                  //
                   width: "110px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
@@ -591,7 +589,6 @@ const WocTable = ({ onData }) => {
               </TableCell>
               <TableCell
                 sx={{
-                  
                   width: "110px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
@@ -604,7 +601,6 @@ const WocTable = ({ onData }) => {
               </TableCell>
               <TableCell
                 sx={{
-                  
                   width: "130px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
@@ -616,7 +612,6 @@ const WocTable = ({ onData }) => {
               </TableCell>
               <TableCell
                 sx={{
-                  
                   width: "110px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
@@ -630,7 +625,6 @@ const WocTable = ({ onData }) => {
               </TableCell>
               <TableCell
                 sx={{
-                  
                   width: "110px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",
@@ -642,7 +636,6 @@ const WocTable = ({ onData }) => {
               </TableCell>
               <TableCell
                 sx={{
-                  
                   width: "110px",
                   textAlign: "center",
                   border: "1px solid #dcdcdc",

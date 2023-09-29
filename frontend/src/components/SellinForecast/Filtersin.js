@@ -9,65 +9,22 @@ import {
   NativeSelect,
 } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  updateloader,
-  fetchbusiness,
-  fetchlocation,
-  fetchcustomer,
-  fetchbrand,
-  fetchbusinessempty,
-  fetchlocationempty,
-  fetchfilterapply,
-  fetchalerts,
-  fetchcustomerola,
-  fetchcustomerstockposition,
-  fetchcustomersellin,
-  fetchcustomersellout,
-  fetchcustomerhestoric,
-  fetchoverviewcustomerdata,
-  fetchreckittstockposition,
-  fetchreckittexpectedservice,
-  fetchreckittcaseshortages,
-  fetchreckittwoc,
-  fetchreckittexpectedsoh,
-  fetchreckittdemand,
-  fetchreckittsupply,
-  fetchoverviewhighriskdata,
-  updateexporttabledata,
-  fetchtaburl,
-} from "../../store/actions/sidebarActions";
-// import "./Filtersdropdown.css";
+import { updateloader } from "../../store/actions/sidebarActions";
 import "./Sellinforecast";
 
-function Filtersin() {
+function Filtersin({ apply }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
-  const overviewhighriskdata = useSelector(
-    (state) => state.sidebar.overviewhighriskdata
-  );
-  const filteredOHRdata = useSelector((state) => state.sidebar.filteredOHRdata);
-  const [selectedCustomerValue, setselectedCustomerValue] = useState("Amazon"); // Initialize with a default value
 
   const data = useSelector((state) => state.sidebar.userDetails);
-  console.log(data);
 
-  // const business = useSelector((state) => state.sidebar.business);
-  // const location = useSelector((state) => state.sidebar.location);
-  // const customer = useSelector((state) => state.sidebar.customerfilter);
-  // const brand = useSelector((state) => state.sidebar.brand);
-
-  const [business, setbusiness] = useState(false);
-  const [location, setlocation] = useState(false);
-  const [customer, setcustomer] = useState(false);
-  const [brand, setbrand] = useState(false);
-
-  // const businessEmpty = useSelector((state) => state.sidebar.businessEmpty);
-  // const locationEmpty = useSelector((state) => state.sidebar.locationEmpty);
-  // const taburl = useSelector((state) => state.sidebar.taburl);
-  // const customerurl = useSelector((state) => state.sidebar.customer);
+  const [business, setbusiness] = useState("");
+  const [location, setlocation] = useState("");
+  const [customer, setcustomer] = useState("");
+  const [brand, setbrand] = useState("");
 
   const [businessEmpty, setbusinessEmpty] = useState(false);
   const [locationEmpty, setlocationEmpty] = useState(false);
@@ -98,10 +55,19 @@ function Filtersin() {
   };
 
   const handleMenuClose = () => {
+    // setbusiness("");
+    // setlocation("");
+    // setcustomer("");
+    // setbrand("");
+    // setbusinessEmpty(false);
+    // setlocationEmpty(false);
+    // setcustomerEmpty(false);
+    // setbrandEmpty(false);
     setAnchorEl(null);
   };
 
   const handleApplyFilters = async (e) => {
+    dispatch(updateloader(true));
     e.preventDefault();
     if (!business) {
       setbusinessEmpty(true);
@@ -138,14 +104,14 @@ function Filtersin() {
       });
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
-        // tabApiCall();
-        // dispatch(fetchfilterapply(true));
-        // dispatch(fetchalerts(json.alerts));
+        apply(json);
+        setAnchorEl(null);
       }
       // Handle the API response data as needed
     } catch (error) {
       console.error("Error:", error);
+    } finally {
+      dispatch(updateloader(false));
     }
   };
 
@@ -189,6 +155,7 @@ function Filtersin() {
                   onChange={handleBusinessChange}
                   id="business-unit"
                 >
+                  <MenuItem value="">Select</MenuItem>
                   {data["Business Unit"].map((item) => (
                     <MenuItem value={item} key={item}>
                       {item}
@@ -218,6 +185,7 @@ function Filtersin() {
                   onChange={handleLocationChange}
                   id="location"
                 >
+                  <MenuItem value="">Select</MenuItem>
                   {data.Location.map((item) => (
                     <MenuItem value={item} key={item}>
                       {item}
@@ -232,14 +200,21 @@ function Filtersin() {
               <FormControl
                 variant="standard"
                 sx={{ minWidth: 200, marginTop: "-20px" }}
+                style={customerEmpty ? { borderColor: "red" } : {}}
                 size="small"
               >
-                <InputLabel>Customer</InputLabel>
+                <InputLabel
+                  htmlFor="customer"
+                  style={customerEmpty ? { color: "red" } : {}}
+                >
+                  Customer*
+                </InputLabel>
                 <Select
-                  id="location-select"
+                  id="customer"
                   value={customer}
                   onChange={handleCustomerChange}
                 >
+                  <MenuItem value="">Select</MenuItem>
                   {data.Customer.map((item) => (
                     <MenuItem value={item}>{item}</MenuItem>
                   ))}
@@ -252,14 +227,22 @@ function Filtersin() {
               <FormControl
                 variant="standard"
                 sx={{ minWidth: 200, marginTop: "-20px" }}
+                style={brandEmpty ? { borderColor: "red" } : {}}
                 size="small"
               >
-                <InputLabel>Brand</InputLabel>
+                <InputLabel
+                  htmlFor="brand"
+                  style={brandEmpty ? { color: "red" } : {}}
+                >
+                  Brand*
+                </InputLabel>
                 <Select
                   value={brand}
                   onChange={handleBrandChange}
                   disabled={!business}
+                  id="brand"
                 >
+                  <MenuItem value="">Select</MenuItem>
                   {business === "Hygiene" && (
                     <MenuItem value="Airwick">Airwick</MenuItem>
                   )}
@@ -278,6 +261,9 @@ function Filtersin() {
               className="btn-apply"
               sx={{
                 backgroundColor: "#415A6C",
+                "&:hover": {
+                  backgroundColor: "#FF007F",
+                },
               }}
               onClick={handleApplyFilters}
             >
@@ -289,6 +275,9 @@ function Filtersin() {
               className="btn-apply"
               sx={{
                 backgroundColor: "#415A6C",
+                "&:hover": {
+                  backgroundColor: "#FF007F",
+                },
               }}
               onClick={handleMenuClose}
             >

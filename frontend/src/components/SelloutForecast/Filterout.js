@@ -9,76 +9,45 @@ import {
   NativeSelect,
 } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  updateloader,
-  fetchbusiness,
-  fetchlocation,
-  fetchcustomer,
-  fetchbrand,
-  fetchbusinessempty,
-  fetchlocationempty,
-  fetchfilterapply,
-  fetchalerts,
-  fetchcustomerola,
-  fetchcustomerstockposition,
-  fetchcustomersellin,
-  fetchcustomersellout,
-  fetchcustomerhestoric,
-  fetchoverviewcustomerdata,
-  fetchreckittstockposition,
-  fetchreckittexpectedservice,
-  fetchreckittcaseshortages,
-  fetchreckittwoc,
-  fetchreckittexpectedsoh,
-  fetchreckittdemand,
-  fetchreckittsupply,
-  fetchoverviewhighriskdata,
-  updateexporttabledata,
-  fetchtaburl,
-} from "../../store/actions/sidebarActions";
-// import "./Filtersdropdown.css";
-import "./Selloutforecast";
+import { updateloader } from "../../store/actions/sidebarActions";
+import "./Selloutforecast.css";
 
-function Filtersout() {
+function Filtersout({ apply }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
-  const overviewhighriskdata = useSelector(
-    (state) => state.sidebar.overviewhighriskdata
-  );
-  const filteredOHRdata = useSelector((state) => state.sidebar.filteredOHRdata);
-  const [selectedCustomerValue, setselectedCustomerValue] = useState("Amazon"); // Initialize with a default value
 
   const data = useSelector((state) => state.sidebar.userDetails);
-  console.log(data);
 
-  const business = useSelector((state) => state.sidebar.business);
-  const location = useSelector((state) => state.sidebar.location);
-  const customer = useSelector((state) => state.sidebar.customerfilter);
-  const brand = useSelector((state) => state.sidebar.brand);
+  const [business, setbusiness] = useState("");
+  const [location, setlocation] = useState("");
+  const [customer, setcustomer] = useState("");
+  const [brand, setbrand] = useState("");
 
-  const businessEmpty = useSelector((state) => state.sidebar.businessEmpty);
-  const locationEmpty = useSelector((state) => state.sidebar.locationEmpty);
-  const taburl = useSelector((state) => state.sidebar.taburl);
-  const customerurl = useSelector((state) => state.sidebar.customer);
+  const [businessEmpty, setbusinessEmpty] = useState(false);
+  const [locationEmpty, setlocationEmpty] = useState(false);
+  const [customerEmpty, setcustomerEmpty] = useState(false);
+  const [brandEmpty, setbrandEmpty] = useState(false);
 
   const handleBusinessChange = (event) => {
-    dispatch(fetchbusiness(event.target.value));
-    dispatch(fetchbusinessempty(false));
+    setbusiness(event.target.value);
+    setbusinessEmpty(false);
   };
 
   const handleLocationChange = (event) => {
-    dispatch(fetchlocation(event.target.value));
-    dispatch(fetchlocationempty(false));
+    setlocation(event.target.value);
+    setlocationEmpty(false);
   };
 
   const handleCustomerChange = (event) => {
-    dispatch(fetchcustomer(event.target.value));
+    setcustomer(event.target.value);
+    setcustomerEmpty(false);
   };
   const handleBrandChange = (event) => {
-    dispatch(fetchbrand(event.target.value));
+    setbrand(event.target.value);
+    setbrandEmpty(false);
   };
 
   const handleMenuClick = (event) => {
@@ -86,19 +55,34 @@ function Filtersout() {
   };
 
   const handleMenuClose = () => {
+    // setbusiness("");
+    // setlocation("");
+    // setcustomer("");
+    // setbrand("");
+    // setbusinessEmpty(false);
+    // setlocationEmpty(false);
+    // setcustomerEmpty(false);
+    // setbrandEmpty(false);
     setAnchorEl(null);
   };
 
   const handleApplyFilters = async (e) => {
+    dispatch(updateloader(true));
     e.preventDefault();
     if (!business) {
-      dispatch(fetchbusinessempty(true));
+      setbusinessEmpty(true);
     }
     if (!location) {
-      dispatch(fetchlocationempty(true));
+      setlocationEmpty(true);
+    }
+    if (!customer) {
+      setcustomerEmpty(true);
+    }
+    if (!brand) {
+      setbrandEmpty(true);
     }
 
-    if (!business || !location) {
+    if (!business || !location || !customer || !brand) {
       return;
     }
 
@@ -111,7 +95,7 @@ function Filtersout() {
     };
     console.log(data);
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/getfilterparams", {
+      const response = await fetch("http://localhost:5000/getselloutgraph", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -120,89 +104,14 @@ function Filtersout() {
       });
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
-        tabApiCall();
-        // dispatch(fetchfilterapply(true));
-        // dispatch(fetchalerts(json.alerts));
+        apply(json);
+        setAnchorEl(null);
       }
       // Handle the API response data as needed
     } catch (error) {
       console.error("Error:", error);
-    }
-  };
-
-  const tabApiCall = async () => {
-    dispatch(updateloader(true));
-    var data = { customer: customerurl };
-    try {
-      const url = taburl;
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      if (response.ok) {
-        const json = await response.json();
-        identifySpecificTabdata(json, url);
-      } else {
-        console.error("Error fetching data:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Fetch error:", error);
     } finally {
       dispatch(updateloader(false));
-    }
-  };
-
-  const identifySpecificTabdata = (json, url) => {
-    dispatch(updateexporttabledata(json));
-    dispatch(fetchtaburl(url));
-    if (customerurl == 0) {
-      if (url.includes("getoverview")) {
-        dispatch(fetchoverviewhighriskdata(json));
-      }
-      if (url.includes("getsupply")) {
-        dispatch(fetchreckittsupply(json));
-      }
-      if (url.includes("getdemand")) {
-        dispatch(fetchreckittdemand(json));
-      }
-      if (url.includes("getsohateow")) {
-        dispatch(fetchreckittexpectedsoh(json));
-      }
-      if (url.includes("getwocateow")) {
-        dispatch(fetchreckittwoc(json));
-      }
-      if (url.includes("getcaseshortages")) {
-        dispatch(fetchreckittcaseshortages(json));
-      }
-      if (url.includes("getexpectedservice")) {
-        dispatch(fetchreckittexpectedservice(json));
-      }
-      if (url.includes("getstockposition")) {
-        dispatch(fetchreckittstockposition(json));
-      }
-    } else {
-      if (url.includes("getoverview")) {
-        dispatch(fetchoverviewcustomerdata(json));
-      }
-      if (url.includes("getcustepos")) {
-        dispatch(fetchcustomerhestoric(json));
-      }
-      if (url.includes("getcustsellout")) {
-        dispatch(fetchcustomersellout(json));
-      }
-      if (url.includes("getcustsellin")) {
-        dispatch(fetchcustomersellin(json));
-      }
-      if (url.includes("getstockposition")) {
-        dispatch(fetchcustomerstockposition(json));
-      }
-      if (url.includes("getcustola")) {
-        dispatch(fetchcustomerola(json));
-      }
     }
   };
 
@@ -246,6 +155,7 @@ function Filtersout() {
                   onChange={handleBusinessChange}
                   id="business-unit"
                 >
+                  <MenuItem value="">Select</MenuItem>
                   {data["Business Unit"].map((item) => (
                     <MenuItem value={item} key={item}>
                       {item}
@@ -275,6 +185,7 @@ function Filtersout() {
                   onChange={handleLocationChange}
                   id="location"
                 >
+                  <MenuItem value="">Select</MenuItem>
                   {data.Location.map((item) => (
                     <MenuItem value={item} key={item}>
                       {item}
@@ -289,14 +200,21 @@ function Filtersout() {
               <FormControl
                 variant="standard"
                 sx={{ minWidth: 200, marginTop: "-20px" }}
+                style={customerEmpty ? { borderColor: "red" } : {}}
                 size="small"
               >
-                <InputLabel>Customer</InputLabel>
+                <InputLabel
+                  htmlFor="customer"
+                  style={customerEmpty ? { color: "red" } : {}}
+                >
+                  Customer*
+                </InputLabel>
                 <Select
-                  id="location-select"
+                  id="customer"
                   value={customer}
                   onChange={handleCustomerChange}
                 >
+                  <MenuItem value="">Select</MenuItem>
                   {data.Customer.map((item) => (
                     <MenuItem value={item}>{item}</MenuItem>
                   ))}
@@ -309,14 +227,22 @@ function Filtersout() {
               <FormControl
                 variant="standard"
                 sx={{ minWidth: 200, marginTop: "-20px" }}
+                style={brandEmpty ? { borderColor: "red" } : {}}
                 size="small"
               >
-                <InputLabel>Brand</InputLabel>
+                <InputLabel
+                  htmlFor="brand"
+                  style={brandEmpty ? { color: "red" } : {}}
+                >
+                  Brand*
+                </InputLabel>
                 <Select
                   value={brand}
                   onChange={handleBrandChange}
                   disabled={!business}
+                  id="brand"
                 >
+                  <MenuItem value="">Select</MenuItem>
                   {business === "Hygiene" && (
                     <MenuItem value="Airwick">Airwick</MenuItem>
                   )}
@@ -335,6 +261,9 @@ function Filtersout() {
               className="btn-apply"
               sx={{
                 backgroundColor: "#415A6C",
+                "&:hover": {
+                  backgroundColor: "#FF007F",
+                },
               }}
               onClick={handleApplyFilters}
             >
@@ -346,6 +275,9 @@ function Filtersout() {
               className="btn-apply"
               sx={{
                 backgroundColor: "#415A6C",
+                "&:hover": {
+                  backgroundColor: "#FF007F",
+                },
               }}
               onClick={handleMenuClose}
             >

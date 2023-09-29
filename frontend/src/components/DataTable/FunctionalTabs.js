@@ -32,6 +32,7 @@ const FunctionalTabs = () => {
   const [activeTab, setActiveTab] = useState(0);
   const customer = useSelector((state) => state.sidebar.customer);
   const search = useSelector((state) => state.sidebar.search);
+  const searchvalue = useSelector((state) => state.sidebar.searchvalue);
 
   const handleTabChange = (index) => {
     setActiveTab(index);
@@ -66,7 +67,7 @@ const FunctionalTabs = () => {
   };
   const handleSupply = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer };
+    var data = { customer: customer, search: searchvalue };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getsupply";
       const response = await fetch(url, {
@@ -81,14 +82,8 @@ const FunctionalTabs = () => {
         // console.log(json);
         // setuserDetails(json.name);
         dispatch(fetchreckittsupply(json));
+        dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
-        if (search) {
-          dispatch(updatesearch(false));
-          dispatch(updateexporttabledata(json));
-          dispatch(updatesearch(true));
-        } else {
-          dispatch(updateexporttabledata(json));
-        }
       } else {
         console.error("Error fetching data:", response.statusText);
       }

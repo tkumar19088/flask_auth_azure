@@ -104,6 +104,7 @@ const StockPositionWeek = ({ onData }) => {
   };
   const handleReallocate = async () => {
     dispatch(updateloader(true));
+    navigate("/stockreallocation");
     var data = { rbsku: expandedRow };
     try {
       const response = await fetch("https://testingsmartola.azurewebsites.net/rarbysku", {
