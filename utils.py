@@ -222,7 +222,10 @@ class AlertsManager:
         return df.reset_index(drop=True)
 
     def get_sorted_data(self, data, sort_column):
-        df = data.groupby(['Business Unit', 'Location', 'Brand']).apply(lambda x: x.sort_values([sort_column], ascending=True)).reset_index(drop=True)
+        if sort_column == 'Reckitt WOC':
+            df = data.groupby(['Business Unit', 'Location', 'Brand']).apply(lambda x: x.sort_values([sort_column], ascending=True)).reset_index(drop=True)
+        else:
+            df = data.groupby(['Business Unit', 'Location', 'Brand']).apply(lambda x: x.sort_values([sort_column], ascending=False)).reset_index(drop=True)
         df = replace_missing_values(df)
         return df
 
@@ -235,7 +238,7 @@ class AlertsManager:
             for name, group in sorted_oos.groupby(['Location', 'Brand']):
                 alert = {
                     'Title': f"OOS Risk Detected on {name[1]} {name[0]} SKUs",
-                    'DATA': group[["Description", "Service CW"]].head(3).to_dict('records')
+                    'DATA': group[["Description", "Reckitt WOC"]].head(3).to_dict('records')
                 }
                 try:
                     self.alerts.append(alert)
@@ -261,7 +264,7 @@ class AlertsManager:
         for alert in self.alerts:
             for data in alert["DATA"]:
                 data["Name"] = data.pop("Description", data.pop("PO Number", None))
-                data["Value"] = data.pop("Service CW", data.pop("PO Date", None))
+                data["Value"] = data.pop("Reckitt WOC", data.pop("PO Date", None))
 
 
     def get_alerts(self):
@@ -473,13 +476,12 @@ class SKUManager:
             df_price = AzureBlobReader().read_csvfile("ui_data/df_price.csv")
             alternative_skus_calculator = AlternativeSKUsCalculator(df_price, sku_r, customer)
             alternative_skus = alternative_skus_calculator.calculate()
-            # alternative_skus = alternative_skus[alternative_skus['score_final'] > 50]
-            altskus_sorted = alternative_skus.sort_values(by='score_final', ascending=False).head(5) # type: ignore
+            alternative_skus = alternative_skus[alternative_skus['score_final'] > .50]
+            altskus_sorted = alternative_skus.sort_values(by='score_final', ascending=False).head(3)
             altskus_sorted['skuid'] = altskus_sorted.index
-
-            bensfile = AzureBlobReader().read_csvfile("ui_data/alternative_sku_template.csv")
-
-            merged = bensfile.merge(altskus_sorted, left_on='RB SKU', right_on='skuid', how='inner')
+            pushaltskucsv = AzureBlobReader().read_csvfile("ui_data/alternative_sku_template.csv") #ben's file
+            # pushaltskucsv = AzureBlobReader().read_csvfile("ui_data/pushalternativesku.csv")
+            merged = pushaltskucsv.merge(altskus_sorted, left_on='RB SKU', right_on='skuid', how='inner')
             rename_cols = {
                             'score_final': 'recom-score',
                         }
@@ -507,7 +509,6 @@ class AlternativeSKUsCalculator:
         conds = (self.df['brand'] == brand) & (self.df['retailer'] == self.ret) & (self.df['segment'] == segment)
         tmp = self.df[conds].drop(columns = ['retailer', 'brand']).drop_duplicates().copy()
         tmp = tmp.set_index('sku').T
-
         try:
             if self.sku_r in tmp.columns:
                 tmp_r = tmp[self.sku_r]
@@ -558,13 +559,13 @@ class AlternativeSKUsCalculator:
 #
 # **************************************************************************
 def replace_missing_values(df):
-    missing_values = [None, 'null', 'NULL', 'Null', 'Nan', 'nan', 'NaN', ' ', '', 'None; None']
+    missing_values = [None, 'null', 'NULL', 'Null', 'Nan', 'nan', 'NaN', ' ', '', 'None; None', np.nan]
     cleaned_df = df.replace(missing_values, '-')
-    cleaned_df = cleaned_df.applymap(lambda x: round(x, 2) if isinstance(x, float) and x not in [0, 0.00] else x)
+    # cleaned_df = cleaned_df.applymap(lambda x: round(x, 2) if isinstance(x, float) and x not in [0, 0.00] else x)
     df = cleaned_df.fillna('-')
     for col in df.columns:
         if 'ExpSL' in col or 'recom-score' in col:
-            df[col] = df[col].apply(lambda x: f"{int(x)*100}%" if isinstance(x, (int, float)) else x)
+            df[col] = df[col].apply(lambda x: f"{x*100:.0f}%" if isinstance(x, (int, float)) else x)
 
         if 'Supply CW' in col or 'Demand CW' in col or 'WOC CW' in col or 'CaseShort' in col or 'Exp NR' in col or 'StkPos' in col or 'sola' in col or 'kinaxis' in col:
             df[col] = df[col].apply(lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x)

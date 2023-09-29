@@ -11,6 +11,7 @@ from utils import AzureBlobReader, AlertsManager, replace_missing_values
 from dotenv import load_dotenv
 load_dotenv()
 
+import datetime as dt
 
 uiflow_blueprint = Blueprint("uiflow", __name__)
 
@@ -64,9 +65,9 @@ def get_overview():
 
         # sort table by WOC
         if data['customer']:
-            ohrsorted = pd.DataFrame(ohr.sort_values(by='Cust WOC', ascending=True))
+            ohrsorted = ohr.sort_values(by='Cust WOC', ascending=True)
         else:
-            ohrsorted = pd.DataFrame(ohr.sort_values(by='Reckitt WOC', ascending=True))
+            ohrsorted = ohr.sort_values(by='Reckitt WOC', ascending=True)
 
         # replace missing values
         ohrsorted = replace_missing_values(ohrsorted)
@@ -310,7 +311,10 @@ def get_campaigns():
 
     data = request.json or {}
     campaigns = AzureBlobReader().read_csvfile("ui_data/reckittcampaignsbysku.csv")
-    campaignsbysku = campaigns[campaigns['RB SKU'] == data['rbsku']]
+    campaigns['enddate'] = pd.to_datetime(campaigns['enddate'])
+    today = dt.date.today().strftime('%Y-%m-%d')
+    filtcamp = campaigns.loc[campaigns['enddate'] >= today]
+    campaignsbysku = filtcamp[filtcamp['RB SKU'] == data['rbsku']]
     filters = ['Business Unit', 'Location', 'Customer', 'Brand']
 
     for filter_key in filters:
