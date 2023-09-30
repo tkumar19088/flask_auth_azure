@@ -17,9 +17,39 @@ const Orderinvestigation2 = ({ constraints }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const updateresults = useSelector((state) => state.sidebar.updateresults);
-  const suggRecord = useSelector(
-    (state) => state.sidebar.stockreallocation.staticrow
-  );
+  // const suggRecord = useSelector(
+  //   (state) => state.sidebar.stockreallocation.staticrow
+  // );
+  const suggRecord = {
+    AvgYTDsellout: 600,
+    Brand: "Airwick",
+    "Business Unit": "Health",
+    Channel: "Pharmacy",
+    Customer: "Asda",
+    Location: "Germany",
+    "RB SKU": "3247398",
+    Discription: "Airwick Electrical Lemon",
+    "Sell out": 600,
+    allocationconsumed: 180,
+    cmuscore: 7.44,
+    currentallocation: 400,
+    newallocation: 400,
+    currentcustSOH: 400,
+    "custsoh-current": 1000,
+    "custsoh-target": 900,
+    "custwoc-current": 2,
+    "custwoc-target": 4,
+    expectedservicelevel: 0.94,
+    idealallocationvalues: 800,
+    openorders: 180,
+    remainingallocation: 220,
+    "sif-atf": 900,
+    "sif-reckitt": 800,
+    stocksafetoreallocate: 36,
+    suggestedallocation: 2,
+    sumofPOsinalloccycle: 900,
+    testReallocation: 0,
+  }
   const [counter, setCounter] = useState(0);
   const [weeksOnConv, setweeksOnConv] = useState(constraints[3].Value);
   const [minweeksOnConv, setminweeksOnConv] = useState(constraints[2].Value);
@@ -71,13 +101,13 @@ const Orderinvestigation2 = ({ constraints }) => {
       const formattedDateTime = `${(now.getMonth() + 1)
         .toString()
         .padStart(2, "0")}/${now.getDate().toString().padStart(2, "0")}/${now
-        .getFullYear()
-        .toString()
-        .slice(2)
-        .padStart(2, "0")} ${now.getHours().toString().padStart(2, "0")}:${now
-        .getMinutes()
-        .toString()
-        .padStart(2, "0")}:${now.getSeconds().toString().padStart(2, "0")}`;
+          .getFullYear()
+          .toString()
+          .slice(2)
+          .padStart(2, "0")} ${now.getHours().toString().padStart(2, "0")}:${now
+            .getMinutes()
+            .toString()
+            .padStart(2, "0")}:${now.getSeconds().toString().padStart(2, "0")}`;
       setCurrentDateTime(formattedDateTime);
     }, 1000);
 
@@ -115,7 +145,7 @@ const Orderinvestigation2 = ({ constraints }) => {
         spacing={1}
         mt="3px"
         mx={{ lg: "1px", xs: "1px" }}
-        // border="1px solid red"
+      // border="1px solid red"
       >
         <Stack direction="row" className="constains-innerbox">
           <Grid item xs={3} border="">
@@ -184,8 +214,8 @@ const Orderinvestigation2 = ({ constraints }) => {
                       constraints[0].Label == 0
                         ? "#F44444"
                         : constraints[0].Label == 1
-                        ? "orange"
-                        : "#57a957",
+                          ? "orange"
+                          : "#57a957",
                     color: "#fff",
                     padding: "2px 8px 2px 8px",
                   }}
@@ -194,8 +224,8 @@ const Orderinvestigation2 = ({ constraints }) => {
                   {constraints[0].Label == 0
                     ? "Not Satisfied"
                     : constraints[0].Label == 1
-                    ? "Partially Satisfied"
-                    : "Fully Satisfied"}
+                      ? "Partially Satisfied"
+                      : "Fully Satisfied"}
                 </Typography>
               </Box>
             </Box>
@@ -264,8 +294,8 @@ const Orderinvestigation2 = ({ constraints }) => {
                       constraints[1].Label == 0
                         ? "#F44444"
                         : constraints[1].Label == 1
-                        ? "orange"
-                        : "#57a957",
+                          ? "orange"
+                          : "#57a957",
                     color: "#fff",
                     padding: "2px 8px 2px 8px",
                   }}
@@ -274,8 +304,8 @@ const Orderinvestigation2 = ({ constraints }) => {
                   {constraints[1].Label == 0
                     ? "Not Satisfied"
                     : constraints[1].Label == 1
-                    ? "Partially Satisfied"
-                    : "Fully Satisfied"}
+                      ? "Partially Satisfied"
+                      : "Fully Satisfied"}
                 </Typography>
               </Box>
             </Box>
@@ -407,8 +437,8 @@ const Orderinvestigation2 = ({ constraints }) => {
                       constraints[3].Label == 0
                         ? "#F44444"
                         : constraints[3].Label == 1
-                        ? "orange"
-                        : "#57a957",
+                          ? "orange"
+                          : "#57a957",
                     color: "#fff",
                     padding: "2px 8px 2px 8px",
                   }}
@@ -417,8 +447,8 @@ const Orderinvestigation2 = ({ constraints }) => {
                   {constraints[3].Label == 0
                     ? "Not Satisfied"
                     : constraints[3].Label == 1
-                    ? "Partially Satisfied"
-                    : "Fully Satisfied"}
+                      ? "Partially Satisfied"
+                      : "Fully Satisfied"}
                 </Typography>
               </Box>
             </Box>

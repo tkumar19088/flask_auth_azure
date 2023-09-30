@@ -21,9 +21,39 @@ function StockReallocation() {
   const [selectedData, setselectedData] = useState();
   const exporttabledata = useSelector((state) => state.sidebar.exporttabledata);
   const isWithinChannel = useSelector((state) => state.sidebar.isWithinChannel);
-  const suggRecord = useSelector(
-    (state) => state.sidebar.stockreallocation.staticrow
-  );
+  // const suggRecord = useSelector(
+  //   (state) => state.sidebar.stockreallocation.staticrow
+  // );
+  const suggRecord = {
+    AvgYTDsellout: 600,
+    Brand: "Airwick",
+    "Business Unit": "Health",
+    Channel: "Pharmacy",
+    Customer: "Asda",
+    Location: "Germany",
+    "RB SKU": "3247398",
+    Discription: "Airwick Electrical Lemon",
+    "Sell out": 600,
+    allocationconsumed: 180,
+    cmuscore: 7.44,
+    currentallocation: 400,
+    newallocation: 400,
+    currentcustSOH: 400,
+    "custsoh-current": 1000,
+    "custsoh-target": 900,
+    "custwoc-current": 2,
+    "custwoc-target": 4,
+    expectedservicelevel: 0.94,
+    idealallocationvalues: 800,
+    openorders: 180,
+    remainingallocation: 220,
+    "sif-atf": 900,
+    "sif-reckitt": 800,
+    stocksafetoreallocate: 36,
+    suggestedallocation: 2,
+    sumofPOsinalloccycle: 900,
+    testReallocation: 0,
+  }
   const [acrossChannel, setacrossChannel] = useState(false);
   const handleClick = () => {
     // Navigate to another URL
@@ -170,7 +200,7 @@ function StockReallocation() {
                 className="srbr-h1"
                 marginTop="7px"
 
-                // mt="1px"
+              // mt="1px"
               >
                 Stock Reallocation between Retailers
               </Typography>
