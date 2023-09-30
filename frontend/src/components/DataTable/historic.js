@@ -1057,57 +1057,42 @@ const Historic = ({ onData }) => {
                     // borderBottom: "1px solid #dcdcdc",
                   }}
                 >
-                  <TableCell
-                    fontSize={13}
+                <TableCell
+                sx={{
+                  display: "flex",
+                  // padding: "12px",
+                  border: "none",
+                  alignItems: "center",
+                  fontSize: "13px",
+                  justifyContent: "center",
+                  borderBottom:"1px solid #dcdcdc"
+                }}
+              >
+                {expandedRow === item["RB SKU"] ? (
+                  <RemoveIcon
+                    fontSize="medium"
                     sx={{
-                      display: "flex",
-                      // gap: "16px",
-                      padding: "12px",
-                      border: "none",
-                      borderBottom: "1px solid #dcdcdc",
+                      color: "#415A6C",
+                      cursor: "pointer",
+                      fontWeight: "800",
+                      // marginTop: "4px",
+                      backgroundColor: "transparent",
                     }}
-                  >
-                    <Box
-                      className="rbsku-expand"
-                      sx={{ display: "flex", alignItems: "center" }}
-                    >
-                      {expandedRow === item["RB SKU"] ? (
-                        <RemoveIcon
-                          fontSize="medium"
-                          sx={{
-                            color: "#415A6C",
-                            cursor: "pointer",
-                            fontWeight: "800",
-                            // marginTop: "-1px",
-                            marginTop: "4px",
-                            backgroundColor: "transparent",
-                          }}
-                        />
-                      ) : (
-                        <AddIcon
-                          fontSize="medium"
-                          sx={{
-                            color: "#415A6C",
-                            cursor: "pointer",
-                            fontWeight: "800",
-                            // marginTop: "-1px",
-                            marginTop: "4px",
-                            backgroundColor: "transparent",
-                          }}
-                        />
-                      )}
-                    </Box>
-                    <Box className="rbsku-expand">
-                      <Typography
-                        fontSize="13px"
-                        sx={{
-                          marginTop: "7px",
-                        }}
-                      >
-                        {item["RB SKU"]}
-                      </Typography>
-                    </Box>
-                  </TableCell>
+                  />
+                ) : (
+                  <AddIcon
+                    fontSize="medium"
+                    sx={{
+                      color: "#415A6C",
+                      cursor: "pointer",
+                      fontWeight: "800",
+                      marginTop: "-2px",
+                      backgroundColor: "transparent",
+                    }}
+                  />
+                )}
+                {item["RB SKU"]}
+              </TableCell>
                   <TableCell>
                     {" "}
                     <div className="alignment">{item.PPG}</div>

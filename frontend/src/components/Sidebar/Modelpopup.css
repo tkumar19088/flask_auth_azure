@@ -1,0 +1,18 @@
+.ors-modelpopup{
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: white !important;
+    padding: 25px;
+    border-radius: 5px;
+    box-shadow: 24;
+    text-align: center;
+}
+.btn-pop{
+    background-color: #415A6C !important;
+    text-transform: none !important;
+    color:white !important;
+}
+ 

@@ -144,12 +144,6 @@ const Filters = () => {
         >
           Filters
         </Typography>
-        {applyfilterserror && (
-          <Typography color="red" marginTop="26px">
-            {" "}
-            Please Select Apply Filters
-          </Typography>
-        )}
       </Box>
       <Grid container mt={-2} className="flt-bx">
         <Grid
@@ -285,7 +279,13 @@ const Filters = () => {
             </Box>
           </Grid>
 
-          <Grid item xs={3} className="flt-grid">
+          <Grid item xs={3} className="flt-grid" border="">
+            {applyfilterserror && (
+              <Typography color="red" marginTop="-39px" marginBottom="15px" mx="60px" >
+                {" "}
+                Please Select Apply Filters
+              </Typography>
+            )}
             <Box className="filter-boxmain">
               <Button
                 endIcon={<PlayArrowIcon />}

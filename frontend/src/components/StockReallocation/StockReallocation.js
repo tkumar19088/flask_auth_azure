@@ -53,7 +53,7 @@ function StockReallocation() {
     suggestedallocation: 2,
     sumofPOsinalloccycle: 900,
     testReallocation: 0,
-  }
+  };
   const [acrossChannel, setacrossChannel] = useState(false);
   const handleClick = () => {
     // Navigate to another URL
@@ -200,7 +200,7 @@ function StockReallocation() {
                 className="srbr-h1"
                 marginTop="7px"
 
-              // mt="1px"
+                // mt="1px"
               >
                 Stock Reallocation between Retailers
               </Typography>

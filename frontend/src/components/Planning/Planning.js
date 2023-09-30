@@ -196,14 +196,14 @@ const Planning = ({ filterStatus }) => {
               </Typography>
             </Box>{" "}
             <Box
-              className="pln-card-bd"
+              className="pln-card-bdpromotion"
               onClick={handleReallocation}
               style={{
                 backgroundColor: "#fff",
                 color: "black",
               }}
             >
-              <Box className="pln-cards-cnt">
+              <Box className="">
                 <Badge badgeContent="Coming Soon" className="systamatic-badge">
                   <Typography
                     fontSize={{ lg: 14, xs: 12 }}

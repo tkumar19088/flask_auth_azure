@@ -125,7 +125,7 @@ const Selloutforecast = () => {
               </Button>
             </Box>{" "}
             &#160;&#160;&#160;&#160;&#160;&#160;
-            <Typography fontSize={14}>Forecast Builder : Sell-In</Typography>
+            <Typography fontSize={14}>Forecast Builder : Sell-Out</Typography>
             <Typography>
               <ChevronRightIcon sx={{ height: "20px" }} />
             </Typography>

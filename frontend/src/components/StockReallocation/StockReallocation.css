@@ -251,20 +251,17 @@
     margin-left: 10px !important;
 }
 
-
+/* 
 .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
     height: 1.2375em !important;
-}
+} */
 
 
 
 
 
 
-.constains-h1{
-    color: #415A6C !important;
-    font-size: 15px !important;
-}
+
 
 .vertical-line{
     border: 1px solid #E5EBEF;
@@ -280,12 +277,6 @@
     margin-right: 40px;
 }
 
-.constains-innerbox{
-    width: 70%;
-    background-color: white;
-    border-radius: 5px;
-    padding:  10px 20px ;
-}
 
 .sg-main{
     /* margin-top: 10px !important; */

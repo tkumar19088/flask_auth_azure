@@ -22,6 +22,8 @@ import {
   fetchReallocation,
   fetchexpandeditem,
 } from "../../store/actions/sidebarActions";
+import CustomSnackbar from "./Modelpopup";
+import BasicModal from "./Modelpopup";
 
 const Sidebar = () => {
   const sellinForecastVal = useSelector(
@@ -238,7 +240,7 @@ const Sidebar = () => {
               fontSize={{ lg: "13px", xs: 10 }}
               p="5px 0 0 0"
             >
-              OOS Risk Detection
+              <BasicModal />{" "}
             </Typography>
           </AccordionDetails>
           <AccordionDetails

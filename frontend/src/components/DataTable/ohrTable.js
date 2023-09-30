@@ -1646,6 +1646,7 @@ const OhrTable = ({ onData }) => {
                   backgroundColor: "#E5EBEF",
                   border: "1px solid #dcdcdc",
                   // width: "60px",
+                  padding: "5px",
                 }}
               >
                 <Typography className="table-h1-title">Reckitt WoC</Typography>
@@ -1655,7 +1656,7 @@ const OhrTable = ({ onData }) => {
                 sx={{
                   backgroundColor: "#E5EBEF",
                   border: "1px solid #dcdcdc",
-                  padding: "0px",
+                  padding: "5px",
                   lineHeight: "16px",
                   textAlign: "center",
                   color: "#415A6C",
@@ -1742,23 +1743,33 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   color: "#415A6C",
                   backgroundColor: "#E5EBEF",
+                  padding: "10px",
                 }}
               >
-                <Typography className="cw" sx={{ fontSize: "0.875rem" }}>
-                  {" "}
-                  CW{" "}
-                </Typography>
-                <div className="brack-number">({startingWeek + 0})</div>
+              CW<Typography className="fs-cw">({startingWeek + 0})</Typography> 
+
               </TableCell>
               <TableCell
                 sx={{
+                  textAlign: "center",
                   border: "1px solid #dcdcdc",
                   color: "#415A6C",
                   backgroundColor: "#E5EBEF",
+                  padding: "5px",
                 }}
               >
-                CW+1
-                <div className="brack-number">({startingWeek + 1})</div>
+                CW+1<Typography className="fs-cw">({startingWeek + 1})</Typography> 
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  border: "1px solid #dcdcdc",
+                  color: "#415A6C",
+                  backgroundColor: "#E5EBEF",
+                  padding: "5px",
+                }}
+              >
+              CW+2<Typography className="fs-cw">({startingWeek + 2})</Typography> 
               </TableCell>
               <TableCell
                 sx={{
@@ -1766,20 +1777,56 @@ const OhrTable = ({ onData }) => {
                   color: "#415A6C",
                   backgroundColor: "#E5EBEF",
                   textAlign: "center",
+                  padding: "5px",
                 }}
               >
-                CW+2
-                <div className="brack-number">({startingWeek + 2})</div>
+              CW+3<Typography className="fs-cw">({startingWeek + 3})</Typography> 
+              </TableCell>
+              <TableCell
+                sx={{
+                  borderLeft: "1px solid rgba(224, 224, 224, 1)",
+                  textAlign: "center",
+                  color: "#415A6C",
+                  backgroundColor: "#E5EBEF",
+                  padding: "5px",
+                }}
+              >
+              CW<Typography className="fs-cw">({startingWeek + 0})</Typography> 
               </TableCell>
               <TableCell
                 sx={{
                   border: "1px solid #dcdcdc",
+                  textAlign: "center",
+
                   color: "#415A6C",
                   backgroundColor: "#E5EBEF",
-                  textAlign: "center",
+                  padding: "5px",
                 }}
               >
-                CW+3 <div className="brack-number">({startingWeek + 3})</div>
+              CW+1<Typography className="fs-cw">({startingWeek + 1})</Typography> 
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "1px solid #dcdcdc",
+                  textAlign: "center",
+
+                  color: "#415A6C",
+                  backgroundColor: "#E5EBEF",
+                  padding: "5px",
+                }}
+              >
+              CW+2<Typography className="fs-cw">({startingWeek + 2})</Typography> 
+              </TableCell>
+              <TableCell
+                sx={{
+                  border: "1px solid #dcdcdc",
+                  textAlign: "center",
+                  color: "#415A6C",
+                  backgroundColor: "#E5EBEF",
+                  padding: "5px",
+                }}
+              >
+              CW+3<Typography className="fs-cw">({startingWeek + 3})</Typography> 
               </TableCell>
               <TableCell
                 sx={{
@@ -1789,79 +1836,38 @@ const OhrTable = ({ onData }) => {
                   backgroundColor: "#E5EBEF",
                 }}
               >
-                <Typography className="cw" sx={{ fontSize: "0.875rem" }}>
-                  {" "}
-                  CW{" "}
-                </Typography>
-                <div className="brack-number">({startingWeek + 0})</div>
+              CW<Typography className="fs-cw">({startingWeek + 0})</Typography> 
+
               </TableCell>
               <TableCell
                 sx={{
                   border: "1px solid #dcdcdc",
                   color: "#415A6C",
                   backgroundColor: "#E5EBEF",
+                  textAlign:"center"
                 }}
               >
-                CW+1 <div className="brack-number">({startingWeek + 1})</div>
+              CW+1<Typography className="fs-cw">({startingWeek + 1})</Typography> 
               </TableCell>
               <TableCell
                 sx={{
                   border: "1px solid #dcdcdc",
                   color: "#415A6C",
                   backgroundColor: "#E5EBEF",
+                  textAlign:"center"
                 }}
               >
-                CW+2 <div className="brack-number">({startingWeek + 2})</div>
+              CW+2<Typography className="fs-cw">({startingWeek + 2})</Typography> 
               </TableCell>
               <TableCell
                 sx={{
                   border: "1px solid #dcdcdc",
                   color: "#415A6C",
                   backgroundColor: "#E5EBEF",
+                  textAlign:"center"
                 }}
               >
-                CW+3 <div className="brack-number">({startingWeek + 3})</div>
-              </TableCell>
-              <TableCell
-                sx={{
-                  borderLeft: "1px solid rgba(224, 224, 224, 1)",
-                  textAlign: "center",
-                  color: "#415A6C",
-                  backgroundColor: "#E5EBEF",
-                }}
-              >
-                <Typography className="cw" sx={{ fontSize: "0.875rem" }}>
-                  {" "}
-                  CW{" "}
-                </Typography>
-                <div className="brack-number">({startingWeek + 0})</div>
-              </TableCell>
-              <TableCell
-                sx={{
-                  border: "1px solid #dcdcdc",
-                  color: "#415A6C",
-                  backgroundColor: "#E5EBEF",
-                }}
-              >
-                CW+1 <div className="brack-number">({startingWeek + 1})</div>
-              </TableCell>
-              <TableCell
-                sx={{
-                  border: "1px solid #dcdcdc",
-                  color: "#415A6C",
-                  backgroundColor: "#E5EBEF",
-                }}
-              >
-                CW+2 <div className="brack-number">({startingWeek + 2})</div>
-              </TableCell>
-              <TableCell
-                sx={{
-                  border: "1px solid #dcdcdc",
-                  color: "#415A6C",
-                  backgroundColor: "#E5EBEF",
-                }}
-              >
-                CW+3 <div className="brack-number">({startingWeek + 3})</div>
+              CW+3<Typography className="fs-cw">({startingWeek + 3})</Typography> 
               </TableCell>
             </TableRow>
           </TableHead>
@@ -1889,54 +1895,39 @@ const OhrTable = ({ onData }) => {
                     }}
                   >
                     <TableCell
-                      fontSize={13}
                       sx={{
                         display: "flex",
-                        padding: "12px",
+                        // padding: "12px",
                         border: "none",
+                        alignItems: "center",
+                        fontSize: "13px",
+                        justifyContent: "center",
                       }}
                     >
-                      <Box
-                        className="rbsku-expand"
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                        }}
-                      >
-                        {expandedRow === item["RB SKU"] ? (
-                          <RemoveIcon
-                            fontSize="medium"
-                            sx={{
-                              color: "#415A6C",
-                              cursor: "pointer",
-                              fontWeight: "800",
-                              marginTop: "4px",
-                              backgroundColor: "transparent",
-                            }}
-                          />
-                        ) : (
-                          <AddIcon
-                            fontSize="medium"
-                            sx={{
-                              color: "#415A6C",
-                              cursor: "pointer",
-                              fontWeight: "800",
-                              marginTop: "4px",
-                              backgroundColor: "transparent",
-                            }}
-                          />
-                        )}
-                      </Box>
-                      <Box className="rbsku-expand">
-                        <Typography
-                          fontSize="13px"
+                      {expandedRow === item["RB SKU"] ? (
+                        <RemoveIcon
+                          fontSize="medium"
                           sx={{
-                            marginTop: "7px",
+                            color: "#415A6C",
+                            cursor: "pointer",
+                            fontWeight: "800",
+                            // marginTop: "4px",
+                            backgroundColor: "transparent",
                           }}
-                        >
-                          {item["RB SKU"]}
-                        </Typography>
-                      </Box>
+                        />
+                      ) : (
+                        <AddIcon
+                          fontSize="medium"
+                          sx={{
+                            color: "#415A6C",
+                            cursor: "pointer",
+                            fontWeight: "800",
+                            marginTop: "-2px",
+                            backgroundColor: "transparent",
+                          }}
+                        />
+                      )}
+                      {item["RB SKU"]}
                     </TableCell>
                     <TableCell
                       sx={{
@@ -1953,7 +1944,7 @@ const OhrTable = ({ onData }) => {
                         textAlign: "center",
                         fontSize: "13px",
                         padding: "0px",
-                        maxWidth: "90px", // Set the maximum width of the TableCell
+                        maxWidth: "240px", // Set the maximum width of the TableCell
                         overflow: "hidden",
                         whiteSpace: "nowrap",
                         textOverflow: "ellipsis",
@@ -1963,7 +1954,7 @@ const OhrTable = ({ onData }) => {
                         {" "}
                         {/* Tooltip component with the full text */}
                         {item.Description
-                          ? truncateText(item.Description, 10)
+                          ? truncateText(item.Description, 30)
                           : "-"}
                       </Tooltip>
                     </TableCell>
@@ -1980,7 +1971,7 @@ const OhrTable = ({ onData }) => {
                     <TableCell
                       style={{
                         textAlign: "center",
-                        width: "40px",
+                        // width: "40px",
                         padding: "0px",
                       }}
                     >
@@ -1997,90 +1988,82 @@ const OhrTable = ({ onData }) => {
                     <TableCell
                       style={{
                         textAlign: "center",
-                        width: "20px",
+                        // width: "20px",
                         padding: "0px",
+                        fontSize: "13px",
                       }}
                     >
-                      <Typography
-                        // mx="10px"
-                        sx={{
-                          textAlign: "center",
-                          fontSize: "13px",
-                        }}
-                      >
-                        {item["ExpSL CW"]}
-                      </Typography>
+                      {item["ExpSL CW"]}
                     </TableCell>
                     <TableCell
                       style={{
                         textAlign: "center",
-                        width: "20px",
+                        // width: "20px",
                         padding: "0px",
+                        fontSize: "13px",
                       }}
                     >
-                      <Typography mx="6px" fontSize="13px">
-                        {item["ExpSL CW+1"]}
-                      </Typography>
-                    </TableCell>
-                    <TableCell style={{ textAlign: "center", width: "20px" }}>
-                      <Typography mx="6px" fontSize="13px">
-                        {item["ExpSL CW+2"]}
-                      </Typography>
-                    </TableCell>
-                    <TableCell style={{ textAlign: "center", width: "20px" }}>
-                      <Typography mx="6px" fontSize="13px">
-                        {item["ExpSL CW+3"]}
-                      </Typography>
+                      {item["ExpSL CW+1"]}
                     </TableCell>
                     <TableCell
                       style={{
                         textAlign: "center",
-                        width: "20px",
+                        // width: "20px",
                         padding: "0px",
+                        fontSize: "13px",
                       }}
                     >
-                      <Typography
-                        // mx="10px"
-                        sx={{
-                          textAlign: "center",
-                          fontSize: "13px",
-                        }}
-                      >
-                        {item["Exp NR CW"]}
-                      </Typography>
+                      {item["ExpSL CW+2"]}
                     </TableCell>
                     <TableCell
                       style={{
                         textAlign: "center",
-                        width: "20px",
+                        // width: "20px",
                         padding: "0px",
+                        fontSize: "13px",
                       }}
                     >
-                      <Typography fontSize="13px">
-                        {item["Exp NR CW+1"]}
-                      </Typography>
+                      {item["ExpSL CW+3"]}
                     </TableCell>
                     <TableCell
                       style={{
                         textAlign: "center",
-                        width: "20px",
+                        // width: "20px",
                         padding: "0px",
+                        fontSize: "13px",
                       }}
                     >
-                      <Typography fontSize="13px">
-                        {item["Exp NR CW+2"]}
-                      </Typography>
+                      {item["Exp NR CW"]}
                     </TableCell>
                     <TableCell
                       style={{
                         textAlign: "center",
-                        width: "20px",
+                        // width: "20px",
                         padding: "0px",
+                        fontSize: "13px",
                       }}
                     >
-                      <Typography fontSize="13px">
-                        {item["Exp NR CW+3"]}
-                      </Typography>
+                      {item["Exp NR CW+1"]}
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        // width: "20px",
+                        padding: "0px",
+                        fontSize: "13px",
+                      }}
+                    >
+                      {item["Exp NR CW+2"]}
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        // width: "20px",
+                        padding: "0px",
+                        fontSize: "13px",
+                      }}
+                    >
+                      {item["Exp NR CW+3"]}
                     </TableCell>
                     <TableCell
                       style={{
@@ -2096,7 +2079,7 @@ const OhrTable = ({ onData }) => {
                           color: "#fff",
                           textAlign: "center",
                           fontSize: "13px",
-                          width: "30px",
+                          width: "25px",
                           height: "25px",
                           backgroundColor:
                             item["RAG CW"] != "-"
@@ -2133,7 +2116,7 @@ const OhrTable = ({ onData }) => {
                         sx={{
                           fontSize: "13px",
                           color: "#fff",
-                          width: "30px",
+                          width: "25px",
                           height: "25px",
                           backgroundColor:
                             item["RAG CW+1"] != "-"
@@ -2171,7 +2154,7 @@ const OhrTable = ({ onData }) => {
                         sx={{
                           fontSize: "13px",
                           color: "#fff",
-                          width: "30px",
+                          width: "25px",
                           height: "25px",
                           backgroundColor:
                             item["RAG CW+2"] != "-"
@@ -2209,7 +2192,7 @@ const OhrTable = ({ onData }) => {
                         sx={{
                           fontSize: "13px",
                           color: "#fff",
-                          width: "30px",
+                          width: "25px",
                           height: "25px",
                           backgroundColor:
                             item["RAG CW+3"] != "-"

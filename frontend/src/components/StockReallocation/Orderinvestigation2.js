@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 import { fetchupdateresults } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 
+import "./Orderinvesti.css";
+
 const Orderinvestigation2 = ({ constraints }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -49,7 +51,7 @@ const Orderinvestigation2 = ({ constraints }) => {
     suggestedallocation: 2,
     sumofPOsinalloccycle: 900,
     testReallocation: 0,
-  }
+  };
   const [counter, setCounter] = useState(0);
   const [weeksOnConv, setweeksOnConv] = useState(constraints[3].Value);
   const [minweeksOnConv, setminweeksOnConv] = useState(constraints[2].Value);
@@ -101,13 +103,13 @@ const Orderinvestigation2 = ({ constraints }) => {
       const formattedDateTime = `${(now.getMonth() + 1)
         .toString()
         .padStart(2, "0")}/${now.getDate().toString().padStart(2, "0")}/${now
-          .getFullYear()
-          .toString()
-          .slice(2)
-          .padStart(2, "0")} ${now.getHours().toString().padStart(2, "0")}:${now
-            .getMinutes()
-            .toString()
-            .padStart(2, "0")}:${now.getSeconds().toString().padStart(2, "0")}`;
+        .getFullYear()
+        .toString()
+        .slice(2)
+        .padStart(2, "0")} ${now.getHours().toString().padStart(2, "0")}:${now
+        .getMinutes()
+        .toString()
+        .padStart(2, "0")}:${now.getSeconds().toString().padStart(2, "0")}`;
       setCurrentDateTime(formattedDateTime);
     }, 1000);
 
@@ -137,120 +139,134 @@ const Orderinvestigation2 = ({ constraints }) => {
           </Box>
         </Box>
       </Stack>
-      <Typography fontSize={24} color="#145A6C" mx="3px" mt="-3px">
+      <Typography fontSize={24} color="#145A6C" mx="3px" my={1}>
         Constraints (Optional)
       </Typography>
       <Grid
         container
         spacing={1}
         mt="3px"
-        mx={{ lg: "1px", xs: "1px" }}
-      // border="1px solid red"
+        // border="1px solid red"
+        mx="1px"
       >
-        <Stack direction="row" className="constains-innerbox">
-          <Grid item xs={3} border="">
-            <Box
-              display="flex"
-              ml={{ lg: "5px", xs: "1px" }}
-              sx={{ color: "#415A6C" }}
-            >
-              <Typography className="constains-h1">
-                {constraints[0].Name}
-              </Typography>{" "}
-              <Typography>
-                <Tooltip
-                  placement="top"
-                  arrow
-                  title="This constraint determines the maximum allowable deviation from the initial allocation that the reallocation engine can suggest."
-                >
-                  <InfoOutlinedIcon
-                    sx={{
-                      height: "22px",
-                      marginTop: { lg: "0px", xs: "1px" },
-                      marginLeft: "5px",
-                    }}
-                  />
-                </Tooltip>
-              </Typography>
-            </Box>
-            <Box display="flex">
+        <Stack direction="row" className="constains-innerbox1">
+          <div
+            style={{
+              display: "flex",
+              backgroundColor: "#fff",
+              padding: "15px",
+              borderRadius: "5px",
+              gap: "30px",
+            }}
+          >
+            <Box className="const-bs1" borderRight="1px solid #dcdcdc">
               <Box
                 display="flex"
-                border="1px solid #E7E9EE"
-                borderRadius="5px 5px"
-                width="75px"
-                height="35px"
-                justifyContent="space-around"
-                textAlign="center"
-                marginTop="1%"
+                // ml={{ lg: "5px", xs: "1px" }}
+                sx={{ color: "#415A6C" }}
               >
-                <Box margin="auto">
-                  <Typography fontSize={20} color="#008824">
-                    {pctdeviation}%{" "}
-                  </Typography>
-                </Box>
-                <Box>
-                  <Typography mt="-2px" color="#7E919F">
-                    <ArrowDropUpRoundedIcon
-                      onClick={handlePCTDeviationUp}
-                      sx={{ cursor: "pointer" }}
+                <Typography className="constains-h1">
+                  {constraints[0].Name}
+                </Typography>{" "}
+                <Typography>
+                  <Tooltip
+                    placement="top"
+                    arrow
+                    title="This constraint determines the maximum allowable deviation from the initial allocation that the reallocation engine can suggest."
+                  >
+                    <InfoOutlinedIcon
+                      sx={{
+                        height: "22px",
+                        marginTop: { lg: "0px", xs: "1px" },
+                        marginLeft: "5px",
+                      }}
                     />
-                  </Typography>
-                  <Typography mt="-19px" color="#7E919F">
-                    <ArrowDropDownRoundedIcon
-                      onClick={handlePCTDeviationDown}
-                      sx={{ cursor: "pointer" }}
-                    />
-                  </Typography>
-                </Box>
-              </Box>
-              <Box border="" textAlign="center" mx={{ lg: "10px", xs: "10px" }}>
-                <Typography
-                  mt={{ lg: "13px", xs: "10px" }}
-                  sx={{
-                    width: { lg: "100px", xs: "70px" },
-                    borderRadius: "18px 18px",
-                    backgroundColor:
-                      constraints[0].Label == 0
-                        ? "#F44444"
-                        : constraints[0].Label == 1
-                          ? "orange"
-                          : "#57a957",
-                    color: "#fff",
-                    padding: "2px 8px 2px 8px",
-                  }}
-                  fontSize={{ lg: 12, xs: 8 }}
-                >
-                  {constraints[0].Label == 0
-                    ? "Not Satisfied"
-                    : constraints[0].Label == 1
-                      ? "Partially Satisfied"
-                      : "Fully Satisfied"}
+                  </Tooltip>
                 </Typography>
               </Box>
-            </Box>
-          </Grid>
-          <Box className="vertical-line"></Box>
-          <Grid item xs={3} border="" ml={2}>
-            <Box display="flex" width="370px" sx={{ color: "#415A6C" }}>
-              <Typography className="constains-h1">
-                {constraints[1].Name}
-              </Typography>
-              <Typography>
-                <Tooltip
-                  placement="top"
-                  arrow
-                  title="This constraint establishes the minimum expected service level for any individual customer and restricts the maximum quantity of stock that can be reallocated from a customer."
+              <Box display="flex">
+                <Box
+                  display="flex"
+                  border="1px solid #E7E9EE"
+                  borderRadius="5px 5px"
+                  width="75px"
+                  height="35px"
+                  justifyContent="space-around"
+                  textAlign="center"
+                  marginTop="1%"
                 >
-                  <InfoOutlinedIcon
+                  <Box margin="auto">
+                    <Typography fontSize={20} color="#008824">
+                      {pctdeviation}%{" "}
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <Typography mt="-2px" color="#7E919F">
+                      <ArrowDropUpRoundedIcon
+                        onClick={handlePCTDeviationUp}
+                        sx={{ cursor: "pointer" }}
+                      />
+                    </Typography>
+                    <Typography mt="-19px" color="#7E919F">
+                      <ArrowDropDownRoundedIcon
+                        onClick={handlePCTDeviationDown}
+                        sx={{ cursor: "pointer" }}
+                      />
+                    </Typography>
+                  </Box>
+                </Box>
+                <Box
+                  border=""
+                  textAlign="center"
+                  mx={{ lg: "10px", xs: "10px" }}
+                >
+                  <Typography
+                    mt={{ lg: "13px", xs: "10px" }}
                     sx={{
-                      height: "22px",
-                      marginTop: { lg: "0px", xs: "0px" },
-                      marginLeft: "8px",
+                      width: { lg: "100px", xs: "70px" },
+                      borderRadius: "18px 18px",
+                      backgroundColor:
+                        constraints[0].Label == 0
+                          ? "#F44444"
+                          : constraints[0].Label == 1
+                          ? "orange"
+                          : "#57a957",
+                      color: "#fff",
+                      padding: "2px 8px 2px 8px",
                     }}
-                  />
-                </Tooltip>
-              </Typography>
+                    fontSize={{ lg: 12, xs: 8 }}
+                  >
+                    {constraints[0].Label == 0
+                      ? "Not Satisfied"
+                      : constraints[0].Label == 1
+                      ? "Partially Satisfied"
+                      : "Fully Satisfied"}
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>
+
+            <Box className="const-bs2" borderRight="1px solid #dcdcdc">
+              <Box display="flex" width="370px" sx={{ color: "#415A6C" }}>
+                <Typography className="constains-h1">
+                  {constraints[1].Name}
+                </Typography>
+                <Typography>
+                  <Tooltip
+                    placement="top"
+                    arrow
+                    title="This constraint establishes the minimum expected service level for any individual customer and restricts the maximum quantity of stock that can be reallocated from a customer."
+                  >
+                    <InfoOutlinedIcon
+                      sx={{
+                        height: "22px",
+                        marginTop: { lg: "0px", xs: "0px" },
+                        marginLeft: "8px",
+                      }}
+                    />
+                  </Tooltip>
+                </Typography>
+              </Box>
             </Box>
 
             <Box display="flex">
@@ -294,8 +310,8 @@ const Orderinvestigation2 = ({ constraints }) => {
                       constraints[1].Label == 0
                         ? "#F44444"
                         : constraints[1].Label == 1
-                          ? "orange"
-                          : "#57a957",
+                        ? "orange"
+                        : "#57a957",
                     color: "#fff",
                     padding: "2px 8px 2px 8px",
                   }}
@@ -304,155 +320,322 @@ const Orderinvestigation2 = ({ constraints }) => {
                   {constraints[1].Label == 0
                     ? "Not Satisfied"
                     : constraints[1].Label == 1
-                      ? "Partially Satisfied"
-                      : "Fully Satisfied"}
+                    ? "Partially Satisfied"
+                    : "Fully Satisfied"}
                 </Typography>
               </Box>
             </Box>
-          </Grid>
-          <Box className="vertical-line2 "></Box>
-
-          <Grid item xs={4} border="" ml={2}>
-            <Box
-              display="flex"
-              width="400px"
-              mx={7}
-              sx={{ color: "#415A6C" }}
-              marginLeft={0}
-            >
-              <Typography className="constains-h1">
-                {constraints[2].Name}
-              </Typography>
-              <Typography>
-                <Tooltip
-                  placement="top"
-                  arrow
-                  title="This constraint defines the minimum and maximum stock that can be reallocated to any one customer based on resultant deviation from the customer target stock level."
-                >
-                  <InfoOutlinedIcon
-                    sx={{
-                      height: "22px",
-                      marginTop: { lg: "0px", xs: "1px" },
-                      marginLeft: "8px",
-                    }}
-                  />
-                </Tooltip>
-              </Typography>
-            </Box>
-
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              mx={{ lg: 0, xs: "-10px" }}
-              marginTop="1%"
-            >
-              <Box display="flex">
-                <Typography
-                  margin="auto"
-                  marginRight="3px"
-                  fontSize={{ lg: 13, xs: 10 }}
-                >
-                  Min
-                </Typography>
-                <Box
-                  display="flex"
-                  border="1px solid #E7E9EE"
-                  borderRadius="5px 5px"
-                  width="75px"
-                  height="35px"
-                  justifyContent="space-around"
-                  textAlign="center"
-                >
-                  <Box margin="auto">
-                    <Typography fontSize={20} color="#DD0000">
-                      {minweeksOnConv}
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography mt="-2px" color="#7E919F">
-                      <ArrowDropUpRoundedIcon
-                        onClick={handleminweeksOnCovUp}
-                        sx={{ cursor: "pointer" }}
-                      />
-                    </Typography>
-                    <Typography mt="-19px" color="#7E919F">
-                      <ArrowDropDownRoundedIcon
-                        onClick={handleminweeksOnCovDown}
-                        sx={{ cursor: "pointer" }}
-                      />
-                    </Typography>
-                  </Box>
-                </Box>
-              </Box>
-              <Box display="flex" border="" mx={{ lg: "10px", xs: "7px" }}>
-                <Typography
-                  margin="auto"
-                  marginRight="3px"
-                  fontSize={{ lg: 13, xs: 10 }}
-                >
-                  Max
-                </Typography>
-                <Box
-                  display="flex"
-                  border="1px solid #E7E9EE"
-                  borderRadius="5px 5px"
-                  width="75px"
-                  height="35px"
-                  justifyContent="space-around"
-                  textAlign="center"
-                >
-                  <Box margin="auto">
-                    <Typography fontSize={20} color="#DD0000">
-                      {weeksOnConv}
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography mt="-2px" color="#7E919F">
-                      <ArrowDropUpRoundedIcon
-                        onClick={handleweeksOnCovUp}
-                        sx={{ cursor: "pointer" }}
-                      />
-                    </Typography>
-                    <Typography mt="-19px" color="#7E919F">
-                      <ArrowDropDownRoundedIcon
-                        onClick={handleweeksOnCovDown}
-                        sx={{ cursor: "pointer" }}
-                      />
-                    </Typography>
-                  </Box>
-                </Box>
-              </Box>
+            <Box display="flex">
               <Box
-                border=""
+                display="flex"
+                border="1px solid #E7E9EE"
+                borderRadius="5px 5px"
+                width="75px"
+                height="35px"
+                justifyContent="space-around"
                 textAlign="center"
-                mx={{ lg: "3px", xs: "0px" }}
-                marginRight={{ lg: "60px", xs: "0px" }}
+                marginTop="1%"
               >
+                <Box margin="auto">
+                  <Typography fontSize={20} color="#008824">
+                    {expectedservice}%
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography mt="-2px" color="#7E919F">
+                    <ArrowDropUpRoundedIcon
+                      onClick={handleExpectedserviceUp}
+                      sx={{ cursor: "pointer" }}
+                    />
+                  </Typography>
+                  <Typography mt="-19px" color="#7E919F">
+                    <ArrowDropDownRoundedIcon
+                      onClick={handleExpectedserviceDown}
+                      sx={{ cursor: "pointer" }}
+                    />
+                  </Typography>
+                </Box>
+              </Box>
+              <Box border="" textAlign="center" mx={{ lg: "10px", xs: "10px" }}>
                 <Typography
-                  mt={{ lg: "8px", xs: "10px" }}
+                  mt={{ lg: "13px", xs: "10px" }}
                   sx={{
                     width: { lg: "100px", xs: "70px" },
                     borderRadius: "18px 18px",
                     backgroundColor:
-                      constraints[3].Label == 0
+                      constraints[1].Label == 0
                         ? "#F44444"
-                        : constraints[3].Label == 1
-                          ? "orange"
-                          : "#57a957",
+                        : constraints[1].Label == 1
+                        ? "orange"
+                        : "#57a957",
                     color: "#fff",
                     padding: "2px 8px 2px 8px",
                   }}
                   fontSize={{ lg: 12, xs: 8 }}
                 >
-                  {constraints[3].Label == 0
+                  {constraints[1].Label == 0
                     ? "Not Satisfied"
-                    : constraints[3].Label == 1
-                      ? "Partially Satisfied"
-                      : "Fully Satisfied"}
+                    : constraints[1].Label == 1
+                    ? "Partially Satisfied"
+                    : "Fully Satisfied"}
                 </Typography>
               </Box>
             </Box>
-          </Grid>
+
+            <Box className="const-bs3">
+              <Box
+                display="flex"
+                width="400px"
+                mx={7}
+                sx={{ color: "#415A6C" }}
+                marginLeft={0}
+              >
+                <Typography className="constains-h1">
+                  {constraints[2].Name}
+                </Typography>
+                <Typography>
+                  <Tooltip
+                    placement="top"
+                    arrow
+                    title="This constraint defines the minimum and maximum stock that can be reallocated to any one customer based on resultant deviation from the customer target stock level."
+                  >
+                    <InfoOutlinedIcon
+                      sx={{
+                        height: "22px",
+                        marginTop: { lg: "0px", xs: "1px" },
+                        marginLeft: "8px",
+                      }}
+                    />
+                  </Tooltip>
+                </Typography>
+              </Box>
+
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                mx={{ lg: 0, xs: "-10px" }}
+                marginTop="1%"
+              >
+                <Box display="flex">
+                  <Typography
+                    margin="auto"
+                    marginRight="3px"
+                    fontSize={{ lg: 13, xs: 10 }}
+                  >
+                    Min
+                  </Typography>
+                  <Box
+                    display="flex"
+                    border="1px solid #E7E9EE"
+                    borderRadius="5px 5px"
+                    width="75px"
+                    height="35px"
+                    justifyContent="space-around"
+                    textAlign="center"
+                  >
+                    <Box margin="auto">
+                      <Typography fontSize={20} color="#DD0000">
+                        {minweeksOnConv}
+                      </Typography>
+                    </Box>
+                    <Box>
+                      <Typography mt="-2px" color="#7E919F">
+                        <ArrowDropUpRoundedIcon
+                          onClick={handleminweeksOnCovUp}
+                          sx={{ cursor: "pointer" }}
+                        />
+                      </Typography>
+                      <Typography mt="-19px" color="#7E919F">
+                        <ArrowDropDownRoundedIcon
+                          onClick={handleminweeksOnCovDown}
+                          sx={{ cursor: "pointer" }}
+                        />
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box display="flex" border="" mx={{ lg: "10px", xs: "7px" }}>
+                  <Typography
+                    margin="auto"
+                    marginRight="3px"
+                    fontSize={{ lg: 13, xs: 10 }}
+                  >
+                    Max
+                  </Typography>
+                  <Box
+                    display="flex"
+                    border="1px solid #E7E9EE"
+                    borderRadius="5px 5px"
+                    width="75px"
+                    height="35px"
+                    justifyContent="space-around"
+                    textAlign="center"
+                  >
+                    <Box margin="auto">
+                      <Typography fontSize={20} color="#DD0000">
+                        {weeksOnConv}
+                      </Typography>
+                    </Box>
+                    <Box>
+                      <Typography mt="-2px" color="#7E919F">
+                        <ArrowDropUpRoundedIcon
+                          onClick={handleweeksOnCovUp}
+                          sx={{ cursor: "pointer" }}
+                        />
+                      </Typography>
+                      <Typography mt="-19px" color="#7E919F">
+                        <ArrowDropDownRoundedIcon
+                          onClick={handleweeksOnCovDown}
+                          sx={{ cursor: "pointer" }}
+                        />
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box
+                  border=""
+                  textAlign="center"
+                  mx={{ lg: "3px", xs: "0px" }}
+                  marginRight={{ lg: "60px", xs: "0px" }}
+                >
+                  <Typography
+                    mt={{ lg: "8px", xs: "10px" }}
+                    sx={{
+                      width: { lg: "100px", xs: "70px" },
+                      borderRadius: "18px 18px",
+                      backgroundColor:
+                        constraints[3].Label == 0
+                          ? "#F44444"
+                          : constraints[3].Label == 1
+                          ? "orange"
+                          : "#57a957",
+                      color: "#fff",
+                      padding: "2px 8px 2px 8px",
+                    }}
+                    fontSize={{ lg: 12, xs: 8 }}
+                  >
+                    {constraints[3].Label == 0
+                      ? "Not Satisfied"
+                      : constraints[3].Label == 1
+                      ? "Partially Satisfied"
+                      : "Fully Satisfied"}
+                  </Typography>
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                mx={{ lg: 0, xs: "-10px" }}
+                marginTop="1%"
+              >
+                <Box display="flex">
+                  <Typography
+                    margin="auto"
+                    marginRight="3px"
+                    fontSize={{ lg: 13, xs: 10 }}
+                  >
+                    Min
+                  </Typography>
+                  <Box
+                    display="flex"
+                    border="1px solid #E7E9EE"
+                    borderRadius="5px 5px"
+                    width="75px"
+                    height="35px"
+                    justifyContent="space-around"
+                    textAlign="center"
+                  >
+                    <Box margin="auto">
+                      <Typography fontSize={20} color="#DD0000">
+                        {minweeksOnConv}
+                      </Typography>
+                    </Box>
+                    <Box>
+                      <Typography mt="-2px" color="#7E919F">
+                        <ArrowDropUpRoundedIcon
+                          onClick={handleminweeksOnCovUp}
+                          sx={{ cursor: "pointer" }}
+                        />
+                      </Typography>
+                      <Typography mt="-19px" color="#7E919F">
+                        <ArrowDropDownRoundedIcon
+                          onClick={handleminweeksOnCovDown}
+                          sx={{ cursor: "pointer" }}
+                        />
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box display="flex" border="" mx={{ lg: "10px", xs: "7px" }}>
+                  <Typography
+                    margin="auto"
+                    marginRight="3px"
+                    fontSize={{ lg: 13, xs: 10 }}
+                  >
+                    Max
+                  </Typography>
+                  <Box
+                    display="flex"
+                    border="1px solid #E7E9EE"
+                    borderRadius="5px 5px"
+                    width="75px"
+                    height="35px"
+                    justifyContent="space-around"
+                    textAlign="center"
+                  >
+                    <Box margin="auto">
+                      <Typography fontSize={20} color="#DD0000">
+                        {weeksOnConv}
+                      </Typography>
+                    </Box>
+                    <Box>
+                      <Typography mt="-2px" color="#7E919F">
+                        <ArrowDropUpRoundedIcon
+                          onClick={handleweeksOnCovUp}
+                          sx={{ cursor: "pointer" }}
+                        />
+                      </Typography>
+                      <Typography mt="-19px" color="#7E919F">
+                        <ArrowDropDownRoundedIcon
+                          onClick={handleweeksOnCovDown}
+                          sx={{ cursor: "pointer" }}
+                        />
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box
+                  border=""
+                  textAlign="center"
+                  mx={{ lg: "3px", xs: "0px" }}
+                  marginRight={{ lg: "60px", xs: "0px" }}
+                >
+                  <Typography
+                    mt={{ lg: "8px", xs: "10px" }}
+                    sx={{
+                      width: { lg: "100px", xs: "70px" },
+                      borderRadius: "18px 18px",
+                      backgroundColor:
+                        constraints[3].Label == 0
+                          ? "#F44444"
+                          : constraints[3].Label == 1
+                          ? "orange"
+                          : "#57a957",
+                      color: "#fff",
+                      padding: "2px 8px 2px 8px",
+                    }}
+                    fontSize={{ lg: 12, xs: 8 }}
+                  >
+                    {constraints[3].Label == 0
+                      ? "Not Satisfied"
+                      : constraints[3].Label == 1
+                      ? "Partially Satisfied"
+                      : "Fully Satisfied"}
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>
+          </div>
         </Stack>
       </Grid>
     </div>
