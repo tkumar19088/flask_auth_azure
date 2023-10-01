@@ -299,3 +299,9 @@ export const updatesearchvalue = (newValue) => {
     payload: newValue,
   };
 };
+export const updatetabname = (newValue) => {
+  return {
+    type: "UPDATE_TABNAME",
+    payload: newValue,
+  };
+};

@@ -127,6 +127,7 @@ const initialState = {
   isWithinChannel: true,
   applyfilterserror: false,
   searchvalue: "",
+  tabname:"overview"
 };
 
 const sidebarReducer = (state = initialState, action) => {
@@ -400,6 +401,11 @@ const sidebarReducer = (state = initialState, action) => {
       return {
         ...state,
         searchvalue: action.payload,
+      };
+    case "UPDATE_TABNAME":
+      return {
+        ...state,
+        tabname: action.payload,
       };
     default:
       return state;

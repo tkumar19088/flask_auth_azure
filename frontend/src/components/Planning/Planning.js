@@ -24,6 +24,8 @@ const Planning = ({ filterStatus }) => {
   const business = useSelector((state) => state.sidebar.business);
   const location = useSelector((state) => state.sidebar.location);
   const apply = useSelector((state) => state.sidebar.apply);
+  const searchValue = useSelector((state) => state.sidebar.searchvalue);
+  const tabname = useSelector((state) => state.sidebar.tabname);
 
   const handleOOSRisk = () => {
     if (!business) {
@@ -46,7 +48,13 @@ const Planning = ({ filterStatus }) => {
   };
   const fetchData = async () => {
     dispatch(updateloader(true));
-    var data = { customer: 0 };
+    var data = {
+      customer: 0,
+      search: searchValue,
+      tabname: tabname,
+      skulist: "",
+      rbsku: "",
+    };
     try {
       const url = "http://localhost:5000/getoverview";
       const response = await fetch(url, {

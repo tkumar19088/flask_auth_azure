@@ -840,7 +840,6 @@ const OhrTable2 = ({ onData }) => {
                   padding: "0px",
                   textAlign: "center",
                   color: "#415A6C",
-
                 }}
               >
                 RB SKU
@@ -1003,57 +1002,41 @@ const OhrTable2 = ({ onData }) => {
                       border: "1px solid #dcdcdc",
                     }}
                   >
-                    <TableCell
-                      fontSize={13}
+                  <TableCell
+                  sx={{
+                    display: "flex",
+                    // padding: "12px",
+                    border: "none",
+                    alignItems: "center",
+                    fontSize: "13px",
+                    justifyContent: "center",
+                  }}
+                >
+                  {expandedRow === item["RB SKU"] ? (
+                    <RemoveIcon
+                      fontSize="medium"
                       sx={{
-                        display: "flex",
-                        // gap: "16px",
-                        padding: "12px",
-                        border: "none",
-                        justifyContent: "center",
+                        color: "#415A6C",
+                        cursor: "pointer",
+                        fontWeight: "800",
+                        // marginTop: "4px",
+                        backgroundColor: "transparent",
                       }}
-                    >
-                      <Box
-                        className="rbsku-expand"
-                        sx={{ display: "flex", alignItems: "center" }}
-                      >
-                        {expandedRow === item["RB SKU"] ? (
-                          <RemoveIcon
-                            fontSize="medium"
-                            sx={{
-                              color: "#415A6C",
-                              cursor: "pointer",
-                              fontWeight: "800",
-                              // marginTop: "-1px",
-                              marginTop: "4px",
-                              backgroundColor: "transparent",
-                            }}
-                          />
-                        ) : (
-                          <AddIcon
-                            fontSize="medium"
-                            sx={{
-                              color: "#415A6C",
-                              cursor: "pointer",
-                              fontWeight: "800",
-                              // marginTop: "-1px",
-                              marginTop: "4px",
-                              backgroundColor: "transparent",
-                            }}
-                          />
-                        )}
-                      </Box>
-                      <Box className="rbsku-expand">
-                        <Typography
-                          fontSize="13px"
-                          sx={{
-                            marginTop: "7px",
-                          }}
-                        >
-                          {item["RB SKU"]}
-                        </Typography>
-                      </Box>
-                    </TableCell>
+                    />
+                  ) : (
+                    <AddIcon
+                      fontSize="medium"
+                      sx={{
+                        color: "#415A6C",
+                        cursor: "pointer",
+                        fontWeight: "800",
+                        marginTop: "-2px",
+                        backgroundColor: "transparent",
+                      }}
+                    />
+                  )}
+                  {item["RB SKU"]}
+                </TableCell>
                     <TableCell
                       sx={{
                         textAlign: "center",
@@ -1131,7 +1114,7 @@ const OhrTable2 = ({ onData }) => {
                           // marginLeft: "20px",
                           color: "#fff",
                           textAlign: "center",
-                          fontSize: "13px",
+                          fontSize: "11px",
                           // border:"1px solid",
                           width: "25px",
                           height: "25px",
@@ -1168,7 +1151,7 @@ const OhrTable2 = ({ onData }) => {
                       <Typography
                         margin="auto"
                         sx={{
-                          fontSize: "13px",
+                          fontSize: "11px",
                           color: "#fff",
                           width: "25px",
                           height: "25px",
@@ -1205,7 +1188,7 @@ const OhrTable2 = ({ onData }) => {
                       <Typography
                         margin="auto"
                         sx={{
-                          fontSize: "13px",
+                          fontSize: "11px",
                           color: "#fff",
                           width: "25px",
                           height: "25px",
@@ -1243,7 +1226,7 @@ const OhrTable2 = ({ onData }) => {
                         margin="auto"
                         sx={{
                           // marginLeft: "20px",
-                          fontSize: "13px",
+                          fontSize: "11px",
                           color: "#fff",
                           width: "25px",
                           height: "25px",

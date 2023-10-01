@@ -12,6 +12,8 @@ import {
   Grid,
 } from "@mui/material";
 import { useState, useEffect } from "react";
+import "./StockReallocation.css";
+
 import html2canvas from "html2canvas";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";

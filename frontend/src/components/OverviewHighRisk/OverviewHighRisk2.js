@@ -41,6 +41,7 @@ import {
   fetchreckittsupply,
   updatesearchvalue,
   updateissearch,
+  updatetabname,
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 import loaderImage from "../../images/Logo-bar.png";
@@ -57,6 +58,7 @@ const OverviewHighRisk2 = () => {
   const taburl = useSelector((state) => state.sidebar.taburl);
   const customerurl = useSelector((state) => state.sidebar.customer);
   const search = useSelector((state) => state.sidebar.search);
+  const tabname = useSelector((state) => state.sidebar.tabname);
 
   const [activeTab, setActiveTab] = useState(0);
 
@@ -97,7 +99,13 @@ const OverviewHighRisk2 = () => {
   };
   const reckittOverview = async () => {
     dispatch(updateloader(true));
-    var data = { customer: 0 };
+    var data = {
+      customer: 0,
+      search: searchValue,
+      tabname: tabname,
+      skulist: "",
+      rbsku: "",
+    };
     try {
       const url = "http://localhost:5000/getoverview";
       const response = await fetch(url, {
@@ -129,7 +137,13 @@ const OverviewHighRisk2 = () => {
   };
   const customerOverview = async () => {
     dispatch(updateloader(true));
-    var data = { customer: 1 };
+    var data = {
+      customer: 1,
+      search: searchValue,
+      tabname: tabname,
+      skulist: "",
+      rbsku: "",
+    };
     try {
       const url = "http://localhost:5000/getoverview";
       const response = await fetch(url, {

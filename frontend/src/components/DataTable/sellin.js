@@ -1053,7 +1053,6 @@ const Sellin = ({ onData }) => {
                       // padding: "12px",
                       border: "none",
                       alignItems: "center",
-                      fontSize: "13px",
                       justifyContent: "center",
                       borderBottom: "1px solid #dcdcdc",
                     }}
@@ -1077,7 +1076,7 @@ const Sellin = ({ onData }) => {
                           color: "#415A6C",
                           cursor: "pointer",
                           fontWeight: "800",
-                          marginTop: "-2px",
+                          marginTop: "1px",
                           marginBottom: "2px",
                           backgroundColor: "transparent",
                         }}

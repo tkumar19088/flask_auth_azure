@@ -1063,7 +1063,7 @@ const Historic = ({ onData }) => {
                   // padding: "12px",
                   border: "none",
                   alignItems: "center",
-                  fontSize: "13px",
+                  // fontSize: "13px",
                   justifyContent: "center",
                   borderBottom:"1px solid #dcdcdc"
                 }}
