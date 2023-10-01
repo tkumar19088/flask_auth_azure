@@ -1182,23 +1182,18 @@ const StockReallocationData = ({ onData }) => {
       </TableContainer>
       <Orderinvestigation2 constraints={constraints} />
       <Grid>
-        <Typography fontSize={24} mt="1px" color="#145A6C" mx="3px">
+        <Typography fontSize={24} mt="1px" color="#145A6C" my={1}>
           Results
         </Typography>
 
         <Stack
-          mt="-30px"
+          mt="-20px"
           direction="row"
-          //   backgroundColor="red"
           height="120px"
           justifyContent="space-between"
           className="sa-stack"
         >
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            sx={{ width: "310px" }}
-          >
+          <Box display="flex" sx={{ gap: "30px" }}>
             <Box className="sa-box">
               <Typography className="sa-h1"> {results[0].Name}</Typography>
               <Typography color="#008824" className="sa-h2">

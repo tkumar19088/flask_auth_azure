@@ -39,7 +39,7 @@ const FunctionalTabs = () => {
   };
   const handleOverview = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer };
+    var data = { customer: customer, search: searchvalue };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getoverview";
       const response = await fetch(url, {
@@ -95,7 +95,7 @@ const FunctionalTabs = () => {
   };
   const handleDemand = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer };
+    var data = { customer: customer, search: searchvalue };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getdemand";
       const response = await fetch(url, {
@@ -123,7 +123,7 @@ const FunctionalTabs = () => {
   };
   const handleExpectedSOH = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer };
+    var data = { customer: customer, search: searchvalue };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getsohateow";
       const response = await fetch(url, {
@@ -151,7 +151,7 @@ const FunctionalTabs = () => {
   };
   const handleWOCatEOW = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer };
+    var data = { customer: customer, search: searchvalue };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getwocateow";
       const response = await fetch(url, {
@@ -179,7 +179,7 @@ const FunctionalTabs = () => {
   };
   const handleCaseShortages = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer };
+    var data = { customer: customer, search: searchvalue };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getcaseshortages";
       const response = await fetch(url, {
@@ -207,7 +207,7 @@ const FunctionalTabs = () => {
   };
   const handleExpectedService = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer };
+    var data = { customer: customer, search: searchvalue };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getexpectedservice";
       const response = await fetch(url, {
@@ -235,7 +235,7 @@ const FunctionalTabs = () => {
   };
   const handleStockPosition = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer };
+    var data = { customer: customer, search: searchvalue };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getstockposition";
       const response = await fetch(url, {

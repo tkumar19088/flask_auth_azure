@@ -1,0 +1,27 @@
+.constains-innerbox{
+    width: 90%;
+    background-color: white;
+    border-radius: 5px;
+    padding:  10px 20px ;
+}
+
+
+.const-bs1{
+    width: 290px !important;
+    /* border: 1px solid red; */
+}
+
+.const-bs2{
+    width: 250px !important;
+    /* border: 1px solid red; */
+}
+
+.const-bs3{
+    width: 355px !important;
+    /* border: 1px solid red; */
+}
+
+.constains-h1{
+    color: #415A6C !important;
+    font-size: 15px !important;
+}

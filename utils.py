@@ -10,7 +10,7 @@ import ast
 import pulp
 import numpy as np
 import pandas as pd
-
+import datetime as dt
 load_dotenv()
 
 # ************************** USER DATA READER CLASS ****************************
@@ -578,3 +578,42 @@ def replace_missing_values(df):
 
     df = df.replace([0.00, 0.0, "0.00", "0.0"], 0)
     return df
+
+def get_data(data, config, filename, filters, sort_column= None, sort_order= None):
+
+    if not data:
+        raise ValueError("Missing required parameter: RB SKU!")
+
+    search, skulist = data.get('search'), data.get('skulist')
+
+    global_filters = config.get('global_filters', {})
+    global_filters = dict((k, v.lower()) for k, v in global_filters.items())
+
+    df = AzureBlobReader().read_csvfile(filename)
+
+    if skulist:
+        df = df.loc[df['RB SKU'].isin(skulist)]
+
+    elif search:
+        if isinstance(search, int):
+            df = df[df['RB SKU'] == search]
+        elif isinstance(search, str):
+            df = df[df['Description'].str.lower().contains(search.lower())]
+
+    else:
+        if filename =="ui_data/reckittcampaignsbysku.csv":
+            df['enddate'] = pd.to_datetime(df['enddate'])
+            today = dt.date.today().strftime('%Y-%m-%d')
+            df = df.loc[df['enddate'] >= today]
+            df = df[df['RB SKU'] == data['rbsku']]
+
+        for filter_key in filters:
+            if filter_key in global_filters and global_filters[filter_key] != None:
+                df = df[df[filter_key].str.lower() == global_filters[filter_key]]
+
+    if sort_column and sort_order:
+        df = df.sort_values(by=sort_column, ascending=sort_order)
+
+    df = replace_missing_values(df)
+
+    return json.loads(df.to_json(orient='records'))

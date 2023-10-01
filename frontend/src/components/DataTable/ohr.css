@@ -6,7 +6,10 @@
 
 }
 
-
+.fs-cw{
+  font-size: 12px !important;
+  /* color: green !important; */
+}
 
 .btn-datatable{
     display: flex;

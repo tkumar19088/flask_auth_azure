@@ -840,6 +840,7 @@ const OhrTable2 = ({ onData }) => {
                   padding: "0px",
                   textAlign: "center",
                   color: "#415A6C",
+
                 }}
               >
                 RB SKU
@@ -1065,10 +1066,10 @@ const OhrTable2 = ({ onData }) => {
                     </TableCell>
                     <TableCell
                       sx={{
-                        textAlign: "center",
+                        textAlign: "left",
                         fontSize: "13px",
-                        padding: "0px",
-                        maxWidth: "100px", // Set the maximum width of the TableCell
+                        padding: "5px",
+                        maxWidth: "110px", // Set the maximum width of the TableCell
                         overflow: "hidden",
                         whiteSpace: "nowrap",
                         textOverflow: "ellipsis",
@@ -1077,7 +1078,7 @@ const OhrTable2 = ({ onData }) => {
                       <Tooltip title={item.Description}>
                         {" "}
                         {/* Tooltip component with the full text */}
-                        {truncateText(item.Description, 60)}
+                        {truncateText(item.Description, 30)}
                       </Tooltip>
                     </TableCell>
                     <TableCell
@@ -1132,7 +1133,7 @@ const OhrTable2 = ({ onData }) => {
                           textAlign: "center",
                           fontSize: "13px",
                           // border:"1px solid",
-                          width: "30px",
+                          width: "25px",
                           height: "25px",
                           backgroundColor:
                             item["RAG CW"] != "-"
@@ -1169,7 +1170,7 @@ const OhrTable2 = ({ onData }) => {
                         sx={{
                           fontSize: "13px",
                           color: "#fff",
-                          width: "30px",
+                          width: "25px",
                           height: "25px",
                           backgroundColor:
                             item["RAG CW+1"] != "-"
@@ -1206,7 +1207,7 @@ const OhrTable2 = ({ onData }) => {
                         sx={{
                           fontSize: "13px",
                           color: "#fff",
-                          width: "30px",
+                          width: "25px",
                           height: "25px",
                           backgroundColor:
                             item["RAG CW+2"] != "-"
@@ -1244,7 +1245,7 @@ const OhrTable2 = ({ onData }) => {
                           // marginLeft: "20px",
                           fontSize: "13px",
                           color: "#fff",
-                          width: "30px",
+                          width: "25px",
                           height: "25px",
                           backgroundColor:
                             item["RAG CW+3"] != "-"

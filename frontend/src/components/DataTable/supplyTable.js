@@ -819,10 +819,10 @@ const SupplyTable = ({ onData }) => {
                   backgroundColor: "#E5EBEF ",
                   color: "#415A6C",
                   border: "1px solid #dcdcdc",
+                  // padding: "0px",
                 }}
               >
-                <div>CW</div>
-                <div>({startingWeek})</div>
+                CW <br /> ({startingWeek})
               </TableCell>
               <TableCell
                 sx={{
@@ -832,8 +832,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW+1</div>
-                <div className="brack-number">({startingWeek + 1})</div>
+                CW+1 <br /> ({startingWeek + 1})
               </TableCell>
               <TableCell
                 sx={{
@@ -843,8 +842,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW+2</div>
-                <div className="brack-number">({startingWeek + 2})</div>
+                CW+2 <br /> ({startingWeek + 2})
               </TableCell>
               <TableCell
                 sx={{
@@ -854,8 +852,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW+3</div>
-                <div className="brack-number">({startingWeek + 3})</div>
+                CW+3 <br /> ({startingWeek + 3})
               </TableCell>
               <TableCell
                 sx={{
@@ -865,8 +862,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW+4</div>
-                <div className="brack-number">({startingWeek + 4})</div>
+                CW+4 <br /> ({startingWeek + 4})
               </TableCell>
               <TableCell
                 sx={{
@@ -876,8 +872,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW+5</div>
-                <div className="brack-number">({startingWeek + 5})</div>
+                CW+5 <br /> ({startingWeek + 5})
               </TableCell>
               <TableCell
                 sx={{
@@ -887,8 +882,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW+6</div>
-                <div className="brack-number">({startingWeek + 6})</div>
+                CW+6 <br /> ({startingWeek + 6})
               </TableCell>
               <TableCell
                 sx={{
@@ -898,8 +892,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW+7</div>
-                <div className="brack-number">({startingWeek + 7})</div>
+                CW+7 <br /> ({startingWeek + 7})
               </TableCell>
               <TableCell
                 sx={{
@@ -909,8 +902,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW+8</div>
-                <div className="brack-number">({startingWeek + 8})</div>
+                CW+8 <br /> ({startingWeek + 8})
               </TableCell>
               <TableCell
                 sx={{
@@ -920,8 +912,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW+9</div>
-                <div className="brack-number">({startingWeek + 9})</div>{" "}
+                CW+9 <br /> ({startingWeek + 9})
               </TableCell>
             </TableRow>
           </TableHead>
@@ -948,55 +939,40 @@ const SupplyTable = ({ onData }) => {
                     }}
                   >
                     <TableCell
-                      fontSize={13}
                       sx={{
                         display: "flex",
-                        padding: "12px",
+                        // padding: "12px",
                         border: "none",
+                        alignItems: "center",
+                        fontSize: "13px",
+                        justifyContent: "center",
                         borderBottom: "1px solid #dcdcdc",
                       }}
                     >
-                      <Box
-                        className="rbsku-expand"
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                        }}
-                      >
-                        {expandedRow === item["RB SKU"] ? (
-                          <RemoveIcon
-                            fontSize="medium"
-                            sx={{
-                              color: "#415A6C",
-                              cursor: "pointer",
-                              fontWeight: "800",
-                              marginTop: "4px",
-                              backgroundColor: "transparent",
-                            }}
-                          />
-                        ) : (
-                          <AddIcon
-                            fontSize="medium"
-                            sx={{
-                              color: "#415A6C",
-                              cursor: "pointer",
-                              fontWeight: "800",
-                              marginTop: "4px",
-                              backgroundColor: "transparent",
-                            }}
-                          />
-                        )}
-                      </Box>
-                      <Box className="rbsku-expand">
-                        <Typography
-                          fontSize="13px"
+                      {expandedRow === item["RB SKU"] ? (
+                        <RemoveIcon
+                          fontSize="medium"
                           sx={{
-                            marginTop: "7px",
+                            color: "#415A6C",
+                            cursor: "pointer",
+                            fontWeight: "800",
+                            // marginTop: "4px",
+                            backgroundColor: "transparent",
                           }}
-                        >
-                          {item["RB SKU"]}
-                        </Typography>
-                      </Box>
+                        />
+                      ) : (
+                        <AddIcon
+                          fontSize="medium"
+                          sx={{
+                            color: "#415A6C",
+                            cursor: "pointer",
+                            fontWeight: "800",
+                            marginTop: "-2px",
+                            backgroundColor: "transparent",
+                          }}
+                        />
+                      )}
+                      {item["RB SKU"]}
                     </TableCell>
                     <TableCell>
                       {" "}
@@ -1010,40 +986,35 @@ const SupplyTable = ({ onData }) => {
                       {" "}
                       <div className="alignment">{item.initialreckittsoh}</div>
                     </TableCell>
-                    <TableCell>
-                      {" "}
-                      <div className="alignment">{item["Supply CW"]}</div>
+                    <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                      {item["Supply CW"]}
                     </TableCell>
-                    <TableCell>
-                      {" "}
-                      <div className="alignment">{item["Supply CW+1"]}</div>
+                    <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                      {item["Supply CW+1"]}
                     </TableCell>
-                    <TableCell>
-                      <div className="alignment">{item["Supply CW+2"]}</div>
+                    <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                      {item["Supply CW+2"]}
                     </TableCell>
-                    <TableCell>
-                      <div className="alignment">{item["Supply CW+3"]}</div>
+                    <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                      {item["Supply CW+3"]}
                     </TableCell>
-                    <TableCell>
-                      <div className="alignment">{item["Supply CW+4"]}</div>
+                    <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                      {item["Supply CW+4"]}
                     </TableCell>
-                    <TableCell>
-                      {" "}
-                      <div className="alignment">{item["Supply CW+5"]}</div>
+                    <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                      {item["Supply CW+5"]}
                     </TableCell>
-                    <TableCell>
-                      <div className="alignment">{item["Supply CW+6"]}</div>
+                    <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                      {item["Supply CW+6"]}
                     </TableCell>
-                    <TableCell>
-                      <div className="alignment">{item["Supply CW+7"]}</div>
+                    <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                      {item["Supply CW+7"]}
                     </TableCell>
-                    <TableCell>
-                      {" "}
-                      <div className="alignment">{item["Supply CW+8"]}</div>
+                    <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                      {item["Supply CW+8"]}
                     </TableCell>
-                    <TableCell>
-                      {" "}
-                      <div className="alignment">{item["Supply CW+9"]}</div>
+                    <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                      {item["Supply CW+9"]}
                     </TableCell>
                   </TableRow>
                   {expandedRow === item["RB SKU"] && iscampaigns && (

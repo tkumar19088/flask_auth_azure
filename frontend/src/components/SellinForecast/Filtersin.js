@@ -67,7 +67,6 @@ function Filtersin({ apply }) {
   };
 
   const handleApplyFilters = async (e) => {
-    dispatch(updateloader(true));
     e.preventDefault();
     if (!business) {
       setbusinessEmpty(true);
