@@ -27,6 +27,7 @@ import {
   fetchcustomerola,
   updateexporttabledata,
   fetchtaburl,
+  updatetabname,
 } from "../../store/actions/sidebarActions";
 
 const OhrCustomerTabs = () => {
@@ -34,6 +35,9 @@ const OhrCustomerTabs = () => {
 
   const [activeTab, setActiveTab] = useState(0);
   const customer = useSelector((state) => state.sidebar.customer);
+  const search = useSelector((state) => state.sidebar.search);
+  const searchValue = useSelector((state) => state.sidebar.searchvalue);
+  const tabname = useSelector((state) => state.sidebar.tabname);
 
   const handleTabChange = (index) => {
     setActiveTab(index);
@@ -41,7 +45,13 @@ const OhrCustomerTabs = () => {
 
   const handleOverview = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "overview",
+      skulist: "",
+      rbsku: "",
+    };
     try {
       const url = "http://localhost:5000/getoverview";
       const response = await fetch(url, {
@@ -55,6 +65,7 @@ const OhrCustomerTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("overview"));
         dispatch(fetchoverviewcustomerdata(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -69,7 +80,13 @@ const OhrCustomerTabs = () => {
   };
   const handleHistoricePOS = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "historicepos",
+      skulist: "",
+      rbsku: "",
+    };
     try {
       const url = "http://localhost:5000/getcustepos";
       const response = await fetch(url, {
@@ -83,6 +100,7 @@ const OhrCustomerTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("historicepos"));
         dispatch(fetchcustomerhestoric(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -97,7 +115,13 @@ const OhrCustomerTabs = () => {
   };
   const handleSellOut = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "sellout",
+      skulist: "",
+      rbsku: "",
+    };
     try {
       const url = "http://localhost:5000/getcustsellout";
       const response = await fetch(url, {
@@ -111,6 +135,7 @@ const OhrCustomerTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("sellout"));
         dispatch(fetchcustomersellout(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -125,7 +150,13 @@ const OhrCustomerTabs = () => {
   };
   const handleSellIn = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "sellin",
+      skulist: "",
+      rbsku: "",
+    };
     try {
       const url = "http://localhost:5000/getcustsellin";
       const response = await fetch(url, {
@@ -139,6 +170,7 @@ const OhrCustomerTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("sellin"));
         dispatch(fetchcustomersellin(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -153,7 +185,13 @@ const OhrCustomerTabs = () => {
   };
   const handleStockPosition = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "stockposition",
+      skulist: "",
+      rbsku: "",
+    };
     try {
       const url = "http://localhost:5000/getstockposition";
       const response = await fetch(url, {
@@ -167,6 +205,7 @@ const OhrCustomerTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("stockposition"));
         dispatch(fetchcustomerstockposition(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -181,7 +220,13 @@ const OhrCustomerTabs = () => {
   };
   const handleOLA = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "ola",
+      skulist: "",
+      rbsku: "",
+    };
     try {
       const url = "http://localhost:5000/getcustola";
       const response = await fetch(url, {
@@ -195,6 +240,7 @@ const OhrCustomerTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("ola"));
         dispatch(fetchcustomerola(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));

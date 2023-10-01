@@ -24,6 +24,7 @@ import {
   updateexporttabledata,
   fetchtaburl,
   updatesearch,
+  updatetabname,
 } from "../../store/actions/sidebarActions";
 
 const FunctionalTabs = () => {
@@ -32,14 +33,21 @@ const FunctionalTabs = () => {
   const [activeTab, setActiveTab] = useState(0);
   const customer = useSelector((state) => state.sidebar.customer);
   const search = useSelector((state) => state.sidebar.search);
-  const searchvalue = useSelector((state) => state.sidebar.searchvalue);
+  const searchValue = useSelector((state) => state.sidebar.searchvalue);
+  const tabname = useSelector((state) => state.sidebar.tabname);
 
   const handleTabChange = (index) => {
     setActiveTab(index);
   };
   const handleOverview = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer, search: searchvalue };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "overview",
+      skulist: "",
+      rbsku: "",
+    };
     try {
       const url = "http://localhost:5000/getoverview";
       const response = await fetch(url, {
@@ -53,6 +61,7 @@ const FunctionalTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("overview"));
         dispatch(fetchoverviewhighriskdata(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -67,7 +76,13 @@ const FunctionalTabs = () => {
   };
   const handleSupply = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer, search: searchvalue };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "supply",
+      skulist: "",
+      rbsku: "",
+    };
     try {
       const url = "http://localhost:5000/getsupply";
       const response = await fetch(url, {
@@ -81,6 +96,7 @@ const FunctionalTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("supply"));
         dispatch(fetchreckittsupply(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -95,7 +111,13 @@ const FunctionalTabs = () => {
   };
   const handleDemand = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer, search: searchvalue };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "demand",
+      skulist: "",
+      rbsku: "",
+    };
     try {
       const url = "http://localhost:5000/getdemand";
       const response = await fetch(url, {
@@ -109,6 +131,7 @@ const FunctionalTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("demand"));
         dispatch(fetchreckittdemand(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -123,7 +146,13 @@ const FunctionalTabs = () => {
   };
   const handleExpectedSOH = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer, search: searchvalue };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "sohateow",
+      skulist: "",
+      rbsku: "",
+    };
     try {
       const url = "http://localhost:5000/getsohateow";
       const response = await fetch(url, {
@@ -137,6 +166,7 @@ const FunctionalTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("sohateow"));
         dispatch(fetchreckittexpectedsoh(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -151,7 +181,13 @@ const FunctionalTabs = () => {
   };
   const handleWOCatEOW = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer, search: searchvalue };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "wocateow",
+      skulist: "",
+      rbsku: "",
+    };
     try {
       const url = "http://localhost:5000/getwocateow";
       const response = await fetch(url, {
@@ -165,6 +201,7 @@ const FunctionalTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("wocateow"));
         dispatch(fetchreckittwoc(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -179,7 +216,13 @@ const FunctionalTabs = () => {
   };
   const handleCaseShortages = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer, search: searchvalue };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "caseshortages",
+      skulist: "",
+      rbsku: "",
+    };
     try {
       const url = "http://localhost:5000/getcaseshortages";
       const response = await fetch(url, {
@@ -193,6 +236,7 @@ const FunctionalTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("caseshortages"));
         dispatch(fetchreckittcaseshortages(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -207,7 +251,13 @@ const FunctionalTabs = () => {
   };
   const handleExpectedService = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer, search: searchvalue };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "expectedservice",
+      skulist: "",
+      rbsku: "",
+    };
     try {
       const url = "http://localhost:5000/getexpectedservice";
       const response = await fetch(url, {
@@ -221,6 +271,7 @@ const FunctionalTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("expectedservice"));
         dispatch(fetchreckittexpectedservice(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -235,7 +286,13 @@ const FunctionalTabs = () => {
   };
   const handleStockPosition = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer, search: searchvalue };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "stockposition",
+      skulist: "",
+      rbsku: "",
+    };
     try {
       const url = "http://localhost:5000/getstockposition";
       const response = await fetch(url, {
@@ -249,6 +306,7 @@ const FunctionalTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("stockposition"));
         dispatch(fetchreckittstockposition(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));

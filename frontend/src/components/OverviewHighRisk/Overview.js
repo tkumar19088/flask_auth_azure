@@ -92,7 +92,7 @@ const Overview = () => {
                 </Button>
               </Box>{" "}
               &#160;&#160;&#160;&#160;&#160;&#160;
-              <Typography fontSize={14}>OOS Risk Dectection</Typography>
+              <Typography fontSize={14}>OOS Risk Detection</Typography>
               <Typography>
                 <ChevronRightIcon sx={{ height: "20px" }} />
               </Typography>

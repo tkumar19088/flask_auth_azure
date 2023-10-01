@@ -79,7 +79,7 @@ const Irregularcharts = () => {
               </Button>
             </Box>{" "}
             &#160;&#160;&#160;&#160;&#160;&#160;
-            <Typography fontSize={14}>OOS Risk Dectection</Typography>
+            <Typography fontSize={14}>OOS Risk Detection</Typography>
             <Typography>
               <ChevronRightIcon sx={{ height: "20px" }} />
             </Typography>
@@ -148,7 +148,6 @@ const Irregularcharts = () => {
                     <Typography fontSize={20}>PO price: £1.00</Typography>
                     <Typography fontSize={20}>Agreed price: £10.00</Typography>
                   </Box>
-                 
                 </Grid>
               </Grid>
 

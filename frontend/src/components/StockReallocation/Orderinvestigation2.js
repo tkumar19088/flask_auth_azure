@@ -194,16 +194,16 @@ const Orderinvestigation2 = ({ constraints }) => {
                   </Typography>
                 </Box>
                 <Box>
-                  <Typography mt="-2px" color="#7E919F">
+                  <Typography mt="-5px" color="#7E919F">
                     <ArrowDropUpRoundedIcon
                       onClick={handlePCTDeviationUp}
-                      sx={{ cursor: "pointer" }}
+                      sx={{ cursor: "pointer",fontSize:"30px" }}
                     />
                   </Typography>
-                  <Typography mt="-19px" color="#7E919F">
-                    <ArrowDropDownRoundedIcon
+                  <Typography mt="-22px" color="#7E919F">
+                    <ArrowDropDownRoundedIcon 
                       onClick={handlePCTDeviationDown}
-                      sx={{ cursor: "pointer" }}
+                      sx={{ cursor: "pointer",fontSize:"30px" }}
                     />
                   </Typography>
                 </Box>
@@ -274,16 +274,16 @@ const Orderinvestigation2 = ({ constraints }) => {
                   </Typography>
                 </Box>
                 <Box>
-                  <Typography mt="-2px" color="#7E919F">
+                  <Typography mt="-5px" color="#7E919F">
                     <ArrowDropUpRoundedIcon
                       onClick={handleExpectedserviceUp}
-                      sx={{ cursor: "pointer" }}
+                      sx={{ cursor: "pointer",fontSize:"30px" }}
                     />
                   </Typography>
-                  <Typography mt="-19px" color="#7E919F">
+                  <Typography mt="-22px" color="#7E919F">
                     <ArrowDropDownRoundedIcon
                       onClick={handleExpectedserviceDown}
-                      sx={{ cursor: "pointer" }}
+                      sx={{ cursor: "pointer",fontSize:"30px" }}
                     />
                   </Typography>
                 </Box>
@@ -372,16 +372,16 @@ const Orderinvestigation2 = ({ constraints }) => {
                     </Typography>
                   </Box>
                   <Box>
-                    <Typography mt="-2px" color="#7E919F">
+                    <Typography mt="-5px" color="#7E919F">
                       <ArrowDropUpRoundedIcon
                         onClick={handleminweeksOnCovUp}
-                        sx={{ cursor: "pointer" }}
+                        sx={{ cursor: "pointer",fontSize:"30px" }}
                       />
                     </Typography>
-                    <Typography mt="-19px" color="#7E919F">
+                    <Typography mt="-22px" color="#7E919F">
                       <ArrowDropDownRoundedIcon
                         onClick={handleminweeksOnCovDown}
-                        sx={{ cursor: "pointer" }}
+                        sx={{ cursor: "pointer",fontSize:"30px" }}
                       />
                     </Typography>
                   </Box>
@@ -410,16 +410,16 @@ const Orderinvestigation2 = ({ constraints }) => {
                     </Typography>
                   </Box>
                   <Box>
-                    <Typography mt="-2px" color="#7E919F">
+                    <Typography mt="-5px" color="#7E919F">
                       <ArrowDropUpRoundedIcon
                         onClick={handleweeksOnCovUp}
-                        sx={{ cursor: "pointer" }}
+                        sx={{ cursor: "pointer" ,fontSize:"30px"}}
                       />
                     </Typography>
-                    <Typography mt="-19px" color="#7E919F">
+                    <Typography mt="-22px" color="#7E919F">
                       <ArrowDropDownRoundedIcon
                         onClick={handleweeksOnCovDown}
-                        sx={{ cursor: "pointer" }}
+                        sx={{ cursor: "pointer",fontSize:"30px" }}
                       />
                     </Typography>
                   </Box>

@@ -305,3 +305,15 @@ export const updatetabname = (newValue) => {
     payload: newValue,
   };
 };
+export const updateragfilters = (newValue) => {
+  return {
+    type: "UPDATE_RAGFILTERS",
+    payload: newValue,
+  };
+};
+export const updatecustomerragfilters = (newValue) => {
+  return {
+    type: "UPDATE_CUSTOMERRAGFILTERS",
+    payload: newValue,
+  };
+};

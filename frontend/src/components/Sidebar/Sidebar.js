@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import Log from "../../images/Logout.png";
 import "./Sidebar.css";
@@ -50,43 +50,69 @@ const Sidebar = () => {
   const [forecast, setforecast] = useState(false);
   const currentUrl = window.location.href;
   console.log(currentUrl);
-  // if (currentUrl.includes("overviewhighrisk")) {
-  //   setoosrick(true);
-  // }
+  useEffect(() => {
+    if (
+      currentUrl.includes("overviewhighrisk") ||
+      currentUrl.includes("stockreallocation")
+    ) {
+      dispatch(fetchexpandeditem(2));
+      setoosrick(true);
+      setirregular(false);
+      setissellinSelected(false);
+      setisselloutSelected(false);
+    } else if (currentUrl.includes("irregular")) {
+      dispatch(fetchexpandeditem(2));
+      setirregular(true);
+      setoosrick(false);
+      setissellinSelected(false);
+      setisselloutSelected(false);
+    } else if (currentUrl.includes("sellinforecast")) {
+      dispatch(fetchexpandeditem(1));
+      setissellinSelected(true);
+      setoosrick(false);
+      setirregular(false);
+      setisselloutSelected(false);
+    } else if (currentUrl.includes("selloutforecast")) {
+      dispatch(fetchexpandeditem(1));
+      setisselloutSelected(true);
+      setoosrick(false);
+      setirregular(false);
+      setissellinSelected(false);
+    } else {
+      dispatch(fetchexpandeditem(0));
+      setoosrick(false);
+      setirregular(false);
+      setissellinSelected(false);
+      setisselloutSelected(false);
+    }
+  }, [fetchexpandeditem]);
+
   const handleOOSRick = () => {
     dispatch(fetchOOSRisk(true));
-
-    setreallocation(false);
+    setoosrick(true);
     setirregular(false);
-
-    // setoosrick(true);
   };
   const handleIrregular = () => {
-    dispatch(fetchIrregular(true));
-
-    setoosrick(false);
-    setreallocation(false);
-
+    // dispatch(fetchIrregular(true));
+    // setoosrick(false);
     // setirregular(true);
   };
   const handleReallocation = () => {
-    dispatch(fetchReallocation(true));
-
-    setoosrick(false);
-    setirregular(false);
-
+    // dispatch(fetchReallocation(true));
+    // setoosrick(false);
+    // setirregular(false);
     // setreallocation(true);
   };
   const handleSelloutForecasting = () => {
     dispatch(fetchSelloutForecast(true));
-    setissellinSelected(false);
+    // setissellinSelected(false);
     setisselloutSelected(true);
     navigate("/selloutforecast");
   };
   const handleSellinForecasting = () => {
     dispatch(fetchSellinForecast(true));
 
-    setisselloutSelected(false);
+    // setisselloutSelected(false);
     setissellinSelected(true);
     navigate("/sellinforecast");
   };
@@ -103,7 +129,7 @@ const Sidebar = () => {
   const handleMenuItemClick = (itemId) => {
     // Update the selected item when a menu item is clicked
     if (expandedItem === itemId) {
-      dispatch(fetchexpandeditem(null));
+      dispatch(fetchexpandeditem(0));
     } else {
       dispatch(fetchexpandeditem(itemId));
     }
@@ -114,7 +140,11 @@ const Sidebar = () => {
       <div
         className="s-h2"
         onClick={handleDashboard}
-        style={{ backgroundColor: "#415A6C", color: "#fff" }}
+        style={{
+          backgroundColor: expandedItem === 0 ? "#415A6C" : "#E7E9EE",
+          color: expandedItem === 0 ? "#fff" : "#415A6C",
+          cursor: "pointer",
+        }}
       >
         <GridViewRoundedIcon className="grid-icon1" />
         <Typography fontSize={{ lg: 14, xs: 9 }} className="sidebar-minititle">

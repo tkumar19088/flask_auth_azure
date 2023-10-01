@@ -61,34 +61,65 @@ const OverviewHighRisk2 = () => {
   const tabname = useSelector((state) => state.sidebar.tabname);
 
   const [activeTab, setActiveTab] = useState(0);
+  const [exportData, setexportData] = useState([]);
 
   const handleTabChange = (index) => {
     setActiveTab(index);
   };
 
-  useEffect(() => {
-    if (search) {
-      handleSearchSKU();
-    }
-  }, [search]);
+  // useEffect(() => {
+  //   if (search) {
+  //     handleSearchSKU();
+  //   }
+  // }, [search]);
 
   const handleSearchSKU = async () => {
     dispatch(updatesearch(true));
-    var isNumber = await containsOnlyNumbers(searchValue);
-    if (isNumber) {
-      console.log(exporttabledata);
-      var results = exporttabledata.filter((item) =>
-        String(item["RB SKU"]).includes(searchValue)
-      );
-      dispatch(updateexporttabledata(results));
-      console.log(results);
-    } else {
-      var results = exporttabledata.filter((item) =>
-        item.Description.includes(searchValue)
-      );
-      dispatch(updateexporttabledata(results));
-      console.log(results);
+
+    var data = {
+      customer: customerurl,
+      search: searchValue,
+      tabname: tabname,
+      skulist: "",
+      rbsku: "",
+    };
+    try {
+      const url = taburl;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        identifySpecificTabdata(json, url);
+        // dispatch(updatesearch(false));
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
     }
+
+    // var isNumber = await containsOnlyNumbers(searchValue);
+    // if (isNumber) {
+    //   console.log(exporttabledata);
+    //   var results = exporttabledata.filter((item) =>
+    //     String(item["RB SKU"]).includes(searchValue)
+    //   );
+    //   dispatch(updateexporttabledata(results));
+    //   console.log(results);
+    // } else {
+    //   var results = exporttabledata.filter((item) =>
+    //     item.Description.includes(searchValue)
+    //   );
+    //   dispatch(updateexporttabledata(results));
+    //   console.log(results);
+    // }
   };
   const containsOnlyNumbers = (inputString) => {
     return /^\d+$/.test(inputString);
@@ -102,7 +133,7 @@ const OverviewHighRisk2 = () => {
     var data = {
       customer: 0,
       search: searchValue,
-      tabname: tabname,
+      tabname: "overview",
       skulist: "",
       rbsku: "",
     };
@@ -119,6 +150,7 @@ const OverviewHighRisk2 = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("overview"));
         dispatch(fetchoverviewhighriskdata(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -140,7 +172,7 @@ const OverviewHighRisk2 = () => {
     var data = {
       customer: 1,
       search: searchValue,
-      tabname: tabname,
+      tabname: "overview",
       skulist: "",
       rbsku: "",
     };
@@ -157,6 +189,7 @@ const OverviewHighRisk2 = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("overview"));
         dispatch(fetchoverviewcustomerdata(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -205,18 +238,48 @@ const OverviewHighRisk2 = () => {
     return csv;
   };
 
-  const handleExportTableData = () => {
-    const csvData = convertToCSV(exporttabledata);
-    const blob = new Blob([csvData], { type: "text/csv" });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.style.display = "none";
-    a.href = url;
-    a.download = "data.csv";
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(url);
-    document.body.removeChild(a);
+  const handleExportTableData = async () => {
+    dispatch(updateloader(true));
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: tabname,
+      skulist: "",
+      rbsku: "",
+    };
+    try {
+      const url = "http://localhost:5000/exportdata";
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        setexportData(json);
+        const csvData = convertToCSV(json);
+        const blob = new Blob([csvData], { type: "text/csv" });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.style.display = "none";
+        a.href = url;
+        a.download = "data.csv";
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+        return;
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
   };
   const handleBack = () => {
     navigate(-1);
@@ -348,7 +411,7 @@ const OverviewHighRisk2 = () => {
               </Button>
             </Box>{" "}
             &#160;&#160;&#160;&#160;&#160;&#160;
-            <Typography fontSize={14}>OOS Risk Dectection</Typography>
+            <Typography fontSize={14}>OOS Risk Detection</Typography>
             <Typography>
               <ChevronRightIcon sx={{ height: "20px" }} />
             </Typography>
@@ -391,11 +454,12 @@ const OverviewHighRisk2 = () => {
                       display: "flex",
                       color: "#415A6C",
                       height: "35px",
-                      // justifyContent: "space-around",
-                      gap: "15px",
-                      // border: "1px solid",
-                      width: "260px",
+                      // gap: "15px",
+                      width: "250px",
                       alignItems: "center",
+                      textAlign: "center",
+                      alignSelf: "center",
+                      justifyContent: "center",
                     }}
                   >
                     <InputBase
@@ -405,7 +469,7 @@ const OverviewHighRisk2 = () => {
                       value={searchValue}
                       onChange={handleInputChange}
                     />
-                    <Box sx={{ display: "flex", gap: "5px", color: "grey" }}>
+                    <Box sx={{ display: "flex", color: "grey" }}>
                       {searchValue.length > 0 && (
                         <div style={{ display: "flex" }}>
                           <ClearIcon
@@ -415,7 +479,7 @@ const OverviewHighRisk2 = () => {
                           <Box
                             sx={{
                               border: "1px solid",
-                              height: "17px",
+                              height: "18px",
                               marginTop: "2px",
                             }}
                           ></Box>

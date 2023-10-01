@@ -11,6 +11,7 @@ import {
   fetchlocationempty,
   fetchtaburl,
   updateapplyfilterserror,
+  updatetabname,
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 import Badge from "@mui/material/Badge";
@@ -51,7 +52,7 @@ const Planning = ({ filterStatus }) => {
     var data = {
       customer: 0,
       search: searchValue,
-      tabname: tabname,
+      tabname: "overview",
       skulist: "",
       rbsku: "",
     };
@@ -68,6 +69,7 @@ const Planning = ({ filterStatus }) => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("overview"));
         dispatch(fetchoverviewhighriskdata(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));

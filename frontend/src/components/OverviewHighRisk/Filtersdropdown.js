@@ -38,6 +38,7 @@ import {
   fetchoverviewhighriskdata,
   updateexporttabledata,
   fetchtaburl,
+  updatesearchvalue,
 } from "../../store/actions/sidebarActions";
 import "./Filtersdropdown.css";
 
@@ -121,10 +122,9 @@ function Filtersdropdown() {
         const json = await response.json();
         console.log(json);
         tabApiCall();
-        // dispatch(fetchfilterapply(true));
-        // dispatch(fetchalerts(json.alerts));
+        dispatch(updatesearchvalue(""));
+        setAnchorEl(null);
       }
-      // Handle the API response data as needed
     } catch (error) {
       console.error("Error:", error);
     }
@@ -226,7 +226,7 @@ function Filtersdropdown() {
         onClose={handleMenuClose}
       >
         <Grid p={2} className="filter-downbox">
-          <Grid item xs={2} lg={1} my={2}>
+          <Grid item xs={2} lg={1} mt={1}>
             <Box sx={{ minWidth: 200 }} className="filter-dropdown">
               <FormControl
                 variant="standard"
@@ -255,7 +255,7 @@ function Filtersdropdown() {
             </Box>
           </Grid>
 
-          <Grid item xs={4} my={4}>
+          <Grid item xs={4} my={3}>
             <Box sx={{ minWidth: 200 }} className="filter-dropdown">
               <FormControl
                 variant="standard"
@@ -283,7 +283,7 @@ function Filtersdropdown() {
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={4} my={4} className="filter-dropdown">
+          <Grid item xs={4} my={3} className="filter-dropdown">
             <Box sx={{ minWidth: 200 }}>
               <FormControl
                 variant="standard"
@@ -303,7 +303,7 @@ function Filtersdropdown() {
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={2} my={4} className="filter-dropdown">
+          <Grid item xs={2}  className="filter-dropdown">
             <Box sx={{ minWidth: 200 }}>
               <FormControl
                 variant="standard"
@@ -326,13 +326,16 @@ function Filtersdropdown() {
               </FormControl>
             </Box>
           </Grid>
-          <Box className="filterdropdown-insidebtn">
+          <Box className="filterdropdown-insidebtn" mt="15px">
             <Button
               variant="contained"
               size="small"
               className="btn-apply"
               sx={{
                 backgroundColor: "#415A6C",
+                "&:hover": {
+                  backgroundColor: "#FF007F",
+                },
               }}
               onClick={handleApplyFilters}
             >
@@ -344,6 +347,9 @@ function Filtersdropdown() {
               className="btn-apply"
               sx={{
                 backgroundColor: "#415A6C",
+                "&:hover": {
+                  backgroundColor: "#FF007F",
+                },
               }}
               onClick={handleMenuClose}
             >

@@ -192,7 +192,9 @@ const CarouselExample = () => {
 
   return (
     <div>
-      <div className="status" style={{ margin: "13px 0px -3px 0px" }}>
+      <div
+        style={{ margin: "13px 0px -3px 0px", display: "flex", gap: "20px" }}
+      >
         <div>
           <Typography my={1} fontSize={{ lg: 23, xs: 24 }} color="#415A6C">
             Current Status / Alerts Section
@@ -221,7 +223,7 @@ const CarouselExample = () => {
           color="red"
         >
           <ReportProblemOutlinedIcon />
-          <Typography fontSize="22px">No Alerts Found</Typography>
+          <Typography fontSize="18px">No Alerts Found</Typography>
         </Box>
       )}
     </div>

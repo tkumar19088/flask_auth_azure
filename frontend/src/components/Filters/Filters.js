@@ -187,7 +187,9 @@ const Filters = () => {
                   onChange={handleBusinessChange}
                   id="business-unit"
                 >
-                  <MenuItem value="">Select</MenuItem>
+                  <MenuItem value="">
+                    <em>-Select-</em>
+                  </MenuItem>
                   {data ? (
                     data["Business Unit"].map((item) => (
                       <MenuItem value={item} key={item}>
@@ -195,7 +197,9 @@ const Filters = () => {
                       </MenuItem>
                     ))
                   ) : (
-                    <MenuItem>Select</MenuItem>
+                    <MenuItem>
+                      <em>-Select-</em>
+                    </MenuItem>
                   )}
                 </Select>
               </FormControl>
@@ -221,7 +225,9 @@ const Filters = () => {
                   onChange={handleLocationChange}
                   id="location"
                 >
-                  <MenuItem value="">Select</MenuItem>
+                  <MenuItem value="">
+                    <em>-Select-</em>
+                  </MenuItem>
                   {data.Location.map((item) => (
                     <MenuItem value={item} key={item}>
                       {item}
@@ -244,7 +250,9 @@ const Filters = () => {
                   id="customer"
                   onChange={handleCustomerChange}
                 >
-                  <MenuItem value="">Select</MenuItem>
+                  <MenuItem value="">
+                    <em>-Select-</em>
+                  </MenuItem>
                   {data.Customer.map((item) => (
                     <MenuItem value={item} key={item}>
                       {item}
@@ -267,7 +275,9 @@ const Filters = () => {
                   onChange={handleBrandChange}
                   disabled={!business}
                 >
-                  <MenuItem value="">Select</MenuItem>
+                  <MenuItem value="">
+                    <em>-Select-</em>
+                  </MenuItem>
                   {business === "Hygiene" && (
                     <MenuItem value="Airwick">Airwick</MenuItem>
                   )}
@@ -281,7 +291,12 @@ const Filters = () => {
 
           <Grid item xs={3} className="flt-grid" border="">
             {applyfilterserror && (
-              <Typography color="red" marginTop="-39px" marginBottom="15px" mx="60px" >
+              <Typography
+                color="red"
+                marginTop="-39px"
+                marginBottom="15px"
+                mx="60px"
+              >
                 {" "}
                 Please Select Apply Filters
               </Typography>
