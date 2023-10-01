@@ -304,7 +304,7 @@ def get_selling_graph():
     sellin = AzureBlobReader().read_csvfile(filename)
     for filter_key in ['Business Unit','Location','Brand', 'Customer']:
         if filter_key in data and filter_key != "":
-            sellin = sellin[sellin[filter_key].lower()==data[filter_key].lower()]
+            sellin = sellin[sellin[filter_key]==data[filter_key]]
     sellin = replace_missing_values(sellin)
     return json.loads(sellin.to_json(orient='records'))
 
@@ -318,7 +318,7 @@ def get_sellout_graph():
     sellout = AzureBlobReader().read_csvfile(filename)
     for filter_key in ['Business Unit','Location','Brand', 'Customer']:
         if filter_key in data and filter_key != "":
-            sellout = sellout[sellout[filter_key].lower()==data[filter_key].lower()]
+            sellout = sellout[sellout[filter_key]==data[filter_key]]
     sellout = replace_missing_values(sellout)
     return json.loads(sellout.to_json(orient='records'))
 
