@@ -576,6 +576,8 @@ const OhrTable2 = ({ onData }) => {
                 backgroundColor: "#FF007F",
               },
               borderRadius: "50px",
+              textTransform: "none",
+
             }}
           >
             Choose a Mitigation Strategy

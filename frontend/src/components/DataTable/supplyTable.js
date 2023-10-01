@@ -499,6 +499,8 @@ const SupplyTable = ({ onData }) => {
                 backgroundColor: "#FF007F",
               },
               borderRadius: "50px",
+              textTransform: "none",
+
             }}
             onClick={handleChooseMitigation}
           >
