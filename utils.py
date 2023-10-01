@@ -615,5 +615,4 @@ def get_data(data, config, filename, filters, sort_column= None, sort_order= Non
         df = df.sort_values(by=sort_column, ascending=sort_order)
 
     df = replace_missing_values(df)
-
-    return json.loads(df.to_json(orient='records'))
+    return df
