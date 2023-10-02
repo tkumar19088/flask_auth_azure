@@ -463,6 +463,7 @@ const CaseShortages = ({ onData }) => {
                 backgroundColor: "#FF007F",
               },
               borderRadius: "50px",
+              textTransform: "none",
             }}
             onClick={handleChooseMitigation}
           >
@@ -618,7 +619,7 @@ const CaseShortages = ({ onData }) => {
                 }}
               >
                 Sell-In Forecast <br />
-                (S-OLA vs Kinaxis)
+                (S-OLA / Kinaxis)
               </TableCell>
               <TableCell
                 sx={{
@@ -953,35 +954,35 @@ const CaseShortages = ({ onData }) => {
                     <div className="alignment">{item.initialreckittsoh}</div>
                   </TableCell>{" "}
                   <TableCell sx={{ textAlign: "center", padding: "0px" }}>
-                      {item["CaseShort CW"]}
-                    </TableCell>
-                    <TableCell sx={{ textAlign: "center", padding: "0px" }}>
-                      {item["CaseShort CW+1"]}
-                    </TableCell>
-                    <TableCell sx={{ textAlign: "center", padding: "0px" }}>
-                      {item["CaseShort CW+2"]}
-                    </TableCell>
-                    <TableCell sx={{ textAlign: "center", padding: "0px" }}>
-                      {item["CaseShort CW+3"]}
-                    </TableCell>
-                    <TableCell sx={{ textAlign: "center", padding: "0px" }}>
-                      {item["CaseShort CW+4"]}
-                    </TableCell>
-                    <TableCell sx={{ textAlign: "center", padding: "0px" }}>
-                      {item["CaseShort CW+5"]}
-                    </TableCell>
-                    <TableCell sx={{ textAlign: "center", padding: "0px" }}>
-                      {item["CaseShort CW+6"]}
-                    </TableCell>
-                    <TableCell sx={{ textAlign: "center", padding: "0px" }}>
-                      {item["CaseShort CW+7"]}
-                    </TableCell>
-                    <TableCell sx={{ textAlign: "center", padding: "0px" }}>
-                      {item["CaseShort CW+8"]}
-                    </TableCell>
-                    <TableCell sx={{ textAlign: "center", padding: "0px" }}>
-                      {item["CaseShort CW+9"]}
-                    </TableCell>
+                    {item["CaseShort CW"]}
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                    {item["CaseShort CW+1"]}
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                    {item["CaseShort CW+2"]}
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                    {item["CaseShort CW+3"]}
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                    {item["CaseShort CW+4"]}
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                    {item["CaseShort CW+5"]}
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                    {item["CaseShort CW+6"]}
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                    {item["CaseShort CW+7"]}
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                    {item["CaseShort CW+8"]}
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                    {item["CaseShort CW+9"]}
+                  </TableCell>
                 </TableRow>
                 {expandedRow === item["RB SKU"] && iscampaigns && (
                   <TableRow>

@@ -605,6 +605,8 @@ const StockPosition2 = ({ onData }) => {
                 backgroundColor: "#FF007F",
               },
               borderRadius: "50px",
+              textTransform: "none",
+
             }}
             onClick={handleChooseMitigation}
           >
@@ -761,7 +763,7 @@ const StockPosition2 = ({ onData }) => {
                 }}
               >
                 Sell-In Forecast <br />
-                (S-OLA vs Kinaxis)
+                (S-OLA / Kinaxis)
               </TableCell>
               <TableCell
                 sx={{

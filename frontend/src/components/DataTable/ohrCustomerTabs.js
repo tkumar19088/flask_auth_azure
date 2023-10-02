@@ -27,6 +27,7 @@ import {
   fetchcustomerola,
   updateexporttabledata,
   fetchtaburl,
+  updatetabname,
 } from "../../store/actions/sidebarActions";
 
 const OhrCustomerTabs = () => {
@@ -34,6 +35,10 @@ const OhrCustomerTabs = () => {
 
   const [activeTab, setActiveTab] = useState(0);
   const customer = useSelector((state) => state.sidebar.customer);
+  const search = useSelector((state) => state.sidebar.search);
+  const searchValue = useSelector((state) => state.sidebar.searchvalue);
+  const tabname = useSelector((state) => state.sidebar.tabname);
+  const skulist = useSelector((state) => state.sidebar.skulist);
 
   const handleTabChange = (index) => {
     setActiveTab(index);
@@ -41,7 +46,13 @@ const OhrCustomerTabs = () => {
 
   const handleOverview = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "overview",
+      skulist: skulist,
+      rbsku: "",
+    };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getoverview";
       const response = await fetch(url, {
@@ -55,6 +66,7 @@ const OhrCustomerTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("overview"));
         dispatch(fetchoverviewcustomerdata(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -69,7 +81,13 @@ const OhrCustomerTabs = () => {
   };
   const handleHistoricePOS = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "historicepos",
+      skulist: skulist,
+      rbsku: "",
+    };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getcustepos";
       const response = await fetch(url, {
@@ -83,6 +101,7 @@ const OhrCustomerTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("historicepos"));
         dispatch(fetchcustomerhestoric(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -97,7 +116,13 @@ const OhrCustomerTabs = () => {
   };
   const handleSellOut = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "sellout",
+      skulist: skulist,
+      rbsku: "",
+    };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getcustsellout";
       const response = await fetch(url, {
@@ -111,6 +136,7 @@ const OhrCustomerTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("sellout"));
         dispatch(fetchcustomersellout(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -125,7 +151,13 @@ const OhrCustomerTabs = () => {
   };
   const handleSellIn = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "sellin",
+      skulist: skulist,
+      rbsku: "",
+    };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getcustsellin";
       const response = await fetch(url, {
@@ -139,6 +171,7 @@ const OhrCustomerTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("sellin"));
         dispatch(fetchcustomersellin(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -153,7 +186,13 @@ const OhrCustomerTabs = () => {
   };
   const handleStockPosition = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "stockposition",
+      skulist: skulist,
+      rbsku: "",
+    };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getstockposition";
       const response = await fetch(url, {
@@ -167,6 +206,7 @@ const OhrCustomerTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("stockposition"));
         dispatch(fetchcustomerstockposition(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -181,7 +221,13 @@ const OhrCustomerTabs = () => {
   };
   const handleOLA = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "ola",
+      skulist: skulist,
+      rbsku: "",
+    };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getcustola";
       const response = await fetch(url, {
@@ -195,6 +241,7 @@ const OhrCustomerTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("ola"));
         dispatch(fetchcustomerola(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -246,7 +293,7 @@ const OhrCustomerTabs = () => {
           onClick={handleSellIn}
         >
           Sell In Forecast{" "}
-          <span style={{ fontSize: "14px" }}> ( S-OLA vs Kinaxis )</span>
+          <span style={{ fontSize: "14px" }}> ( S-OLA / Kinaxis )</span>
         </Tab>
         <Tab
           style={{

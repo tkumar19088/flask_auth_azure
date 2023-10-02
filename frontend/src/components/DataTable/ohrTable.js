@@ -1326,6 +1326,8 @@ const OhrTable = ({ onData }) => {
                 backgroundColor: "#FF007F",
               },
               borderRadius: "50px",
+              textTransform: "none",
+
             }}
             onClick={handleChooseMitigation}
           >
@@ -1482,7 +1484,7 @@ const OhrTable = ({ onData }) => {
                 }}
               >
                 Sell-In Forecast <br />
-                (S-OLA vs Kinaxis)
+                (S-OLA / Kinaxis)
               </TableCell>
               <TableCell
                 sx={{
@@ -2078,7 +2080,7 @@ const OhrTable = ({ onData }) => {
                         sx={{
                           color: "#fff",
                           textAlign: "center",
-                          fontSize: "13px",
+                          fontSize: "11px",
                           width: "25px",
                           height: "25px",
                           backgroundColor:
@@ -2114,7 +2116,7 @@ const OhrTable = ({ onData }) => {
                       <Typography
                         margin="auto"
                         sx={{
-                          fontSize: "13px",
+                          fontSize: "11px",
                           color: "#fff",
                           width: "25px",
                           height: "25px",
@@ -2152,7 +2154,7 @@ const OhrTable = ({ onData }) => {
                       <Typography
                         margin="auto"
                         sx={{
-                          fontSize: "13px",
+                          fontSize: "11px",
                           color: "#fff",
                           width: "25px",
                           height: "25px",
@@ -2190,7 +2192,7 @@ const OhrTable = ({ onData }) => {
                       <Typography
                         margin="auto"
                         sx={{
-                          fontSize: "13px",
+                          fontSize: "11px",
                           color: "#fff",
                           width: "25px",
                           height: "25px",

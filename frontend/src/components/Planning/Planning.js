@@ -11,6 +11,7 @@ import {
   fetchlocationempty,
   fetchtaburl,
   updateapplyfilterserror,
+  updatetabname,
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 import Badge from "@mui/material/Badge";
@@ -24,6 +25,8 @@ const Planning = ({ filterStatus }) => {
   const business = useSelector((state) => state.sidebar.business);
   const location = useSelector((state) => state.sidebar.location);
   const apply = useSelector((state) => state.sidebar.apply);
+  const searchValue = useSelector((state) => state.sidebar.searchvalue);
+  const tabname = useSelector((state) => state.sidebar.tabname);
 
   const handleOOSRisk = () => {
     if (!business) {
@@ -46,7 +49,13 @@ const Planning = ({ filterStatus }) => {
   };
   const fetchData = async () => {
     dispatch(updateloader(true));
-    var data = { customer: 0 };
+    var data = {
+      customer: 0,
+      search: searchValue,
+      tabname: "overview",
+      skulist: [],
+      rbsku: "",
+    };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getoverview";
       const response = await fetch(url, {
@@ -60,6 +69,7 @@ const Planning = ({ filterStatus }) => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("overview"));
         dispatch(fetchoverviewhighriskdata(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));

@@ -7,6 +7,8 @@ import {
   resetragfilterscustomer,
   flagragfiltercustomer,
   updateloader,
+  updatecustomerragfilters,
+  updatesearchvalue,
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -19,21 +21,26 @@ function CustomerRagfilters() {
   );
   console.log(isragfiltercustomer);
 
-  const [cwr, setcwr] = useState(false);
-  const [cwa, setcwa] = useState(false);
-  const [cwg, setcwg] = useState(false);
+  const rag0 = useSelector((state) => state.sidebar.customerragfilters[0]);
+  const rag1 = useSelector((state) => state.sidebar.customerragfilters[1]);
+  const rag2 = useSelector((state) => state.sidebar.customerragfilters[2]);
+  const rag3 = useSelector((state) => state.sidebar.customerragfilters[3]);
 
-  const [cw1r, setcw1r] = useState(false);
-  const [cw1a, setcw1a] = useState(false);
-  const [cw1g, setcw1g] = useState(false);
+  const [cwr, setcwr] = useState(rag0.cwr);
+  const [cwa, setcwa] = useState(rag0.cwa);
+  const [cwg, setcwg] = useState(rag0.cwg);
 
-  const [cw2r, setcw2r] = useState(false);
-  const [cw2a, setcw2a] = useState(false);
-  const [cw2g, setcw2g] = useState(false);
+  const [cw1r, setcw1r] = useState(rag1.cw1r);
+  const [cw1a, setcw1a] = useState(rag1.cw1a);
+  const [cw1g, setcw1g] = useState(rag1.cw1g);
 
-  const [cw3r, setcw3r] = useState(false);
-  const [cw3a, setcw3a] = useState(false);
-  const [cw3g, setcw3g] = useState(false);
+  const [cw2r, setcw2r] = useState(rag2.cw2r);
+  const [cw2a, setcw2a] = useState(rag2.cw2a);
+  const [cw2g, setcw2g] = useState(rag2.cw2g);
+
+  const [cw3r, setcw3r] = useState(rag3.cw3r);
+  const [cw3a, setcw3a] = useState(rag3.cw3a);
+  const [cw3g, setcw3g] = useState(rag3.cw3g);
 
   const [selectedCW, setselectedCW] = useState({});
   const [selectedCW1, setselectedCW1] = useState({});
@@ -223,7 +230,31 @@ function CustomerRagfilters() {
 
     console.log(allfilters);
     // const filteredData = data.filter(filterCondition);
-
+    const updatedRagFiters = [
+      {
+        cwr: cwr,
+        cwa: cwa,
+        cwg: cwg,
+      },
+      {
+        cw1r: cw1r,
+        cw1a: cw1a,
+        cw1g: cw1g,
+      },
+      {
+        cw2r: cw2r,
+        cw2a: cw2a,
+        cw2g: cw2g,
+      },
+      {
+        cw3r: cw3r,
+        cw3a: cw3a,
+        cw3g: cw3g,
+      },
+    ];
+    console.log(updatedRagFiters);
+    dispatch(updatecustomerragfilters(updatedRagFiters));
+    dispatch(updatesearchvalue(""));
     const filteredData = data.filter((item) => {
       // Apply all filters conditionally
       return allfilters.every((filter) => filter(item));

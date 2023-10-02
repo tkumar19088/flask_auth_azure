@@ -41,6 +41,8 @@ import {
   fetchreckittsupply,
   updatesearchvalue,
   updateissearch,
+  updatetabname,
+  updateskulist,
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 import loaderImage from "../../images/Logo-bar.png";
@@ -57,36 +59,76 @@ const OverviewHighRisk2 = () => {
   const taburl = useSelector((state) => state.sidebar.taburl);
   const customerurl = useSelector((state) => state.sidebar.customer);
   const search = useSelector((state) => state.sidebar.search);
+  const tabname = useSelector((state) => state.sidebar.tabname);
+  const skulist = useSelector((state) => state.sidebar.skulist);
 
   const [activeTab, setActiveTab] = useState(0);
+  const [exportData, setexportData] = useState([]);
 
   const handleTabChange = (index) => {
     setActiveTab(index);
   };
 
-  useEffect(() => {
-    if (search) {
-      handleSearchSKU();
-    }
-  }, [search]);
+  // useEffect(() => {
+  //   if (search) {
+  //     handleSearchSKU();
+  //   }
+  // }, [search]);
 
   const handleSearchSKU = async () => {
     dispatch(updatesearch(true));
-    var isNumber = await containsOnlyNumbers(searchValue);
-    if (isNumber) {
-      console.log(exporttabledata);
-      var results = exporttabledata.filter((item) =>
-        String(item["RB SKU"]).includes(searchValue)
-      );
-      dispatch(updateexporttabledata(results));
-      console.log(results);
-    } else {
-      var results = exporttabledata.filter((item) =>
-        item.Description.includes(searchValue)
-      );
-      dispatch(updateexporttabledata(results));
-      console.log(results);
+    dispatch(updateloader(true));
+    var data = {
+      customer: customerurl,
+      search: searchValue,
+      tabname: tabname,
+      skulist: [],
+      rbsku: "",
+    };
+    try {
+      const url = taburl;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        const jsonLength = json.length;
+        if (jsonLength > 1) {
+          const skuArray = json.map((item) => item["RB SKU"]);
+          dispatch(updateskulist(skuArray));
+        } else {
+          dispatch(updateskulist([]));
+        }
+        identifySpecificTabdata(json, url);
+        // dispatch(updatesearch(false));
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
     }
+
+    // var isNumber = await containsOnlyNumbers(searchValue);
+    // if (isNumber) {
+    //   console.log(exporttabledata);
+    //   var results = exporttabledata.filter((item) =>
+    //     String(item["RB SKU"]).includes(searchValue)
+    //   );
+    //   dispatch(updateexporttabledata(results));
+    //   console.log(results);
+    // } else {
+    //   var results = exporttabledata.filter((item) =>
+    //     item.Description.includes(searchValue)
+    //   );
+    //   dispatch(updateexporttabledata(results));
+    //   console.log(results);
+    // }
   };
   const containsOnlyNumbers = (inputString) => {
     return /^\d+$/.test(inputString);
@@ -97,7 +139,13 @@ const OverviewHighRisk2 = () => {
   };
   const reckittOverview = async () => {
     dispatch(updateloader(true));
-    var data = { customer: 0 };
+    var data = {
+      customer: 0,
+      search: searchValue,
+      tabname: "overview",
+      skulist: skulist,
+      rbsku: "",
+    };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getoverview";
       const response = await fetch(url, {
@@ -111,6 +159,7 @@ const OverviewHighRisk2 = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("overview"));
         dispatch(fetchoverviewhighriskdata(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -129,7 +178,13 @@ const OverviewHighRisk2 = () => {
   };
   const customerOverview = async () => {
     dispatch(updateloader(true));
-    var data = { customer: 1 };
+    var data = {
+      customer: 1,
+      search: searchValue,
+      tabname: "overview",
+      skulist: skulist,
+      rbsku: "",
+    };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getoverview";
       const response = await fetch(url, {
@@ -143,6 +198,7 @@ const OverviewHighRisk2 = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("overview"));
         dispatch(fetchoverviewcustomerdata(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -191,18 +247,48 @@ const OverviewHighRisk2 = () => {
     return csv;
   };
 
-  const handleExportTableData = () => {
-    const csvData = convertToCSV(exporttabledata);
-    const blob = new Blob([csvData], { type: "text/csv" });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.style.display = "none";
-    a.href = url;
-    a.download = "data.csv";
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(url);
-    document.body.removeChild(a);
+  const handleExportTableData = async () => {
+    dispatch(updateloader(true));
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: tabname,
+      skulist: skulist,
+      rbsku: "",
+    };
+    try {
+      const url = "http://localhost:5000/exportdata";
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        setexportData(json);
+        const csvData = convertToCSV(json);
+        const blob = new Blob([csvData], { type: "text/csv" });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.style.display = "none";
+        a.href = url;
+        a.download = "data.csv";
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+        return;
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
   };
   const handleBack = () => {
     navigate(-1);
@@ -213,7 +299,13 @@ const OverviewHighRisk2 = () => {
   };
   const handleClearsearch = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customerurl };
+    var data = {
+      customer: customerurl,
+      search: "",
+      tabname: tabname,
+      skulist: [],
+      rbsku: "",
+    };
     try {
       const url = taburl;
       const response = await fetch(url, {
@@ -334,11 +426,15 @@ const OverviewHighRisk2 = () => {
               </Button>
             </Box>{" "}
             &#160;&#160;&#160;&#160;&#160;&#160;
-            <Typography fontSize={14}>OOS Risk Dectection</Typography>
-            <Typography>
-              <ChevronRightIcon sx={{ height: "20px" }} />
+            <Typography fontSize={14} sx={{ color: "#415A6C" }}>
+              OOS Risk Detection
             </Typography>
-            <Typography fontSize={14}>Overview High-Risk SKUs</Typography>
+            <Typography>
+              <ChevronRightIcon sx={{ height: "20px", color: "#415A6C" }} />
+            </Typography>
+            <Typography fontSize={14} sx={{ color: "#415A6C" }}>
+              Overview High-Risk SKUs
+            </Typography>
           </Box>
           <Tabs
             selectedIndex={activeTab}
@@ -377,11 +473,12 @@ const OverviewHighRisk2 = () => {
                       display: "flex",
                       color: "#415A6C",
                       height: "35px",
-                      // justifyContent: "space-around",
-                      gap: "15px",
-                      // border: "1px solid",
-                      width: "260px",
+                      // gap: "15px",
+                      width: "250px",
                       alignItems: "center",
+                      textAlign: "center",
+                      alignSelf: "center",
+                      justifyContent: "center",
                     }}
                   >
                     <InputBase
@@ -391,9 +488,9 @@ const OverviewHighRisk2 = () => {
                       value={searchValue}
                       onChange={handleInputChange}
                     />
-                    <Box sx={{ display: "flex", gap: "5px", color: "grey" }}>
+                    <Box sx={{ display: "flex", color: "grey", gap: "2px" }}>
                       {searchValue.length > 0 && (
-                        <div style={{ display: "flex" }}>
+                        <div style={{ display: "flex", gap: "2px" }}>
                           <ClearIcon
                             sx={{ cursor: "pointer", color: "red" }}
                             onClick={handleClearsearch}
@@ -401,7 +498,7 @@ const OverviewHighRisk2 = () => {
                           <Box
                             sx={{
                               border: "1px solid",
-                              height: "17px",
+                              height: "18px",
                               marginTop: "2px",
                             }}
                           ></Box>

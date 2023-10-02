@@ -105,7 +105,7 @@ const initialState = {
     testReallocation: 0,
   },
   filteredOHRdata: [],
-  expandedItem: null,
+  expandedItem: 0,
   loader: false,
   customer: 0,
   reckittsupply: [],
@@ -127,6 +127,52 @@ const initialState = {
   isWithinChannel: true,
   applyfilterserror: false,
   searchvalue: "",
+  tabname: "overview",
+  ragfilters: [
+    {
+      cwr: false,
+      cwa: false,
+      cwg: false,
+    },
+    {
+      cw1r: false,
+      cw1a: false,
+      cw1g: false,
+    },
+    {
+      cw2r: false,
+      cw2a: false,
+      cw2g: false,
+    },
+    {
+      cw3r: false,
+      cw3a: false,
+      cw3g: false,
+    },
+  ],
+  customerragfilters: [
+    {
+      cwr: false,
+      cwa: false,
+      cwg: false,
+    },
+    {
+      cw1r: false,
+      cw1a: false,
+      cw1g: false,
+    },
+    {
+      cw2r: false,
+      cw2a: false,
+      cw2g: false,
+    },
+    {
+      cw3r: false,
+      cw3a: false,
+      cw3g: false,
+    },
+  ],
+  skulist: [],
 };
 
 const sidebarReducer = (state = initialState, action) => {
@@ -400,6 +446,26 @@ const sidebarReducer = (state = initialState, action) => {
       return {
         ...state,
         searchvalue: action.payload,
+      };
+    case "UPDATE_TABNAME":
+      return {
+        ...state,
+        tabname: action.payload,
+      };
+    case "UPDATE_RAGFILTERS":
+      return {
+        ...state,
+        ragfilters: action.payload,
+      };
+    case "UPDATE_CUSTOMERRAGFILTERS":
+      return {
+        ...state,
+        customerragfilters: action.payload,
+      };
+    case "UPDATE_SKULIST":
+      return {
+        ...state,
+        skulist: action.payload,
       };
     default:
       return state;

@@ -38,6 +38,7 @@ import {
   fetchoverviewhighriskdata,
   updateexporttabledata,
   fetchtaburl,
+  updatesearchvalue,
 } from "../../store/actions/sidebarActions";
 import "./Filtersdropdown.css";
 
@@ -62,6 +63,9 @@ function Filtersdropdown() {
   const locationEmpty = useSelector((state) => state.sidebar.locationEmpty);
   const taburl = useSelector((state) => state.sidebar.taburl);
   const customerurl = useSelector((state) => state.sidebar.customer);
+  const tabname = useSelector((state) => state.sidebar.tabname);
+  const skulist = useSelector((state) => state.sidebar.skulist);
+  const searchValue = useSelector((state) => state.sidebar.searchvalue);
 
   const handleBusinessChange = (event) => {
     dispatch(fetchbusiness(event.target.value));
@@ -121,10 +125,9 @@ function Filtersdropdown() {
         const json = await response.json();
         console.log(json);
         tabApiCall();
-        // dispatch(fetchfilterapply(true));
-        // dispatch(fetchalerts(json.alerts));
+        dispatch(updatesearchvalue(""));
+        setAnchorEl(null);
       }
-      // Handle the API response data as needed
     } catch (error) {
       console.error("Error:", error);
     }
@@ -132,7 +135,13 @@ function Filtersdropdown() {
 
   const tabApiCall = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customerurl };
+    var data = {
+      customer: customerurl,
+      search: "",
+      tabname: tabname,
+      skulist: [],
+      rbsku: "",
+    };
     try {
       const url = taburl;
       const response = await fetch(url, {
@@ -226,7 +235,7 @@ function Filtersdropdown() {
         onClose={handleMenuClose}
       >
         <Grid p={2} className="filter-downbox">
-          <Grid item xs={2} lg={1} my={2}>
+          <Grid item xs={2} lg={1} mt={1}>
             <Box sx={{ minWidth: 200 }} className="filter-dropdown">
               <FormControl
                 variant="standard"
@@ -255,7 +264,7 @@ function Filtersdropdown() {
             </Box>
           </Grid>
 
-          <Grid item xs={4} my={4}>
+          <Grid item xs={4} my={3}>
             <Box sx={{ minWidth: 200 }} className="filter-dropdown">
               <FormControl
                 variant="standard"
@@ -283,7 +292,7 @@ function Filtersdropdown() {
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={4} my={4} className="filter-dropdown">
+          <Grid item xs={4} my={3} className="filter-dropdown">
             <Box sx={{ minWidth: 200 }}>
               <FormControl
                 variant="standard"
@@ -303,7 +312,7 @@ function Filtersdropdown() {
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={2} my={4} className="filter-dropdown">
+          <Grid item xs={2} className="filter-dropdown">
             <Box sx={{ minWidth: 200 }}>
               <FormControl
                 variant="standard"
@@ -326,13 +335,16 @@ function Filtersdropdown() {
               </FormControl>
             </Box>
           </Grid>
-          <Box className="filterdropdown-insidebtn">
+          <Box className="filterdropdown-insidebtn" mt="15px">
             <Button
               variant="contained"
               size="small"
               className="btn-apply"
               sx={{
                 backgroundColor: "#415A6C",
+                "&:hover": {
+                  backgroundColor: "#FF007F",
+                },
               }}
               onClick={handleApplyFilters}
             >
@@ -344,6 +356,9 @@ function Filtersdropdown() {
               className="btn-apply"
               sx={{
                 backgroundColor: "#415A6C",
+                "&:hover": {
+                  backgroundColor: "#FF007F",
+                },
               }}
               onClick={handleMenuClose}
             >

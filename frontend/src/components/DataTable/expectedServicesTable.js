@@ -461,6 +461,8 @@ const ExpectedServices = ({ onData }) => {
                 backgroundColor: "#FF007F",
               },
               borderRadius: "50px",
+              textTransform: "none",
+
             }}
             onClick={handleChooseMitigation}
           >
@@ -616,7 +618,7 @@ const ExpectedServices = ({ onData }) => {
                 }}
               >
                 Sell-In Forecast <br />
-                (S-OLA vs Kinaxis)
+                (S-OLA / Kinaxis)
               </TableCell>
               <TableCell
                 sx={{

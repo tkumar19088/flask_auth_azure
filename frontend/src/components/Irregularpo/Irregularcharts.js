@@ -79,11 +79,11 @@ const Irregularcharts = () => {
               </Button>
             </Box>{" "}
             &#160;&#160;&#160;&#160;&#160;&#160;
-            <Typography fontSize={14}>OOS Risk Dectection</Typography>
+            <Typography fontSize={14} sx={{ color: "#415A6C" }}>OOS Risk Detection</Typography>
             <Typography>
-              <ChevronRightIcon sx={{ height: "20px" }} />
+              <ChevronRightIcon sx={{ height: "20px",color: "#415A6C" }} />
             </Typography>
-            <Typography fontSize={14}>Irregular PO</Typography>
+            <Typography fontSize={14} sx={{ color: "#415A6C" }}>Irregular PO</Typography>
           </Box>
           <Grid container justifyContent="space-between" mt={1}>
             <Box mx="1px">
@@ -148,7 +148,6 @@ const Irregularcharts = () => {
                     <Typography fontSize={20}>PO price: £1.00</Typography>
                     <Typography fontSize={20}>Agreed price: £10.00</Typography>
                   </Box>
-                 
                 </Grid>
               </Grid>
 
@@ -176,7 +175,7 @@ const Irregularcharts = () => {
           </Box>
           <Stack direction="row" spacing={2}>
             <Grid item xs={2} className="kpi-box">
-              <Typography>Sell in forecast (S-OLA vs Kinaxis)</Typography>
+              <Typography>Sell in forecast (S-OLA / Kinaxis)</Typography>
               <Typography color="green">1000 (800)</Typography>
             </Grid>
             <Grid item xs={2} className="kpi-box">
@@ -192,11 +191,11 @@ const Irregularcharts = () => {
               <Typography color="green">10%</Typography>
             </Grid>
             <Grid item xs={2} className="kpi-box">
-              <Typography>Customer SoH (Current vs target)</Typography>
+              <Typography>Customer SoH (Current / target)</Typography>
               <Typography color="green">1000 (800)</Typography>
             </Grid>
             <Grid item xs={2} className="kpi-box">
-              <Typography>Customer WoC (Current vs target)</Typography>
+              <Typography>Customer WoC (Current / target)</Typography>
               <Typography color="green">3 (5)</Typography>{" "}
             </Grid>
           </Stack>

@@ -597,6 +597,7 @@ const Sellin = ({ onData }) => {
                 backgroundColor: "#FF007F",
               },
               borderRadius: "50px",
+              textTransform: "none",
             }}
             onClick={handleChooseMitigation}
           >
@@ -753,7 +754,7 @@ const Sellin = ({ onData }) => {
                 }}
               >
                 Sell-In Forecast <br />
-                (S-OLA vs Kinaxis)
+                (S-OLA / Kinaxis)
               </TableCell>
               <TableCell
                 sx={{
@@ -1053,7 +1054,6 @@ const Sellin = ({ onData }) => {
                       // padding: "12px",
                       border: "none",
                       alignItems: "center",
-                      fontSize: "13px",
                       justifyContent: "center",
                       borderBottom: "1px solid #dcdcdc",
                     }}
@@ -1065,8 +1065,8 @@ const Sellin = ({ onData }) => {
                           color: "#415A6C",
                           cursor: "pointer",
                           fontWeight: "800",
-                          // marginTop: "6px",
-                          // marginBottom: "8px",
+                          marginTop: "4px",
+                          marginBottom: "5px",
                           backgroundColor: "transparent",
                         }}
                       />
@@ -1077,8 +1077,8 @@ const Sellin = ({ onData }) => {
                           color: "#415A6C",
                           cursor: "pointer",
                           fontWeight: "800",
-                          marginTop: "-2px",
-                          marginBottom: "2px",
+                          marginTop: "4px",
+                          marginBottom: "5px",
                           backgroundColor: "transparent",
                         }}
                       />
@@ -1110,16 +1110,6 @@ const Sellin = ({ onData }) => {
                   >
                     <Box display="flex" sx={{ width: "50px" }}>
                       <Typography fontSize={15}>{item["sola CW"]}</Typography>
-                      <Typography
-                        fontSize={13}
-                        sx={{
-                          marginLeft: "5px",
-                          // marginTop: "10px",
-                          color: "#6e8c78",
-                        }}
-                      >
-                        {item["kinaxis CW"]}
-                      </Typography>
                     </Box>
                   </TableCell>{" "}
                   <TableCell
@@ -1133,7 +1123,7 @@ const Sellin = ({ onData }) => {
                         fontSize={13}
                         sx={{
                           marginLeft: "5px",
-                          // marginTop: "10px",
+                          marginTop: "10px",
                           color: "#6e8c78",
                         }}
                       >
@@ -1148,16 +1138,6 @@ const Sellin = ({ onData }) => {
                   >
                     <Box display="flex" sx={{ width: "50px" }}>
                       <Typography fontSize={15}>{item["sola CW+2"]}</Typography>
-                      <Typography
-                        fontSize={13}
-                        sx={{
-                          marginLeft: "5px",
-                          // marginTop: "10px",
-                          color: "#6e8c78",
-                        }}
-                      >
-                        {item["kinaxis CW+2"]}
-                      </Typography>
                     </Box>
                   </TableCell>{" "}
                   <TableCell
@@ -1167,16 +1147,6 @@ const Sellin = ({ onData }) => {
                   >
                     <Box display="flex" sx={{ width: "50px" }}>
                       <Typography fontSize={15}>{item["sola CW+3"]}</Typography>
-                      <Typography
-                        fontSize={13}
-                        sx={{
-                          marginLeft: "5px",
-                          // marginTop: "10px",
-                          color: "#6e8c78",
-                        }}
-                      >
-                        {item["kinaxis CW+3"]}
-                      </Typography>
                     </Box>
                   </TableCell>{" "}
                   <TableCell
@@ -1190,7 +1160,7 @@ const Sellin = ({ onData }) => {
                         fontSize={13}
                         sx={{
                           marginLeft: "5px",
-                          // marginTop: "10px",
+                          marginTop: "10px",
                           color: "#6e8c78",
                         }}
                       >
@@ -1205,16 +1175,6 @@ const Sellin = ({ onData }) => {
                   >
                     <Box display="flex" sx={{ width: "50px" }}>
                       <Typography fontSize={15}>{item["sola CW+5"]}</Typography>
-                      <Typography
-                        fontSize={13}
-                        sx={{
-                          marginLeft: "5px",
-                          // marginTop: "10px",
-                          color: "#6e8c78",
-                        }}
-                      >
-                        {item["kinaxis CW+5"]}
-                      </Typography>
                     </Box>
                   </TableCell>{" "}
                   <TableCell
@@ -1224,16 +1184,6 @@ const Sellin = ({ onData }) => {
                   >
                     <Box display="flex" sx={{ width: "50px" }}>
                       <Typography fontSize={15}>{item["sola CW+6"]}</Typography>
-                      <Typography
-                        fontSize={13}
-                        sx={{
-                          marginLeft: "5px",
-                          // marginTop: "10px",
-                          color: "#6e8c78",
-                        }}
-                      >
-                        {item["kinaxis CW+6"]}
-                      </Typography>
                     </Box>
                   </TableCell>{" "}
                   <TableCell
@@ -1243,16 +1193,6 @@ const Sellin = ({ onData }) => {
                   >
                     <Box display="flex" sx={{ width: "50px" }}>
                       <Typography fontSize={15}>{item["sola CW+7"]}</Typography>
-                      <Typography
-                        fontSize={13}
-                        sx={{
-                          marginLeft: "5px",
-                          // marginTop: "10px",
-                          color: "#6e8c78",
-                        }}
-                      >
-                        {item["kinaxis CW+7"]}
-                      </Typography>
                     </Box>
                   </TableCell>{" "}
                   <TableCell
@@ -1266,7 +1206,7 @@ const Sellin = ({ onData }) => {
                         fontSize={13}
                         sx={{
                           marginLeft: "5px",
-                          // marginTop: "10px",
+                          marginTop: "10px",
                           color: "#6e8c78",
                         }}
                       >
@@ -1281,16 +1221,6 @@ const Sellin = ({ onData }) => {
                   >
                     <Box display="flex" sx={{ width: "50px" }}>
                       <Typography fontSize={15}>{item["sola CW+9"]}</Typography>
-                      <Typography
-                        fontSize={13}
-                        sx={{
-                          marginLeft: "5px",
-                          // marginTop: "10px",
-                          color: "#6e8c78",
-                        }}
-                      >
-                        {item["kinaxis CW+9"]}
-                      </Typography>
                     </Box>
                   </TableCell>{" "}
                 </TableRow>

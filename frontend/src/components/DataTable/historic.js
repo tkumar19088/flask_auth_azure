@@ -598,6 +598,8 @@ const Historic = ({ onData }) => {
                 backgroundColor: "#FF007F",
               },
               borderRadius: "50px",
+              textTransform: "none",
+
             }}
             onClick={handleChooseMitigation}
           >
@@ -754,7 +756,7 @@ const Historic = ({ onData }) => {
                 }}
               >
                 Sell-In Forecast <br />
-                (S-OLA vs Kinaxis)
+                (S-OLA / Kinaxis)
               </TableCell>
               <TableCell
                 sx={{
@@ -1063,7 +1065,7 @@ const Historic = ({ onData }) => {
                   // padding: "12px",
                   border: "none",
                   alignItems: "center",
-                  fontSize: "13px",
+                  // fontSize: "13px",
                   justifyContent: "center",
                   borderBottom:"1px solid #dcdcdc"
                 }}

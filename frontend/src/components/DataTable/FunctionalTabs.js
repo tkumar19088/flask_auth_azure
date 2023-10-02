@@ -24,6 +24,7 @@ import {
   updateexporttabledata,
   fetchtaburl,
   updatesearch,
+  updatetabname,
 } from "../../store/actions/sidebarActions";
 
 const FunctionalTabs = () => {
@@ -32,14 +33,22 @@ const FunctionalTabs = () => {
   const [activeTab, setActiveTab] = useState(0);
   const customer = useSelector((state) => state.sidebar.customer);
   const search = useSelector((state) => state.sidebar.search);
-  const searchvalue = useSelector((state) => state.sidebar.searchvalue);
+  const searchValue = useSelector((state) => state.sidebar.searchvalue);
+  const tabname = useSelector((state) => state.sidebar.tabname);
+  const skulist = useSelector((state) => state.sidebar.skulist);
 
   const handleTabChange = (index) => {
     setActiveTab(index);
   };
   const handleOverview = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer, search: searchvalue };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "overview",
+      skulist: skulist,
+      rbsku: "",
+    };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getoverview";
       const response = await fetch(url, {
@@ -53,6 +62,7 @@ const FunctionalTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("overview"));
         dispatch(fetchoverviewhighriskdata(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -67,7 +77,13 @@ const FunctionalTabs = () => {
   };
   const handleSupply = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer, search: searchvalue };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "supply",
+      skulist: skulist,
+      rbsku: "",
+    };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getsupply";
       const response = await fetch(url, {
@@ -81,6 +97,7 @@ const FunctionalTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("supply"));
         dispatch(fetchreckittsupply(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -95,7 +112,13 @@ const FunctionalTabs = () => {
   };
   const handleDemand = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer, search: searchvalue };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "demand",
+      skulist: skulist,
+      rbsku: "",
+    };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getdemand";
       const response = await fetch(url, {
@@ -109,6 +132,7 @@ const FunctionalTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("demand"));
         dispatch(fetchreckittdemand(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -123,7 +147,13 @@ const FunctionalTabs = () => {
   };
   const handleExpectedSOH = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer, search: searchvalue };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "sohateow",
+      skulist: skulist,
+      rbsku: "",
+    };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getsohateow";
       const response = await fetch(url, {
@@ -137,6 +167,7 @@ const FunctionalTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("sohateow"));
         dispatch(fetchreckittexpectedsoh(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -151,7 +182,13 @@ const FunctionalTabs = () => {
   };
   const handleWOCatEOW = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer, search: searchvalue };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "wocateow",
+      skulist: skulist,
+      rbsku: "",
+    };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getwocateow";
       const response = await fetch(url, {
@@ -165,6 +202,7 @@ const FunctionalTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("wocateow"));
         dispatch(fetchreckittwoc(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -179,7 +217,13 @@ const FunctionalTabs = () => {
   };
   const handleCaseShortages = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer, search: searchvalue };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "caseshortages",
+      skulist: skulist,
+      rbsku: "",
+    };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getcaseshortages";
       const response = await fetch(url, {
@@ -193,6 +237,7 @@ const FunctionalTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("caseshortages"));
         dispatch(fetchreckittcaseshortages(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -207,7 +252,13 @@ const FunctionalTabs = () => {
   };
   const handleExpectedService = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer, search: searchvalue };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "expectedservice",
+      skulist: skulist,
+      rbsku: "",
+    };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getexpectedservice";
       const response = await fetch(url, {
@@ -221,6 +272,7 @@ const FunctionalTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("expectedservice"));
         dispatch(fetchreckittexpectedservice(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
@@ -235,7 +287,13 @@ const FunctionalTabs = () => {
   };
   const handleStockPosition = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customer, search: searchvalue };
+    var data = {
+      customer: customer,
+      search: searchValue,
+      tabname: "stockposition",
+      skulist: skulist,
+      rbsku: "",
+    };
     try {
       const url = "https://testingsmartola.azurewebsites.net/getstockposition";
       const response = await fetch(url, {
@@ -249,6 +307,7 @@ const FunctionalTabs = () => {
         const json = await response.json();
         // console.log(json);
         // setuserDetails(json.name);
+        dispatch(updatetabname("stockposition"));
         dispatch(fetchreckittstockposition(json));
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));

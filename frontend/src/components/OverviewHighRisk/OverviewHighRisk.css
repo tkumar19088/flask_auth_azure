@@ -186,7 +186,7 @@ table {
   width: 23px;
   height: 23px;
   align-items: center;
-  
+  /* margin-right: 15px !important; */
   cursor: pointer;
 } 
 
@@ -196,8 +196,10 @@ table {
   height: 10px !important;
   font-size: 13px;
   margin-top: 1px;
-  padding-left: 24px !important;
+  /* padding-left: 24px !important; */
   /* width: 300px; */
+  color: #055996 !important;
+  /* margin-left: 10px; */
  }
  
 }
