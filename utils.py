@@ -595,10 +595,15 @@ def get_data(data, config, filename, filters, sort_column= None, sort_order= Non
         df = df.loc[df['RB SKU'].isin(skulist)]
 
     elif search:
+        if search.isdigit():
+            search = int(search)
         if isinstance(search, int):
+            print(f"\n1. df['RB SKU'] : {df['RB SKU']}\n")
             df = df[df['RB SKU'] == search]
         elif isinstance(search, str):
-            df = df[df['Description'].str.lower().contains(search.lower())]
+            print(f"\n2. search : {search}\n")
+            print(f"\n2. df['Description'] : {df['Description']}\n")
+            df = df.loc[df['Description'].str.contains(search, case=False, na=False)]
 
     else:
         if filename =="ui_data/reckittcampaignsbysku.csv":
