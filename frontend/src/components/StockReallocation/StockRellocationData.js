@@ -50,34 +50,6 @@ const StockReallocationData = ({ onData }) => {
 
   const stockreallocationData = [
     {
-      AvgYTDsellout: 100,
-      Brand: "Airwick",
-      Channel: "Pure Play",
-      Customer: "Amazon",
-      Location: "United Kingdom",
-      "RB SKU": "3247398",
-      "Sell out": 100,
-      "Supply to Reallocate": 0,
-      allocationconsumed: 1440,
-      cmuscore: 2.2,
-      currentallocation: 1519.5,
-      currentcustSOH: 6421.5,
-      "custsoh-current": 5002,
-      "custsoh-target": 8104,
-      "custwoc-current": 64.215,
-      "custwoc-target": 4,
-      expectedservicelevel: "75%",
-      idealallocationvalues: 0,
-      newallocation: 0,
-      openorders: 266,
-      remainingallocation: 79.5,
-      "sif-atf": 900,
-      "sif-reckitt": 2026,
-      stocksafetoreallocate: 0,
-      suggestedallocation: -1519.5,
-      sumofPOsinalloccycle: 1440,
-    },
-    {
       AvgYTDsellout: 200,
       Brand: "Airwick",
       Channel: "Pure Play",
@@ -304,34 +276,32 @@ const StockReallocationData = ({ onData }) => {
   ];
 
   const [suggectedRecord, setsuggectedRecord] = useState({
-    AvgYTDsellout: 600,
+    AvgYTDsellout: 100,
     Brand: "Airwick",
-    "Business Unit": "Health",
-    Channel: "Pharmacy",
-    Customer: "Asda",
-    Location: "Germany",
+    Channel: "Pure Play",
+    Customer: "Amazon",
+    Location: "United Kingdom",
     "RB SKU": "3247398",
-    Discription: "Airwick Electrical Lemon",
-    "Sell out": 600,
-    allocationconsumed: 180,
-    cmuscore: 7.44,
-    currentallocation: 400,
-    newallocation: 400,
-    currentcustSOH: 400,
-    "custsoh-current": 1000,
-    "custsoh-target": 900,
-    "custwoc-current": 2,
+    "Sell out": 100,
+    "Supply to Reallocate": 0,
+    allocationconsumed: 1440,
+    cmuscore: 2.2,
+    currentallocation: 1519.5,
+    currentcustSOH: 6421.5,
+    "custsoh-current": 5002,
+    "custsoh-target": 8104,
+    "custwoc-current": 64.215,
     "custwoc-target": 4,
-    expectedservicelevel: 0.94,
-    idealallocationvalues: 800,
-    openorders: 180,
-    remainingallocation: 220,
+    expectedservicelevel: "75%",
+    idealallocationvalues: 0,
+    newallocation: 0,
+    openorders: 266,
+    remainingallocation: 79.5,
     "sif-atf": 900,
-    "sif-reckitt": 800,
-    stocksafetoreallocate: 36,
-    suggestedallocation: 2,
-    sumofPOsinalloccycle: 900,
-    testReallocation: 0,
+    "sif-reckitt": 2026,
+    stocksafetoreallocate: 0,
+    suggestedallocation: -1519.5,
+    sumofPOsinalloccycle: 1440,
   });
   const updateresults = useSelector((state) => state.sidebar.updateresults);
   const initialData = stockreallocationData
@@ -343,7 +313,7 @@ const StockReallocationData = ({ onData }) => {
   // setData(results);
   const [data, setData] = useState(initialData);
 
-  const channel = "Pharmacy";
+  const channel = "Pure Play";
   const filteredSamechannelResults = initialData.filter(
     (item) => item.Channel == channel
   );
@@ -808,6 +778,7 @@ const StockReallocationData = ({ onData }) => {
                   sx={{
                     backgroundColor: "rgb(198 223 215)",
                     textAlign: "center",
+                    width: "90px",
                   }}
                 >
                   {suggectedRecord.Channel}
@@ -1015,7 +986,13 @@ const StockReallocationData = ({ onData }) => {
                 >
                   {item.Customer}
                 </TableCell>
-                <TableCell>{item.Channel}</TableCell>
+                <TableCell
+                  sx={{
+                    textAlign: "center",
+                  }}
+                >
+                  {item.Channel}
+                </TableCell>
                 <TableCell sx={{ width: "120px" }}>
                   <Box
                     display="flex"

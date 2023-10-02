@@ -292,7 +292,7 @@ const OhrCustomerTabs = () => {
           onClick={handleSellIn}
         >
           Sell In Forecast{" "}
-          <span style={{ fontSize: "14px" }}> ( S-OLA vs Kinaxis )</span>
+          <span style={{ fontSize: "14px" }}> ( S-OLA / Kinaxis )</span>
         </Tab>
         <Tab
           style={{
