@@ -712,7 +712,7 @@ const StockReallocationData = ({ onData }) => {
               <TableCell className="stable-header">Channel</TableCell>
               <TableCell className="stable-header">
                 Sell-In Forecast <br />
-                (S-OLA vs Kinaxis)
+                (S-OLA / Kinaxis)
               </TableCell>
               <TableCell className="stable-header">
                 Current Allocation
@@ -730,11 +730,11 @@ const StockReallocationData = ({ onData }) => {
               </TableCell>
               <TableCell className="stable-header">
                 Customer SoH <br />
-                (current vs target)
+                (current / target)
               </TableCell>
               <TableCell className="stable-header">
                 Customer WoC <br />
-                (current vs target)
+                (current / target)
               </TableCell>
               <TableCell className="stable-header">CMU Score</TableCell>
               <TableCell className="stable-header">

@@ -319,7 +319,7 @@ const Promo = () => {
               }}
             >
               <Typography fontSize={14}>
-                Sell-in forecast (S-OLA vs Kinaxis)
+                Sell-in forecast (S-OLA / Kinaxis)
               </Typography>
             </TableCell>
             <TableCell

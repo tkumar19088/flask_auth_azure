@@ -175,7 +175,7 @@ const Irregularcharts = () => {
           </Box>
           <Stack direction="row" spacing={2}>
             <Grid item xs={2} className="kpi-box">
-              <Typography>Sell in forecast (S-OLA vs Kinaxis)</Typography>
+              <Typography>Sell in forecast (S-OLA / Kinaxis)</Typography>
               <Typography color="green">1000 (800)</Typography>
             </Grid>
             <Grid item xs={2} className="kpi-box">
@@ -191,11 +191,11 @@ const Irregularcharts = () => {
               <Typography color="green">10%</Typography>
             </Grid>
             <Grid item xs={2} className="kpi-box">
-              <Typography>Customer SoH (Current vs target)</Typography>
+              <Typography>Customer SoH (Current / target)</Typography>
               <Typography color="green">1000 (800)</Typography>
             </Grid>
             <Grid item xs={2} className="kpi-box">
-              <Typography>Customer WoC (Current vs target)</Typography>
+              <Typography>Customer WoC (Current / target)</Typography>
               <Typography color="green">3 (5)</Typography>{" "}
             </Grid>
           </Stack>

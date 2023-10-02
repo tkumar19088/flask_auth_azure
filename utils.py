@@ -591,30 +591,31 @@ def get_data(data, config, filename, filters, sort_column= None, sort_order= Non
 
     df = AzureBlobReader().read_csvfile(filename)
 
-    if skulist:
+    if filename =="ui_data/reckittcampaignsbysku.csv":
+        df['enddate'] = pd.to_datetime(df['enddate'])
+        today = dt.date.today().strftime('%Y-%m-%d')
+        df = df.loc[df['enddate'] >= today]
+        df = df[df['RB SKU'] == data['rbsku']]
+        df['enddate'] = pd.to_datetime(df['enddate'], unit='ms')
+        df['enddate'] = df['enddate'].dt.strftime('%Y-%m-%d')
+
+        if 'Customer' in global_filters and global_filters['Customer'] != None:
+            df = df.loc[df['Customer'].str.contains(global_filters['Customer'], case=False, na=False)]
+
+    elif skulist:
         df = df.loc[df['RB SKU'].isin(skulist)]
 
     elif search:
         if search.isdigit():
             search = int(search)
         if isinstance(search, int):
-            print(f"\n1. df['RB SKU'] : {df['RB SKU']}\n")
             df = df[df['RB SKU'] == search]
         elif isinstance(search, str):
-            print(f"\n2. search : {search}\n")
-            print(f"\n2. df['Description'] : {df['Description']}\n")
             df = df.loc[df['Description'].str.contains(search, case=False, na=False)]
-
     else:
-        if filename =="ui_data/reckittcampaignsbysku.csv":
-            df['enddate'] = pd.to_datetime(df['enddate'])
-            today = dt.date.today().strftime('%Y-%m-%d')
-            df = df.loc[df['enddate'] >= today]
-            df = df[df['RB SKU'] == data['rbsku']]
-
         for filter_key in filters:
             if filter_key in global_filters and global_filters[filter_key] != None:
-                df = df[df[filter_key].str.lower() == global_filters[filter_key]]
+                df = df[df[filter_key].str.lower() == global_filters[filter_key]]\
 
     if sort_column and sort_order:
         df = df.sort_values(by=sort_column, ascending=sort_order)
