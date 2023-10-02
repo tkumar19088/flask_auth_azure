@@ -38,6 +38,7 @@ const OhrCustomerTabs = () => {
   const search = useSelector((state) => state.sidebar.search);
   const searchValue = useSelector((state) => state.sidebar.searchvalue);
   const tabname = useSelector((state) => state.sidebar.tabname);
+  const skulist = useSelector((state) => state.sidebar.skulist);
 
   const handleTabChange = (index) => {
     setActiveTab(index);
@@ -49,7 +50,7 @@ const OhrCustomerTabs = () => {
       customer: customer,
       search: searchValue,
       tabname: "overview",
-      skulist: "",
+      skulist: skulist,
       rbsku: "",
     };
     try {
@@ -84,7 +85,7 @@ const OhrCustomerTabs = () => {
       customer: customer,
       search: searchValue,
       tabname: "historicepos",
-      skulist: "",
+      skulist: skulist,
       rbsku: "",
     };
     try {
@@ -119,7 +120,7 @@ const OhrCustomerTabs = () => {
       customer: customer,
       search: searchValue,
       tabname: "sellout",
-      skulist: "",
+      skulist: skulist,
       rbsku: "",
     };
     try {
@@ -154,7 +155,7 @@ const OhrCustomerTabs = () => {
       customer: customer,
       search: searchValue,
       tabname: "sellin",
-      skulist: "",
+      skulist: skulist,
       rbsku: "",
     };
     try {
@@ -189,7 +190,7 @@ const OhrCustomerTabs = () => {
       customer: customer,
       search: searchValue,
       tabname: "stockposition",
-      skulist: "",
+      skulist: skulist,
       rbsku: "",
     };
     try {
@@ -224,7 +225,7 @@ const OhrCustomerTabs = () => {
       customer: customer,
       search: searchValue,
       tabname: "ola",
-      skulist: "",
+      skulist: skulist,
       rbsku: "",
     };
     try {

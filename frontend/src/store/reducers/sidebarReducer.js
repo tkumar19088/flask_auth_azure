@@ -172,6 +172,7 @@ const initialState = {
       cw3g: false,
     },
   ],
+  skulist: [],
 };
 
 const sidebarReducer = (state = initialState, action) => {
@@ -460,6 +461,11 @@ const sidebarReducer = (state = initialState, action) => {
       return {
         ...state,
         customerragfilters: action.payload,
+      };
+    case "UPDATE_SKULIST":
+      return {
+        ...state,
+        skulist: action.payload,
       };
     default:
       return state;

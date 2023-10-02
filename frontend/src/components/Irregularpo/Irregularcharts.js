@@ -79,11 +79,11 @@ const Irregularcharts = () => {
               </Button>
             </Box>{" "}
             &#160;&#160;&#160;&#160;&#160;&#160;
-            <Typography fontSize={14}>OOS Risk Detection</Typography>
+            <Typography fontSize={14} sx={{ color: "#415A6C" }}>OOS Risk Detection</Typography>
             <Typography>
-              <ChevronRightIcon sx={{ height: "20px" }} />
+              <ChevronRightIcon sx={{ height: "20px",color: "#415A6C" }} />
             </Typography>
-            <Typography fontSize={14}>Irregular PO</Typography>
+            <Typography fontSize={14} sx={{ color: "#415A6C" }}>Irregular PO</Typography>
           </Box>
           <Grid container justifyContent="space-between" mt={1}>
             <Box mx="1px">

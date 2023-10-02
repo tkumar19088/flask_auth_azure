@@ -170,11 +170,13 @@ function StockReallocation() {
               </Button>
             </Box>{" "}
             &#160;&#160;&#160;&#160;&#160;&#160;
-            <Typography fontSize={14}>OOS Risk Detection</Typography>
-            <Typography>
-              <ChevronRightIcon sx={{ height: "20px" }} />
+            <Typography fontSize={14} sx={{ color: "#415A6C" }}>
+              OOS Risk Detection
             </Typography>
-            <Typography fontSize={14}>Overview High-Risk SKUs</Typography>
+            <Typography>
+              <ChevronRightIcon sx={{ height: "20px",color: "#415A6C" }} />
+            </Typography>
+            <Typography fontSize={14} sx={{ color: "#415A6C" }}>Overview High-Risk SKUs</Typography>
           </Box>
           <Typography
             fontSize={16}

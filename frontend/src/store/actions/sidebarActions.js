@@ -317,3 +317,9 @@ export const updatecustomerragfilters = (newValue) => {
     payload: newValue,
   };
 };
+export const updateskulist = (newValue) => {
+  return {
+    type: "UPDATE_SKULIST",
+    payload: newValue,
+  };
+};

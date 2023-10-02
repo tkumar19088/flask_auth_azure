@@ -35,6 +35,7 @@ const FunctionalTabs = () => {
   const search = useSelector((state) => state.sidebar.search);
   const searchValue = useSelector((state) => state.sidebar.searchvalue);
   const tabname = useSelector((state) => state.sidebar.tabname);
+  const skulist = useSelector((state) => state.sidebar.skulist);
 
   const handleTabChange = (index) => {
     setActiveTab(index);
@@ -45,7 +46,7 @@ const FunctionalTabs = () => {
       customer: customer,
       search: searchValue,
       tabname: "overview",
-      skulist: "",
+      skulist: skulist,
       rbsku: "",
     };
     try {
@@ -80,7 +81,7 @@ const FunctionalTabs = () => {
       customer: customer,
       search: searchValue,
       tabname: "supply",
-      skulist: "",
+      skulist: skulist,
       rbsku: "",
     };
     try {
@@ -115,7 +116,7 @@ const FunctionalTabs = () => {
       customer: customer,
       search: searchValue,
       tabname: "demand",
-      skulist: "",
+      skulist: skulist,
       rbsku: "",
     };
     try {
@@ -150,7 +151,7 @@ const FunctionalTabs = () => {
       customer: customer,
       search: searchValue,
       tabname: "sohateow",
-      skulist: "",
+      skulist: skulist,
       rbsku: "",
     };
     try {
@@ -185,7 +186,7 @@ const FunctionalTabs = () => {
       customer: customer,
       search: searchValue,
       tabname: "wocateow",
-      skulist: "",
+      skulist: skulist,
       rbsku: "",
     };
     try {
@@ -220,7 +221,7 @@ const FunctionalTabs = () => {
       customer: customer,
       search: searchValue,
       tabname: "caseshortages",
-      skulist: "",
+      skulist: skulist,
       rbsku: "",
     };
     try {
@@ -255,7 +256,7 @@ const FunctionalTabs = () => {
       customer: customer,
       search: searchValue,
       tabname: "expectedservice",
-      skulist: "",
+      skulist: skulist,
       rbsku: "",
     };
     try {
@@ -290,7 +291,7 @@ const FunctionalTabs = () => {
       customer: customer,
       search: searchValue,
       tabname: "stockposition",
-      skulist: "",
+      skulist: skulist,
       rbsku: "",
     };
     try {

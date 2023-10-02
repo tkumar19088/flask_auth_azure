@@ -9,6 +9,7 @@ import {
   updateloader,
   updateragfilters,
   updatesearchvalue,
+  updateskulist,
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -258,6 +259,8 @@ function Ragfilters() {
 
     console.log(filteredData);
     dispatch(fetchofilteredverviewhighriskdata(filteredData));
+    const skuArray = filteredData.map((item) => item["RB SKU"]);
+    dispatch(updateskulist(skuArray));
     dispatch(flagragfiltersohr(true));
     setAnchorEl(null);
   };
@@ -284,7 +287,8 @@ function Ragfilters() {
     setselectedCW1({});
     setselectedCW2({});
     setselectedCW3({});
-    // dispatch(resetragfiltersohr());
+
+    dispatch(updateskulist([]));
     dispatch(flagragfiltersohr(false));
     setAnchorEl(null);
     dispatch(updateloader(false));

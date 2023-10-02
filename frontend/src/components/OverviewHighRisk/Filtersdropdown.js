@@ -63,6 +63,9 @@ function Filtersdropdown() {
   const locationEmpty = useSelector((state) => state.sidebar.locationEmpty);
   const taburl = useSelector((state) => state.sidebar.taburl);
   const customerurl = useSelector((state) => state.sidebar.customer);
+  const tabname = useSelector((state) => state.sidebar.tabname);
+  const skulist = useSelector((state) => state.sidebar.skulist);
+  const searchValue = useSelector((state) => state.sidebar.searchvalue);
 
   const handleBusinessChange = (event) => {
     dispatch(fetchbusiness(event.target.value));
@@ -132,7 +135,13 @@ function Filtersdropdown() {
 
   const tabApiCall = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customerurl };
+    var data = {
+      customer: customerurl,
+      search: "",
+      tabname: tabname,
+      skulist: [],
+      rbsku: "",
+    };
     try {
       const url = taburl;
       const response = await fetch(url, {
@@ -303,7 +312,7 @@ function Filtersdropdown() {
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={2}  className="filter-dropdown">
+          <Grid item xs={2} className="filter-dropdown">
             <Box sx={{ minWidth: 200 }}>
               <FormControl
                 variant="standard"

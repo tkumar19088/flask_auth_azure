@@ -35,7 +35,7 @@ const BasicModal = () => {
       customer: 0,
       search: searchValue,
       tabname: "overview",
-      skulist: "",
+      skulist: [],
       rbsku: "",
     };
     try {

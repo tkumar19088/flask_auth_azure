@@ -42,6 +42,7 @@ import {
   updatesearchvalue,
   updateissearch,
   updatetabname,
+  updateskulist,
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 import loaderImage from "../../images/Logo-bar.png";
@@ -59,6 +60,7 @@ const OverviewHighRisk2 = () => {
   const customerurl = useSelector((state) => state.sidebar.customer);
   const search = useSelector((state) => state.sidebar.search);
   const tabname = useSelector((state) => state.sidebar.tabname);
+  const skulist = useSelector((state) => state.sidebar.skulist);
 
   const [activeTab, setActiveTab] = useState(0);
   const [exportData, setexportData] = useState([]);
@@ -75,12 +77,12 @@ const OverviewHighRisk2 = () => {
 
   const handleSearchSKU = async () => {
     dispatch(updatesearch(true));
-
+    dispatch(updateloader(true));
     var data = {
       customer: customerurl,
       search: searchValue,
       tabname: tabname,
-      skulist: "",
+      skulist: [],
       rbsku: "",
     };
     try {
@@ -94,6 +96,13 @@ const OverviewHighRisk2 = () => {
       });
       if (response.ok) {
         const json = await response.json();
+        const jsonLength = json.length;
+        if (jsonLength > 1) {
+          const skuArray = json.map((item) => item["RB SKU"]);
+          dispatch(updateskulist(skuArray));
+        } else {
+          dispatch(updateskulist([]));
+        }
         identifySpecificTabdata(json, url);
         // dispatch(updatesearch(false));
       } else {
@@ -134,7 +143,7 @@ const OverviewHighRisk2 = () => {
       customer: 0,
       search: searchValue,
       tabname: "overview",
-      skulist: "",
+      skulist: skulist,
       rbsku: "",
     };
     try {
@@ -173,7 +182,7 @@ const OverviewHighRisk2 = () => {
       customer: 1,
       search: searchValue,
       tabname: "overview",
-      skulist: "",
+      skulist: skulist,
       rbsku: "",
     };
     try {
@@ -244,7 +253,7 @@ const OverviewHighRisk2 = () => {
       customer: customer,
       search: searchValue,
       tabname: tabname,
-      skulist: "",
+      skulist: skulist,
       rbsku: "",
     };
     try {
@@ -290,7 +299,13 @@ const OverviewHighRisk2 = () => {
   };
   const handleClearsearch = async () => {
     dispatch(updateloader(true));
-    var data = { customer: customerurl };
+    var data = {
+      customer: customerurl,
+      search: "",
+      tabname: tabname,
+      skulist: [],
+      rbsku: "",
+    };
     try {
       const url = taburl;
       const response = await fetch(url, {
@@ -411,11 +426,15 @@ const OverviewHighRisk2 = () => {
               </Button>
             </Box>{" "}
             &#160;&#160;&#160;&#160;&#160;&#160;
-            <Typography fontSize={14}>OOS Risk Detection</Typography>
-            <Typography>
-              <ChevronRightIcon sx={{ height: "20px" }} />
+            <Typography fontSize={14} sx={{ color: "#415A6C" }}>
+              OOS Risk Detection
             </Typography>
-            <Typography fontSize={14}>Overview High-Risk SKUs</Typography>
+            <Typography>
+              <ChevronRightIcon sx={{ height: "20px", color: "#415A6C" }} />
+            </Typography>
+            <Typography fontSize={14} sx={{ color: "#415A6C" }}>
+              Overview High-Risk SKUs
+            </Typography>
           </Box>
           <Tabs
             selectedIndex={activeTab}
@@ -469,9 +488,9 @@ const OverviewHighRisk2 = () => {
                       value={searchValue}
                       onChange={handleInputChange}
                     />
-                    <Box sx={{ display: "flex", color: "grey" }}>
+                    <Box sx={{ display: "flex", color: "grey", gap: "2px" }}>
                       {searchValue.length > 0 && (
-                        <div style={{ display: "flex" }}>
+                        <div style={{ display: "flex", gap: "2px" }}>
                           <ClearIcon
                             sx={{ cursor: "pointer", color: "red" }}
                             onClick={handleClearsearch}
