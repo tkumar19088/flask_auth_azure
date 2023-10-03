@@ -99,6 +99,7 @@ const OhrTable2 = ({ onData }) => {
         dispatch(updateloader(false));
       }
       setExpandedRow(rowId);
+      setdisplayMigitates(false);
     }
   };
 
@@ -156,6 +157,15 @@ const OhrTable2 = ({ onData }) => {
       dispatch(updateloader(false));
     }
   };
+
+  const closeExpandedRow = () => {
+    setExpandedRow(null);
+    setdisplayMigitates(false);
+  };
+
+  useEffect(() => {
+    closeExpandedRow();
+  }, [data, isragfiltercustomer, search, exporttabledata, customerdata]);
 
   // const [data, setData] = useState([
   //   {
@@ -577,7 +587,6 @@ const OhrTable2 = ({ onData }) => {
               },
               borderRadius: "50px",
               textTransform: "none",
-
             }}
           >
             Choose a Mitigation Strategy
@@ -1004,41 +1013,41 @@ const OhrTable2 = ({ onData }) => {
                       border: "1px solid #dcdcdc",
                     }}
                   >
-                  <TableCell
-                  sx={{
-                    display: "flex",
-                    // padding: "12px",
-                    border: "none",
-                    alignItems: "center",
-                    fontSize: "13px",
-                    justifyContent: "center",
-                  }}
-                >
-                  {expandedRow === item["RB SKU"] ? (
-                    <RemoveIcon
-                      fontSize="medium"
+                    <TableCell
                       sx={{
-                        color: "#415A6C",
-                        cursor: "pointer",
-                        fontWeight: "800",
-                        // marginTop: "4px",
-                        backgroundColor: "transparent",
+                        display: "flex",
+                        // padding: "12px",
+                        border: "none",
+                        alignItems: "center",
+                        fontSize: "13px",
+                        justifyContent: "center",
                       }}
-                    />
-                  ) : (
-                    <AddIcon
-                      fontSize="medium"
-                      sx={{
-                        color: "#415A6C",
-                        cursor: "pointer",
-                        fontWeight: "800",
-                        marginTop: "-2px",
-                        backgroundColor: "transparent",
-                      }}
-                    />
-                  )}
-                  {item["RB SKU"]}
-                </TableCell>
+                    >
+                      {expandedRow === item["RB SKU"] ? (
+                        <RemoveIcon
+                          fontSize="medium"
+                          sx={{
+                            color: "#415A6C",
+                            cursor: "pointer",
+                            fontWeight: "800",
+                            // marginTop: "4px",
+                            backgroundColor: "transparent",
+                          }}
+                        />
+                      ) : (
+                        <AddIcon
+                          fontSize="medium"
+                          sx={{
+                            color: "#415A6C",
+                            cursor: "pointer",
+                            fontWeight: "800",
+                            marginTop: "-2px",
+                            backgroundColor: "transparent",
+                          }}
+                        />
+                      )}
+                      {item["RB SKU"]}
+                    </TableCell>
                     <TableCell
                       sx={{
                         textAlign: "center",

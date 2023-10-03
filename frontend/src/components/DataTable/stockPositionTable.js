@@ -12,7 +12,7 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -71,6 +71,7 @@ const StockPosition = ({ onData }) => {
         dispatch(updateloader(false));
       }
       setExpandedRow(rowId);
+      setdisplayMigitates(false);
     }
   };
   const handlePushAlternative = async () => {
@@ -128,6 +129,14 @@ const StockPosition = ({ onData }) => {
     }
   };
   const data = useSelector((state) => state.sidebar.reckittstockposition);
+  const closeExpandedRow = () => {
+    setExpandedRow(null);
+    setdisplayMigitates(false);
+  };
+
+  useEffect(() => {
+    closeExpandedRow();
+  }, [data]);
 
   // const [data, setData] = useState([
   //   {
@@ -447,7 +456,6 @@ const StockPosition = ({ onData }) => {
               },
               borderRadius: "50px",
               textTransform: "none",
-
             }}
             onClick={handleChooseMitigation}
           >
@@ -831,42 +839,42 @@ const StockPosition = ({ onData }) => {
                     // borderBottom: "1px solid #dcdcdc",
                   }}
                 >
-                <TableCell
-                sx={{
-                  display: "flex",
-                  // padding: "12px",
-                  border: "none",
-                  alignItems: "center",
-                  fontSize: "13px",
-                  justifyContent: "center",
-                  borderBottom:"1px solid #dcdcdc"
-                }}
-              >
-                {expandedRow === item["RB SKU"] ? (
-                  <RemoveIcon
-                    fontSize="medium"
+                  <TableCell
                     sx={{
-                      color: "#415A6C",
-                      cursor: "pointer",
-                      fontWeight: "800",
-                      // marginTop: "4px",
-                      backgroundColor: "transparent",
+                      display: "flex",
+                      // padding: "12px",
+                      border: "none",
+                      alignItems: "center",
+                      fontSize: "13px",
+                      justifyContent: "center",
+                      borderBottom: "1px solid #dcdcdc",
                     }}
-                  />
-                ) : (
-                  <AddIcon
-                    fontSize="medium"
-                    sx={{
-                      color: "#415A6C",
-                      cursor: "pointer",
-                      fontWeight: "800",
-                      marginTop: "-2px",
-                      backgroundColor: "transparent",
-                    }}
-                  />
-                )}
-                {item["RB SKU"]}
-              </TableCell>
+                  >
+                    {expandedRow === item["RB SKU"] ? (
+                      <RemoveIcon
+                        fontSize="medium"
+                        sx={{
+                          color: "#415A6C",
+                          cursor: "pointer",
+                          fontWeight: "800",
+                          // marginTop: "4px",
+                          backgroundColor: "transparent",
+                        }}
+                      />
+                    ) : (
+                      <AddIcon
+                        fontSize="medium"
+                        sx={{
+                          color: "#415A6C",
+                          cursor: "pointer",
+                          fontWeight: "800",
+                          marginTop: "-2px",
+                          backgroundColor: "transparent",
+                        }}
+                      />
+                    )}
+                    {item["RB SKU"]}
+                  </TableCell>
                   <TableCell>
                     {" "}
                     <div className="alignment">{item.PPG}</div>

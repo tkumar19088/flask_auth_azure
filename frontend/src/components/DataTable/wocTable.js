@@ -12,7 +12,7 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Tooltip from "@mui/material/Tooltip";
@@ -73,6 +73,7 @@ const WocTable = ({ onData }) => {
         dispatch(updateloader(false));
       }
       setExpandedRow(rowId);
+      setdisplayMigitates(false);
     }
   };
   const handlePushAlternative = async () => {
@@ -131,6 +132,15 @@ const WocTable = ({ onData }) => {
   };
 
   const data = useSelector((state) => state.sidebar.reckittwoc);
+
+  const closeExpandedRow = () => {
+    setExpandedRow(null);
+    setdisplayMigitates(false);
+  };
+
+  useEffect(() => {
+    closeExpandedRow();
+  }, [data]);
 
   // const [data, setData] = useState([
   //   {
@@ -472,7 +482,6 @@ const WocTable = ({ onData }) => {
               },
               borderRadius: "50px",
               textTransform: "none",
-
             }}
             onClick={handleChooseMitigation}
           >

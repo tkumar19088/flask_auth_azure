@@ -13,7 +13,7 @@ import {
   Box,
 } from "@mui/material";
 import "./ohr.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -72,6 +72,7 @@ const CaseShortages = ({ onData }) => {
         dispatch(updateloader(false));
       }
       setExpandedRow(rowId);
+      setdisplayMigitates(false);
     }
   };
   const handlePushAlternative = async () => {
@@ -131,6 +132,14 @@ const CaseShortages = ({ onData }) => {
 
   const data = useSelector((state) => state.sidebar.reckittcaseshortages);
 
+  const closeExpandedRow = () => {
+    setExpandedRow(null);
+    setdisplayMigitates(false);
+  };
+
+  useEffect(() => {
+    closeExpandedRow();
+  }, [data]);
   // const [data, setData] = useState([
   //   {
   //     rbsku: "010613",
