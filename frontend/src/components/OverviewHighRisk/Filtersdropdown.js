@@ -39,6 +39,7 @@ import {
   updateexporttabledata,
   fetchtaburl,
   updatesearchvalue,
+  updateskulist,
 } from "../../store/actions/sidebarActions";
 import "./Filtersdropdown.css";
 
@@ -135,6 +136,8 @@ function Filtersdropdown() {
 
   const tabApiCall = async () => {
     dispatch(updateloader(true));
+    dispatch(updateskulist([]));
+    dispatch(updatesearchvalue(""));
     var data = {
       customer: customerurl,
       search: "",

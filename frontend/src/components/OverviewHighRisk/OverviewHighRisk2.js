@@ -135,15 +135,17 @@ const OverviewHighRisk2 = () => {
   };
   const handleReckittOverview = async () => {
     await dispatch(updatecustomer(0));
+    dispatch(updateskulist([]));
+    dispatch(updatesearchvalue(""));
     reckittOverview();
   };
   const reckittOverview = async () => {
     dispatch(updateloader(true));
     var data = {
       customer: 0,
-      search: searchValue,
+      search: "",
       tabname: "overview",
-      skulist: skulist,
+      skulist: [],
       rbsku: "",
     };
     try {
@@ -174,15 +176,17 @@ const OverviewHighRisk2 = () => {
   };
   const handleCustomerOverview = async () => {
     dispatch(updatecustomer(1));
+    dispatch(updateskulist([]));
+    dispatch(updatesearchvalue(""));
     await customerOverview();
   };
   const customerOverview = async () => {
     dispatch(updateloader(true));
     var data = {
       customer: 1,
-      search: searchValue,
+      search: "",
       tabname: "overview",
-      skulist: skulist,
+      skulist: [],
       rbsku: "",
     };
     try {
@@ -299,6 +303,8 @@ const OverviewHighRisk2 = () => {
   };
   const handleClearsearch = async () => {
     dispatch(updateloader(true));
+    dispatch(updateskulist([]));
+    dispatch(updatesearchvalue(""));
     var data = {
       customer: customerurl,
       search: "",

@@ -46,7 +46,13 @@ const CarouselExample = () => {
   };
   const fetchData = async () => {
     dispatch(updateloader(true));
-    var data = { customer: 0 };
+    var data = {
+      customer: 0,
+      search: "",
+      tabname: "overview",
+      skulist: [],
+      rbsku: "",
+    };
     try {
       const url = "http://localhost:5000/getoverview";
       const response = await fetch(url, {

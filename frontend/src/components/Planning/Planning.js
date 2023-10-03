@@ -51,7 +51,7 @@ const Planning = ({ filterStatus }) => {
     dispatch(updateloader(true));
     var data = {
       customer: 0,
-      search: searchValue,
+      search: "",
       tabname: "overview",
       skulist: [],
       rbsku: "",
