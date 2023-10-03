@@ -43,6 +43,12 @@ import {
   updateissearch,
   updatetabname,
   updateskulist,
+  flagragfiltercustomer,
+  flagragfiltersohr,
+  fetchofilteredcustomerdata,
+  fetchofilteredverviewhighriskdata,
+  updatecustomerragfilters,
+  updateragfilters,
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 import loaderImage from "../../images/Logo-bar.png";
@@ -295,6 +301,34 @@ const OverviewHighRisk2 = () => {
     }
   };
   const handleBack = () => {
+    dispatch(flagragfiltersohr(false));
+    dispatch(flagragfiltercustomer(false));
+    dispatch(fetchofilteredverviewhighriskdata([]));
+    dispatch(fetchofilteredcustomerdata([]));
+    const ragfilters = [
+      {
+        cwr: false,
+        cwa: false,
+        cwg: false,
+      },
+      {
+        cw1r: false,
+        cw1a: false,
+        cw1g: false,
+      },
+      {
+        cw2r: false,
+        cw2a: false,
+        cw2g: false,
+      },
+      {
+        cw3r: false,
+        cw3a: false,
+        cw3g: false,
+      },
+    ];
+    dispatch(updateragfilters(ragfilters));
+    dispatch(updatecustomerragfilters(ragfilters));
     navigate(-1);
   };
 
