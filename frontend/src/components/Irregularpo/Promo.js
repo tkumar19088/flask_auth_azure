@@ -245,20 +245,6 @@ const Promo = () => {
       startdate: "2023-12-13",
       status: "Draft",
     },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      Customer: "L4 TESCO HYHO PLAN TO",
-      Location: "United Kingdom",
-      "RB SKU": 3277069,
-      campaignname: "P13 MIST KIT LSM BREAK \u00a38 CC",
-      customerallocation: "100",
-      customerinventory: "400",
-      enddate: "2024-01-09",
-      offerdescription: "Price Reduction",
-      startdate: "2023-12-13",
-      status: "Draft",
-    },
   ];
   const [expandedRow, setExpandedRow] = useState(null);
 
