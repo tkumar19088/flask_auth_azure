@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Topbar from "../Topbar/Topbar";
-import { Box, Button, Grid, Stack, Typography } from "@mui/material";
+import { Box, Button, Card, Grid, Stack, Typography } from "@mui/material";
 import Sidebar from "../Sidebar/Sidebar";
 import "./Irregularchart.css";
 
@@ -79,85 +79,72 @@ const Irregularcharts = () => {
               </Button>
             </Box>{" "}
             &#160;&#160;&#160;&#160;&#160;&#160;
-            <Typography fontSize={14} sx={{ color: "#415A6C" }}>OOS Risk Detection</Typography>
-            <Typography>
-              <ChevronRightIcon sx={{ height: "20px",color: "#415A6C" }} />
+            <Typography fontSize={14} sx={{ color: "#415A6C" }}>
+              OOS Risk Detection
             </Typography>
-            <Typography fontSize={14} sx={{ color: "#415A6C" }}>Irregular PO</Typography>
+            <Typography>
+              <ChevronRightIcon sx={{ height: "20px", color: "#415A6C" }} />
+            </Typography>
+            <Typography fontSize={14} sx={{ color: "#415A6C" }}>
+              Irregular PO
+            </Typography>
           </Box>
-          <Grid container justifyContent="space-between" mt={1}>
+          <Grid container justifyContent="space-between" my="20px">
             <Box mx="1px">
-              <Typography fontSize={24} color="#415A6C">
+              <Typography fontSize={30} color="#415A6C">
                 Irregular PO : PO no 123 : Amazon, Airwick Electrical Lemon
               </Typography>
             </Box>
+            <Button
+              variant="contained"
+              size="small"
+              sx={{
+                textTransform: "none",
+                height: "30px",
+                backgroundColor: "#415A6C",
+                "&:hover": {
+                  backgroundColor: "#FF007F",
+                },
+              }}
+            >
+              Export Data
+            </Button>
           </Grid>
 
-          <Grid container marginBlock="15px" justifyContent="space-between">
-            <Box display="flex">
-              <Box
-                onClick={handleClickFirstTab}
-                className="btn-export"
-                sx={{
-                  backgroundColor: irregularPO ? "#FF007E" : "#415A6C",
-                  color: "#fff",
-                }}
-              >
-                Assess
-              </Box>
-
-              <Box
-                className="btn-export"
-                onClick={handleClickSecondTab}
-                sx={{
-                  backgroundColor: serviceLevel ? "#FF007E" : "#415A6C",
-                  color: "#fff",
-                  marginLeft: "10px",
-                }}
-              >
-                Promo
-              </Box>
-            </Box>
-            <Box>
-              <Box
-                className="btn-export"
-                sx={{ backgroundColor: "#415A6C", color: "#fff" }}
-              >
-                Export Data
-              </Box>
-            </Box>
-          </Grid>
           {lineChartData && (
-            <Grid spacing={1} container>
-              <Grid
-                container
+            <Grid spacing={1} container item xs={12}>
+              <Card
                 sx={{
-                  backgroundColor: "#415A6C",
-                  color: "#fff",
+                  width: "100%",
+                  display: "flex",
+                  // justifyContent: "center",
                   alignItems: "center",
-                  borderRadius: "3px",
+                  color: "#415A6C",
+                  marginBottom: "10px",
                 }}
               >
-                <Grid container item xs={6} justifyContent="space-around">
-                  <Typography fontSize="28px">
-                    Po issue : (incorrect SKU/Price/Volume)
+                <Grid container item xs={12} justifyContent="space-around">
+                  <Typography fontSize="20px" color="brown">
+                    Po issue :
+                    <span style={{ color: "#415A6C" }}> Incorrect Price</span>
+                  </Typography>
+                  <Typography fontSize={20} color="brown">
+                    PO Price: <span style={{ color: "#415A6C" }}>£1.00</span>
+                  </Typography>
+                  <Typography fontSize={20} color="brown">
+                    Agreed Price:
+                    <span style={{ color: "#415A6C" }}> £10.00</span>
                   </Typography>
                 </Grid>
-                <Grid item xs={6}>
-                  <Box display="flex" justifyContent="space-around">
-                    <Typography fontSize={20}>PO price: £1.00</Typography>
-                    <Typography fontSize={20}>Agreed price: £10.00</Typography>
-                  </Box>
-                </Grid>
-              </Grid>
+              </Card>
 
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <Historicalbarchart />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <Customerwocbarchart />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={4}>
                 <Sellinselloutbarchart />
               </Grid>
             </Grid>
@@ -168,37 +155,46 @@ const Irregularcharts = () => {
             </Box>
           )}
 
-          <Box mx="1px" mt={{ lg: "20px", xs: 5 }}>
+          <Box mx="1px" mt="-35px" sx={{ marginBottom: "10px" }}>
             <Typography fontSize={28} color="#415A6C">
               KPIs
             </Typography>
           </Box>
-          <Stack direction="row" spacing={2}>
+          <Stack direction="row" spacing={2} sx={{ marginBottom: "25px" }}>
             <Grid item xs={2} className="kpi-box">
-              <Typography>Sell in forecast (S-OLA / Kinaxis)</Typography>
+              <Typography fontSize="13px">
+                Sell in forecast (S-OLA / Kinaxis)
+              </Typography>
               <Typography color="green">1000 (800)</Typography>
             </Grid>
             <Grid item xs={2} className="kpi-box">
-              <Typography>Sell out forecast</Typography>
+              <Typography fontSize="13px">Sell out forecast</Typography>
               <Typography color="green">1000</Typography>
             </Grid>
             <Grid item xs={2} className="kpi-box">
-              <Typography>Quantity ordered</Typography>
+              <Typography fontSize="13px">Quantity ordered</Typography>
               <Typography color="green">900</Typography>{" "}
             </Grid>
             <Grid item xs={2} className="kpi-box">
-              <Typography>Percentage discrepancy</Typography>
+              <Typography fontSize="13px">Percentage discrepancy</Typography>
               <Typography color="green">10%</Typography>
             </Grid>
             <Grid item xs={2} className="kpi-box">
-              <Typography>Customer SoH (Current / target)</Typography>
+              <Typography fontSize="13px">
+                Customer SoH (Current / target)
+              </Typography>
               <Typography color="green">1000 (800)</Typography>
             </Grid>
             <Grid item xs={2} className="kpi-box">
-              <Typography>Customer WoC (Current / target)</Typography>
+              <Typography fontSize="13px">
+                Customer WoC (Current / target)
+              </Typography>
               <Typography color="green">3 (5)</Typography>{" "}
             </Grid>
           </Stack>
+          <Box>
+            <Promo />
+          </Box>
         </Grid>
       </Grid>
     </div>

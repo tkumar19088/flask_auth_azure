@@ -1,13 +1,16 @@
 import React from "react";
 import { Chart as ChartJS } from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
+import { useSelector } from "react-redux";
 
 const Historicalbarchart = () => {
+  const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
+
   const data1 = [
-    { name: "w1", value: 90 },
-    { name: "w2", value: 92 },
-    { name: "w3", value: 95 },
-    { name: "w4", value: 91 },
+    { name: "CW (" + startingWeek + ")", value: 90 },
+    { name: "CW+1 (" + (startingWeek - 1) + ")", value: 92 },
+    { name: "CW+2 (" + (startingWeek - 2) + ")", value: 95 },
+    { name: "CW+3 (" + (startingWeek - 3) + ")", value: 91 },
   ];
 
   const labels = data1.map((data) => data.name);
@@ -15,7 +18,7 @@ const Historicalbarchart = () => {
 
   const datasets = [
     {
-      label: "Service Level",
+      label: "Historical ePOS",
       data: values1,
       borderColor: "#F08C2A",
       backgroundColor: "#F08C2A",
@@ -42,6 +45,34 @@ const Historicalbarchart = () => {
           color: "rgba(0, 0, 0, 0.1)",
         },
         beginAtZero: true,
+      },
+    },
+    plugins: {
+      legend: {
+        display: true,
+      },
+      tooltip: {
+        enabled: true,
+        callbacks: {
+          label: function (context) {
+            let label = context.dataset.label || "";
+            if (label) {
+              label += ": ";
+            }
+            if (context.parsed.y !== null) {
+              label += context.parsed.y;
+            }
+            if (context.dataset.label === "Current Week") {
+              label += ` (Week ${startingWeek})`;
+            }
+            return label;
+          },
+        },
+      },
+    },
+    datasets: {
+      bar: {
+        barThickness: 30, // Adjust this value to change the bar width
       },
     },
   };
