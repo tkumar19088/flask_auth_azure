@@ -37,6 +37,9 @@ const StockReallocationData = ({ onData }) => {
   const referenceData = useSelector(
     (state) => state.sidebar.withinChannelData.otherrows
   );
+  const referenceSuggData = useSelector(
+    (state) => state.sidebar.withinChannelData.staticrow
+  );
   const stockreallocationData = useSelector(
     (state) => state.sidebar.stockreallocation.otherrows
   );
@@ -324,7 +327,11 @@ const StockReallocationData = ({ onData }) => {
     testReallocation: "",
   }));
   const [data, setData] = useState(initialData);
-  const [inputValues, setInputValues] = useState(initialData.map(() => ""));
+  console.log(data);
+  const [inputValues, setInputValues] = useState(
+    new Array(initialData.length).fill("")
+  );
+  console.log(inputValues);
   // const [dataFetched, setDataFetched] = useState(false);
   useEffect(() => {
     const filterData = () => {
@@ -347,7 +354,7 @@ const StockReallocationData = ({ onData }) => {
   const [isUpdating, setIsUpdating] = useState(false);
 
   const handleUpdateResults = () => {
-    // console.log(inputValues);
+    console.log(inputValues);
     var testallocation = 0;
     const updatedData = data.map((item, index) => {
       if (inputValues[index] !== "") {
@@ -718,7 +725,19 @@ const StockReallocationData = ({ onData }) => {
   };
 
   const handleResetResults = () => {
-    setData(initialData);
+    const filteredData = isWithinChannel
+      ? filteredSamechannelResults
+      : referenceData;
+    setData(filteredData);
+    const newInputValues = [...inputValues];
+    console.log(newInputValues);
+    for (let i = 0; i < newInputValues.length; i++) {
+      newInputValues[i] = "";
+      setInputValues(newInputValues);
+    }
+    setsuggectedRecord(referenceSuggData);
+
+    // handleInputChange(index, "");
   };
   return (
     <div style={{ border: "" }} id="captureMe">

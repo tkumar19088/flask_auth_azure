@@ -153,10 +153,7 @@ const Orderinvestigation2 = ({ constraints }) => {
             gap: "40px",
           }}
         >
-          <Box
-            className="const-bs1"
-            borderRight="1px solid #dcdcdc"
-          >
+          <Box className="const-bs1" borderRight="1px solid #dcdcdc">
             <Box display="flex" sx={{ color: "#415A6C" }}>
               <Typography className="constains-h1">
                 {constraints[0].Name}
@@ -190,20 +187,20 @@ const Orderinvestigation2 = ({ constraints }) => {
               >
                 <Box margin="auto">
                   <Typography fontSize={20} color="#008824">
-                    {pctdeviation}%{" "}
+                    {pctdeviation}
                   </Typography>
                 </Box>
                 <Box>
                   <Typography mt="-5px" color="#7E919F">
                     <ArrowDropUpRoundedIcon
                       onClick={handlePCTDeviationUp}
-                      sx={{ cursor: "pointer",fontSize:"30px" }}
+                      sx={{ cursor: "pointer", fontSize: "30px" }}
                     />
                   </Typography>
                   <Typography mt="-22px" color="#7E919F">
-                    <ArrowDropDownRoundedIcon 
+                    <ArrowDropDownRoundedIcon
                       onClick={handlePCTDeviationDown}
-                      sx={{ cursor: "pointer",fontSize:"30px" }}
+                      sx={{ cursor: "pointer", fontSize: "30px" }}
                     />
                   </Typography>
                 </Box>
@@ -270,20 +267,20 @@ const Orderinvestigation2 = ({ constraints }) => {
               >
                 <Box margin="auto">
                   <Typography fontSize={20} color="#008824">
-                    {expectedservice}%
+                    {expectedservice}
                   </Typography>
                 </Box>
                 <Box>
                   <Typography mt="-5px" color="#7E919F">
                     <ArrowDropUpRoundedIcon
                       onClick={handleExpectedserviceUp}
-                      sx={{ cursor: "pointer",fontSize:"30px" }}
+                      sx={{ cursor: "pointer", fontSize: "30px" }}
                     />
                   </Typography>
                   <Typography mt="-22px" color="#7E919F">
                     <ArrowDropDownRoundedIcon
                       onClick={handleExpectedserviceDown}
-                      sx={{ cursor: "pointer",fontSize:"30px" }}
+                      sx={{ cursor: "pointer", fontSize: "30px" }}
                     />
                   </Typography>
                 </Box>
@@ -375,13 +372,13 @@ const Orderinvestigation2 = ({ constraints }) => {
                     <Typography mt="-5px" color="#7E919F">
                       <ArrowDropUpRoundedIcon
                         onClick={handleminweeksOnCovUp}
-                        sx={{ cursor: "pointer",fontSize:"30px" }}
+                        sx={{ cursor: "pointer", fontSize: "30px" }}
                       />
                     </Typography>
                     <Typography mt="-22px" color="#7E919F">
                       <ArrowDropDownRoundedIcon
                         onClick={handleminweeksOnCovDown}
-                        sx={{ cursor: "pointer",fontSize:"30px" }}
+                        sx={{ cursor: "pointer", fontSize: "30px" }}
                       />
                     </Typography>
                   </Box>
@@ -413,13 +410,13 @@ const Orderinvestigation2 = ({ constraints }) => {
                     <Typography mt="-5px" color="#7E919F">
                       <ArrowDropUpRoundedIcon
                         onClick={handleweeksOnCovUp}
-                        sx={{ cursor: "pointer" ,fontSize:"30px"}}
+                        sx={{ cursor: "pointer", fontSize: "30px" }}
                       />
                     </Typography>
                     <Typography mt="-22px" color="#7E919F">
                       <ArrowDropDownRoundedIcon
                         onClick={handleweeksOnCovDown}
-                        sx={{ cursor: "pointer",fontSize:"30px" }}
+                        sx={{ cursor: "pointer", fontSize: "30px" }}
                       />
                     </Typography>
                   </Box>
