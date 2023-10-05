@@ -91,7 +91,7 @@ const Irregularcharts = () => {
           </Box>
           <Grid container justifyContent="space-between" my="20px">
             <Box mx="1px">
-              <Typography fontSize={30} color="#415A6C">
+              <Typography fontSize={24} color="#415A6C">
                 Irregular PO : PO no 123 : Amazon, Airwick Electrical Lemon
               </Typography>
             </Box>
@@ -124,14 +124,14 @@ const Irregularcharts = () => {
                 }}
               >
                 <Grid container item xs={12} justifyContent="space-around">
-                  <Typography fontSize="20px" color="brown">
+                  <Typography fontSize="18px" color="brown">
                     Po issue :
                     <span style={{ color: "#415A6C" }}> Incorrect Price</span>
                   </Typography>
-                  <Typography fontSize={20} color="brown">
+                  <Typography fontSize={18} color="brown">
                     PO Price: <span style={{ color: "#415A6C" }}>£1.00</span>
                   </Typography>
-                  <Typography fontSize={20} color="brown">
+                  <Typography fontSize={18} color="brown">
                     Agreed Price:
                     <span style={{ color: "#415A6C" }}> £10.00</span>
                   </Typography>
