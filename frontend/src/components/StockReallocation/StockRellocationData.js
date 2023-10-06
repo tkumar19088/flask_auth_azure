@@ -328,10 +328,10 @@ const StockReallocationData = ({ onData }) => {
   }));
   const [data, setData] = useState(initialData);
   console.log(data.length);
-  const lengthofArray = Array.from({ length: data.length }, () => 0);
-  console.log(lengthofArray);
+  // const lengthofArray = Array.from({ length: data.length }, () => 0);
+  // console.log(lengthofArray);
   const [inputValues, setInputValues] = useState(
-    Array.from({ length: data.length }, () => 0)
+    Array.from({ length: referenceData.length }, () => "")
   );
   console.log(inputValues);
   // const [dataFetched, setDataFetched] = useState(false);
@@ -351,6 +351,7 @@ const StockReallocationData = ({ onData }) => {
       value = -value;
     }
     newInputValues[index] = value;
+    console.log(newInputValues);
     setInputValues(newInputValues);
   };
   const [isUpdating, setIsUpdating] = useState(false);
@@ -459,6 +460,7 @@ const StockReallocationData = ({ onData }) => {
           suggestedallocation: suggestedallocation,
         };
       } else {
+        // handleInputChange(index, "");
         return item;
       }
     });
@@ -727,6 +729,7 @@ const StockReallocationData = ({ onData }) => {
   };
 
   const handleResetResults = () => {
+    setsuggectedRecord(referenceSuggData);
     const filteredData = isWithinChannel
       ? filteredSamechannelResults
       : referenceData;
@@ -737,7 +740,6 @@ const StockReallocationData = ({ onData }) => {
       newInputValues[i] = "";
       setInputValues(newInputValues);
     }
-    setsuggectedRecord(referenceSuggData);
 
     // handleInputChange(index, "");
   };

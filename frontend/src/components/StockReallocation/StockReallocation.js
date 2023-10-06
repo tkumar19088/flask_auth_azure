@@ -25,14 +25,13 @@ function StockReallocation() {
   const exporttabledata = useSelector((state) => state.sidebar.exporttabledata);
   const isWithinChannel = useSelector((state) => state.sidebar.isWithinChannel);
   const stockData = useSelector((state) => state.sidebar.stockreallocation);
-  const referenceData = useSelector((state) => state.sidebar.withinChannelData);
   // console.log(stockData.otherrows);
-  const channel = "Pure Play";
-  const filteredOtherRows = stockData.otherrows.filter(
-    (item) => item.Channel == channel
-  );
+  // const channel = "Pure Play";
+  // const filteredOtherRows = stockData.otherrows.filter(
+  //   (item) => item.Channel == channel
+  // );
   const suggRecord = useSelector(
-    (state) => state.sidebar.stockreallocation.staticrow
+    (state) => state.sidebar.withinChannelData.staticrow
   );
   // const suggRecord = {
   //   AvgYTDsellout: 600,
@@ -65,28 +64,18 @@ function StockReallocation() {
   //   testReallocation: 0,
   // };
   const [acrossChannel, setacrossChannel] = useState(false);
-  const handleClick = () => {
-    // Navigate to another URL
-    navigate("/orderinvestigation", { state: { data: selectedData } });
-  };
+  // const handleClick = () => {
+  //   // Navigate to another URL
+  //   navigate("/orderinvestigation", { state: { data: selectedData } });
+  // };
 
   const handleWithinSameChannel = () => {
     setacrossChannel(false);
     dispatch(updateiswithinchannel(true));
-    // const updatedData = {
-    //   ...stockData, // existingData is the object from your state
-    //   otherrows: filteredOtherRows,
-    // };
-    // dispatch(fetchstockreallocatedata(updatedData));
   };
   const handleAcreossChannels = () => {
     setacrossChannel(true);
     dispatch(updateiswithinchannel(false));
-    // const updatedData = {
-    //   ...stockData, // existingData is the object from your state
-    //   otherrows: referenceData.otherrows,
-    // };
-    // dispatch(fetchstockreallocatedata(updatedData));
   };
 
   const handleDataFromChild = (data) => {

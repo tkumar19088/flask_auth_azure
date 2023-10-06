@@ -125,7 +125,7 @@ const Irregularcharts = () => {
               >
                 <Grid container item xs={12} justifyContent="space-around">
                   <Typography fontSize="18px" color="brown">
-                    Po issue :
+                    PO issue :
                     <span style={{ color: "#415A6C" }}> Incorrect Price</span>
                   </Typography>
                   <Typography fontSize={18} color="brown">
