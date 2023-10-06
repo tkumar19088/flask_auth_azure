@@ -327,9 +327,11 @@ const StockReallocationData = ({ onData }) => {
     testReallocation: "",
   }));
   const [data, setData] = useState(initialData);
-  console.log(data);
+  console.log(data.length);
+  const lengthofArray = Array.from({ length: data.length }, () => 0);
+  console.log(lengthofArray);
   const [inputValues, setInputValues] = useState(
-    new Array(initialData.length).fill("")
+    Array.from({ length: data.length }, () => 0)
   );
   console.log(inputValues);
   // const [dataFetched, setDataFetched] = useState(false);

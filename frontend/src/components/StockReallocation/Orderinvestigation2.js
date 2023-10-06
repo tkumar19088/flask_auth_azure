@@ -61,30 +61,30 @@ const Orderinvestigation2 = ({ constraints }) => {
   const handleUpdateResults = () => {
     dispatch(fetchupdateresults(true));
   };
-  const handleweeksOnCovUp = () => {
-    setweeksOnConv(weeksOnConv + 1);
+  const handleweeksOnCovUp = (e) => {
+    setweeksOnConv(e.target.value);
   };
 
   const handleweeksOnCovDown = () => {
     setweeksOnConv(weeksOnConv - 1);
   };
 
-  const handleminweeksOnCovUp = () => {
-    setminweeksOnConv(minweeksOnConv + 1);
+  const handleminweeksOnCovUp = (e) => {
+    setminweeksOnConv(e.target.value);
   };
 
   const handleminweeksOnCovDown = () => {
     setminweeksOnConv(minweeksOnConv - 1);
   };
 
-  const handleExpectedserviceUp = () => {
-    setexpectedservice(expectedservice + 1);
+  const handleExpectedserviceUp = (e) => {
+    setexpectedservice(e.target.value);
   };
   const handleExpectedserviceDown = () => {
     setexpectedservice(expectedservice - 1);
   };
-  const handlePCTDeviationUp = () => {
-    setpctdeviation(pctdeviation + 1);
+  const handlePCTDeviationUp = (e) => {
+    setpctdeviation(e.target.value);
   };
   const handlePCTDeviationDown = () => {
     setpctdeviation(pctdeviation - 1);
@@ -174,40 +174,30 @@ const Orderinvestigation2 = ({ constraints }) => {
                 </Tooltip>
               </Typography>
             </Box>
-            <Box display="flex">
+            <Box display="flex" alignItems="center">
+              <input
+                type="number"
+                value={pctdeviation}
+                onChange={handlePCTDeviationUp}
+                style={{
+                  height: "38px",
+                  width: "80px",
+                  textAlign: "center",
+                  color: "#008824",
+                  fontSize: "22px",
+                  marginTop: "5px",
+                  border: "1px solid #E7E9EE",
+                  borderRadius: "5PX",
+                  boxSizing: "border-box",
+                }}
+              />
               <Box
-                display="flex"
-                border="1px solid #E7E9EE"
-                borderRadius="5px 5px"
-                width="75px"
-                height="35px"
-                justifyContent="space-around"
+                border=""
                 textAlign="center"
-                marginTop="1%"
+                mx={{ lg: "10px", xs: "10px" }}
+                mt="5px"
               >
-                <Box margin="auto">
-                  <Typography fontSize={20} color="#008824">
-                    {pctdeviation}
-                  </Typography>
-                </Box>
-                <Box>
-                  <Typography mt="-5px" color="#7E919F">
-                    <ArrowDropUpRoundedIcon
-                      onClick={handlePCTDeviationUp}
-                      sx={{ cursor: "pointer", fontSize: "30px" }}
-                    />
-                  </Typography>
-                  <Typography mt="-22px" color="#7E919F">
-                    <ArrowDropDownRoundedIcon
-                      onClick={handlePCTDeviationDown}
-                      sx={{ cursor: "pointer", fontSize: "30px" }}
-                    />
-                  </Typography>
-                </Box>
-              </Box>
-              <Box border="" textAlign="center" mx={{ lg: "10px", xs: "10px" }}>
                 <Typography
-                  mt={{ lg: "13px", xs: "10px" }}
                   sx={{
                     width: { lg: "100px", xs: "70px" },
                     borderRadius: "18px 18px",
@@ -255,36 +245,22 @@ const Orderinvestigation2 = ({ constraints }) => {
             </Box>
 
             <Box display="flex">
-              <Box
-                display="flex"
-                border="1px solid #E7E9EE"
-                borderRadius="5px 5px"
-                width="75px"
-                height="35px"
-                justifyContent="space-around"
-                textAlign="center"
-                marginTop="1%"
-              >
-                <Box margin="auto">
-                  <Typography fontSize={20} color="#008824">
-                    {expectedservice}
-                  </Typography>
-                </Box>
-                <Box>
-                  <Typography mt="-5px" color="#7E919F">
-                    <ArrowDropUpRoundedIcon
-                      onClick={handleExpectedserviceUp}
-                      sx={{ cursor: "pointer", fontSize: "30px" }}
-                    />
-                  </Typography>
-                  <Typography mt="-22px" color="#7E919F">
-                    <ArrowDropDownRoundedIcon
-                      onClick={handleExpectedserviceDown}
-                      sx={{ cursor: "pointer", fontSize: "30px" }}
-                    />
-                  </Typography>
-                </Box>
-              </Box>
+              <input
+                type="number"
+                value={expectedservice}
+                onChange={handleExpectedserviceUp}
+                style={{
+                  height: "38px",
+                  width: "80px",
+                  textAlign: "center",
+                  color: "#008824",
+                  fontSize: "22px",
+                  marginTop: "5px",
+                  border: "1px solid #E7E9EE",
+                  borderRadius: "5PX",
+                  boxSizing: "border-box",
+                }}
+              />
               <Box border="" textAlign="center" mx={{ lg: "10px", xs: "10px" }}>
                 <Typography
                   mt={{ lg: "13px", xs: "10px" }}
@@ -354,35 +330,21 @@ const Orderinvestigation2 = ({ constraints }) => {
                 >
                   Min
                 </Typography>
-                <Box
-                  display="flex"
-                  border="1px solid #E7E9EE"
-                  borderRadius="5px 5px"
-                  width="75px"
-                  height="35px"
-                  justifyContent="space-around"
-                  textAlign="center"
-                >
-                  <Box margin="auto">
-                    <Typography fontSize={20} color="#DD0000">
-                      {minweeksOnConv}
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography mt="-5px" color="#7E919F">
-                      <ArrowDropUpRoundedIcon
-                        onClick={handleminweeksOnCovUp}
-                        sx={{ cursor: "pointer", fontSize: "30px" }}
-                      />
-                    </Typography>
-                    <Typography mt="-22px" color="#7E919F">
-                      <ArrowDropDownRoundedIcon
-                        onClick={handleminweeksOnCovDown}
-                        sx={{ cursor: "pointer", fontSize: "30px" }}
-                      />
-                    </Typography>
-                  </Box>
-                </Box>
+                <input
+                  type="number"
+                  value={minweeksOnConv}
+                  onChange={handleminweeksOnCovUp}
+                  style={{
+                    height: "38px",
+                    width: "80px",
+                    textAlign: "center",
+                    color: "#008824",
+                    fontSize: "22px",
+                    border: "1px solid #E7E9EE",
+                    borderRadius: "5PX",
+                    boxSizing: "border-box",
+                  }}
+                />
               </Box>
               <Box display="flex" border="" mx={{ lg: "10px", xs: "7px" }}>
                 <Typography
@@ -392,41 +354,28 @@ const Orderinvestigation2 = ({ constraints }) => {
                 >
                   Max
                 </Typography>
-                <Box
-                  display="flex"
-                  border="1px solid #E7E9EE"
-                  borderRadius="5px 5px"
-                  width="75px"
-                  height="35px"
-                  justifyContent="space-around"
-                  textAlign="center"
-                >
-                  <Box margin="auto">
-                    <Typography fontSize={20} color="#DD0000">
-                      {weeksOnConv}
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography mt="-5px" color="#7E919F">
-                      <ArrowDropUpRoundedIcon
-                        onClick={handleweeksOnCovUp}
-                        sx={{ cursor: "pointer", fontSize: "30px" }}
-                      />
-                    </Typography>
-                    <Typography mt="-22px" color="#7E919F">
-                      <ArrowDropDownRoundedIcon
-                        onClick={handleweeksOnCovDown}
-                        sx={{ cursor: "pointer", fontSize: "30px" }}
-                      />
-                    </Typography>
-                  </Box>
-                </Box>
+                <input
+                  type="number"
+                  value={weeksOnConv}
+                  onChange={handleweeksOnCovUp}
+                  style={{
+                    height: "38px",
+                    width: "80px",
+                    textAlign: "center",
+                    color: "#008824",
+                    fontSize: "22px",
+                    border: "1px solid #E7E9EE",
+                    borderRadius: "5PX",
+                    boxSizing: "border-box",
+                  }}
+                />
               </Box>
               <Box
                 border=""
                 textAlign="center"
                 mx={{ lg: "3px", xs: "0px" }}
                 marginRight={{ lg: "60px", xs: "0px" }}
+                mt="1px"
               >
                 <Typography
                   mt={{ lg: "8px", xs: "10px" }}
