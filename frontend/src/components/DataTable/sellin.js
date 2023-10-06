@@ -12,7 +12,7 @@ import {
   Button,
   Paper,
 } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -72,6 +72,7 @@ const Sellin = ({ onData }) => {
         dispatch(updateloader(false));
       }
       setExpandedRow(rowId);
+      setdisplayMigitates(false);
     }
   };
   const handlePushAlternative = async () => {
@@ -129,7 +130,14 @@ const Sellin = ({ onData }) => {
     }
   };
   const data = useSelector((state) => state.sidebar.customersellin);
+  const closeExpandedRow = () => {
+    setExpandedRow(null);
+    setdisplayMigitates(false);
+  };
 
+  useEffect(() => {
+    closeExpandedRow();
+  }, [data]);
   // const [data, setData] = useState([
   //   {
   //     Brand: "Airwick",

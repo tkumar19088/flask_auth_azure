@@ -243,7 +243,7 @@ class AlertsManager:
                 try:
                     self.alerts.append(alert)
                 except Exception as e:
-                    print(e)
+                    return jsonify(status="error", message=str(e)), 500
 
 
     def generate_irrpo_alerts(self):
@@ -257,7 +257,10 @@ class AlertsManager:
                     'Title': f"Irregular PO Detected for {name[1]} {name[0]} SKUs",
                     'DATA': group[["PO Number", "PO Date"]].head(3).to_dict('records')
                 }
-                self.alerts.append(alert)
+                try:
+                    self.alerts.append(alert)
+                except Exception as e:
+                    return jsonify(status="error", message=str(e)), 500
 
 
     def refine_alerts(self):
@@ -585,12 +588,11 @@ def get_data(data, config, filename, filters, sort_column= None, sort_order= Non
         raise ValueError("Missing required parameter: RB SKU!")
 
     search, skulist = data.get('search'), data.get('skulist')
-
+    ordered_SKUs = list(set(skulist)) if skulist else None
     global_filters = config.get('global_filters', {})
     global_filters = dict((k, v.lower()) for k, v in global_filters.items())
 
     df = AzureBlobReader().read_csvfile(filename)
-
     if filename =="ui_data/reckittcampaignsbysku.csv":
         df['enddate'] = pd.to_datetime(df['enddate'])
         today = dt.date.today().strftime('%Y-%m-%d')
@@ -602,9 +604,6 @@ def get_data(data, config, filename, filters, sort_column= None, sort_order= Non
         if 'Customer' in global_filters and global_filters['Customer'] != None:
             df = df.loc[df['Customer'].str.contains(global_filters['Customer'], case=False, na=False)]
 
-    elif skulist:
-        df = df.loc[df['RB SKU'].isin(skulist)]
-
     elif search:
         if search.isdigit():
             search = int(search)
@@ -615,10 +614,10 @@ def get_data(data, config, filename, filters, sort_column= None, sort_order= Non
     else:
         for filter_key in filters:
             if filter_key in global_filters and global_filters[filter_key] != None:
-                df = df[df[filter_key].str.lower() == global_filters[filter_key]]\
+                df = df[df[filter_key].str.lower() == global_filters[filter_key]]
+        if sort_column and sort_order:
+            df = df.sort_values(by=sort_column, ascending=sort_order)
 
-    if sort_column and sort_order:
-        df = df.sort_values(by=sort_column, ascending=sort_order)
-
+    df = df.set_index("RB SKU").loc[ordered_SKUs].reset_index() if ordered_SKUs else df
     df = replace_missing_values(df)
     return df

@@ -323,3 +323,9 @@ export const updateskulist = (newValue) => {
     payload: newValue,
   };
 };
+export const updatewithinchanneldata = (newValue) => {
+  return {
+    type: "UPDATE_WITHINCHANNELDATA",
+    payload: newValue,
+  };
+};

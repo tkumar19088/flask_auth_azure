@@ -12,7 +12,7 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import StockPosition from "./stockPositionTable";
 import { useSelector, useDispatch } from "react-redux";
@@ -79,6 +79,7 @@ const StockPosition2 = ({ onData }) => {
         dispatch(updateloader(false));
       }
       setExpandedRow(rowId);
+      setdisplayMigitates(false);
     }
   };
   const handlePushAlternative = async () => {
@@ -137,7 +138,14 @@ const StockPosition2 = ({ onData }) => {
   };
 
   const data = useSelector((state) => state.sidebar.customerstockposition);
+  const closeExpandedRow = () => {
+    setExpandedRow(null);
+    setdisplayMigitates(false);
+  };
 
+  useEffect(() => {
+    closeExpandedRow();
+  }, [data]);
   // const [data, setData] = useState([
   //   {
   //     Brand: "Airwick",
@@ -606,7 +614,6 @@ const StockPosition2 = ({ onData }) => {
               },
               borderRadius: "50px",
               textTransform: "none",
-
             }}
             onClick={handleChooseMitigation}
           >

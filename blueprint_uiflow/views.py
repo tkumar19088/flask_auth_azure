@@ -6,6 +6,7 @@ from flask import (
 )
 import json
 import numpy as np
+from collections import OrderedDict
 import pandas as pd
 from utils import AzureBlobReader, AlertsManager, replace_missing_values, get_data
 from dotenv import load_dotenv
@@ -338,30 +339,57 @@ def exportdata():
     else:
         if tabname == "overview":
             filename = "ui_data/customeroverviewdatarepo.csv" if customer else "ui_data/reckittoverviewdatarepo.csv"
+            sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'Cust SOH', 'Cust WOC', 'Promo', 'RAG CW', 'RAG CW+1', 'RAG CW+2', 'RAG CW+3'] if customer else ['Business Unit', 'Location', 'Customer', 'Segment', 'RB SKU', 'PPG', 'Description', 'Brand', 'Reckitt SoH', 'Reckitt WOC', 'Sell In Forecast', 'Active Promo', 'ExpSL CW', 'ExpSL CW+1', 'ExpSL CW+2', 'ExpSL CW+3', 'Exp NR CW', 'Exp NR CW+1', 'Exp NR CW+2',
+       'Exp NR CW+3', 'RAG CW', 'RAG CW+1', 'RAG CW+2', 'RAG CW+3', 'Reason Code', 'Comment RootCause', ]
+
         elif tabname == "supply":
             filename = "ui_data/reckittsupply.csv"
+            sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'initialreckittsoh', 'Supply CW', 'Supply CW+1', 'Supply CW+2', 'Supply CW+3', 'Supply CW+4', 'Supply CW+5', 'Supply CW+6', 'Supply CW+7', 'Supply CW+8', 'Supply CW+9']
+
         elif tabname == "demand":
             filename = "ui_data/reckittdemand.csv"
+            sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'initialreckittsoh', 'Demand CW', 'Demand CW+1', 'Demand CW+2', 'Demand CW+3', 'Demand CW+4', 'Demand CW+5', 'Demand CW+6', 'Demand CW+7', 'Demand CW+8', 'Demand CW+9']
+
         elif tabname == "sohateow":
             filename = "ui_data/reckittexpecsohateow.csv"
+            sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'initialreckittsoh', 'EXPSOHATEOW CW', 'EXPSOHATEOW CW+1', 'EXPSOHATEOW CW+2', 'EXPSOHATEOW CW+3']
+
         elif tabname == "wocateow":
             filename = "ui_data/wocateow.csv"
+            sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'initialreckittsoh', 'WOC CW', 'WOC CW+1', 'WOC CW+2', 'WOC CW+3', 'WOC CW+4', 'WOC CW+5', 'WOC CW+6', 'WOC CW+7', 'WOC CW+8', 'WOC CW+9']
+
         elif tabname == "caseshortages":
             filename = "ui_data/caseshortages.csv"
+            sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'initialreckittsoh', 'CaseShort CW', 'CaseShort CW+1', 'CaseShort CW+2', 'CaseShort CW+3', 'CaseShort CW+4', 'CaseShort CW+5', 'CaseShort CW+6', 'CaseShort CW+7', 'CaseShort CW+8', 'CaseShort CW+9']
+
         elif tabname == "expectedservice":
             filename = "ui_data/expectedservice.csv"
+            sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'initialreckittsoh', 'ExpSL CW', 'ExpSL CW+1', 'ExpSL CW+2', 'ExpSL CW+3', 'ExpSL CW+4', 'ExpSL CW+5', 'ExpSL CW+6', 'ExpSL CW+7', 'ExpSL CW+8', 'ExpSL CW+9']
+
         elif tabname == "stockposition":
             filename = "ui_data/customerstockposition.csv" if customer else "ui_data/stockposition.csv"
+            sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'InitialSOHWeek', 'CW', 'CW+1', 'CW+2', 'CW+3', 'CW+4', 'CW+5', 'CW+6', 'CW+7', 'CW+8', 'CW+9'] if customer else ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'initialreckittsoh', 'StkPos CW', 'StkPos CW+1', 'StkPos CW+2', 'StkPos CW+3']
+
         elif tabname == "historicepos":
             filename = "ui_data/customerhistoricepos.csv"
+            sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'InitialSOHWeek', 'CW-9', 'CW-8', 'CW-7', 'CW-6', 'CW-5', 'CW-4', 'CW-3', 'CW-2', 'CW-1', 'CW']
+
         elif tabname == "sellout":
             filename = "ui_data/customersellout.csv"
+            sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'InitialSOHWeek', 'sola CW', 'sola CW+1', 'sola CW+2', 'sola CW+3', 'sola CW+4', 'sola CW+5', 'sola CW+6', 'sola CW+7', 'sola CW+8', 'sola CW+9']
+
         elif tabname == "sellin":
             filename = "ui_data/customersellin.csv"
-        elif tabname == "ola":
-            filename = "ui_data/customerola.csv"
+            sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'InitialSOHWeek', 'kinaxis CW+1', 'kinaxis CW+4', 'kinaxis CW+8', 'kinaxis CW+12', 'sola CW', 'sola CW+1', 'sola CW+2', 'sola CW+3', 'sola CW+4', 'sola CW+5', 'sola CW+6', 'sola CW+7', 'sola CW+8', 'sola CW+9']
+
         else:
             return jsonify(status="error", message="Invalid tabname"), 500
 
     df = get_data(data, config, filename, filters)
+    # df = df[sortedcols] # type: ignore
+
+    # split_result = df.to_dict(orient='split')
+    # json_result = json.dumps({"index": split_result["index"], "columns": split_result["columns"], "data": split_result["data"]})
+
+    # return json_result
     return json.loads(df.to_json(orient='records'))

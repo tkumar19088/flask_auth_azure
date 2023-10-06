@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Table,
   TableContainer,
@@ -57,6 +57,16 @@ const OhrTable = ({ onData }) => {
   const [campaignsData, setcampaignsData] = useState([]);
   const [pushAlternativeData, setpushAlternativeData] = useState([]);
   const [iscampaigns, setiscampaigns] = useState(false);
+
+  const closeExpandedRow = () => {
+    setExpandedRow(null);
+    setdisplayMigitates(false);
+  };
+
+  useEffect(() => {
+    closeExpandedRow();
+  }, [data, isragfilterohr, search, exporttabledata, ohrdata]);
+
   const truncateText = (text, maxLength) => {
     if (text.length <= maxLength) {
       return text;
@@ -94,6 +104,7 @@ const OhrTable = ({ onData }) => {
         dispatch(updateloader(false));
       }
       setExpandedRow(rowId);
+      setdisplayMigitates(false);
     }
   };
   const handlePushAlternative = async () => {
@@ -1327,7 +1338,6 @@ const OhrTable = ({ onData }) => {
               },
               borderRadius: "50px",
               textTransform: "none",
-
             }}
             onClick={handleChooseMitigation}
           >
@@ -1748,8 +1758,8 @@ const OhrTable = ({ onData }) => {
                   padding: "10px",
                 }}
               >
-              CW<Typography className="fs-cw">({startingWeek + 0})</Typography> 
-
+                CW
+                <Typography className="fs-cw">({startingWeek + 0})</Typography>
               </TableCell>
               <TableCell
                 sx={{
@@ -1760,7 +1770,8 @@ const OhrTable = ({ onData }) => {
                   padding: "5px",
                 }}
               >
-                CW+1<Typography className="fs-cw">({startingWeek + 1})</Typography> 
+                CW+1
+                <Typography className="fs-cw">({startingWeek + 1})</Typography>
               </TableCell>
               <TableCell
                 sx={{
@@ -1771,7 +1782,8 @@ const OhrTable = ({ onData }) => {
                   padding: "5px",
                 }}
               >
-              CW+2<Typography className="fs-cw">({startingWeek + 2})</Typography> 
+                CW+2
+                <Typography className="fs-cw">({startingWeek + 2})</Typography>
               </TableCell>
               <TableCell
                 sx={{
@@ -1782,7 +1794,8 @@ const OhrTable = ({ onData }) => {
                   padding: "5px",
                 }}
               >
-              CW+3<Typography className="fs-cw">({startingWeek + 3})</Typography> 
+                CW+3
+                <Typography className="fs-cw">({startingWeek + 3})</Typography>
               </TableCell>
               <TableCell
                 sx={{
@@ -1793,7 +1806,8 @@ const OhrTable = ({ onData }) => {
                   padding: "5px",
                 }}
               >
-              CW<Typography className="fs-cw">({startingWeek + 0})</Typography> 
+                CW
+                <Typography className="fs-cw">({startingWeek + 0})</Typography>
               </TableCell>
               <TableCell
                 sx={{
@@ -1805,7 +1819,8 @@ const OhrTable = ({ onData }) => {
                   padding: "5px",
                 }}
               >
-              CW+1<Typography className="fs-cw">({startingWeek + 1})</Typography> 
+                CW+1
+                <Typography className="fs-cw">({startingWeek + 1})</Typography>
               </TableCell>
               <TableCell
                 sx={{
@@ -1817,7 +1832,8 @@ const OhrTable = ({ onData }) => {
                   padding: "5px",
                 }}
               >
-              CW+2<Typography className="fs-cw">({startingWeek + 2})</Typography> 
+                CW+2
+                <Typography className="fs-cw">({startingWeek + 2})</Typography>
               </TableCell>
               <TableCell
                 sx={{
@@ -1828,7 +1844,8 @@ const OhrTable = ({ onData }) => {
                   padding: "5px",
                 }}
               >
-              CW+3<Typography className="fs-cw">({startingWeek + 3})</Typography> 
+                CW+3
+                <Typography className="fs-cw">({startingWeek + 3})</Typography>
               </TableCell>
               <TableCell
                 sx={{
@@ -1838,38 +1855,41 @@ const OhrTable = ({ onData }) => {
                   backgroundColor: "#E5EBEF",
                 }}
               >
-              CW<Typography className="fs-cw">({startingWeek + 0})</Typography> 
-
+                CW
+                <Typography className="fs-cw">({startingWeek + 0})</Typography>
               </TableCell>
               <TableCell
                 sx={{
                   border: "1px solid #dcdcdc",
                   color: "#415A6C",
                   backgroundColor: "#E5EBEF",
-                  textAlign:"center"
+                  textAlign: "center",
                 }}
               >
-              CW+1<Typography className="fs-cw">({startingWeek + 1})</Typography> 
+                CW+1
+                <Typography className="fs-cw">({startingWeek + 1})</Typography>
               </TableCell>
               <TableCell
                 sx={{
                   border: "1px solid #dcdcdc",
                   color: "#415A6C",
                   backgroundColor: "#E5EBEF",
-                  textAlign:"center"
+                  textAlign: "center",
                 }}
               >
-              CW+2<Typography className="fs-cw">({startingWeek + 2})</Typography> 
+                CW+2
+                <Typography className="fs-cw">({startingWeek + 2})</Typography>
               </TableCell>
               <TableCell
                 sx={{
                   border: "1px solid #dcdcdc",
                   color: "#415A6C",
                   backgroundColor: "#E5EBEF",
-                  textAlign:"center"
+                  textAlign: "center",
                 }}
               >
-              CW+3<Typography className="fs-cw">({startingWeek + 3})</Typography> 
+                CW+3
+                <Typography className="fs-cw">({startingWeek + 3})</Typography>
               </TableCell>
             </TableRow>
           </TableHead>

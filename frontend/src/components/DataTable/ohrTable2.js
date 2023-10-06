@@ -99,6 +99,7 @@ const OhrTable2 = ({ onData }) => {
         dispatch(updateloader(false));
       }
       setExpandedRow(rowId);
+      setdisplayMigitates(false);
     }
   };
 
@@ -156,6 +157,15 @@ const OhrTable2 = ({ onData }) => {
       dispatch(updateloader(false));
     }
   };
+
+  const closeExpandedRow = () => {
+    setExpandedRow(null);
+    setdisplayMigitates(false);
+  };
+
+  useEffect(() => {
+    closeExpandedRow();
+  }, [data, isragfiltercustomer, search, exporttabledata, customerdata]);
 
   // const [data, setData] = useState([
   //   {
@@ -400,6 +410,34 @@ const OhrTable2 = ({ onData }) => {
     navigate(-1);
   };
 
+  const [chooseData, setchooseData] = useState({});
+  const [displayMigitates, setdisplayMigitates] = useState(false);
+
+  const handleChooseMitigation = async () => {
+    dispatch(updateloader(true));
+    var data = { rbsku: expandedRow };
+    try {
+      const response = await fetch("http://localhost:5000/choosescenario", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        setchooseData(json);
+        setdisplayMigitates(true);
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
+  };
+
   const SubTable = ({ details }) => (
     <div style={{ marginTop: "-18px", padding: "10px" }} className="mini-table">
       <Typography
@@ -577,43 +615,52 @@ const OhrTable2 = ({ onData }) => {
               },
               borderRadius: "50px",
               textTransform: "none",
-
             }}
+            onClick={handleChooseMitigation}
           >
             Choose a Mitigation Strategy
           </Button>
         </Box>
-        <Box display="flex" className="ms-buttons">
-          <Box
-            className="ms-grid"
-            onClick={handlePushAlternative}
-            sx={{
-              backgroundColor: pushAlternative ? "#FF007F" : "#415A6C",
-              "&:hover": {
-                backgroundColor: "#FF007F",
-              },
-            }}
-          >
-            <Typography className="ms-gridtitle">Push Alternative</Typography>
+        {displayMigitates && (
+          <Box display="flex" className="ms-buttons">
+            <Box
+              className="ms-grid"
+              onClick={handlePushAlternative}
+              sx={{
+                backgroundColor:
+                  chooseData.pushaltskus == "True" && !pushAlternative
+                    ? "green"
+                    : pushAlternative
+                    ? "#FF007F"
+                    : "#415A6C",
+                // backgroundColor: pushAlternative ? "#FF007F" : "#415A6C",
+                "&:hover": {
+                  backgroundColor: "#FF007F",
+                },
+              }}
+            >
+              <Typography className="ms-gridtitle">Push Alternative</Typography>
+            </Box>
+            <Box
+              className="ms-grid"
+              onClick={handleReallocate}
+              sx={{
+                backgroundColor:
+                  chooseData.rarbysku == "True" ? "green" : "#415A6C",
+                "&:hover": {
+                  backgroundColor: "#FF007F",
+                },
+              }}
+            >
+              <Typography className="ms-gridtitle">Reallocate</Typography>
+            </Box>
+            <Box className="ms-grid">
+              <Badge badgeContent="Coming Soon" className="redirect-badge">
+                <Typography className="ms-gridtitle">Redirect</Typography>
+              </Badge>
+            </Box>
           </Box>
-          <Box
-            className="ms-grid"
-            onClick={handleReallocate}
-            sx={{
-              backgroundColor: "#415A6C",
-              "&:hover": {
-                backgroundColor: "#FF007F",
-              },
-            }}
-          >
-            <Typography className="ms-gridtitle">Reallocate</Typography>
-          </Box>
-          <Box className="ms-grid">
-            <Badge badgeContent="Coming Soon" className="redirect-badge">
-              <Typography className="ms-gridtitle">Redirect</Typography>
-            </Badge>
-          </Box>
-        </Box>
+        )}
       </Stack>
     </div>
   );
@@ -1004,41 +1051,41 @@ const OhrTable2 = ({ onData }) => {
                       border: "1px solid #dcdcdc",
                     }}
                   >
-                  <TableCell
-                  sx={{
-                    display: "flex",
-                    // padding: "12px",
-                    border: "none",
-                    alignItems: "center",
-                    fontSize: "13px",
-                    justifyContent: "center",
-                  }}
-                >
-                  {expandedRow === item["RB SKU"] ? (
-                    <RemoveIcon
-                      fontSize="medium"
+                    <TableCell
                       sx={{
-                        color: "#415A6C",
-                        cursor: "pointer",
-                        fontWeight: "800",
-                        // marginTop: "4px",
-                        backgroundColor: "transparent",
+                        display: "flex",
+                        // padding: "12px",
+                        border: "none",
+                        alignItems: "center",
+                        fontSize: "13px",
+                        justifyContent: "center",
                       }}
-                    />
-                  ) : (
-                    <AddIcon
-                      fontSize="medium"
-                      sx={{
-                        color: "#415A6C",
-                        cursor: "pointer",
-                        fontWeight: "800",
-                        marginTop: "-2px",
-                        backgroundColor: "transparent",
-                      }}
-                    />
-                  )}
-                  {item["RB SKU"]}
-                </TableCell>
+                    >
+                      {expandedRow === item["RB SKU"] ? (
+                        <RemoveIcon
+                          fontSize="medium"
+                          sx={{
+                            color: "#415A6C",
+                            cursor: "pointer",
+                            fontWeight: "800",
+                            // marginTop: "4px",
+                            backgroundColor: "transparent",
+                          }}
+                        />
+                      ) : (
+                        <AddIcon
+                          fontSize="medium"
+                          sx={{
+                            color: "#415A6C",
+                            cursor: "pointer",
+                            fontWeight: "800",
+                            marginTop: "-2px",
+                            backgroundColor: "transparent",
+                          }}
+                        />
+                      )}
+                      {item["RB SKU"]}
+                    </TableCell>
                     <TableCell
                       sx={{
                         textAlign: "center",

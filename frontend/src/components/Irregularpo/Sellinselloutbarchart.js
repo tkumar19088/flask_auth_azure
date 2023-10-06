@@ -3,27 +3,37 @@ import { Chart as ChartJS } from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import "./sellinsellout.css";
+import { useSelector } from "react-redux";
 
 const Sellinselloutbarchart = () => {
+  const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
+
   const data1 = [
-    { name: "w1", value: 90 },
-    { name: "w2", value: 92 },
-    { name: "w3", value: 95 },
-    { name: "w4", value: 91 },
-    { name: "w5", value: 98 },
-    { name: "w6", value: 97 },
-    { name: "w7", value: 93 },
-    { name: "w8", value: 91 },
-    { name: "w9", value: 91 },
+    { name: "CW-3 (" + (startingWeek - 3) + ")", value: 30, fvalue: 92 },
+    { name: "CW-2 (" + (startingWeek - 2) + ")", value: 42, fvalue: 90 },
+    { name: "CW-1 (" + (startingWeek - 1) + ")", value: 55, fvalue: 93 },
+    { name: "CW (" + startingWeek + ")", value: 31, fvalue: 90 },
+    { name: "CW+1(" + (startingWeek + 1) + ")", value: 0, fvalue: 95 },
+    { name: "CW+2 (" + (startingWeek + 2) + ")", value: 0, fvalue: 90 },
+    { name: "CW+3(" + (startingWeek + 3) + ")", value: 0, fvalue: 95 },
   ];
 
   const labels = data1.map((data) => data.name);
   const values1 = data1.map((data) => data.value);
+  const values2 = data1.map((data) => data.fvalue);
 
   const datasets = [
     {
-      label: "Service Level",
+      label: "Sell in actuals",
       data: values1,
+      borderColor: "#FF007E",
+      backgroundColor: "#FF007E",
+      fill: false,
+      tension: 0.3,
+    },
+    {
+      label: "Sell in forecast",
+      data: values2,
       borderColor: "#F08C2A",
       backgroundColor: "#F08C2A",
       fill: false,
@@ -53,19 +63,11 @@ const Sellinselloutbarchart = () => {
     },
   };
   const chartContainerStyle = {
-    // maxheight: "300px",
-    flex: "1", // Make it flexible and take up available width
-    // border: "2px solid red",
+    height: "300px", // You can adjust the height as per your requirement
   };
   return (
-    <div>
-      <div>
-        <Bar
-          data={chartData}
-          options={chartOptions}
-          className="sellin-sellout"
-        />
-      </div>
+    <div style={chartContainerStyle}>
+      <Bar data={chartData} options={chartOptions} className="l-chart" />
     </div>
   );
 };

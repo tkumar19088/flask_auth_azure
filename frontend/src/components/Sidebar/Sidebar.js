@@ -96,6 +96,7 @@ const Sidebar = () => {
     // dispatch(fetchIrregular(true));
     // setoosrick(false);
     // setirregular(true);
+    navigate("/irregular");
   };
   const handleReallocation = () => {
     // dispatch(fetchReallocation(true));

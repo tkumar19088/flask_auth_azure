@@ -43,6 +43,12 @@ import {
   updateissearch,
   updatetabname,
   updateskulist,
+  flagragfiltercustomer,
+  flagragfiltersohr,
+  fetchofilteredcustomerdata,
+  fetchofilteredverviewhighriskdata,
+  updatecustomerragfilters,
+  updateragfilters,
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 import loaderImage from "../../images/Logo-bar.png";
@@ -135,15 +141,17 @@ const OverviewHighRisk2 = () => {
   };
   const handleReckittOverview = async () => {
     await dispatch(updatecustomer(0));
+    dispatch(updateskulist([]));
+    dispatch(updatesearchvalue(""));
     reckittOverview();
   };
   const reckittOverview = async () => {
     dispatch(updateloader(true));
     var data = {
       customer: 0,
-      search: searchValue,
+      search: "",
       tabname: "overview",
-      skulist: skulist,
+      skulist: [],
       rbsku: "",
     };
     try {
@@ -174,15 +182,17 @@ const OverviewHighRisk2 = () => {
   };
   const handleCustomerOverview = async () => {
     dispatch(updatecustomer(1));
+    dispatch(updateskulist([]));
+    dispatch(updatesearchvalue(""));
     await customerOverview();
   };
   const customerOverview = async () => {
     dispatch(updateloader(true));
     var data = {
       customer: 1,
-      search: searchValue,
+      search: "",
       tabname: "overview",
-      skulist: skulist,
+      skulist: [],
       rbsku: "",
     };
     try {
@@ -291,6 +301,34 @@ const OverviewHighRisk2 = () => {
     }
   };
   const handleBack = () => {
+    dispatch(flagragfiltersohr(false));
+    dispatch(flagragfiltercustomer(false));
+    dispatch(fetchofilteredverviewhighriskdata([]));
+    dispatch(fetchofilteredcustomerdata([]));
+    const ragfilters = [
+      {
+        cwr: false,
+        cwa: false,
+        cwg: false,
+      },
+      {
+        cw1r: false,
+        cw1a: false,
+        cw1g: false,
+      },
+      {
+        cw2r: false,
+        cw2a: false,
+        cw2g: false,
+      },
+      {
+        cw3r: false,
+        cw3a: false,
+        cw3g: false,
+      },
+    ];
+    dispatch(updateragfilters(ragfilters));
+    dispatch(updatecustomerragfilters(ragfilters));
     navigate(-1);
   };
 
@@ -299,6 +337,8 @@ const OverviewHighRisk2 = () => {
   };
   const handleClearsearch = async () => {
     dispatch(updateloader(true));
+    dispatch(updateskulist([]));
+    dispatch(updatesearchvalue(""));
     var data = {
       customer: customerurl,
       search: "",

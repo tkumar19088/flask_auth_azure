@@ -27,20 +27,21 @@ const Selloutforecast = () => {
   const loader = useSelector((state) => state.sidebar.loader);
   const [rBSKUdata, setrBSKUdata] = useState([]);
   const [filteredData, setfilteredData] = useState([]);
-  const [selectedforecast, setselectedforecast] = useState([
-    { name: "Week - 1", value: 0 },
-    { name: "Week - 2", value: 0 },
-    { name: "Week - 3", value: 0 },
-    { name: "Week - 4", value: 0 },
-    { name: "Week - 5", value: 0 },
-    { name: "Week - 6", value: 0 },
-    { name: "Week - 7", value: 0 },
-    { name: "Week - 8", value: 0 },
-    { name: "Week - 9", value: 0 },
-    { name: "Week - 10", value: 0 },
-    { name: "Week - 11", value: 0 },
-    { name: "Week - 12", value: 0 },
-  ]);
+  const defaultData = [
+    { name: "Week - 1", value: 0, kvalue: 0 },
+    { name: "Week - 2", value: 0, kvalue: 0 },
+    { name: "Week - 3", value: 0, kvalue: 0 },
+    { name: "Week - 4", value: 0, kvalue: 0 },
+    { name: "Week - 5", value: 0, kvalue: 0 },
+    { name: "Week - 6", value: 0, kvalue: 0 },
+    { name: "Week - 7", value: 0, kvalue: 0 },
+    { name: "Week - 8", value: 0, kvalue: 0 },
+    { name: "Week - 9", value: 0, kvalue: 0 },
+    { name: "Week - 10", value: 0, kvalue: 0 },
+    { name: "Week - 11", value: 0, kvalue: 0 },
+    { name: "Week - 12", value: 0, kvalue: 0 },
+  ];
+  const [selectedforecast, setselectedforecast] = useState(defaultData);
 
   const convertedjson = (json) => {
     const convertedData = [];
@@ -61,7 +62,13 @@ const Selloutforecast = () => {
 
   const handleApply = (jsonData) => {
     setfilteredData(jsonData);
-    const rbSkuArray = jsonData.map((item) => item["RB SKU"]);
+    var rbSkuArray = [];
+    if (jsonData.length > 0) {
+      rbSkuArray = jsonData.map((item) => item["RB SKU"]);
+    } else {
+      rbSkuArray = [];
+      setselectedforecast(defaultData);
+    }
     setrBSKUdata(rbSkuArray);
   };
 

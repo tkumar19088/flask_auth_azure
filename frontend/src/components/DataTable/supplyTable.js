@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 
 import "./ohr.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Tooltip from "@mui/material/Tooltip";
@@ -84,6 +84,7 @@ const SupplyTable = ({ onData }) => {
         dispatch(updateloader(false));
       }
       setExpandedRow(rowId);
+      setdisplayMigitates(false);
     }
   };
   const handlePushAlternative = async () => {
@@ -142,6 +143,15 @@ const SupplyTable = ({ onData }) => {
   };
 
   const data = useSelector((state) => state.sidebar.reckittsupply);
+
+  const closeExpandedRow = () => {
+    setExpandedRow(null);
+    setdisplayMigitates(false);
+  };
+
+  useEffect(() => {
+    closeExpandedRow();
+  }, [data]);
 
   // search ? exporttabledata : supplydata;
 
@@ -500,7 +510,6 @@ const SupplyTable = ({ onData }) => {
               },
               borderRadius: "50px",
               textTransform: "none",
-
             }}
             onClick={handleChooseMitigation}
           >

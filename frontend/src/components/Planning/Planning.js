@@ -51,7 +51,7 @@ const Planning = ({ filterStatus }) => {
     dispatch(updateloader(true));
     var data = {
       customer: 0,
-      search: searchValue,
+      search: "",
       tabname: "overview",
       skulist: [],
       rbsku: "",
@@ -87,6 +87,7 @@ const Planning = ({ filterStatus }) => {
     filterStatus(true);
     setoosriskselectedBG(false);
     setirregularselectedBG(true);
+    navigate("/irregular");
   };
   const handleReallocation = () => {
     filterStatus(true);
@@ -184,14 +185,12 @@ const Planning = ({ filterStatus }) => {
               }}
             >
               <Box className="pln-cards-cnt">
-                <Badge badgeContent="Coming Soon" className="sku-badge">
-                  <Typography
-                    fontSize={{ lg: 14, xs: 12 }}
-                    className="plan-minititile"
-                  >
-                    Irregular PO
-                  </Typography>
-                </Badge>
+                <Typography
+                  fontSize={{ lg: 14, xs: 12 }}
+                  className="plan-minititile"
+                >
+                  Irregular PO
+                </Typography>
               </Box>
               <Box className="pln-cards-cnt">
                 <GridViewRoundedIcon />

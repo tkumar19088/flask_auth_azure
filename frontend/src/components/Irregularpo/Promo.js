@@ -51,190 +51,200 @@ const Promo = () => {
     navigate(-1);
   };
 
+  // const data = [
+  //   {
+  //     id: 1,
+  //     poNumber: "PO no 123",
+  //     customerPoNumber: "PO no 123",
+  //     poReceiptDate: "20-07-2023",
+  //     poStatus: "Open",
+  //     noSKUsinPO: 80,
+  //     noSKUsIrregular: 25,
+  //     totalForecastedRevenue: "500",
+  //     totalPORevenue: "800",
+  //     irregularPO: "Yes",
+  //     perDiscepency: "-84%",
+  //     details: [
+  //       {
+  //         rbsku: "Airwick",
+  //         ppg: "23434534693dlf",
+  //         description: "AWICK,IE,STICK UP LAVX12",
+  //         alert: "Incorrect volume",
+  //         quantity: "400",
+  //         sellin: "400",
+  //         percentage: "40%",
+  //         orderprice: "£2.50",
+  //       },
+  //       {
+  //         rbsku: "Airwick",
+  //         ppg: "23434534693dlf",
+  //         description: "AWICK,IE,STICK UP LAVX12",
+  //         alert: "Incorrect volume",
+  //         quantity: "400",
+  //         sellin: "400",
+  //         percentage: "40%",
+  //         orderprice: "£2.50",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 2,
+  //     poNumber: "PO no 500",
+  //     customerPoNumber: "PO no 500",
+  //     poReceiptDate: "10-07-2023",
+  //     poStatus: "Delayed",
+  //     noSKUsinPO: 60,
+  //     noSKUsIrregular: 40,
+  //     totalForecastedRevenue: "500",
+  //     totalPORevenue: "800",
+  //     irregularPO: "Yes",
+  //     perDiscepency: "-84%",
+  //     details: [
+  //       {
+  //         skuname: "Airwick",
+  //         skucode: "23434534693dlf",
+  //         timeframe: 4,
+  //         netrevenue: "£12,246.43",
+  //         expectedola: "84%",
+  //         servicelevel: "60",
+  //         expectednetrevenue: "(£5,749.00)",
+  //         bestseller: "High",
+  //         risk: "10",
+  //         checkbox: false,
+  //         costtoserve: "(£903.00)",
+  //         reviewed: "No",
+  //         quantityOrdered: "300",
+  //         quantityForcasted: "500",
+  //         percentageDescrepency: "-63.64%",
+  //       },
+  //       {
+  //         skuname: "Airwick",
+  //         skucode: "23434534693dlf",
+  //         timeframe: 4,
+  //         netrevenue: "£12,246.43",
+  //         expectedola: "84%",
+  //         servicelevel: "60",
+  //         expectednetrevenue: "(£5,749.00)",
+  //         bestseller: "High",
+  //         risk: "10",
+  //         checkbox: false,
+  //         costtoserve: "(£903.00)",
+  //         reviewed: "No",
+  //         quantityOrdered: "300",
+  //         quantityForcasted: "500",
+  //         percentageDescrepency: "-63.64%",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 3,
+  //     poNumber: "PO no 500",
+  //     customerPoNumber: "PO no 500",
+  //     poReceiptDate: "10-07-2023",
+  //     poStatus: "Stock",
+  //     noSKUsinPO: 50,
+  //     noSKUsIrregular: 20,
+  //     totalForecastedRevenue: "500",
+  //     totalPORevenue: "800",
+  //     irregularPO: "Yes",
+  //     perDiscepency: "-84%",
+  //     details: [
+  //       {
+  //         skuname: "Airwick",
+  //         skucode: "23434534693dlf",
+  //         timeframe: 4,
+  //         netrevenue: "£12,246.43",
+  //         expectedola: "84%",
+  //         servicelevel: "60",
+  //         expectednetrevenue: "(£5,749.00)",
+  //         bestseller: "High",
+  //         risk: "10",
+  //         checkbox: false,
+  //         costtoserve: "(£903.00)",
+  //         reviewed: "No",
+  //         quantityOrdered: "300",
+  //         quantityForcasted: "500",
+  //         percentageDescrepency: "-63.64%",
+  //       },
+  //       {
+  //         skuname: "Airwick",
+  //         skucode: "23434534693dlf",
+  //         timeframe: 4,
+  //         netrevenue: "£12,246.43",
+  //         expectedola: "84%",
+  //         servicelevel: "60",
+  //         expectednetrevenue: "(£5,749.00)",
+  //         bestseller: "High",
+  //         risk: "10",
+  //         checkbox: false,
+  //         costtoserve: "(£903.00)",
+  //         reviewed: "No",
+  //         quantityOrdered: "300",
+  //         quantityForcasted: "500",
+  //         percentageDescrepency: "-63.64%",
+  //       },
+  //     ],
+  //   },
+
+  // ];
+
   const data = [
     {
-      id: 1,
-      poNumber: "PO no 123",
-      customerPoNumber: "PO no 123",
-      poReceiptDate: "20-07-2023",
-      poStatus: "Open",
-      noSKUsinPO: 80,
-      noSKUsIrregular: 25,
-      totalForecastedRevenue: "500",
-      totalPORevenue: "800",
-      irregularPO: "Yes",
-      perDiscepency: "-84%",
-      details: [
-        {
-          rbsku: "Airwick",
-          ppg: "23434534693dlf",
-          description: "AWICK,IE,STICK UP LAVX12",
-          alert: "Incorrect volume",
-          quantity: "400",
-          sellin: "400",
-          percentage: "40%",
-          orderprice: "£2.50",
-        },
-        {
-          rbsku: "Airwick",
-          ppg: "23434534693dlf",
-          description: "AWICK,IE,STICK UP LAVX12",
-          alert: "Incorrect volume",
-          quantity: "400",
-          sellin: "400",
-          percentage: "40%",
-          orderprice: "£2.50",
-        },
-      ],
+      Brand: "Airwick",
+      "Business Unit": "Hygiene",
+      Customer: "L4 TESCO HYHO PLAN TO",
+      Location: "United Kingdom",
+      "RB SKU": 3277069,
+      campaignname: "AIRWICK WEEK 35 RR PIPEFILL",
+      customerallocation: "100",
+      customerinventory: "400",
+      enddate: "2023-10-24",
+      offerdescription: "Price Reduction",
+      startdate: "2023-10-11",
+      status: "Draft",
     },
     {
-      id: 2,
-      poNumber: "PO no 500",
-      customerPoNumber: "PO no 500",
-      poReceiptDate: "10-07-2023",
-      poStatus: "Delayed",
-      noSKUsinPO: 60,
-      noSKUsIrregular: 40,
-      totalForecastedRevenue: "500",
-      totalPORevenue: "800",
-      irregularPO: "Yes",
-      perDiscepency: "-84%",
-      details: [
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-      ],
+      Brand: "Airwick",
+      "Business Unit": "Hygiene",
+      Customer: "L4 TESCO HYHO PLAN TO",
+      Location: "United Kingdom",
+      "RB SKU": 3277069,
+      campaignname: "P13 MIST KIT LSM BREAK \u00a38 CC",
+      customerallocation: "100",
+      customerinventory: "400",
+      enddate: "2024-01-09",
+      offerdescription: "Price Reduction",
+      startdate: "2023-12-13",
+      status: "Draft",
     },
     {
-      id: 3,
-      poNumber: "PO no 500",
-      customerPoNumber: "PO no 500",
-      poReceiptDate: "10-07-2023",
-      poStatus: "Stock",
-      noSKUsinPO: 50,
-      noSKUsIrregular: 20,
-      totalForecastedRevenue: "500",
-      totalPORevenue: "800",
-      irregularPO: "Yes",
-      perDiscepency: "-84%",
-      details: [
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-      ],
+      Brand: "Airwick",
+      "Business Unit": "Hygiene",
+      Customer: "L4 TESCO HYHO PLAN TO",
+      Location: "United Kingdom",
+      "RB SKU": 3277069,
+      campaignname: "P13 MIST KIT LSM BREAK \u00a38 CC",
+      customerallocation: "100",
+      customerinventory: "400",
+      enddate: "2024-01-09",
+      offerdescription: "Price Reduction",
+      startdate: "2023-12-13",
+      status: "Draft",
     },
     {
-      id: 4,
-      poNumber: "PO no 500",
-      customerPoNumber: "PO no 500",
-      poReceiptDate: "10-07-2023",
-      poStatus: "Open",
-      noSKUsinPO: 70,
-      noSKUsIrregular: 30,
-      totalForecastedRevenue: "500",
-      totalPORevenue: "800",
-      irregularPO: "Yes",
-      perDiscepency: "-84%",
-      details: [
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-        {
-          skuname: "Airwick",
-          skucode: "23434534693dlf",
-          timeframe: 4,
-          netrevenue: "£12,246.43",
-          expectedola: "84%",
-          servicelevel: "60",
-          expectednetrevenue: "(£5,749.00)",
-          bestseller: "High",
-          risk: "10",
-          checkbox: false,
-          costtoserve: "(£903.00)",
-          reviewed: "No",
-          quantityOrdered: "300",
-          quantityForcasted: "500",
-          percentageDescrepency: "-63.64%",
-        },
-      ],
+      Brand: "Airwick",
+      "Business Unit": "Hygiene",
+      Customer: "L4 TESCO HYHO PLAN TO",
+      Location: "United Kingdom",
+      "RB SKU": 3277069,
+      campaignname: "P13 MIST KIT LSM BREAK \u00a38 CC",
+      customerallocation: "100",
+      customerinventory: "400",
+      enddate: "2024-01-09",
+      offerdescription: "Price Reduction",
+      startdate: "2023-12-13",
+      status: "Draft",
     },
-     
   ];
   const [expandedRow, setExpandedRow] = useState(null);
 
@@ -247,341 +257,153 @@ const Promo = () => {
     }
   };
 
-  // SubTable component to display the nested table
-  const SubTable = ({ details }) => (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell
-              sx={{
-                backgroundColor: "#E5EBEF",
-                border: "1px solid #dcdcdc",
-                textAlign: "center",
-                color: "#415A6C",
-              }}
-            >
-              <Typography fontSize={14}>RB SKU</Typography>
-            </TableCell>
-            <TableCell
-              sx={{
-                backgroundColor: "#E5EBEF",
-                border: "1px solid #dcdcdc",
-                textAlign: "center",
-                color: "#415A6C",
-              }}
-            >
-              <Typography fontSize={14}>PPG</Typography>
-            </TableCell>
-
-            <TableCell
-              sx={{
-                backgroundColor: "#E5EBEF",
-                border: "1px solid #dcdcdc",
-                textAlign: "center",
-                color: "#415A6C",
-              }}
-            >
-              <Typography fontSize={14} lineHeight="16px">
-                Description
-              </Typography>
-            </TableCell>
-            <TableCell
-              sx={{
-                backgroundColor: "#E5EBEF",
-                border: "1px solid #dcdcdc",
-                textAlign: "center",
-                color: "#415A6C",
-              }}
-            >
-              <Typography fontSize={14} lineHeight="16px">
-                Alert type
-              </Typography>
-            </TableCell>
-            <TableCell
-              sx={{
-                backgroundColor: "#E5EBEF",
-                border: "1px solid #dcdcdc",
-                textAlign: "center",
-                color: "#415A6C",
-              }}
-            >
-              <Typography fontSize={14} lineHeight="16px">
-                Quantity ordered
-              </Typography>
-            </TableCell>
-            <TableCell
-              sx={{
-                backgroundColor: "#E5EBEF",
-                border: "1px solid #dcdcdc",
-                textAlign: "center",
-                color: "#415A6C",
-              }}
-            >
-              <Typography fontSize={14}>
-                Sell-in forecast (S-OLA / Kinaxis)
-              </Typography>
-            </TableCell>
-            <TableCell
-              sx={{
-                backgroundColor: "#E5EBEF",
-                border: "1px solid #dcdcdc",
-                textAlign: "center",
-                color: "#415A6C",
-              }}
-            >
-              <Typography fontSize={14}>Percentage discrepancy</Typography>
-            </TableCell>
-            <TableCell
-              sx={{
-                backgroundColor: "#E5EBEF",
-                border: "1px solid #dcdcdc",
-                textAlign: "center",
-                color: "#415A6C",
-              }}
-            >
-              <Typography fontSize={14}>Order Price</Typography>
-            </TableCell>
-            <TableCell
-              sx={{
-                backgroundColor: "#E5EBEF",
-                border: "1px solid #dcdcdc",
-                textAlign: "center",
-                color: "#415A6C",
-              }}
-            >
-              <Typography fontSize={14}>Deep dive</Typography>
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {details.map((item, index) => (
-            <TableRow
-              key={index}
-              style={{
-                backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
-              }}
-            >
-              <TableCell sx={{ textAlign: "center" }}>
-                <Typography fontSize="13px">{item.rbsku}</Typography>
-              </TableCell>
-              <TableCell sx={{ textAlign: "center" }}>
-                <Typography fontSize="13px">{item.ppg}</Typography>
-              </TableCell>
-
-              <TableCell sx={{ textAlign: "center" }}>
-                <Typography fontSize="13px">{item.description}</Typography>
-              </TableCell>
-              <TableCell sx={{ textAlign: "center" }}>
-                <Typography fontSize="13px">{item.alert}</Typography>
-              </TableCell>
-              <TableCell sx={{ textAlign: "center" }}>
-                <Typography
-                  sx={{
-                    fontSize: "13px",
-                  }}
-                >
-                  {item.quantity}
-                </Typography>
-              </TableCell>
-              <TableCell sx={{ textAlign: "center" }}>{item.sellin}</TableCell>
-              <TableCell sx={{ textAlign: "center" }}>
-                {item.percentage}
-              </TableCell>
-              <TableCell sx={{ textAlign: "center" }}>
-                {item.orderprice}
-              </TableCell>
-              <TableCell sx={{ textAlign: "center" }}>
-                <Button
-                  variant="outlined"
-                  endIcon={<PlayArrowIcon />}
-                  size="small"
-                  onClick={handleClick}
-                  className="btn-invst"
-                >
-                  Investigate
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
-
   return (
     <div>
-      <TableContainer style={{ maxHeight: 732, width: "100%" }}>
-        <Table stickyHeader>
-          <TableHead className="thead-main">
-            <TableRow>
+      <TableContainer
+        component={Paper}
+        className="tablecell-header"
+        style={{ maxHeight: 306, width: "100%" }}
+      >
+        <Table className="campaignsTable">
+          <TableHead>
+            <TableRow className="tablecell-inside">
               <TableCell
-                style={{
+                sx={{
                   textAlign: "center",
-                  color: "#415A6C",
-                  backgroundColor: "#E5EBEF",
                   border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
+                border="1px solid #dddddd"
               >
-                Reckitt PO number
+                Campaign Name
               </TableCell>
               <TableCell
-                style={{
+                sx={{
                   textAlign: "center",
-                  color: "#415A6C",
-                  backgroundColor: "#E5EBEF",
                   border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
-                Customer PO number
+                Start Date
               </TableCell>
               <TableCell
-                style={{
+                sx={{
                   textAlign: "center",
-                  color: "#415A6C",
-                  backgroundColor: "#E5EBEF",
                   border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
-                PO Receipt Date
+                End Date
               </TableCell>
               <TableCell
-                style={{
+                sx={{
                   textAlign: "center",
-                  color: "#415A6C",
-                  backgroundColor: "#E5EBEF",
                   border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
-                PO delivery date
+                Offer Description
               </TableCell>
               <TableCell
-                style={{
+                sx={{
                   textAlign: "center",
-                  color: "#415A6C",
-                  backgroundColor: "#E5EBEF",
                   border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
-                PO Status
+                Status
               </TableCell>
               <TableCell
-                style={{
+                sx={{
                   textAlign: "center",
-                  color: "#415A6C",
-                  backgroundColor: "#E5EBEF",
                   border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                  color: "#415A6C",
                 }}
               >
-                No SKUs in PO
+                Customer
               </TableCell>
               <TableCell
-                style={{
+                sx={{
                   textAlign: "center",
-                  color: "#415A6C",
-                  backgroundColor: "#E5EBEF",
                   border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                  lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
-                No.Irregular SKUs
+                Customer
+                <br /> Inventory
               </TableCell>
-
               <TableCell
-                style={{
+                sx={{
                   textAlign: "center",
-                  color: "#415A6C",
-                  backgroundColor: "#E5EBEF",
                   border: "1px solid #dcdcdc",
+                  backgroundColor: "#E5EBEF",
+                  lineHeight: "16px",
+                  color: "#415A6C",
                 }}
               >
-                Irregular PO
+                Customer <br />
+                Allocation
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((item, index) => (
-              <React.Fragment key={item.id}>
-                <TableRow
-                  onClick={() => handleRowClick(item.id)}
-                  style={{
-                    backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
-                  }}
+            {data.length == 0 && (
+              <TableRow>
+                <TableCell
+                  colSpan={20}
+                  style={{ textAlign: "center", fontSize: "16px" }}
                 >
-                  <TableCell fontSize={13}>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      {expandedRow === item.id ? (
-                        <RemoveIcon
-                          fontSize="medium"
-                          sx={{
-                            color: "#415A6C",
-                            cursor: "pointer",
-                            fontWeight: "800",
-                            // marginTop: "-1px",
-                            backgroundColor: "transparent",
-                          }}
-                        />
-                      ) : (
-                        <AddIcon
-                          fontSize="medium"
-                          sx={{
-                            color: "#415A6C",
-                            cursor: "pointer",
-                            fontWeight: "800",
-                            marginTop: "-1px",
-                            backgroundColor: "transparent",
-                          }}
-                        />
-                      )}
-                      {item.poNumber}
-                    </Box>
-                  </TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>
-                    {item.customerPoNumber}
-                  </TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>
-                    {item.poReceiptDate}
-                  </TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>
-                    {item.poReceiptDate}
-                  </TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>
-                    {item.poStatus}
-                  </TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>
-                    {item.noSKUsinPO}
-                  </TableCell>
-                  <TableCell>
-                    <Typography fontSize={13} textAlign="center">
-                      {item.noSKUsIrregular}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography fontSize={13} textAlign="center">
-                      <DoDisturbOutlinedIcon
-                        sx={{
-                          color: "red",
-                          fontSize: "1rem",
-                          marginTop: "7px",
-                        }}
-                      />
-                    </Typography>
-                  </TableCell>
-                </TableRow>
-                {expandedRow === item.id && (
-                  <TableRow>
-                    <TableCell colSpan={10}>
-                      {/* Add your expanded table here */}
-                      <SubTable details={item.details} />
-                    </TableCell>
-                  </TableRow>
-                )}
-              </React.Fragment>
+                  No Records Found
+                </TableCell>
+              </TableRow>
+            )}
+            {data.map((item, index) => (
+              <TableRow
+                key={index}
+                style={{
+                  backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
+                  textAlign: "center",
+                }}
+              >
+                <TableCell style={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.campaignname}</Typography>
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.startdate}</Typography>
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.enddate}</Typography>
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">
+                    {item.offerdescription}
+                  </Typography>
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.status}</Typography>
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">{item.Customer}</Typography>
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">
+                    {item.customerinventory}
+                  </Typography>
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  <Typography fontSize="13px">
+                    {item.customerallocation}
+                  </Typography>
+                </TableCell>
+              </TableRow>
             ))}
           </TableBody>
         </Table>

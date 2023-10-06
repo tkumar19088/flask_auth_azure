@@ -82,6 +82,7 @@ function Filtersout({ apply }) {
     }
 
     if (!business || !location || !customer || !brand) {
+      apply([]);
       return;
     }
 

@@ -12,7 +12,10 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import StockReallocationData from "./StockRellocationData";
 import Orderinvestigation2 from "./Orderinvestigation2";
 import { useSelector, useDispatch } from "react-redux";
-import { updateiswithinchannel } from "../../store/actions/sidebarActions";
+import {
+  updateiswithinchannel,
+  fetchstockreallocatedata,
+} from "../../store/actions/sidebarActions";
 
 function StockReallocation() {
   const navigate = useNavigate();
@@ -21,44 +24,50 @@ function StockReallocation() {
   const [selectedData, setselectedData] = useState();
   const exporttabledata = useSelector((state) => state.sidebar.exporttabledata);
   const isWithinChannel = useSelector((state) => state.sidebar.isWithinChannel);
-  // const suggRecord = useSelector(
-  //   (state) => state.sidebar.stockreallocation.staticrow
+  const stockData = useSelector((state) => state.sidebar.stockreallocation);
+  // console.log(stockData.otherrows);
+  // const channel = "Pure Play";
+  // const filteredOtherRows = stockData.otherrows.filter(
+  //   (item) => item.Channel == channel
   // );
-  const suggRecord = {
-    AvgYTDsellout: 600,
-    Brand: "Airwick",
-    "Business Unit": "Health",
-    Channel: "Pharmacy",
-    Customer: "Asda",
-    Location: "Germany",
-    "RB SKU": "3247398",
-    Discription: "Airwick Electrical Lemon",
-    "Sell out": 600,
-    allocationconsumed: 180,
-    cmuscore: 7.44,
-    currentallocation: 400,
-    newallocation: 400,
-    currentcustSOH: 400,
-    "custsoh-current": 1000,
-    "custsoh-target": 900,
-    "custwoc-current": 2,
-    "custwoc-target": 4,
-    expectedservicelevel: 0.94,
-    idealallocationvalues: 800,
-    openorders: 180,
-    remainingallocation: 220,
-    "sif-atf": 900,
-    "sif-reckitt": 800,
-    stocksafetoreallocate: 36,
-    suggestedallocation: 2,
-    sumofPOsinalloccycle: 900,
-    testReallocation: 0,
-  };
+  const suggRecord = useSelector(
+    (state) => state.sidebar.withinChannelData.staticrow
+  );
+  // const suggRecord = {
+  //   AvgYTDsellout: 600,
+  //   Brand: "Airwick",
+  //   "Business Unit": "Health",
+  //   Channel: "Pharmacy",
+  //   Customer: "Asda",
+  //   Location: "Germany",
+  //   "RB SKU": "3247398",
+  //   Discription: "Airwick Electrical Lemon",
+  //   "Sell out": 600,
+  //   allocationconsumed: 180,
+  //   cmuscore: 7.44,
+  //   currentallocation: 400,
+  //   newallocation: 400,
+  //   currentcustSOH: 400,
+  //   "custsoh-current": 1000,
+  //   "custsoh-target": 900,
+  //   "custwoc-current": 2,
+  //   "custwoc-target": 4,
+  //   expectedservicelevel: 0.94,
+  //   idealallocationvalues: 800,
+  //   openorders: 180,
+  //   remainingallocation: 220,
+  //   "sif-atf": 900,
+  //   "sif-reckitt": 800,
+  //   stocksafetoreallocate: 36,
+  //   suggestedallocation: 2,
+  //   sumofPOsinalloccycle: 900,
+  //   testReallocation: 0,
+  // };
   const [acrossChannel, setacrossChannel] = useState(false);
-  const handleClick = () => {
-    // Navigate to another URL
-    navigate("/orderinvestigation", { state: { data: selectedData } });
-  };
+  // const handleClick = () => {
+  //   // Navigate to another URL
+  //   navigate("/orderinvestigation", { state: { data: selectedData } });
+  // };
 
   const handleWithinSameChannel = () => {
     setacrossChannel(false);
@@ -174,9 +183,11 @@ function StockReallocation() {
               OOS Risk Detection
             </Typography>
             <Typography>
-              <ChevronRightIcon sx={{ height: "20px",color: "#415A6C" }} />
+              <ChevronRightIcon sx={{ height: "20px", color: "#415A6C" }} />
             </Typography>
-            <Typography fontSize={14} sx={{ color: "#415A6C" }}>Overview High-Risk SKUs</Typography>
+            <Typography fontSize={14} sx={{ color: "#415A6C" }}>
+              Overview High-Risk SKUs
+            </Typography>
           </Box>
           <Typography
             fontSize={16}
