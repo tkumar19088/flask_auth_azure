@@ -7,10 +7,10 @@ const Historicalbarchart = () => {
   const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
 
   const data1 = [
+    { name: "CW-3 (" + (startingWeek - 3) + ")", value: 91 },
+    { name: "CW-2 (" + (startingWeek - 2) + ")", value: 95 },
+    { name: "CW-1 (" + (startingWeek - 1) + ")", value: 92 },
     { name: "CW (" + startingWeek + ")", value: 90 },
-    { name: "CW+1 (" + (startingWeek - 1) + ")", value: 92 },
-    { name: "CW+2 (" + (startingWeek - 2) + ")", value: 95 },
-    { name: "CW+3 (" + (startingWeek - 3) + ")", value: 91 },
   ];
 
   const labels = data1.map((data) => data.name);

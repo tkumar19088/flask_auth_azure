@@ -13,9 +13,9 @@ const Sellinselloutbarchart = () => {
     { name: "CW-2 (" + (startingWeek - 2) + ")", value: 42, fvalue: 90 },
     { name: "CW-1 (" + (startingWeek - 1) + ")", value: 55, fvalue: 93 },
     { name: "CW (" + startingWeek + ")", value: 31, fvalue: 90 },
-    { name: "CW+1(" + (startingWeek + 1) + ")", value: 48, fvalue: 95 },
-    { name: "CW+2 (" + (startingWeek + 2) + ")", value: 37, fvalue: 90 },
-    { name: "CW+3(" + (startingWeek + 3) + ")", value: 53, fvalue: 95 },
+    { name: "CW+1(" + (startingWeek + 1) + ")", value: 0, fvalue: 95 },
+    { name: "CW+2 (" + (startingWeek + 2) + ")", value: 0, fvalue: 90 },
+    { name: "CW+3(" + (startingWeek + 3) + ")", value: 0, fvalue: 95 },
   ];
 
   const labels = data1.map((data) => data.name);
@@ -24,7 +24,7 @@ const Sellinselloutbarchart = () => {
 
   const datasets = [
     {
-      label: "Sell in current",
+      label: "Sell in actuals",
       data: values1,
       borderColor: "#FF007E",
       backgroundColor: "#FF007E",
