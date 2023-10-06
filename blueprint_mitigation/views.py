@@ -36,16 +36,14 @@ def choose_scenario():
         if not global_filters.get('Customer'):
             raise ValueError("No customer selected!")
 
-        
         rardf = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
-        rardf = rardf[rardf['RB SKU'] == data['rbsku']]
-        staticrow = rardf[rardf['Customer'] == global_filters['Customer']]
-        otherrows = rardf[rardf['Customer'] != global_filters['Customer']]
+        rardf = rardf[rardf['sku'] == data['rbsku']]
+        otherrows = rardf[rardf['customer'] != global_filters['Customer']]
         resp_scen.update({"rarbysku": str(len(otherrows) > 0)})
         return jsonify(resp_scen), 200
 
     except Exception as e:
-        return jsonify(status="error", message=str(e)), 500
+        return jsonify(status="error", message=e), 500
 
 
 # ************************** MITIGATION SCENARIO # 1 ***************************
@@ -73,7 +71,6 @@ def getrarbysku():
 
     try:
         data = request.json or {}
-        print(f"\n1. data:{data}\n")
 
         if not data:
             raise ValueError("Missing required parameter: RB SKU!")
