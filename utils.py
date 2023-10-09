@@ -507,11 +507,16 @@ class AlternativeSKUsCalculator:
         self.ret = ret
 
     def calculate(self):
-        brand = self.df.loc[self.df['sku'] == self.sku_r, 'brand'].values[0]
-        segment = self.df.loc[self.df['sku'] == self.sku_r, 'segment'].values[0]
-        conds = (self.df['brand'] == brand) & (self.df['retailer'] == self.ret) & (self.df['segment'] == segment)
+        try:
+            brand = self.df.loc[self.df['sku'] == self.sku_r, 'brand'].values[0]
+            segment = self.df.loc[self.df['sku'] == self.sku_r, 'segment'].values[0]
+            conds = (self.df['brand'] == brand) & (self.df['retailer'] == self.ret) & (self.df['segment'] == segment)
+        except Exception as e:
+            return self._error_response(str(e))
+
         tmp = self.df[conds].drop(columns = ['retailer', 'brand']).drop_duplicates().copy()
         tmp = tmp.set_index('sku').T
+
         try:
             if self.sku_r in tmp.columns:
                 tmp_r = tmp[self.sku_r]
@@ -587,8 +592,8 @@ def get_data(data, config, filename, filters, sort_column= None, sort_order= Non
     if not data:
         raise ValueError("Missing required parameter: RB SKU!")
 
-    search, skulist = data.get('search'), data.get('skulist')
-    ordered_SKUs = list(set(skulist)) if skulist else None
+    search, skulist = data.get('search') or None, data.get('skulist') or None
+
     global_filters = config.get('global_filters', {})
     global_filters = dict((k, v.lower()) for k, v in global_filters.items())
 
@@ -615,9 +620,12 @@ def get_data(data, config, filename, filters, sort_column= None, sort_order= Non
         for filter_key in filters:
             if filter_key in global_filters and global_filters[filter_key] != None:
                 df = df[df[filter_key].str.lower() == global_filters[filter_key]]
-        if sort_column and sort_order:
-            df = df.sort_values(by=sort_column, ascending=sort_order)
 
-    df = df.set_index("RB SKU").loc[ordered_SKUs].reset_index() if ordered_SKUs else df
+    if sort_column and sort_order:
+        df = df.sort_values(by=sort_column, ascending=sort_order)
+
+    if skulist and all(sku in df['RB SKU'].values for sku in skulist):
+        df = df.set_index("RB SKU").loc[skulist].reset_index()
+
     df = replace_missing_values(df)
     return df

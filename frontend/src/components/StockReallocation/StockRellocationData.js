@@ -335,16 +335,21 @@ const StockReallocationData = ({ onData }) => {
   );
   console.log(inputValues);
   // const [dataFetched, setDataFetched] = useState(false);
+  const [reset, serReset] = useState(false);
   useEffect(() => {
     const filterData = () => {
       const filteredData = isWithinChannel
         ? filteredSamechannelResults
         : referenceData;
       setData(filteredData);
+      setsuggectedRecord(referenceSuggData);
     };
 
     filterData();
-  }, [isWithinChannel, stockreallocationData, referenceData]);
+    if (reset) {
+      setsuggectedRecord(referenceSuggData);
+    }
+  }, [isWithinChannel, stockreallocationData, referenceData, reset]);
   const handleInputChange = (index, value) => {
     const newInputValues = [...inputValues];
     if (value > 0) {
@@ -361,11 +366,18 @@ const StockReallocationData = ({ onData }) => {
     var testallocation = 0;
     const updatedData = data.map((item, index) => {
       if (inputValues[index] !== "") {
+        //current allocation//
         const currentallocation =
           item.currentallocation + parseInt(inputValues[index]);
+        // proposed allocation //
+        const proposedallocation =
+          item.currentallocation + parseInt(inputValues[index]);
+        //Remaining allocation //
         const remainingallocation = currentallocation - item.allocationconsumed;
+        const aloocated_value =
+          proposedallocation == 0 ? currentallocation : proposedallocation;
         const expectedservice = Math.min(
-          currentallocation /
+          aloocated_value /
             Math.max(
               item["sif-atf"],
               item.sumofPOsinalloccycle + item.openorders
@@ -391,17 +403,22 @@ const StockReallocationData = ({ onData }) => {
           0
         );
         const suggestedallocation =
-          item.idealallocationvalues - currentallocation;
+          item.idealallocationvalues - aloocated_value;
 
         //Static row data update//
         suggectedRecord.newallocation =
-          suggectedRecord.newallocation - parseInt(inputValues[index]);
-
+          suggectedRecord.currentallocation - parseInt(inputValues[index]);
+        //calculate new allocated final value
+        const newallocation_val =
+          suggectedRecord.newallocation == 0
+            ? suggectedRecord.currentallocation
+            : suggectedRecord.newallocation;
+        //remaining allocation
         suggectedRecord.remainingallocation =
-          suggectedRecord.newallocation - suggectedRecord.allocationconsumed;
+          newallocation_val - suggectedRecord.allocationconsumed;
 
         const suggexpectedservice = Math.min(
-          suggectedRecord.newallocation /
+          newallocation_val /
             Math.max(
               suggectedRecord["sif-atf"],
               suggectedRecord.sumofPOsinalloccycle + suggectedRecord.openorders
@@ -440,7 +457,7 @@ const StockReallocationData = ({ onData }) => {
         );
 
         suggectedRecord.suggestedallocation =
-          suggectedRecord.idealallocationvalues - suggectedRecord.newallocation;
+          suggectedRecord.idealallocationvalues - newallocation_val;
 
         testallocation += Math.abs(inputValues[index]);
         suggectedRecord.testReallocation = testallocation;
@@ -451,7 +468,7 @@ const StockReallocationData = ({ onData }) => {
 
         return {
           ...item,
-          newallocation: currentallocation,
+          newallocation: proposedallocation,
           remainingallocation: remainingallocation,
           expectedservicelevel: expectedservicelevel,
           "custsoh-current": updatedCustomerSOH,
@@ -729,6 +746,7 @@ const StockReallocationData = ({ onData }) => {
   };
 
   const handleResetResults = () => {
+    serReset(true);
     setsuggectedRecord(referenceSuggData);
     const filteredData = isWithinChannel
       ? filteredSamechannelResults
@@ -758,16 +776,27 @@ const StockReallocationData = ({ onData }) => {
               <TableCell className="stable-header">
                 Current Allocation
               </TableCell>
-              <TableCell className="stable-header">New Allocation</TableCell>
+              <TableCell className="stable-header">
+                Proposed Allocation
+              </TableCell>
               <TableCell className="stable-header">
                 Allocation Consumed to Date
               </TableCell>
               <TableCell className="stable-header">
                 Remaining Allocation
               </TableCell>
+              <TableCell className="stable-header">
+                Stock Safe to Reallocate
+              </TableCell>
+              <TableCell className="stable-header">
+                Ideal Allocation Values
+              </TableCell>
+              <TableCell className="stable-header">
+                Suggested Reallocation
+              </TableCell>
               <TableCell className="stable-header">Open Orders</TableCell>
               <TableCell className="stable-header">
-                Expected Service Level
+                Expected Weekly Service Level
               </TableCell>
               <TableCell className="stable-header">
                 Customer SoH <br />
@@ -778,18 +807,7 @@ const StockReallocationData = ({ onData }) => {
                 (current / target)
               </TableCell>
               <TableCell className="stable-header">CMU Score</TableCell>
-              <TableCell className="stable-header">
-                Stock Safe to Reallocate
-              </TableCell>
-              <TableCell className="stable-header">
-                Ideal Allocation Values
-              </TableCell>
-              <TableCell className="stable-header">
-                Suggested Reallocation
-              </TableCell>
-              <TableCell className="stable-header">
-                Test Reallocation Scenario
-              </TableCell>
+              <TableCell className="stable-header">Test Reallocation</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -881,6 +899,30 @@ const StockReallocationData = ({ onData }) => {
                   }}
                 >
                   {suggectedRecord.remainingallocation}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    backgroundColor: "rgb(198 223 215)",
+                    textAlign: "center",
+                  }}
+                >
+                  {suggectedRecord.stocksafetoreallocate}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    backgroundColor: "rgb(198 223 215)",
+                    textAlign: "center",
+                  }}
+                >
+                  {suggectedRecord.idealallocationvalues}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    backgroundColor: "rgb(198 223 215)",
+                    textAlign: "center",
+                  }}
+                >
+                  {suggectedRecord.suggestedallocation}
                 </TableCell>
                 <TableCell
                   sx={{
@@ -980,30 +1022,6 @@ const StockReallocationData = ({ onData }) => {
                   sx={{
                     backgroundColor: "rgb(198 223 215)",
                     textAlign: "center",
-                  }}
-                >
-                  {suggectedRecord.stocksafetoreallocate}
-                </TableCell>
-                <TableCell
-                  sx={{
-                    backgroundColor: "rgb(198 223 215)",
-                    textAlign: "center",
-                  }}
-                >
-                  {suggectedRecord.idealallocationvalues}
-                </TableCell>
-                <TableCell
-                  sx={{
-                    backgroundColor: "rgb(198 223 215)",
-                    textAlign: "center",
-                  }}
-                >
-                  {suggectedRecord.suggestedallocation}
-                </TableCell>
-                <TableCell
-                  sx={{
-                    backgroundColor: "rgb(198 223 215)",
-                    textAlign: "center",
                     // padding: "0px",
                   }}
                 >
@@ -1066,6 +1084,15 @@ const StockReallocationData = ({ onData }) => {
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
                   {item.remainingallocation}
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  {item.stocksafetoreallocate}
+                </TableCell>
+                <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                  {item.idealallocationvalues}
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  {item.suggestedallocation}
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
                   {item.openorders}
@@ -1139,15 +1166,6 @@ const StockReallocationData = ({ onData }) => {
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
                   {item.cmuscore}
-                </TableCell>
-                <TableCell sx={{ textAlign: "center" }}>
-                  {item.stocksafetoreallocate}
-                </TableCell>
-                <TableCell sx={{ textAlign: "center", padding: "0px" }}>
-                  {item.idealallocationvalues}
-                </TableCell>
-                <TableCell sx={{ textAlign: "center" }}>
-                  {item.suggestedallocation}
                 </TableCell>
                 <TableCell sx={{ textAlign: "center", padding: "0px" }}>
                   <Box

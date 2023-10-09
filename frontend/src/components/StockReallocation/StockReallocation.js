@@ -188,16 +188,14 @@ function StockReallocation() {
             <Typography fontSize={14} sx={{ color: "#415A6C" }}>
               Overview High-Risk SKUs
             </Typography>
+            <Typography>
+              <ChevronRightIcon sx={{ height: "20px", color: "#415A6C" }} />
+            </Typography>
+            <Typography fontSize={14} sx={{ color: "#415A6C" }}>
+              Airwick Electrical Lemon 3247398
+            </Typography>
           </Box>
-          <Typography
-            fontSize={16}
-            sx={{ color: "#415A6C" }}
-            margin="5px 0px -10px 3px"
-          >
-            Scenario Generation:{" "}
-            {suggRecord.Discription ? suggRecord.Discription + " " : ""}
-            {suggRecord["RB SKU"] ? suggRecord["RB SKU"] : ""}
-          </Typography>
+
           <Box
             mx="1px"
             sx={{ marginTop: "" }}
