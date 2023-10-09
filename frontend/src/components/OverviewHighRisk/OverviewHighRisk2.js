@@ -267,7 +267,7 @@ const OverviewHighRisk2 = () => {
       rbsku: "",
     };
     try {
-      const url = "http://localhost:5000/exportdata";
+      const url = "https://testingsmartola.azurewebsites.net/exportdata";
       const response = await fetch(url, {
         method: "POST",
         headers: {
