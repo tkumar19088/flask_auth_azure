@@ -19,10 +19,11 @@ app_blueprint = Blueprint("app", __name__)
 @app_blueprint.route("/")
 @cross_origin()
 def index():
-    if "user" in session:
-        return render_template("index.html")
-    else:
-        return redirect(url_for("app.login"))
+    # if "user" in session:
+    #     return render_template("index.html")
+    # else:
+    #     return redirect(url_for("app.login"))
+    return render_template("index.html")
 
 @app_blueprint.route("/login")
 def login():

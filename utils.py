@@ -507,11 +507,16 @@ class AlternativeSKUsCalculator:
         self.ret = ret
 
     def calculate(self):
-        brand = self.df.loc[self.df['sku'] == self.sku_r, 'brand'].values[0]
-        segment = self.df.loc[self.df['sku'] == self.sku_r, 'segment'].values[0]
-        conds = (self.df['brand'] == brand) & (self.df['retailer'] == self.ret) & (self.df['segment'] == segment)
+        try:
+            brand = self.df.loc[self.df['sku'] == self.sku_r, 'brand'].values[0]
+            segment = self.df.loc[self.df['sku'] == self.sku_r, 'segment'].values[0]
+            conds = (self.df['brand'] == brand) & (self.df['retailer'] == self.ret) & (self.df['segment'] == segment)
+        except Exception as e:
+            return self._error_response(str(e))
+
         tmp = self.df[conds].drop(columns = ['retailer', 'brand']).drop_duplicates().copy()
         tmp = tmp.set_index('sku').T
+
         try:
             if self.sku_r in tmp.columns:
                 tmp_r = tmp[self.sku_r]

@@ -54,8 +54,8 @@ def get_overview():
         data = request.json or {}
         config = current_app.config
 
-        sort_column = 'Cust WOC' if data['customer'] else 'Reckitt WOC'
-        sort_order = True
+        sort_column = 'Cust WOC' if data['customer'] else ['Exp NR CW','Reckitt WOC', 'RB SKU']
+        sort_order = True if data['customer'] else  [False, True]
 
         filters = ['Business Unit', 'Location', 'Customer', 'Brand'] if data['customer'] else ['Business Unit', 'Location', 'Brand']
         filename = "ui_data/customeroverviewdatarepo.csv" if data['customer'] else "ui_data/reckittoverviewdatarepo.csv"
@@ -83,8 +83,8 @@ def getsupply():
     data = request.json or {}
     config = current_app.config
 
-    sort_column = 'initialreckittsoh'
-    sort_order = True
+    sort_column = ['initialreckittsoh', 'RB SKU']
+    sort_order = [True, True]
 
     filters = ['Business Unit', 'Location','Brand']
     filename = "ui_data/reckittsupply.csv"
@@ -102,8 +102,8 @@ def getdemand():
     data = request.json or {}
     config = current_app.config
 
-    sort_column = 'initialreckittsoh'
-    sort_order = True
+    sort_column = ['initialreckittsoh', 'RB SKU']
+    sort_order = [True, True]
 
     filters = ['Business Unit', 'Location','Brand']
     filename = "ui_data/reckittdemand.csv"
@@ -120,8 +120,9 @@ def getsohateow():
     data = request.json or {}
     config = current_app.config
 
-    sort_column = 'initialreckittsoh'
-    sort_order = True
+    sort_column = ['initialreckittsoh', 'RB SKU']
+    sort_order = [True, True]
+
     filters = ['Business Unit', 'Location','Brand']
     filename = "ui_data/reckittexpecsohateow.csv"
 
@@ -137,8 +138,9 @@ def getwocateow():
     data = request.json or {}
     config = current_app.config
 
-    sort_column = 'initialreckittsoh'
-    sort_order = True
+    sort_column = ['initialreckittsoh', 'RB SKU']
+    sort_order = [True, True]
+
     filters = ['Business Unit', 'Location','Brand']
     filename = "ui_data/wocateow.csv"
 
@@ -154,8 +156,9 @@ def getcaseshortages():
     data = request.json or {}
     config = current_app.config
 
-    sort_column = 'initialreckittsoh'
-    sort_order = True
+    sort_column = ['initialreckittsoh', 'RB SKU']
+    sort_order = [True, True]
+
     filters = ['Business Unit', 'Location','Brand']
     filename = "ui_data/caseshortages.csv"
 
@@ -171,8 +174,9 @@ def getexpectedservice():
     data = request.json or {}
     config = current_app.config
 
-    sort_column = 'initialreckittsoh'
-    sort_order = True
+    sort_column = ['initialreckittsoh', 'RB SKU']
+    sort_order = [True, True]
+
     filters = ['Business Unit', 'Location','Brand']
     filename = "ui_data/expectedservice.csv"
 
@@ -190,8 +194,8 @@ def get_stock_position():
     data = request.json or {}
     config = current_app.config
 
-    sort_column = 'InitialSOHWeek' if data['customer'] else 'initialreckittsoh'
-    sort_order = True
+    sort_column = ['InitialSOHWeek', 'RB SKU'] if data['customer'] else ['initialreckittsoh', 'RB SKU']
+    sort_order = [True,True]
 
     filters = ['Business Unit', 'Location', 'Customer', 'Brand'] if data['customer'] else ['Business Unit', 'Location', 'Brand']
     filename = "ui_data/customerstockposition.csv" if data['customer'] else "ui_data/stockposition.csv"
@@ -213,8 +217,9 @@ def getcustepos():
     data = request.json or {}
     config = current_app.config
 
-    sort_column = 'InitialSOHWeek'
-    sort_order = True
+    sort_column = ['InitialSOHWeek', 'RB SKU']
+    sort_order = [True,True]
+
     filters = ['Business Unit', 'Location', 'Customer','Brand']
     filename = "ui_data/customerhistoricepos.csv"
 
@@ -231,8 +236,8 @@ def getcustsellout():
     data = request.json or {}
     config = current_app.config
 
-    sort_column = 'InitialSOHWeek'
-    sort_order = True
+    sort_column = ['InitialSOHWeek', 'RB SKU']
+    sort_order = [True,True]
 
     filters = ['Business Unit', 'Location', 'Customer','Brand']
     filename = "ui_data/customersellout.csv"
@@ -250,8 +255,8 @@ def getcustsellin():
     data = request.json or {}
     config = current_app.config
 
-    sort_column = 'InitialSOHWeek'
-    sort_order = True
+    sort_column = ['InitialSOHWeek', 'RB SKU']
+    sort_order = [True,True]
 
     filters = ['Business Unit', 'Location', 'Customer','Brand']
     filename = "ui_data/customersellin.csv"
@@ -259,25 +264,6 @@ def getcustsellin():
     custsellin = get_data(data, config, filename, filters, sort_column, sort_order)
 
     return json.loads(custsellin.to_json(orient='records'))
-
-
-# *****************************************************
-#          Customer Tab - OLA
-# *****************************************************
-@uiflow_blueprint.route("/getcustola", methods=['POST'])
-def getcustola():
-    data = request.json or {}
-    config = current_app.config
-
-    sort_column = 'InitialSOHWeek'
-    sort_order = True
-
-    filters = ['Business Unit', 'Location', 'Customer','Brand']
-    filename = "ui_data/customerola.csv"
-
-    custola = get_data(data, config, filename, filters, sort_column, sort_order)
-
-    return json.loads(custola.to_json(orient='records'))
 
 
 # ****************************************************************************
