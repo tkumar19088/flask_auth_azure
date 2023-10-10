@@ -435,7 +435,11 @@ const Ola = ({ onData }) => {
         Recent / Current / Upcoming Campaigns
       </Typography>
 
-      <TableContainer component={Paper} className="tablecell-header">
+      <TableContainer
+        component={Paper}
+        className="tablecell-header"
+        style={{ maxHeight: 425, width: "100%" }}
+      >
         <Table className="campaignsTable">
           <TableHead>
             <TableRow className="tablecell-inside">
@@ -598,7 +602,6 @@ const Ola = ({ onData }) => {
               },
               borderRadius: "50px",
               textTransform: "none",
-
             }}
             onClick={handleChooseMitigation}
           >
@@ -1057,42 +1060,42 @@ const Ola = ({ onData }) => {
                     // borderBottom: "1px solid #dcdcdc",
                   }}
                 >
-                <TableCell
-                sx={{
-                  display: "flex",
-                  // padding: "12px",
-                  border: "none",
-                  alignItems: "center",
-                  fontSize: "13px",
-                  justifyContent: "center",
-                  borderBottom:"1px solid #dcdcdc"
-                }}
-              >
-                {expandedRow === item["RB SKU"] ? (
-                  <RemoveIcon
-                    fontSize="medium"
+                  <TableCell
                     sx={{
-                      color: "#415A6C",
-                      cursor: "pointer",
-                      fontWeight: "800",
-                      // marginTop: "4px",
-                      backgroundColor: "transparent",
+                      display: "flex",
+                      // padding: "12px",
+                      border: "none",
+                      alignItems: "center",
+                      fontSize: "13px",
+                      justifyContent: "center",
+                      borderBottom: "1px solid #dcdcdc",
                     }}
-                  />
-                ) : (
-                  <AddIcon
-                    fontSize="medium"
-                    sx={{
-                      color: "#415A6C",
-                      cursor: "pointer",
-                      fontWeight: "800",
-                      marginTop: "-2px",
-                      backgroundColor: "transparent",
-                    }}
-                  />
-                )}
-                {item["RB SKU"]}
-              </TableCell>
+                  >
+                    {expandedRow === item["RB SKU"] ? (
+                      <RemoveIcon
+                        fontSize="medium"
+                        sx={{
+                          color: "#415A6C",
+                          cursor: "pointer",
+                          fontWeight: "800",
+                          // marginTop: "4px",
+                          backgroundColor: "transparent",
+                        }}
+                      />
+                    ) : (
+                      <AddIcon
+                        fontSize="medium"
+                        sx={{
+                          color: "#415A6C",
+                          cursor: "pointer",
+                          fontWeight: "800",
+                          marginTop: "-2px",
+                          backgroundColor: "transparent",
+                        }}
+                      />
+                    )}
+                    {item["RB SKU"]}
+                  </TableCell>
                   <TableCell>
                     {" "}
                     <div className="alignment">{item.PPG}</div>

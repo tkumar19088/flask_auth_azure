@@ -1178,7 +1178,7 @@ const OhrTable = ({ onData }) => {
       <TableContainer
         component={Paper}
         className="tablecell-header"
-        style={{ maxHeight: 420, width: "100%" }}
+        style={{ maxHeight: 425, width: "100%" }}
       >
         <Table className="campaignsTable">
           <TableHead>
