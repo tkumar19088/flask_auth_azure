@@ -19,6 +19,16 @@ uiflow_blueprint = Blueprint("uiflow", __name__)
 
 @uiflow_blueprint.route('/getfilterparams', methods=['POST'])
 def get_filter_params():
+    """
+    Updates the global filters based on the request data and returns the updated filters and alerts.
+
+    Returns:
+        dict: A dictionary containing the updated filters and alerts.
+
+    Raises:
+        ValueError: If the request data is missing or invalid.
+        Exception: If any other error occurs.
+    """
     global_user = current_app.config.get('global_user', {})
     global_filters = current_app.config.get('global_filters', {})
     global_filters = dict((k, v.lower()) for k, v in global_filters.items())
@@ -33,8 +43,18 @@ def get_filter_params():
     except Exception as e:
         return jsonify(status="error", message=str(e)), 500
 
+
 @uiflow_blueprint.route('/resetfilterparams')
 def reset_filter_params():
+    """
+    Resets the global filter parameters to an empty dictionary.
+
+    Returns:
+        flask.Response: A JSON response indicating the status of the operation.
+
+    Raises:
+        Exception: If any error occurs.
+    """
     try:
         global_filters = current_app.config['global_filters']
         global_filters.clear()
@@ -49,12 +69,22 @@ def reset_filter_params():
 # *****************************************************
 @uiflow_blueprint.route('/getoverview', methods=['POST'])
 def get_overview():
+    """
+    Handles the 'getoverview' POST request and returns the overview data based on the request data.
+
+    Returns:
+        list: A list of dictionaries containing the overview data.
+
+    Raises:
+        ValueError: If the request data is missing or invalid.
+        Exception: If any other error occurs.
+    """
     try:
         # get request from UI
         data = request.json or {}
         config = current_app.config
 
-        sort_column = 'Cust WOC' if data['customer'] else ['Exp NR CW','Reckitt WOC', 'RB SKU']
+        sort_column = 'Cust WOC' if data['customer'] else ['Reckitt WOC', 'Exp NR CW', 'RB SKU']
         sort_order = True if data['customer'] else  [False, True, True]
 
         filters = ['Business Unit', 'Location', 'Customer', 'Brand'] if data['customer'] else ['Business Unit', 'Location', 'Brand']
@@ -79,19 +109,31 @@ def get_overview():
 # *****************************************************
 @uiflow_blueprint.route("/getsupply", methods=['POST'])
 def getsupply():
-    # get request from UI
-    data = request.json or {}
-    config = current_app.config
+    """
+    Handles the 'getsupply' POST request and returns the supply data based on the request data.
 
-    sort_column = None if data.get('search') or data.get('skulist') else ['initialreckittsoh', 'RB SKU']
-    sort_order = None if data.get('search') or data.get('skulist') else [True, True]
+    Returns:
+        list: A list of dictionaries containing the supply data.
 
-    filters = ['Business Unit', 'Location','Brand']
-    filename = "ui_data/reckittsupply.csv"
+    Raises:
+        ValueError: If the request data is missing or invalid.
+        Exception: If any other error occurs.
+    """
+    try:
+        # get request from UI
+        data = request.json or {}
+        config = current_app.config
 
-    rbsupply = get_data(data, config, filename, filters, sort_column, sort_order)
+        sort_column = None if data.get('search') or data.get('skulist') else ['initialreckittsoh', 'RB SKU']
+        sort_order = None if data.get('search') or data.get('skulist') else [True, True]
 
-    return json.loads(rbsupply.to_json(orient='records'))
+        filters = ['Business Unit', 'Location','Brand']
+        filename = "ui_data/reckittsupply.csv"
+
+        rbsupply = get_data(data, config, filename, filters, sort_column, sort_order)
+        return json.loads(rbsupply.to_json(orient='records'))
+    except Exception as e:
+        return jsonify(status="Error", message=f"{str(e)}"), 500
 
 
 # *****************************************************
@@ -99,17 +141,30 @@ def getsupply():
 # *****************************************************
 @uiflow_blueprint.route("/getdemand", methods=['POST'])
 def getdemand():
-    data = request.json or {}
-    config = current_app.config
+    """
+    Handles the 'getdemand' POST request and returns the demand data based on the request data.
 
-    sort_column = None if data.get('search') or data.get('skulist') else ['initialreckittsoh', 'RB SKU']
-    sort_order = None if data.get('search') or data.get('skulist') else [True, True]
+    Returns:
+        list: A list of dictionaries containing the demand data.
 
-    filters = ['Business Unit', 'Location','Brand']
-    filename = "ui_data/reckittdemand.csv"
+    Raises:
+        ValueError: If the request data is missing or invalid.
+        Exception: If any other error occurs.
+    """
+    try:
+        data = request.json or {}
+        config = current_app.config
 
-    rbdemand = get_data(data, config, filename, filters, sort_column, sort_order)
-    return json.loads(rbdemand.to_json(orient='records'))
+        sort_column = None if data.get('search') or data.get('skulist') else ['initialreckittsoh', 'RB SKU']
+        sort_order = None if data.get('search') or data.get('skulist') else [True, True]
+
+        filters = ['Business Unit', 'Location','Brand']
+        filename = "ui_data/reckittdemand.csv"
+
+        rbdemand = get_data(data, config, filename, filters, sort_column, sort_order)
+        return json.loads(rbdemand.to_json(orient='records'))
+    except Exception as e:
+        return jsonify(status="Error", message=f"{str(e)}"), 500
 
 
 # *****************************************************
@@ -117,17 +172,30 @@ def getdemand():
 # *****************************************************
 @uiflow_blueprint.route("/getsohateow", methods=['POST'])
 def getsohateow():
-    data = request.json or {}
-    config = current_app.config
+    """
+    Handles the 'getsohateow' POST request and returns the SOH at EOW data based on the request data.
 
-    sort_column = None if data.get('search') or data.get('skulist') else ['initialreckittsoh', 'RB SKU']
-    sort_order = None if data.get('search') or data.get('skulist') else [True, True]
+    Returns:
+        list: A list of dictionaries containing the SOH at EOW data.
 
-    filters = ['Business Unit', 'Location','Brand']
-    filename = "ui_data/reckittexpecsohateow.csv"
+    Raises:
+        ValueError: If the request data is missing or invalid.
+        Exception: If any other error occurs.
+    """
+    try:
+        data = request.json or {}
+        config = current_app.config
 
-    rbexpsoheow = get_data(data, config, filename, filters, sort_column, sort_order)
-    return json.loads(rbexpsoheow.to_json(orient='records'))
+        sort_column = None if data.get('search') or data.get('skulist') else ['initialreckittsoh', 'RB SKU']
+        sort_order = None if data.get('search') or data.get('skulist') else [True, True]
+
+        filters = ['Business Unit', 'Location','Brand']
+        filename = "ui_data/reckittexpecsohateow.csv"
+
+        rbexpsoheow = get_data(data, config, filename, filters, sort_column, sort_order)
+        return json.loads(rbexpsoheow.to_json(orient='records'))
+    except Exception as e:
+        return jsonify(status="Error", message=f"{str(e)}"), 500
 
 
 # *****************************************************
@@ -135,17 +203,30 @@ def getsohateow():
 # *****************************************************
 @uiflow_blueprint.route("/getwocateow", methods=['POST'])
 def getwocateow():
-    data = request.json or {}
-    config = current_app.config
+    """
+    Handles the 'getwocateow' POST request and returns the WOC at EOW data based on the request data.
 
-    sort_column = None if data.get('search') or data.get('skulist') else ['initialreckittsoh', 'RB SKU']
-    sort_order = None if data.get('search') or data.get('skulist') else [True, True]
+    Returns:
+        list: A list of dictionaries containing the WOC at EOW data.
 
-    filters = ['Business Unit', 'Location','Brand']
-    filename = "ui_data/wocateow.csv"
+    Raises:
+        ValueError: If the request data is missing or invalid.
+        Exception: If any other error occurs.
+    """
+    try:
+        data = request.json or {}
+        config = current_app.config
 
-    rbwoceow = get_data(data, config, filename, filters, sort_column, sort_order)
-    return json.loads(rbwoceow.to_json(orient='records'))
+        sort_column = None if data.get('search') or data.get('skulist') else ['initialreckittsoh', 'RB SKU']
+        sort_order = None if data.get('search') or data.get('skulist') else [True, True]
+
+        filters = ['Business Unit', 'Location','Brand']
+        filename = "ui_data/wocateow.csv"
+
+        rbwoceow = get_data(data, config, filename, filters, sort_column, sort_order)
+        return json.loads(rbwoceow.to_json(orient='records'))
+    except Exception as e:
+        return jsonify(status="Error", message=f"{str(e)}"), 500
 
 
 # *****************************************************
@@ -153,17 +234,30 @@ def getwocateow():
 # *****************************************************
 @uiflow_blueprint.route("/getcaseshortages", methods=['POST'])
 def getcaseshortages():
-    data = request.json or {}
-    config = current_app.config
+    """
+    Handles the 'getcaseshortages' POST request and returns the case shortages data based on the request data.
 
-    sort_column = None if data.get('search') or data.get('skulist') else ['initialreckittsoh', 'RB SKU']
-    sort_order = None if data.get('search') or data.get('skulist') else [True, True]
+    Returns:
+        list: A list of dictionaries containing the case shortages data.
 
-    filters = ['Business Unit', 'Location','Brand']
-    filename = "ui_data/caseshortages.csv"
+    Raises:
+        ValueError: If the request data is missing or invalid.
+        Exception: If any other error occurs.
+    """
+    try:
+        data = request.json or {}
+        config = current_app.config
 
-    rbcaseshort = get_data(data, config, filename, filters, sort_column, sort_order)
-    return json.loads(rbcaseshort.to_json(orient='records'))
+        sort_column = None if data.get('search') or data.get('skulist') else ['initialreckittsoh', 'RB SKU']
+        sort_order = None if data.get('search') or data.get('skulist') else [True, True]
+
+        filters = ['Business Unit', 'Location','Brand']
+        filename = "ui_data/caseshortages.csv"
+
+        rbcaseshort = get_data(data, config, filename, filters, sort_column, sort_order)
+        return json.loads(rbcaseshort.to_json(orient='records'))
+    except Exception as e:
+        return jsonify(status="Error", message=f"{str(e)}"), 500
 
 
 # *****************************************************
@@ -171,17 +265,30 @@ def getcaseshortages():
 # *****************************************************
 @uiflow_blueprint.route("/getexpectedservice", methods=['POST'])
 def getexpectedservice():
-    data = request.json or {}
-    config = current_app.config
+    """
+    Handles the 'getexpectedservice' POST request and returns the expected service level data based on the request data.
 
-    sort_column = None if data.get('search') or data.get('skulist') else ['initialreckittsoh', 'RB SKU']
-    sort_order = None if data.get('search') or data.get('skulist') else [True, True]
+    Returns:
+        list: A list of dictionaries containing the expected service level data.
 
-    filters = ['Business Unit', 'Location','Brand']
-    filename = "ui_data/expectedservice.csv"
+    Raises:
+        ValueError: If the request data is missing or invalid.
+        Exception: If any other error occurs.
+    """
+    try:
+        data = request.json or {}
+        config = current_app.config
 
-    rbexpsl = get_data(data, config, filename, filters, sort_column, sort_order)
-    return json.loads(rbexpsl.to_json(orient='records'))
+        sort_column = None if data.get('search') or data.get('skulist') else ['initialreckittsoh', 'RB SKU']
+        sort_order = None if data.get('search') or data.get('skulist') else [True, True]
+
+        filters = ['Business Unit', 'Location','Brand']
+        filename = "ui_data/expectedservice.csv"
+
+        rbexpsl = get_data(data, config, filename, filters, sort_column, sort_order)
+        return json.loads(rbexpsl.to_json(orient='records'))
+    except Exception as e:
+        return jsonify(status="Error", message=f"{str(e)}"), 500
 
 
 # *******************************************************************
@@ -189,27 +296,39 @@ def getexpectedservice():
 # *******************************************************************
 @uiflow_blueprint.route("/getstockposition", methods=['POST'])
 def get_stock_position():
+    """
+    Handles the 'getstockposition' POST request and returns the stock position data based on the request data.
 
-    # get request from UI
-    data = request.json or {}
-    config = current_app.config
+    Returns:
+        list: A list of dictionaries containing the stock position data.
 
-    sort_column = ['InitialSOHWeek', 'RB SKU'] if data['customer'] else ['initialreckittsoh', 'RB SKU']
-    sort_order = [True,True]
+    Raises:
+        ValueError: If the request data is missing or invalid.
+        Exception: If any other error occurs.
+    """
+    try:
+        # get request from UI
+        data = request.json or {}
+        config = current_app.config
 
-    sort_column = None if data.get('search') or data.get('skulist') else sort_column
-    sort_order = None if data.get('search') or data.get('skulist') else sort_order
+        sort_column = ['InitialSOHWeek', 'RB SKU'] if data['customer'] else ['initialreckittsoh', 'RB SKU']
+        sort_order = [True,True]
 
-    filters = ['Business Unit', 'Location', 'Customer', 'Brand'] if data['customer'] else ['Business Unit', 'Location', 'Brand']
-    filename = "ui_data/customerstockposition.csv" if data['customer'] else "ui_data/stockposition.csv"
+        sort_column = None if data.get('search') or data.get('skulist') else sort_column
+        sort_order = None if data.get('search') or data.get('skulist') else sort_order
 
-    stock_pos = get_data(data, config, filename, filters, sort_column, sort_order)
+        filters = ['Business Unit', 'Location', 'Customer', 'Brand'] if data['customer'] else ['Business Unit', 'Location', 'Brand']
+        filename = "ui_data/customerstockposition.csv" if data['customer'] else "ui_data/stockposition.csv"
 
-    for col in stock_pos.columns:
-        if "CW" in col:
-            stock_pos[col] = stock_pos[col].apply(lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x)
+        stock_pos = get_data(data, config, filename, filters, sort_column, sort_order)
 
-    return json.loads(stock_pos.to_json(orient='records'))
+        for col in stock_pos.columns:
+            if "CW" in col:
+                stock_pos[col] = stock_pos[col].apply(lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x)
+
+        return json.loads(stock_pos.to_json(orient='records'))
+    except Exception as e:
+        return jsonify(status="Error", message=f"{str(e)}"), 500
 
 
 # *****************************************************
@@ -217,18 +336,30 @@ def get_stock_position():
 # *****************************************************
 @uiflow_blueprint.route("/getcustepos", methods=['POST'])
 def getcustepos():
-    data = request.json or {}
-    config = current_app.config
+    """
+    Handles the 'getcustepos' POST request and returns the customer historical EPOS data based on the request data.
 
-    sort_column = None if data.get('search') or data.get('skulist') else ['InitialSOHWeek', 'RB SKU']
-    sort_order = None if data.get('search') or data.get('skulist') else [True,True]
+    Returns:
+        list: A list of dictionaries containing the customer historical EPOS data.
 
-    filters = ['Business Unit', 'Location', 'Customer','Brand']
-    filename = "ui_data/customerhistoricepos.csv"
+    Raises:
+        ValueError: If the request data is missing or invalid.
+        Exception: If any other error occurs.
+    """
+    try:
+        data = request.json or {}
+        config = current_app.config
 
-    custhepos = get_data(data, config, filename, filters, sort_column, sort_order)
+        sort_column = None if data.get('search') or data.get('skulist') else ['InitialSOHWeek', 'RB SKU']
+        sort_order = None if data.get('search') or data.get('skulist') else [True,True]
 
-    return json.loads(custhepos.to_json(orient='records'))
+        filters = ['Business Unit', 'Location', 'Customer','Brand']
+        filename = "ui_data/customerhistoricepos.csv"
+
+        custhepos = get_data(data, config, filename, filters, sort_column, sort_order)
+        return json.loads(custhepos.to_json(orient='records'))
+    except Exception as e:
+        return jsonify(status="Error", message=f"{str(e)}"), 500
 
 
 # *****************************************************
@@ -236,18 +367,30 @@ def getcustepos():
 # *****************************************************
 @uiflow_blueprint.route("/getcustsellout", methods=['POST'])
 def getcustsellout():
-    data = request.json or {}
-    config = current_app.config
+    """
+    Handles the 'getcustsellout' POST request and returns the customer sellout data based on the request data.
 
-    sort_column = None if data.get('search') or data.get('skulist') else ['InitialSOHWeek', 'RB SKU']
-    sort_order = None if data.get('search') or data.get('skulist') else [True,True]
+    Returns:
+        list: A list of dictionaries containing the customer sellout data.
 
-    filters = ['Business Unit', 'Location', 'Customer','Brand']
-    filename = "ui_data/customersellout.csv"
+    Raises:
+        ValueError: If the request data is missing or invalid.
+        Exception: If any other error occurs.
+    """
+    try:
+        data = request.json or {}
+        config = current_app.config
 
-    custsellout = get_data(data, config, filename, filters, sort_column, sort_order)
+        sort_column = None if data.get('search') or data.get('skulist') else ['InitialSOHWeek', 'RB SKU']
+        sort_order = None if data.get('search') or data.get('skulist') else [True,True]
 
-    return json.loads(custsellout.to_json(orient='records'))
+        filters = ['Business Unit', 'Location', 'Customer','Brand']
+        filename = "ui_data/customersellout.csv"
+
+        custsellout = get_data(data, config, filename, filters, sort_column, sort_order)
+        return json.loads(custsellout.to_json(orient='records'))
+    except Exception as e:
+        return jsonify(status="Error", message=f"{str(e)}"), 500
 
 
 # *****************************************************
@@ -255,18 +398,30 @@ def getcustsellout():
 # *****************************************************
 @uiflow_blueprint.route("/getcustsellin", methods=['POST'])
 def getcustsellin():
-    data = request.json or {}
-    config = current_app.config
+    """
+    Handles the 'getcustsellin' POST request and returns the customer sell-in data based on the request data.
 
-    sort_column = None if data.get('search') or data.get('skulist') else ['InitialSOHWeek', 'RB SKU']
-    sort_order = None if data.get('search') or data.get('skulist') else [True,True]
+    Returns:
+        list: A list of dictionaries containing the customer sell-in data.
 
-    filters = ['Business Unit', 'Location', 'Customer','Brand']
-    filename = "ui_data/customersellin.csv"
+    Raises:
+        ValueError: If the request data is missing or invalid.
+        Exception: If any other error occurs.
+    """
+    try:
+        data = request.json or {}
+        config = current_app.config
 
-    custsellin = get_data(data, config, filename, filters, sort_column, sort_order)
+        sort_column = None if data.get('search') or data.get('skulist') else ['InitialSOHWeek', 'RB SKU']
+        sort_order = None if data.get('search') or data.get('skulist') else [True,True]
 
-    return json.loads(custsellin.to_json(orient='records'))
+        filters = ['Business Unit', 'Location', 'Customer','Brand']
+        filename = "ui_data/customersellin.csv"
+
+        custsellin = get_data(data, config, filename, filters, sort_column, sort_order)
+        return json.loads(custsellin.to_json(orient='records'))
+    except Exception as e:
+        return jsonify(status="Error", message=f"{str(e)}"), 500
 
 
 # ****************************************************************************
@@ -274,111 +429,164 @@ def getcustsellin():
 # ****************************************************************************
 @uiflow_blueprint.route("/getcampaigns", methods=['POST'])
 def get_campaigns():
-    data = request.json or {}
-    config = current_app.config
+    """
+    Handles the 'getcampaigns' POST request and returns the campaigns by SKU data based on the request data.
 
-    filters = ['Business Unit', 'Location', 'Customer','Brand']
-    filename = "ui_data/reckittcampaignsbysku.csv"
+    Returns:
+        list: A list of dictionaries containing the campaigns by SKU data.
 
-    campaignsbysku = get_data(data, config, filename, filters)
+    Raises:
+        ValueError: If the request data is missing or invalid.
+        Exception: If any other error occurs.
+    """
+    try:
+        data = request.json or {}
+        config = current_app.config
 
-    return json.loads(campaignsbysku.to_json(orient='records'))
+        filters = ['Business Unit', 'Location', 'Customer','Brand']
+        filename = "ui_data/reckittcampaignsbysku.csv"
+
+        campaignsbysku = get_data(data, config, filename, filters)
+        return json.loads(campaignsbysku.to_json(orient='records'))
+    except Exception as e:
+        return jsonify(status="Error", message=f"{str(e)}"), 500
+
 
 # *******************************
 #       Sell In Graph API
 # *******************************
 @uiflow_blueprint.route("/getsellingraph", methods=['POST'])
 def get_selling_graph():
-    data = request.json or {}
-    filename = "ui_data/customersellin.csv"
-    sellin = AzureBlobReader().read_csvfile(filename)
-    for filter_key in ['Business Unit','Location','Brand', 'Customer']:
-        if filter_key in data and filter_key != "":
-            sellin = sellin[sellin[filter_key]==data[filter_key]]
-    sellin = replace_missing_values(sellin)
-    return json.loads(sellin.to_json(orient='records'))
+    """
+    Handles the 'getsellingraph' POST request and returns the selling graph data based on the request data.
+
+    Returns:
+        list: A list of dictionaries containing the selling graph data.
+
+    Raises:
+        ValueError: If the request data is missing or invalid.
+        Exception: If any other error occurs.
+    """
+    try:
+        data = request.json or {}
+        filename = "ui_data/customersellin.csv"
+        sellin = AzureBlobReader().read_csvfile(filename)
+        for filter_key in ['Business Unit','Location','Brand', 'Customer']:
+            if filter_key in data and filter_key != "":
+                sellin = sellin[sellin[filter_key]==data[filter_key]]
+        sellin = replace_missing_values(sellin)
+        return json.loads(sellin.to_json(orient='records'))
+    except Exception as e:
+        return jsonify(status="Error", message=f"{str(e)}"), 500
+
 
 # *******************************
 #       Sell Out Graph API
 # *******************************
 @uiflow_blueprint.route("/getselloutgraph", methods=['POST'])
 def get_sellout_graph():
-    data = request.json or {}
-    filename = "ui_data/customersellout.csv"
-    sellout = AzureBlobReader().read_csvfile(filename)
-    for filter_key in ['Business Unit','Location','Brand', 'Customer']:
-        if filter_key in data and filter_key != "":
-            sellout = sellout[sellout[filter_key]==data[filter_key]]
-    sellout = replace_missing_values(sellout)
-    return json.loads(sellout.to_json(orient='records'))
+    """
+    Handles the 'getselloutgraph' POST request and returns the sellout graph data based on the request data.
+
+    Returns:
+        list: A list of dictionaries containing the sellout graph data.
+
+    Raises:
+        ValueError: If the request data is missing or invalid.
+        Exception: If any other error occurs.
+    """
+    try:
+        data = request.json or {}
+        filename = "ui_data/customersellout.csv"
+        sellout = AzureBlobReader().read_csvfile(filename)
+        for filter_key in ['Business Unit','Location','Brand', 'Customer']:
+            if filter_key in data and filter_key != "":
+                sellout = sellout[sellout[filter_key]==data[filter_key]]
+        sellout = replace_missing_values(sellout)
+        return json.loads(sellout.to_json(orient='records'))
+    except Exception as e:
+        return jsonify(status="Error", message=f"{str(e)}"), 500
 
 # *******************************
 #       Export Data API
 # *******************************
 @uiflow_blueprint.route("/exportdata", methods=['POST'])
 def exportdata():
-    df = pd.DataFrame()
-    data = request.json or {}
-    config = current_app.config
-    customer = data['customer']
-    tabname = data['tabname']
-    filters = ['Business Unit', 'Location', 'Customer', 'Brand'] if customer else ['Business Unit', 'Location', 'Brand']
-    if not data:
-        return jsonify(status="error", message="Missing required parameters"), 500
-    else:
-        if tabname == "overview":
-            filename = "ui_data/customeroverviewdatarepo.csv" if customer else "ui_data/reckittoverviewdatarepo.csv"
-            sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'Cust SOH', 'Cust WOC', 'Promo', 'RAG CW', 'RAG CW+1', 'RAG CW+2', 'RAG CW+3'] if customer else ['Business Unit', 'Location', 'Customer', 'Segment', 'RB SKU', 'PPG', 'Description', 'Brand', 'Reckitt SoH', 'Reckitt WOC', 'Sell In Forecast', 'Active Promo', 'ExpSL CW', 'ExpSL CW+1', 'ExpSL CW+2', 'ExpSL CW+3', 'Exp NR CW', 'Exp NR CW+1', 'Exp NR CW+2',
-       'Exp NR CW+3', 'RAG CW', 'RAG CW+1', 'RAG CW+2', 'RAG CW+3', 'Reason Code', 'Comment RootCause', ]
+    """
+    Handles the 'exportdata' POST request and returns the data for the specified tab based on the request data.
 
-        elif tabname == "supply":
-            filename = "ui_data/reckittsupply.csv"
-            sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'initialreckittsoh', 'Supply CW', 'Supply CW+1', 'Supply CW+2', 'Supply CW+3', 'Supply CW+4', 'Supply CW+5', 'Supply CW+6', 'Supply CW+7', 'Supply CW+8', 'Supply CW+9']
+    Returns:
+        list: A list of dictionaries containing the data for the specified tab.
 
-        elif tabname == "demand":
-            filename = "ui_data/reckittdemand.csv"
-            sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'initialreckittsoh', 'Demand CW', 'Demand CW+1', 'Demand CW+2', 'Demand CW+3', 'Demand CW+4', 'Demand CW+5', 'Demand CW+6', 'Demand CW+7', 'Demand CW+8', 'Demand CW+9']
-
-        elif tabname == "sohateow":
-            filename = "ui_data/reckittexpecsohateow.csv"
-            sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'initialreckittsoh', 'EXPSOHATEOW CW', 'EXPSOHATEOW CW+1', 'EXPSOHATEOW CW+2', 'EXPSOHATEOW CW+3']
-
-        elif tabname == "wocateow":
-            filename = "ui_data/wocateow.csv"
-            sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'initialreckittsoh', 'WOC CW', 'WOC CW+1', 'WOC CW+2', 'WOC CW+3', 'WOC CW+4', 'WOC CW+5', 'WOC CW+6', 'WOC CW+7', 'WOC CW+8', 'WOC CW+9']
-
-        elif tabname == "caseshortages":
-            filename = "ui_data/caseshortages.csv"
-            sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'initialreckittsoh', 'CaseShort CW', 'CaseShort CW+1', 'CaseShort CW+2', 'CaseShort CW+3', 'CaseShort CW+4', 'CaseShort CW+5', 'CaseShort CW+6', 'CaseShort CW+7', 'CaseShort CW+8', 'CaseShort CW+9']
-
-        elif tabname == "expectedservice":
-            filename = "ui_data/expectedservice.csv"
-            sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'initialreckittsoh', 'ExpSL CW', 'ExpSL CW+1', 'ExpSL CW+2', 'ExpSL CW+3', 'ExpSL CW+4', 'ExpSL CW+5', 'ExpSL CW+6', 'ExpSL CW+7', 'ExpSL CW+8', 'ExpSL CW+9']
-
-        elif tabname == "stockposition":
-            filename = "ui_data/customerstockposition.csv" if customer else "ui_data/stockposition.csv"
-            sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'InitialSOHWeek', 'CW', 'CW+1', 'CW+2', 'CW+3', 'CW+4', 'CW+5', 'CW+6', 'CW+7', 'CW+8', 'CW+9'] if customer else ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'initialreckittsoh', 'StkPos CW', 'StkPos CW+1', 'StkPos CW+2', 'StkPos CW+3']
-
-        elif tabname == "historicepos":
-            filename = "ui_data/customerhistoricepos.csv"
-            sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'InitialSOHWeek', 'CW-9', 'CW-8', 'CW-7', 'CW-6', 'CW-5', 'CW-4', 'CW-3', 'CW-2', 'CW-1', 'CW']
-
-        elif tabname == "sellout":
-            filename = "ui_data/customersellout.csv"
-            sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'InitialSOHWeek', 'sola CW', 'sola CW+1', 'sola CW+2', 'sola CW+3', 'sola CW+4', 'sola CW+5', 'sola CW+6', 'sola CW+7', 'sola CW+8', 'sola CW+9']
-
-        elif tabname == "sellin":
-            filename = "ui_data/customersellin.csv"
-            sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'InitialSOHWeek', 'kinaxis CW+1', 'kinaxis CW+4', 'kinaxis CW+8', 'kinaxis CW+12', 'sola CW', 'sola CW+1', 'sola CW+2', 'sola CW+3', 'sola CW+4', 'sola CW+5', 'sola CW+6', 'sola CW+7', 'sola CW+8', 'sola CW+9']
-
+    Raises:
+        ValueError: If the request data is missing or invalid.
+        Exception: If any other error occurs.
+    """
+    try:
+        df = pd.DataFrame()
+        data = request.json or {}
+        config = current_app.config
+        customer = data['customer']
+        tabname = data['tabname']
+        filters = ['Business Unit', 'Location', 'Customer', 'Brand'] if customer else ['Business Unit', 'Location', 'Brand']
+        if not data:
+            return jsonify(status="error", message="Missing required parameters"), 500
         else:
-            return jsonify(status="error", message="Invalid tabname"), 500
+            if tabname == "overview":
+                filename = "ui_data/customeroverviewdatarepo.csv" if customer else "ui_data/reckittoverviewdatarepo.csv"
+                sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'Cust SOH', 'Cust WOC', 'Promo', 'RAG CW', 'RAG CW+1', 'RAG CW+2', 'RAG CW+3'] if customer else ['Business Unit', 'Location', 'Customer', 'Segment', 'RB SKU', 'PPG', 'Description', 'Brand', 'Reckitt SoH', 'Reckitt WOC', 'Sell In Forecast', 'Active Promo', 'ExpSL CW', 'ExpSL CW+1', 'ExpSL CW+2', 'ExpSL CW+3', 'Exp NR CW', 'Exp NR CW+1', 'Exp NR CW+2',
+        'Exp NR CW+3', 'RAG CW', 'RAG CW+1', 'RAG CW+2', 'RAG CW+3', 'Reason Code', 'Comment RootCause', ]
 
-    df = get_data(data, config, filename, filters)
-    # df = df[sortedcols] # type: ignore
+            elif tabname == "supply":
+                filename = "ui_data/reckittsupply.csv"
+                sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'initialreckittsoh', 'Supply CW', 'Supply CW+1', 'Supply CW+2', 'Supply CW+3', 'Supply CW+4', 'Supply CW+5', 'Supply CW+6', 'Supply CW+7', 'Supply CW+8', 'Supply CW+9']
 
-    # split_result = df.to_dict(orient='split')
-    # json_result = json.dumps({"index": split_result["index"], "columns": split_result["columns"], "data": split_result["data"]})
+            elif tabname == "demand":
+                filename = "ui_data/reckittdemand.csv"
+                sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'initialreckittsoh', 'Demand CW', 'Demand CW+1', 'Demand CW+2', 'Demand CW+3', 'Demand CW+4', 'Demand CW+5', 'Demand CW+6', 'Demand CW+7', 'Demand CW+8', 'Demand CW+9']
 
-    # return json_result
-    return json.loads(df.to_json(orient='records'))
+            elif tabname == "sohateow":
+                filename = "ui_data/reckittexpecsohateow.csv"
+                sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'initialreckittsoh', 'EXPSOHATEOW CW', 'EXPSOHATEOW CW+1', 'EXPSOHATEOW CW+2', 'EXPSOHATEOW CW+3']
+
+            elif tabname == "wocateow":
+                filename = "ui_data/wocateow.csv"
+                sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'initialreckittsoh', 'WOC CW', 'WOC CW+1', 'WOC CW+2', 'WOC CW+3', 'WOC CW+4', 'WOC CW+5', 'WOC CW+6', 'WOC CW+7', 'WOC CW+8', 'WOC CW+9']
+
+            elif tabname == "caseshortages":
+                filename = "ui_data/caseshortages.csv"
+                sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'initialreckittsoh', 'CaseShort CW', 'CaseShort CW+1', 'CaseShort CW+2', 'CaseShort CW+3', 'CaseShort CW+4', 'CaseShort CW+5', 'CaseShort CW+6', 'CaseShort CW+7', 'CaseShort CW+8', 'CaseShort CW+9']
+
+            elif tabname == "expectedservice":
+                filename = "ui_data/expectedservice.csv"
+                sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'initialreckittsoh', 'ExpSL CW', 'ExpSL CW+1', 'ExpSL CW+2', 'ExpSL CW+3', 'ExpSL CW+4', 'ExpSL CW+5', 'ExpSL CW+6', 'ExpSL CW+7', 'ExpSL CW+8', 'ExpSL CW+9']
+
+            elif tabname == "stockposition":
+                filename = "ui_data/customerstockposition.csv" if customer else "ui_data/stockposition.csv"
+                sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'InitialSOHWeek', 'CW', 'CW+1', 'CW+2', 'CW+3', 'CW+4', 'CW+5', 'CW+6', 'CW+7', 'CW+8', 'CW+9'] if customer else ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'initialreckittsoh', 'StkPos CW', 'StkPos CW+1', 'StkPos CW+2', 'StkPos CW+3']
+
+            elif tabname == "historicepos":
+                filename = "ui_data/customerhistoricepos.csv"
+                sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'InitialSOHWeek', 'CW-9', 'CW-8', 'CW-7', 'CW-6', 'CW-5', 'CW-4', 'CW-3', 'CW-2', 'CW-1', 'CW']
+
+            elif tabname == "sellout":
+                filename = "ui_data/customersellout.csv"
+                sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'InitialSOHWeek', 'sola CW', 'sola CW+1', 'sola CW+2', 'sola CW+3', 'sola CW+4', 'sola CW+5', 'sola CW+6', 'sola CW+7', 'sola CW+8', 'sola CW+9']
+
+            elif tabname == "sellin":
+                filename = "ui_data/customersellin.csv"
+                sortedcols = ['Business Unit', 'Location', 'Customer', 'RB SKU', 'PPG', 'Description', 'Brand', 'InitialSOHWeek', 'kinaxis CW+1', 'kinaxis CW+4', 'kinaxis CW+8', 'kinaxis CW+12', 'sola CW', 'sola CW+1', 'sola CW+2', 'sola CW+3', 'sola CW+4', 'sola CW+5', 'sola CW+6', 'sola CW+7', 'sola CW+8', 'sola CW+9']
+
+            else:
+                return jsonify(status="error", message="Invalid tabname"), 500
+
+        df = get_data(data, config, filename, filters)
+        # df = df[sortedcols] # type: ignore
+
+        # split_result = df.to_dict(orient='split')
+        # json_result = json.dumps({"index": split_result["index"], "columns": split_result["columns"], "data": split_result["data"]})
+
+        # return json_result
+        return json.loads(df.to_json(orient='records'))
+    except Exception as e:
+        return jsonify(status="Error", message=f"{str(e)}"), 500
