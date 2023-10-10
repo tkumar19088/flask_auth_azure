@@ -342,6 +342,7 @@ const StockReallocationData = ({ onData }) => {
         ? filteredSamechannelResults
         : referenceData;
       setData(filteredData);
+      // referenceSuggData.testallocation = "";
       setsuggectedRecord(referenceSuggData);
     };
 
@@ -747,7 +748,7 @@ const StockReallocationData = ({ onData }) => {
 
   const handleResetResults = () => {
     serReset(true);
-    setsuggectedRecord(referenceSuggData);
+    // setsuggectedRecord(referenceSuggData);
     const filteredData = isWithinChannel
       ? filteredSamechannelResults
       : referenceData;

@@ -69,7 +69,7 @@ const BasicModal = () => {
   };
   return (
     <div>
-      <Typography onClick={handleOpen}>OOS Risk Detection</Typography>
+      <Typography onClick={handleOpen} fontSize="13px">OOS Risk Detection</Typography>
       <Modal
         open={open}
         onClose={handleClose}

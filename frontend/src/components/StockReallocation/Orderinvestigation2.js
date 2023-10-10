@@ -78,13 +78,15 @@ const Orderinvestigation2 = ({ constraints }) => {
   };
 
   const handleExpectedserviceUp = (e) => {
-    setexpectedservice(e.target.value);
+    const value = Math.min(parseInt(e.target.value), 100);
+    setexpectedservice(value);
   };
   const handleExpectedserviceDown = () => {
     setexpectedservice(expectedservice - 1);
   };
   const handlePCTDeviationUp = (e) => {
-    setpctdeviation(e.target.value);
+    const value = Math.min(parseInt(e.target.value), 100);
+    setpctdeviation(value);
   };
   const handlePCTDeviationDown = () => {
     setpctdeviation(pctdeviation - 1);
