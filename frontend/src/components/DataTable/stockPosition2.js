@@ -953,7 +953,7 @@ const StockPosition2 = ({ onData }) => {
                   // padding: "0px",
                 }}
               >
-                CW <br /> ({startingWeek})
+                Stock Position CW <br /> ({startingWeek})
               </TableCell>
               <TableCell
                 sx={{
@@ -963,7 +963,7 @@ const StockPosition2 = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+1 <br /> ({startingWeek + 1})
+                Stock Position CW+1 <br /> ({startingWeek + 1})
               </TableCell>
               <TableCell
                 sx={{
@@ -973,7 +973,7 @@ const StockPosition2 = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+2 <br /> ({startingWeek + 2})
+                Stock Position CW+2 <br /> ({startingWeek + 2})
               </TableCell>
               <TableCell
                 sx={{
@@ -983,7 +983,7 @@ const StockPosition2 = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+3 <br /> ({startingWeek + 3})
+                Stock Position CW+3 <br /> ({startingWeek + 3})
               </TableCell>
               <TableCell
                 sx={{
@@ -993,7 +993,7 @@ const StockPosition2 = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+4 <br /> ({startingWeek + 4})
+                Stock Position CW+4 <br /> ({startingWeek + 4})
               </TableCell>
               <TableCell
                 sx={{
@@ -1003,7 +1003,7 @@ const StockPosition2 = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+5 <br /> ({startingWeek + 5})
+                Stock Position CW+5 <br /> ({startingWeek + 5})
               </TableCell>
               <TableCell
                 sx={{
@@ -1013,7 +1013,7 @@ const StockPosition2 = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+6 <br /> ({startingWeek + 6})
+                Stock Position CW+6 <br /> ({startingWeek + 6})
               </TableCell>
               <TableCell
                 sx={{
@@ -1023,7 +1023,7 @@ const StockPosition2 = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+7 <br /> ({startingWeek + 7})
+                Stock Position CW+7 <br /> ({startingWeek + 7})
               </TableCell>
               <TableCell
                 sx={{
@@ -1033,7 +1033,7 @@ const StockPosition2 = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+8 <br /> ({startingWeek + 8})
+                Stock Position CW+8 <br /> ({startingWeek + 8})
               </TableCell>
               <TableCell
                 sx={{
@@ -1043,7 +1043,7 @@ const StockPosition2 = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+9 <br /> ({startingWeek + 9})
+                Stock Position CW+9 <br /> ({startingWeek + 9})
               </TableCell>
             </TableRow>
           </TableHead>

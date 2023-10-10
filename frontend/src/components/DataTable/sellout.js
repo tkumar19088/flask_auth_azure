@@ -946,7 +946,7 @@ const Sellout = ({ onData }) => {
                   // padding: "0px",
                 }}
               >
-                CW <br /> ({startingWeek})
+                Sell-Out CW <br /> ({startingWeek})
               </TableCell>
               <TableCell
                 sx={{
@@ -956,7 +956,7 @@ const Sellout = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+1 <br /> ({startingWeek + 1})
+                Sell-Out CW+1 <br /> ({startingWeek + 1})
               </TableCell>
               <TableCell
                 sx={{
@@ -966,7 +966,7 @@ const Sellout = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+2 <br /> ({startingWeek + 2})
+                Sell-Out CW+2 <br /> ({startingWeek + 2})
               </TableCell>
               <TableCell
                 sx={{
@@ -976,7 +976,7 @@ const Sellout = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+3 <br /> ({startingWeek + 3})
+                Sell-Out CW+3 <br /> ({startingWeek + 3})
               </TableCell>
               <TableCell
                 sx={{
@@ -986,7 +986,7 @@ const Sellout = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+4 <br /> ({startingWeek + 4})
+                Sell-Out CW+4 <br /> ({startingWeek + 4})
               </TableCell>
               <TableCell
                 sx={{
@@ -996,7 +996,7 @@ const Sellout = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+5 <br /> ({startingWeek + 5})
+                Sell-Out CW+5 <br /> ({startingWeek + 5})
               </TableCell>
               <TableCell
                 sx={{
@@ -1006,7 +1006,7 @@ const Sellout = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+6 <br /> ({startingWeek + 6})
+                Sell-Out CW+6 <br /> ({startingWeek + 6})
               </TableCell>
               <TableCell
                 sx={{
@@ -1016,7 +1016,7 @@ const Sellout = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+7 <br /> ({startingWeek + 7})
+                Sell-Out CW+7 <br /> ({startingWeek + 7})
               </TableCell>
               <TableCell
                 sx={{
@@ -1026,7 +1026,7 @@ const Sellout = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+8 <br /> ({startingWeek + 8})
+                Sell-Out CW+8 <br /> ({startingWeek + 8})
               </TableCell>
               <TableCell
                 sx={{
@@ -1036,7 +1036,7 @@ const Sellout = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+9 <br /> ({startingWeek + 9})
+                Sell-Out CW+9 <br /> ({startingWeek + 9})
               </TableCell>
             </TableRow>
           </TableHead>

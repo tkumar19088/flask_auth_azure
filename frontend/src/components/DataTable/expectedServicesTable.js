@@ -799,7 +799,7 @@ const ExpectedServices = ({ onData }) => {
                   // padding: "0px",
                 }}
               >
-                CW <br /> ({startingWeek})
+                Expected Service CW <br /> ({startingWeek})
               </TableCell>
               <TableCell
                 sx={{
@@ -819,7 +819,7 @@ const ExpectedServices = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+2 <br /> ({startingWeek + 2})
+                Expected Service CW+2 <br /> ({startingWeek + 2})
               </TableCell>
               <TableCell
                 sx={{
@@ -829,7 +829,7 @@ const ExpectedServices = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+3 <br /> ({startingWeek + 3})
+                Expected Service CW+3 <br /> ({startingWeek + 3})
               </TableCell>
               <TableCell
                 sx={{
@@ -839,7 +839,7 @@ const ExpectedServices = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+4 <br /> ({startingWeek + 4})
+                Expected Service CW+4 <br /> ({startingWeek + 4})
               </TableCell>
               <TableCell
                 sx={{
@@ -849,7 +849,7 @@ const ExpectedServices = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+5 <br /> ({startingWeek + 5})
+                Expected Service CW+5 <br /> ({startingWeek + 5})
               </TableCell>
               <TableCell
                 sx={{
@@ -859,7 +859,7 @@ const ExpectedServices = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+6 <br /> ({startingWeek + 6})
+                Expected Service CW+6 <br /> ({startingWeek + 6})
               </TableCell>
               <TableCell
                 sx={{
@@ -869,7 +869,7 @@ const ExpectedServices = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+7 <br /> ({startingWeek + 7})
+                Expected Service CW+7 <br /> ({startingWeek + 7})
               </TableCell>
               <TableCell
                 sx={{
@@ -879,7 +879,7 @@ const ExpectedServices = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+8 <br /> ({startingWeek + 8})
+                Expected Service CW+8 <br /> ({startingWeek + 8})
               </TableCell>
               <TableCell
                 sx={{
@@ -889,7 +889,7 @@ const ExpectedServices = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+9 <br /> ({startingWeek + 9})
+                Expected Service CW+9 <br /> ({startingWeek + 9})
               </TableCell>
             </TableRow>
           </TableHead>

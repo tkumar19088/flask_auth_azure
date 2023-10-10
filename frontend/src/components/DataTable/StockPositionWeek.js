@@ -809,7 +809,7 @@ const StockPositionWeek = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW</div>
+                <div>Expected SoH CW</div>
                 <div>({startingWeek})</div>
               </TableCell>
               <TableCell
@@ -820,7 +820,7 @@ const StockPositionWeek = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW+1</div>
+                <div>Expected SoH CW+1</div>
                 <div className="brack-number">({startingWeek + 1})</div>
               </TableCell>
               <TableCell
@@ -831,7 +831,7 @@ const StockPositionWeek = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW+2</div>
+                <div>Expected SoH CW+2</div>
                 <div className="brack-number">({startingWeek + 2})</div>
               </TableCell>
               <TableCell
@@ -842,7 +842,7 @@ const StockPositionWeek = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW+3</div>
+                <div>Expected SoH CW+3</div>
                 <div className="brack-number">({startingWeek + 3})</div>
               </TableCell>
             </TableRow>
