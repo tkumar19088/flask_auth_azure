@@ -313,6 +313,34 @@ const StockReallocationData = ({ onData }) => {
 
   const channel = "Pure Play";
 
+  const firstRecord = {
+    AvgYTDsellout: 100,
+    Brand: "Airwick",
+    Channel: "Pure Play",
+    Customer: "Amazon",
+    Location: "United Kingdom",
+    "RB SKU": "3247398",
+    "Sell out": 100,
+    "Supply to Reallocate": 0,
+    allocationconsumed: 1440,
+    cmuscore: 2.2,
+    currentallocation: 1519.5,
+    currentcustSOH: 6421.5,
+    "custsoh-current": 5002,
+    "custsoh-target": 8104,
+    "custwoc-current": 64.215,
+    "custwoc-target": 4,
+    expectedservicelevel: "75%",
+    idealallocationvalues: 0,
+    newallocation: 0,
+    openorders: 266,
+    remainingallocation: 79.5,
+    "sif-atf": 900,
+    "sif-reckitt": 2026,
+    stocksafetoreallocate: 0,
+    suggestedallocation: -1519.5,
+    sumofPOsinalloccycle: 1440,
+  };
   const filteredSamechannelResults = stockreallocationData.filter(
     (item) => item.Channel == channel
   );
@@ -342,12 +370,15 @@ const StockReallocationData = ({ onData }) => {
         ? filteredSamechannelResults
         : referenceData;
       setData(filteredData);
-      setsuggectedRecord(referenceSuggData);
+      setsuggectedRecord(firstRecord);
+
+      // referenceSuggData.testallocation = "";
+      // setsuggectedRecord({});
     };
 
     filterData();
     if (reset) {
-      setsuggectedRecord(referenceSuggData);
+      setsuggectedRecord(firstRecord);
     }
   }, [isWithinChannel, stockreallocationData, referenceData, reset]);
   const handleInputChange = (index, value) => {
@@ -464,7 +495,7 @@ const StockReallocationData = ({ onData }) => {
         setsuggectedRecord(suggectedRecord);
         // newInputValues[index] = value;
         // setInputValues((inputValues[index], ""));
-        handleInputChange(index, "");
+        // handleInputChange(index, "");
 
         return {
           ...item,
@@ -482,6 +513,11 @@ const StockReallocationData = ({ onData }) => {
       }
     });
     setData(updatedData);
+    const newInputValues = [...inputValues];
+    for (let i = 0; i < newInputValues.length; i++) {
+      newInputValues[i] = "";
+      setInputValues(newInputValues);
+    }
   };
 
   // const [data, setData] = useState([
@@ -747,13 +783,12 @@ const StockReallocationData = ({ onData }) => {
 
   const handleResetResults = () => {
     serReset(true);
-    setsuggectedRecord(referenceSuggData);
+    setsuggectedRecord(firstRecord);
     const filteredData = isWithinChannel
       ? filteredSamechannelResults
       : referenceData;
     setData(filteredData);
     const newInputValues = [...inputValues];
-    console.log(newInputValues);
     for (let i = 0; i < newInputValues.length; i++) {
       newInputValues[i] = "";
       setInputValues(newInputValues);

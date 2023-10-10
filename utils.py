@@ -444,6 +444,21 @@ class ReallocationOptimizer:
 # Run Optimization model
 # Return Constraints, Results and dataframe for alternate retailers
 def optimise_supply(df, MINIMUM_SERVICE_LEVEL=0.7, WOC_MIN_PCT=0, WOC_MAX_PCT=10):
+    """
+    Optimizes the supply allocation based on the given DataFrame and constraints.
+
+    Args:
+        df (pandas.DataFrame): The DataFrame containing the supply data.
+        MINIMUM_SERVICE_LEVEL (float, optional): The minimum service level. Defaults to 0.7.
+        WOC_MIN_PCT (float, optional): The minimum percentage of weeks of coverage. Defaults to 0.
+        WOC_MAX_PCT (float, optional): The maximum percentage of weeks of coverage. Defaults to 10.
+
+    Returns:
+        tuple: A tuple containing the constraints, status, and result DataFrame.
+
+    Raises:
+        ValueError: If the DataFrame is empty.
+    """
     optimizer = ReallocationOptimizer(df)
     constraints, status, result_df = optimizer.optimize(MINIMUM_SERVICE_LEVEL, WOC_MIN_PCT, WOC_MAX_PCT)
     return constraints, status, result_df
@@ -461,12 +476,40 @@ def optimise_supply(df, MINIMUM_SERVICE_LEVEL=0.7, WOC_MIN_PCT=0, WOC_MAX_PCT=10
 #
 # *********************************************************************************************
 class SKUManager:
+    """
+    A class that manages SKUs based on global and request-specific configurations.
+
+    Args:
+        global_config (dict): A dictionary containing global user and filter configurations.
+        request_data (dict): A dictionary containing request-specific data.
+
+    Attributes:
+        global_user (dict): A dictionary containing global user configurations.
+        global_filters (dict): A dictionary containing global filter configurations.
+        request_data (dict): A dictionary containing request-specific data.
+
+    Methods:
+        get_alternative_skus(): Returns a list of alternative SKUs based on the reference SKU and customer.
+        _error_response(message): Returns a JSON response with an error message and status code 500.
+    """
     def __init__(self, global_config, request_data):
         self.global_user = global_config.get('global_user', {})
         self.global_filters = global_config.get('global_filters', {})
         self.request_data = request_data
 
     def get_alternative_skus(self):
+        """
+        Returns a list of alternative SKUs based on the reference SKU and customer.
+
+        Returns:
+            list: A list of dictionaries containing the alternative SKUs and their scores.
+
+        Raises:
+            ValueError: If the request data is missing the 'rbsku' key.
+            ValueError: If no customer is selected.
+            ValueError: If no SKU is selected.
+            ValueError: If no alternative SKUs are found.
+        """
         if not self.request_data:
             return self._error_response("Missing required parameters: RB SKU & Customer!")
         else:
@@ -479,7 +522,7 @@ class SKUManager:
             df_price = AzureBlobReader().read_csvfile("ui_data/df_price.csv")
             alternative_skus_calculator = AlternativeSKUsCalculator(df_price, sku_r, customer)
             alternative_skus = alternative_skus_calculator.calculate()
-            alternative_skus = alternative_skus[alternative_skus['score_final'] > .50]
+            alternative_skus = alternative_skus[alternative_skus['score_final'] > .50] #type: ignore
             altskus_sorted = alternative_skus.sort_values(by='score_final', ascending=False).head(3)
             altskus_sorted['skuid'] = altskus_sorted.index
             bensfile = AzureBlobReader().read_csvfile("ui_data/alternative_sku_template.csv") #ben's file
@@ -497,16 +540,42 @@ class SKUManager:
             return self._error_response(str(e))
 
     def _error_response(self, message):
+        """
+        Returns a JSON response with an error message and status code 500.
+
+        Args:
+            message (str): The error message to include in the response.
+
+        Returns:
+            tuple: A tuple containing the JSON response and the status code 500.
+        """
         return jsonify(status="error", message=message), 500
 
 
 class AlternativeSKUsCalculator:
+    """
+    A class that calculates alternative SKUs based on a reference SKU.
+
+    Args:
+        df (pandas.DataFrame): The DataFrame containing the SKU data.
+        sku_r (str): The reference SKU to compare against.
+        ret (str): The retailer to filter by.
+
+    Methods:
+        calculate(): Calculates the alternative SKUs based on the reference SKU.
+    """
     def __init__(self, df, sku_r, ret):
         self.df = df
         self.sku_r = sku_r
         self.ret = ret
 
     def calculate(self):
+        """
+        Calculates the alternative SKUs based on the reference SKU.
+
+        Returns:
+            pandas.DataFrame: The DataFrame containing the alternative SKUs and their scores.
+        """
         try:
             brand = self.df.loc[self.df['sku'] == self.sku_r, 'brand'].values[0]
             segment = self.df.loc[self.df['sku'] == self.sku_r, 'segment'].values[0]
@@ -567,7 +636,22 @@ class AlternativeSKUsCalculator:
 #
 # **************************************************************************
 def replace_missing_values(df):
-    missing_values = [None, 'null', 'NULL', 'Null', 'Nan', 'nan', 'NaN', ' ', '', 'None; None', np.nan]
+    """
+    Replaces missing values in a pandas DataFrame with a dash ('-') and applies formatting to certain columns.
+
+    :param df: The parameter `df` is a pandas DataFrame that contains the data with missing values that
+    need to be replaced
+
+    :return: the cleaned dataframe with missing values replaced and specific formatting applied to
+    certain columns.
+
+    Args:
+        df (pandas.DataFrame): The DataFrame to clean.
+
+    Returns:
+        pandas.DataFrame: The cleaned DataFrame.
+    """
+    missing_values = [None, 'null', 'NULL', 'Null', 'Nan', 'nan', 'NaN', ' ', '', 'None; None', np.nan, '0;None']
     cleaned_df = df.replace(missing_values, '-')
     # cleaned_df = cleaned_df.applymap(lambda x: round(x, 2) if isinstance(x, float) and x not in [0, 0.00] else x)
     df = cleaned_df.fillna('-')
@@ -588,7 +672,23 @@ def replace_missing_values(df):
     return df
 
 def get_data(data, config, filename, filters, sort_column= None, sort_order= None):
+    """
+    Reads a CSV file and returns a pandas DataFrame with optional filtering and sorting.
 
+    Args:
+        data (dict): A dictionary containing search and skulist parameters.
+        config (dict): A dictionary containing global_filters parameter.
+        filename (str): The name of the CSV file to read.
+        filters (list): A list of filter keys to apply to the DataFrame.
+        sort_column (list or str, optional): The name of the column or columns to sort by. Defaults to None.
+        sort_order (list or str, optional): The sort order ('asc' or 'desc'). Defaults to None.
+
+    Returns:
+        pandas.DataFrame: The filtered and sorted DataFrame.
+
+    Raises:
+        ValueError: If the data parameter is missing the 'RB SKU' key.
+    """
     if not data:
         raise ValueError("Missing required parameter: RB SKU!")
 

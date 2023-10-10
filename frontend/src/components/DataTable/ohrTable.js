@@ -1175,7 +1175,11 @@ const OhrTable = ({ onData }) => {
         Recent / Current / Upcoming Campaigns
       </Typography>
 
-      <TableContainer component={Paper} className="tablecell-header">
+      <TableContainer
+        component={Paper}
+        className="tablecell-header"
+        style={{ maxHeight: 425, width: "100%" }}
+      >
         <Table className="campaignsTable">
           <TableHead>
             <TableRow className="tablecell-inside">
@@ -1355,7 +1359,7 @@ const OhrTable = ({ onData }) => {
                     ? "green"
                     : pushAlternative
                     ? "#FF007F"
-                    : "#415A6C",
+                    : "red",
                 // backgroundColor: pushAlternative ? "#FF007F" : "#415A6C",
                 "&:hover": {
                   backgroundColor: "#FF007F",
@@ -1369,7 +1373,7 @@ const OhrTable = ({ onData }) => {
               onClick={handleReallocate}
               sx={{
                 backgroundColor:
-                  chooseData.rarbysku == "True" ? "green" : "#415A6C",
+                  chooseData.rarbysku == "True" ? "green" : "red",
                 "&:hover": {
                   backgroundColor: "#FF007F",
                 },
@@ -1613,6 +1617,7 @@ const OhrTable = ({ onData }) => {
                   padding: "0px",
                   textAlign: "center",
                   color: "#415A6C",
+                  width: "40px",
                 }}
               >
                 RB SKU
@@ -1701,7 +1706,7 @@ const OhrTable = ({ onData }) => {
                   // mt="3px"
                 >
                   <Typography className="table-h1-title" lineHeight="16px">
-                    Expected Gross Revenue
+                    Potential Loss in Revenue
                   </Typography>
                 </Box>
               </TableCell>
@@ -1712,20 +1717,17 @@ const OhrTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <Typography className="table-h1-title">RAG</Typography>
+                <Typography className="table-h1-title">RAG Status</Typography>
               </TableCell>
               <TableCell
                 rowSpan={2}
                 sx={{
                   backgroundColor: "#E5EBEF",
                   border: "1px solid #dcdcdc",
-                  padding: "0px",
+                  // padding: "0px",
                 }}
               >
-                <Typography className="table-h1-title">
-                  Reason <br />
-                  Code
-                </Typography>
+                <Typography className="table-h1-title">Reason Code</Typography>
               </TableCell>
               <TableCell
                 rowSpan={2}
@@ -1853,6 +1855,7 @@ const OhrTable = ({ onData }) => {
                   textAlign: "center",
                   color: "#415A6C",
                   backgroundColor: "#E5EBEF",
+                  padding: "0px",
                 }}
               >
                 CW
@@ -1864,6 +1867,7 @@ const OhrTable = ({ onData }) => {
                   color: "#415A6C",
                   backgroundColor: "#E5EBEF",
                   textAlign: "center",
+                  padding: "0px",
                 }}
               >
                 CW+1
@@ -1875,6 +1879,7 @@ const OhrTable = ({ onData }) => {
                   color: "#415A6C",
                   backgroundColor: "#E5EBEF",
                   textAlign: "center",
+                  padding: "0px",
                 }}
               >
                 CW+2
@@ -1886,6 +1891,7 @@ const OhrTable = ({ onData }) => {
                   color: "#415A6C",
                   backgroundColor: "#E5EBEF",
                   textAlign: "center",
+                  padding: "0px",
                 }}
               >
                 CW+3
@@ -1919,37 +1925,39 @@ const OhrTable = ({ onData }) => {
                     <TableCell
                       sx={{
                         display: "flex",
-                        // padding: "12px",
+                        paddingLeft: "20px",
                         border: "none",
                         alignItems: "center",
-                        fontSize: "13px",
+                        // fontSize: "13px",
                         justifyContent: "center",
+                        // backgroundColor: "red",
+                        // width: "55px",
                       }}
                     >
                       {expandedRow === item["RB SKU"] ? (
                         <RemoveIcon
-                          fontSize="medium"
+                          // fontSize="medium"
                           sx={{
                             color: "#415A6C",
                             cursor: "pointer",
-                            fontWeight: "800",
-                            // marginTop: "4px",
+                            // fontWeight: "800",
+                            marginTop: "-1px",
                             backgroundColor: "transparent",
                           }}
                         />
                       ) : (
                         <AddIcon
-                          fontSize="medium"
+                          // fontSize="small"
                           sx={{
                             color: "#415A6C",
                             cursor: "pointer",
-                            fontWeight: "800",
-                            marginTop: "-2px",
+                            // fontWeight: "800",
+                            marginTop: "-1px",
                             backgroundColor: "transparent",
                           }}
                         />
                       )}
-                      {item["RB SKU"]}
+                      <Typography fontSize="13px">{item["RB SKU"]}</Typography>
                     </TableCell>
                     <TableCell
                       sx={{
@@ -1963,10 +1971,10 @@ const OhrTable = ({ onData }) => {
                     </TableCell>
                     <TableCell
                       sx={{
-                        textAlign: "center",
+                        // textAlign: "center",
                         fontSize: "13px",
-                        padding: "0px",
-                        maxWidth: "240px", // Set the maximum width of the TableCell
+                        padding: "5px",
+                        maxWidth: "180px", // Set the maximum width of the TableCell
                         overflow: "hidden",
                         whiteSpace: "nowrap",
                         textOverflow: "ellipsis",
@@ -1993,17 +2001,19 @@ const OhrTable = ({ onData }) => {
                     <TableCell
                       style={{
                         textAlign: "center",
-                        // width: "40px",
+                        fontSize: "13px",
+                        width: "40px",
                         padding: "0px",
                       }}
                     >
-                      <Typography fontSize="13px">
-                        {item["Reckitt WOC"]}
-                      </Typography>
+                      {item["Reckitt WOC"]}
                     </TableCell>
                     <TableCell
-                      style={{ textAlign: "center" }}
-                      sx={{ textAlign: "center", padding: "0px" }}
+                      sx={{
+                        textAlign: "center",
+                        padding: "0px",
+                        width: "40px",
+                      }}
                     >
                       {item["Active Promo"]}
                     </TableCell>
@@ -2051,7 +2061,7 @@ const OhrTable = ({ onData }) => {
                       style={{
                         textAlign: "center",
                         // width: "20px",
-                        padding: "0px",
+                        padding: "7px",
                         fontSize: "13px",
                       }}
                     >
@@ -2061,7 +2071,7 @@ const OhrTable = ({ onData }) => {
                       style={{
                         textAlign: "center",
                         // width: "20px",
-                        padding: "0px",
+                        padding: "5px",
                         fontSize: "13px",
                       }}
                     >
@@ -2071,7 +2081,7 @@ const OhrTable = ({ onData }) => {
                       style={{
                         textAlign: "center",
                         // width: "20px",
-                        padding: "0px",
+                        padding: "5px",
                         fontSize: "13px",
                       }}
                     >
@@ -2081,7 +2091,7 @@ const OhrTable = ({ onData }) => {
                       style={{
                         textAlign: "center",
                         // width: "20px",
-                        padding: "0px",
+                        padding: "5px",
                         fontSize: "13px",
                       }}
                     >
@@ -2244,10 +2254,18 @@ const OhrTable = ({ onData }) => {
                       sx={{
                         textAlign: "center",
                         padding: "0px",
-                        width: "60px",
+                        width: "120px",
                       }}
                     >
-                      {item["Reason Code"]}
+                      <Typography mx="9px" fontSize="13px">
+                        <Tooltip title={item["Reason Code"]}>
+                          {" "}
+                          {/* Tooltip component with the full text */}
+                          {item["Reason Code"]
+                            ? truncateText(item["Reason Code"], 10)
+                            : "-"}
+                        </Tooltip>
+                      </Typography>
                     </TableCell>
                     <TableCell
                       sx={{
@@ -2264,7 +2282,7 @@ const OhrTable = ({ onData }) => {
                           {" "}
                           {/* Tooltip component with the full text */}
                           {item["Comment RootCause"]
-                            ? truncateText(item["Comment RootCause"], 10)
+                            ? truncateText(item["Comment RootCause"], 15)
                             : "-"}
                         </Tooltip>
                       </Typography>

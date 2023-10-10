@@ -347,7 +347,11 @@ const SupplyTable = ({ onData }) => {
         Recent / Current / Upcoming Campaigns
       </Typography>
 
-      <TableContainer component={Paper} className="tablecell-header">
+      <TableContainer
+        component={Paper}
+        className="tablecell-header"
+        style={{ maxHeight: 425, width: "100%" }}
+      >
         <Table className="campaignsTable">
           <TableHead>
             <TableRow className="tablecell-inside">
@@ -833,7 +837,7 @@ const SupplyTable = ({ onData }) => {
                   // padding: "0px",
                 }}
               >
-                CW <br /> ({startingWeek})
+                Supply CW <br /> ({startingWeek})
               </TableCell>
               <TableCell
                 sx={{
@@ -843,7 +847,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+1 <br /> ({startingWeek + 1})
+                Supply CW+1 <br /> ({startingWeek + 1})
               </TableCell>
               <TableCell
                 sx={{
@@ -853,7 +857,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+2 <br /> ({startingWeek + 2})
+                Supply CW+2 <br /> ({startingWeek + 2})
               </TableCell>
               <TableCell
                 sx={{
@@ -863,7 +867,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+3 <br /> ({startingWeek + 3})
+                Supply CW+3 <br /> ({startingWeek + 3})
               </TableCell>
               <TableCell
                 sx={{
@@ -873,7 +877,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+4 <br /> ({startingWeek + 4})
+                Supply CW+4 <br /> ({startingWeek + 4})
               </TableCell>
               <TableCell
                 sx={{
@@ -883,7 +887,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+5 <br /> ({startingWeek + 5})
+                Supply CW+5 <br /> ({startingWeek + 5})
               </TableCell>
               <TableCell
                 sx={{
@@ -893,7 +897,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+6 <br /> ({startingWeek + 6})
+                Supply CW+6 <br /> ({startingWeek + 6})
               </TableCell>
               <TableCell
                 sx={{
@@ -903,7 +907,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+7 <br /> ({startingWeek + 7})
+                Supply CW+7 <br /> ({startingWeek + 7})
               </TableCell>
               <TableCell
                 sx={{
@@ -913,7 +917,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+8 <br /> ({startingWeek + 8})
+                Supply CW+8 <br /> ({startingWeek + 8})
               </TableCell>
               <TableCell
                 sx={{
@@ -923,7 +927,7 @@ const SupplyTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                CW+9 <br /> ({startingWeek + 9})
+                Supply CW+9 <br /> ({startingWeek + 9})
               </TableCell>
             </TableRow>
           </TableHead>

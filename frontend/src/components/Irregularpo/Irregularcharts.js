@@ -161,35 +161,25 @@ const Irregularcharts = () => {
             </Typography>
           </Box>
           <Stack direction="row" spacing={2} sx={{ marginBottom: "25px" }}>
-            <Grid item xs={2} className="kpi-box">
-              <Typography fontSize="13px">
-                Sell in forecast (S-OLA / Kinaxis)
-              </Typography>
-              <Typography color="green">1000 (800)</Typography>
-            </Grid>
-            <Grid item xs={2} className="kpi-box">
-              <Typography fontSize="13px">Sell out forecast</Typography>
+            <Grid item xs={3} className="kpi-box">
+              <Typography fontSize="13px">Sell-Out Forecast (CW)</Typography>
               <Typography color="green">1000</Typography>
             </Grid>
-            <Grid item xs={2} className="kpi-box">
-              <Typography fontSize="13px">Quantity ordered</Typography>
+            <Grid item xs={3} className="kpi-box">
+              <Typography fontSize="13px">Quantity Ordered</Typography>
               <Typography color="green">900</Typography>{" "}
             </Grid>
-            <Grid item xs={2} className="kpi-box">
-              <Typography fontSize="13px">Percentage discrepancy</Typography>
+            <Grid item xs={3} className="kpi-box">
+              <Typography fontSize="13px">
+                Percentage Discrepancy (S-OLA / Kinaxis)
+              </Typography>
               <Typography color="green">10%</Typography>
             </Grid>
-            <Grid item xs={2} className="kpi-box">
+            <Grid item xs={3} className="kpi-box">
               <Typography fontSize="13px">
-                Customer SoH (Current / target)
+                Customer SoH (Current / Target)
               </Typography>
               <Typography color="green">1000 (800)</Typography>
-            </Grid>
-            <Grid item xs={2} className="kpi-box">
-              <Typography fontSize="13px">
-                Customer WoC (Current / target)
-              </Typography>
-              <Typography color="green">3 (5)</Typography>{" "}
             </Grid>
           </Stack>
           <Box>

@@ -452,7 +452,11 @@ const OhrTable2 = ({ onData }) => {
         Recent / Current / Upcoming Campaigns
       </Typography>
 
-      <TableContainer component={Paper} className="tablecell-header">
+      <TableContainer
+        component={Paper}
+        className="tablecell-header"
+        style={{ maxHeight: 425, width: "100%" }}
+      >
         <Table className="campaignsTable">
           <TableHead>
             <TableRow className="tablecell-inside">
@@ -968,6 +972,19 @@ const OhrTable2 = ({ onData }) => {
               >
                 Promo
               </TableCell>
+              <TableCell
+                rowSpan={2}
+                sx={{
+                  backgroundColor: "#E5EBEF",
+                  border: "1px solid #dcdcdc",
+                  padding: "0px",
+                  lineHeight: "16px",
+                  textAlign: "center",
+                  color: "#415A6C",
+                }}
+              >
+                OLA
+              </TableCell>
 
               <TableCell
                 colSpan={4}
@@ -976,7 +993,7 @@ const OhrTable2 = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <Typography className="table-h1-title">RAG</Typography>
+                <Typography className="table-h1-title">RAG Status</Typography>
               </TableCell>
             </TableRow>
             <TableRow className="t-row">
@@ -1148,6 +1165,12 @@ const OhrTable2 = ({ onData }) => {
                       sx={{ textAlign: "center", padding: "0px" }}
                     >
                       {item.Promo}
+                    </TableCell>
+                    <TableCell
+                      style={{ textAlign: "center" }}
+                      sx={{ textAlign: "center", padding: "0px" }}
+                    >
+                      -
                     </TableCell>
 
                     <TableCell

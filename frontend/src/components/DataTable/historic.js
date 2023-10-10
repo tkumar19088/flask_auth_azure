@@ -445,7 +445,11 @@ const Historic = ({ onData }) => {
         Recent / Current / Upcoming Campaigns
       </Typography>
 
-      <TableContainer component={Paper} className="tablecell-header">
+      <TableContainer
+        component={Paper}
+        className="tablecell-header"
+        style={{ maxHeight: 425, width: "100%" }}
+      >
         <Table className="campaignsTable">
           <TableHead>
             <TableRow className="tablecell-inside">
@@ -942,7 +946,7 @@ const Historic = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW-9</div>
+                <div>Hist ePos CW-9</div>
                 <div>({startingWeek - 9})</div>
               </TableCell>
               <TableCell
@@ -953,7 +957,7 @@ const Historic = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW-8</div>
+                <div>Hist ePos CW-8</div>
                 <div className="brack-number">({startingWeek - 8})</div>
               </TableCell>
               <TableCell
@@ -964,7 +968,7 @@ const Historic = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW-7</div>
+                <div>Hist ePos CW-7</div>
                 <div className="brack-number">({startingWeek - 7})</div>
               </TableCell>
               <TableCell
@@ -975,7 +979,7 @@ const Historic = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW-6</div>
+                <div>Hist ePos CW-6</div>
                 <div className="brack-number">({startingWeek - 6})</div>
               </TableCell>
               <TableCell
@@ -986,7 +990,7 @@ const Historic = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW-5</div>
+                <div>Hist ePos CW-5</div>
                 <div className="brack-number">({startingWeek - 5})</div>
               </TableCell>
               <TableCell
@@ -997,7 +1001,7 @@ const Historic = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW-4</div>
+                <div>Hist ePos CW-4</div>
                 <div className="brack-number">({startingWeek - 4})</div>
               </TableCell>
               <TableCell
@@ -1008,7 +1012,7 @@ const Historic = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW-3</div>
+                <div>Hist ePos CW-3</div>
                 <div className="brack-number">({startingWeek - 3})</div>
               </TableCell>
               <TableCell
@@ -1019,7 +1023,7 @@ const Historic = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW-2</div>
+                <div>Hist ePos CW-2</div>
                 <div className="brack-number">({startingWeek - 2})</div>
               </TableCell>
               <TableCell
@@ -1030,7 +1034,7 @@ const Historic = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW-1</div>
+                <div>Hist ePos CW-1</div>
                 <div className="brack-number">({startingWeek - 1})</div>
               </TableCell>
               <TableCell
@@ -1041,7 +1045,7 @@ const Historic = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                <div>CW</div>
+                <div>Hist ePos CW</div>
                 <div className="brack-number">({startingWeek})</div>{" "}
               </TableCell>
             </TableRow>

@@ -35,15 +35,29 @@ userdata_blueprint = Blueprint("userdata", __name__)
 #         return jsonify(status="Error", message="User not found!"), 500
 
 def getuserdata():
-    global_user = current_app.config['global_user']
-    global_filters = current_app.config['global_filters']
+    """
+    Retrieves user data and alerts based on the user's details and filters.
 
-    userDetails = {'Name': 'Pavan Kumar', 'Email': 'pavan.kumar@artefact.com', 'Business Unit': ['Hygiene', 'Health'], 'Location': ['United Kingdom'], 'Customer': ['Asda', 'Amazon'], 'Brand': ['Airwick', 'Gaviscon'], 'Role': 'Customer Service'}
-    if userDetails:
-        filters = ['Business Unit', 'Customer', 'Location', 'Brand']
-        global_user.update({f: userDetails[f] for f in filters if f in userDetails}) # type: ignore
-        current_app.config['global_user'] = global_user
-        alertsdata = AlertsManager(global_filters, global_user).get_alerts()
-        return {"user":userDetails, "alerts":alertsdata}
-    else:
-        return jsonify(status="Error", message="User not found!"), 500
+    Returns:
+        dict: A dictionary with two keys: "user" and "alerts". The value of the "user" key is the userDetails dictionary, 
+        and the value of the "alerts" key is the result of calling the `get_alerts()` method of the `AlertsManager` class 
+        with the `global_filters` and `global_user` variables as arguments.
+
+    Raises:
+        Exception: If any error occurs.
+    """
+    try:
+        global_user = current_app.config['global_user']
+        global_filters = current_app.config['global_filters']
+
+        userDetails = {'Name': 'Pavan Kumar', 'Email': 'pavan.kumar@artefact.com', 'Business Unit': ['Hygiene', 'Health'], 'Location': ['United Kingdom'], 'Customer': ['Asda', 'Amazon'], 'Brand': ['Airwick', 'Gaviscon'], 'Role': 'Customer Service'}
+        if userDetails:
+            filters = ['Business Unit', 'Customer', 'Location', 'Brand']
+            global_user.update({f: userDetails[f] for f in filters if f in userDetails}) # type: ignore
+            current_app.config['global_user'] = global_user
+            alertsdata = AlertsManager(global_filters, global_user).get_alerts()
+            return {"user":userDetails, "alerts":alertsdata}
+        else:
+            return jsonify(status="Error", message="User not found!"), 500
+    except Exception as e:
+        return jsonify(status="Error", message=str(e)), 500

@@ -19,6 +19,12 @@ app_blueprint = Blueprint("app", __name__)
 @app_blueprint.route("/")
 @cross_origin()
 def index():
+    """
+    Renders the index page if the user is logged in, otherwise redirects to the login page.
+
+    Returns:
+        flask.Response: The rendered template or a redirect response.
+    """
     # if "user" in session:
     #     return render_template("index.html")
     # else:

@@ -20,6 +20,17 @@ mitigation_blueprint = Blueprint("mitigation", __name__)
 # ****************************************************************
 @mitigation_blueprint.route("/choosescenario", methods=['POST'])
 def choose_scenario():
+    """
+    Handles the 'choosescenario' POST request.
+
+    Returns:
+        flask.Response: A JSON response containing the True/False results of the 'pushaltskus' and 'rarbysku' scenarios.
+
+    Raises:
+        ValueError: If the request data is missing the 'rbsku' key.
+        ValueError: If no customer is selected.
+        Exception: If any other error occurs.
+    """
     global_filters = current_app.config.get('global_filters', {})
     resp_scen = {}
     try:
@@ -51,6 +62,19 @@ def choose_scenario():
 # ******************************************************************************
 @mitigation_blueprint.route("/getalternativeskus", methods=['POST'])
 def getalternativeskus():
+    """
+    Handles the 'getalternativeskus' POST request.
+
+    Returns:
+        flask.Response: A JSON response containing the alternative SKUs and their scores.
+
+    Raises:
+        ValueError: If the request data is missing the 'rbsku' key.
+        ValueError: If no customer is selected.
+        ValueError: If no SKU is selected.
+        ValueError: If no alternative SKUs are found.
+        Exception: If any other error occurs.
+    """
     sku_manager = SKUManager(current_app.config, request.json)
     try:
         altskus = sku_manager.get_alternative_skus()
@@ -83,6 +107,8 @@ def getrarbysku():
         # reallocationdata = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
         # ovalldata = AzureBlobReader().read_csvfile("ui_data/reckittoverviewdatarepo.csv")
         # rardf = pd.merge(ovalldata, reallocationdata, on=['RB SKU', 'Customer'], how='inner')
+
+        # constraints_values, reallocstatus, realloc_df = optimise_supply(rardf, data['rbsku'])
 
         rardf = rardf[rardf['RB SKU'] == data['rbsku']]
         staticrow = rardf[rardf['Customer'] == global_filters['Customer']]
