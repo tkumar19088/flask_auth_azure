@@ -613,7 +613,6 @@ const initialState = {
       stocksafetoreallocate: 0,
       suggestedallocation: -1519.5,
       sumofPOsinalloccycle: 1440,
-      testReallocation: "",
     },
   },
   filteredOHRdata: [],
