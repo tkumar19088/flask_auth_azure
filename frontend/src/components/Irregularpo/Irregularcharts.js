@@ -163,31 +163,31 @@ const Irregularcharts = () => {
           <Stack direction="row" spacing={2} sx={{ marginBottom: "25px" }}>
             <Grid item xs={2} className="kpi-box">
               <Typography fontSize="13px">
-                Sell in forecast (S-OLA / Kinaxis)
+                Sell-In forecast (S-OLA / Kinaxis)
               </Typography>
               <Typography color="green">1000 (800)</Typography>
             </Grid>
             <Grid item xs={2} className="kpi-box">
-              <Typography fontSize="13px">Sell out forecast</Typography>
+              <Typography fontSize="13px">Sell-Out Forecast</Typography>
               <Typography color="green">1000</Typography>
             </Grid>
             <Grid item xs={2} className="kpi-box">
-              <Typography fontSize="13px">Quantity ordered</Typography>
+              <Typography fontSize="13px">Quantity Ordered</Typography>
               <Typography color="green">900</Typography>{" "}
             </Grid>
             <Grid item xs={2} className="kpi-box">
-              <Typography fontSize="13px">Percentage discrepancy</Typography>
+              <Typography fontSize="13px">Percentage Discrepancy</Typography>
               <Typography color="green">10%</Typography>
             </Grid>
             <Grid item xs={2} className="kpi-box">
               <Typography fontSize="13px">
-                Customer SoH (Current / target)
+                Customer SoH (Current / Target)
               </Typography>
               <Typography color="green">1000 (800)</Typography>
             </Grid>
             <Grid item xs={2} className="kpi-box">
               <Typography fontSize="13px">
-                Customer WoC (Current / target)
+                Customer WoC (Current / Target)
               </Typography>
               <Typography color="green">3 (5)</Typography>{" "}
             </Grid>
