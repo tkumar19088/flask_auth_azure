@@ -11,6 +11,7 @@ import HistoricalData from "./components/RetailerNegotation/HistoricalData";
 import Printscreen from "./components/Printscreen/Printscreen";
 import Irregularcharts from "./components/Irregularpo/Irregularcharts";
 import Overview from "./components/OverviewHighRisk/Overview";
+import StartingPage from "./components/Start/StartingPage";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/irregularcharts" element={<Irregularcharts />} />
           <Route path="/historicaldata" element={<HistoricalData />} />
           <Route path="/print" element={<Printscreen />} />
+          <Route path="/startingpage" element={<StartingPage />} />
         </Routes>
       </div>
     </Router>

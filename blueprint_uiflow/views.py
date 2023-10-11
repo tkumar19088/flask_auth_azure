@@ -5,14 +5,11 @@ from flask import (
     jsonify
 )
 import json
-import numpy as np
-from collections import OrderedDict
 import pandas as pd
 from utils import AzureBlobReader, AlertsManager, replace_missing_values, get_data
 from dotenv import load_dotenv
 load_dotenv()
 
-import datetime as dt
 
 uiflow_blueprint = Blueprint("uiflow", __name__)
 
@@ -85,12 +82,15 @@ def get_overview():
         config = current_app.config
 
         sort_column = 'Cust WOC' if data['customer'] else ['Reckitt WOC', 'Exp NR CW', 'RB SKU']
-        sort_order = True if data['customer'] else  [False, True, True]
+        sort_order = True if data['customer'] else  [True, False, True]
 
         filters = ['Business Unit', 'Location', 'Customer', 'Brand'] if data['customer'] else ['Business Unit', 'Location', 'Brand']
         filename = "ui_data/customeroverviewdatarepo.csv" if data['customer'] else "ui_data/reckittoverviewdatarepo.csv"
 
         ohrsorted = get_data(data, config, filename, filters, sort_column, sort_order)
+
+        if not data['customer']:
+            ohrsorted['Comment RootCause'] = ohrsorted['Comment RootCause'].str.replace('; None', '')
 
         # replacing RAG values with 0/1/2
         columns_to_replace = ['RAG CW', 'RAG CW+1', 'RAG CW+2', 'RAG CW+3']

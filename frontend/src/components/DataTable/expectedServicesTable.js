@@ -891,6 +891,16 @@ const ExpectedServices = ({ onData }) => {
               >
                 Expected Service CW+9 <br /> ({startingWeek + 9})
               </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                  backgroundColor: "#E5EBEF ",
+                  color: "#415A6C",
+                  border: "1px solid #dcdcdc",
+                }}
+              >
+                Comments
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -993,6 +1003,9 @@ const ExpectedServices = ({ onData }) => {
                   </TableCell>
                   <TableCell sx={{ textAlign: "center", padding: "0px" }}>
                     {item["ExpSL CW+9"]}
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                    -
                   </TableCell>
                 </TableRow>
                 {expandedRow === item["RB SKU"] && iscampaigns && (
