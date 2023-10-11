@@ -993,7 +993,11 @@ const SupplyTable = ({ onData }) => {
                       {" "}
                       <div className="alignment">{item.PPG}</div>
                     </TableCell>
-                    <TableCell>{item.Description}</TableCell>
+                    <TableCell>
+                      <Tooltip title={item.Description}>
+                        {truncateText(item.Description, 30)}
+                      </Tooltip>
+                    </TableCell>
                     <TableCell>
                       <div className="alignment">{item.Brand}</div>
                     </TableCell>

@@ -26,6 +26,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import Badge from "@mui/material/Badge";
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
+import Tooltip from "@mui/material/Tooltip";
 
 const StockPosition2 = ({ onData }) => {
   const navigate = useNavigate();
@@ -1109,7 +1110,11 @@ const StockPosition2 = ({ onData }) => {
                     <div className="alignment">{item.PPG}</div>
                   </TableCell>
                   <TableCell>
-                    <div>{truncateText(item.Description, 10)}</div>
+                    <div>
+                      <Tooltip title={item.Description}>
+                        {truncateText(item.Description, 10)}
+                      </Tooltip>
+                    </div>
                   </TableCell>
                   <TableCell>
                     {" "}

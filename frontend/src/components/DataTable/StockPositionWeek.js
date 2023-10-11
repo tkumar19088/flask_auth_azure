@@ -35,6 +35,7 @@ const StockPositionWeek = ({ onData }) => {
   const handleBack = () => {
     navigate(-1);
   };
+
   const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
   const [expandedRow, setExpandedRow] = useState(null);
   const [pushAlternative, setpushAlternative] = useState(false);
