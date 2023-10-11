@@ -314,32 +314,32 @@ const StockReallocationData = ({ onData }) => {
   const channel = "Pure Play";
 
   const firstRecord = {
-    AvgYTDsellout: 100,
+    AvgYTDsellout: 387,
     Brand: "Airwick",
     Channel: "Pure Play",
     Customer: "Amazon",
     Location: "United Kingdom",
     "RB SKU": "3247398",
-    "Sell out": 100,
+    "Sell out": 387,
     "Supply to Reallocate": 0,
-    allocationconsumed: 1440,
+    allocationconsumed: 26,
     cmuscore: 2.2,
-    currentallocation: 1519.5,
-    currentcustSOH: 6421.5,
-    "custsoh-current": 5002,
-    "custsoh-target": 8104,
-    "custwoc-current": 64.215,
+    currentallocation: 310,
+    currentcustSOH: 259,
+    "custsoh-current": 182,
+    "custsoh-target": 1546,
+    "custwoc-current": 0.5,
     "custwoc-target": 4,
     expectedservicelevel: "75%",
-    idealallocationvalues: 0,
+    idealallocationvalues: 379,
     newallocation: 0,
-    openorders: 266,
-    remainingallocation: 79.5,
-    "sif-atf": 900,
+    openorders: 23,
+    remainingallocation: 285,
+    "sif-atf": 414,
     "sif-reckitt": 2026,
     stocksafetoreallocate: 0,
-    suggestedallocation: -1519.5,
-    sumofPOsinalloccycle: 1440,
+    suggestedallocation: 69,
+    sumofPOsinalloccycle: 26,
   };
   const filteredSamechannelResults = stockreallocationData.filter(
     (item) => item.Channel == channel
@@ -393,7 +393,7 @@ const StockReallocationData = ({ onData }) => {
   const [isUpdating, setIsUpdating] = useState(false);
 
   const handleUpdateResults = () => {
-    console.log(inputValues);
+    // console.log(inputValues);
     var testallocation = 0;
     const updatedData = data.map((item, index) => {
       if (inputValues[index] !== "") {
@@ -408,18 +408,20 @@ const StockReallocationData = ({ onData }) => {
         const aloocated_value =
           proposedallocation == 0 ? currentallocation : proposedallocation;
         const expectedservice = Math.min(
-          aloocated_value /
+          (aloocated_value /
             Math.max(
               item["sif-atf"],
               item.sumofPOsinalloccycle + item.openorders
-            ),
-          2
+            )) *
+            100,
+          100
         );
-        const expectedservicelevel = parseFloat(expectedservice.toFixed(2));
+        const expectedservicelevel =
+          parseFloat(expectedservice.toFixed(2)) + "%";
         const updatedCustomerSOH = Math.max(
           item.currentcustSOH +
             item.allocationconsumed +
-            Math.min(remainingallocation, item.openorders) -
+            remainingallocation -
             item["Sell out"],
           0
         );
@@ -437,8 +439,11 @@ const StockReallocationData = ({ onData }) => {
           item.idealallocationvalues - aloocated_value;
 
         //Static row data update//
+        testallocation += Math.abs(inputValues[index]);
+        suggectedRecord.testReallocation = testallocation;
+
         suggectedRecord.newallocation =
-          suggectedRecord.currentallocation - parseInt(inputValues[index]);
+          suggectedRecord.currentallocation + suggectedRecord.testReallocation;
         //calculate new allocated final value
         const newallocation_val =
           suggectedRecord.newallocation == 0
@@ -449,25 +454,22 @@ const StockReallocationData = ({ onData }) => {
           newallocation_val - suggectedRecord.allocationconsumed;
 
         const suggexpectedservice = Math.min(
-          newallocation_val /
+          (newallocation_val /
             Math.max(
               suggectedRecord["sif-atf"],
               suggectedRecord.sumofPOsinalloccycle + suggectedRecord.openorders
-            ),
-          2
+            )) *
+            100,
+          100
         );
 
-        suggectedRecord.expectedservicelevel = parseFloat(
-          suggexpectedservice.toFixed(2)
-        );
+        suggectedRecord.expectedservicelevel =
+          parseFloat(suggexpectedservice.toFixed(2)) + "%";
 
         suggectedRecord["custsoh-current"] = Math.max(
           suggectedRecord.currentcustSOH +
             suggectedRecord.allocationconsumed +
-            Math.min(
-              suggectedRecord.remainingallocation,
-              suggectedRecord.openorders
-            ) -
+            suggectedRecord.remainingallocation -
             suggectedRecord["Sell out"],
           0
         );
@@ -478,20 +480,18 @@ const StockReallocationData = ({ onData }) => {
           suggupdatedCustomer.toFixed(2)
         );
 
-        suggectedRecord.stocksafetoreallocate = Math.max(
-          suggectedRecord.remainingallocation -
-            Math.max(
-              suggectedRecord["sif-atf"] - suggectedRecord.sumofPOsinalloccycle,
-              suggectedRecord.openorders
-            ),
-          0
-        );
+        // suggectedRecord.stocksafetoreallocate = Math.max(
+        //   suggectedRecord.remainingallocation -
+        //     Math.max(
+        //       suggectedRecord["sif-atf"] - suggectedRecord.sumofPOsinalloccycle,
+        //       suggectedRecord.openorders
+        //     ),
+        //   0
+        // );
 
         suggectedRecord.suggestedallocation =
           suggectedRecord.idealallocationvalues - newallocation_val;
 
-        testallocation += Math.abs(inputValues[index]);
-        suggectedRecord.testReallocation = testallocation;
         setsuggectedRecord(suggectedRecord);
         // newInputValues[index] = value;
         // setInputValues((inputValues[index], ""));
