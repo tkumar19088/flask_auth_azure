@@ -8,10 +8,11 @@ const StartingPage = () => {
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid xs={7} container>
-          <Grid xs={3}></Grid>
-          <Grid xs={3}></Grid>
-          <Grid xs={3}></Grid>
-          <Grid xs={3}></Grid>
+          <Grid xs={3} border="1px solid">1</Grid>
+          <Grid xs={3} border="1px solid">1</Grid>
+          <Grid xs={3} border="1px solid">1</Grid>
+          <Grid xs={3} border="1px solid">1</Grid>
+          
           <Grid xs={4}></Grid>
           <Grid xs={4}></Grid>
           <Grid xs={4}></Grid>

@@ -1247,13 +1247,6 @@ const StockReallocationData = ({ onData }) => {
                 {results[0].Value}
               </Typography>
             </Box>
-            <Box className="sa-box">
-              <Typography className="sa-h1"> {results[1].Name}</Typography>
-              <Typography color="#008824" className="sa-h2">
-                {" "}
-                {results[1].Value}
-              </Typography>
-            </Box>
           </Box>
           <Box
             display="flex"
