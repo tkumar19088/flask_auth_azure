@@ -651,7 +651,7 @@ def replace_missing_values(df):
     Returns:
         pandas.DataFrame: The cleaned DataFrame.
     """
-    missing_values = [None, 'null', 'NULL', 'Null', 'Nan', 'nan', 'NaN', ' ', '', 'None; None', np.nan, '0;None']
+    missing_values = [None, 'null', 'NULL', 'Null', 'Nan', 'nan', 'NaN', ' ', '', 'None; None', np.nan, '0; None']
     cleaned_df = df.replace(missing_values, '-')
     # cleaned_df = cleaned_df.applymap(lambda x: round(x, 2) if isinstance(x, float) and x not in [0, 0.00] else x)
     df = cleaned_df.fillna('-')
