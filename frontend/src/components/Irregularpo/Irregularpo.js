@@ -55,7 +55,7 @@ const Irregularpo = () => {
     dispatch(updateloader(true));
     var data = { po_id: po_id, rbsku: rbsku };
     try {
-      const response = await fetch("http://localhost:5000/getirrposku", {
+      const response = await fetch("https://testingsmartola.azurewebsites.net/getirrposku", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -341,7 +341,7 @@ const Irregularpo = () => {
       dispatch(updateloader(true));
       var data = { po_id: rowId };
       try {
-        const response = await fetch("http://localhost:5000/getirrpodetails", {
+        const response = await fetch("https://testingsmartola.azurewebsites.net/getirrpodetails", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
