@@ -25,6 +25,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import Badge from "@mui/material/Badge";
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
+import Tooltip from "@mui/material/Tooltip";
 
 const Historic = ({ onData }) => {
   const navigate = useNavigate();
@@ -33,7 +34,12 @@ const Historic = ({ onData }) => {
   const handleBack = () => {
     navigate(-1);
   };
-
+  const truncateText = (text, maxLength) => {
+    if (text.length <= maxLength) {
+      return text;
+    }
+    return text.slice(0, maxLength) + "...";
+  };
   const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
   const [expandedRow, setExpandedRow] = useState(null);
   const [pushAlternative, setpushAlternative] = useState(false);
@@ -1064,7 +1070,6 @@ const Historic = ({ onData }) => {
             {data.map((item, index) => (
               <React.Fragment key={item["RB SKU"]}>
                 <TableRow
-                  onClick={() => handleRowClick(item["RB SKU"])}
                   key={item["RB SKU"]}
                   sx={{
                     backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
@@ -1072,6 +1077,7 @@ const Historic = ({ onData }) => {
                   }}
                 >
                   <TableCell
+                    onClick={() => handleRowClick(item["RB SKU"])}
                     sx={{
                       display: "flex",
                       // padding: "12px",
@@ -1112,7 +1118,11 @@ const Historic = ({ onData }) => {
                     <div className="alignment">{item.PPG}</div>
                   </TableCell>
                   <TableCell>
-                    <div>{item.Description}</div>
+                    <div>
+                      <Tooltip title={item.Description}>
+                        {truncateText(item.Description, 30)}
+                      </Tooltip>
+                    </div>
                   </TableCell>
                   <TableCell>
                     {" "}

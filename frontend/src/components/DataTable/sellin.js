@@ -25,6 +25,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import Badge from "@mui/material/Badge";
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
+import Tooltip from "@mui/material/Tooltip";
 
 const Sellin = ({ onData }) => {
   const navigate = useNavigate();
@@ -33,7 +34,12 @@ const Sellin = ({ onData }) => {
   const handleBack = () => {
     navigate(-1);
   };
-
+  const truncateText = (text, maxLength) => {
+    if (text.length <= maxLength) {
+      return text;
+    }
+    return text.slice(0, maxLength) + "...";
+  };
   const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
   const [expandedRow, setExpandedRow] = useState(null);
   const [pushAlternative, setpushAlternative] = useState(false);
@@ -902,6 +908,7 @@ const Sellin = ({ onData }) => {
                   backgroundColor: "#E5EBEF ",
                   color: "#415A6C",
                   border: "1px solid #dcdcdc",
+                  // width: "120px",
                 }}
               >
                 Description
@@ -1053,7 +1060,6 @@ const Sellin = ({ onData }) => {
             {data.map((item, index) => (
               <React.Fragment key={item["RB SKU"]}>
                 <TableRow
-                  onClick={() => handleRowClick(item["RB SKU"])}
                   key={item["RB SKU"]}
                   sx={{
                     backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
@@ -1061,6 +1067,7 @@ const Sellin = ({ onData }) => {
                   }}
                 >
                   <TableCell
+                    onClick={() => handleRowClick(item["RB SKU"])}
                     sx={{
                       display: "flex",
                       // padding: "12px",
@@ -1102,7 +1109,12 @@ const Sellin = ({ onData }) => {
                     <div className="alignment">{item.PPG}</div>
                   </TableCell>
                   <TableCell sx={{ width: "50px" }}>
-                    <div>{item.Description}</div>
+                    <div>
+                      {" "}
+                      <Tooltip title={item.Description}>
+                        {truncateText(item.Description, 20)}
+                      </Tooltip>
+                    </div>
                   </TableCell>
                   <TableCell>
                     {" "}
@@ -1120,16 +1132,14 @@ const Sellin = ({ onData }) => {
                       textAlign: "center",
                     }}
                   >
-                    <Box display="flex" sx={{ width: "50px" }}>
-                      <Typography fontSize={15}>{item["sola CW"]}</Typography>
-                    </Box>
+                    <Typography fontSize={15}>{item["sola CW"]}</Typography>
                   </TableCell>{" "}
                   <TableCell
                     sx={{
                       textAlign: "center",
                     }}
                   >
-                    <Box display="flex" sx={{ width: "50px" }}>
+                    <Box display="flex" sx={{ width: "65px" }}>
                       <Typography fontSize={15}>{item["sola CW+1"]}</Typography>
                       <Typography
                         fontSize={13}
@@ -1148,25 +1158,21 @@ const Sellin = ({ onData }) => {
                       textAlign: "center",
                     }}
                   >
-                    <Box display="flex" sx={{ width: "50px" }}>
-                      <Typography fontSize={15}>{item["sola CW+2"]}</Typography>
-                    </Box>
-                  </TableCell>{" "}
+                    <Typography fontSize={15}>{item["sola CW+2"]}</Typography>
+                  </TableCell>
                   <TableCell
                     sx={{
                       textAlign: "center",
                     }}
                   >
-                    <Box display="flex" sx={{ width: "50px" }}>
-                      <Typography fontSize={15}>{item["sola CW+3"]}</Typography>
-                    </Box>
-                  </TableCell>{" "}
+                    <Typography fontSize={15}>{item["sola CW+3"]}</Typography>
+                  </TableCell>
                   <TableCell
                     sx={{
                       textAlign: "center",
                     }}
                   >
-                    <Box display="flex" sx={{ width: "50px" }}>
+                    <Box display="flex" sx={{ width: "65px" }}>
                       <Typography fontSize={15}>{item["sola CW+4"]}</Typography>
                       <Typography
                         fontSize={13}
@@ -1185,34 +1191,28 @@ const Sellin = ({ onData }) => {
                       textAlign: "center",
                     }}
                   >
-                    <Box display="flex" sx={{ width: "50px" }}>
-                      <Typography fontSize={15}>{item["sola CW+5"]}</Typography>
-                    </Box>
+                    <Typography fontSize={15}>{item["sola CW+5"]}</Typography>
                   </TableCell>{" "}
                   <TableCell
                     sx={{
                       textAlign: "center",
                     }}
                   >
-                    <Box display="flex" sx={{ width: "50px" }}>
-                      <Typography fontSize={15}>{item["sola CW+6"]}</Typography>
-                    </Box>
+                    <Typography fontSize={15}>{item["sola CW+6"]}</Typography>
                   </TableCell>{" "}
                   <TableCell
                     sx={{
                       textAlign: "center",
                     }}
                   >
-                    <Box display="flex" sx={{ width: "50px" }}>
-                      <Typography fontSize={15}>{item["sola CW+7"]}</Typography>
-                    </Box>
+                    <Typography fontSize={15}>{item["sola CW+7"]}</Typography>
                   </TableCell>{" "}
                   <TableCell
                     sx={{
                       textAlign: "center",
                     }}
                   >
-                    <Box display="flex" sx={{ width: "50px" }}>
+                    <Box display="flex" sx={{ width: "65px" }}>
                       <Typography fontSize={15}>{item["sola CW+8"]}</Typography>
                       <Typography
                         fontSize={13}
@@ -1231,9 +1231,7 @@ const Sellin = ({ onData }) => {
                       textAlign: "center",
                     }}
                   >
-                    <Box display="flex" sx={{ width: "50px" }}>
-                      <Typography fontSize={15}>{item["sola CW+9"]}</Typography>
-                    </Box>
+                    <Typography fontSize={15}>{item["sola CW+9"]}</Typography>
                   </TableCell>{" "}
                 </TableRow>
                 {expandedRow === item["RB SKU"] && iscampaigns && (

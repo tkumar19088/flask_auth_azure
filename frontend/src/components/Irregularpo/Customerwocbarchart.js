@@ -3,14 +3,24 @@ import { Chart as ChartJS } from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 import { useSelector } from "react-redux";
 
-const Customerwocbarchart = () => {
+const Customerwocbarchart = ({ data }) => {
   const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
-
+  console.log(data);
+  const details = data.length > 1 ? data[0] : data;
   const data1 = [
-    { name: "CW (" + startingWeek + ")", value: 90 },
-    { name: "CW+1 (" + (startingWeek + 1) + ")", value: 92 },
-    { name: "CW+2 (" + (startingWeek + 2) + ")", value: 95 },
-    { name: "CW+3 (" + (startingWeek + 3) + ")", value: 91 },
+    { name: "CW (" + startingWeek + ")", value: details["Cust WoC CW"] },
+    {
+      name: "CW+1 (" + (startingWeek + 1) + ")",
+      value: details["Cust WoC CW+1"],
+    },
+    {
+      name: "CW+2 (" + (startingWeek + 2) + ")",
+      value: details["Cust WoC CW+2"],
+    },
+    {
+      name: "CW+3 (" + (startingWeek + 3) + ")",
+      value: details["Cust WoC CW+3"],
+    },
   ];
 
   const labels = data1.map((data) => data.name);

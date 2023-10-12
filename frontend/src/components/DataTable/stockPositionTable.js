@@ -25,6 +25,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import Badge from "@mui/material/Badge";
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
+import Tooltip from "@mui/material/Tooltip";
 
 const StockPosition = ({ onData }) => {
   const navigate = useNavigate();
@@ -32,6 +33,12 @@ const StockPosition = ({ onData }) => {
 
   const handleBack = () => {
     navigate(-1);
+  };
+  const truncateText = (text, maxLength) => {
+    if (text.length <= maxLength) {
+      return text;
+    }
+    return text.slice(0, maxLength) + "...";
   };
   const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
   const [expandedRow, setExpandedRow] = useState(null);
@@ -836,7 +843,6 @@ const StockPosition = ({ onData }) => {
             {data.map((item, index) => (
               <React.Fragment key={item["RB SKU"]}>
                 <TableRow
-                  onClick={() => handleRowClick(item["RB SKU"])}
                   key={item["RB SKU"]}
                   sx={{
                     backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
@@ -844,6 +850,7 @@ const StockPosition = ({ onData }) => {
                   }}
                 >
                   <TableCell
+                    onClick={() => handleRowClick(item["RB SKU"])}
                     sx={{
                       display: "flex",
                       // padding: "12px",
@@ -883,7 +890,11 @@ const StockPosition = ({ onData }) => {
                     {" "}
                     <div className="alignment">{item.PPG}</div>
                   </TableCell>{" "}
-                  <TableCell>{item.Description}</TableCell>
+                  <TableCell>
+                    <Tooltip title={item.Description}>
+                      {truncateText(item.Description, 30)}
+                    </Tooltip>
+                  </TableCell>
                   <TableCell>
                     {" "}
                     <div className="alignment">{item.Brand}</div>

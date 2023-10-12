@@ -102,66 +102,56 @@ def getrarbysku():
         if not global_filters.get('Customer'):
             raise ValueError("No customer selected!")
 
-        rardf = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
+        reallocationdata = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
+        minsl, wocmin, wocmax, status, rardf = optimise_supply(reallocationdata, data['rbsku'], 0.95, 3, 8)
 
-        # reallocationdata = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
-        # ovalldata = AzureBlobReader().read_csvfile("ui_data/reckittoverviewdatarepo.csv")
-        # rardf = pd.merge(ovalldata, reallocationdata, on=['RB SKU', 'Customer'], how='inner')
-
-        # constraints_values, reallocstatus, realloc_df = optimise_supply(rardf, data['rbsku'])
-
-        rardf = rardf[rardf['RB SKU'] == data['rbsku']]
         staticrow = rardf[rardf['Customer'] == global_filters['Customer']]
         otherrows = rardf[rardf['Customer'] != global_filters['Customer']]
 
-        MINIMUM_SERVICE_LEVEL = 0.95
-        WOC_MIN = 3
-        WOC_MAX = 8
-
         # Labels for Service Level and WOC
-        # # 2 = Green - Completely Satisfied
-        # # 1 = Yellow - Partially Satisfied
-        # # 0 = Red - Not Satisfied
+        # # 2 = Green = Completely Satisfied ; 1 = Yellow = Partially Satisfied ; 0 = Red = Not Satisfied
+
         sl, woc = 0, 0
         if len(otherrows) > 0:
             # Label for Service Level
-            if otherrows['sif-atf'].all() >= MINIMUM_SERVICE_LEVEL:
+            if otherrows['sif-atf'].all() >= minsl:
                 sl = 2
-            elif otherrows['sif-atf'].any() < MINIMUM_SERVICE_LEVEL:
+            elif otherrows['sif-atf'].any() < minsl:
                 sl = 0
             else:
                 sl = 1
 
             # Label for WOC
-            if (otherrows["custwoc-current"].all() >= WOC_MIN) and (otherrows["custwoc-current"].all() <= WOC_MAX):
+            if (otherrows["custwoc-current"].all() >= wocmin) and (otherrows["custwoc-current"].all() <= wocmax):
                 woc = 2
-            elif (otherrows["custwoc-current"].any() < WOC_MIN) or (otherrows["custwoc-current"].any() > WOC_MAX):
+            elif (otherrows["custwoc-current"].any() < wocmin) or (otherrows["custwoc-current"].any() > wocmax):
                 woc = 0
             else:
                 woc = 1
-        else:
-            otherrows = []
+
+        PCT_DEVIATION = (staticrow['newallocation'] - staticrow['currentallocation']) / staticrow['currentallocation']
+        avgsl = rardf["Exp Service Level"].mean()
 
         constraints = [{
                             'Name': 'PCT DEVIATION FROM INIT ALLOC',
-                            'Value': '5%',
+                            'Value': f'{PCT_DEVIATION}',
                             'Label': 0
                         }, {
                             'Name': 'MIN Expected Service Level',
-                            'Value': f'{MINIMUM_SERVICE_LEVEL}',
+                            'Value': f'{minsl}',
                             'Label': f'{sl}'
                         }, {
                             'Name': 'MIN Deviation from Target WOC',
-                            'Value': f'{WOC_MIN}'
+                            'Value': f'{wocmin}'
                         }, {
                             'Name': 'MAX Deviation from Target WOC',
-                            'Value': f'{WOC_MAX}',
+                            'Value': f'{wocmax}',
                             'Label': f'{woc}'
                         }]
 
         results = [{
                     "Name": "AVG EXP SERVICE LEVEL",
-                    "Value": "100%"
+                    "Value": f'{avgsl}'
                     },
                     {
                     "Name": "EXP OLA",

@@ -14,7 +14,7 @@ import Filtersdropdown from "./Filtersdropdown";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import "./OverviewHighRisk.css";
-import CustomerTable from "../DataTable/CustomerTable";
+// import CustomerTable from "../DataTable/CustomerTable";
 import Ragfilters from "./Ragfiltersdropdown";
 import CustomerRagfilters from "./CustomerRagfiltersdropdown";
 import OhrCustomerTabs from "../DataTable/ohrCustomerTabs";

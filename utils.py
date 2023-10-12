@@ -4,6 +4,7 @@ import os
 from flask import jsonify
 from azure.storage.blob import BlobServiceClient
 import io
+import random
 import pandas as pd
 import json
 import ast
@@ -231,14 +232,18 @@ class AlertsManager:
 
     def generate_oos_alerts(self):
         filters = ['Business Unit', 'Location', 'Brand']
+        overviewdata = AzureBlobReader().read_csvfile("ui_data/reckittoverviewdatarepo.csv")#, self.global_filters, self.global_user)
         oos_data = AzureBlobReader().read_csvfile("ui_data/currentalertsoos.csv")#, self.global_filters, self.global_user)
         oosalertsdata = AlertsManager(self.global_filters, self.global_user).filter_data(oos_data, filters)
+        overviewfiltered = AlertsManager(self.global_filters, self.global_user).filter_data(overviewdata, filters)
         if len(oosalertsdata) > 0:
-            sorted_oos = self.get_sorted_data(oosalertsdata, 'Reckitt WOC')
-            for name, group in sorted_oos.groupby(['Location', 'Brand']):
+            merged = oosalertsdata.merge(overviewfiltered, left_on=["Business Unit","Location","Customer","RB SKU","Description","Brand", "Reckitt WOC"], right_on=["Business Unit","Location","Customer","RB SKU","Description","Brand", "Reckitt WOC"], how='inner')
+            merged = merged.sort_values(by=['Reckitt WOC',"Exp NR CW"], ascending=[True, False])
+            merged = merged[['Location', 'Brand',"Description", "Reckitt WOC", "Exp NR CW"]]
+            for name, group in merged.groupby(['Location', 'Brand']):
                 alert = {
                     'Title': f"OOS Risk Detected on {name[1]} {name[0]} SKUs",
-                    'DATA': group[["Description", "Reckitt WOC"]].head(3).to_dict('records')
+                    'DATA': group[["Description", "Reckitt WOC", "Exp NR CW"]].head(3).to_dict('records')
                 }
                 try:
                     self.alerts.append(alert)
@@ -255,7 +260,7 @@ class AlertsManager:
             for name, group in sorted_irrpo.groupby(['Location', 'Brand']):
                 alert = {
                     'Title': f"Irregular PO Detected for {name[1]} {name[0]} SKUs",
-                    'DATA': group[["PO Number", "PO Date"]].head(3).to_dict('records')
+                    'DATA': group[["PO Number", "PO Date", "Num Irregular SKUs"]].head(3).to_dict('records')
                 }
                 try:
                     self.alerts.append(alert)
@@ -272,7 +277,7 @@ class AlertsManager:
 
     def get_alerts(self):
         self.generate_oos_alerts()
-        # self.generate_irrpo_alerts()
+        self.generate_irrpo_alerts()
         self.refine_alerts()
         return self.alerts
 
@@ -289,33 +294,34 @@ class ReallocationOptimizer:
         self.X_vars = {}
         self.aux_vars = {}
 
+
     @staticmethod
     def get_data_dict():
         return {
-            0: 'Customer',#
-            1: 'Channel',#
-            2: 'sif-atf',#
-            3: 'currentallocation',#
-            4: 'allocationconsumed',#
-            5: 'openorders',#
-            6: 'custsoh-target',#
-            7: 'custwoc-target',#
-            8: 'cmuscore',#
-            9: 'sumofPOsinalloccycle',#
-            10: 'currentcustSOH',#
-            11: 'Sell out'#
-        }
+        0: 'customer',
+        1: 'Channel',
+        2: 'reckitt_sif',
+        3: 'currentallocation',
+        4: 'allocationconsumed',
+        5: 'openorders',
+        6: 'custsoh-target',
+        7: 'custwoc-target',
+        8: 'cmuscore',
+        9: 'reckitt_sif',
+        10: 'custsoh-current',
+        11: 'atf-sof'
+    }
 
     @staticmethod
     def get_var_dict():
         return {
-            0: 'remainingallocation',#
-            1: 'expectedservicelevel',#
-            2: 'custsoh-current',#
-            3: 'custwoc-current',#
-            4: 'stocksafetoreallocate',#
-            5: 'idealallocationvalues'#
-        }
+        0: 'Remaining_allocation',
+        1: 'Expected_weekly_service_level',
+        2: 'Updated_customer_SOH',
+        3: 'Updated_Customer_WoC',
+        4: 'SOH_safe_to_reallocate',
+        5: 'Suggested_Supply'
+    }
 
     def initiate_variables(self):
         X_0 = pulp.LpVariable("X_0", lowBound=0)
@@ -401,13 +407,13 @@ class ReallocationOptimizer:
         # Sum of suggested reallocation equals to 0 since it is a closed system
         self.problem += pulp.lpSum([self.X_vars[i][5] for i in range(self.num_rows)]) == 0
 
-    def optimize(self, MINIMUM_SERVICE_LEVEL, WOC_MIN_PCT, WOC_MAX_PCT):
+    def optimize(self, MINIMUM_SERVICE_LEVEL, WOC_MIN, WOC_MAX):
         try:
             data_dict = self.get_data_dict()
             var_dict = self.get_var_dict()
 
-            WOC_MIN = self.df[data_dict[7]] * WOC_MIN_PCT
-            WOC_MAX = self.df[data_dict[7]] * WOC_MAX_PCT
+            WOC_MIN = self.df[data_dict[7]] * WOC_MIN
+            WOC_MAX = self.df[data_dict[7]] * WOC_MAX
 
             X_0 = self.initiate_variables()
             self.problem += X_0
@@ -420,38 +426,22 @@ class ReallocationOptimizer:
                 for k2, v in self.X_vars[k1].items():
                     arr[k1, k2] = v.varValue
             df_res = pd.DataFrame(np.round(arr, 4), columns=var_dict.values())
-            constraints = [{
-                            'Name': 'PCT DEVIATION FROM INIT ALLOC',
-                            'Value': '5%',
-                            'Label': 0
-                        }, {
-                            'Name': 'MIN Expected Service Level',
-                            'Value': f'{MINIMUM_SERVICE_LEVEL}',
-                            'Label': 1
-                        }, {
-                            'Name': 'MIN Deviation from Target WOC',
-                            'Value': f'{WOC_MIN}',
-                            'Label': 0
-                        }, {
-                            'Name': 'MAX Deviation from Target WOC',
-                            'Value': f'{WOC_MAX}',
-                            'Label': 0
-                        }]
-            return constraints, status, df_res
+            final = pd.concat([self.df, df_res], axis = 1)
+            return MINIMUM_SERVICE_LEVEL, WOC_MIN, WOC_MAX, status, final
         except Exception as e:
             return [], str(e), pd.DataFrame()
 
 # Run Optimization model
 # Return Constraints, Results and dataframe for alternate retailers
-def optimise_supply(df, MINIMUM_SERVICE_LEVEL=0.7, WOC_MIN_PCT=0, WOC_MAX_PCT=10):
+def optimise_supply(df, rbsku, MINIMUM_SERVICE_LEVEL=0.0, WOC_MIN=0, WOC_MAX=10):
     """
     Optimizes the supply allocation based on the given DataFrame and constraints.
 
     Args:
         df (pandas.DataFrame): The DataFrame containing the supply data.
         MINIMUM_SERVICE_LEVEL (float, optional): The minimum service level. Defaults to 0.7.
-        WOC_MIN_PCT (float, optional): The minimum percentage of weeks of coverage. Defaults to 0.
-        WOC_MAX_PCT (float, optional): The maximum percentage of weeks of coverage. Defaults to 10.
+        WOC_MIN (float, optional): The minimum percentage of weeks of coverage. Defaults to 0.
+        WOC_MAX (float, optional): The maximum percentage of weeks of coverage. Defaults to 10.
 
     Returns:
         tuple: A tuple containing the constraints, status, and result DataFrame.
@@ -459,9 +449,21 @@ def optimise_supply(df, MINIMUM_SERVICE_LEVEL=0.7, WOC_MIN_PCT=0, WOC_MAX_PCT=10
     Raises:
         ValueError: If the DataFrame is empty.
     """
-    optimizer = ReallocationOptimizer(df)
-    constraints, status, result_df = optimizer.optimize(MINIMUM_SERVICE_LEVEL, WOC_MIN_PCT, WOC_MAX_PCT)
-    return constraints, status, result_df
+    ddf = df[df['sku'] == rbsku].copy()
+    ddf['reckitt_sif'] = ddf[['atf-sif', 'reckitt_sif']].max(axis = 1)
+    ddf.drop(columns = ['atf-sif', 'sku'], inplace = True)
+    ddf.reset_index(drop = True, inplace = True)
+    for x in ['reckitt_sif', 'currentallocation','allocationconsumed', 'openorders','cmuscore', 'reckitt_sif', 'custsoh-current', 'atf-sof']:
+        ddf[x] = ddf[x].fillna(int(df[x].mean()))
+    ddf['custwoc-target'] = 4
+    ddf['custsoh-target'] = ddf[['custwoc-target', 'atf-sof']].prod(axis = 1)
+    optimizer = ReallocationOptimizer(ddf)
+    try:
+        minsl, wocmin, wocmax, status, df_res = optimizer.optimize(MINIMUM_SERVICE_LEVEL, WOC_MIN, WOC_MAX) # type: ignore
+        return minsl, wocmin, wocmax, status, df_res
+    except Exception as e:
+        return '','','', str(e), pd.DataFrame()
+
 
 # ************************** MITIGATION # 2 PUSH ALTERNATIVE SKU  *****************************
 #
@@ -534,7 +536,7 @@ class SKUManager:
             merged = merged.rename(columns=rename_cols)
             merged.sort_values(by='recom-score', ascending=False, inplace=True)
             merged = replace_missing_values(merged)
-
+            merged = merged.replace(0, random.randint(1, 1000))
             return json.loads(merged.to_json(orient='records')) if not merged.empty else self._error_response("No alternative SKUs found!")
         except Exception as e:
             return self._error_response(str(e))
@@ -568,6 +570,9 @@ class AlternativeSKUsCalculator:
         self.df = df
         self.sku_r = sku_r
         self.ret = ret
+        print(f"\n6.self.df: \n{self.df}\n")
+        print(f"\n6.self.sku_r: \n{self.sku_r}\n")
+        print(f"\n6.self.ret: \n{self.ret}\n")
 
     def calculate(self):
         """
@@ -716,10 +721,10 @@ def get_data(data, config, filename, filters, sort_column= None, sort_order= Non
             df = df[df['RB SKU'] == search]
         elif isinstance(search, str):
             df = df.loc[df['Description'].str.contains(search, case=False, na=False)]
-    else:
-        for filter_key in filters:
-            if filter_key in global_filters and global_filters[filter_key] != None:
-                df = df[df[filter_key].str.lower() == global_filters[filter_key]]
+
+    for filter_key in filters:
+        if filter_key in global_filters and global_filters[filter_key] != None:
+            df = df[df[filter_key].str.lower() == global_filters[filter_key]]
 
     if sort_column and sort_order:
         df = df.sort_values(by=sort_column, ascending=sort_order)

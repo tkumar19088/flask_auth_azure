@@ -107,6 +107,9 @@ function Filtersdropdown() {
     }
 
     dispatch(updateloader(true));
+    dispatch(updatesearchvalue(""));
+    // tabApiCall();
+
     var data = {
       Brand: brand,
       Customer: customer,
@@ -125,8 +128,8 @@ function Filtersdropdown() {
       if (response.ok) {
         const json = await response.json();
         console.log(json);
-        tabApiCall();
         dispatch(updatesearchvalue(""));
+        tabApiCall();
         setAnchorEl(null);
       }
     } catch (error) {

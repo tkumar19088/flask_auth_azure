@@ -12,6 +12,7 @@ import {
   fetchtaburl,
   updateapplyfilterserror,
   updatetabname,
+  fetchoirregulardata,
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 import Badge from "@mui/material/Badge";
@@ -83,11 +84,39 @@ const Planning = ({ filterStatus }) => {
       dispatch(updateloader(false));
     }
   };
-  const handleirregularpo = () => {
+  const handleirregularpo = async () => {
     filterStatus(true);
     setoosriskselectedBG(false);
     setirregularselectedBG(true);
-    navigate("/irregular");
+
+    dispatch(updateloader(true));
+    var data = {};
+    try {
+      const url = "http://localhost:5000/getirrpodata";
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        // setuserDetails(json.name);
+        // dispatch(updatetabname("irregular"));
+        dispatch(fetchoirregulardata(json));
+        dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
+        navigate("/irregular");
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
   };
   const handleReallocation = () => {
     filterStatus(true);

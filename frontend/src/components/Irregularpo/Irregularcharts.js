@@ -11,6 +11,7 @@ import Historicalbarchart from "./Historicalbarchart";
 import Customerwocbarchart from "./Customerwocbarchart";
 import Sellinselloutbarchart from "./Sellinselloutbarchart";
 import Promo from "./Promo";
+import { useSelector, useDispatch } from "react-redux";
 
 const Irregularcharts = () => {
   const [value, setValue] = useState("one");
@@ -20,7 +21,10 @@ const Irregularcharts = () => {
   const [barChartData, setbarChartData] = useState(false);
 
   const navigate = useNavigate();
-
+  const loader = useSelector((state) => state.sidebar.loader);
+  const chartdata = useSelector((state) => state.sidebar.irregularchartdata);
+  const skudata = chartdata.skudata;
+  console.log(chartdata);
   const handleClick = () => {
     navigate("/");
   };
@@ -91,8 +95,8 @@ const Irregularcharts = () => {
           </Box>
           <Grid container justifyContent="space-between" my="20px">
             <Box mx="1px">
-              <Typography fontSize={24} color="#415A6C">
-                Irregular PO : PO no 123 : Amazon, Airwick Electrical Lemon
+              <Typography fontSize={20} color="#415A6C">
+                Irregular PO : {skudata.poNumber} : {skudata.description}
               </Typography>
             </Box>
             <Button
@@ -126,26 +130,46 @@ const Irregularcharts = () => {
                 <Grid container item xs={12} justifyContent="space-around">
                   <Typography fontSize="18px" color="brown">
                     PO issue :
-                    <span style={{ color: "#415A6C" }}> Incorrect Price</span>
+                    <span style={{ color: "#415A6C" }}>
+                      {" "}
+                      {skudata.po_issue == null ? "-" : skudata.po_issue}
+                    </span>
                   </Typography>
                   <Typography fontSize={18} color="brown">
-                    PO Price: <span style={{ color: "#415A6C" }}>£1.00</span>
+                    {skudata.po_issue == "Irregular Volume"
+                      ? "Quantity Ordered "
+                      : "PO Price "}
+                    :
+                    <span style={{ color: "#415A6C" }}>
+                      {skudata.po_issue == "Irregular Volume"
+                        ? skudata.quantityordered == null
+                          ? " -"
+                          : skudata.quantityordered
+                        : skudata.skudata.order_price == null
+                          ? " -"
+                          : skudata.skudata.order_price}
+                    </span>
                   </Typography>
                   <Typography fontSize={18} color="brown">
-                    Agreed Price:
-                    <span style={{ color: "#415A6C" }}> £10.00</span>
+                    {skudata.po_issue == "Irregular Volume"
+                      ? "Quantity forecasted "
+                      : "Agreed Price "}
+                    :
+                    <span style={{ color: "#415A6C" }}>
+                      {skudata.po_issue == "Irregular Volume" ? skudata["sif-sola"] == null ? "-" : skudata["sif-sola"] : skudata.agreed_price == null ? "-" : parseFloat(skudata.agreed_price.toFixed(2))}
+                    </span>
                   </Typography>
                 </Grid>
               </Card>
 
               <Grid item xs={4}>
-                <Historicalbarchart />
+                <Historicalbarchart data={chartdata.histepos} />
               </Grid>
               <Grid item xs={4}>
-                <Customerwocbarchart />
+                <Customerwocbarchart data={chartdata.wocgraphdata} />
               </Grid>
               <Grid item xs={4}>
-                <Sellinselloutbarchart />
+                <Sellinselloutbarchart data={chartdata.sellin} />
               </Grid>
             </Grid>
           )}
@@ -163,27 +187,43 @@ const Irregularcharts = () => {
           <Stack direction="row" spacing={2} sx={{ marginBottom: "25px" }}>
             <Grid item xs={3} className="kpi-box">
               <Typography fontSize="13px">Sell-Out Forecast (CW)</Typography>
-              <Typography color="green">1000</Typography>
+              <Typography color="green">
+                {skudata["sof cw"] == null ? "-" : parseFloat(skudata["sof cw"].toFixed(2))}
+              </Typography>
             </Grid>
             <Grid item xs={3} className="kpi-box">
               <Typography fontSize="13px">Quantity Ordered</Typography>
-              <Typography color="green">900</Typography>{" "}
+              <Typography color="green">
+                {skudata.quantityordered == null
+                  ? "-"
+                  : skudata.quantityordered}
+              </Typography>{" "}
             </Grid>
             <Grid item xs={3} className="kpi-box">
               <Typography fontSize="13px">
                 Percentage Discrepancy (S-OLA / Kinaxis)
               </Typography>
-              <Typography color="green">10%</Typography>
+              <Typography color="green">
+                {skudata.percentage_discrepancy == null
+                  ? "-"
+                  : parseFloat(skudata.percentage_discrepancy.toFixed(2))}
+              </Typography>
             </Grid>
             <Grid item xs={3} className="kpi-box">
               <Typography fontSize="13px">
                 Customer SoH (Current / Target)
               </Typography>
-              <Typography color="green">1000 (800)</Typography>
+              <Typography color="green">
+                {skudata["sif-sola"] == null ? "-" : parseFloat(skudata["sif-sola"].toFixed(2))} (
+                {skudata["sif-kinaxis"] == ""
+                  ? "-"
+                  : parseFloat(skudata["sif-kinaxis"].toFixed(2))}
+                )
+              </Typography>
             </Grid>
           </Stack>
           <Box>
-            <Promo />
+            <Promo data={chartdata.campaigns} />
           </Box>
         </Grid>
       </Grid>

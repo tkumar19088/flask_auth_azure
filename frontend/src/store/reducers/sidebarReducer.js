@@ -684,6 +684,8 @@ const initialState = {
     },
   ],
   skulist: [],
+  irregulardata: [],
+  irregularchartdata:{},
 };
 
 const sidebarReducer = (state = initialState, action) => {
@@ -982,6 +984,16 @@ const sidebarReducer = (state = initialState, action) => {
       return {
         ...state,
         withinChannelData: action.payload,
+      };
+    case "FETCH_IRREGULARDATA":
+      return {
+        ...state,
+        irregulardata: action.payload,
+      };
+    case "FETCH_IRREGULARCHARTDATA":
+      return {
+        ...state,
+        irregularchartdata: action.payload,
       };
     default:
       return state;
