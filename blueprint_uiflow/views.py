@@ -590,3 +590,94 @@ def exportdata():
         return json.loads(df.to_json(orient='records'))
     except Exception as e:
         return jsonify(status="Error", message=f"{str(e)}"), 500
+
+
+# ***********************
+#      IRREGULAR PO
+# ***********************
+@uiflow_blueprint.route("/getirrpodata", methods=['POST'])
+def get_irrpodata():
+    try:
+        config = current_app.config
+        global_user = config.get('global_user', {})
+        global_user = dict((k.lower(), v.lower()) for k, v in global_user.items())
+        global_filters = config.get('global_filters', {})
+        global_filters = dict((k.lower(), v.lower()) for k, v in global_filters.items())
+
+        filters = ['Business Unit', 'Location', 'Customer','Brand']
+        filename = "ui_data/irrpomainscreen.csv"
+
+        df = AzureBlobReader().read_csvfile(filename)
+
+        for filter_key in filters:
+            if filter_key.lower() in global_user and global_user[filter_key.lower()] != None:
+                df = df[df[filter_key].str.lower() == global_user[filter_key.lower()]]
+        for filter_key in filters:
+            if filter_key.lower() in global_filters and global_filters[filter_key.lower()] != None:
+                df = df[df[filter_key].str.lower() == global_filters[filter_key.lower()]]
+
+        return json.loads(df.to_json(orient='records'))
+    except Exception as e:
+        return jsonify(status="Error", message=f"{str(e)}"), 500
+
+
+# ***********************
+#      PO DETAILS
+# ***********************
+@uiflow_blueprint.route("/getirrpodetails", methods=['POST'])
+def get_irrpodetails():
+    try:
+        data = request.json or {}
+        config = current_app.config
+
+        filters = ['Business Unit', 'Location', 'Customer','Brand']
+        filename = "ui_data/po_irrsku_details.csv"
+
+        podetails = AzureBlobReader().read_csvfile(filename)
+
+        poid = data.get('po_id')
+
+        df = AzureBlobReader().read_csvfile(filename)
+        df = df[df['poNumber']==poid]
+        return json.loads(podetails.to_json(orient='records'))
+    except Exception as e:
+        return jsonify(status="Error", message=f"{str(e)}"), 500
+
+# *********************************************
+#      IRRSKU INVESTIGATION DETAILS
+# *********************************************
+@uiflow_blueprint.route("/getirrposku", methods=['POST'])
+def get_irrposku():
+    try:
+        config = current_app.config
+        data = request.json or {}
+        filename = "ui_data/po_irrsku_details.csv"
+        podetails = AzureBlobReader().read_csvfile(filename)
+
+        poid, rbsku = data.get('po_id'), data.get('rbsku')
+        skudetails = podetails[podetails['poNumber']==poid and podetails['RB SKU']==rbsku]
+
+        # get WoC data
+        wocdata = podetails[podetails['poNumber']==poid and podetails['RB SKU']==rbsku]["Cust WoC CW","Cust WoC CW+1","Cust WoC CW+2","Cust WoC CW+3"]
+
+        # get histepos data
+        custhistepos = AzureBlobReader().read_csvfile("ui_data/customerhistoricepos.csv")
+        custhistepos = custhistepos[custhistepos['RB SKU']==rbsku]
+
+        # Cust Sell in Data
+        filters = ['Business Unit', 'Location', 'Customer','Brand']
+        filename = "ui_data/customersellin.csv"
+        sort_column = ['InitialSOHWeek', 'RB SKU']
+        sort_order = [True,True]
+        custsellin = get_data(data, config, filename, filters, sort_column, sort_order)
+
+        #campaigns data
+        filters = ['Business Unit', 'Location', 'Customer','Brand']
+        filename = "ui_data/reckittcampaignsbysku.csv"
+        campaignsbysku = get_data(data, config, filename, filters)
+
+        return {"skudata": skudetails, "wocgraphdata": wocdata, "histepos": custhistepos, "sellin": custsellin, "campaigns": campaignsbysku}
+    except Exception as e:
+        return jsonify(status="Error", message=f"{str(e)}"), 500
+
+

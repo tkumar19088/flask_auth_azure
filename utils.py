@@ -272,7 +272,7 @@ class AlertsManager:
 
     def get_alerts(self):
         self.generate_oos_alerts()
-        # self.generate_irrpo_alerts()
+        self.generate_irrpo_alerts()
         self.refine_alerts()
         return self.alerts
 
