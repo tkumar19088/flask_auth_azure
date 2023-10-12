@@ -716,10 +716,10 @@ def get_data(data, config, filename, filters, sort_column= None, sort_order= Non
             df = df[df['RB SKU'] == search]
         elif isinstance(search, str):
             df = df.loc[df['Description'].str.contains(search, case=False, na=False)]
-    else:
-        for filter_key in filters:
-            if filter_key in global_filters and global_filters[filter_key] != None:
-                df = df[df[filter_key].str.lower() == global_filters[filter_key]]
+    # else:
+    for filter_key in filters:
+        if filter_key in global_filters and global_filters[filter_key] != None:
+            df = df[df[filter_key].str.lower() == global_filters[filter_key]]
 
     if sort_column and sort_order:
         df = df.sort_values(by=sort_column, ascending=sort_order)

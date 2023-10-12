@@ -1914,7 +1914,6 @@ const OhrTable = ({ onData }) => {
               data.map((item, index) => (
                 <React.Fragment key={item["RB SKU"]}>
                   <TableRow
-                    onClick={() => handleRowClick(item["RB SKU"])}
                     key={item["RB SKU"]}
                     // className={item.checkbox ? "checked-row" : ""}
                     style={{
@@ -1923,6 +1922,7 @@ const OhrTable = ({ onData }) => {
                     }}
                   >
                     <TableCell
+                      onClick={() => handleRowClick(item["RB SKU"])}
                       sx={{
                         display: "flex",
                         paddingLeft: "20px",
