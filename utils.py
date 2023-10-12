@@ -289,33 +289,34 @@ class ReallocationOptimizer:
         self.X_vars = {}
         self.aux_vars = {}
 
+
     @staticmethod
     def get_data_dict():
         return {
-            0: 'Customer',#
-            1: 'Channel',#
-            2: 'sif-atf',#
-            3: 'currentallocation',#
-            4: 'allocationconsumed',#
-            5: 'openorders',#
-            6: 'custsoh-target',#
-            7: 'custwoc-target',#
-            8: 'cmuscore',#
-            9: 'sumofPOsinalloccycle',#
-            10: 'currentcustSOH',#
-            11: 'Sell out'#
-        }
+        0: 'customer',
+        1: 'Channel',
+        2: 'reckitt_sif',
+        3: 'currentallocation',
+        4: 'allocationconsumed',
+        5: 'openorders',
+        6: 'custsoh-target',
+        7: 'custwoc-target',
+        8: 'cmuscore',
+        9: 'reckitt_sif',
+        10: 'custsoh-current',
+        11: 'atf-sof'
+    }
 
     @staticmethod
     def get_var_dict():
         return {
-            0: 'remainingallocation',#
-            1: 'expectedservicelevel',#
-            2: 'custsoh-current',#
-            3: 'custwoc-current',#
-            4: 'stocksafetoreallocate',#
-            5: 'idealallocationvalues'#
-        }
+        0: 'Remaining_allocation',
+        1: 'Expected_weekly_service_level',
+        2: 'Updated_customer_SOH',
+        3: 'Updated_Customer_WoC',
+        4: 'SOH_safe_to_reallocate',
+        5: 'Suggested_Supply'
+    }
 
     def initiate_variables(self):
         X_0 = pulp.LpVariable("X_0", lowBound=0)
@@ -401,13 +402,13 @@ class ReallocationOptimizer:
         # Sum of suggested reallocation equals to 0 since it is a closed system
         self.problem += pulp.lpSum([self.X_vars[i][5] for i in range(self.num_rows)]) == 0
 
-    def optimize(self, MINIMUM_SERVICE_LEVEL, WOC_MIN_PCT, WOC_MAX_PCT):
+    def optimize(self, MINIMUM_SERVICE_LEVEL, WOC_MIN, WOC_MAX):
         try:
             data_dict = self.get_data_dict()
             var_dict = self.get_var_dict()
 
-            WOC_MIN = self.df[data_dict[7]] * WOC_MIN_PCT
-            WOC_MAX = self.df[data_dict[7]] * WOC_MAX_PCT
+            WOC_MIN = self.df[data_dict[7]] * WOC_MIN
+            WOC_MAX = self.df[data_dict[7]] * WOC_MAX
 
             X_0 = self.initiate_variables()
             self.problem += X_0
@@ -420,38 +421,22 @@ class ReallocationOptimizer:
                 for k2, v in self.X_vars[k1].items():
                     arr[k1, k2] = v.varValue
             df_res = pd.DataFrame(np.round(arr, 4), columns=var_dict.values())
-            constraints = [{
-                            'Name': 'PCT DEVIATION FROM INIT ALLOC',
-                            'Value': '5%',
-                            'Label': 0
-                        }, {
-                            'Name': 'MIN Expected Service Level',
-                            'Value': f'{MINIMUM_SERVICE_LEVEL}',
-                            'Label': 1
-                        }, {
-                            'Name': 'MIN Deviation from Target WOC',
-                            'Value': f'{WOC_MIN}',
-                            'Label': 0
-                        }, {
-                            'Name': 'MAX Deviation from Target WOC',
-                            'Value': f'{WOC_MAX}',
-                            'Label': 0
-                        }]
-            return constraints, status, df_res
+            final = pd.concat([self.df, df_res], axis = 1)
+            return MINIMUM_SERVICE_LEVEL, WOC_MIN, WOC_MAX, status, final
         except Exception as e:
             return [], str(e), pd.DataFrame()
 
 # Run Optimization model
 # Return Constraints, Results and dataframe for alternate retailers
-def optimise_supply(df, MINIMUM_SERVICE_LEVEL=0.7, WOC_MIN_PCT=0, WOC_MAX_PCT=10):
+def optimise_supply(df, rbsku, MINIMUM_SERVICE_LEVEL=0.0, WOC_MIN=0, WOC_MAX=10):
     """
     Optimizes the supply allocation based on the given DataFrame and constraints.
 
     Args:
         df (pandas.DataFrame): The DataFrame containing the supply data.
         MINIMUM_SERVICE_LEVEL (float, optional): The minimum service level. Defaults to 0.7.
-        WOC_MIN_PCT (float, optional): The minimum percentage of weeks of coverage. Defaults to 0.
-        WOC_MAX_PCT (float, optional): The maximum percentage of weeks of coverage. Defaults to 10.
+        WOC_MIN (float, optional): The minimum percentage of weeks of coverage. Defaults to 0.
+        WOC_MAX (float, optional): The maximum percentage of weeks of coverage. Defaults to 10.
 
     Returns:
         tuple: A tuple containing the constraints, status, and result DataFrame.
@@ -459,9 +444,21 @@ def optimise_supply(df, MINIMUM_SERVICE_LEVEL=0.7, WOC_MIN_PCT=0, WOC_MAX_PCT=10
     Raises:
         ValueError: If the DataFrame is empty.
     """
-    optimizer = ReallocationOptimizer(df)
-    constraints, status, result_df = optimizer.optimize(MINIMUM_SERVICE_LEVEL, WOC_MIN_PCT, WOC_MAX_PCT)
-    return constraints, status, result_df
+    ddf = df[df['sku'] == rbsku].copy()
+    ddf['reckitt_sif'] = ddf[['atf-sif', 'reckitt_sif']].max(axis = 1)
+    ddf.drop(columns = ['atf-sif', 'sku'], inplace = True)
+    ddf.reset_index(drop = True, inplace = True)
+    for x in ['reckitt_sif', 'currentallocation','allocationconsumed', 'openorders','cmuscore', 'reckitt_sif', 'custsoh-current', 'atf-sof']:
+        ddf[x] = ddf[x].fillna(int(df[x].mean()))
+    ddf['custwoc-target'] = 4
+    ddf['custsoh-target'] = ddf[['custwoc-target', 'atf-sof']].prod(axis = 1)
+    optimizer = ReallocationOptimizer(ddf)
+    try:
+        minsl, wocmin, wocmax, status, df_res = optimizer.optimize(MINIMUM_SERVICE_LEVEL, WOC_MIN, WOC_MAX) # type: ignore
+        return minsl, wocmin, wocmax, status, df_res
+    except Exception as e:
+        return '','','', str(e), pd.DataFrame()
+
 
 # ************************** MITIGATION # 2 PUSH ALTERNATIVE SKU  *****************************
 #
@@ -716,7 +713,7 @@ def get_data(data, config, filename, filters, sort_column= None, sort_order= Non
             df = df[df['RB SKU'] == search]
         elif isinstance(search, str):
             df = df.loc[df['Description'].str.contains(search, case=False, na=False)]
-    # else:
+
     for filter_key in filters:
         if filter_key in global_filters and global_filters[filter_key] != None:
             df = df[df[filter_key].str.lower() == global_filters[filter_key]]
