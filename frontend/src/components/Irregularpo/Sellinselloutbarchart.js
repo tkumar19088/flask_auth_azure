@@ -5,17 +5,46 @@ import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import "./sellinsellout.css";
 import { useSelector } from "react-redux";
 
-const Sellinselloutbarchart = () => {
+const Sellinselloutbarchart = ({ data }) => {
   const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
-
+  console.log(data);
+  const details = data.length > 1 ? data[0] : data;
   const data1 = [
-    { name: "CW-3 (" + (startingWeek - 3) + ")", value: 30, fvalue: 92 },
-    { name: "CW-2 (" + (startingWeek - 2) + ")", value: 42, fvalue: 90 },
-    { name: "CW-1 (" + (startingWeek - 1) + ")", value: 55, fvalue: 93 },
-    { name: "CW (" + startingWeek + ")", value: 31, fvalue: 90 },
-    { name: "CW+1(" + (startingWeek + 1) + ")", value: 0, fvalue: 95 },
-    { name: "CW+2 (" + (startingWeek + 2) + ")", value: 0, fvalue: 90 },
-    { name: "CW+3(" + (startingWeek + 3) + ")", value: 0, fvalue: 95 },
+    {
+      name: "CW-3 (" + (startingWeek - 3) + ")",
+      value: 0,
+      fvalue: details["sola CW+3"],
+    },
+    {
+      name: "CW-2 (" + (startingWeek - 2) + ")",
+      value: 0,
+      fvalue: details["sola CW+2"],
+    },
+    {
+      name: "CW-1 (" + (startingWeek - 1) + ")",
+      value: 0,
+      fvalue: details["sola CW+1"],
+    },
+    {
+      name: "CW (" + startingWeek + ")",
+      value: 0,
+      fvalue: details["sola CW"],
+    },
+    {
+      name: "CW+1(" + (startingWeek + 1) + ")",
+      value: 0,
+      fvalue: details["sola CW+1"],
+    },
+    {
+      name: "CW+2 (" + (startingWeek + 2) + ")",
+      value: 0,
+      fvalue: details["sola CW+2"],
+    },
+    {
+      name: "CW+3(" + (startingWeek + 3) + ")",
+      value: 0,
+      fvalue: details["sola CW+3"],
+    },
   ];
 
   const labels = data1.map((data) => data.name);

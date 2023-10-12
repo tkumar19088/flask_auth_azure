@@ -35,7 +35,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import Tooltip from "@mui/material/Tooltip";
 
-const Promo = () => {
+const Promo = ({ data }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -188,64 +188,64 @@ const Promo = () => {
 
   // ];
 
-  const data = [
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      Customer: "L4 TESCO HYHO PLAN TO",
-      Location: "United Kingdom",
-      "RB SKU": 3277069,
-      campaignname: "AIRWICK WEEK 35 RR PIPEFILL",
-      customerallocation: "100",
-      customerinventory: "400",
-      enddate: "2023-10-24",
-      offerdescription: "Price Reduction",
-      startdate: "2023-10-11",
-      status: "Draft",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      Customer: "L4 TESCO HYHO PLAN TO",
-      Location: "United Kingdom",
-      "RB SKU": 3277069,
-      campaignname: "P13 MIST KIT LSM BREAK \u00a38 CC",
-      customerallocation: "100",
-      customerinventory: "400",
-      enddate: "2024-01-09",
-      offerdescription: "Price Reduction",
-      startdate: "2023-12-13",
-      status: "Draft",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      Customer: "L4 TESCO HYHO PLAN TO",
-      Location: "United Kingdom",
-      "RB SKU": 3277069,
-      campaignname: "P13 MIST KIT LSM BREAK \u00a38 CC",
-      customerallocation: "100",
-      customerinventory: "400",
-      enddate: "2024-01-09",
-      offerdescription: "Price Reduction",
-      startdate: "2023-12-13",
-      status: "Draft",
-    },
-    {
-      Brand: "Airwick",
-      "Business Unit": "Hygiene",
-      Customer: "L4 TESCO HYHO PLAN TO",
-      Location: "United Kingdom",
-      "RB SKU": 3277069,
-      campaignname: "P13 MIST KIT LSM BREAK \u00a38 CC",
-      customerallocation: "100",
-      customerinventory: "400",
-      enddate: "2024-01-09",
-      offerdescription: "Price Reduction",
-      startdate: "2023-12-13",
-      status: "Draft",
-    },
-  ];
+  // const data = [
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     Customer: "L4 TESCO HYHO PLAN TO",
+  //     Location: "United Kingdom",
+  //     "RB SKU": 3277069,
+  //     campaignname: "AIRWICK WEEK 35 RR PIPEFILL",
+  //     customerallocation: "100",
+  //     customerinventory: "400",
+  //     enddate: "2023-10-24",
+  //     offerdescription: "Price Reduction",
+  //     startdate: "2023-10-11",
+  //     status: "Draft",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     Customer: "L4 TESCO HYHO PLAN TO",
+  //     Location: "United Kingdom",
+  //     "RB SKU": 3277069,
+  //     campaignname: "P13 MIST KIT LSM BREAK \u00a38 CC",
+  //     customerallocation: "100",
+  //     customerinventory: "400",
+  //     enddate: "2024-01-09",
+  //     offerdescription: "Price Reduction",
+  //     startdate: "2023-12-13",
+  //     status: "Draft",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     Customer: "L4 TESCO HYHO PLAN TO",
+  //     Location: "United Kingdom",
+  //     "RB SKU": 3277069,
+  //     campaignname: "P13 MIST KIT LSM BREAK \u00a38 CC",
+  //     customerallocation: "100",
+  //     customerinventory: "400",
+  //     enddate: "2024-01-09",
+  //     offerdescription: "Price Reduction",
+  //     startdate: "2023-12-13",
+  //     status: "Draft",
+  //   },
+  //   {
+  //     Brand: "Airwick",
+  //     "Business Unit": "Hygiene",
+  //     Customer: "L4 TESCO HYHO PLAN TO",
+  //     Location: "United Kingdom",
+  //     "RB SKU": 3277069,
+  //     campaignname: "P13 MIST KIT LSM BREAK \u00a38 CC",
+  //     customerallocation: "100",
+  //     customerinventory: "400",
+  //     enddate: "2024-01-09",
+  //     offerdescription: "Price Reduction",
+  //     startdate: "2023-12-13",
+  //     status: "Draft",
+  //   },
+  // ];
   const [expandedRow, setExpandedRow] = useState(null);
 
   // Function to handle row click and expand/collapse accordion

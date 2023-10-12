@@ -329,3 +329,15 @@ export const updatewithinchanneldata = (newValue) => {
     payload: newValue,
   };
 };
+export const fetchoirregulardata = (newValue) => {
+  return {
+    type: "FETCH_IRREGULARDATA",
+    payload: newValue,
+  };
+};
+export const fetchoirregularchartdata = (newValue) => {
+  return {
+    type: "FETCH_IRREGULARCHARTDATA",
+    payload: newValue,
+  };
+};

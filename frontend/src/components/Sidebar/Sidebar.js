@@ -21,6 +21,10 @@ import {
   fetchIrregular,
   fetchReallocation,
   fetchexpandeditem,
+  updateloader,
+  fetchoirregulardata,
+  updateexporttabledata,
+  fetchtaburl,
 } from "../../store/actions/sidebarActions";
 import CustomSnackbar from "./Modelpopup";
 import BasicModal from "./Modelpopup";
@@ -92,11 +96,35 @@ const Sidebar = () => {
     setoosrick(true);
     setirregular(false);
   };
-  const handleIrregular = () => {
-    // dispatch(fetchIrregular(true));
-    // setoosrick(false);
-    // setirregular(true);
-    navigate("/irregular");
+  const handleIrregular = async () => {
+    dispatch(updateloader(true));
+    var data = {};
+    try {
+      const url = "http://localhost:5000/getirrpodata";
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        // setuserDetails(json.name);
+        // dispatch(updatetabname("irregular"));
+        dispatch(fetchoirregulardata(json));
+        dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
+        navigate("/irregular");
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
   };
   const handleReallocation = () => {
     // dispatch(fetchReallocation(true));

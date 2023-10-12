@@ -635,7 +635,7 @@ def get_irrpodetails():
 
         df = AzureBlobReader().read_csvfile(filename)
         df = df[df['poNumber']==poid]
-        return json.loads(podetails.to_json(orient='records'))
+        return json.loads(df.to_json(orient='records'))
     except Exception as e:
         return jsonify(status="Error", message=f"{str(e)}"), 500
 
@@ -651,10 +651,11 @@ def get_irrposku():
         podetails = AzureBlobReader().read_csvfile(filename)
 
         poid, rbsku = data.get('po_id'), data.get('rbsku')
-        skudetails = podetails[podetails['poNumber']==poid and podetails['RB SKU']==rbsku]
+        podetails = podetails[podetails['poNumber']==poid]
+        podetails = podetails[podetails['rbsku']==rbsku]
 
         # get WoC data
-        wocdata = podetails[podetails['poNumber']==poid and podetails['RB SKU']==rbsku]["Cust WoC CW","Cust WoC CW+1","Cust WoC CW+2","Cust WoC CW+3"]
+        wocdata = podetails[["Cust WoC CW","Cust WoC CW+1","Cust WoC CW+2","Cust WoC CW+3"]]
 
         # get histepos data
         custhistepos = AzureBlobReader().read_csvfile("ui_data/customerhistoricepos.csv")
@@ -666,13 +667,13 @@ def get_irrposku():
         sort_column = ['InitialSOHWeek', 'RB SKU']
         sort_order = [True,True]
         custsellin = get_data(data, config, filename, filters, sort_column, sort_order)
-
+        custsellin = custsellin[custsellin["RB SKU"] == rbsku]
         #campaigns data
         filters = ['Business Unit', 'Location', 'Customer','Brand']
         filename = "ui_data/reckittcampaignsbysku.csv"
         campaignsbysku = get_data(data, config, filename, filters)
 
-        return {"skudata": skudetails, "wocgraphdata": wocdata, "histepos": custhistepos, "sellin": custsellin, "campaigns": campaignsbysku}
+        return {"skudata": json.loads(podetails.to_json(orient='records')), "wocgraphdata": json.loads(wocdata.to_json(orient='records')), "histepos": json.loads(custhistepos.to_json(orient='records')), "sellin": json.loads(custsellin.to_json(orient='records')), "campaigns": json.loads(campaignsbysku.to_json(orient='records'))}
     except Exception as e:
         return jsonify(status="Error", message=f"{str(e)}"), 500
 

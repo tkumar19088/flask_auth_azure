@@ -34,284 +34,339 @@ import AddCircleOutlinedIcon from "@mui/icons-material/AddCircleOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import Tooltip from "@mui/material/Tooltip";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  updateloader,
+  fetchoirregularchartdata,
+} from "../../store/actions/sidebarActions";
+import loaderImage from "../../images/Logo-bar.png";
 
 const Irregularpo = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    scroll.scrollToTop(); // Scrolls to the top of the page when the component mounts
-  }, []);
-
-  const handleClick = () => {
+  const loader = useSelector((state) => state.sidebar.loader);
+  const data = useSelector((state) => state.sidebar.irregulardata);
+  const [podetails, setpodetails] = useState([]);
+  // const [chartData, setchartData] = useState([]);
+  // console.log(data);
+  const handleClick = async (po_id, rbsku) => {
     // navigate("/historicaldata");
-    navigate("/irregularcharts");
+    dispatch(updateloader(true));
+    var data = { po_id: po_id, rbsku: rbsku };
+    try {
+      const response = await fetch("http://localhost:5000/getirrposku", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        // setchartData(json);
+        dispatch(fetchoirregularchartdata(json));
+        // setiscampaigns(true);
+        // setpodetails(json);
+        navigate("/irregularcharts");
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
   };
 
   const handleBack = () => {
     navigate(-1);
   };
 
-  const data = [
-    {
-      id: 1,
-      poNumber: "PO no 123",
-      customerPoNumber: "PO no 123",
-      poReceiptDate: "20-07-2023",
-      poStatus: "Open",
-      noSKUsinPO: 80,
-      noSKUsIrregular: 25,
-      totalForecastedRevenue: "500",
-      totalPORevenue: "800",
-      irregularPO: "Yes",
-      perDiscepency: "-84%",
-      details: [
-        {
-          rbsku: "Airwick",
-          ppg: "23434534693dlf",
-          description: "AWICK,IE,STICK UP LAVX12",
-          alert: "Incorrect volume",
-          quantity: "400",
-          sellin: "400",
-          percentage: "40%",
-          orderprice: "£2.50",
-        },
-        {
-          rbsku: "Airwick",
-          ppg: "23434534693dlf",
-          description: "AWICK,IE,STICK UP LAVX12",
-          alert: "Incorrect volume",
-          quantity: "400",
-          sellin: "400",
-          percentage: "40%",
-          orderprice: "£2.50",
-        },
-      ],
-    },
-    {
-      id: 2,
-      poNumber: "PO no 500",
-      customerPoNumber: "PO no 500",
-      poReceiptDate: "10-07-2023",
-      poStatus: "Delayed",
-      noSKUsinPO: 60,
-      noSKUsIrregular: 40,
-      totalForecastedRevenue: "500",
-      totalPORevenue: "800",
-      irregularPO: "Yes",
-      perDiscepency: "-84%",
-      details: [
-        {
-          rbsku: "Airwick",
-          ppg: "23434534693dlf",
-          description: "AWICK,IE,STICK UP LAVX12",
-          alert: "Incorrect volume",
-          quantity: "400",
-          sellin: "400",
-          percentage: "40%",
-          orderprice: "£2.50",
-        },
-        {
-          rbsku: "Airwick",
-          ppg: "23434534693dlf",
-          description: "AWICK,IE,STICK UP LAVX12",
-          alert: "Incorrect volume",
-          quantity: "400",
-          sellin: "400",
-          percentage: "40%",
-          orderprice: "£2.50",
-        },
-      ],
-    },
-    {
-      id: 3,
-      poNumber: "PO no 500",
-      customerPoNumber: "PO no 500",
-      poReceiptDate: "10-07-2023",
-      poStatus: "Stock",
-      noSKUsinPO: 50,
-      noSKUsIrregular: 20,
-      totalForecastedRevenue: "500",
-      totalPORevenue: "800",
-      irregularPO: "Yes",
-      perDiscepency: "-84%",
-      details: [
-        {
-          rbsku: "Airwick",
-          ppg: "23434534693dlf",
-          description: "AWICK,IE,STICK UP LAVX12",
-          alert: "Incorrect volume",
-          quantity: "400",
-          sellin: "400",
-          percentage: "40%",
-          orderprice: "£2.50",
-        },
-        {
-          rbsku: "Airwick",
-          ppg: "23434534693dlf",
-          description: "AWICK,IE,STICK UP LAVX12",
-          alert: "Incorrect volume",
-          quantity: "400",
-          sellin: "400",
-          percentage: "40%",
-          orderprice: "£2.50",
-        },
-      ],
-    },
-    {
-      id: 4,
-      poNumber: "PO no 500",
-      customerPoNumber: "PO no 500",
-      poReceiptDate: "10-07-2023",
-      poStatus: "Open",
-      noSKUsinPO: 70,
-      noSKUsIrregular: 30,
-      totalForecastedRevenue: "500",
-      totalPORevenue: "800",
-      irregularPO: "Yes",
-      perDiscepency: "-84%",
-      details: [
-        {
-          rbsku: "Airwick",
-          ppg: "23434534693dlf",
-          description: "AWICK,IE,STICK UP LAVX12",
-          alert: "Incorrect volume",
-          quantity: "400",
-          sellin: "400",
-          percentage: "40%",
-          orderprice: "£2.50",
-        },
-        {
-          rbsku: "Airwick",
-          ppg: "23434534693dlf",
-          description: "AWICK,IE,STICK UP LAVX12",
-          alert: "Incorrect volume",
-          quantity: "400",
-          sellin: "400",
-          percentage: "40%",
-          orderprice: "£2.50",
-        },
-      ],
-    },
-    {
-      id: 5,
-      poNumber: "PO no 500",
-      customerPoNumber: "PO no 500",
-      poReceiptDate: "10-07-2023",
-      poStatus: "Open",
-      noSKUsinPO: 70,
-      noSKUsIrregular: 30,
-      totalForecastedRevenue: "500",
-      totalPORevenue: "800",
-      irregularPO: "Yes",
-      perDiscepency: "-84%",
-      details: [
-        {
-          rbsku: "Airwick",
-          ppg: "23434534693dlf",
-          description: "AWICK,IE,STICK UP LAVX12",
-          alert: "Incorrect volume",
-          quantity: "400",
-          sellin: "400",
-          percentage: "40%",
-          orderprice: "£2.50",
-        },
-        {
-          rbsku: "Airwick",
-          ppg: "23434534693dlf",
-          description: "AWICK,IE,STICK UP LAVX12",
-          alert: "Incorrect volume",
-          quantity: "400",
-          sellin: "400",
-          percentage: "40%",
-          orderprice: "£2.50",
-        },
-      ],
-    },
-    {
-      id: 6,
-      poNumber: "PO no 500",
-      customerPoNumber: "PO no 500",
-      poReceiptDate: "10-07-2023",
-      poStatus: "Open",
-      noSKUsinPO: 70,
-      noSKUsIrregular: 30,
-      totalForecastedRevenue: "500",
-      totalPORevenue: "800",
-      irregularPO: "Yes",
-      perDiscepency: "-84%",
-      details: [
-        {
-          rbsku: "Airwick",
-          ppg: "23434534693dlf",
-          description: "AWICK,IE,STICK UP LAVX12",
-          alert: "Incorrect volume",
-          quantity: "400",
-          sellin: "400",
-          percentage: "40%",
-          orderprice: "£2.50",
-        },
-        {
-          rbsku: "Airwick",
-          ppg: "23434534693dlf",
-          description: "AWICK,IE,STICK UP LAVX12",
-          alert: "Incorrect volume",
-          quantity: "400",
-          sellin: "400",
-          percentage: "40%",
-          orderprice: "£2.50",
-        },
-      ],
-    },
-    {
-      id: 7,
-      poNumber: "PO no 500",
-      customerPoNumber: "PO no 500",
-      poReceiptDate: "10-07-2023",
-      poStatus: "Open",
-      noSKUsinPO: 70,
-      noSKUsIrregular: 30,
-      totalForecastedRevenue: "500",
-      totalPORevenue: "800",
-      irregularPO: "Yes",
-      perDiscepency: "-84%",
-      details: [
-        {
-          rbsku: "Airwick",
-          ppg: "23434534693dlf",
-          description: "AWICK,IE,STICK UP LAVX12",
-          alert: "Incorrect volume",
-          quantity: "400",
-          sellin: "400",
-          percentage: "40%",
-          orderprice: "£2.50",
-        },
-        {
-          rbsku: "Airwick",
-          ppg: "23434534693dlf",
-          description: "AWICK,IE,STICK UP LAVX12",
-          alert: "Incorrect volume",
-          quantity: "400",
-          sellin: "400",
-          percentage: "40%",
-          orderprice: "£2.50",
-        },
-      ],
-    },
-  ];
+  // const data = [
+  //   {
+  //     id: 1,
+  //     poNumber: "PO no 123",
+  //     customerPoNumber: "PO no 123",
+  //     poReceiptDate: "20-07-2023",
+  //     poStatus: "Open",
+  //     noSKUsinPO: 80,
+  //     noSKUsIrregular: 25,
+  //     totalForecastedRevenue: "500",
+  //     totalPORevenue: "800",
+  //     irregularPO: "Yes",
+  //     perDiscepency: "-84%",
+  //     details: [
+  //       {
+  //         rbsku: "Airwick",
+  //         ppg: "23434534693dlf",
+  //         description: "AWICK,IE,STICK UP LAVX12",
+  //         alert: "Incorrect volume",
+  //         quantity: "400",
+  //         sellin: "400",
+  //         percentage: "40%",
+  //         orderprice: "£2.50",
+  //       },
+  //       {
+  //         rbsku: "Airwick",
+  //         ppg: "23434534693dlf",
+  //         description: "AWICK,IE,STICK UP LAVX12",
+  //         alert: "Incorrect volume",
+  //         quantity: "400",
+  //         sellin: "400",
+  //         percentage: "40%",
+  //         orderprice: "£2.50",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 2,
+  //     poNumber: "PO no 500",
+  //     customerPoNumber: "PO no 500",
+  //     poReceiptDate: "10-07-2023",
+  //     poStatus: "Delayed",
+  //     noSKUsinPO: 60,
+  //     noSKUsIrregular: 40,
+  //     totalForecastedRevenue: "500",
+  //     totalPORevenue: "800",
+  //     irregularPO: "Yes",
+  //     perDiscepency: "-84%",
+  //     details: [
+  //       {
+  //         rbsku: "Airwick",
+  //         ppg: "23434534693dlf",
+  //         description: "AWICK,IE,STICK UP LAVX12",
+  //         alert: "Incorrect volume",
+  //         quantity: "400",
+  //         sellin: "400",
+  //         percentage: "40%",
+  //         orderprice: "£2.50",
+  //       },
+  //       {
+  //         rbsku: "Airwick",
+  //         ppg: "23434534693dlf",
+  //         description: "AWICK,IE,STICK UP LAVX12",
+  //         alert: "Incorrect volume",
+  //         quantity: "400",
+  //         sellin: "400",
+  //         percentage: "40%",
+  //         orderprice: "£2.50",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 3,
+  //     poNumber: "PO no 500",
+  //     customerPoNumber: "PO no 500",
+  //     poReceiptDate: "10-07-2023",
+  //     poStatus: "Stock",
+  //     noSKUsinPO: 50,
+  //     noSKUsIrregular: 20,
+  //     totalForecastedRevenue: "500",
+  //     totalPORevenue: "800",
+  //     irregularPO: "Yes",
+  //     perDiscepency: "-84%",
+  //     details: [
+  //       {
+  //         rbsku: "Airwick",
+  //         ppg: "23434534693dlf",
+  //         description: "AWICK,IE,STICK UP LAVX12",
+  //         alert: "Incorrect volume",
+  //         quantity: "400",
+  //         sellin: "400",
+  //         percentage: "40%",
+  //         orderprice: "£2.50",
+  //       },
+  //       {
+  //         rbsku: "Airwick",
+  //         ppg: "23434534693dlf",
+  //         description: "AWICK,IE,STICK UP LAVX12",
+  //         alert: "Incorrect volume",
+  //         quantity: "400",
+  //         sellin: "400",
+  //         percentage: "40%",
+  //         orderprice: "£2.50",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 4,
+  //     poNumber: "PO no 500",
+  //     customerPoNumber: "PO no 500",
+  //     poReceiptDate: "10-07-2023",
+  //     poStatus: "Open",
+  //     noSKUsinPO: 70,
+  //     noSKUsIrregular: 30,
+  //     totalForecastedRevenue: "500",
+  //     totalPORevenue: "800",
+  //     irregularPO: "Yes",
+  //     perDiscepency: "-84%",
+  //     details: [
+  //       {
+  //         rbsku: "Airwick",
+  //         ppg: "23434534693dlf",
+  //         description: "AWICK,IE,STICK UP LAVX12",
+  //         alert: "Incorrect volume",
+  //         quantity: "400",
+  //         sellin: "400",
+  //         percentage: "40%",
+  //         orderprice: "£2.50",
+  //       },
+  //       {
+  //         rbsku: "Airwick",
+  //         ppg: "23434534693dlf",
+  //         description: "AWICK,IE,STICK UP LAVX12",
+  //         alert: "Incorrect volume",
+  //         quantity: "400",
+  //         sellin: "400",
+  //         percentage: "40%",
+  //         orderprice: "£2.50",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 5,
+  //     poNumber: "PO no 500",
+  //     customerPoNumber: "PO no 500",
+  //     poReceiptDate: "10-07-2023",
+  //     poStatus: "Open",
+  //     noSKUsinPO: 70,
+  //     noSKUsIrregular: 30,
+  //     totalForecastedRevenue: "500",
+  //     totalPORevenue: "800",
+  //     irregularPO: "Yes",
+  //     perDiscepency: "-84%",
+  //     details: [
+  //       {
+  //         rbsku: "Airwick",
+  //         ppg: "23434534693dlf",
+  //         description: "AWICK,IE,STICK UP LAVX12",
+  //         alert: "Incorrect volume",
+  //         quantity: "400",
+  //         sellin: "400",
+  //         percentage: "40%",
+  //         orderprice: "£2.50",
+  //       },
+  //       {
+  //         rbsku: "Airwick",
+  //         ppg: "23434534693dlf",
+  //         description: "AWICK,IE,STICK UP LAVX12",
+  //         alert: "Incorrect volume",
+  //         quantity: "400",
+  //         sellin: "400",
+  //         percentage: "40%",
+  //         orderprice: "£2.50",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 6,
+  //     poNumber: "PO no 500",
+  //     customerPoNumber: "PO no 500",
+  //     poReceiptDate: "10-07-2023",
+  //     poStatus: "Open",
+  //     noSKUsinPO: 70,
+  //     noSKUsIrregular: 30,
+  //     totalForecastedRevenue: "500",
+  //     totalPORevenue: "800",
+  //     irregularPO: "Yes",
+  //     perDiscepency: "-84%",
+  //     details: [
+  //       {
+  //         rbsku: "Airwick",
+  //         ppg: "23434534693dlf",
+  //         description: "AWICK,IE,STICK UP LAVX12",
+  //         alert: "Incorrect volume",
+  //         quantity: "400",
+  //         sellin: "400",
+  //         percentage: "40%",
+  //         orderprice: "£2.50",
+  //       },
+  //       {
+  //         rbsku: "Airwick",
+  //         ppg: "23434534693dlf",
+  //         description: "AWICK,IE,STICK UP LAVX12",
+  //         alert: "Incorrect volume",
+  //         quantity: "400",
+  //         sellin: "400",
+  //         percentage: "40%",
+  //         orderprice: "£2.50",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 7,
+  //     poNumber: "PO no 500",
+  //     customerPoNumber: "PO no 500",
+  //     poReceiptDate: "10-07-2023",
+  //     poStatus: "Open",
+  //     noSKUsinPO: 70,
+  //     noSKUsIrregular: 30,
+  //     totalForecastedRevenue: "500",
+  //     totalPORevenue: "800",
+  //     irregularPO: "Yes",
+  //     perDiscepency: "-84%",
+  //     details: [
+  //       {
+  //         rbsku: "Airwick",
+  //         ppg: "23434534693dlf",
+  //         description: "AWICK,IE,STICK UP LAVX12",
+  //         alert: "Incorrect volume",
+  //         quantity: "400",
+  //         sellin: "400",
+  //         percentage: "40%",
+  //         orderprice: "£2.50",
+  //       },
+  //       {
+  //         rbsku: "Airwick",
+  //         ppg: "23434534693dlf",
+  //         description: "AWICK,IE,STICK UP LAVX12",
+  //         alert: "Incorrect volume",
+  //         quantity: "400",
+  //         sellin: "400",
+  //         percentage: "40%",
+  //         orderprice: "£2.50",
+  //       },
+  //     ],
+  //   },
+  // ];
   const [expandedRow, setExpandedRow] = useState(null);
 
   // Function to handle row click and expand/collapse accordion
-  const handleRowClick = (rowId) => {
+  const handleRowClick = async (rowId) => {
     if (expandedRow === rowId) {
       setExpandedRow(null);
     } else {
+      dispatch(updateloader(true));
+      var data = { po_id: rowId };
+      try {
+        const response = await fetch("http://localhost:5000/getirrpodetails", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        if (response.ok) {
+          const json = await response.json();
+          console.log(json);
+          setpodetails(json);
+        } else {
+          console.error("Error fetching data:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+      } finally {
+        dispatch(updateloader(false));
+      }
       setExpandedRow(rowId);
     }
   };
 
   // SubTable component to display the nested table
   const SubTable = ({ details }) => (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} style={{ maxHeight: 425, width: "100%" }}>
       <Table>
         <TableHead>
           <TableRow>
@@ -458,7 +513,7 @@ const Irregularpo = () => {
                   variant="outlined"
                   endIcon={<PlayArrowIcon />}
                   size="small"
-                  onClick={handleClick}
+                  onClick={() => handleClick(item.poNumber, item.rbsku)} // Wrap handleClick inside an anonymous function
                   className="btn-invst"
                 >
                   Investigate
@@ -473,6 +528,11 @@ const Irregularpo = () => {
 
   return (
     <div>
+      {loader && (
+        <div className="loader-overlay">
+          <img src={loaderImage} alt="Loading..." className="rotating-image" />
+        </div>
+      )}
       <Topbar />
       <Grid container>
         <Grid item xs={2}>
@@ -610,9 +670,9 @@ const Irregularpo = () => {
                 </TableHead>
                 <TableBody>
                   {data.map((item, index) => (
-                    <React.Fragment key={item.id}>
+                    <React.Fragment key={item.poNumber}>
                       <TableRow
-                        onClick={() => handleRowClick(item.id)}
+                        onClick={() => handleRowClick(item.poNumber)}
                         style={{
                           backgroundColor:
                             index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
@@ -626,7 +686,7 @@ const Irregularpo = () => {
                               justifyContent: "center",
                             }}
                           >
-                            {expandedRow === item.id ? (
+                            {expandedRow === item.poNumber ? (
                               <RemoveIcon
                                 fontSize="medium"
                                 sx={{
@@ -684,11 +744,11 @@ const Irregularpo = () => {
                           </Typography>
                         </TableCell>
                       </TableRow>
-                      {expandedRow === item.id && (
+                      {expandedRow === item.poNumber && (
                         <TableRow>
                           <TableCell colSpan={10}>
                             {/* Add your expanded table here */}
-                            <SubTable details={item.details} />
+                            <SubTable details={podetails} />
                           </TableCell>
                         </TableRow>
                       )}
