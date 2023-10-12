@@ -520,11 +520,12 @@ class SKUManager:
             alternative_skus_calculator = AlternativeSKUsCalculator(df_price, sku_r, customer)
             alternative_skus = alternative_skus_calculator.calculate()
             alternative_skus = alternative_skus[alternative_skus['score_final'] > .50] #type: ignore
-            altskus_sorted = alternative_skus.sort_values(by='score_final', ascending=False).head(3)
+            altskus_sorted = alternative_skus.sort_values(by='score_final', ascending=False)
             altskus_sorted['skuid'] = altskus_sorted.index
             bensfile = AzureBlobReader().read_csvfile("ui_data/alternative_sku_template.csv") #ben's file
             # pushaltskucsv = AzureBlobReader().read_csvfile("ui_data/pushalternativesku.csv")
             merged = bensfile.merge(altskus_sorted, left_on='RB SKU', right_on='skuid', how='inner')
+            merged = merged[merged['reckittsoh']] > 0
             rename_cols = {
                             'score_final': 'recom-score',
                         }
