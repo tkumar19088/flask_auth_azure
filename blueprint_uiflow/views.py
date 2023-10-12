@@ -3,6 +3,8 @@ import json
 import pandas as pd
 from utils import AzureBlobReader, AlertsManager, replace_missing_values, get_data
 from dotenv import load_dotenv
+import datetime as dt
+import random
 
 load_dotenv()
 
@@ -971,22 +973,27 @@ def get_irrposku():
         data = request.json or {}
         filename = "ui_data/po_irrsku_details.csv"
         podetails = AzureBlobReader().read_csvfile(filename)
-
+        global_user = config.get('global_user', {})
+        cust = random.choice(global_user['Customer'])
         poid, rbsku = data.get("po_id"), data.get("rbsku")
+
+        print(f"\n2.5. cust: {cust}\n")
+
         podetails = podetails[podetails["poNumber"] == poid]
         podetails = podetails[podetails["rbsku"] == rbsku]
+        skudata = podetails[podetails["Customer"] == cust]
 
         # get WoC data
-        wocdata = podetails[
-            ["Cust WoC CW", "Cust WoC CW+1", "Cust WoC CW+2", "Cust WoC CW+3"]
-        ]
+        wocdata = podetails[podetails["Customer"] == cust][["Cust WoC CW", "Cust WoC CW+1", "Cust WoC CW+2", "Cust WoC CW+3"]].sample(1)
         wocdata = replace_missing_values(wocdata)
+        print(f"\n3. wocdata: {wocdata}\n")
 
         # get histepos data
         custhistepos = AzureBlobReader().read_csvfile(
             "ui_data/customerhistoricepos.csv"
         )
         custhistepos = custhistepos[custhistepos["RB SKU"] == rbsku]
+        custhistepos = custhistepos[custhistepos["Customer"] == cust]
         custhistepos = replace_missing_values(custhistepos)
 
         # Cust Sell in Data
@@ -995,19 +1002,28 @@ def get_irrposku():
         custsellin = AzureBlobReader().read_csvfile(filename)
         custsellin['Brand'] = custsellin['Description'].apply(lambda x: 'Airwick' if 'AWICK' in x else 'Gaviscon')
         custsellin = custsellin[custsellin["RB SKU"] == rbsku]
+        custsellin = custsellin[custsellin["Customer"] == cust]
         custsellin = replace_missing_values(custsellin)
 
         # campaigns data
         filters = ["Business Unit", "Location", "Customer", "Brand"]
         filename = "ui_data/reckittcampaignsbysku.csv"
-        campaignsbysku = get_data(data, config, filename, filters)
-        campaignsbysku = replace_missing_values(campaignsbysku)
+        df = get_data(data, config, filename, filters)
+        df['enddate'] = pd.to_datetime(df['enddate'])
+        today = dt.date.today().strftime('%Y-%m-%d')
+        df = df.loc[df['enddate'] >= today]
+        df = df[df['RB SKU'] == data['rbsku']]
+        df['enddate'] = pd.to_datetime(df['enddate'], unit='ms')
+        df['enddate'] = df['enddate'].dt.strftime('%Y-%m-%d')
+        df = df.loc[df['Customer'].str.contains(cust, case=False, na=False)]
+
+        campaignsbysku = replace_missing_values(df)
 
         return {
-                    "skudata": json.loads(podetails.to_json(orient="records")),
-                    "wocgraphdata": json.loads(wocdata.to_json(orient="records")),
-                    "histepos": json.loads(custhistepos.to_json(orient="records")),
-                    "sellin": json.loads(custsellin.to_json(orient="records")),
+                    "skudata": json.loads(skudata.to_json(orient="records"))[0],
+                    "wocgraphdata": json.loads(wocdata.to_json(orient="records"))[0],
+                    "histepos": json.loads(custhistepos.to_json(orient="records"))[0],
+                    "sellin": json.loads(custsellin.to_json(orient="records"))[0],
                     "campaigns": json.loads(campaignsbysku.to_json(orient="records")),
                 }
     except Exception as e:
