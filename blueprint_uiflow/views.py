@@ -923,32 +923,23 @@ def exportdata():
 # ***********************
 #      IRREGULAR PO
 # ***********************
-@uiflow_blueprint.route("/getirrpodata", methods=["POST"])
+@uiflow_blueprint.route("/getirrpodata", methods=['POST'])
 def get_irrpodata():
     try:
         config = current_app.config
-        global_user = config.get("global_user", {})
-        global_filters = config.get("global_filters", {})
+        global_user = config.get('global_user', {})
+        global_filters = config.get('global_filters', {})
         global_filters = dict((k.lower(), v.lower()) for k, v in global_filters.items())
-
-        filters = ["Business Unit", "Location", "Customer", "Brand"]
+        filters = ['Business Unit', 'Location', 'Customer','Brand']
         filename = "ui_data/irrpomainscreen.csv"
-
         df = AzureBlobReader().read_csvfile(filename)
-
         for filter_key in filters:
-            if filter_key in global_user and global_user[filter_key] != None:
+            if filter_key.lower() in global_user and global_user[filter_key.lower()] != None:
                 df = df[df[filter_key] in global_user[filter_key]]
         for filter_key in filters:
-            if (
-                filter_key.lower() in global_filters
-                and global_filters[filter_key.lower()] != None
-            ):
-                df = df[
-                    df[filter_key].str.lower() == global_filters[filter_key.lower()]
-                ]
-
-        return json.loads(df.to_json(orient="records"))
+            if filter_key.lower() in global_filters and global_filters[filter_key.lower()] != None:
+                df = df[df[filter_key].str.lower() == global_filters[filter_key.lower()]]
+        return json.loads(df.to_json(orient='records'))
     except Exception as e:
         return jsonify(status="Error", message=f"{str(e)}"), 500
 
@@ -961,9 +952,6 @@ def get_irrpodetails():
     try:
         data = request.json or {}
         filename = "ui_data/po_irrsku_details.csv"
-
-        podetails = AzureBlobReader().read_csvfile(filename)
-
         poid = data.get("po_id")
 
         df = AzureBlobReader().read_csvfile(filename)

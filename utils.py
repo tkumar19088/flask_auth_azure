@@ -236,9 +236,7 @@ class AlertsManager:
         oosalertsdata = AlertsManager(self.global_filters, self.global_user).filter_data(oos_data, filters)
         overviewfiltered = AlertsManager(self.global_filters, self.global_user).filter_data(overviewdata, filters)
         if len(oosalertsdata) > 0:
-            print(f"\n1. oosalertsdata:\n{oosalertsdata.columns}\n2. overviewfiltered:\n{overviewfiltered.columns}\n" )
             merged = oosalertsdata.merge(overviewfiltered, left_on=["Business Unit","Location","Customer","RB SKU","Description","Brand", "Reckitt WOC"], right_on=["Business Unit","Location","Customer","RB SKU","Description","Brand", "Reckitt WOC"], how='inner')
-            print(f"\n3. merged:\n{merged.columns}\n\n" )
             merged = merged.sort_values(by=['Reckitt WOC',"Exp NR CW"], ascending=[True, False])
             merged = merged[['Location', 'Brand',"Description", "Reckitt WOC", "Exp NR CW"]]
             for name, group in merged.groupby(['Location', 'Brand']):
