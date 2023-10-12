@@ -23,7 +23,7 @@ const Irregularcharts = () => {
   const navigate = useNavigate();
   const loader = useSelector((state) => state.sidebar.loader);
   const chartdata = useSelector((state) => state.sidebar.irregularchartdata);
-  const skudata = chartdata.skudata[0];
+  const skudata = chartdata.skudata;
   console.log(chartdata);
   const handleClick = () => {
     navigate("/");
@@ -146,8 +146,8 @@ const Irregularcharts = () => {
                           ? " -"
                           : skudata.quantityordered
                         : skudata.skudata.order_price == null
-                        ? " -"
-                        : skudata.skudata.order_price}
+                          ? " -"
+                          : skudata.skudata.order_price}
                     </span>
                   </Typography>
                   <Typography fontSize={18} color="brown">
@@ -156,10 +156,7 @@ const Irregularcharts = () => {
                       : "Agreed Price "}
                     :
                     <span style={{ color: "#415A6C" }}>
-                      {" "}
-                      {skudata.agreed_price == null
-                        ? "-"
-                        : parseFloat(skudata.agreed_price.toFixed(2))}
+                      {skudata.po_issue == "Irregular Volume" ? skudata["sif-sola"] == null ? "-" : parseFloat(skudata["sif-sola"].toFixed(2)) : skudata.agreed_price == null ? "-" : parseFloat(skudata.agreed_price.toFixed(2))}
                     </span>
                   </Typography>
                 </Grid>
@@ -191,7 +188,7 @@ const Irregularcharts = () => {
             <Grid item xs={3} className="kpi-box">
               <Typography fontSize="13px">Sell-Out Forecast (CW)</Typography>
               <Typography color="green">
-                {skudata["sof cw"] == null ? "-" : skudata["sof cw"]}
+                {skudata["sof cw"] == null ? "-" : parseFloat(skudata["sof cw"].toFixed(2))}
               </Typography>
             </Grid>
             <Grid item xs={3} className="kpi-box">
@@ -209,7 +206,7 @@ const Irregularcharts = () => {
               <Typography color="green">
                 {skudata.percentage_discrepancy == null
                   ? "-"
-                  : skudata.percentage_discrepancy}
+                  : parseFloat(skudata.percentage_discrepancy.toFixed(2))}
               </Typography>
             </Grid>
             <Grid item xs={3} className="kpi-box">
@@ -217,7 +214,7 @@ const Irregularcharts = () => {
                 Customer SoH (Current / Target)
               </Typography>
               <Typography color="green">
-                {skudata["sif-sola"] == null ? "-" : skudata["sif-sola"]} (
+                {skudata["sif-sola"] == null ? "-" : parseFloat(skudata["sif-sola"].toFixed(2))} (
                 {skudata["sif-kinaxis"] == ""
                   ? "-"
                   : parseFloat(skudata["sif-kinaxis"].toFixed(2))}
