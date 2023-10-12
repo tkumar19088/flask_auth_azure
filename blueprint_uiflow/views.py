@@ -1005,6 +1005,7 @@ def get_irrposku():
         filters = ["Business Unit", "Location", "Customer", "Brand"]
         filename = "ui_data/customer_sellin_act_fcst.csv"
         custsellin = AzureBlobReader().read_csvfile(filename)
+        custsellin['Brand'] = custsellin['Description'].apply(lambda x: 'Airwick' if 'AWICK' in x else 'Gaviscon')
         custsellin = custsellin[custsellin["RB SKU"] == rbsku]
         custsellin = replace_missing_values(custsellin)
 
@@ -1015,11 +1016,11 @@ def get_irrposku():
         campaignsbysku = replace_missing_values(campaignsbysku)
 
         return {
-            "skudata": json.loads(podetails.to_json(orient="records")),
-            "wocgraphdata": json.loads(wocdata.to_json(orient="records")),
-            "histepos": json.loads(custhistepos.to_json(orient="records")),
-            "sellin": json.loads(custsellin.to_json(orient="records")),
-            "campaigns": json.loads(campaignsbysku.to_json(orient="records")),
-        }
+                    "skudata": json.loads(podetails.to_json(orient="records")),
+                    "wocgraphdata": json.loads(wocdata.to_json(orient="records")),
+                    "histepos": json.loads(custhistepos.to_json(orient="records")),
+                    "sellin": json.loads(custsellin.to_json(orient="records")),
+                    "campaigns": json.loads(campaignsbysku.to_json(orient="records")),
+                }
     except Exception as e:
         return jsonify(status="Error", message=f"{str(e)}"), 500

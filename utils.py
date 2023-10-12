@@ -231,14 +231,20 @@ class AlertsManager:
 
     def generate_oos_alerts(self):
         filters = ['Business Unit', 'Location', 'Brand']
+        overviewdata = AzureBlobReader().read_csvfile("ui_data/reckittoverviewdatarepo.csv")#, self.global_filters, self.global_user)
         oos_data = AzureBlobReader().read_csvfile("ui_data/currentalertsoos.csv")#, self.global_filters, self.global_user)
         oosalertsdata = AlertsManager(self.global_filters, self.global_user).filter_data(oos_data, filters)
+        overviewfiltered = AlertsManager(self.global_filters, self.global_user).filter_data(overviewdata, filters)
         if len(oosalertsdata) > 0:
-            sorted_oos = self.get_sorted_data(oosalertsdata, 'Reckitt WOC')
-            for name, group in sorted_oos.groupby(['Location', 'Brand']):
+            print(f"\n1. oosalertsdata:\n{oosalertsdata.columns}\n2. overviewfiltered:\n{overviewfiltered.columns}\n" )
+            merged = oosalertsdata.merge(overviewfiltered, left_on=["Business Unit","Location","Customer","RB SKU","Description","Brand", "Reckitt WOC"], right_on=["Business Unit","Location","Customer","RB SKU","Description","Brand", "Reckitt WOC"], how='inner')
+            print(f"\n3. merged:\n{merged.columns}\n\n" )
+            merged = merged.sort_values(by=['Reckitt WOC',"Exp NR CW"], ascending=[True, False])
+            merged = merged[['Location', 'Brand',"Description", "Reckitt WOC", "Exp NR CW"]]
+            for name, group in merged.groupby(['Location', 'Brand']):
                 alert = {
                     'Title': f"OOS Risk Detected on {name[1]} {name[0]} SKUs",
-                    'DATA': group[["Description", "Reckitt WOC"]].head(3).to_dict('records')
+                    'DATA': group[["Description", "Reckitt WOC", "Exp NR CW"]].head(3).to_dict('records')
                 }
                 try:
                     self.alerts.append(alert)
@@ -255,7 +261,7 @@ class AlertsManager:
             for name, group in sorted_irrpo.groupby(['Location', 'Brand']):
                 alert = {
                     'Title': f"Irregular PO Detected for {name[1]} {name[0]} SKUs",
-                    'DATA': group[["PO Number", "PO Date"]].head(3).to_dict('records')
+                    'DATA': group[["PO Number", "PO Date", "Num Irregular SKUs"]].head(3).to_dict('records')
                 }
                 try:
                     self.alerts.append(alert)
