@@ -12,38 +12,38 @@ const Sellinselloutbarchart = ({ data }) => {
   const data1 = [
     {
       name: "CW-3 (" + (startingWeek - 3) + ")",
-      value: 0,
+      value: details["sellinactuals CW-3"],
       fvalue: details["sola CW+3"],
     },
     {
       name: "CW-2 (" + (startingWeek - 2) + ")",
-      value: 0,
+      value: details["sellinactuals CW-2"],
       fvalue: details["sola CW+2"],
     },
     {
       name: "CW-1 (" + (startingWeek - 1) + ")",
-      value: 0,
+      value: details["sellinactuals CW-1"],
       fvalue: details["sola CW+1"],
     },
     {
       name: "CW (" + startingWeek + ")",
-      value: 0,
-      fvalue: details["sola CW"],
+      value: details["sellinactuals CW"],
+      fvalue: details["sif CW"],
     },
     {
       name: "CW+1(" + (startingWeek + 1) + ")",
       value: 0,
-      fvalue: details["sola CW+1"],
+      fvalue: details["sif CW+1"],
     },
     {
       name: "CW+2 (" + (startingWeek + 2) + ")",
       value: 0,
-      fvalue: details["sola CW+2"],
+      fvalue: details["sif CW+2"],
     },
     {
       name: "CW+3(" + (startingWeek + 3) + ")",
       value: 0,
-      fvalue: details["sola CW+3"],
+      fvalue: details["sif CW+3"],
     },
   ];
 

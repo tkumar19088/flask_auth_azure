@@ -96,13 +96,13 @@ const CarouselExample = () => {
     // navigate("/irregular");
   };
 
-  const maxRecordsPerPage = 4;
+  const maxRecordsPerPage = 3;
   const papers = [];
   for (let i = 0; i < data.length; i += maxRecordsPerPage) {
     const paperData = data.slice(i, i + maxRecordsPerPage);
     papers.push(
       <Paper
-        elevation={3}
+        elevation={4}
         sx={{
           padding: 2,
           backgroundColor: "#E7E9EE",
@@ -116,7 +116,7 @@ const CarouselExample = () => {
           {paperData.map((item, index) => (
             <Grid
               item
-              xs={3}
+              xs={4}
               sx={{ cursor: "pointer" }}
               onClick={
                 item.Title.includes("Irregular PO")
@@ -126,7 +126,7 @@ const CarouselExample = () => {
             >
               <Card
                 className="status-card"
-                sx={{ height: "170px", border: "1px solid #fff" }}
+                sx={{ height: "180px", border: "1px solid #fff" }}
               >
                 <Box className="cs-cardsheader">
                   <Box>
@@ -153,23 +153,24 @@ const CarouselExample = () => {
                   }}
                 >
                   <Box>
-                    <Typography color="#415A6C" fontSize="12px">
+                    <Typography color="#415A6C" fontSize="14px">
                       {item.Title.includes("Irregular PO")
                         ? "PO Number"
                         : "OOS Risk Detected"}
                     </Typography>
                     {item.DATA.map((res) => (
-                      <Typography fontSize="12px" lineHeight="16px">
+                      <Typography fontSize="13px" lineHeight="20px">
                         {res.Name}
                       </Typography>
                     ))}
                   </Box>
+
                   <Box>
                     {" "}
                     <Typography
                       color="#415A6C"
                       fontWeight={500}
-                      fontSize="12px"
+                      fontSize="13px"
                     >
                       {item.Title.includes("Irregular PO")
                         ? "PO Date"
@@ -179,11 +180,36 @@ const CarouselExample = () => {
                       <Typography
                         color="#F08C2A"
                         fontWeight={500}
-                        fontSize={12}
+                        fontSize={13}
                         // lineHeight="16px"
                         textAlign="center"
                       >
                         {res.Value}
+                      </Typography>
+                    ))}
+                  </Box>
+                  <Box>
+                    {" "}
+                    <Typography
+                      color="#415A6C"
+                      fontWeight={500}
+                      fontSize="13px"
+                    >
+                      {item.Title.includes("Irregular PO")
+                        ? "Irregular SKUs"
+                        : "Potential Loss ($)"}
+                    </Typography>
+                    {item.DATA.map((res) => (
+                      <Typography
+                        color="#F08C2A"
+                        fontWeight={500}
+                        fontSize={13}
+                        // lineHeight="16px"
+                        textAlign="center"
+                      >
+                        {item.Title.includes("Irregular PO")
+                          ? res["Num Irregular SKUs"]
+                          : parseFloat(res["Exp NR CW"].toFixed(2))}
                       </Typography>
                     ))}
                   </Box>

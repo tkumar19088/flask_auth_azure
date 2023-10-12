@@ -136,13 +136,25 @@ const Irregularcharts = () => {
                     </span>
                   </Typography>
                   <Typography fontSize={18} color="brown">
-                    PO Price:{" "}
+                    {skudata.po_issue == "Irregular Volume"
+                      ? "Quantity Ordered "
+                      : "PO Price "}
+                    :
                     <span style={{ color: "#415A6C" }}>
-                      {skudata.order_price == null ? "-" : skudata.order_price}
+                      {skudata.po_issue == "Irregular Volume"
+                        ? skudata.quantityordered == null
+                          ? " -"
+                          : skudata.quantityordered
+                        : skudata.skudata.order_price == null
+                        ? " -"
+                        : skudata.skudata.order_price}
                     </span>
                   </Typography>
                   <Typography fontSize={18} color="brown">
-                    Agreed Price:
+                    {skudata.po_issue == "Irregular Volume"
+                      ? "Quantity forecasted "
+                      : "Agreed Price "}
+                    :
                     <span style={{ color: "#415A6C" }}>
                       {" "}
                       {skudata.agreed_price == null
