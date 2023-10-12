@@ -156,7 +156,7 @@ const Irregularcharts = () => {
                       : "Agreed Price "}
                     :
                     <span style={{ color: "#415A6C" }}>
-                      {skudata.po_issue == "Irregular Volume" ? skudata["sif-sola"] == null ? "-" : parseFloat(skudata["sif-sola"].toFixed(2)) : skudata.agreed_price == null ? "-" : parseFloat(skudata.agreed_price.toFixed(2))}
+                      {skudata.po_issue == "Irregular Volume" ? skudata["sif-sola"] == null ? "-" : skudata["sif-sola"] : skudata.agreed_price == null ? "-" : parseFloat(skudata.agreed_price.toFixed(2))}
                     </span>
                   </Typography>
                 </Grid>

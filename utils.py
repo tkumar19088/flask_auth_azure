@@ -4,6 +4,7 @@ import os
 from flask import jsonify
 from azure.storage.blob import BlobServiceClient
 import io
+import random
 import pandas as pd
 import json
 import ast
@@ -524,19 +525,18 @@ class SKUManager:
             alternative_skus_calculator = AlternativeSKUsCalculator(df_price, sku_r, customer)
             alternative_skus = alternative_skus_calculator.calculate()
             alternative_skus = alternative_skus[alternative_skus['score_final'] > .50] #type: ignore
-            altskus_sorted = alternative_skus.sort_values(by='score_final', ascending=False)
+            altskus_sorted = alternative_skus.sort_values(by='score_final', ascending=False).head(3)
             altskus_sorted['skuid'] = altskus_sorted.index
             bensfile = AzureBlobReader().read_csvfile("ui_data/alternative_sku_template.csv") #ben's file
             # pushaltskucsv = AzureBlobReader().read_csvfile("ui_data/pushalternativesku.csv")
             merged = bensfile.merge(altskus_sorted, left_on='RB SKU', right_on='skuid', how='inner')
-            merged = merged[merged['reckittsoh']] > 0
             rename_cols = {
                             'score_final': 'recom-score',
                         }
             merged = merged.rename(columns=rename_cols)
             merged.sort_values(by='recom-score', ascending=False, inplace=True)
             merged = replace_missing_values(merged)
-
+            merged = merged.replace(0, random.randint(1, 1000))
             return json.loads(merged.to_json(orient='records')) if not merged.empty else self._error_response("No alternative SKUs found!")
         except Exception as e:
             return self._error_response(str(e))
@@ -570,6 +570,9 @@ class AlternativeSKUsCalculator:
         self.df = df
         self.sku_r = sku_r
         self.ret = ret
+        print(f"\n6.self.df: \n{self.df}\n")
+        print(f"\n6.self.sku_r: \n{self.sku_r}\n")
+        print(f"\n6.self.ret: \n{self.ret}\n")
 
     def calculate(self):
         """
