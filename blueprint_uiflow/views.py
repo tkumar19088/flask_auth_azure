@@ -600,7 +600,6 @@ def get_irrpodata():
     try:
         config = current_app.config
         global_user = config.get('global_user', {})
-        global_user = dict((k.lower(), v.lower()) for k, v in global_user.items())
         global_filters = config.get('global_filters', {})
         global_filters = dict((k.lower(), v.lower()) for k, v in global_filters.items())
 
@@ -611,7 +610,7 @@ def get_irrpodata():
 
         for filter_key in filters:
             if filter_key.lower() in global_user and global_user[filter_key.lower()] != None:
-                df = df[df[filter_key].str.lower() == global_user[filter_key.lower()]]
+                df = df[df[filter_key] in global_user[filter_key]]
         for filter_key in filters:
             if filter_key.lower() in global_filters and global_filters[filter_key.lower()] != None:
                 df = df[df[filter_key].str.lower() == global_filters[filter_key.lower()]]
@@ -628,9 +627,6 @@ def get_irrpodata():
 def get_irrpodetails():
     try:
         data = request.json or {}
-        config = current_app.config
-
-        filters = ['Business Unit', 'Location', 'Customer','Brand']
         filename = "ui_data/po_irrsku_details.csv"
 
         podetails = AzureBlobReader().read_csvfile(filename)
