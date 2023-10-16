@@ -15,6 +15,7 @@ import {
   fetchoverviewhighriskdata,
   updateexporttabledata,
   fetchtaburl,
+  fetchoirregulardata,
 } from "../../store/actions/sidebarActions";
 
 const CarouselExample = () => {
@@ -77,7 +78,7 @@ const CarouselExample = () => {
       dispatch(updateloader(false));
     }
   };
-  const handleIrregularPO = () => {
+  const handleIrregularPO = async () => {
     if (!business) {
       dispatch(fetchbusinessempty(true));
     }
@@ -93,6 +94,34 @@ const CarouselExample = () => {
     }
 
     setselectedalert(true);
+    dispatch(updateloader(true));
+    var data = {};
+    try {
+      const url = "https://testingsmartola.azurewebsites.net/getirrpodata";
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        // setuserDetails(json.name);
+        // dispatch(updatetabname("irregular"));
+        dispatch(fetchoirregulardata(json));
+        dispatch(updateexporttabledata(json));
+        dispatch(fetchtaburl(url));
+        navigate("/irregular");
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
     // navigate("/irregular");
   };
 

@@ -1007,7 +1007,7 @@ const SupplyTable = ({ onData }) => {
                     </TableCell>
                     <TableCell>
                       <Tooltip title={item.Description}>
-                        {truncateText(item.Description, 30)}
+                        {truncateText(item.Description, 15)}
                       </Tooltip>
                     </TableCell>
                     <TableCell>
