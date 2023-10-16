@@ -95,13 +95,16 @@ function Filtersin({ apply }) {
     };
     console.log(data);
     try {
-      const response = await fetch("http://localhost:5000/getsellingraph", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://testingsmartola.azurewebsites.net/getsellingraph",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       if (response.ok) {
         const json = await response.json();
         apply(json);

@@ -62,13 +62,16 @@ const SupplyTable = ({ onData }) => {
       dispatch(updateloader(true));
       var data = { customer: 0, rbsku: rowId };
       try {
-        const response = await fetch("http://localhost:5000/getcampaigns", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
+        const response = await fetch(
+          "https://testingsmartola.azurewebsites.net/getcampaigns",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
         if (response.ok) {
           const json = await response.json();
           console.log(json);
@@ -92,13 +95,16 @@ const SupplyTable = ({ onData }) => {
     dispatch(updateloader(true));
     var data = { rbsku: expandedRow };
     try {
-      const response = await fetch("http://localhost:5000/getalternativeskus", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://testingsmartola.azurewebsites.net/getalternativeskus",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       if (response.ok) {
         const json = await response.json();
         console.log(json);
@@ -116,16 +122,19 @@ const SupplyTable = ({ onData }) => {
   };
   const handleReallocate = async () => {
     dispatch(updateloader(true));
-    navigate("/stockreallocation");
+    // navigate("/stockreallocation");
     var data = { rbsku: expandedRow };
     try {
-      const response = await fetch("http://localhost:5000/rarbysku", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://testingsmartola.azurewebsites.net/rarbysku",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       if (response.ok) {
         const json = await response.json();
         console.log(json);
@@ -312,13 +321,16 @@ const SupplyTable = ({ onData }) => {
     dispatch(updateloader(true));
     var data = { rbsku: expandedRow };
     try {
-      const response = await fetch("http://localhost:5000/choosescenario", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://testingsmartola.azurewebsites.net/choosescenario",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       if (response.ok) {
         const json = await response.json();
         setchooseData(json);

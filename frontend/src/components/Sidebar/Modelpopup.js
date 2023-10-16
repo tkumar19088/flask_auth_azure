@@ -39,7 +39,7 @@ const BasicModal = () => {
       rbsku: "",
     };
     try {
-      const url = "http://localhost:5000/getoverview";
+      const url = "https://testingsmartola.azurewebsites.net/getoverview";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -69,7 +69,9 @@ const BasicModal = () => {
   };
   return (
     <div>
-      <Typography onClick={handleOpen} fontSize="13px">OOS Risk Detection</Typography>
+      <Typography onClick={handleOpen} fontSize="13px">
+        OOS Risk Detection
+      </Typography>
       <Modal
         open={open}
         onClose={handleClose}
