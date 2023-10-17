@@ -609,16 +609,6 @@ const Irregularpo = () => {
                         border: "1px solid #dcdcdc",
                       }}
                     >
-                      Customer PO number
-                    </TableCell>
-                    <TableCell
-                      style={{
-                        textAlign: "center",
-                        color: "#415A6C",
-                        backgroundColor: "#E5EBEF",
-                        border: "1px solid #dcdcdc",
-                      }}
-                    >
                       PO Receipt Date
                     </TableCell>
                     <TableCell
@@ -717,9 +707,6 @@ const Irregularpo = () => {
                             )}
                             {item.poNumber}
                           </Box>
-                        </TableCell>
-                        <TableCell sx={{ textAlign: "center" }}>
-                          {item.customerPoNumber}
                         </TableCell>
                         <TableCell sx={{ textAlign: "center" }}>
                           {item.poReceiptDate}

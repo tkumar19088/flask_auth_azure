@@ -226,7 +226,7 @@ const CarouselExample = () => {
                     >
                       {item.Title.includes("Irregular PO")
                         ? "Irregular SKUs"
-                        : "Potential Loss ($)"}
+                        : "Potential Loss (£)"}
                     </Typography>
                     {item.DATA.map((res) => (
                       <Typography
