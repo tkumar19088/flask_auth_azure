@@ -149,3 +149,6 @@
 .t-head th {
   border: 2px solid #dcdcdc;
 }
+.t-body tr td {
+  color: #415A6C;
+}

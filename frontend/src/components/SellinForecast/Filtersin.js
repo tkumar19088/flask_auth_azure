@@ -287,8 +287,12 @@ function Filtersin({ apply }) {
               Cancel
             </Button>
           </Box>
+          
         </Grid>
+        
       </Menu>
+      
+      
     </div>
   );
 }

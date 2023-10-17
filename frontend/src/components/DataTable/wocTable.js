@@ -426,7 +426,7 @@ const WocTable = ({ onData }) => {
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className="t-body">
             {details.length == 0 && (
               <TableRow>
                 <TableCell
@@ -674,7 +674,7 @@ const WocTable = ({ onData }) => {
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className="t-body">
             {details.length == 0 && (
               <TableRow>
                 <TableCell
@@ -909,7 +909,7 @@ const WocTable = ({ onData }) => {
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className="t-body">
             {data.length == 0 && (
               <TableRow>
                 <TableCell

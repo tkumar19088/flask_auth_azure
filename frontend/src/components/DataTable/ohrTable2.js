@@ -559,7 +559,7 @@ const OhrTable2 = ({ onData }) => {
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className="t-body">
             {details.length == 0 && (
               <TableRow>
                 <TableCell
@@ -815,7 +815,7 @@ const OhrTable2 = ({ onData }) => {
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className="t-body">
             {details.length == 0 && (
               <TableRow>
                 <TableCell
@@ -1057,7 +1057,7 @@ const OhrTable2 = ({ onData }) => {
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className="t-body">
             {data && data.length == 0 && (
               <TableRow>
                 <TableCell

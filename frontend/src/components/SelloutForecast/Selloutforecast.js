@@ -42,6 +42,7 @@ const Selloutforecast = () => {
     { name: "Week12", value: 0, kvalue: 0 },
   ];
   const [selectedforecast, setselectedforecast] = useState(defaultData);
+  const [error, seterror] = useState(true);
 
   const convertedjson = (json) => {
     const convertedData = [];
@@ -61,6 +62,7 @@ const Selloutforecast = () => {
   };
 
   const handleApply = (jsonData) => {
+    seterror(false);
     setfilteredData(jsonData);
     var rbSkuArray = [];
     if (jsonData.length > 0) {
@@ -196,6 +198,12 @@ const Selloutforecast = () => {
               </Box>
             </Box>
           </Grid>
+          {error && (
+            <Typography color="red" fontSize={14} ml={53} mt="-20px">
+              {" "}
+              Please Select Filters First{" "}
+            </Typography>
+          )}
           <Box sx={{ border: "", width: 1550, height: 755 }} paddingLeft="30px">
             <Linechart data={selectedforecast} />
           </Box>
