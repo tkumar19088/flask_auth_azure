@@ -234,13 +234,13 @@ const Irregularcharts = () => {
                 Customer SoH (Current / Target)
               </Typography>
               <Typography color="green">
-                {skudata["sif-sola"] == null
+                {skudata["CustSOH_current"] == null
                   ? "-"
-                  : parseFloat(skudata["sif-sola"].toFixed(2))}{" "}
+                  : parseFloat(skudata["CustSOH_current"].toFixed(2))}{" "}
                 (
-                {skudata["sif-kinaxis"] == ""
+                {skudata["CustSOH_target"] == null
                   ? "-"
-                  : parseFloat(skudata["sif-kinaxis"].toFixed(2))}
+                  : parseFloat(skudata["CustSOH_target"].toFixed(2))}
                 )
               </Typography>
             </Grid>
