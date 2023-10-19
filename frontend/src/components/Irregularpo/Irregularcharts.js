@@ -107,8 +107,8 @@ const Irregularcharts = () => {
           <Grid container justifyContent="space-between" my="20px">
             <Box mx="1px">
               <Typography fontSize={20} color="#415A6C">
-                Irregular PO :  
-                <span style={{fontSize:"18px"}}>
+                Irregular PO :
+                <span style={{ fontSize: "18px" }}>
                   {skudata.poNumber} : {skudata.description}
                 </span>
               </Typography>
@@ -248,6 +248,9 @@ const Irregularcharts = () => {
               </Typography>
             </Grid>
           </Stack>
+          <Typography fontSize={20} color="#415A6C" my={2}>
+            Add current / upcoming promo
+          </Typography>
           <Box>
             <Promo data={chartdata.campaigns} />
           </Box>
