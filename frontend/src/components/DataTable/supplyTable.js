@@ -956,7 +956,7 @@ const SupplyTable = ({ onData }) => {
             )}
             {data &&
               data.map((item, index) => (
-                <React.Fragment key={item["RB SKU"]}>
+                <React.Fragment key={`item["RB SKU"]`}>
                   <TableRow
                     key={item["RB SKU"]}
                     sx={{
