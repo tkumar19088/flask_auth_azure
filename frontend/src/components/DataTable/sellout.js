@@ -1123,7 +1123,7 @@ const Sellout = ({ onData }) => {
                     <div>
                       {" "}
                       <Tooltip title={item.Description}>
-                        {truncateText(item.Description, 30)}
+                        {truncateText(item.Description, 15)}
                       </Tooltip>
                     </div>
                   </TableCell>

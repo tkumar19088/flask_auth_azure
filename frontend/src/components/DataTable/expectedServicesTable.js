@@ -986,7 +986,7 @@ const ExpectedServices = ({ onData }) => {
                   <TableCell>
                     <div>
                       <Tooltip title={item.Description}>
-                        {truncateText(item.Description, 18)}
+                        {truncateText(item.Description, 15)}
                       </Tooltip>
                     </div>
                   </TableCell>

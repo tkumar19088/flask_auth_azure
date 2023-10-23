@@ -1198,7 +1198,7 @@ const OhrTable2 = ({ onData }) => {
                           // marginLeft: "20px",
                           color: "#fff",
                           textAlign: "center",
-                          fontSize: "11px",
+                          fontSize: "13px",
                           // border:"1px solid",
                           width: "25px",
                           height: "25px",
@@ -1235,7 +1235,7 @@ const OhrTable2 = ({ onData }) => {
                       <Typography
                         margin="auto"
                         sx={{
-                          fontSize: "11px",
+                          fontSize: "13px",
                           color: "#fff",
                           width: "25px",
                           height: "25px",
@@ -1272,7 +1272,7 @@ const OhrTable2 = ({ onData }) => {
                       <Typography
                         margin="auto"
                         sx={{
-                          fontSize: "11px",
+                          fontSize: "13px",
                           color: "#fff",
                           width: "25px",
                           height: "25px",
@@ -1310,7 +1310,7 @@ const OhrTable2 = ({ onData }) => {
                         margin="auto"
                         sx={{
                           // marginLeft: "20px",
-                          fontSize: "11px",
+                          fontSize: "13px",
                           color: "#fff",
                           width: "25px",
                           height: "25px",

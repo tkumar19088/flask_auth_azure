@@ -1080,7 +1080,7 @@ const Historic = ({ onData }) => {
               </TableRow>
             )}
             {data.map((item, index) => (
-              <React.Fragment key={item["RB SKU"]}>
+              <React.Fragment key={`item["RB SKU"]`}>
                 <TableRow
                   key={item["RB SKU"]}
                   sx={{
@@ -1132,7 +1132,7 @@ const Historic = ({ onData }) => {
                   <TableCell>
                     <div>
                       <Tooltip title={item.Description}>
-                        {truncateText(item.Description, 30)}
+                        {truncateText(item.Description, 15)}
                       </Tooltip>
                     </div>
                   </TableCell>

@@ -1124,7 +1124,7 @@ const Sellin = ({ onData }) => {
                     <div>
                       {" "}
                       <Tooltip title={item.Description}>
-                        {truncateText(item.Description, 20)}
+                        {truncateText(item.Description, 15)}
                       </Tooltip>
                     </div>
                   </TableCell>
