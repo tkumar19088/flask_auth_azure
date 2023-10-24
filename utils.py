@@ -426,7 +426,7 @@ class ReallocationOptimizer:
             for k1 in self.X_vars.keys():
                 for k2, v in self.X_vars[k1].items():
                     arr[k1, k2] = v.varValue
-            df_res = pd.DataFrame(np.round(arr, 4), columns=var_dict.values())
+            df_res = pd.DataFrame(np.round(arr, 4), columns=var_dict.values()) # type: ignore
             final = pd.concat([self.df, df_res], axis = 1)
             return MINIMUM_SERVICE_LEVEL, WOC_MIN, WOC_MAX, status, final, pulp.value(X_0)
         except Exception as e:
