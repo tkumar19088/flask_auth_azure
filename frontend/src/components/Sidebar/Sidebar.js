@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import Log from "../../images/Logout.png";
 import "./Sidebar.css";
 import { useNavigate } from "react-router-dom";
-import { Box } from "@mui/material";
+import { Box, Link } from "@mui/material";
 
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -12,6 +12,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
+import CachedIcon from "@mui/icons-material/Cached";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -95,6 +96,9 @@ const Sidebar = () => {
     dispatch(fetchOOSRisk(true));
     setoosrick(true);
     setirregular(false);
+  };
+  const handleDataFreshness = () => {
+    navigate("/dataFreshness");
   };
   const handleIrregular = async () => {
     dispatch(updateloader(true));
@@ -377,6 +381,39 @@ const Sidebar = () => {
           Alerts
         </Typography>
       </div>
+
+      <div
+        className="logs-out"
+        style={{
+          position: "absolute",
+          left: 14,
+          bottom: 73,
+          cursor: "pointer",
+          gap: "9px",
+        }}
+        onClick={handleDataFreshness}
+      >
+        <CachedIcon
+          src={Log}
+          alt="logout"
+          sx={{ height: "19px", marginTop: "1px" }}
+        />
+        <Typography fontSize={{ lg: 14, xs: 9 }} className="logsout-titile">
+          Data Freshness
+        </Typography>
+      </div>
+
+      <div
+        // className="logs-out"
+        style={{
+          position: "absolute",
+          left: 14,
+          bottom: 62,
+          cursor: "pointer",
+          border: "1px dashed #dcdcdc",
+          width: "88%",
+        }}
+      ></div>
 
       {/* logout........... */}
       <div

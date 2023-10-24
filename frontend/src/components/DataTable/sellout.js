@@ -1135,10 +1135,12 @@ const Sellout = ({ onData }) => {
                     {" "}
                     <div className="alignment">{item.Brand}</div>
                   </TableCell>
-                  <TableCell sx={{ width: "90px" }}>
+                  <TableCell sx={{ width: "40px" }}>
                     <div className="alignment">{item.InitialSOHWeek}</div>
                   </TableCell>
-                  <TableCell sx={{ textAlign: "center", padding: "0px" }}>
+                  <TableCell
+                    sx={{ textAlign: "center", padding: "0px", width: "90px" }}
+                  >
                     {item["sola CW"]}
                   </TableCell>
                   <TableCell sx={{ textAlign: "center", padding: "0px" }}>

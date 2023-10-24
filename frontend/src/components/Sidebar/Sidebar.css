@@ -120,6 +120,11 @@ height: 20px;
 margin-top: 1px;
 }
 
+.data-icon{
+height: 20px;   
+margin-top: 1px;
+}
+
 .css-ahj2mt-MuiTypography-root {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -256,6 +261,10 @@ margin-top: 1px;
 .logout-icon{
     margin-right: 14px !important;
 }
+   
+.data-icon{
+    margin-right: 14px !important;
+}
 .logsout-titile{
     font-size: 14px !important;
 }
@@ -327,6 +336,10 @@ margin-top: 1px;
        }
        
     .logout-icon{
+        margin-right: 14px !important;
+    }
+       
+    .data-icon{
         margin-right: 14px !important;
     }
     .logsout-titile{
