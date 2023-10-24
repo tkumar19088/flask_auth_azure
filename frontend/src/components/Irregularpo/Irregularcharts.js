@@ -3,6 +3,7 @@ import Topbar from "../Topbar/Topbar";
 import { Box, Button, Card, Grid, Stack, Typography } from "@mui/material";
 import Sidebar from "../Sidebar/Sidebar";
 import "./Irregularchart.css";
+import html2canvas from "html2canvas";
 
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -43,6 +44,16 @@ const Irregularcharts = () => {
     setlineChartData(false);
     setserviceLevel(true);
     setbarChartData(true);
+  };
+
+  const handleScreenshort = () => {
+    html2canvas(document.documentElement).then((canvas) => {
+      const screenshotDataUrl = canvas.toDataURL("image/png");
+      const a = document.createElement("a");
+      a.href = screenshotDataUrl;
+      a.download = "screenshot.png";
+      a.click();
+    });
   };
 
   return (
@@ -96,7 +107,10 @@ const Irregularcharts = () => {
           <Grid container justifyContent="space-between" my="20px">
             <Box mx="1px">
               <Typography fontSize={20} color="#415A6C">
-                Irregular PO : {skudata.poNumber} : {skudata.description}
+                Irregular PO :
+                <span style={{ fontSize: "18px" }}>
+                  {skudata.poNumber} : {skudata.description}
+                </span>
               </Typography>
             </Box>
             <Button
@@ -110,6 +124,7 @@ const Irregularcharts = () => {
                   backgroundColor: "#FF007F",
                 },
               }}
+              onClick={handleScreenshort}
             >
               Export Data
             </Button>
@@ -146,8 +161,8 @@ const Irregularcharts = () => {
                           ? " -"
                           : skudata.quantityordered
                         : skudata.skudata.order_price == null
-                          ? " -"
-                          : skudata.skudata.order_price}
+                        ? " -"
+                        : skudata.skudata.order_price}
                     </span>
                   </Typography>
                   <Typography fontSize={18} color="brown">
@@ -156,7 +171,13 @@ const Irregularcharts = () => {
                       : "Agreed Price "}
                     :
                     <span style={{ color: "#415A6C" }}>
-                      {skudata.po_issue == "Irregular Volume" ? skudata["sif-sola"] == null ? "-" : skudata["sif-sola"] : skudata.agreed_price == null ? "-" : parseFloat(skudata.agreed_price.toFixed(2))}
+                      {skudata.po_issue == "Irregular Volume"
+                        ? skudata["sif-sola"] == null
+                          ? "-"
+                          : skudata["sif-sola"]
+                        : skudata.agreed_price == null
+                        ? "-"
+                        : parseFloat(skudata.agreed_price.toFixed(2))}
                     </span>
                   </Typography>
                 </Grid>
@@ -180,7 +201,7 @@ const Irregularcharts = () => {
           )}
 
           <Box mx="1px" mt="-35px" sx={{ marginBottom: "10px" }}>
-            <Typography fontSize={28} color="#415A6C">
+            <Typography fontSize={20} color="#415A6C">
               KPIs
             </Typography>
           </Box>
@@ -188,7 +209,9 @@ const Irregularcharts = () => {
             <Grid item xs={3} className="kpi-box">
               <Typography fontSize="13px">Sell-Out Forecast (CW)</Typography>
               <Typography color="green">
-                {skudata["sof cw"] == null ? "-" : parseFloat(skudata["sof cw"].toFixed(2))}
+                {skudata["sof cw"] == null
+                  ? "-"
+                  : parseFloat(skudata["sof cw"].toFixed(2))}
               </Typography>
             </Grid>
             <Grid item xs={3} className="kpi-box">
@@ -214,14 +237,20 @@ const Irregularcharts = () => {
                 Customer SoH (Current / Target)
               </Typography>
               <Typography color="green">
-                {skudata["sif-sola"] == null ? "-" : parseFloat(skudata["sif-sola"].toFixed(2))} (
-                {skudata["sif-kinaxis"] == ""
+                {skudata["CustSOH_current"] == null
                   ? "-"
-                  : parseFloat(skudata["sif-kinaxis"].toFixed(2))}
+                  : parseFloat(skudata["CustSOH_current"].toFixed(2))}{" "}
+                (
+                {skudata["CustSOH_target"] == null
+                  ? "-"
+                  : parseFloat(skudata["CustSOH_target"].toFixed(2))}
                 )
               </Typography>
             </Grid>
           </Stack>
+          <Typography fontSize={20} color="#415A6C" my={2}>
+            Add current / upcoming promo
+          </Typography>
           <Box>
             <Promo data={chartdata.campaigns} />
           </Box>

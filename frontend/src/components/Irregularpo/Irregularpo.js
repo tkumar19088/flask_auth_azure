@@ -55,13 +55,16 @@ const Irregularpo = () => {
     dispatch(updateloader(true));
     var data = { po_id: po_id, rbsku: rbsku };
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/getirrposku", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://testingsmartola.azurewebsites.net/getirrposku",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       if (response.ok) {
         const json = await response.json();
         console.log(json);
@@ -341,13 +344,16 @@ const Irregularpo = () => {
       dispatch(updateloader(true));
       var data = { po_id: rowId };
       try {
-        const response = await fetch("https://testingsmartola.azurewebsites.net/getirrpodetails", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
+        const response = await fetch(
+          "https://testingsmartola.azurewebsites.net/getirrpodetails",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
         if (response.ok) {
           const json = await response.json();
           console.log(json);
@@ -603,16 +609,6 @@ const Irregularpo = () => {
                         border: "1px solid #dcdcdc",
                       }}
                     >
-                      Customer PO number
-                    </TableCell>
-                    <TableCell
-                      style={{
-                        textAlign: "center",
-                        color: "#415A6C",
-                        backgroundColor: "#E5EBEF",
-                        border: "1px solid #dcdcdc",
-                      }}
-                    >
                       PO Receipt Date
                     </TableCell>
                     <TableCell
@@ -711,9 +707,6 @@ const Irregularpo = () => {
                             )}
                             {item.poNumber}
                           </Box>
-                        </TableCell>
-                        <TableCell sx={{ textAlign: "center" }}>
-                          {item.customerPoNumber}
                         </TableCell>
                         <TableCell sx={{ textAlign: "center" }}>
                           {item.poReceiptDate}

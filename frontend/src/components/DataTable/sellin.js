@@ -56,13 +56,16 @@ const Sellin = ({ onData }) => {
       dispatch(updateloader(true));
       var data = { customer: 0, rbsku: rowId };
       try {
-        const response = await fetch("https://testingsmartola.azurewebsites.net/getcampaigns", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
+        const response = await fetch(
+          "https://testingsmartola.azurewebsites.net/getcampaigns",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
         if (response.ok) {
           const json = await response.json();
           console.log(json);
@@ -86,13 +89,16 @@ const Sellin = ({ onData }) => {
     dispatch(updateloader(true));
     var data = { rbsku: expandedRow };
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/getalternativeskus", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://testingsmartola.azurewebsites.net/getalternativeskus",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       if (response.ok) {
         const json = await response.json();
         console.log(json);
@@ -110,16 +116,19 @@ const Sellin = ({ onData }) => {
   };
   const handleReallocate = async () => {
     dispatch(updateloader(true));
-    navigate("/stockreallocation");
+    // navigate("/stockreallocation");
     var data = { rbsku: expandedRow };
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/rarbysku", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://testingsmartola.azurewebsites.net/rarbysku",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       if (response.ok) {
         const json = await response.json();
         console.log(json);
@@ -414,13 +423,16 @@ const Sellin = ({ onData }) => {
     dispatch(updateloader(true));
     var data = { rbsku: expandedRow };
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/choosescenario", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://testingsmartola.azurewebsites.net/choosescenario",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       if (response.ok) {
         const json = await response.json();
         setchooseData(json);
@@ -544,7 +556,7 @@ const Sellin = ({ onData }) => {
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className="t-body">
             {details.length == 0 && (
               <TableRow>
                 <TableCell
@@ -800,7 +812,7 @@ const Sellin = ({ onData }) => {
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className="t-body">
             {details.length == 0 && (
               <TableRow>
                 <TableCell
@@ -1046,7 +1058,7 @@ const Sellin = ({ onData }) => {
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className="t-body">
             {data.length == 0 && (
               <TableRow>
                 <TableCell
@@ -1058,7 +1070,7 @@ const Sellin = ({ onData }) => {
               </TableRow>
             )}
             {data.map((item, index) => (
-              <React.Fragment key={item["RB SKU"]}>
+              <React.Fragment key={`item["RB SKU"]`}>
                 <TableRow
                   key={item["RB SKU"]}
                   sx={{
@@ -1112,7 +1124,7 @@ const Sellin = ({ onData }) => {
                     <div>
                       {" "}
                       <Tooltip title={item.Description}>
-                        {truncateText(item.Description, 20)}
+                        {truncateText(item.Description, 15)}
                       </Tooltip>
                     </div>
                   </TableCell>

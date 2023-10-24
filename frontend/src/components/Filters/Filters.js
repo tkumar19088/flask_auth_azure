@@ -69,12 +69,24 @@ const Filters = () => {
     dispatch(fetchbrand(event.target.value));
   };
 
+  useEffect(() => {
+    if (data.Location.length === 1) {
+      dispatch(fetchlocation(data.Location[0]));
+    }
+    if (data["Business Unit"].length === 1) {
+      dispatch(fetchlocation(data["Business Unit"][0]));
+    }
+    if (data.Customer.length === 1) {
+      dispatch(fetchlocation(data.Customer[0]));
+    }
+  }, [data]);
   const handleApplyFilters = async (e) => {
     e.preventDefault();
     dispatch(updateapplyfilterserror(false));
     if (!business) {
       dispatch(fetchbusinessempty(true));
     }
+
     if (!location) {
       dispatch(fetchlocationempty(true));
     }
@@ -92,13 +104,16 @@ const Filters = () => {
     };
     console.log(data);
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/getfilterparams", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://testingsmartola.azurewebsites.net/getfilterparams",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       if (response.ok) {
         const json = await response.json();
         console.log(json);
@@ -116,7 +131,9 @@ const Filters = () => {
   const handleResetFilters = async () => {
     // dispatch(updateloader(true));
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/resetfilterparams");
+      const response = await fetch(
+        "https://testingsmartola.azurewebsites.net/resetfilterparams"
+      );
       if (response.ok) {
         console.log("success");
         dispatch(fetchbusiness(""));
@@ -187,20 +204,23 @@ const Filters = () => {
                   onChange={handleBusinessChange}
                   id="business-unit"
                 >
-                  <MenuItem value="">
-                    <em>-Select-</em>
-                  </MenuItem>
-                  {data ? (
+                  {data["Business Unit"].length !== 1 && (
+                    <MenuItem value="">
+                      <em>-Select-</em>
+                    </MenuItem>
+                  )}
+                  {data["Business Unit"].length === 1 && (
+                    <MenuItem value={data["Business Unit"][0]}>
+                      {data["Business Unit"][0]}
+                    </MenuItem>
+                  )}
+
+                  {data["Business Unit"].length !== 1 &&
                     data["Business Unit"].map((item) => (
                       <MenuItem value={item} key={item}>
                         {item}
                       </MenuItem>
-                    ))
-                  ) : (
-                    <MenuItem>
-                      <em>-Select-</em>
-                    </MenuItem>
-                  )}
+                    ))}
                 </Select>
               </FormControl>
             </Box>
@@ -221,18 +241,29 @@ const Filters = () => {
                   Location*
                 </InputLabel>
                 <Select
-                  value={location}
+                  value={
+                    data.Location.length === 1 ? data.Location[0] : location
+                  }
                   onChange={handleLocationChange}
                   id="location"
                 >
-                  <MenuItem value="">
-                    <em>-Select-</em>
-                  </MenuItem>
-                  {data.Location.map((item) => (
-                    <MenuItem value={item} key={item}>
-                      {item}
+                  {data.Location.length !== 1 && (
+                    <MenuItem value="">
+                      <em>-Select-</em>
                     </MenuItem>
-                  ))}
+                  )}
+                  {data.Location.length === 1 && (
+                    <MenuItem value={data.Location[0]}>
+                      {data.Location[0]}
+                    </MenuItem>
+                  )}
+
+                  {data.Location.length !== 1 &&
+                    data.Location.map((item) => (
+                      <MenuItem value={item} key={item}>
+                        {item}
+                      </MenuItem>
+                    ))}
                 </Select>
               </FormControl>
             </Box>
@@ -250,14 +281,23 @@ const Filters = () => {
                   id="customer"
                   onChange={handleCustomerChange}
                 >
-                  <MenuItem value="">
-                    <em>-Select-</em>
-                  </MenuItem>
-                  {data.Customer.map((item) => (
-                    <MenuItem value={item} key={item}>
-                      {item}
+                  {data.Customer.length !== 1 && (
+                    <MenuItem value="">
+                      <em>-Select-</em>
                     </MenuItem>
-                  ))}
+                  )}
+                  {data.Customer.length === 1 && (
+                    <MenuItem value={data.Customer[0]}>
+                      {data.Customer[0]}
+                    </MenuItem>
+                  )}
+
+                  {data.Customer.length !== 1 &&
+                    data.Customer.map((item) => (
+                      <MenuItem value={item} key={item}>
+                        {item}
+                      </MenuItem>
+                    ))}
                 </Select>
               </FormControl>
             </Box>

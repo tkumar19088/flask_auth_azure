@@ -107,6 +107,7 @@ function Filtersdropdown() {
     }
 
     dispatch(updateloader(true));
+    dispatch(updateskulist([]));
     dispatch(updatesearchvalue(""));
     // tabApiCall();
 
@@ -118,17 +119,19 @@ function Filtersdropdown() {
     };
     console.log(data);
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/getfilterparams", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://testingsmartola.azurewebsites.net/getfilterparams",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       if (response.ok) {
-        const json = await response.json();
-        console.log(json);
-        dispatch(updatesearchvalue(""));
+        // const json = await response.json();
+        // console.log(json);
         tabApiCall();
         setAnchorEl(null);
       }
@@ -139,8 +142,7 @@ function Filtersdropdown() {
 
   const tabApiCall = async () => {
     dispatch(updateloader(true));
-    dispatch(updateskulist([]));
-    dispatch(updatesearchvalue(""));
+    // dispatch(updatesearchvalue(""));
     var data = {
       customer: customerurl,
       search: "",
@@ -159,6 +161,7 @@ function Filtersdropdown() {
       });
       if (response.ok) {
         const json = await response.json();
+        console.log(json);
         identifySpecificTabdata(json, url);
       } else {
         console.error("Error fetching data:", response.statusText);
@@ -171,8 +174,6 @@ function Filtersdropdown() {
   };
 
   const identifySpecificTabdata = (json, url) => {
-    dispatch(updateexporttabledata(json));
-    dispatch(fetchtaburl(url));
     if (customerurl == 0) {
       if (url.includes("getoverview")) {
         dispatch(fetchoverviewhighriskdata(json));
@@ -218,6 +219,8 @@ function Filtersdropdown() {
         dispatch(fetchcustomerola(json));
       }
     }
+    dispatch(fetchtaburl(url));
+    dispatch(updateexporttabledata(json));
   };
 
   return (

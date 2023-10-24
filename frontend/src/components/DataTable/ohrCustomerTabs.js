@@ -11,6 +11,7 @@ import OhrTable from "./ohrTable";
 import "react-tabs/style/react-tabs.css";
 import "./FunctionalTabs.css";
 import OhrTable2 from "./ohrTable2";
+import Customeroverview from "./Customeroverview";
 import Historic from "./historic";
 import Sellout from "./sellout";
 import Sellin from "./sellin";

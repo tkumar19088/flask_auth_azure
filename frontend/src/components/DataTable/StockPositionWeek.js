@@ -52,13 +52,16 @@ const StockPositionWeek = ({ onData }) => {
       dispatch(updateloader(true));
       var data = { customer: 0, rbsku: rowId };
       try {
-        const response = await fetch("https://testingsmartola.azurewebsites.net/getcampaigns", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
+        const response = await fetch(
+          "https://testingsmartola.azurewebsites.net/getcampaigns",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
         if (response.ok) {
           const json = await response.json();
           console.log(json);
@@ -82,13 +85,16 @@ const StockPositionWeek = ({ onData }) => {
     dispatch(updateloader(true));
     var data = { rbsku: expandedRow };
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/getalternativeskus", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://testingsmartola.azurewebsites.net/getalternativeskus",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       if (response.ok) {
         const json = await response.json();
         console.log(json);
@@ -106,16 +112,19 @@ const StockPositionWeek = ({ onData }) => {
   };
   const handleReallocate = async () => {
     dispatch(updateloader(true));
-    navigate("/stockreallocation");
+    // navigate("/stockreallocation");
     var data = { rbsku: expandedRow };
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/rarbysku", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://testingsmartola.azurewebsites.net/rarbysku",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       if (response.ok) {
         const json = await response.json();
         console.log(json);
@@ -284,13 +293,16 @@ const StockPositionWeek = ({ onData }) => {
     dispatch(updateloader(true));
     var data = { rbsku: expandedRow };
     try {
-      const response = await fetch("https://testingsmartola.azurewebsites.net/choosescenario", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://testingsmartola.azurewebsites.net/choosescenario",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       if (response.ok) {
         const json = await response.json();
         setchooseData(json);
@@ -414,7 +426,7 @@ const StockPositionWeek = ({ onData }) => {
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className="t-body">
             {details.length == 0 && (
               <TableRow>
                 <TableCell
@@ -670,7 +682,7 @@ const StockPositionWeek = ({ onData }) => {
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className="t-body">
             {details.length == 0 && (
               <TableRow>
                 <TableCell
@@ -848,7 +860,7 @@ const StockPositionWeek = ({ onData }) => {
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className="t-body">
             {data.length == 0 && (
               <TableRow>
                 <TableCell
@@ -860,7 +872,7 @@ const StockPositionWeek = ({ onData }) => {
               </TableRow>
             )}
             {data.map((item, index) => (
-              <React.Fragment key={item["RB SKU"]}>
+              <React.Fragment key={`item["RB SKU"]`}>
                 <TableRow
                   key={item["RB SKU"]}
                   sx={{

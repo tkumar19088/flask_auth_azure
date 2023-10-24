@@ -361,7 +361,7 @@ const Promo = ({ data }) => {
                   colSpan={20}
                   style={{ textAlign: "center", fontSize: "16px" }}
                 >
-                  No Records Found
+                  No Active Campaigns
                 </TableCell>
               </TableRow>
             )}

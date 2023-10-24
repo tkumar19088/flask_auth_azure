@@ -5,6 +5,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import Welcome from "../Welcome/Welcome";
 import Status from "../Status/Status";
 import Planning from "../Planning/Planning";
+import Errormodalpopup from "../Errormodalpopup/Errormodalpopup";
 // import Filters from "../Filters/Filters";
 import "./Dashboard.css";
 import loaderImage from "../../images/Logo-bar.png"; // Replace with your image path
@@ -38,7 +39,9 @@ function Dashboard() {
     const fetchData = async () => {
       dispatch(updateloader(true));
       try {
-        const response = await fetch("https://testingsmartola.azurewebsites.net/getuserdata");
+        const response = await fetch(
+          "https://testingsmartola.azurewebsites.net/getuserdata"
+        );
         if (response.ok) {
           // const json = await response.json();
           const json = await response.json();

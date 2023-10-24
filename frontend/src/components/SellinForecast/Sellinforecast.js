@@ -28,25 +28,26 @@ const Sellinforecast = () => {
   const [rBSKUdata, setrBSKUdata] = useState([]);
   const [filteredData, setfilteredData] = useState([]);
   const defaultData = [
-    { name: "Week - 1", value: 0, kvalue: 0 },
-    { name: "Week - 2", value: 0, kvalue: 0 },
-    { name: "Week - 3", value: 0, kvalue: 0 },
-    { name: "Week - 4", value: 0, kvalue: 0 },
-    { name: "Week - 5", value: 0, kvalue: 0 },
-    { name: "Week - 6", value: 0, kvalue: 0 },
-    { name: "Week - 7", value: 0, kvalue: 0 },
-    { name: "Week - 8", value: 0, kvalue: 0 },
-    { name: "Week - 9", value: 0, kvalue: 0 },
-    { name: "Week - 10", value: 0, kvalue: 0 },
-    { name: "Week - 11", value: 0, kvalue: 0 },
-    { name: "Week - 12", value: 0, kvalue: 0 },
+    { name: "Week1", value: 0, kvalue: 0 },
+    { name: "Week2", value: 0, kvalue: 0 },
+    { name: "Week3", value: 0, kvalue: 0 },
+    { name: "Week4", value: 0, kvalue: 0 },
+    { name: "Week5", value: 0, kvalue: 0 },
+    { name: "Week6", value: 0, kvalue: 0 },
+    { name: "Week7", value: 0, kvalue: 0 },
+    { name: "Week8", value: 0, kvalue: 0 },
+    { name: "Week9", value: 0, kvalue: 0 },
+    { name: "Week10", value: 0, kvalue: 0 },
+    { name: "Week11", value: 0, kvalue: 0 },
+    { name: "Week12", value: 0, kvalue: 0 },
   ];
   const [selectedforecast, setselectedforecast] = useState(defaultData);
+  const [error, seterror] = useState(true);
 
   const convertedjson = (json) => {
     const convertedData = [];
     for (let i = 1; i <= 12; i++) {
-      const week = `Week - ${i}`;
+      const week = `Week${i}`;
       const value = parseFloat(json[0][`sola CW+${i}`]) || 0;
       const kvalue = parseFloat(json[0][`kinaxis CW+${i}`]) || 0;
       convertedData.push({ name: week, value: value, kvalue: kvalue });
@@ -62,6 +63,7 @@ const Sellinforecast = () => {
   };
 
   const handleApply = (jsonData) => {
+    seterror(false);
     setfilteredData(jsonData);
     var rbSkuArray = [];
     if (jsonData.length > 0) {
@@ -197,6 +199,12 @@ const Sellinforecast = () => {
               </Box>
             </Box>
           </Grid>
+          {error && (
+            <Typography color="red" fontSize={14} ml={53} mt="-20px">
+              {" "}
+              Please Select Filters First{" "}
+            </Typography>
+          )}
           <Box sx={{ border: "", width: 1550, height: 755 }} paddingLeft="30px">
             <Linechart data={selectedforecast} />
           </Box>

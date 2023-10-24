@@ -685,7 +685,7 @@ const initialState = {
   ],
   skulist: [],
   irregulardata: [],
-  irregularchartdata:{},
+  irregularchartdata: {},
 };
 
 const sidebarReducer = (state = initialState, action) => {
