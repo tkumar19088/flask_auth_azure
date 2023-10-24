@@ -10,7 +10,6 @@ import json
 import ast
 import pulp
 import numpy as np
-import pandas as pd
 import datetime as dt
 load_dotenv()
 
@@ -368,10 +367,9 @@ class ReallocationOptimizer:
             self.aux_vars[i][4] = pulp.LpVariable(f"aux_var_{i}_4", lowBound=None)
         return X_0
 
-    def add_constraints(self, X_0, WOC_MIN, WOC_MAX, MINIMUM_SERVICE_LEVEL):
+    def add_constraints(self, X_0, WOC_MIN, WOC_MAX, MINIMUM_SERVICE_LEVEL, ALLOCATION_CHANGE_THRESHOLD):
         data_dict = self.get_data_dict()
         for i in range(self.num_rows):
-            # print(f"\nself.problem += self.X_vars[i][0] == self.df[data_dict[3]][i] - self.df[data_dict[4]][i] + self.X_vars[i][5]:\n\n'{self.problem} += {self.X_vars[i][0]} == {self.df[data_dict[3]][i]} - {self.df[data_dict[4]][i]} + {self.X_vars[i][5]}'")
             self.problem += self.X_vars[i][0] == self.df[data_dict[3]][i] - self.df[data_dict[4]][i] + self.X_vars[i][5]
 
             # Expected SOH considers both current stock and potential change in allocation
@@ -401,13 +399,16 @@ class ReallocationOptimizer:
             # Suggested supply cannot be greater than current allocation
             self.problem += self.X_vars[i][5] <= self.df[data_dict[3]][i]
 
+            # Stock safe to reallocate is a function of the allocation
+            self.problem += self.X_vars[i][4] <= self.df[data_dict[3]][i] * ALLOCATION_CHANGE_THRESHOLD
+
         # Trying to minimise 1 - service level <--> maximise service level
         self.problem += X_0 == self.num_rows - pulp.lpSum([self.X_vars[i][1] for i in range(self.num_rows)])
 
         # Sum of suggested reallocation equals to 0 since it is a closed system
         self.problem += pulp.lpSum([self.X_vars[i][5] for i in range(self.num_rows)]) == 0
 
-    def optimize(self, MINIMUM_SERVICE_LEVEL, WOC_MIN, WOC_MAX):
+    def optimize(self, MINIMUM_SERVICE_LEVEL, ALLOCATION_CHANGE_THRESHOLD, WOC_MIN, WOC_MAX):
         try:
             data_dict = self.get_data_dict()
             var_dict = self.get_var_dict()
@@ -417,7 +418,7 @@ class ReallocationOptimizer:
 
             X_0 = self.initiate_variables()
             self.problem += X_0
-            self.add_constraints(X_0, WOC_MIN, WOC_MAX, MINIMUM_SERVICE_LEVEL)
+            self.add_constraints(X_0, WOC_MIN, WOC_MAX, MINIMUM_SERVICE_LEVEL, ALLOCATION_CHANGE_THRESHOLD)
             self.problem.solve()
 
             status = pulp.LpStatus[self.problem.status]
@@ -427,13 +428,13 @@ class ReallocationOptimizer:
                     arr[k1, k2] = v.varValue
             df_res = pd.DataFrame(np.round(arr, 4), columns=var_dict.values())
             final = pd.concat([self.df, df_res], axis = 1)
-            return MINIMUM_SERVICE_LEVEL, WOC_MIN, WOC_MAX, status, final
+            return MINIMUM_SERVICE_LEVEL, WOC_MIN, WOC_MAX, status, final, pulp.value(X_0)
         except Exception as e:
             return [], str(e), pd.DataFrame()
 
 # Run Optimization model
 # Return Constraints, Results and dataframe for alternate retailers
-def optimise_supply(df, rbsku, MINIMUM_SERVICE_LEVEL=0.0, WOC_MIN=0, WOC_MAX=10):
+def optimise_supply(df, rbsku, MINIMUM_SERVICE_LEVEL, ALLOCATION_CHANGE_THRESHOLD, WOC_MIN, WOC_MAX):
     """
     Optimizes the supply allocation based on the given DataFrame and constraints.
 
@@ -449,20 +450,45 @@ def optimise_supply(df, rbsku, MINIMUM_SERVICE_LEVEL=0.0, WOC_MIN=0, WOC_MAX=10)
     Raises:
         ValueError: If the DataFrame is empty.
     """
-    ddf = df[df['sku'] == rbsku].copy()
-    ddf['reckitt_sif'] = ddf[['atf-sif', 'reckitt_sif']].max(axis = 1)
+
+    data_dict2 = {
+                    0: 'customer',
+                    1: 'Channel',
+                    2: 'reckitt_sif',
+                    3: 'currentallocation',
+                    4: 'allocationconsumed',
+                    5: 'openorders',
+                    6: 'custsoh-target',
+                    7: 'custwoc-target',
+                    8: 'cmuscore',
+                    9: 'reckitt_sif',
+                    10: 'custsoh-current',
+                    11: 'atf-sof'
+                }
+
+    ddf = df[list(data_dict2.values()) + ['atf-sif', 'sku']].copy()
+    ddf = ddf[ddf['sku'] == rbsku].copy()
+    ddf = pd.concat([ddf.iloc[:, :-5], ddf.iloc[:, -4:]], axis = 1)
+    ddf['reckitt_sif'] = ddf[['atf-sif', 'reckitt_sif']].sum(axis = 1)
     ddf.drop(columns = ['atf-sif', 'sku'], inplace = True)
     ddf.reset_index(drop = True, inplace = True)
-    for x in ['reckitt_sif', 'currentallocation','allocationconsumed', 'openorders','cmuscore', 'reckitt_sif', 'custsoh-current', 'atf-sof']:
-        ddf[x] = ddf[x].fillna(int(df[x].mean()))
+
+    for x in ['reckitt_sif','currentallocation','allocationconsumed','openorders','cmuscore','reckitt_sif','custsoh-current','atf-sof']:
+        try:
+            ddf[x] = ddf[x].fillna(df[x].mean()).astype(int)
+        except ValueError:
+            ddf[x] = ddf[x].fillna(0)
+            ddf[x] = ddf[x].astype(int)
+
     ddf['custwoc-target'] = 4
     ddf['custsoh-target'] = ddf[['custwoc-target', 'atf-sof']].prod(axis = 1)
+
     optimizer = ReallocationOptimizer(ddf)
     try:
-        minsl, wocmin, wocmax, status, df_res = optimizer.optimize(MINIMUM_SERVICE_LEVEL, WOC_MIN, WOC_MAX) # type: ignore
-        return minsl, wocmin, wocmax, status, df_res
+        minsl, wocmin, wocmax, status, df_res, optimal_val = optimizer.optimize(MINIMUM_SERVICE_LEVEL, ALLOCATION_CHANGE_THRESHOLD, WOC_MIN, WOC_MAX) # type: ignore
+        return minsl, wocmin, wocmax, status, df_res, optimal_val
     except Exception as e:
-        return '','','', str(e), pd.DataFrame()
+        return '','','', str(e), pd.DataFrame(), 0
 
 
 # ************************** MITIGATION # 2 PUSH ALTERNATIVE SKU  *****************************
@@ -494,6 +520,7 @@ class SKUManager:
         get_alternative_skus(): Returns a list of alternative SKUs based on the reference SKU and customer.
         _error_response(message): Returns a JSON response with an error message and status code 500.
     """
+
     def __init__(self, global_config, request_data):
         self.global_user = global_config.get('global_user', {})
         self.global_filters = global_config.get('global_filters', {})
@@ -524,20 +551,22 @@ class SKUManager:
             df_price = AzureBlobReader().read_csvfile("ui_data/df_price.csv")
             alternative_skus_calculator = AlternativeSKUsCalculator(df_price, sku_r, customer)
             alternative_skus = alternative_skus_calculator.calculate()
-            alternative_skus = alternative_skus[alternative_skus['score_final'] > .50] #type: ignore
-            altskus_sorted = alternative_skus.sort_values(by='score_final', ascending=False).head(3)
-            altskus_sorted['skuid'] = altskus_sorted.index
-            bensfile = AzureBlobReader().read_csvfile("ui_data/alternative_sku_template.csv") #ben's file
-            # pushaltskucsv = AzureBlobReader().read_csvfile("ui_data/pushalternativesku.csv")
-            merged = bensfile.merge(altskus_sorted, left_on='RB SKU', right_on='skuid', how='inner')
-            rename_cols = {
-                            'score_final': 'recom-score',
-                        }
-            merged = merged.rename(columns=rename_cols)
-            merged.sort_values(by='recom-score', ascending=False, inplace=True)
-            merged = replace_missing_values(merged)
-            merged = merged.replace(0, random.randint(1, 1000))
-            return json.loads(merged.to_json(orient='records')) if not merged.empty else self._error_response("No alternative SKUs found!")
+            if len(alternative_skus) <= 0:
+                return []
+            else:
+                alternative_skus = alternative_skus[alternative_skus['score_final'] > .50] #type: ignore
+                altskus_sorted = alternative_skus.sort_values(by='score_final', ascending=False).head(3)
+                altskus_sorted['skuid'] = altskus_sorted.index
+                bensfile = AzureBlobReader().read_csvfile("ui_data/alternative_sku_template.csv") #ben's file
+                merged = bensfile.merge(altskus_sorted, left_on='RB SKU', right_on='skuid', how='inner')
+                rename_cols = {
+                                'score_final': 'recom-score',
+                            }
+                merged = merged.rename(columns=rename_cols)
+                merged.sort_values(by='recom-score', ascending=False, inplace=True)
+                merged = replace_missing_values(merged)
+                merged = merged.replace(0, random.randint(1, 1000))
+                return json.loads(merged.to_json(orient='records'))# if not merged.empty else {}
         except Exception as e:
             return self._error_response(str(e))
 
@@ -570,9 +599,6 @@ class AlternativeSKUsCalculator:
         self.df = df
         self.sku_r = sku_r
         self.ret = ret
-        print(f"\n6.self.df: \n{self.df}\n")
-        print(f"\n6.self.sku_r: \n{self.sku_r}\n")
-        print(f"\n6.self.ret: \n{self.ret}\n")
 
     def calculate(self):
         """
@@ -588,7 +614,9 @@ class AlternativeSKUsCalculator:
         except Exception as e:
             return self._error_response(str(e))
 
-        tmp = self.df[conds].drop(columns = ['retailer', 'brand']).drop_duplicates().copy()
+        self.df = replace_missing_values(self.df)
+
+        tmp = self.df[conds].drop(columns=['retailer', 'brand']).drop_duplicates().copy()
         tmp = tmp.set_index('sku').T
 
         try:
@@ -598,19 +626,19 @@ class AlternativeSKUsCalculator:
                 return pd.DataFrame()
         except Exception as e:
             return self._error_response(str(e))
-
-        tmp = tmp.drop(columns = self.sku_r)
-        tmp.loc['score_1'] = 1 * (tmp.loc['segment'] == tmp_r['segment'])
-        tmp.loc['score_3'] = (tmp.loc['reckitt_inv'] / tmp_r['reckitt_inv'])
-
-        tmp.loc['score_4'] = (tmp.loc[['reckitt_inv', 'currentallocation']].min(axis = 1) / tmp_r['sif-reckitt'])
-        tmp.loc['score_5'] = (tmp.loc[['Sell out', 'currentcustSOH', 'sif-reckitt']].apply(lambda x: self._score5(x[0], x[1], x[2]), axis = 0))
-        tmp.loc['score_6'] = (tmp.loc[['custwoc-target', 'custwoc-current']].apply(lambda x: self._score6(x[0], x[1]), axis = 0))
-        tmp.loc['score_7'] = 1 - abs(tmp.loc['price'] - tmp_r['price'] / tmp_r['price'])
-        # tmp.loc[['score_1', 'score_3', 'score_4', 'score_5', 'score_6', 'score_7']] /= tmp.loc[['score_1', 'score_3', 'score_4', 'score_5', 'score_6', 'score_7']].max(axis = 1).values.reshape(-1,1)
-        tmp.loc['score_final'] = tmp.loc[['score_1', 'score_3', 'score_4', 'score_5', 'score_6', 'score_7']].sum(axis = 0)
-        tmp = tmp.loc[['score_final']].T
-        tmp['score_final'] = (tmp['score_final'] - tmp['score_final'].min()) / (tmp['score_final'].max() - tmp['score_final'].min())
+        try:
+            tmp = tmp.drop(columns = self.sku_r)
+            tmp.loc['score_1'] = 1 * (tmp.loc['segment'] == tmp_r['segment'])
+            tmp.loc['score_3'] = (tmp.loc['reckitt_inv'] / tmp_r['reckitt_inv'])
+            tmp.loc['score_4'] = (tmp.loc[['reckitt_inv', 'currentallocation']].min(axis = 1) / tmp_r['sif-reckitt'])
+            tmp.loc['score_5'] = (tmp.loc[['Sell out', 'currentcustSOH', 'sif-reckitt']].apply(lambda x: self._score5(x[0], x[1], x[2]), axis = 0))
+            tmp.loc['score_6'] = (tmp.loc[['custwoc-target', 'custwoc-current']].apply(lambda x: self._score6(x[0], x[1]), axis = 0))
+            tmp.loc['score_7'] = 1 - abs(tmp.loc['price'] - tmp_r['price'] / tmp_r['price'])
+            tmp.loc['score_final'] = tmp.loc[['score_1', 'score_3', 'score_4', 'score_5', 'score_6', 'score_7']].sum(axis = 0)
+            tmp = tmp.loc[['score_final']].T
+            tmp['score_final'] = (tmp['score_final'] - tmp['score_final'].min()) / (tmp['score_final'].max() - tmp['score_final'].min())
+        except:
+            tmp = []
         return tmp
 
     def _error_response(self, message):
@@ -656,7 +684,7 @@ def replace_missing_values(df):
     Returns:
         pandas.DataFrame: The cleaned DataFrame.
     """
-    missing_values = [None, 'null', 'NULL', 'Null', 'Nan', 'nan', 'NaN', ' ', '', 'None; None', np.nan, '0; None']
+    missing_values = [None, 'null', 'NULL', 'Null', 'Nan', 'nan', 'NaN', ' ', '', 'None; None', np.nan, '0; None', 'nan; nan', '0; 0']
     cleaned_df = df.replace(missing_values, '-')
     # cleaned_df = cleaned_df.applymap(lambda x: round(x, 2) if isinstance(x, float) and x not in [0, 0.00] else x)
     df = cleaned_df.fillna('-')

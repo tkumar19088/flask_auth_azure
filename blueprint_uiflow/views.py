@@ -941,6 +941,7 @@ def get_irrpodata():
         for filter_key in filters:
             if filter_key.lower() in global_filters and global_filters[filter_key.lower()] != None:
                 df = df[df[filter_key].str.lower() == global_filters[filter_key.lower()]]
+        df = df.sort_values(by=['noSKUsIrregular'], ascending=False)
         return json.loads(df.to_json(orient='records'))
     except Exception as e:
         return jsonify(status="Error", message=f"{str(e)}"), 500
@@ -977,8 +978,6 @@ def get_irrposku():
         cust = random.choice(global_user['Customer'])
         poid, rbsku = data.get("po_id"), data.get("rbsku")
 
-        print(f"\n2.5. cust: {cust}\n")
-
         podetails = podetails[podetails["poNumber"] == poid]
         podetails = podetails[podetails["rbsku"] == rbsku]
         skudata = podetails[podetails["Customer"] == cust]
@@ -986,7 +985,6 @@ def get_irrposku():
         # get WoC data
         wocdata = podetails[podetails["Customer"] == cust][["Cust WoC CW", "Cust WoC CW+1", "Cust WoC CW+2", "Cust WoC CW+3"]].sample(1)
         wocdata = replace_missing_values(wocdata)
-        print(f"\n3. wocdata: {wocdata}\n")
 
         # get histepos data
         custhistepos = AzureBlobReader().read_csvfile(
