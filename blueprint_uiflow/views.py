@@ -1026,3 +1026,29 @@ def get_irrposku():
                 }
     except Exception as e:
         return jsonify(status="Error", message=f"{str(e)}"), 500
+
+
+# *********************************************
+#               Data Recency API
+# *********************************************
+@uiflow_blueprint.route("/getdatarecency")
+def get_datarecency():
+    try:
+        filename = "ui_data/extractiondates.xlsx"
+        df = pd.read_excel(filename)
+        df.fillna("-", inplace=True)
+        df.replace('Does not exist', '-', inplace=True)
+        df['Pull date'] = pd.to_datetime(df['Pull date'], format='%d/%m/%Y', errors='coerce')
+        df.replace(pd.NaT, '-')
+        df['Pull date'] = df['Pull date'].dt.strftime('%Y-%m-%d')
+        df.fillna("-", inplace=True)
+        list_of_objects = []
+
+        # Iterate through the rows of the DataFrame
+        for _, row in df.iterrows():
+            row_dict = row.to_dict()
+            list_of_objects.append(row_dict)
+
+        return list_of_objects
+    except Exception as e:
+        return jsonify(status="Error", message=f"{str(e)}"), 500

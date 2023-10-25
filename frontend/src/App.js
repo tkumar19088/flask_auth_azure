@@ -12,6 +12,7 @@ import Printscreen from "./components/Printscreen/Printscreen";
 import Irregularcharts from "./components/Irregularpo/Irregularcharts";
 import Overview from "./components/OverviewHighRisk/Overview";
 import StartingPage from "./components/Start/StartingPage";
+import DataFreshness from "./components/DataFreshness/DataFreshness";
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
           <Route path="/historicaldata" element={<HistoricalData />} />
           <Route path="/print" element={<Printscreen />} />
           <Route path="/startingpage" element={<StartingPage />} />
+          <Route path="/datafreshness" element={<DataFreshness />} />
         </Routes>
       </div>
     </Router>

@@ -133,7 +133,7 @@ const Planning = ({ filterStatus }) => {
   };
 
   return (
-    <div style={{ marginTop: "10px" }}>
+    <div style={{ marginTop: "0px" }}>
       <Grid>
         <Grid
           container
