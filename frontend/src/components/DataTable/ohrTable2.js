@@ -1058,9 +1058,6 @@ const OhrTable2 = ({ onData }) => {
             </TableRow>
           </TableHead>
           <TableBody className="t-body">
-            <TableRow>
-              <TableCell>4646</TableCell>
-            </TableRow>
             {data && data.length == 0 && (
               <TableRow>
                 <TableCell
