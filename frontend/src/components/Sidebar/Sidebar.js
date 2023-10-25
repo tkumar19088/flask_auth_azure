@@ -387,7 +387,7 @@ const Sidebar = () => {
         style={{
           position: "absolute",
           left: 14,
-          bottom: 73,
+          bottom: 100,
           cursor: "pointer",
           gap: "9px",
         }}
@@ -403,12 +403,12 @@ const Sidebar = () => {
         </Typography>
       </div>
 
-      <div
+      <div 
         // className="logs-out"
         style={{
           position: "absolute",
           left: 14,
-          bottom: 62,
+          bottom: 75,
           cursor: "pointer",
           border: "1px dashed #dcdcdc",
           width: "88%",

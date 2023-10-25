@@ -912,7 +912,7 @@ const DataFreshness = () => {
                         border: "1px solid #dcdcdc",
                       }}
                     >
-                      Power bi Dashboard or File
+                      Power BI Dashboard or File
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -958,7 +958,7 @@ const DataFreshness = () => {
                         {item["Pull date"]}
                       </TableCell>
                       <TableCell sx={{ textAlign: "center" }}>
-                        <Tooltip>
+                        <Tooltip title={item["power bi dashboard or file"]}>
                           {item["power bi dashboard or file"].length > 0
                             ? truncateText(
                                 item["power bi dashboard or file"],
