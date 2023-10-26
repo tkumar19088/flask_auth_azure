@@ -49,16 +49,21 @@ import {
   fetchofilteredverviewhighriskdata,
   updatecustomerragfilters,
   updateragfilters,
+  updateerrormodalpopup,
+  updateerrortextmessage,
+
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 import loaderImage from "../../images/Logo-bar.png";
 import { useNavigate } from "react-router-dom";
+import Errormodalpopup from "../Errormodalpopup/Errormodalpopup";
 
 const OverviewHighRisk2 = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const loader = useSelector((state) => state.sidebar.loader);
+  const open = useSelector((state) => state.sidebar.errormodalopen);
   const customer = useSelector((state) => state.sidebar.customer);
   const exporttabledata = useSelector((state) => state.sidebar.exporttabledata);
   const searchValue = useSelector((state) => state.sidebar.searchvalue);
@@ -112,6 +117,8 @@ const OverviewHighRisk2 = () => {
         identifySpecificTabdata(json, url);
         // dispatch(updatesearch(false));
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -172,6 +179,8 @@ const OverviewHighRisk2 = () => {
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -213,6 +222,8 @@ const OverviewHighRisk2 = () => {
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -292,6 +303,8 @@ const OverviewHighRisk2 = () => {
         document.body.removeChild(a);
         return;
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -360,6 +373,8 @@ const OverviewHighRisk2 = () => {
         identifySpecificTabdata(json, url);
         dispatch(updatesearch(false));
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -425,8 +440,8 @@ const OverviewHighRisk2 = () => {
           <img src={loaderImage} alt="Loading..." className="rotating-image" />
         </div>
       )}
+      {open && <Errormodalpopup />}
       <Topbar />
-
       <Grid container>
         <Grid item xs={2}>
           <Sidebar />

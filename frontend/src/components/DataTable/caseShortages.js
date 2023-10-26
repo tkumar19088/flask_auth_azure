@@ -20,6 +20,8 @@ import {
   updateloader,
   fetchstockreallocatedata,
   updateexporttabledata,
+  updateerrormodalpopup,
+  updateerrortextmessage,
 } from "../../store/actions/sidebarActions";
 
 import AddIcon from "@mui/icons-material/Add";
@@ -75,6 +77,8 @@ const CaseShortages = ({ onData }) => {
           setcampaignsData(json);
           //dispatch(fetchuserdetails(json));
         } else {
+          dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
           console.error("Error fetching data:", response.statusText);
         }
       } catch (error) {
@@ -108,6 +112,8 @@ const CaseShortages = ({ onData }) => {
         setpushAlternativeData(json);
         //dispatch(fetchuserdetails(json));
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -138,6 +144,8 @@ const CaseShortages = ({ onData }) => {
         dispatch(updateexporttabledata(json));
         navigate("/stockreallocation");
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -307,6 +315,8 @@ const CaseShortages = ({ onData }) => {
         setchooseData(json);
         setdisplayMigitates(true);
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {

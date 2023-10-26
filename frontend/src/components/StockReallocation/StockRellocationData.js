@@ -35,13 +35,13 @@ const StockReallocationData = ({ onData }) => {
 
   const isWithinChannel = useSelector((state) => state.sidebar.isWithinChannel);
   const referenceData = useSelector(
-    (state) => state.sidebar.withinChannelData.otherrows
+    (state) => state.sidebar.withinChannelData.other_rows
   );
   const referenceSuggData = useSelector(
-    (state) => state.sidebar.withinChannelData.staticrow
+    (state) => state.sidebar.withinChannelData.static_row[0]
   );
   const stockreallocationData = useSelector(
-    (state) => state.sidebar.stockreallocation.otherrows
+    (state) => state.sidebar.stockreallocation.other_rows
   );
   const constraints = useSelector(
     (state) => state.sidebar.stockreallocation.constraints
@@ -50,7 +50,7 @@ const StockReallocationData = ({ onData }) => {
     (state) => state.sidebar.stockreallocation.results
   );
   const suggRecord = useSelector(
-    (state) => state.sidebar.stockreallocation.staticrow
+    (state) => state.sidebar.stockreallocation.static_row[0]
   );
   const [suggectedRecord, setsuggectedRecord] = useState(suggRecord);
 
@@ -311,36 +311,38 @@ const StockReallocationData = ({ onData }) => {
   // });
   // const updateresults = useSelector((state) => state.sidebar.updateresults);
 
-  const channel = "Pure Play";
+  const channel = referenceSuggData.Channel;
 
-  const firstRecord = {
-    AvgYTDsellout: 387,
-    Brand: "Airwick",
-    Channel: "Pure Play",
-    Customer: "Amazon",
-    Location: "United Kingdom",
-    "RB SKU": "3247398",
-    "Sell out": 387,
-    "Supply to Reallocate": 0,
-    allocationconsumed: 26,
-    cmuscore: 2.2,
-    currentallocation: 310,
-    currentcustSOH: 259,
-    "custsoh-current": 182,
-    "custsoh-target": 1546,
-    "custwoc-current": 0.5,
-    "custwoc-target": 4,
-    expectedservicelevel: "75%",
-    idealallocationvalues: 379,
-    newallocation: 0,
-    openorders: 23,
-    remainingallocation: 285,
-    "sif-atf": 414,
-    "sif-reckitt": 2026,
-    stocksafetoreallocate: 0,
-    suggestedallocation: 69,
-    sumofPOsinalloccycle: 26,
-  };
+  const firstRecord = referenceSuggData;
+
+  // const firstRecord = {
+  //   AvgYTDsellout: 387,
+  //   Brand: "Airwick",
+  //   Channel: "Pure Play",
+  //   Customer: "Amazon",
+  //   Location: "United Kingdom",
+  //   "RB SKU": "3247398",
+  //   "Sell out": 387,
+  //   "Supply to Reallocate": 0,
+  //   allocationconsumed: 26,
+  //   cmuscore: 2.2,
+  //   currentallocation: 310,
+  //   currentcustSOH: 259,
+  //   "custsoh-current": 182,
+  //   "custsoh-target": 1546,
+  //   "custwoc-current": 0.5,
+  //   "custwoc-target": 4,
+  //   expectedservicelevel: "75%",
+  //   idealallocationvalues: 379,
+  //   newallocation: 0,
+  //   openorders: 23,
+  //   remainingallocation: 285,
+  //   "sif-atf": 414,
+  //   "sif-reckitt": 2026,
+  //   stocksafetoreallocate: 0,
+  //   suggestedallocation: 69,
+  //   sumofPOsinalloccycle: 26,
+  // };
   const filteredSamechannelResults = stockreallocationData.filter(
     (item) => item.Channel == channel
   );

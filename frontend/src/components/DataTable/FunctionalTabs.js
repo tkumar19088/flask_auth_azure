@@ -25,6 +25,8 @@ import {
   fetchtaburl,
   updatesearch,
   updatetabname,
+  updateerrormodalpopup,
+  updateerrortextmessage,
 } from "../../store/actions/sidebarActions";
 
 const FunctionalTabs = () => {
@@ -67,6 +69,8 @@ const FunctionalTabs = () => {
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -102,6 +106,8 @@ const FunctionalTabs = () => {
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -137,6 +143,8 @@ const FunctionalTabs = () => {
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -172,6 +180,8 @@ const FunctionalTabs = () => {
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -207,6 +217,8 @@ const FunctionalTabs = () => {
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -242,6 +254,8 @@ const FunctionalTabs = () => {
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -278,6 +292,8 @@ const FunctionalTabs = () => {
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -313,6 +329,8 @@ const FunctionalTabs = () => {
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {

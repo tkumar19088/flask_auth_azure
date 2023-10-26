@@ -1,16 +1,20 @@
-import React, { useState } from "react";
-import Modal from "@mui/material/Modal"; 
+import React from "react";
+import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
+import { updateerrormodalpopup } from "../../store/actions/sidebarActions";
+import { useSelector, useDispatch } from "react-redux";
 
 const ModalPopup = () => {
-  const open = useState(true);
-  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
-  const errorText = useState(" Internal Server Error Occured ! ");
+  const dispatch = useDispatch();
+
+  const open = useSelector((state) => state.sidebar.errormodalopen);
+  const errorText = useSelector((state) => state.sidebar.errortextmessage);
+
   const handleCloseErrorModal = () => {
-    setIsErrorModalOpen(false); //dispatch call
+    dispatch(updateerrormodalpopup(false));
   };
   return (
-    <Modal open={open} onClose={handleCloseErrorModal}>
+    <Modal open={true} onClose={handleCloseErrorModal}>
       <div
         style={{
           position: "absolute",

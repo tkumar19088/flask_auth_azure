@@ -29,6 +29,9 @@ import {
   updateloader,
   fetchstockreallocatedata,
   updateexporttabledata,
+  updateerrormodalpopup,
+  updateerrortextmessage,
+
 } from "../../store/actions/sidebarActions";
 
 const OhrTable2 = ({ onData }) => {
@@ -94,6 +97,8 @@ const OhrTable2 = ({ onData }) => {
           setcampaignsData(json);
           //dispatch(fetchuserdetails(json));
         } else {
+          dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
           console.error("Error fetching data:", response.statusText);
         }
       } catch (error) {
@@ -128,6 +133,8 @@ const OhrTable2 = ({ onData }) => {
         setpushAlternativeData(json);
         //dispatch(fetchuserdetails(json));
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -158,6 +165,8 @@ const OhrTable2 = ({ onData }) => {
         dispatch(updateexporttabledata(json));
         navigate("/stockreallocation");
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -441,6 +450,8 @@ const OhrTable2 = ({ onData }) => {
         setchooseData(json);
         setdisplayMigitates(true);
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {

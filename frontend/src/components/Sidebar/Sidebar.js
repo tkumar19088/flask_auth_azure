@@ -26,6 +26,9 @@ import {
   fetchoirregulardata,
   updateexporttabledata,
   fetchtaburl,
+  updateerrormodalpopup,
+  updateerrortextmessage,
+
 } from "../../store/actions/sidebarActions";
 import CustomSnackbar from "./Modelpopup";
 import BasicModal from "./Modelpopup";
@@ -122,6 +125,8 @@ const Sidebar = () => {
         dispatch(fetchtaburl(url));
         navigate("/irregular");
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {

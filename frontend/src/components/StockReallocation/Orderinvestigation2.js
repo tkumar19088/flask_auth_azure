@@ -20,7 +20,7 @@ const Orderinvestigation2 = ({ constraints }) => {
   const dispatch = useDispatch();
   const updateresults = useSelector((state) => state.sidebar.updateresults);
   // const suggRecord = useSelector(
-  //   (state) => state.sidebar.stockreallocation.staticrow
+  //   (state) => state.sidebar.stockreallocation.static_row[0]
   // );
   const suggRecord = {
     AvgYTDsellout: 600,

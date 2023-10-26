@@ -16,6 +16,8 @@ import {
   updateexporttabledata,
   fetchtaburl,
   fetchoirregulardata,
+  updateerrormodalpopup,
+  updateerrortextmessage,
 } from "../../store/actions/sidebarActions";
 
 const CarouselExample = () => {
@@ -70,6 +72,8 @@ const CarouselExample = () => {
         dispatch(fetchtaburl(url));
         navigate("/overviewhighrisk");
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -115,6 +119,8 @@ const CarouselExample = () => {
         dispatch(fetchtaburl(url));
         navigate("/irregular");
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {

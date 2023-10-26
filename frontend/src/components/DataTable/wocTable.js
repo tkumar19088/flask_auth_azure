@@ -21,6 +21,9 @@ import {
   updateloader,
   fetchstockreallocatedata,
   updateexporttabledata,
+  updateerrormodalpopup,
+  updateerrortextmessage,
+
 } from "../../store/actions/sidebarActions";
 
 import AddIcon from "@mui/icons-material/Add";
@@ -68,6 +71,8 @@ const WocTable = ({ onData }) => {
           setcampaignsData(json);
           //dispatch(fetchuserdetails(json));
         } else {
+          dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
           console.error("Error fetching data:", response.statusText);
         }
       } catch (error) {
@@ -101,6 +106,8 @@ const WocTable = ({ onData }) => {
         setpushAlternativeData(json);
         //dispatch(fetchuserdetails(json));
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -131,6 +138,8 @@ const WocTable = ({ onData }) => {
         dispatch(updateexporttabledata(json));
         navigate("/stockreallocation");
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -308,6 +317,8 @@ const WocTable = ({ onData }) => {
         setchooseData(json);
         setdisplayMigitates(true);
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {

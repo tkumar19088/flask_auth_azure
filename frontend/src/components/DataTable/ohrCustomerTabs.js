@@ -29,6 +29,9 @@ import {
   updateexporttabledata,
   fetchtaburl,
   updatetabname,
+  updateerrormodalpopup,
+  updateerrortextmessage,
+
 } from "../../store/actions/sidebarActions";
 
 const OhrCustomerTabs = () => {
@@ -72,6 +75,8 @@ const OhrCustomerTabs = () => {
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -107,6 +112,8 @@ const OhrCustomerTabs = () => {
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -142,6 +149,8 @@ const OhrCustomerTabs = () => {
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -177,6 +186,8 @@ const OhrCustomerTabs = () => {
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -212,6 +223,8 @@ const OhrCustomerTabs = () => {
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -247,6 +260,8 @@ const OhrCustomerTabs = () => {
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {

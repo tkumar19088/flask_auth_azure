@@ -13,6 +13,9 @@ import {
   updateapplyfilterserror,
   updatetabname,
   fetchoirregulardata,
+  updateerrormodalpopup,
+  updateerrortextmessage,
+
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 import Badge from "@mui/material/Badge";
@@ -76,6 +79,8 @@ const Planning = ({ filterStatus }) => {
         dispatch(fetchtaburl(url));
         navigate("/overviewhighrisk");
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -110,6 +115,8 @@ const Planning = ({ filterStatus }) => {
         dispatch(fetchtaburl(url));
         navigate("/irregular");
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {

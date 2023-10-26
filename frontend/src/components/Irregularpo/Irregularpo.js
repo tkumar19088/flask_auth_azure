@@ -38,6 +38,9 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   updateloader,
   fetchoirregularchartdata,
+  updateerrormodalpopup,
+  updateerrortextmessage,
+
 } from "../../store/actions/sidebarActions";
 import loaderImage from "../../images/Logo-bar.png";
 
@@ -74,6 +77,8 @@ const Irregularpo = () => {
         // setpodetails(json);
         navigate("/irregularcharts");
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -359,6 +364,8 @@ const Irregularpo = () => {
           console.log(json);
           setpodetails(json);
         } else {
+          dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
           console.error("Error fetching data:", response.statusText);
         }
       } catch (error) {

@@ -341,3 +341,15 @@ export const fetchoirregularchartdata = (newValue) => {
     payload: newValue,
   };
 };
+export const updateerrormodalpopup = (newValue) => {
+  return {
+    type: "UPDATE_ERRORMODALPOPUP",
+    payload: newValue,
+  };
+};
+export const updateerrortextmessage = (newValue) => {
+  return {
+    type: "UPDATE_ERRORTEXTMESSAGE",
+    payload: newValue,
+  };
+};

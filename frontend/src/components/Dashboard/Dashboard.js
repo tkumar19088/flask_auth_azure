@@ -18,6 +18,8 @@ import {
   fetchalerts,
   fetchuserdetailsreset,
   fetchalertsreset,
+  updateerrormodalpopup,
+  updateerrortextmessage,
 } from "../../store/actions/sidebarActions";
 import CarouselExample from "../Carousel/Carousel";
 import Filters from "../Filters/Filters";
@@ -52,6 +54,8 @@ function Dashboard() {
           dispatch(fetchuserdetailsreset(json.user));
           dispatch(fetchalertsreset(json.alerts));
         } else {
+          dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
           console.error("Error fetching data:", response.statusText);
         }
       } catch (error) {
