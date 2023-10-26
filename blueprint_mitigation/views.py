@@ -45,9 +45,9 @@ def choose_scenario():
 
         rardf = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
 
-        rardf = rardf[rardf["RB SKU"] == data["rbsku"]]
-        staticrow = rardf[rardf["Customer"] == global_filters["Customer"]]
-        otherrows = rardf[rardf["Customer"] != global_filters["Customer"]]
+        rardf = rardf[rardf["sku"] == data["rbsku"]]
+        staticrow = rardf[rardf["customer"] == global_filters["Customer"]]
+        otherrows = rardf[rardf["customer"] != global_filters["Customer"]]
         resp_scen.update({"rarbysku": str(len(otherrows) > 0)})
         return jsonify(resp_scen), 200
 
@@ -104,20 +104,15 @@ def getrarbysku():
         # else:
         #     print(f"\n2. global_filters : {global_filters}\n")
 
-        reallocationdata = AzureBlobReader().read_csvfile(
-            "ui_data/retailerreallocation.csv"
-        )
-        minsl, wocmin, wocmax, status, rardf, optimalvalue = optimise_supply(
-            reallocationdata, data["rbsku"], 0.95, 10, 3, 8
-        )
+        df = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
+        # print(f"\n2.5 df.columns :\n{df.columns}\n")
+        # print(f"\n2.6 data :\n{data}\n")
+        minsl, wocmin, wocmax, status, rardf, optimalvalue = optimise_supply(df, data["rbsku"], 0.95, 10, 3, 8)
 
-        # print(
-        #     f"\n3. skuid - {data['rbsku']} ; status - {status} ; Optimal value of X_0 : {optimalvalue}"
-        # )
+        # print(f"\n3. skuid - {data['rbsku']} ; status - {status} ; Optimal value of X_0 : {optimalvalue}")
         # print(f"\n4. rardf.columns :\n{rardf.columns}\n")
 
         staticrow = rardf[rardf["customer"] == global_filters["Customer"]]
-
         # print(f"\n5. staticrow.columns :\n{staticrow.columns}\n")
 
         sl, woc = 0, 0
@@ -128,8 +123,8 @@ def getrarbysku():
         else:
             otherrows = pd.DataFrame()
 
-            # Labels for Service Level and WOC
-            # # 2 = Green = Completely Satisfied ; 1 = Yellow = Partially Satisfied ; 0 = Red = Not Satisfied
+        # Labels for Service Level and WOC
+        # # 2 = Green = Completely Satisfied ; 1 = Yellow = Partially Satisfied ; 0 = Red = Not Satisfied
 
         if len(otherrows) > 0:
             # Label for Service Level
@@ -141,25 +136,17 @@ def getrarbysku():
                 sl = 1
 
             # Label for WOC
-            if (otherrows["Updated_Customer_WoC"] >= avg_wocmin).all() and (
-                otherrows["Updated_Customer_WoC"] <= avg_wocmax
-            ).all():
+            if (otherrows["Updated_Customer_WoC"] >= avg_wocmin).all() and (otherrows["Updated_Customer_WoC"] <= avg_wocmax).all():
                 woc = 2
-            elif (otherrows["Updated_Customer_WoC"] < avg_wocmin).any() or (
-                otherrows["Updated_Customer_WoC"] > avg_wocmax
-            ).any():
+            elif (otherrows["Updated_Customer_WoC"] < avg_wocmin).any() or (otherrows["Updated_Customer_WoC"] > avg_wocmax).any():
                 woc = 0
             else:
                 woc = 1
 
-            # Label for Pct Deviation #TODO: How do we calculate this?
-            if (otherrows["Updated_Customer_WoC"] >= avg_wocmin).all() and (
-                otherrows["Updated_Customer_WoC"] <= avg_wocmax
-            ).all():
+            # Label for Pct Deviation # TODO: How do we calculate this?
+            if (otherrows["Updated_Customer_WoC"] >= avg_wocmin).all() and (otherrows["Updated_Customer_WoC"] <= avg_wocmax).all():
                 woc = 2
-            elif (otherrows["Updated_Customer_WoC"] < avg_wocmin).any() or (
-                otherrows["Updated_Customer_WoC"] > avg_wocmax
-            ).any():
+            elif (otherrows["Updated_Customer_WoC"] < avg_wocmin).any() or (otherrows["Updated_Customer_WoC"] > avg_wocmax).any():
                 woc = 0
             else:
                 woc = 1
@@ -195,12 +182,12 @@ def getrarbysku():
             {"Name": "EXP OLA", "Value": "99%"},
         ]
 
-        # print(
-        #     f"\n'static_row': {staticrow},\n'other_rows': {otherrows},\n'constraints': {constraints},\n'results': {results}"
-        # )
+        print(
+            f"\n'static_row': {json.loads(staticrow.to_json(orient='records'))[0]},\n'other_rows': {json.loads(otherrows.to_json(orient='records'))},\n'constraints': {constraints},\n'results': {results}"
+        )
 
         return {
-            "static_row": json.loads(staticrow.to_json(orient="records")),
+            "static_row": json.loads(staticrow.to_json(orient="records"))[0],
             "other_rows": json.loads(otherrows.to_json(orient="records")),
             "constraints": constraints,
             "results": results,
