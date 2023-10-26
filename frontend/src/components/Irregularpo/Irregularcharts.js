@@ -147,12 +147,12 @@ const Irregularcharts = () => {
                     PO issue :
                     <span style={{ color: "#415A6C" }}>
                       {" "}
-                      {skudata.po_issue == null ? "-" : skudata.po_issue}
+                      {skudata.alert == null ? "-" : skudata.alert}
                     </span>
                   </Typography>
                   <Typography fontSize={18} color="brown">
-                    {skudata.po_issue == "Irregular Volume"
-                      ? "Quantity Ordered "
+                    {skudata.alert == "Irregular Volume"
+                      ? "Quantity Ordered since Monday"
                       : "PO Price "}
                     :
                     <span style={{ color: "#415A6C" }}>
@@ -160,14 +160,14 @@ const Irregularcharts = () => {
                         ? skudata.quantityordered == null
                           ? " -"
                           : skudata.quantityordered
-                        : skudata.skudata.order_price == null
+                        : skudata.po_price == null
                         ? " -"
-                        : skudata.skudata.order_price}
+                        : skudata.po_price}
                     </span>
                   </Typography>
                   <Typography fontSize={18} color="brown">
-                    {skudata.po_issue == "Irregular Volume"
-                      ? "Quantity forecasted "
+                    {skudata.alert == "Irregular Volume"
+                      ? "Quantity Forecasted "
                       : "Agreed Price "}
                     :
                     <span style={{ color: "#415A6C" }}>
@@ -209,9 +209,7 @@ const Irregularcharts = () => {
             <Grid item xs={3} className="kpi-box">
               <Typography fontSize="13px">Sell-Out Forecast (CW)</Typography>
               <Typography color="green">
-                {skudata["sof cw"] == null
-                  ? "-"
-                  : parseFloat(skudata["sof cw"].toFixed(2))}
+                {skudata.sof == null ? "-" : parseFloat(skudata.sof.toFixed(2))}
               </Typography>
             </Grid>
             <Grid item xs={3} className="kpi-box">

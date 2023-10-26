@@ -40,7 +40,6 @@ import {
   fetchoirregularchartdata,
   updateerrormodalpopup,
   updateerrortextmessage,
-
 } from "../../store/actions/sidebarActions";
 import loaderImage from "../../images/Logo-bar.png";
 
@@ -78,7 +77,7 @@ const Irregularpo = () => {
         navigate("/irregularcharts");
       } else {
         dispatch(updateerrortextmessage(response.statusText));
-          dispatch(updateerrormodalpopup(true));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -511,15 +510,33 @@ const Irregularpo = () => {
                     fontSize: "13px",
                   }}
                 >
-                  {item.quantity}
+                  {item.quantityordered}
                 </Typography>
               </TableCell>
-              <TableCell sx={{ textAlign: "center" }}>{item.sellin}</TableCell>
-              <TableCell sx={{ textAlign: "center" }}>
-                {item.percentage}
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                }}
+              >
+                <Box display="flex">
+                  <Typography>{item["sif-sola"]}</Typography>
+                  <Typography
+                    fontSize={13}
+                    sx={{
+                      marginLeft: "5px",
+                      marginTop: "10px",
+                      color: "#6e8c78",
+                    }}
+                  >
+                    {item["sif-kinaxis"]}
+                  </Typography>
+                </Box>
               </TableCell>
               <TableCell sx={{ textAlign: "center" }}>
-                {item.orderprice}
+                {item.percentage_discrepancy}
+              </TableCell>
+              <TableCell sx={{ textAlign: "center" }}>
+                {item.po_price}
               </TableCell>
               <TableCell sx={{ textAlign: "center" }}>
                 <Button

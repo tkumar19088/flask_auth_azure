@@ -33,13 +33,13 @@ import {
   updatewithinchanneldata,
   updateerrormodalpopup,
   updateerrortextmessage,
-
 } from "../../store/actions/sidebarActions";
 
 const OhrTable = ({ onData }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const userDetails = useSelector((state) => state.sidebar.userDetails);
   const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
   const search = useSelector((state) => state.sidebar.search);
   const exporttabledata = useSelector((state) => state.sidebar.exporttabledata);
@@ -117,67 +117,70 @@ const OhrTable = ({ onData }) => {
     }
   };
   const handlePushAlternative = async () => {
-    setpushAlternative(true);
-    dispatch(updateloader(true));
-    var data = { rbsku: expandedRow };
-    try {
-      const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/getalternativeskus",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
-      if (response.ok) {
-        const json = await response.json();
-        console.log(json);
-        setpushAlternativeData(json);
-      } else {
-        dispatch(updateerrortextmessage(response.statusText));
+    if (userDetails["Push Alternative"] == "View") {
+      setpushAlternative(true);
+      dispatch(updateloader(true));
+      var data = { rbsku: expandedRow };
+      try {
+        const response = await fetch(
+          "https://testingsmartola.azurewebsites.net/getalternativeskus",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
+        if (response.ok) {
+          const json = await response.json();
+          console.log(json);
+          setpushAlternativeData(json);
+        } else {
+          dispatch(updateerrortextmessage(response.statusText));
           dispatch(updateerrormodalpopup(true));
-        console.error("Error fetching data:", response.statusText);
+          console.error("Error fetching data:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+      } finally {
+        dispatch(updateloader(false));
       }
-    } catch (error) {
-      console.error("Fetch error:", error);
-    } finally {
-      dispatch(updateloader(false));
     }
   };
   const handleReallocate = async () => {
-    dispatch(updateloader(true));
-    //navigate("/stockreallocation");
-    var data = { rbsku: expandedRow };
-    try {
-      const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/rarbysku",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
-      if (response.ok) {
-        const json = await response.json();
-        console.log(json);
-        dispatch(fetchstockreallocatedata(json));
-        dispatch(updatewithinchanneldata(json));
-        dispatch(fetchstaticrow(json.static_row));
-        dispatch(updateexporttabledata(json));
-        navigate("/stockreallocation");
-      } else {
-        dispatch(updateerrortextmessage(response.statusText));
+    if (userDetails.Reallocate == "Edit") {
+      dispatch(updateloader(true));
+      var data = { rbsku: expandedRow };
+      try {
+        const response = await fetch(
+          "https://testingsmartola.azurewebsites.net/rarbysku",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
+        if (response.ok) {
+          const json = await response.json();
+          console.log(json);
+          dispatch(fetchstockreallocatedata(json));
+          dispatch(updatewithinchanneldata(json));
+          dispatch(fetchstaticrow(json.static_row));
+          dispatch(updateexporttabledata(json));
+          navigate("/stockreallocation");
+        } else {
+          dispatch(updateerrortextmessage(response.statusText));
           dispatch(updateerrormodalpopup(true));
-        console.error("Error fetching data:", response.statusText);
+          console.error("Error fetching data:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+      } finally {
+        dispatch(updateloader(false));
       }
-    } catch (error) {
-      console.error("Fetch error:", error);
-    } finally {
-      dispatch(updateloader(false));
     }
   };
 
@@ -1576,13 +1579,15 @@ const OhrTable = ({ onData }) => {
                   <Typography fontSize="13px">{item["recom-score"]}</Typography>
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item["RB SKU"]}</Typography>
+                  <Typography fontSize="13px">{item.sku}</Typography>
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
                   <Typography fontSize="13px">{item.PPG}</Typography>
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.Description}</Typography>
+                  <Typography fontSize="13px">
+                    {item.sku_description}
+                  </Typography>
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
                   <Typography fontSize="13px">
@@ -1590,11 +1595,11 @@ const OhrTable = ({ onData }) => {
                   </Typography>
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.reckittsoh}</Typography>
+                  <Typography fontSize="13px">{item["Initial SOH"]}</Typography>
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
                   <Typography fontSize="13px">
-                    {item.customerinventory}
+                    {item.current_retailer_inv_units}
                   </Typography>
                 </TableCell>
                 <TableCell
@@ -1603,7 +1608,7 @@ const OhrTable = ({ onData }) => {
                   }}
                 >
                   <Box display="flex" sx={{ paddingLeft: "40px" }}>
-                    <Typography fontSize={15}>{item["sif-atf"]}</Typography>
+                    <Typography fontSize={15}>{item["atf-sif"]}</Typography>
                     <Typography
                       fontSize={13}
                       sx={{
@@ -1612,15 +1617,17 @@ const OhrTable = ({ onData }) => {
                         color: "#6e8c78",
                       }}
                     >
-                      {item["sif-reckitt"]}
+                      {item.reckitt_sif}
                     </Typography>
                   </Box>
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.sof}</Typography>
+                  <Typography fontSize="13px">{item["atf-sif"]}</Typography>
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item.customerwoc}</Typography>
+                  <Typography fontSize="13px">
+                    {item.current_woc_retailer}
+                  </Typography>
                 </TableCell>
               </TableRow>
             ))}
