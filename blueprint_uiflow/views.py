@@ -1029,7 +1029,7 @@ def get_irrposku():
 
 
 # *********************************************
-#               Data Recency API
+#               Data Recency API # TODO: Not integrated with the frontend api response
 # *********************************************
 @uiflow_blueprint.route("/getdatarecency")
 def get_datarecency():
