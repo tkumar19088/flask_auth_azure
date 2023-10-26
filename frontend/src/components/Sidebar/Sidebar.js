@@ -107,7 +107,7 @@ const Sidebar = () => {
     dispatch(updateloader(true));
     var data = {};
     try {
-      const url = "https://testingsmartola.azurewebsites.net/getirrpodata";
+      const url = "http://localhost:5000/getirrpodata";
       const response = await fetch(url, {
         method: "POST",
         headers: {

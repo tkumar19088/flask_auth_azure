@@ -57,7 +57,7 @@ const CarouselExample = () => {
       rbsku: "",
     };
     try {
-      const url = "https://testingsmartola.azurewebsites.net/getoverview";
+      const url = "http://localhost:5000/getoverview";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -101,7 +101,7 @@ const CarouselExample = () => {
     dispatch(updateloader(true));
     var data = {};
     try {
-      const url = "https://testingsmartola.azurewebsites.net/getirrpodata";
+      const url = "http://localhost:5000/getirrpodata";
       const response = await fetch(url, {
         method: "POST",
         headers: {

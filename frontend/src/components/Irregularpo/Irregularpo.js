@@ -59,7 +59,7 @@ const Irregularpo = () => {
     var data = { po_id: po_id, rbsku: rbsku };
     try {
       const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/getirrposku",
+        "http://localhost:5000/getirrposku",
         {
           method: "POST",
           headers: {
@@ -350,7 +350,7 @@ const Irregularpo = () => {
       var data = { po_id: rowId };
       try {
         const response = await fetch(
-          "https://testingsmartola.azurewebsites.net/getirrpodetails",
+          "http://localhost:5000/getirrpodetails",
           {
             method: "POST",
             headers: {

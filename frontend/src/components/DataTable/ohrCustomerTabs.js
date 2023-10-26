@@ -58,7 +58,7 @@ const OhrCustomerTabs = () => {
       rbsku: "",
     };
     try {
-      const url = "https://testingsmartola.azurewebsites.net/getoverview";
+      const url = "http://localhost:5000/getoverview";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -95,7 +95,7 @@ const OhrCustomerTabs = () => {
       rbsku: "",
     };
     try {
-      const url = "https://testingsmartola.azurewebsites.net/getcustepos";
+      const url = "http://localhost:5000/getcustepos";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -132,7 +132,7 @@ const OhrCustomerTabs = () => {
       rbsku: "",
     };
     try {
-      const url = "https://testingsmartola.azurewebsites.net/getcustsellout";
+      const url = "http://localhost:5000/getcustsellout";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -169,7 +169,7 @@ const OhrCustomerTabs = () => {
       rbsku: "",
     };
     try {
-      const url = "https://testingsmartola.azurewebsites.net/getcustsellin";
+      const url = "http://localhost:5000/getcustsellin";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -206,7 +206,7 @@ const OhrCustomerTabs = () => {
       rbsku: "",
     };
     try {
-      const url = "https://testingsmartola.azurewebsites.net/getstockposition";
+      const url = "http://localhost:5000/getstockposition";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -243,7 +243,7 @@ const OhrCustomerTabs = () => {
       rbsku: "",
     };
     try {
-      const url = "https://testingsmartola.azurewebsites.net/getcustola";
+      const url = "http://localhost:5000/getcustola";
       const response = await fetch(url, {
         method: "POST",
         headers: {

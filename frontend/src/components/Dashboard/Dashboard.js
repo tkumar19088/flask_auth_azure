@@ -42,7 +42,7 @@ function Dashboard() {
       dispatch(updateloader(true));
       try {
         const response = await fetch(
-          "https://testingsmartola.azurewebsites.net/getuserdata"
+          "http://localhost:5000/getuserdata"
         );
         if (response.ok) {
           // const json = await response.json();

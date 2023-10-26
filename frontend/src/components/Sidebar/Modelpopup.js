@@ -42,7 +42,7 @@ const BasicModal = () => {
       rbsku: "",
     };
     try {
-      const url = "https://testingsmartola.azurewebsites.net/getoverview";
+      const url = "http://localhost:5000/getoverview";
       const response = await fetch(url, {
         method: "POST",
         headers: {
