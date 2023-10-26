@@ -44,9 +44,10 @@ def choose_scenario():
             raise ValueError("No customer selected!")
 
         rardf = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
-        rardf = rardf[rardf["sku"] == data["rbsku"]]
-        staticrow = rardf[rardf["customer"] == global_filters["Customer"]]
-        otherrows = rardf[rardf["customer"] != global_filters["Customer"]]
+
+        rardf = rardf[rardf["RB SKU"] == data["rbsku"]]
+        staticrow = rardf[rardf["Customer"] == global_filters["Customer"]]
+        otherrows = rardf[rardf["Customer"] != global_filters["Customer"]]
         resp_scen.update({"rarbysku": str(len(otherrows) > 0)})
         return jsonify(resp_scen), 200
 
