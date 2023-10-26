@@ -285,7 +285,7 @@ const DataFreshness = () => {
     var data = { po_id: po_id, rbsku: rbsku };
     try {
       const response = await fetch(
-        "http://localhost:5000/getirrposku",
+        "https://testingsmartola.azurewebsites.net/getirrposku",
         {
           method: "POST",
           headers: {
@@ -576,7 +576,7 @@ const DataFreshness = () => {
       var data = { po_id: rowId };
       try {
         const response = await fetch(
-          "http://localhost:5000/getirrpodetails",
+          "https://testingsmartola.azurewebsites.net/getirrpodetails",
           {
             method: "POST",
             headers: {

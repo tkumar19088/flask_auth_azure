@@ -60,7 +60,7 @@ const Sellin = ({ onData }) => {
       var data = { customer: 0, rbsku: rowId };
       try {
         const response = await fetch(
-          "http://localhost:5000/getcampaigns",
+          "https://testingsmartola.azurewebsites.net/getcampaigns",
           {
             method: "POST",
             headers: {
@@ -96,7 +96,7 @@ dispatch(updateerrormodalpopup(true));
     var data = { rbsku: expandedRow };
     try {
       const response = await fetch(
-        "http://localhost:5000/getalternativeskus",
+        "https://testingsmartola.azurewebsites.net/getalternativeskus",
         {
           method: "POST",
           headers: {
@@ -129,7 +129,7 @@ dispatch(updateerrormodalpopup(true));
     var data = { rbsku: expandedRow };
     try {
       const response = await fetch(
-        "http://localhost:5000/rarbysku",
+        "https://testingsmartola.azurewebsites.net/rarbysku",
         {
           method: "POST",
           headers: {
@@ -436,7 +436,7 @@ dispatch(updateerrormodalpopup(true));
     var data = { rbsku: expandedRow };
     try {
       const response = await fetch(
-        "http://localhost:5000/choosescenario",
+        "https://testingsmartola.azurewebsites.net/choosescenario",
         {
           method: "POST",
           headers: {

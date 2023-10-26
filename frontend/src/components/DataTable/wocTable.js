@@ -55,7 +55,7 @@ const WocTable = ({ onData }) => {
       var data = { customer: 0, rbsku: rowId };
       try {
         const response = await fetch(
-          "http://localhost:5000/getcampaigns",
+          "https://testingsmartola.azurewebsites.net/getcampaigns",
           {
             method: "POST",
             headers: {
@@ -90,7 +90,7 @@ const WocTable = ({ onData }) => {
     var data = { rbsku: expandedRow };
     try {
       const response = await fetch(
-        "http://localhost:5000/getalternativeskus",
+        "https://testingsmartola.azurewebsites.net/getalternativeskus",
         {
           method: "POST",
           headers: {
@@ -122,7 +122,7 @@ const WocTable = ({ onData }) => {
     var data = { rbsku: expandedRow };
     try {
       const response = await fetch(
-        "http://localhost:5000/rarbysku",
+        "https://testingsmartola.azurewebsites.net/rarbysku",
         {
           method: "POST",
           headers: {
@@ -303,7 +303,7 @@ const WocTable = ({ onData }) => {
     var data = { rbsku: expandedRow };
     try {
       const response = await fetch(
-        "http://localhost:5000/choosescenario",
+        "https://testingsmartola.azurewebsites.net/choosescenario",
         {
           method: "POST",
           headers: {

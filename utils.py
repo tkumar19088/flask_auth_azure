@@ -543,10 +543,12 @@ class SKUManager:
             return self._error_response("Missing required parameters: RB SKU & Customer!")
         else:
             customer, sku_r = self.global_filters.get('Customer'), self.request_data.get('rbsku')
+
         if not customer:
             return self._error_response("No customer selected!")
         if not sku_r:
             return self._error_response("No SKU selected!")
+        
         try:
             df_price = AzureBlobReader().read_csvfile("ui_data/df_price.csv")
             alternative_skus_calculator = AlternativeSKUsCalculator(df_price, sku_r, customer)
@@ -556,13 +558,15 @@ class SKUManager:
             else:
                 alternative_skus = alternative_skus[alternative_skus['score_final'] > .50] #type: ignore
                 altskus_sorted = alternative_skus.sort_values(by='score_final', ascending=False).head(3)
-                altskus_sorted['skuid'] = altskus_sorted.index
                 print(f"\n1. altskus_sorted:\n{altskus_sorted}\n")
                 #TODO: drop reco score from pushaltskuscsvfile, filter on current customer and inner join
                 pushaltskuscsvfile = AzureBlobReader().read_csvfile("ui_data/pushalternativeskus.csv")
-                print(f"\n2. pushaltskuscsvfile:\n{pushaltskuscsvfile}\n")
+                # drop recom-score from pushaltskuscsvfile
+                pushaltskuscsvfile = pushaltskuscsvfile.drop(columns=['recom-score'])
+                # filter on current customer
+                pushaltskuscsvfile = pushaltskuscsvfile[pushaltskuscsvfile['customer'] == customer]
 
-                merged = pushaltskuscsvfile.merge(altskus_sorted, left_on='sku', right_on='skuid', how='inner')
+                merged = pushaltskuscsvfile.merge(altskus_sorted, left_on='sku', right_on='sku', how='inner')
                 print(f"\n3. merged:\n{merged}\n")
 
                 rename_cols = {
@@ -571,7 +575,7 @@ class SKUManager:
                 merged = merged.rename(columns=rename_cols)
                 merged.sort_values(by='recom-score', ascending=False, inplace=True)
                 merged = replace_missing_values(merged)
-                merged = merged.replace(0, random.randint(1, 1000))
+                # merged = merged.replace(0, random.randint(1, 1000))
                 return json.loads(merged.to_json(orient='records'))# if not merged.empty else {}
         except Exception as e:
             return self._error_response(str(e))
@@ -620,7 +624,7 @@ class AlternativeSKUsCalculator:
         except Exception as e:
             return self._error_response(str(e))
 
-        self.df_price = replace_missing_values(self.df_price)
+        self.df_price = self.df_price.fillna(0)
 
         tmp = self.df_price[conds].drop(columns=['retailer', 'brand']).drop_duplicates().copy()
         tmp = tmp.set_index('sku').T
@@ -646,6 +650,7 @@ class AlternativeSKUsCalculator:
         tmp.loc['score_final'] = tmp.loc[['score_1', 'score_3', 'score_4', 'score_5', 'score_6', 'score_7']].sum(axis = 0)
         tmp = tmp.loc[['score_final']].T
         tmp['score_final'] = (tmp['score_final'] - tmp['score_final'].min()) / (tmp['score_final'].max() - tmp['score_final'].min())
+        tmp = tmp.reset_index()
         return tmp
 
     def _error_response(self, message):
