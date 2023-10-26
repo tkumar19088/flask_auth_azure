@@ -49,10 +49,30 @@ def getuserdata():
     try:
         global_user = current_app.config['global_user']
         global_filters = current_app.config['global_filters']
+        # {'Name': 'Pavan Kumar',  'Email': 'pavan.kumar@artefact.com',  'Business Unit': '["Hygiene", "Health"]',  'Location': '["United Kingdom"]',  'Customer': '["Asda", "Amazon"]',  'Brand': '["Airwick", "Gaviscon"]',  'PersonType': 'SteerCo',  'OOS Landing Screen': 'Reckitt',  'High Risk - Reckitt': 'View',  'High Risk - Customer': 'View',  'Push Alternative': 'View',  'Reallocate': 'Edit',  'Irregular PO': 'View',  'Sell in/ Sell out': 'View'}
+        # {'Name': 'Kumar  Pavan (Contractor)',  'Email': 'Pavan.Kumar1@reckitt.com',  'Business Unit': '["Health"]',  'Location': '["United Kingdom"]',  'Customer': '["Asda", "Amazon"]',  'Brand': '["Gaviscon"]',  'PersonType': 'Commercial Health',  'OOS Landing Screen': 'Customer',  'High Risk - Reckitt': 'Restricted',  'High Risk - Customer': 'View',  'Push Alternative': 'View',  'Reallocate': 'Edit',  'Irregular PO': 'Restricted',  'Sell in/ Sell out': 'View'}
+        # {'Name': 'Moka  Keerthi',  'Email': 'keerthi.moka@artefact.com',  'Business Unit': '["Health"]',  'Location': '["United Kingdom"]',  'Customer': '["Asda", "Amazon"]',  'Brand': '["Gaviscon"]',  'PersonType': 'Supply Health',  'OOS Landing Screen': 'Reckitt',  'High Risk - Reckitt': 'View',  'High Risk - Customer': 'View',  'Push Alternative': 'View',  'Reallocate': 'Restricted',  'Irregular PO': 'View',  'Sell in/ Sell out': 'View'}
+        # {'Name': 'Pavankumar Tunduri',  'Email': 'ptunduri@hotmail.com',  'Business Unit': '["Health"]',  'Location': '["United Kingdom"]',  'Customer': '["Asda", "Amazon"]',  'Brand': '["Gaviscon"]',  'PersonType': 'Planning Health',  'OOS Landing Screen': 'Reckitt',  'High Risk - Reckitt': 'View',  'High Risk - Customer': 'View',  'Push Alternative': 'View',  'Reallocate': 'Restricted',  'Irregular PO': 'Restricted',  'Sell in/ Sell out': 'View'}
+        # {'Name': 'Angela Assaf',  'Email': 'angela.assaf@artefact.com',  'Business Unit': '["Hygiene"]',  'Location': '["United Kingdom"]',  'Customer': '["Asda", "Amazon"]',  'Brand': '["Airwick"]',  'PersonType': 'Commerical Hygiene',  'OOS Landing Screen': 'Customer',  'High Risk - Reckitt': 'Restricted',  'High Risk - Customer': 'View',  'Push Alternative': 'View',  'Reallocate': 'Edit',  'Irregular PO': 'Restricted',  'Sell in/ Sell out': 'View'}
+        # {'Name': 'Keerthi Moka',  'Email': 'keerthi.moka@reckitt.com',  'Business Unit': '["Hygiene"]',  'Location': '["United Kingdom"]',  'Customer': '["Asda", "Amazon"]',  'Brand': '["Airwick"]',  'PersonType': 'Supply Hygiene',  'OOS Landing Screen': 'Reckitt',  'High Risk - Reckitt': 'View',  'High Risk - Customer': 'View',  'Push Alternative': 'View',  'Reallocate': 'Restricted',  'Irregular PO': 'View',  'Sell in/ Sell out': 'View'}
+        # {'Name': 'Angela Assaf (Contractor)',  'Email': 'angela.assaf@reckitt.com',  'Business Unit': '["Hygiene"]',  'Location': '["United Kingdom"]',  'Customer': '["Asda", "Amazon"]',  'Brand': '["Airwick"]',  'PersonType': 'Planning Supply',  'OOS Landing Screen': 'Reckitt',  'High Risk - Reckitt': 'View',  'High Risk - Customer': 'View',  'Push Alternative': 'View',  'Reallocate': 'Restricted',  'Irregular PO': 'Restricted',  'Sell in/ Sell out': 'View'}
 
-        userDetails = {'Name': 'Pavan Kumar', 'Email': 'pavan.kumar@artefact.com', 'Business Unit': ['Hygiene', 'Health'], 'Location': ['United Kingdom'], 'Customer': ['Asda', 'Amazon'], 'Brand': ['Airwick', 'Gaviscon'], 'Role': 'Customer Service'}
+        userDetails = {'Name': 'Pavan Kumar',
+                       'Email': 'pavan.kumar@artefact.com',
+                       'Business Unit': ["Hygiene", "Health"],
+                       'Location': ["United Kingdom"],
+                       'Customer': ["Asda", "Amazon"],
+                       'Brand': ["Airwick", "Gaviscon"],
+                       'PersonType': 'SteerCo',
+                       'OOS Landing Screen': 'Reckitt',
+                       'High Risk - Reckitt': 'View',
+                       'High Risk - Customer': 'View',
+                       'Push Alternative': 'View',
+                       'Reallocate': 'Edit',
+                       'Irregular PO': 'View',
+                       'Sell in/ Sell out': 'View'}
         if userDetails:
-            filters = ['Business Unit', 'Customer', 'Location', 'Brand']
+            filters = ['Business Unit', 'Customer', 'Location', 'Brand','PersonType','OOS Landing Screen','High Risk - Reckitt','High Risk - Customer','Push Alternative','Reallocate','Irregular PO','Sell in/ Sell out']
             global_user.update({f: userDetails[f] for f in filters if f in userDetails}) # type: ignore
             current_app.config['global_user'] = global_user
             alertsdata = AlertsManager(global_filters, global_user).get_alerts()

@@ -26,6 +26,9 @@ import {
   fetchoirregulardata,
   updateexporttabledata,
   fetchtaburl,
+  updateerrormodalpopup,
+  updateerrortextmessage,
+
 } from "../../store/actions/sidebarActions";
 import CustomSnackbar from "./Modelpopup";
 import BasicModal from "./Modelpopup";
@@ -104,7 +107,7 @@ const Sidebar = () => {
     dispatch(updateloader(true));
     var data = {};
     try {
-      const url = "https://testingsmartola.azurewebsites.net/getirrpodata";
+      const url = "http://localhost:5000/getirrpodata";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -122,6 +125,8 @@ const Sidebar = () => {
         dispatch(fetchtaburl(url));
         navigate("/irregular");
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -387,7 +392,7 @@ const Sidebar = () => {
         style={{
           position: "absolute",
           left: 14,
-          bottom: 73,
+          bottom: 100,
           cursor: "pointer",
           gap: "9px",
         }}
@@ -403,12 +408,12 @@ const Sidebar = () => {
         </Typography>
       </div>
 
-      <div
+      <div 
         // className="logs-out"
         style={{
           position: "absolute",
           left: 14,
-          bottom: 62,
+          bottom: 75,
           cursor: "pointer",
           border: "1px dashed #dcdcdc",
           width: "88%",

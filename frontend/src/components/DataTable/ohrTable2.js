@@ -29,6 +29,9 @@ import {
   updateloader,
   fetchstockreallocatedata,
   updateexporttabledata,
+  updateerrormodalpopup,
+  updateerrortextmessage,
+
 } from "../../store/actions/sidebarActions";
 
 const OhrTable2 = ({ onData }) => {
@@ -78,7 +81,7 @@ const OhrTable2 = ({ onData }) => {
       var data = { customer: 1, rbsku: rowId };
       try {
         const response = await fetch(
-          "https://testingsmartola.azurewebsites.net/getcampaigns",
+          "http://localhost:5000/getcampaigns",
           {
             method: "POST",
             headers: {
@@ -94,6 +97,8 @@ const OhrTable2 = ({ onData }) => {
           setcampaignsData(json);
           //dispatch(fetchuserdetails(json));
         } else {
+          dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
           console.error("Error fetching data:", response.statusText);
         }
       } catch (error) {
@@ -112,7 +117,7 @@ const OhrTable2 = ({ onData }) => {
     var data = { rbsku: expandedRow };
     try {
       const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/getalternativeskus",
+        "http://localhost:5000/getalternativeskus",
         {
           method: "POST",
           headers: {
@@ -128,6 +133,8 @@ const OhrTable2 = ({ onData }) => {
         setpushAlternativeData(json);
         //dispatch(fetchuserdetails(json));
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -142,7 +149,7 @@ const OhrTable2 = ({ onData }) => {
     var data = { rbsku: expandedRow };
     try {
       const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/rarbysku",
+        "http://localhost:5000/rarbysku",
         {
           method: "POST",
           headers: {
@@ -158,6 +165,8 @@ const OhrTable2 = ({ onData }) => {
         dispatch(updateexporttabledata(json));
         navigate("/stockreallocation");
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -427,7 +436,7 @@ const OhrTable2 = ({ onData }) => {
     var data = { rbsku: expandedRow };
     try {
       const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/choosescenario",
+        "http://localhost:5000/choosescenario",
         {
           method: "POST",
           headers: {
@@ -441,6 +450,8 @@ const OhrTable2 = ({ onData }) => {
         setchooseData(json);
         setdisplayMigitates(true);
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -1058,9 +1069,6 @@ const OhrTable2 = ({ onData }) => {
             </TableRow>
           </TableHead>
           <TableBody className="t-body">
-            <TableRow>
-              <TableCell>4646</TableCell>
-            </TableRow>
             {data && data.length == 0 && (
               <TableRow>
                 <TableCell

@@ -40,6 +40,9 @@ import {
   fetchtaburl,
   updatesearchvalue,
   updateskulist,
+  updateerrormodalpopup,
+  updateerrortextmessage,
+
 } from "../../store/actions/sidebarActions";
 import "./Filtersdropdown.css";
 
@@ -120,7 +123,7 @@ function Filtersdropdown() {
     console.log(data);
     try {
       const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/getfilterparams",
+        "http://localhost:5000/getfilterparams",
         {
           method: "POST",
           headers: {
@@ -164,6 +167,8 @@ function Filtersdropdown() {
         console.log(json);
         identifySpecificTabdata(json, url);
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {

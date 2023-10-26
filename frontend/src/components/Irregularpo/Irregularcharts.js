@@ -215,7 +215,9 @@ const Irregularcharts = () => {
               </Typography>
             </Grid>
             <Grid item xs={3} className="kpi-box">
-              <Typography fontSize="13px">Quantity Ordered</Typography>
+              <Typography fontSize="13px">
+                Quantity Ordered since Monday
+              </Typography>
               <Typography color="green">
                 {skudata.quantityordered == null
                   ? "-"

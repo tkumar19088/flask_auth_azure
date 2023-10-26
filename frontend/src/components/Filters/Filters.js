@@ -105,7 +105,7 @@ const Filters = () => {
     console.log(data);
     try {
       const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/getfilterparams",
+        "http://localhost:5000/getfilterparams",
         {
           method: "POST",
           headers: {
@@ -132,7 +132,7 @@ const Filters = () => {
     // dispatch(updateloader(true));
     try {
       const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/resetfilterparams"
+        "http://localhost:5000/resetfilterparams"
       );
       if (response.ok) {
         console.log("success");

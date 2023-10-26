@@ -38,6 +38,9 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   updateloader,
   fetchoirregularchartdata,
+  updateerrormodalpopup,
+  updateerrortextmessage,
+
 } from "../../store/actions/sidebarActions";
 import loaderImage from "../../images/Logo-bar.png";
 
@@ -56,7 +59,7 @@ const Irregularpo = () => {
     var data = { po_id: po_id, rbsku: rbsku };
     try {
       const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/getirrposku",
+        "http://localhost:5000/getirrposku",
         {
           method: "POST",
           headers: {
@@ -74,6 +77,8 @@ const Irregularpo = () => {
         // setpodetails(json);
         navigate("/irregularcharts");
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -345,7 +350,7 @@ const Irregularpo = () => {
       var data = { po_id: rowId };
       try {
         const response = await fetch(
-          "https://testingsmartola.azurewebsites.net/getirrpodetails",
+          "http://localhost:5000/getirrpodetails",
           {
             method: "POST",
             headers: {
@@ -359,6 +364,8 @@ const Irregularpo = () => {
           console.log(json);
           setpodetails(json);
         } else {
+          dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
           console.error("Error fetching data:", response.statusText);
         }
       } catch (error) {

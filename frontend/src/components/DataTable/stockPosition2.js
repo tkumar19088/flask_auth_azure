@@ -20,6 +20,10 @@ import {
   updateloader,
   fetchstockreallocatedata,
   updateexporttabledata,
+  updatewithinchanneldata,
+  updateerrormodalpopup,
+  updateerrortextmessage,
+
 } from "../../store/actions/sidebarActions";
 
 import AddIcon from "@mui/icons-material/Add";
@@ -59,7 +63,7 @@ const StockPosition2 = ({ onData }) => {
       var data = { customer: 0, rbsku: rowId };
       try {
         const response = await fetch(
-          "https://testingsmartola.azurewebsites.net/getcampaigns",
+          "http://localhost:5000/getcampaigns",
           {
             method: "POST",
             headers: {
@@ -75,6 +79,8 @@ const StockPosition2 = ({ onData }) => {
           setcampaignsData(json);
           //dispatch(fetchuserdetails(json));
         } else {
+          dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
           console.error("Error fetching data:", response.statusText);
         }
       } catch (error) {
@@ -92,7 +98,7 @@ const StockPosition2 = ({ onData }) => {
     var data = { rbsku: expandedRow };
     try {
       const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/getalternativeskus",
+        "http://localhost:5000/getalternativeskus",
         {
           method: "POST",
           headers: {
@@ -108,6 +114,8 @@ const StockPosition2 = ({ onData }) => {
         setpushAlternativeData(json);
         //dispatch(fetchuserdetails(json));
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -122,7 +130,7 @@ const StockPosition2 = ({ onData }) => {
     var data = { rbsku: expandedRow };
     try {
       const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/rarbysku",
+        "http://localhost:5000/rarbysku",
         {
           method: "POST",
           headers: {
@@ -135,9 +143,12 @@ const StockPosition2 = ({ onData }) => {
         const json = await response.json();
         console.log(json);
         dispatch(fetchstockreallocatedata(json));
+        dispatch(updatewithinchanneldata(json));
         dispatch(updateexporttabledata(json));
         navigate("/stockreallocation");
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -427,7 +438,7 @@ const StockPosition2 = ({ onData }) => {
     var data = { rbsku: expandedRow };
     try {
       const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/choosescenario",
+        "http://localhost:5000/choosescenario",
         {
           method: "POST",
           headers: {
@@ -441,6 +452,8 @@ const StockPosition2 = ({ onData }) => {
         setchooseData(json);
         setdisplayMigitates(true);
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -467,7 +480,7 @@ const StockPosition2 = ({ onData }) => {
       <TableContainer
         component={Paper}
         className="tablecell-header"
-        style={{ maxHeight: 425, width: "100%" }}
+        style={{ maxHeight: 365, width: "100%" }}
       >
         <Table className="campaignsTable">
           <TableHead>
@@ -619,7 +632,7 @@ const StockPosition2 = ({ onData }) => {
         textAlign="center"
         className="choosems-stack"
       >
-        <Box display="flex" justifyContent="center" alignItems="center" my={1}>
+        <Box display="flex" justifyContent="center" alignItems="center" mt="20px">
           <Button
             variant="contained"
             size="medium"

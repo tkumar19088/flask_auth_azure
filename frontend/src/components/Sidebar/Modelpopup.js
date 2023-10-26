@@ -10,6 +10,9 @@ import {
   fetchoverviewhighriskdata,
   updateexporttabledata,
   fetchtaburl,
+  updateerrormodalpopup,
+  updateerrortextmessage,
+
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 import "./Modelpopup.css";
@@ -39,7 +42,7 @@ const BasicModal = () => {
       rbsku: "",
     };
     try {
-      const url = "https://testingsmartola.azurewebsites.net/getoverview";
+      const url = "http://localhost:5000/getoverview";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -55,6 +58,8 @@ const BasicModal = () => {
         dispatch(fetchtaburl(url));
         navigate("/overviewhighrisk");
       } else {
+        dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -65,7 +70,7 @@ const BasicModal = () => {
   };
   const handleClose = () => setOpen(false);
   const handleGotohome = () => {
-    navigate("/sellinforecast");
+    navigate("/");
   };
   return (
     <div>

@@ -25,13 +25,9 @@ function StockReallocation() {
   const exporttabledata = useSelector((state) => state.sidebar.exporttabledata);
   const isWithinChannel = useSelector((state) => state.sidebar.isWithinChannel);
   const stockData = useSelector((state) => state.sidebar.stockreallocation);
-  // console.log(stockData.otherrows);
-  // const channel = "Pure Play";
-  // const filteredOtherRows = stockData.otherrows.filter(
-  //   (item) => item.Channel == channel
-  // );
+
   const suggRecord = useSelector(
-    (state) => state.sidebar.withinChannelData.staticrow
+    (state) => state.sidebar.withinChannelData.static_row[0]
   );
   // const suggRecord = {
   //   AvgYTDsellout: 600,
