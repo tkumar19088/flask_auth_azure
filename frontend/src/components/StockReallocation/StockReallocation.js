@@ -27,7 +27,7 @@ function StockReallocation() {
   const stockData = useSelector((state) => state.sidebar.stockreallocation);
 
   const suggRecord = useSelector(
-    (state) => state.sidebar.withinChannelData.static_row[0]
+    (state) => state.sidebar.withinChannelData.static_row
   );
   // const suggRecord = {
   //   AvgYTDsellout: 600,

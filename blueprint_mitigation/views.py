@@ -79,7 +79,8 @@ def getalternativeskus():
         if len(altskus) < 1:
             return jsonify(status="error", message="No alternative SKUs found!"), 500
         else:
-            return altskus
+            altskus = cleandf(altskus)
+            return json.loads(altskus.to_json(orient='records'))
     except Exception as e:
         return jsonify(status="error", message=str(e)), 500
 
@@ -104,6 +105,12 @@ def getrarbysku():
 
         rardf = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
         rardf = rardf[rardf["sku"] == data["rbsku"]]
+
+        # Filter out rows there Channel is empty
+        rardf = rardf[rardf["Channel"] != ""]
+
+        # set new allocation by default to 0
+        rardf['newallocation'] = 0
 
         staticrow = rardf[rardf["customer"] == global_filters["Customer"]]
         # print(f"\n5. staticrow.columns :\n{staticrow.columns}\n")
@@ -187,6 +194,16 @@ def getrarbysku():
         staticrow.rename(columns=column_mapping, inplace=True)
         otherrows.rename(columns=column_mapping, inplace=True)
 
+        # replace missing values and NaN and NULL with 0
+        staticrow = staticrow.replace(np.nan, 0).fillna(0)
+        otherrows = otherrows.replace(np.nan, 0).fillna(0)
+
+        for col in staticrow.columns:
+            staticrow[col] = staticrow[col].apply(lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x)
+
+        for col in otherrows.columns:
+            otherrows[col] = otherrows[col].apply(lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x)
+
         return {
             "static_row": json.loads(staticrow.to_json(orient="records"))[0],
             "other_rows": json.loads(otherrows.to_json(orient="records")),
@@ -219,6 +236,13 @@ def runoptimizemodel():
 
         df = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
         df = df[df["sku"] == data["rbsku"]]
+
+        # Filter out rows there Channel is empty
+        df = df[df["Channel"] != ""]
+
+        # set new allocation by default to 0
+        df['newallocation'] = 0
+
         minsl, wocmin, wocmax, status, rardf, optimalvalue = optimise_supply(df, data["rbsku"], 0.95, 10, 3, 8)
 
         # print(f"\n3. skuid - {data['rbsku']} ; status - {status} ; Optimal value of X_0 : {optimalvalue}")
@@ -328,6 +352,16 @@ def runoptimizemodel():
         staticrow.rename(columns=column_mapping, inplace=True)
         otherrows.rename(columns=column_mapping, inplace=True)
 
+        # replace missing values and NaN and NULL with 0
+        staticrow = staticrow.replace(np.nan, 0).fillna(0)
+        otherrows = otherrows.replace(np.nan, 0).fillna(0)
+
+        for col in staticrow.columns:
+            staticrow[col] = staticrow[col].apply(lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x)
+
+        for col in otherrows.columns:
+            otherrows[col] = otherrows[col].apply(lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x)
+
         return {
             "static_row": json.loads(staticrow.to_json(orient="records"))[0],
             "other_rows": json.loads(otherrows.to_json(orient="records")),
@@ -336,3 +370,14 @@ def runoptimizemodel():
         }
     except Exception as e:
         return jsonify(status="error", message=e), 500
+
+
+## Helper Function
+def cleandf(df):
+    missing_values = [None, 'null', 'NULL', 'Null', 'Nan', 'nan', 'NaN', ' ', '', 'None; None', np.nan, '0; None', 'nan; nan', '0; 0']
+    df = df.replace(missing_values, '-')
+    df = df.fillna('-')
+    for col in df.columns:
+        df[col] = df[col] if col in ['itf','sku'] else df[col].apply(lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x)
+    df = df.replace([0.00, 0.0, "0.00", "0.0"], 0)
+    return df
