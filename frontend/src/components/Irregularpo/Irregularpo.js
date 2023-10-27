@@ -42,6 +42,7 @@ import {
   updateerrortextmessage,
 } from "../../store/actions/sidebarActions";
 import loaderImage from "../../images/Logo-bar.png";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
 const Irregularpo = () => {
   const navigate = useNavigate();
@@ -608,7 +609,7 @@ const Irregularpo = () => {
             </Box>
             <Box mt="20px" mx="1px">
               <Typography fontSize={28} color="#415A6C">
-                Irregular PO
+                Recent Pos (last 1 month)
               </Typography>
             </Box>
             <TableContainer style={{ maxHeight: 732, width: "100%" }}>
@@ -751,13 +752,23 @@ const Irregularpo = () => {
                         </TableCell>
                         <TableCell>
                           <Typography fontSize={13} textAlign="center">
-                            <DoDisturbOutlinedIcon
-                              sx={{
-                                color: "red",
-                                fontSize: "1rem",
-                                marginTop: "7px",
-                              }}
-                            />
+                            {item.noSKUsIrregular > 0 ? (
+                              <CheckCircleOutlineIcon
+                                sx={{
+                                  color: "green",
+                                  fontSize: "1rem",
+                                  marginTop: "7px",
+                                }}
+                              />
+                            ) : (
+                              <DoDisturbOutlinedIcon
+                                sx={{
+                                  color: "red",
+                                  fontSize: "1rem",
+                                  marginTop: "7px",
+                                }}
+                              />
+                            )}
                           </Typography>
                         </TableCell>
                       </TableRow>
