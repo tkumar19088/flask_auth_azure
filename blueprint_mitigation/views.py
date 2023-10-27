@@ -96,6 +96,114 @@ def getrarbysku():
         staticrow, otherrows = pd.DataFrame(), pd.DataFrame()
         if not data:
             raise ValueError("Missing required parameter: RB SKU!")
+
+
+        if not global_filters.get("Customer"):
+            raise ValueError("No customer selected!")
+
+
+        rardf = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
+        rardf = rardf[rardf["sku"] == data["rbsku"]]
+
+        staticrow = rardf[rardf["customer"] == global_filters["Customer"]]
+        # print(f"\n5. staticrow.columns :\n{staticrow.columns}\n")
+
+        if len(rardf) > 1:
+            otherrows = rardf[rardf["customer"] != global_filters["Customer"]]
+        else:
+            otherrows = pd.DataFrame()
+
+        minsl = 95
+        avg_wocmin, avg_wocmax = 4, 8
+
+        # Labels for Service Level and WOC
+        # # 2 = Green = Completely Satisfied ; 1 = Yellow = Partially Satisfied ; 0 = Red = Not Satisfied
+
+        if len(otherrows) > 0:
+            # Label for Service Level
+            if (otherrows["Expected_weekly_service_level"] >= minsl).all():
+                sl = 2
+            elif (otherrows["Expected_weekly_service_level"] < minsl).any():
+                sl = 0
+            else:
+                sl = 1
+
+            # Label for WOC
+            if (otherrows["Updated_Customer_WoC"] >= avg_wocmin).all() and (otherrows["Updated_Customer_WoC"] <= avg_wocmax).all():
+                woc = 2
+            elif (otherrows["Updated_Customer_WoC"] < avg_wocmin).any() or (otherrows["Updated_Customer_WoC"] > avg_wocmax).any():
+                woc = 0
+            else:
+                woc = 1
+
+            # Label for Pct Deviation # TODO: How do we calculate this?
+            if (otherrows["Updated_Customer_WoC"] >= avg_wocmin).all() and (otherrows["Updated_Customer_WoC"] <= avg_wocmax).all():
+                pctdev = 2
+            elif (otherrows["Updated_Customer_WoC"] < avg_wocmin).any() or (otherrows["Updated_Customer_WoC"] > avg_wocmax).any():
+                pctdev = 0
+            else:
+                pctdev = 1
+
+        PCT_DEVIATION = (max(staticrow.iloc[0]["SOH_safe_to_reallocate"], 0) / staticrow.iloc[0]["currentallocation"])
+
+        avgsl = rardf["Expected_weekly_service_level"].mean()
+
+        constraints = [
+                        {
+                            "Name": "PCT DEVIATION FROM INIT ALLOC",
+                            "Value": f"{int(PCT_DEVIATION)}",
+                            "Label": f"{pctdev}",
+                        },
+                        {
+                            "Name": "MIN Expected Service Level",
+                            "Value": f"{minsl}",
+                            "Label": f"{sl}",
+                        },
+                        {"Name": "MIN Deviation from Target WOC", "Value": f"{avg_wocmin}"},
+                        {
+                            "Name": "MAX Deviation from Target WOC",
+                            "Value": f"{avg_wocmax}",
+                            "Label": f"{woc}",
+                        },
+                    ]
+
+        results = [
+            {"Name": "AVG EXP SERVICE LEVEL", "Value": f"{avgsl}"},
+            {"Name": "EXP OLA", "Value": "99%"},
+        ]
+
+        column_mapping = {'atf-sof': 'Sell out',
+                          'customer': 'Customer',
+                          'reckitt_sif': 'sif-reckitt',
+                          'brand': 'Brand',
+                          'sku': 'RB SKU',
+                          'atf-sif': 'sif-atf'}
+
+        staticrow.rename(columns=column_mapping, inplace=True)
+        otherrows.rename(columns=column_mapping, inplace=True)
+
+        return {
+            "static_row": json.loads(staticrow.to_json(orient="records"))[0],
+            "other_rows": json.loads(otherrows.to_json(orient="records")),
+            "constraints": constraints,
+            "results": results,
+        }
+    except Exception as e:
+        return jsonify(status="error", message=e), 500
+
+
+# **************************  Run RAR Optimization Model **************************
+#                           Run optimization Model code
+# ******************************************************************************
+@mitigation_blueprint.route("/runoptimizemodel", methods=["POST"])
+def runoptimizemodel():
+    global_filters = current_app.config.get("global_filters", {})
+
+    try:
+        data = request.json
+        staticrow, otherrows = pd.DataFrame(), pd.DataFrame()
+        if not data:
+            raise ValueError("Missing required parameter: RB SKU!")
         # else:
         #     print(f"\n1. data : {data}\n")
 
@@ -105,8 +213,7 @@ def getrarbysku():
         #     print(f"\n2. global_filters : {global_filters}\n")
 
         df = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
-        # print(f"\n2.5 df.columns :\n{df.columns}\n")
-        # print(f"\n2.6 data :\n{data}\n")
+        df = df[df["sku"] == data["rbsku"]]
         minsl, wocmin, wocmax, status, rardf, optimalvalue = optimise_supply(df, data["rbsku"], 0.95, 10, 3, 8)
 
         # print(f"\n3. skuid - {data['rbsku']} ; status - {status} ; Optimal value of X_0 : {optimalvalue}")
@@ -182,9 +289,39 @@ def getrarbysku():
             {"Name": "EXP OLA", "Value": "99%"},
         ]
 
-        print(
-            f"\n'static_row': {json.loads(staticrow.to_json(orient='records'))[0]},\n'other_rows': {json.loads(otherrows.to_json(orient='records'))},\n'constraints': {constraints},\n'results': {results}"
-        )
+        cols = ['customer','AvgYTDsellout','brand','Location','sku','custwoc-current','newallocation','atf-sif','sumofPOsinalloccycle','idealallocationvalues']
+        mergingdf = df[cols]
+        staticrow = pd.merge(staticrow, mergingdf, on=['customer','brand','sku'], how='left')
+        otherrows = pd.merge(otherrows, mergingdf, on=['customer','brand','sku'], how='left')
+
+        column_mapping = {
+                            'Channel' : "Channel",
+                            'Expected_weekly_service_level' : "expectedservicelevel",
+                            'Remaining_allocation' : "remainingallocation",
+                            'SOH_safe_to_reallocate' : "stocksafetoreallocate",
+                            'Suggested_Supply' : "suggestedallocation",
+                            'allocationconsumed' : "allocationconsumed",
+                            'atf-sof' : "Sell out",
+                            'cmuscore' : "cmuscore",
+                            'currentallocation' : "currentallocation",
+                            'customer' : "Customer",
+                            'custsoh-current' : "custsoh-current",
+                            'custsoh-target' : "custsoh-target",
+                            'custwoc-target' : "custwoc-target",
+                            'openorders' : "openorders",
+                            'reckitt_sif' : "sif-reckitt",
+                            'AvgYTDsellout' : "AvgYTDsellout",
+                            'brand' : "Brand",
+                            'Location' : "Location",
+                            'sku' : "RB SKU",
+                            'custwoc-current' : "custwoc-current",
+                            'newallocation' : "newallocation",
+                            'atf-sif' : "sif-atf",
+                            'sumofPOsinalloccycle' : "sumofPOsinalloccycle",
+                            'idealallocationvalues' : "idealallocationvalues"}
+
+        staticrow.rename(columns=column_mapping, inplace=True)
+        otherrows.rename(columns=column_mapping, inplace=True)
 
         return {
             "static_row": json.loads(staticrow.to_json(orient="records"))[0],
