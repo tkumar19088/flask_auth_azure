@@ -262,7 +262,7 @@ const Promo = ({ data }) => {
       <TableContainer
         component={Paper}
         className="tablecell-header"
-        style={{ maxHeight: 306, width: "100%" }}
+        style={{ maxHeight: 292, width: "100%" }}
       >
         <Table className="campaignsTable">
           <TableHead>
