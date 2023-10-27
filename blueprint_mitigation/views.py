@@ -116,37 +116,42 @@ def getrarbysku():
         minsl = 95
         avg_wocmin, avg_wocmax = 4, 8
 
+        pctdev, woc, sl = 0, 0, 0
+
         # Labels for Service Level and WOC
         # # 2 = Green = Completely Satisfied ; 1 = Yellow = Partially Satisfied ; 0 = Red = Not Satisfied
 
         if len(otherrows) > 0:
             # Label for Service Level
-            if (otherrows["Expected_weekly_service_level"] >= minsl).all():
+            if (otherrows["expectedservicelevel"] >= minsl).all():
                 sl = 2
-            elif (otherrows["Expected_weekly_service_level"] < minsl).any():
+            elif (otherrows["expectedservicelevel"] < minsl).any():
                 sl = 0
             else:
                 sl = 1
 
             # Label for WOC
-            if (otherrows["Updated_Customer_WoC"] >= avg_wocmin).all() and (otherrows["Updated_Customer_WoC"] <= avg_wocmax).all():
+            if (otherrows["custwoc-current"] >= avg_wocmin).all() and (otherrows["custwoc-current"] <= avg_wocmax).all():
                 woc = 2
-            elif (otherrows["Updated_Customer_WoC"] < avg_wocmin).any() or (otherrows["Updated_Customer_WoC"] > avg_wocmax).any():
+            elif (otherrows["custwoc-current"] < avg_wocmin).any() or (otherrows["custwoc-current"] > avg_wocmax).any():
                 woc = 0
             else:
                 woc = 1
 
-            # Label for Pct Deviation # TODO: How do we calculate this?
-            if (otherrows["Updated_Customer_WoC"] >= avg_wocmin).all() and (otherrows["Updated_Customer_WoC"] <= avg_wocmax).all():
+            # Label for Pct Deviation # TODO: How do we calculate this? Presently using WOC
+            if (otherrows["custwoc-current"] >= avg_wocmin).all() and (otherrows["custwoc-current"] <= avg_wocmax).all():
                 pctdev = 2
-            elif (otherrows["Updated_Customer_WoC"] < avg_wocmin).any() or (otherrows["Updated_Customer_WoC"] > avg_wocmax).any():
+            elif (otherrows["custwoc-current"] < avg_wocmin).any() or (otherrows["custwoc-current"] > avg_wocmax).any():
                 pctdev = 0
             else:
                 pctdev = 1
 
-        PCT_DEVIATION = (max(staticrow.iloc[0]["SOH_safe_to_reallocate"], 0) / staticrow.iloc[0]["currentallocation"])
+        if staticrow.iloc[0]["stocksafetoreallocate"] == 0 or pd.isna(staticrow.iloc[0]["stocksafetoreallocate"]):
+            PCT_DEVIATION = 0  # Or any other suitable value
+        else:
+            PCT_DEVIATION = max(staticrow.iloc[0]["stocksafetoreallocate"], 0) / staticrow.iloc[0]["stocksafetoreallocate"]
 
-        avgsl = rardf["Expected_weekly_service_level"].mean()
+        avgsl = rardf["expectedservicelevel"].mean()
 
         constraints = [
                         {
@@ -258,10 +263,10 @@ def runoptimizemodel():
             else:
                 woc = 1
 
-        PCT_DEVIATION = (
-            max(staticrow.iloc[0]["SOH_safe_to_reallocate"], 0)
-            / staticrow.iloc[0]["currentallocation"]
-        )
+        if staticrow.iloc[0]["currentallocation"] == 0 or pd.isna(staticrow.iloc[0]["currentallocation"]):
+            PCT_DEVIATION = 0
+        else:
+            PCT_DEVIATION = (max(staticrow.iloc[0]["SOH_safe_to_reallocate"], 0) / staticrow.iloc[0]["currentallocation"])
 
         avgsl = rardf["Expected_weekly_service_level"].mean()
 
