@@ -51,7 +51,6 @@ import {
   updateragfilters,
   updateerrormodalpopup,
   updateerrortextmessage,
-
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 import loaderImage from "../../images/Logo-bar.png";
@@ -62,6 +61,7 @@ const OverviewHighRisk2 = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const userDetails = useSelector((state) => state.sidebar.userDetails);
   const loader = useSelector((state) => state.sidebar.loader);
   const open = useSelector((state) => state.sidebar.errormodalopen);
   const customer = useSelector((state) => state.sidebar.customer);
@@ -73,7 +73,8 @@ const OverviewHighRisk2 = () => {
   const tabname = useSelector((state) => state.sidebar.tabname);
   const skulist = useSelector((state) => state.sidebar.skulist);
 
-  const [activeTab, setActiveTab] = useState(0);
+  const selectedTab = userDetails["OOS Landing Screen"] === "Reckitt" ? 0 : 1;
+  const [activeTab, setActiveTab] = useState(selectedTab);
   const [exportData, setexportData] = useState([]);
 
   const handleTabChange = (index) => {
@@ -118,7 +119,7 @@ const OverviewHighRisk2 = () => {
         // dispatch(updatesearch(false));
       } else {
         dispatch(updateerrortextmessage(response.statusText));
-          dispatch(updateerrormodalpopup(true));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -180,7 +181,7 @@ const OverviewHighRisk2 = () => {
         dispatch(fetchtaburl(url));
       } else {
         dispatch(updateerrortextmessage(response.statusText));
-          dispatch(updateerrormodalpopup(true));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -223,7 +224,7 @@ const OverviewHighRisk2 = () => {
         dispatch(fetchtaburl(url));
       } else {
         dispatch(updateerrortextmessage(response.statusText));
-          dispatch(updateerrormodalpopup(true));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -304,7 +305,7 @@ const OverviewHighRisk2 = () => {
         return;
       } else {
         dispatch(updateerrortextmessage(response.statusText));
-          dispatch(updateerrormodalpopup(true));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -374,7 +375,7 @@ const OverviewHighRisk2 = () => {
         dispatch(updatesearch(false));
       } else {
         dispatch(updateerrortextmessage(response.statusText));
-          dispatch(updateerrormodalpopup(true));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {

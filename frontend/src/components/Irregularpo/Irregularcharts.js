@@ -147,39 +147,43 @@ const Irregularcharts = () => {
                     PO issue :
                     <span style={{ color: "#415A6C" }}>
                       {" "}
-                      {skudata.po_issue == null ? "-" : skudata.po_issue}
+                      {skudata.alert == null ? "No Issue" : skudata.alert}
                     </span>
                   </Typography>
-                  <Typography fontSize={18} color="brown">
-                    {skudata.po_issue == "Irregular Volume"
-                      ? "Quantity Ordered "
-                      : "PO Price "}
-                    :
-                    <span style={{ color: "#415A6C" }}>
-                      {skudata.po_issue == "Irregular Volume"
-                        ? skudata.quantityordered == null
-                          ? " -"
-                          : skudata.quantityordered
-                        : skudata.skudata.order_price == null
-                        ? " -"
-                        : skudata.skudata.order_price}
-                    </span>
-                  </Typography>
-                  <Typography fontSize={18} color="brown">
-                    {skudata.po_issue == "Irregular Volume"
-                      ? "Quantity forecasted "
-                      : "Agreed Price "}
-                    :
-                    <span style={{ color: "#415A6C" }}>
-                      {skudata.po_issue == "Irregular Volume"
-                        ? skudata["sif-sola"] == null
-                          ? "-"
-                          : skudata["sif-sola"]
-                        : skudata.agreed_price == null
-                        ? "-"
-                        : parseFloat(skudata.agreed_price.toFixed(2))}
-                    </span>
-                  </Typography>
+                  {skudata.alert != null && (
+                    <div>
+                      <Typography fontSize={18} color="brown">
+                        {skudata.alert == "Irregular Volume"
+                          ? "Quantity Ordered since Monday"
+                          : "PO Price "}
+                        :
+                        <span style={{ color: "#415A6C" }}>
+                          {skudata.po_issue == "Irregular Volume"
+                            ? skudata.quantityordered == null
+                              ? " -"
+                              : skudata.quantityordered
+                            : skudata.po_price == null
+                            ? " -"
+                            : skudata.po_price}
+                        </span>
+                      </Typography>
+                      <Typography fontSize={18} color="brown">
+                        {skudata.alert == "Irregular Volume"
+                          ? "Quantity Forecasted "
+                          : "Agreed Price "}
+                        :
+                        <span style={{ color: "#415A6C" }}>
+                          {skudata.po_issue == "Irregular Volume"
+                            ? skudata["sif-sola"] == null
+                              ? "-"
+                              : skudata["sif-sola"]
+                            : skudata.agreed_price == null
+                            ? "-"
+                            : parseFloat(skudata.agreed_price.toFixed(2))}
+                        </span>
+                      </Typography>
+                    </div>
+                  )}
                 </Grid>
               </Card>
 
@@ -209,9 +213,7 @@ const Irregularcharts = () => {
             <Grid item xs={3} className="kpi-box">
               <Typography fontSize="13px">Sell-Out Forecast (CW)</Typography>
               <Typography color="green">
-                {skudata["sof cw"] == null
-                  ? "-"
-                  : parseFloat(skudata["sof cw"].toFixed(2))}
+                {skudata.sof == null ? "-" : parseFloat(skudata.sof.toFixed(2))}
               </Typography>
             </Grid>
             <Grid item xs={3} className="kpi-box">

@@ -31,7 +31,6 @@ import {
   updateexporttabledata,
   updateerrormodalpopup,
   updateerrortextmessage,
-
 } from "../../store/actions/sidebarActions";
 
 const OhrTable2 = ({ onData }) => {
@@ -134,7 +133,7 @@ const OhrTable2 = ({ onData }) => {
         //dispatch(fetchuserdetails(json));
       } else {
         dispatch(updateerrortextmessage(response.statusText));
-          dispatch(updateerrormodalpopup(true));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -166,7 +165,7 @@ const OhrTable2 = ({ onData }) => {
         navigate("/stockreallocation");
       } else {
         dispatch(updateerrortextmessage(response.statusText));
-          dispatch(updateerrormodalpopup(true));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -451,7 +450,7 @@ const OhrTable2 = ({ onData }) => {
         setdisplayMigitates(true);
       } else {
         dispatch(updateerrortextmessage(response.statusText));
-          dispatch(updateerrormodalpopup(true));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -772,7 +771,7 @@ const OhrTable2 = ({ onData }) => {
                   color: "#415A6C",
                 }}
               >
-                Reckitt Stock on Hand
+                Reckitt SoH
               </TableCell>
               <TableCell
                 sx={{

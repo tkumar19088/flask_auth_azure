@@ -558,7 +558,7 @@ class SKUManager:
             else:
                 alternative_skus = alternative_skus[alternative_skus['score_final'] > .50] #type: ignore
                 altskus_sorted = alternative_skus.sort_values(by='score_final', ascending=False).head(3)
-                print(f"\n1. altskus_sorted:\n{altskus_sorted}\n")
+                # print(f"\n1. altskus_sorted:\n{altskus_sorted}\n")
                 #TODO: drop reco score from pushaltskuscsvfile, filter on current customer and inner join
                 pushaltskuscsvfile = AzureBlobReader().read_csvfile("ui_data/pushalternativeskus.csv")
                 # drop recom-score from pushaltskuscsvfile
@@ -567,7 +567,7 @@ class SKUManager:
                 pushaltskuscsvfile = pushaltskuscsvfile[pushaltskuscsvfile['customer'] == customer]
 
                 merged = pushaltskuscsvfile.merge(altskus_sorted, left_on='sku', right_on='sku', how='inner')
-                print(f"\n3. merged:\n{merged}\n")
+                # print(f"\n3. merged:\n{merged}\n")
 
                 rename_cols = {
                                 'score_final': 'recom-score',

@@ -24,6 +24,8 @@ const CarouselExample = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const userDetails = useSelector((state) => state.sidebar.userDetails);
+  console.log(userDetails["Irregular PO"]);
   const data = useSelector((state) => state.sidebar.alerts);
   const [selectedalert, setselectedalert] = useState(false);
   const business = useSelector((state) => state.sidebar.business);
@@ -83,50 +85,38 @@ const CarouselExample = () => {
     }
   };
   const handleIrregularPO = async () => {
-    if (!business) {
-      dispatch(fetchbusinessempty(true));
-    }
-    if (!location) {
-      dispatch(fetchlocationempty(true));
-    }
-    if (!business || !location) {
-      return;
-    }
-    if (!apply) {
-      dispatch(updateapplyfilterserror(true));
-      return;
-    }
-
-    setselectedalert(true);
-    dispatch(updateloader(true));
-    var data = {};
-    try {
-      const url = "https://testingsmartola.azurewebsites.net/getirrpodata";
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      if (response.ok) {
-        const json = await response.json();
-        console.log(json);
-        // setuserDetails(json.name);
-        // dispatch(updatetabname("irregular"));
-        dispatch(fetchoirregulardata(json));
-        dispatch(updateexporttabledata(json));
-        dispatch(fetchtaburl(url));
-        navigate("/irregular");
-      } else {
-        dispatch(updateerrortextmessage(response.statusText));
-        dispatch(updateerrormodalpopup(true));
-        console.error("Error fetching data:", response.statusText);
+    if (userDetails["Irregular PO"] == "View") {
+      setselectedalert(true);
+      dispatch(updateloader(true));
+      var data = {};
+      try {
+        const url = "https://testingsmartola.azurewebsites.net/getirrpodata";
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        if (response.ok) {
+          const json = await response.json();
+          console.log(json);
+          // setuserDetails(json.name);
+          // dispatch(updatetabname("irregular"));
+          dispatch(fetchoirregulardata(json));
+          dispatch(updateexporttabledata(json));
+          dispatch(fetchtaburl(url));
+          navigate("/irregular");
+        } else {
+          dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
+          console.error("Error fetching data:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+      } finally {
+        dispatch(updateloader(false));
       }
-    } catch (error) {
-      console.error("Fetch error:", error);
-    } finally {
-      dispatch(updateloader(false));
     }
     // navigate("/irregular");
   };

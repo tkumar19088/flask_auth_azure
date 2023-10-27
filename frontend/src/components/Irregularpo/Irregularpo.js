@@ -40,9 +40,9 @@ import {
   fetchoirregularchartdata,
   updateerrormodalpopup,
   updateerrortextmessage,
-
 } from "../../store/actions/sidebarActions";
 import loaderImage from "../../images/Logo-bar.png";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
 const Irregularpo = () => {
   const navigate = useNavigate();
@@ -78,7 +78,7 @@ const Irregularpo = () => {
         navigate("/irregularcharts");
       } else {
         dispatch(updateerrortextmessage(response.statusText));
-          dispatch(updateerrormodalpopup(true));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -511,15 +511,33 @@ const Irregularpo = () => {
                     fontSize: "13px",
                   }}
                 >
-                  {item.quantity}
+                  {item.quantityordered}
                 </Typography>
               </TableCell>
-              <TableCell sx={{ textAlign: "center" }}>{item.sellin}</TableCell>
-              <TableCell sx={{ textAlign: "center" }}>
-                {item.percentage}
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                }}
+              >
+                <Box display="flex">
+                  <Typography>{item["sif-sola"]}</Typography>
+                  <Typography
+                    fontSize={13}
+                    sx={{
+                      marginLeft: "5px",
+                      marginTop: "10px",
+                      color: "#6e8c78",
+                    }}
+                  >
+                    {item["sif-kinaxis"]}
+                  </Typography>
+                </Box>
               </TableCell>
               <TableCell sx={{ textAlign: "center" }}>
-                {item.orderprice}
+                {item.percentage_discrepancy}
+              </TableCell>
+              <TableCell sx={{ textAlign: "center" }}>
+                {item.po_price}
               </TableCell>
               <TableCell sx={{ textAlign: "center" }}>
                 <Button
@@ -591,7 +609,7 @@ const Irregularpo = () => {
             </Box>
             <Box mt="20px" mx="1px">
               <Typography fontSize={28} color="#415A6C">
-                Irregular PO
+                Recent Pos (last 1 month)
               </Typography>
             </Box>
             <TableContainer style={{ maxHeight: 732, width: "100%" }}>
@@ -734,13 +752,23 @@ const Irregularpo = () => {
                         </TableCell>
                         <TableCell>
                           <Typography fontSize={13} textAlign="center">
-                            <DoDisturbOutlinedIcon
-                              sx={{
-                                color: "red",
-                                fontSize: "1rem",
-                                marginTop: "7px",
-                              }}
-                            />
+                            {item.noSKUsIrregular > 0 ? (
+                              <CheckCircleOutlineIcon
+                                sx={{
+                                  color: "green",
+                                  fontSize: "1rem",
+                                  marginTop: "7px",
+                                }}
+                              />
+                            ) : (
+                              <DoDisturbOutlinedIcon
+                                sx={{
+                                  color: "red",
+                                  fontSize: "1rem",
+                                  marginTop: "7px",
+                                }}
+                              />
+                            )}
                           </Typography>
                         </TableCell>
                       </TableRow>
