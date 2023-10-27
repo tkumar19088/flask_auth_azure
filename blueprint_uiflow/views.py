@@ -1,6 +1,7 @@
 from flask import Blueprint, current_app, request, jsonify
 import json
 import pandas as pd
+import numpy as np
 from utils import AzureBlobReader, AlertsManager, replace_missing_values, get_data
 from dotenv import load_dotenv
 import datetime as dt
@@ -941,7 +942,7 @@ def get_irrpodata():
         for filter_key in filters:
             if filter_key.lower() in global_filters and global_filters[filter_key.lower()] != None:
                 df = df[df[filter_key].str.lower() == global_filters[filter_key.lower()]]
-        df = df.sort_values(by=['noSKUsIrregular'], ascending=False)
+        df = df.sort_values(by=['poReceiptDate', 'noSKUsIrregular', 'noSKUsinPO', 'irregularPO'], ascending=[False, False, False, False])
         return json.loads(df.to_json(orient='records'))
     except Exception as e:
         return jsonify(status="Error", message=f"{str(e)}"), 500
@@ -956,9 +957,9 @@ def get_irrpodetails():
         data = request.json or {}
         filename = "ui_data/po_irrsku_details.csv"
         poid = data.get("po_id")
-
         df = AzureBlobReader().read_csvfile(filename)
         df = df[df["poNumber"] == poid]
+        df = cleandf(df)
         return json.loads(df.to_json(orient="records"))
     except Exception as e:
         return jsonify(status="Error", message=f"{str(e)}"), 500
@@ -1006,16 +1007,20 @@ def get_irrposku():
         # campaigns data
         filters = ["Business Unit", "Location", "Customer", "Brand"]
         filename = "ui_data/reckittcampaignsbysku.csv"
-        df = get_data(data, config, filename, filters)
-        df['enddate'] = pd.to_datetime(df['enddate'])
+        campdf = get_data(data, config, filename, filters)
+        campdf['enddate'] = pd.to_datetime(campdf['enddate'])
         today = dt.date.today().strftime('%Y-%m-%d')
-        df = df.loc[df['enddate'] >= today]
-        df = df[df['RB SKU'] == data['rbsku']]
-        df['enddate'] = pd.to_datetime(df['enddate'], unit='ms')
-        df['enddate'] = df['enddate'].dt.strftime('%Y-%m-%d')
-        df = df.loc[df['Customer'].str.contains(cust, case=False, na=False)]
+        campdf = campdf.loc[campdf['enddate'] >= today]
+        campdf = campdf[campdf['RB SKU'] == data['rbsku']]
+        campdf['enddate'] = pd.to_datetime(campdf['enddate'], unit='ms')
+        campdf['enddate'] = campdf['enddate'].dt.strftime('%Y-%m-%d')
+        campdf = campdf.loc[campdf['Customer'].str.contains(cust, case=False, na=False)]
 
-        campaignsbysku = replace_missing_values(df)
+        campaignsbysku = cleandf(campdf)
+        skudata = cleandf(skudata)
+        wocdata = cleandf(wocdata)
+        custhistepos = cleandf(custhistepos)
+        custsellin = cleandf(custsellin)
 
         return {
                     "skudata": json.loads(skudata.to_json(orient="records"))[0],
@@ -1027,6 +1032,15 @@ def get_irrposku():
     except Exception as e:
         return jsonify(status="Error", message=f"{str(e)}"), 500
 
+## Helper Function
+def cleandf(df):
+    missing_values = [None, 'null', 'NULL', 'Null', 'Nan', 'nan', 'NaN', ' ', '', 'None; None', np.nan, '0; None', 'nan; nan', '0; 0']
+    df = df.replace(missing_values, '-')
+    df = df.fillna('-')
+    for col in df.columns:
+        df[col] = df[col] if col in ['rbsku','po_id','poNumber','ppg'] else df[col].apply(lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x)
+    df = df.replace([0.00, 0.0, "0.00", "0.0"], 0)
+    return df
 
 # *********************************************
 #               Data Recency API

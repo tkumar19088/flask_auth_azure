@@ -576,7 +576,8 @@ class SKUManager:
                 merged.sort_values(by='recom-score', ascending=False, inplace=True)
                 merged = replace_missing_values(merged)
                 # merged = merged.replace(0, random.randint(1, 1000))
-                return json.loads(merged.to_json(orient='records'))# if not merged.empty else {}
+                # return json.loads(merged.to_json(orient='records'))# if not merged.empty else {}
+                return merged
         except Exception as e:
             return self._error_response(str(e))
 
@@ -715,6 +716,7 @@ def replace_missing_values(df):
 
     df = df.replace([0.00, 0.0, "0.00", "0.0"], 0)
     return df
+
 
 def get_data(data, config, filename, filters, sort_column= None, sort_order= None):
     """
