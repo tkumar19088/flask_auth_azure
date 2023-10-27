@@ -38,7 +38,7 @@ const StockReallocationData = ({ onData }) => {
     (state) => state.sidebar.withinChannelData.other_rows
   );
   const referenceSuggData = useSelector(
-    (state) => state.sidebar.withinChannelData.static_row[0]
+    (state) => state.sidebar.withinChannelData.static_row
   );
   const stockreallocationData = useSelector(
     (state) => state.sidebar.stockreallocation.other_rows
@@ -50,7 +50,7 @@ const StockReallocationData = ({ onData }) => {
     (state) => state.sidebar.stockreallocation.results
   );
   const suggRecord = useSelector(
-    (state) => state.sidebar.stockreallocation.static_row[0]
+    (state) => state.sidebar.stockreallocation.static_row
   );
   const [suggectedRecord, setsuggectedRecord] = useState(suggRecord);
 
@@ -848,16 +848,6 @@ const StockReallocationData = ({ onData }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.length == 0 && (
-              <TableRow>
-                <TableCell
-                  colSpan={20}
-                  style={{ textAlign: "center", fontSize: "16px" }}
-                >
-                  No Records Found
-                </TableCell>
-              </TableRow>
-            )}
             {Object.keys(suggectedRecord).length > 0 && (
               <TableRow className="s-row1">
                 <TableCell
@@ -1066,7 +1056,20 @@ const StockReallocationData = ({ onData }) => {
                 </TableCell>
               </TableRow>
             )}
-
+            {data.length == 0 && (
+              <TableRow>
+                <TableCell
+                  colSpan={20}
+                  style={{
+                    textAlign: "center",
+                    fontSize: "16px",
+                    color: "red",
+                  }}
+                >
+                  No Alternate Retailers within Channel
+                </TableCell>
+              </TableRow>
+            )}
             {data.map((item, index) => (
               <TableRow
                 key={item.skucode}
