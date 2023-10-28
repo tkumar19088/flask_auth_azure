@@ -140,7 +140,9 @@
 .ms-buttons{
   justify-content: space-between;
   width: 650px;
-  margin-block: 14px;
+  /* margin-block: 14px; */
+  margin-top: 25px;
+  margin-bottom: -11px;
   
 }
 

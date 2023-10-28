@@ -639,7 +639,8 @@ const StockPosition2 = ({ onData }) => {
           display="flex"
           justifyContent="center"
           alignItems="center"
-          mt="20px"
+          mt="15px"
+          marginBottom="-10px"
         >
           <Button
             variant="contained"

@@ -633,7 +633,13 @@ const Sellin = ({ onData }) => {
         textAlign="center"
         className="choosems-stack"
       >
-        <Box display="flex" justifyContent="center" alignItems="center" my={1}>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          mt="15px"
+          marginBottom="-10px"
+        >
           <Button
             variant="contained"
             size="medium"
