@@ -1049,7 +1049,8 @@ def cleandf(df):
 def get_datarecency():
     try:
         filename = "ui_data/extractiondates.xlsx"
-        df = pd.read_excel(filename)
+        # df = AzureBlobReader().read_xls(filename, sheet="Sheet1")
+        df = AzureBlobReader().read_csvfile(filename)
         df.fillna("-", inplace=True)
         df.replace('Does not exist', '-', inplace=True)
         df['Pull date'] = pd.to_datetime(df['Pull date'], format='%d/%m/%Y', errors='coerce')
@@ -1065,4 +1066,8 @@ def get_datarecency():
 
         return list_of_objects
     except Exception as e:
-        return jsonify(status="error", message=f"{str(e)}"), 500
+        response = {
+            "status": "error",
+            "message": str(e),
+        }
+        return jsonify(response)
