@@ -363,6 +363,7 @@ def runoptimizemodel():
             otherrows[col] = otherrows[col].apply(lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x)
 
         return {
+            "status": status,
             "static_row": json.loads(staticrow.to_json(orient="records"))[0],
             "other_rows": json.loads(otherrows.to_json(orient="records")),
             "constraints": constraints,
