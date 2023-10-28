@@ -18,6 +18,7 @@ import {
   fetchoirregulardata,
   updateerrormodalpopup,
   updateerrortextmessage,
+  fetchoverviewcustomerdata,
 } from "../../store/actions/sidebarActions";
 
 const CarouselExample = () => {
@@ -25,7 +26,7 @@ const CarouselExample = () => {
   const dispatch = useDispatch();
 
   const userDetails = useSelector((state) => state.sidebar.userDetails);
-  console.log(userDetails["Irregular PO"]);
+  const selectedTab = userDetails["OOS Landing Screen"] === "Reckitt" ? 0 : 1;
   const data = useSelector((state) => state.sidebar.alerts);
   const [selectedalert, setselectedalert] = useState(false);
   const business = useSelector((state) => state.sidebar.business);
@@ -69,7 +70,11 @@ const CarouselExample = () => {
       });
       if (response.ok) {
         const json = await response.json();
-        dispatch(fetchoverviewhighriskdata(json));
+        if (selectedTab == 0) {
+          dispatch(fetchoverviewhighriskdata(json));
+        } else {
+          dispatch(fetchoverviewcustomerdata(json));
+        }
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
         navigate("/overviewhighrisk");
@@ -100,7 +105,6 @@ const CarouselExample = () => {
         });
         if (response.ok) {
           const json = await response.json();
-          console.log(json);
           // setuserDetails(json.name);
           // dispatch(updatetabname("irregular"));
           dispatch(fetchoirregulardata(json));

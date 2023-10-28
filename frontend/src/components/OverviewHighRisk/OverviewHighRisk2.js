@@ -502,8 +502,9 @@ const OverviewHighRisk2 = () => {
                 style={{
                   border: "1px solid #E5EBEF",
                   color: activeTab === 0 ? "white" : "#415A6C",
+                  pointerEvents: selectedTab === 1 ? "none" : "auto",
                 }}
-                onClick={handleReckittOverview}
+                onClick={selectedTab == 0 ? handleReckittOverview : null}
               >
                 Overview High Risk SKUs - Reckitt
               </Tab>

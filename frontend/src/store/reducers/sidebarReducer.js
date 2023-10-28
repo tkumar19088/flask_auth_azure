@@ -687,7 +687,7 @@ const initialState = {
   irregulardata: [],
   irregularchartdata: {},
   errormodalopen: false,
-  errortextmessage: " Internal Server Error Occured ! ",
+  errortextmessage: "Error Response Not Received",
 };
 
 const sidebarReducer = (state = initialState, action) => {

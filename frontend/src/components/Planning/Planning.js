@@ -15,6 +15,7 @@ import {
   fetchoirregulardata,
   updateerrormodalpopup,
   updateerrortextmessage,
+  fetchoverviewcustomerdata,
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 import Badge from "@mui/material/Badge";
@@ -55,7 +56,7 @@ const Planning = ({ filterStatus }) => {
   const fetchData = async () => {
     dispatch(updateloader(true));
     var data = {
-      customer: 0,
+      customer: selectedTab,
       search: "",
       tabname: "overview",
       skulist: [],
@@ -72,10 +73,12 @@ const Planning = ({ filterStatus }) => {
       });
       if (response.ok) {
         const json = await response.json();
-        // console.log(json);
-        // setuserDetails(json.name);
         dispatch(updatetabname("overview"));
-        dispatch(fetchoverviewhighriskdata(json));
+        if (selectedTab == 0) {
+          dispatch(fetchoverviewhighriskdata(json));
+        } else {
+          dispatch(fetchoverviewcustomerdata(json));
+        }
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
         navigate("/overviewhighrisk");
@@ -91,39 +94,41 @@ const Planning = ({ filterStatus }) => {
     }
   };
   const handleirregularpo = async () => {
-    filterStatus(true);
-    setoosriskselectedBG(false);
-    setirregularselectedBG(true);
+    if (userDetails["Irregular PO"] == "View") {
+      filterStatus(true);
+      setoosriskselectedBG(false);
+      setirregularselectedBG(true);
 
-    dispatch(updateloader(true));
-    var data = {};
-    try {
-      const url = "https://testingsmartola.azurewebsites.net/getirrpodata";
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      if (response.ok) {
-        const json = await response.json();
-        console.log(json);
-        // setuserDetails(json.name);
-        // dispatch(updatetabname("irregular"));
-        dispatch(fetchoirregulardata(json));
-        dispatch(updateexporttabledata(json));
-        dispatch(fetchtaburl(url));
-        navigate("/irregular");
-      } else {
-        dispatch(updateerrortextmessage(response.statusText));
-        dispatch(updateerrormodalpopup(true));
-        console.error("Error fetching data:", response.statusText);
+      dispatch(updateloader(true));
+      var data = {};
+      try {
+        const url = "https://testingsmartola.azurewebsites.net/getirrpodata";
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        if (response.ok) {
+          const json = await response.json();
+          console.log(json);
+          // setuserDetails(json.name);
+          // dispatch(updatetabname("irregular"));
+          dispatch(fetchoirregulardata(json));
+          dispatch(updateexporttabledata(json));
+          dispatch(fetchtaburl(url));
+          navigate("/irregular");
+        } else {
+          dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
+          console.error("Error fetching data:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+      } finally {
+        dispatch(updateloader(false));
       }
-    } catch (error) {
-      console.error("Fetch error:", error);
-    } finally {
-      dispatch(updateloader(false));
     }
   };
   const handleReallocation = () => {

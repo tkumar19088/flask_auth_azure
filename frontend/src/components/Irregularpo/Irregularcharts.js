@@ -147,18 +147,18 @@ const Irregularcharts = () => {
                     PO issue :
                     <span style={{ color: "#415A6C" }}>
                       {" "}
-                      {skudata.alert == null ? "No Issue" : skudata.alert}
+                      {skudata.alert == "-" ? "No Issue" : skudata.alert}
                     </span>
                   </Typography>
                   <Typography fontSize={18} color="brown">
-                    {skudata.alert == null
+                    {skudata.alert == "-"
                       ? ""
                       : skudata.alert == "Irregular Volume"
-                      ? "Quantity Ordered since Monday"
-                      : "PO Price "}
-                    :
+                      ? "Quantity Ordered since Monday : "
+                      : "PO Price : "}
+
                     <span style={{ color: "#415A6C" }}>
-                      {skudata.alert == null
+                      {skudata.alert == "-"
                         ? ""
                         : skudata.po_issue == "Irregular Volume"
                         ? skudata.quantityordered == null
@@ -170,14 +170,13 @@ const Irregularcharts = () => {
                     </span>
                   </Typography>
                   <Typography fontSize={18} color="brown">
-                    {skudata.alert == null
+                    {skudata.alert == "-"
                       ? ""
                       : skudata.alert == "Irregular Volume"
-                      ? "Quantity Forecasted "
-                      : "Agreed Price "}
-                    :
+                      ? "Quantity Forecasted : "
+                      : "Agreed Price : "}
                     <span style={{ color: "#415A6C" }}>
-                      {skudata.alert == null
+                      {skudata.alert == "-"
                         ? ""
                         : skudata.po_issue == "Irregular Volume"
                         ? skudata["sif-sola"] == null

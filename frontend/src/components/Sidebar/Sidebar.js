@@ -28,7 +28,6 @@ import {
   fetchtaburl,
   updateerrormodalpopup,
   updateerrortextmessage,
-
 } from "../../store/actions/sidebarActions";
 import CustomSnackbar from "./Modelpopup";
 import BasicModal from "./Modelpopup";
@@ -57,7 +56,8 @@ const Sidebar = () => {
   const [reallocation, setreallocation] = useState(reallocationVal);
   const [forecast, setforecast] = useState(false);
   const currentUrl = window.location.href;
-  console.log(currentUrl);
+  const userDetails = useSelector((state) => state.sidebar.userDetails);
+
   useEffect(() => {
     if (
       currentUrl.includes("overviewhighrisk") ||
@@ -104,35 +104,37 @@ const Sidebar = () => {
     navigate("/dataFreshness");
   };
   const handleIrregular = async () => {
-    dispatch(updateloader(true));
-    var data = {};
-    try {
-      const url = "https://testingsmartola.azurewebsites.net/getirrpodata";
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      if (response.ok) {
-        const json = await response.json();
-        console.log(json);
-        // setuserDetails(json.name);
-        // dispatch(updatetabname("irregular"));
-        dispatch(fetchoirregulardata(json));
-        dispatch(updateexporttabledata(json));
-        dispatch(fetchtaburl(url));
-        navigate("/irregular");
-      } else {
-        dispatch(updateerrortextmessage(response.statusText));
+    if (userDetails["Irregular PO"] == "View") {
+      dispatch(updateloader(true));
+      var data = {};
+      try {
+        const url = "https://testingsmartola.azurewebsites.net/getirrpodata";
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        if (response.ok) {
+          const json = await response.json();
+          console.log(json);
+          // setuserDetails(json.name);
+          // dispatch(updatetabname("irregular"));
+          dispatch(fetchoirregulardata(json));
+          dispatch(updateexporttabledata(json));
+          dispatch(fetchtaburl(url));
+          navigate("/irregular");
+        } else {
+          dispatch(updateerrortextmessage(response.statusText));
           dispatch(updateerrormodalpopup(true));
-        console.error("Error fetching data:", response.statusText);
+          console.error("Error fetching data:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+      } finally {
+        dispatch(updateloader(false));
       }
-    } catch (error) {
-      console.error("Fetch error:", error);
-    } finally {
-      dispatch(updateloader(false));
     }
   };
   const handleReallocation = () => {
@@ -408,7 +410,7 @@ const Sidebar = () => {
         </Typography>
       </div>
 
-      <div 
+      <div
         // className="logs-out"
         style={{
           position: "absolute",

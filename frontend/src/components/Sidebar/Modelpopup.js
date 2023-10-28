@@ -12,7 +12,7 @@ import {
   fetchtaburl,
   updateerrormodalpopup,
   updateerrortextmessage,
-
+  fetchoverviewcustomerdata,
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 import "./Modelpopup.css";
@@ -24,6 +24,8 @@ const BasicModal = () => {
   const [open, setOpen] = React.useState(false);
   const apply = useSelector((state) => state.sidebar.apply);
   const searchValue = useSelector((state) => state.sidebar.searchvalue);
+  const userDetails = useSelector((state) => state.sidebar.userDetails);
+  const selectedTab = userDetails["OOS Landing Screen"] === "Reckitt" ? 0 : 1;
 
   const handleOpen = () => {
     if (apply) {
@@ -53,13 +55,17 @@ const BasicModal = () => {
       if (response.ok) {
         const json = await response.json();
         dispatch(updatetabname("overview"));
-        dispatch(fetchoverviewhighriskdata(json));
+        if (selectedTab == 0) {
+          dispatch(fetchoverviewhighriskdata(json));
+        } else {
+          dispatch(fetchoverviewcustomerdata(json));
+        }
         dispatch(updateexporttabledata(json));
         dispatch(fetchtaburl(url));
         navigate("/overviewhighrisk");
       } else {
         dispatch(updateerrortextmessage(response.statusText));
-          dispatch(updateerrormodalpopup(true));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {

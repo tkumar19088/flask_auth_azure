@@ -43,11 +43,13 @@ import {
 } from "../../store/actions/sidebarActions";
 import loaderImage from "../../images/Logo-bar.png";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import Errormodalpopup from "../Errormodalpopup/Errormodalpopup";
 
 const Irregularpo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const open = useSelector((state) => state.sidebar.errormodalopen);
   const loader = useSelector((state) => state.sidebar.loader);
   const data = useSelector((state) => state.sidebar.irregulardata);
   const [podetails, setpodetails] = useState([]);
@@ -68,6 +70,7 @@ const Irregularpo = () => {
           body: JSON.stringify(data),
         }
       );
+      console.log(response);
       if (response.ok) {
         const json = await response.json();
         console.log(json);
@@ -77,6 +80,7 @@ const Irregularpo = () => {
         // setpodetails(json);
         navigate("/irregularcharts");
       } else {
+        console.log(response.json());
         dispatch(updateerrortextmessage(response.statusText));
         dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
@@ -359,6 +363,7 @@ const Irregularpo = () => {
             body: JSON.stringify(data),
           }
         );
+        console.log(response);
         if (response.ok) {
           const json = await response.json();
           console.log(json);
@@ -519,7 +524,7 @@ const Irregularpo = () => {
                   textAlign: "center",
                 }}
               >
-                <Box display="flex">
+                <Box display="flex" sx={{justifyContent:"center"}}>
                   <Typography>{item["sif-sola"]}</Typography>
                   <Typography
                     fontSize={13}
@@ -564,6 +569,7 @@ const Irregularpo = () => {
           <img src={loaderImage} alt="Loading..." className="rotating-image" />
         </div>
       )}
+      {open && <Errormodalpopup />}
       <Topbar />
       <Grid container>
         <Grid item xs={2}>
@@ -607,9 +613,12 @@ const Irregularpo = () => {
               </Typography>
               <Typography fontSize={14}>Irregular PO</Typography>
             </Box>
-            <Box mt="20px" mx="1px">
+            <Box mt="20px" mx="1px" display="flex"  alignSelf="center" alignItems="center">
               <Typography fontSize={28} color="#415A6C">
-                Recent Pos (last 1 month)
+                Recent POs{" "}
+              </Typography>
+              <Typography fontSize={22} color="#415A6C">
+                (last 1 month)
               </Typography>
             </Box>
             <TableContainer style={{ maxHeight: 732, width: "100%" }}>
@@ -753,17 +762,17 @@ const Irregularpo = () => {
                         <TableCell>
                           <Typography fontSize={13} textAlign="center">
                             {item.noSKUsIrregular > 0 ? (
-                              <CheckCircleOutlineIcon
+                              <DoDisturbOutlinedIcon
                                 sx={{
-                                  color: "green",
+                                  color: "red",
                                   fontSize: "1rem",
                                   marginTop: "7px",
                                 }}
                               />
                             ) : (
-                              <DoDisturbOutlinedIcon
+                              <CheckCircleOutlineIcon
                                 sx={{
-                                  color: "red",
+                                  color: "green",
                                   fontSize: "1rem",
                                   marginTop: "7px",
                                 }}
