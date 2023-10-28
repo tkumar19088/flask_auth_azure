@@ -615,6 +615,7 @@ const initialState = {
       sumofPOsinalloccycle: 26,
     },
   },
+  suggectedRecord: {},
   filteredOHRdata: [],
   expandedItem: 0,
   loader: false,
@@ -687,7 +688,7 @@ const initialState = {
   irregulardata: [],
   irregularchartdata: {},
   errormodalopen: false,
-  errortextmessage: " Internal Server Error Occured ! ",
+  errortextmessage: "Error Response Not Received",
 };
 
 const sidebarReducer = (state = initialState, action) => {

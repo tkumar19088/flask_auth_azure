@@ -21,7 +21,8 @@ import {
   updateexporttabledata,
   updateerrormodalpopup,
   updateerrortextmessage,
-
+  updatewithinchanneldata,
+  fetchstaticrow,
 } from "../../store/actions/sidebarActions";
 
 import AddIcon from "@mui/icons-material/Add";
@@ -43,6 +44,8 @@ const Historic = ({ onData }) => {
     }
     return text.slice(0, maxLength) + "...";
   };
+  const userDetails = useSelector((state) => state.sidebar.userDetails);
+
   const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
   const [expandedRow, setExpandedRow] = useState(null);
   const [pushAlternative, setpushAlternative] = useState(false);
@@ -90,67 +93,70 @@ const Historic = ({ onData }) => {
     }
   };
   const handlePushAlternative = async () => {
-    setpushAlternative(true);
-    dispatch(updateloader(true));
-    var data = { rbsku: expandedRow };
-    try {
-      const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/getalternativeskus",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
-      if (response.ok) {
-        const json = await response.json();
-        console.log(json);
-        // setiscampaigns(true);
-        setpushAlternativeData(json);
-        //dispatch(fetchuserdetails(json));
-      } else {
-        dispatch(updateerrortextmessage(response.statusText));
+    if (userDetails["Push Alternative"] == "View") {
+      setpushAlternative(true);
+      dispatch(updateloader(true));
+      var data = { rbsku: expandedRow };
+      try {
+        const response = await fetch(
+          "https://testingsmartola.azurewebsites.net/getalternativeskus",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
+        if (response.ok) {
+          const json = await response.json();
+          console.log(json);
+          setpushAlternativeData(json);
+        } else {
+          dispatch(updateerrortextmessage(response.statusText));
           dispatch(updateerrormodalpopup(true));
-        console.error("Error fetching data:", response.statusText);
+          console.error("Error fetching data:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+      } finally {
+        dispatch(updateloader(false));
       }
-    } catch (error) {
-      console.error("Fetch error:", error);
-    } finally {
-      dispatch(updateloader(false));
     }
   };
   const handleReallocate = async () => {
-    dispatch(updateloader(true));
-    // navigate("/stockreallocation");
-    var data = { rbsku: expandedRow };
-    try {
-      const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/rarbysku",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
-      if (response.ok) {
-        const json = await response.json();
-        console.log(json);
-        dispatch(fetchstockreallocatedata(json));
-        dispatch(updateexporttabledata(json));
-        navigate("/stockreallocation");
-      } else {
-        dispatch(updateerrortextmessage(response.statusText));
+    if (userDetails.Reallocate == "Edit") {
+      dispatch(updateloader(true));
+      var data = { rbsku: expandedRow };
+      try {
+        const response = await fetch(
+          "https://testingsmartola.azurewebsites.net/rarbysku",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
+        if (response.ok) {
+          const json = await response.json();
+          console.log(json);
+          dispatch(fetchstockreallocatedata(json));
+          dispatch(updatewithinchanneldata(json));
+          dispatch(fetchstaticrow(json.static_row));
+          dispatch(updateexporttabledata(json));
+          navigate("/stockreallocation");
+        } else {
+          dispatch(updateerrortextmessage(response.statusText));
           dispatch(updateerrormodalpopup(true));
-        console.error("Error fetching data:", response.statusText);
+          console.error("Error fetching data:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+      } finally {
+        dispatch(updateloader(false));
       }
-    } catch (error) {
-      console.error("Fetch error:", error);
-    } finally {
-      dispatch(updateloader(false));
     }
   };
 
@@ -450,7 +456,7 @@ const Historic = ({ onData }) => {
         setdisplayMigitates(true);
       } else {
         dispatch(updateerrortextmessage(response.statusText));
-          dispatch(updateerrormodalpopup(true));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -629,7 +635,13 @@ const Historic = ({ onData }) => {
         textAlign="center"
         className="choosems-stack"
       >
-        <Box display="flex" justifyContent="center" alignItems="center" my={1}>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          mt="15px"
+          marginBottom="-10px"
+        >
           <Button
             variant="contained"
             size="medium"
@@ -1102,7 +1114,7 @@ const Historic = ({ onData }) => {
                   <TableCell
                     onClick={() => handleRowClick(item["RB SKU"])}
                     sx={{
-                      display: "flex",
+                      // display: "flex",
                       // padding: "12px",
                       border: "none",
                       alignItems: "center",
@@ -1111,6 +1123,8 @@ const Historic = ({ onData }) => {
                       borderBottom: "1px solid #dcdcdc",
                     }}
                   >
+                  <Box display="flex" sx={{ alignItems: "center" }}>
+
                     {expandedRow === item["RB SKU"] ? (
                       <RemoveIcon
                         fontSize="medium"
@@ -1134,7 +1148,8 @@ const Historic = ({ onData }) => {
                         }}
                       />
                     )}
-                    {item["RB SKU"]}
+                   <div> {item["RB SKU"]}</div>
+                   </Box>
                   </TableCell>
                   <TableCell>
                     {" "}

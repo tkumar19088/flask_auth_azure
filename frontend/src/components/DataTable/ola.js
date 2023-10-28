@@ -21,7 +21,6 @@ import {
   updateexporttabledata,
   updateerrormodalpopup,
   updateerrortextmessage,
-
 } from "../../store/actions/sidebarActions";
 
 import AddIcon from "@mui/icons-material/Add";
@@ -105,7 +104,7 @@ const Ola = ({ onData }) => {
         //dispatch(fetchuserdetails(json));
       } else {
         dispatch(updateerrortextmessage(response.statusText));
-          dispatch(updateerrormodalpopup(true));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -136,7 +135,7 @@ const Ola = ({ onData }) => {
         navigate("/stockreallocation");
       } else {
         dispatch(updateerrortextmessage(response.statusText));
-          dispatch(updateerrormodalpopup(true));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -434,7 +433,7 @@ const Ola = ({ onData }) => {
         setdisplayMigitates(true);
       } else {
         dispatch(updateerrortextmessage(response.statusText));
-          dispatch(updateerrormodalpopup(true));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -613,7 +612,13 @@ const Ola = ({ onData }) => {
         textAlign="center"
         className="choosems-stack"
       >
-        <Box display="flex" justifyContent="center" alignItems="center" my={1}>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          mt="15px"
+          marginBottom="-10px"
+        >
           <Button
             variant="contained"
             size="medium"
@@ -1085,7 +1090,7 @@ const Ola = ({ onData }) => {
                   <TableCell
                     onClick={() => handleRowClick(item["RB SKU"])}
                     sx={{
-                      display: "flex",
+                      // display: "flex",
                       // padding: "12px",
                       border: "none",
                       alignItems: "center",
@@ -1094,30 +1099,32 @@ const Ola = ({ onData }) => {
                       borderBottom: "1px solid #dcdcdc",
                     }}
                   >
-                    {expandedRow === item["RB SKU"] ? (
-                      <RemoveIcon
-                        fontSize="medium"
-                        sx={{
-                          color: "#415A6C",
-                          cursor: "pointer",
-                          fontWeight: "800",
-                          // marginTop: "4px",
-                          backgroundColor: "transparent",
-                        }}
-                      />
-                    ) : (
-                      <AddIcon
-                        fontSize="medium"
-                        sx={{
-                          color: "#415A6C",
-                          cursor: "pointer",
-                          fontWeight: "800",
-                          marginTop: "-2px",
-                          backgroundColor: "transparent",
-                        }}
-                      />
-                    )}
-                    {item["RB SKU"]}
+                    <Box display="flex" sx={{ alignItems: "center" }}>
+                      {expandedRow === item["RB SKU"] ? (
+                        <RemoveIcon
+                          fontSize="medium"
+                          sx={{
+                            color: "#415A6C",
+                            cursor: "pointer",
+                            fontWeight: "800",
+                            // marginTop: "4px",
+                            backgroundColor: "transparent",
+                          }}
+                        />
+                      ) : (
+                        <AddIcon
+                          fontSize="medium"
+                          sx={{
+                            color: "#415A6C",
+                            cursor: "pointer",
+                            fontWeight: "800",
+                            marginTop: "-2px",
+                            backgroundColor: "transparent",
+                          }}
+                        />
+                      )}
+                      <div> {item["RB SKU"]}</div>
+                    </Box>
                   </TableCell>
                   <TableCell>
                     {" "}

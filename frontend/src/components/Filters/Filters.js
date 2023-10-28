@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { Box, Grid, Button, Typography } from "@mui/material";
 
 import InputLabel from "@mui/material/InputLabel";
@@ -69,20 +69,35 @@ const Filters = () => {
     dispatch(fetchbrand(event.target.value));
   };
 
+  // useLayoutEffect(() => {
+  //   if (data.Location.length === 1) {
+  //     dispatch(fetchlocation(data.Location[0]));
+  //   }
+
+  //   if (data["Business Unit"].length > 0) {
+  //     dispatch(fetchlocation(data["Business Unit"][0]));
+  //   }
+  // }, [data]);
+
   useEffect(() => {
-    if (data.Location.length === 1) {
+    if (data.Location.length > 0) {
       dispatch(fetchlocation(data.Location[0]));
     }
-    if (data["Business Unit"].length === 1) {
-      dispatch(fetchlocation(data["Business Unit"][0]));
+    if (data["Business Unit"].length > 0) {
+      dispatch(fetchbusiness(data["Business Unit"][0]));
     }
-    if (data.Customer.length === 1) {
-      dispatch(fetchlocation(data.Customer[0]));
+    if (data.Customer.length > 0) {
+      dispatch(fetchcustomer(data.Customer[0]));
+    }
+    if (data.Brand.length > 0) {
+      dispatch(fetchbrand(data.Brand[0]));
     }
   }, [data]);
+
   const handleApplyFilters = async (e) => {
     e.preventDefault();
     dispatch(updateapplyfilterserror(false));
+
     if (!business) {
       dispatch(fetchbusinessempty(true));
     }
@@ -204,11 +219,9 @@ const Filters = () => {
                   onChange={handleBusinessChange}
                   id="business-unit"
                 >
-                  {data["Business Unit"].length !== 1 && (
-                    <MenuItem value="">
-                      <em>-Select-</em>
-                    </MenuItem>
-                  )}
+                  <MenuItem value="">
+                    <em>-Select-</em>
+                  </MenuItem>
                   {data["Business Unit"].length === 1 && (
                     <MenuItem value={data["Business Unit"][0]}>
                       {data["Business Unit"][0]}
@@ -241,17 +254,13 @@ const Filters = () => {
                   Location*
                 </InputLabel>
                 <Select
-                  value={
-                    data.Location.length === 1 ? data.Location[0] : location
-                  }
+                  value={location}
                   onChange={handleLocationChange}
                   id="location"
                 >
-                  {data.Location.length !== 1 && (
-                    <MenuItem value="">
-                      <em>-Select-</em>
-                    </MenuItem>
-                  )}
+                  <MenuItem value="">
+                    <em>-Select-</em>
+                  </MenuItem>
                   {data.Location.length === 1 && (
                     <MenuItem value={data.Location[0]}>
                       {data.Location[0]}
@@ -281,11 +290,9 @@ const Filters = () => {
                   id="customer"
                   onChange={handleCustomerChange}
                 >
-                  {data.Customer.length !== 1 && (
-                    <MenuItem value="">
-                      <em>-Select-</em>
-                    </MenuItem>
-                  )}
+                  <MenuItem value="">
+                    <em>-Select-</em>
+                  </MenuItem>
                   {data.Customer.length === 1 && (
                     <MenuItem value={data.Customer[0]}>
                       {data.Customer[0]}

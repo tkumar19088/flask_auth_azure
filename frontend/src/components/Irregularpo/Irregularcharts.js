@@ -144,21 +144,21 @@ const Irregularcharts = () => {
               >
                 <Grid container item xs={12} justifyContent="space-around">
                   <Typography fontSize="18px" color="brown">
-                    PO issue :
+                    PO Issue :
                     <span style={{ color: "#415A6C" }}>
                       {" "}
-                      {skudata.alert == null ? "No Issue" : skudata.alert}
+                      {skudata.alert == "-" ? "No Issue" : skudata.alert}
                     </span>
                   </Typography>
                   <Typography fontSize={18} color="brown">
-                    {skudata.alert == null
+                    {skudata.alert == "-"
                       ? ""
                       : skudata.alert == "Irregular Volume"
-                      ? "Quantity Ordered since Monday"
-                      : "PO Price "}
-                    :
+                      ? "Quantity Ordered since Monday : "
+                      : "PO Price : "}
+
                     <span style={{ color: "#415A6C" }}>
-                      {skudata.alert == null
+                      {skudata.alert == "-"
                         ? ""
                         : skudata.po_issue == "Irregular Volume"
                         ? skudata.quantityordered == null
@@ -170,14 +170,13 @@ const Irregularcharts = () => {
                     </span>
                   </Typography>
                   <Typography fontSize={18} color="brown">
-                    {skudata.alert == null
+                    {skudata.alert == "-"
                       ? ""
                       : skudata.alert == "Irregular Volume"
-                      ? "Quantity Forecasted "
-                      : "Agreed Price "}
-                    :
+                      ? "Quantity Forecasted : "
+                      : "Agreed Price : "}
                     <span style={{ color: "#415A6C" }}>
-                      {skudata.alert == null
+                      {skudata.alert == "-"
                         ? ""
                         : skudata.po_issue == "Irregular Volume"
                         ? skudata["sif-sola"] == null
@@ -257,7 +256,7 @@ const Irregularcharts = () => {
             </Grid>
           </Stack>
           <Typography fontSize={20} color="#415A6C" my={2}>
-            Add current / upcoming promo
+            Add Current / Upcoming Promo
           </Typography>
           <Box>
             <Promo data={chartdata.campaigns} />

@@ -22,6 +22,8 @@ import {
   updateexporttabledata,
   updateerrormodalpopup,
   updateerrortextmessage,
+  updatewithinchanneldata,
+  fetchstaticrow,
 } from "../../store/actions/sidebarActions";
 
 import AddIcon from "@mui/icons-material/Add";
@@ -44,6 +46,8 @@ const CaseShortages = ({ onData }) => {
     }
     return text.slice(0, maxLength) + "...";
   };
+  const userDetails = useSelector((state) => state.sidebar.userDetails);
+
   const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
   const [expandedRow, setExpandedRow] = useState(null);
   const [pushAlternative, setpushAlternative] = useState(false);
@@ -91,67 +95,70 @@ const CaseShortages = ({ onData }) => {
     }
   };
   const handlePushAlternative = async () => {
-    setpushAlternative(true);
-    dispatch(updateloader(true));
-    var data = { rbsku: expandedRow };
-    try {
-      const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/getalternativeskus",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
+    if (userDetails["Push Alternative"] == "View") {
+      setpushAlternative(true);
+      dispatch(updateloader(true));
+      var data = { rbsku: expandedRow };
+      try {
+        const response = await fetch(
+          "https://testingsmartola.azurewebsites.net/getalternativeskus",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
+        if (response.ok) {
+          const json = await response.json();
+          console.log(json);
+          setpushAlternativeData(json);
+        } else {
+          dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
+          console.error("Error fetching data:", response.statusText);
         }
-      );
-      if (response.ok) {
-        const json = await response.json();
-        console.log(json);
-        // setiscampaigns(true);
-        setpushAlternativeData(json);
-        //dispatch(fetchuserdetails(json));
-      } else {
-        dispatch(updateerrortextmessage(response.statusText));
-        dispatch(updateerrormodalpopup(true));
-        console.error("Error fetching data:", response.statusText);
+      } catch (error) {
+        console.error("Fetch error:", error);
+      } finally {
+        dispatch(updateloader(false));
       }
-    } catch (error) {
-      console.error("Fetch error:", error);
-    } finally {
-      dispatch(updateloader(false));
     }
   };
   const handleReallocate = async () => {
-    dispatch(updateloader(true));
-    // navigate("/stockreallocation");
-    var data = { rbsku: expandedRow };
-    try {
-      const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/rarbysku",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
+    if (userDetails.Reallocate == "Edit") {
+      dispatch(updateloader(true));
+      var data = { rbsku: expandedRow };
+      try {
+        const response = await fetch(
+          "https://testingsmartola.azurewebsites.net/rarbysku",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
+        if (response.ok) {
+          const json = await response.json();
+          console.log(json);
+          dispatch(fetchstockreallocatedata(json));
+          dispatch(updatewithinchanneldata(json));
+          dispatch(fetchstaticrow(json.static_row));
+          dispatch(updateexporttabledata(json));
+          navigate("/stockreallocation");
+        } else {
+          dispatch(updateerrortextmessage(response.statusText));
+          dispatch(updateerrormodalpopup(true));
+          console.error("Error fetching data:", response.statusText);
         }
-      );
-      if (response.ok) {
-        const json = await response.json();
-        console.log(json);
-        dispatch(fetchstockreallocatedata(json));
-        dispatch(updateexporttabledata(json));
-        navigate("/stockreallocation");
-      } else {
-        dispatch(updateerrortextmessage(response.statusText));
-        dispatch(updateerrormodalpopup(true));
-        console.error("Error fetching data:", response.statusText);
+      } catch (error) {
+        console.error("Fetch error:", error);
+      } finally {
+        dispatch(updateloader(false));
       }
-    } catch (error) {
-      console.error("Fetch error:", error);
-    } finally {
-      dispatch(updateloader(false));
     }
   };
 
@@ -495,7 +502,13 @@ const CaseShortages = ({ onData }) => {
         textAlign="center"
         className="choosems-stack"
       >
-        <Box display="flex" justifyContent="center" alignItems="center" my={1}>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          mt="15px"
+          marginBottom="-10px"
+        >
           <Button
             variant="contained"
             size="medium"
@@ -948,7 +961,7 @@ const CaseShortages = ({ onData }) => {
                   <TableCell
                     onClick={() => handleRowClick(item["RB SKU"])}
                     sx={{
-                      display: "flex",
+                      // display: "flex",
                       // padding: "12px",
                       border: "none",
                       alignItems: "center",
@@ -957,30 +970,32 @@ const CaseShortages = ({ onData }) => {
                       borderBottom: "1px solid #dcdcdc",
                     }}
                   >
-                    {expandedRow === item["RB SKU"] ? (
-                      <RemoveIcon
-                        fontSize="medium"
-                        sx={{
-                          color: "#415A6C",
-                          cursor: "pointer",
-                          fontWeight: "800",
-                          // marginTop: "4px",
-                          backgroundColor: "transparent",
-                        }}
-                      />
-                    ) : (
-                      <AddIcon
-                        fontSize="medium"
-                        sx={{
-                          color: "#415A6C",
-                          cursor: "pointer",
-                          fontWeight: "800",
-                          marginTop: "-2px",
-                          backgroundColor: "transparent",
-                        }}
-                      />
-                    )}
-                    {item["RB SKU"]}
+                    <Box display="flex" sx={{ alignItems: "center" }}>
+                      {expandedRow === item["RB SKU"] ? (
+                        <RemoveIcon
+                          fontSize="medium"
+                          sx={{
+                            color: "#415A6C",
+                            cursor: "pointer",
+                            fontWeight: "800",
+                            // marginTop: "4px",
+                            backgroundColor: "transparent",
+                          }}
+                        />
+                      ) : (
+                        <AddIcon
+                          fontSize="medium"
+                          sx={{
+                            color: "#415A6C",
+                            cursor: "pointer",
+                            fontWeight: "800",
+                            marginTop: "-2px",
+                            backgroundColor: "transparent",
+                          }}
+                        />
+                      )}
+                      <div> {item["RB SKU"]}</div>
+                    </Box>
                   </TableCell>
                   <TableCell>
                     {" "}
