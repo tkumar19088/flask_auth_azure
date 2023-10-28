@@ -32,7 +32,7 @@ userdata_blueprint = Blueprint("userdata", __name__)
 #         alertsdata = AlertsManager(global_filters, global_user).get_alerts()
 #         return {"user":userDetails, "alerts":alertsdata}
 #     else:
-#         return jsonify(status="Error", message="User not found!"), 500
+#         return jsonify(status="error", message="User not found!"), 500
 
 def getuserdata():
     """
@@ -78,6 +78,6 @@ def getuserdata():
             alertsdata = AlertsManager(global_filters, global_user).get_alerts()
             return {"user":userDetails, "alerts":alertsdata}
         else:
-            return jsonify(status="Error", message="User not found!"), 500
+            return jsonify(status="error", message="User not found!"), 500
     except Exception as e:
-        return jsonify(status="Error", message=str(e)), 500
+        return jsonify(status="error", message=str(e)), 500
