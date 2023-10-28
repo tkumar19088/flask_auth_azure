@@ -615,6 +615,7 @@ const initialState = {
       sumofPOsinalloccycle: 26,
     },
   },
+  suggectedRecord: {},
   filteredOHRdata: [],
   expandedItem: 0,
   loader: false,

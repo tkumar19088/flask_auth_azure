@@ -1964,7 +1964,7 @@ const OhrTable = ({ onData }) => {
                     <TableCell
                       onClick={() => handleRowClick(item["RB SKU"])}
                       sx={{
-                        display: "flex",
+                        // display: "flex",
                         paddingLeft: "20px",
                         border: "none",
                         alignItems: "center",
@@ -1974,30 +1974,34 @@ const OhrTable = ({ onData }) => {
                         // width: "55px",
                       }}
                     >
-                      {expandedRow === item["RB SKU"] ? (
-                        <RemoveIcon
-                          // fontSize="medium"
-                          sx={{
-                            color: "#415A6C",
-                            cursor: "pointer",
-                            // fontWeight: "800",
-                            marginTop: "-1px",
-                            backgroundColor: "transparent",
-                          }}
-                        />
-                      ) : (
-                        <AddIcon
-                          // fontSize="small"
-                          sx={{
-                            color: "#415A6C",
-                            cursor: "pointer",
-                            // fontWeight: "800",
-                            marginTop: "-1px",
-                            backgroundColor: "transparent",
-                          }}
-                        />
-                      )}
-                      <Typography fontSize="13px">{item["RB SKU"]}</Typography>
+                      <Box display="flex" sx={{ alignItems: "center" }}>
+                        {expandedRow === item["RB SKU"] ? (
+                          <RemoveIcon
+                            // fontSize="medium"
+                            sx={{
+                              color: "#415A6C",
+                              cursor: "pointer",
+                              // fontWeight: "800",
+                              marginTop: "-1px",
+                              backgroundColor: "transparent",
+                            }}
+                          />
+                        ) : (
+                          <AddIcon
+                            // fontSize="small"
+                            sx={{
+                              color: "#415A6C",
+                              cursor: "pointer",
+                              // fontWeight: "800",
+                              marginTop: "-1px",
+                              backgroundColor: "transparent",
+                            }}
+                          />
+                        )}
+                        <Typography fontSize="13px">
+                          {item["RB SKU"]}
+                        </Typography>
+                      </Box>
                     </TableCell>
                     <TableCell
                       sx={{

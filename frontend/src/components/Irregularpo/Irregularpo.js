@@ -430,7 +430,7 @@ const Irregularpo = () => {
               }}
             >
               <Typography fontSize={14} lineHeight="16px">
-                Alert type
+                Alert Type
               </Typography>
             </TableCell>
             <TableCell
@@ -442,7 +442,7 @@ const Irregularpo = () => {
               }}
             >
               <Typography fontSize={14} lineHeight="16px">
-                Quantity ordered
+                Quantity Ordered
               </Typography>
             </TableCell>
             <TableCell
@@ -454,7 +454,7 @@ const Irregularpo = () => {
               }}
             >
               <Typography fontSize={14}>
-                Sell-in forecast (S-OLA / Kinaxis)
+                Sell-In Forecast (S-OLA / Kinaxis)
               </Typography>
             </TableCell>
             <TableCell
@@ -465,7 +465,7 @@ const Irregularpo = () => {
                 color: "#415A6C",
               }}
             >
-              <Typography fontSize={14}>Percentage discrepancy</Typography>
+              <Typography fontSize={14}>Percentage Discrepancy</Typography>
             </TableCell>
             <TableCell
               sx={{
@@ -485,7 +485,7 @@ const Irregularpo = () => {
                 color: "#415A6C",
               }}
             >
-              <Typography fontSize={14}>Deep dive</Typography>
+              <Typography fontSize={14}>Deep Dive</Typography>
             </TableCell>
           </TableRow>
         </TableHead>
@@ -524,8 +524,14 @@ const Irregularpo = () => {
                   textAlign: "center",
                 }}
               >
-                <Box display="flex" sx={{justifyContent:"center"}}>
-                  <Typography>{item["sif-sola"]}</Typography>
+                <Box display="flex" sx={{ justifyContent: "center" }}>
+                  <Typography
+                    sx={{
+                      fontSize: "13px",
+                    }}
+                  >
+                    {item["sif-sola"]}
+                  </Typography>
                   <Typography
                     fontSize={13}
                     sx={{
@@ -613,11 +619,17 @@ const Irregularpo = () => {
               </Typography>
               <Typography fontSize={14}>Irregular PO</Typography>
             </Box>
-            <Box mt="20px" mx="1px" display="flex"  alignSelf="center" alignItems="center">
+            <Box
+              mt="20px"
+              mx="1px"
+              display="flex"
+              alignSelf="center"
+              alignItems="center"
+            >
               <Typography fontSize={28} color="#415A6C">
                 Recent POs{" "}
               </Typography>
-              <Typography fontSize={22} color="#415A6C">
+              <Typography fontSize={18} color="#415A6C">
                 (last 1 month)
               </Typography>
             </Box>
@@ -633,7 +645,7 @@ const Irregularpo = () => {
                         border: "1px solid #dcdcdc",
                       }}
                     >
-                      Reckitt PO number
+                      Reckitt PO Number
                     </TableCell>
                     <TableCell
                       style={{
@@ -653,7 +665,7 @@ const Irregularpo = () => {
                         border: "1px solid #dcdcdc",
                       }}
                     >
-                      PO delivery date
+                      PO Delivery Date
                     </TableCell>
                     <TableCell
                       style={{

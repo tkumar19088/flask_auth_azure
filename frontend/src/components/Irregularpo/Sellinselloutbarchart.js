@@ -53,7 +53,7 @@ const Sellinselloutbarchart = ({ data }) => {
 
   const datasets = [
     {
-      label: "Sell in actuals",
+      label: "Sell-In Actuals",
       data: values1,
       borderColor: "#FF007E",
       backgroundColor: "#FF007E",
@@ -61,7 +61,7 @@ const Sellinselloutbarchart = ({ data }) => {
       tension: 0.3,
     },
     {
-      label: "Sell in forecast",
+      label: "Sell-In Forecast",
       data: values2,
       borderColor: "#F08C2A",
       backgroundColor: "#F08C2A",

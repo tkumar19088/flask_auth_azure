@@ -968,7 +968,7 @@ const ExpectedServices = ({ onData }) => {
                   <TableCell
                     onClick={() => handleRowClick(item["RB SKU"])}
                     sx={{
-                      display: "flex",
+                      // display: "flex",
                       // padding: "12px",
                       border: "none",
                       alignItems: "center",
@@ -977,6 +977,8 @@ const ExpectedServices = ({ onData }) => {
                       borderBottom: "1px solid #dcdcdc",
                     }}
                   >
+                  <Box display="flex" sx={{ alignItems: "center" }}>
+
                     {expandedRow === item["RB SKU"] ? (
                       <RemoveIcon
                         fontSize="medium"
@@ -1000,7 +1002,8 @@ const ExpectedServices = ({ onData }) => {
                         }}
                       />
                     )}
-                    {item["RB SKU"]}
+                   <div> {item["RB SKU"]}</div>
+                    </Box>
                   </TableCell>
                   <TableCell>
                     {" "}

@@ -1104,39 +1104,41 @@ const OhrTable2 = ({ onData }) => {
                     <TableCell
                       onClick={() => handleRowClick(item["RB SKU"])}
                       sx={{
-                        display: "flex",
+                        // display: "flex",
                         // padding: "12px",
                         border: "none",
                         alignItems: "center",
                         fontSize: "13px",
                         justifyContent: "center",
-                        gap: "1px",
+                        // gap: "1px",
                       }}
                     >
-                      {expandedRow === item["RB SKU"] ? (
-                        <RemoveIcon
-                          fontSize="medium"
-                          sx={{
-                            color: "#415A6C",
-                            cursor: "pointer",
-                            fontWeight: "800",
-                            // marginTop: "4px",
-                            backgroundColor: "transparent",
-                          }}
-                        />
-                      ) : (
-                        <AddIcon
-                          fontSize="medium"
-                          sx={{
-                            color: "#415A6C",
-                            cursor: "pointer",
-                            fontWeight: "800",
-                            marginTop: "-2px",
-                            backgroundColor: "transparent",
-                          }}
-                        />
-                      )}
-                      <div> {item["RB SKU"]}</div>
+                      <Box display="flex" sx={{ alignItems: "center" }}>
+                        {expandedRow === item["RB SKU"] ? (
+                          <RemoveIcon
+                            fontSize="medium"
+                            sx={{
+                              color: "#415A6C",
+                              cursor: "pointer",
+                              fontWeight: "800",
+                              marginTop: "-2px",
+                              backgroundColor: "transparent",
+                            }}
+                          />
+                        ) : (
+                          <AddIcon
+                            fontSize="medium"
+                            sx={{
+                              color: "#415A6C",
+                              cursor: "pointer",
+                              fontWeight: "800",
+                              marginTop: "-3px",
+                              backgroundColor: "transparent",
+                            }}
+                          />
+                        )}
+                        <div> {item["RB SKU"]}</div>
+                      </Box>
                     </TableCell>
                     <TableCell
                       sx={{

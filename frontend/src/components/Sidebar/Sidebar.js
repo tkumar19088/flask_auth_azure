@@ -100,8 +100,27 @@ const Sidebar = () => {
     setoosrick(true);
     setirregular(false);
   };
-  const handleDataFreshness = () => {
-    navigate("/dataFreshness");
+  const handleDataFreshness = async () => {
+    dispatch(updateloader(true));
+    try {
+      const response = await fetch(
+        "https://testingsmartola.azurewebsites.net/getdatarecency"
+      );
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        // dispatch(fetchoirregulardata(json));
+        navigate("/dataFreshness");
+      } else {
+        dispatch(updateerrortextmessage(response.statusText));
+        dispatch(updateerrormodalpopup(true));
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
   };
   const handleIrregular = async () => {
     if (userDetails["Irregular PO"] == "View") {

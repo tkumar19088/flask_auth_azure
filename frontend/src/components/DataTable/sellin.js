@@ -1104,7 +1104,7 @@ const Sellin = ({ onData }) => {
                   <TableCell
                     onClick={() => handleRowClick(item["RB SKU"])}
                     sx={{
-                      display: "flex",
+                      // display: "flex",
                       // padding: "12px",
                       border: "none",
                       alignItems: "center",
@@ -1112,32 +1112,34 @@ const Sellin = ({ onData }) => {
                       borderBottom: "1px solid #dcdcdc",
                     }}
                   >
-                    {expandedRow === item["RB SKU"] ? (
-                      <RemoveIcon
-                        fontSize="medium"
-                        sx={{
-                          color: "#415A6C",
-                          cursor: "pointer",
-                          fontWeight: "800",
-                          marginTop: "4px",
-                          marginBottom: "5px",
-                          backgroundColor: "transparent",
-                        }}
-                      />
-                    ) : (
-                      <AddIcon
-                        fontSize="medium"
-                        sx={{
-                          color: "#415A6C",
-                          cursor: "pointer",
-                          fontWeight: "800",
-                          marginTop: "4px",
-                          marginBottom: "5px",
-                          backgroundColor: "transparent",
-                        }}
-                      />
-                    )}
-                    {item["RB SKU"]}
+                    <Box display="flex" sx={{ alignItems: "center" }}>
+                      {expandedRow === item["RB SKU"] ? (
+                        <RemoveIcon
+                          fontSize="medium"
+                          sx={{
+                            color: "#415A6C",
+                            cursor: "pointer",
+                            fontWeight: "800",
+                            marginTop: "4px",
+                            marginBottom: "5px",
+                            backgroundColor: "transparent",
+                          }}
+                        />
+                      ) : (
+                        <AddIcon
+                          fontSize="medium"
+                          sx={{
+                            color: "#415A6C",
+                            cursor: "pointer",
+                            fontWeight: "800",
+                            marginTop: "4px",
+                            marginBottom: "5px",
+                            backgroundColor: "transparent",
+                          }}
+                        />
+                      )}
+                      <div> {item["RB SKU"]}</div>
+                    </Box>
                   </TableCell>
                   <TableCell>
                     {" "}
