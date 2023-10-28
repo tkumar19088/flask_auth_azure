@@ -314,6 +314,7 @@ const StockReallocationData = ({ onData }) => {
   const channel = referenceSuggData.Channel;
 
   const firstRecord = referenceSuggData;
+  // const firstRecord = JSON.parse(JSON.stringify(referenceSuggData));
 
   // const firstRecord = {
   //   AvgYTDsellout: 387,

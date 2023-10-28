@@ -119,7 +119,7 @@ def get_overview():
         )
         return json.loads(ohrsorted.to_json(orient="records"))
     except Exception as e:
-        return jsonify(status="Error", message=f"{str(e)}"), 500
+        return jsonify(status="error", message=f"{str(e)}"), 500
 
 
 # *****************************************************
@@ -155,7 +155,7 @@ def getsupply():
         rbsupply = get_data(data, config, filename, filters, sort_column, sort_order)
         return json.loads(rbsupply.to_json(orient="records"))
     except Exception as e:
-        return jsonify(status="Error", message=f"{str(e)}"), 500
+        return jsonify(status="error", message=f"{str(e)}"), 500
 
 
 # *****************************************************
@@ -190,7 +190,7 @@ def getdemand():
         rbdemand = get_data(data, config, filename, filters, sort_column, sort_order)
         return json.loads(rbdemand.to_json(orient="records"))
     except Exception as e:
-        return jsonify(status="Error", message=f"{str(e)}"), 500
+        return jsonify(status="error", message=f"{str(e)}"), 500
 
 
 # *****************************************************
@@ -225,7 +225,7 @@ def getsohateow():
         rbexpsoheow = get_data(data, config, filename, filters, sort_column, sort_order)
         return json.loads(rbexpsoheow.to_json(orient="records"))
     except Exception as e:
-        return jsonify(status="Error", message=f"{str(e)}"), 500
+        return jsonify(status="error", message=f"{str(e)}"), 500
 
 
 # *****************************************************
@@ -260,7 +260,7 @@ def getwocateow():
         rbwoceow = get_data(data, config, filename, filters, sort_column, sort_order)
         return json.loads(rbwoceow.to_json(orient="records"))
     except Exception as e:
-        return jsonify(status="Error", message=f"{str(e)}"), 500
+        return jsonify(status="error", message=f"{str(e)}"), 500
 
 
 # *****************************************************
@@ -295,7 +295,7 @@ def getcaseshortages():
         rbcaseshort = get_data(data, config, filename, filters, sort_column, sort_order)
         return json.loads(rbcaseshort.to_json(orient="records"))
     except Exception as e:
-        return jsonify(status="Error", message=f"{str(e)}"), 500
+        return jsonify(status="error", message=f"{str(e)}"), 500
 
 
 # *****************************************************
@@ -330,7 +330,7 @@ def getexpectedservice():
         rbexpsl = get_data(data, config, filename, filters, sort_column, sort_order)
         return json.loads(rbexpsl.to_json(orient="records"))
     except Exception as e:
-        return jsonify(status="Error", message=f"{str(e)}"), 500
+        return jsonify(status="error", message=f"{str(e)}"), 500
 
 
 # *******************************************************************
@@ -384,7 +384,7 @@ def get_stock_position():
 
         return json.loads(stock_pos.to_json(orient="records"))
     except Exception as e:
-        return jsonify(status="Error", message=f"{str(e)}"), 500
+        return jsonify(status="error", message=f"{str(e)}"), 500
 
 
 # *****************************************************
@@ -419,7 +419,7 @@ def getcustepos():
         custhepos = get_data(data, config, filename, filters, sort_column, sort_order)
         return json.loads(custhepos.to_json(orient="records"))
     except Exception as e:
-        return jsonify(status="Error", message=f"{str(e)}"), 500
+        return jsonify(status="error", message=f"{str(e)}"), 500
 
 
 # *****************************************************
@@ -454,7 +454,7 @@ def getcustsellout():
         custsellout = get_data(data, config, filename, filters, sort_column, sort_order)
         return json.loads(custsellout.to_json(orient="records"))
     except Exception as e:
-        return jsonify(status="Error", message=f"{str(e)}"), 500
+        return jsonify(status="error", message=f"{str(e)}"), 500
 
 
 # *****************************************************
@@ -489,7 +489,7 @@ def getcustsellin():
         custsellin = get_data(data, config, filename, filters, sort_column, sort_order)
         return json.loads(custsellin.to_json(orient="records"))
     except Exception as e:
-        return jsonify(status="Error", message=f"{str(e)}"), 500
+        return jsonify(status="error", message=f"{str(e)}"), 500
 
 
 # ****************************************************************************
@@ -517,7 +517,7 @@ def get_campaigns():
         campaignsbysku = get_data(data, config, filename, filters)
         return json.loads(campaignsbysku.to_json(orient="records"))
     except Exception as e:
-        return jsonify(status="Error", message=f"{str(e)}"), 500
+        return jsonify(status="error", message=f"{str(e)}"), 500
 
 
 # *******************************
@@ -545,7 +545,7 @@ def get_selling_graph():
         sellin = replace_missing_values(sellin)
         return json.loads(sellin.to_json(orient="records"))
     except Exception as e:
-        return jsonify(status="Error", message=f"{str(e)}"), 500
+        return jsonify(status="error", message=f"{str(e)}"), 500
 
 
 # *******************************
@@ -573,7 +573,7 @@ def get_sellout_graph():
         sellout = replace_missing_values(sellout)
         return json.loads(sellout.to_json(orient="records"))
     except Exception as e:
-        return jsonify(status="Error", message=f"{str(e)}"), 500
+        return jsonify(status="error", message=f"{str(e)}"), 500
 
 
 # *******************************
@@ -920,7 +920,7 @@ def exportdata():
         # return json_result
         return json.loads(df.to_json(orient="records"))
     except Exception as e:
-        return jsonify(status="Error", message=f"{str(e)}"), 500
+        return jsonify(status="error", message=f"{str(e)}"), 500
 
 
 # ***********************
@@ -945,7 +945,7 @@ def get_irrpodata():
         df = df.sort_values(by=['poReceiptDate', 'noSKUsIrregular', 'noSKUsinPO', 'irregularPO'], ascending=[False, False, False, False])
         return json.loads(df.to_json(orient='records'))
     except Exception as e:
-        return jsonify(status="Error", message=f"{str(e)}"), 500
+        return jsonify(status="error", message=f"{str(e)}"), 500
 
 
 # ***********************
@@ -962,7 +962,7 @@ def get_irrpodetails():
         df = cleandf(df)
         return json.loads(df.to_json(orient="records"))
     except Exception as e:
-        return jsonify(status="Error", message=f"{str(e)}"), 500
+        return jsonify(status="error", message=f"{str(e)}"), 500
 
 
 # *********************************************
@@ -1030,7 +1030,7 @@ def get_irrposku():
                     "campaigns": json.loads(campaignsbysku.to_json(orient="records")),
                 }
     except Exception as e:
-        return jsonify(status="Error", message=f"{str(e)}"), 500
+        return jsonify(status="error", message=f"{str(e)}"), 500
 
 ## Helper Function
 def cleandf(df):
@@ -1065,4 +1065,4 @@ def get_datarecency():
 
         return list_of_objects
     except Exception as e:
-        return jsonify(status="Error", message=f"{str(e)}"), 500
+        return jsonify(status="error", message=f"{str(e)}"), 500
