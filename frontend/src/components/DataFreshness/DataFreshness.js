@@ -308,7 +308,7 @@ const DataFreshness = () => {
                 Data Freshness
               </Typography>
             </Box>
-            <TableContainer style={{ maxHeight: 732, width: "100%" }}>
+            <TableContainer style={{ maxHeight: 767, width: "100%" }}>
               <Table stickyHeader>
                 <TableHead className="thead-main">
                   <TableRow>
@@ -409,6 +409,7 @@ const DataFreshness = () => {
                         color: "#415A6C",
                         backgroundColor: "#E5EBEF",
                         border: "1px solid #dcdcdc",
+                        width:"200px"
                       }}
                     >
                       Power BI Dashboard or File
@@ -426,34 +427,34 @@ const DataFreshness = () => {
                       <TableCell sx={{ textAlign: "center" }}>
                         {item.BU}
                       </TableCell>
-                      <TableCell sx={{ textAlign: "center" }}>
+                      <TableCell sx={{ textAlign: "center",width:"160px" }}>
                         {item.Location}
                       </TableCell>
                       <TableCell sx={{ textAlign: "center" }}>
                         {item.Customer}
                       </TableCell>
-                      <TableCell sx={{ textAlign: "center" }}>
+                      <TableCell sx={{ textAlign: "center",width:"120px" }}>
                         {item.Brand}
                       </TableCell>
                       <TableCell sx={{ textAlign: "center" }}>
                         <Tooltip title={item["Data Parameter"]}>
-                          {truncateText(item["Data Parameter"], 25)}
+                          {truncateText(item["Data Parameter"], 20)}
                         </Tooltip>
                       </TableCell>
-                      <TableCell sx={{ textAlign: "center" }}>
+                      <TableCell sx={{ textAlign: "center",width:"120px" }}>
                         <Tooltip title={item.Dataset}>
-                          {truncateText(item.Dataset, 15)}
+                          {truncateText(item.Dataset, 10)}
                         </Tooltip>
                       </TableCell>
-                      <TableCell sx={{ textAlign: "center" }}>
+                      <TableCell sx={{ textAlign: "center",width:"160px" }}>
                         <Tooltip title={item.Source}>
                           {truncateText(item.Source, 15)}
                         </Tooltip>
                       </TableCell>
-                      <TableCell sx={{ textAlign: "center" }}>
+                      <TableCell sx={{ textAlign: "center",width:"200px" }}>
                         {item.Frequency}
                       </TableCell>
-                      <TableCell sx={{ textAlign: "center" }}>
+                      <TableCell sx={{ textAlign: "center" ,width:"120px"}}>
                         {item["Pull date"]}
                       </TableCell>
                       <TableCell sx={{ textAlign: "center" }}>
@@ -461,7 +462,7 @@ const DataFreshness = () => {
                           {item["power bi dashboard or file"].length > 0
                             ? truncateText(
                                 item["power bi dashboard or file"],
-                                25
+                                20
                               )
                             : "-"}
                         </Tooltip>
