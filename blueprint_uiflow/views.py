@@ -1048,7 +1048,7 @@ def cleandf(df):
 @uiflow_blueprint.route("/getdatarecency")
 def get_datarecency():
     try:
-        filename = "ui_data/extractiondates.csv"
+        filename = "ui_data/extractiondates.xlsx"
         # df = AzureBlobReader().read_xls(filename, sheet="Sheet1")
         df = AzureBlobReader().read_csvfile(filename)
         df.fillna("-", inplace=True)

@@ -179,7 +179,7 @@ def getrarbysku():
                     ]
 
         results = [
-            {"Name": "AVG EXP SERVICE LEVEL", "Value": f"{avgsl}"},
+            {"Name": "AVG EXP SERVICE LEVEL", "Value": f"{avgsl:.2f}"},
             {"Name": "EXP OLA", "Value": "99%"},
         ]
 
@@ -313,7 +313,7 @@ def runoptimizemodel():
         ]
 
         results = [
-            {"Name": "AVG EXP SERVICE LEVEL", "Value": f"{avgsl}"},
+            {"Name": "AVG EXP SERVICE LEVEL", "Value": f"{avgsl:.2f}"},
             {"Name": "EXP OLA", "Value": "99%"},
         ]
 
