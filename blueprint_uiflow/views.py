@@ -1048,7 +1048,7 @@ def cleandf(df):
 @uiflow_blueprint.route("/getdatarecency")
 def get_datarecency():
     try:
-        filename = "ui_data/extractiondates.xlsx"
+        filename = "ui_data/extractiondates.csv"
         # df = AzureBlobReader().read_xls(filename, sheet="Sheet1")
         df = AzureBlobReader().read_csvfile(filename)
         df.fillna("-", inplace=True)
@@ -1066,8 +1066,9 @@ def get_datarecency():
 
         return list_of_objects
     except Exception as e:
+        print(e)
         response = {
             "status": "error",
-            "message": str(e),
+            "message": e,
         }
         return jsonify(response)
