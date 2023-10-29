@@ -55,13 +55,7 @@ const StockReallocationData = ({ onData }) => {
 
   const [suggectedRecord, setsuggectedRecord] = useState(suggRecord);
 
-  const static_row = useSelector((state) => state.sidebar.suggectedRecord);
-  // console.log(referenceSuggData);
-
   const channel = referenceSuggData.Channel;
-
-  // const firstRecord = useState(referenceSuggData);
-  // console.log(referenceSuggData);
   const firstRecord = JSON.parse(JSON.stringify(referenceSuggData));
 
   const filteredSamechannelResults = stockreallocationData.filter(

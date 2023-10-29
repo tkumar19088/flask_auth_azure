@@ -689,6 +689,7 @@ const initialState = {
   irregularchartdata: {},
   errormodalopen: false,
   errortextmessage: "Error Response Not Received",
+  datafreshness: [],
 };
 
 const sidebarReducer = (state = initialState, action) => {
@@ -1007,6 +1008,11 @@ const sidebarReducer = (state = initialState, action) => {
       return {
         ...state,
         errortextmessage: action.payload,
+      };
+    case "FETCH_DATAFRESHNESS":
+      return {
+        ...state,
+        datafreshness: action.payload,
       };
     default:
       return state;

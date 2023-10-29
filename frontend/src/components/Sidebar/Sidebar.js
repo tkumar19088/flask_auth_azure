@@ -28,6 +28,7 @@ import {
   fetchtaburl,
   updateerrormodalpopup,
   updateerrortextmessage,
+  fetchdatafreshness,
 } from "../../store/actions/sidebarActions";
 import CustomSnackbar from "./Modelpopup";
 import BasicModal from "./Modelpopup";
@@ -106,10 +107,11 @@ const Sidebar = () => {
       const response = await fetch(
         "https://testingsmartola.azurewebsites.net/getdatarecency"
       );
+      console.log(response);
       if (response.ok) {
         const json = await response.json();
         console.log(json);
-        // dispatch(fetchoirregulardata(json));
+        dispatch(fetchdatafreshness(json));
         navigate("/dataFreshness");
       } else {
         dispatch(updateerrortextmessage(response.statusText));
