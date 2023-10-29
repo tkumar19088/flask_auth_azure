@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Menu from "@mui/material/Menu";
 import {
   Box,
@@ -65,7 +65,20 @@ function Filtersout({ apply }) {
     // setbrandEmpty(false);
     setAnchorEl(null);
   };
-
+  useEffect(() => {
+    if (data.Location.length > 0) {
+      setlocation(data.Location[0]);
+    }
+    if (data["Business Unit"].length > 0) {
+      setbusiness(data["Business Unit"][0]);
+    }
+    if (data.Customer.length > 0) {
+      setcustomer(data.Customer[0]);
+    }
+    if (data.Brand.length > 0) {
+      setbrand(data.Brand[0]);
+    }
+  }, [data]);
   const handleApplyFilters = async (e) => {
     e.preventDefault();
     if (!business) {

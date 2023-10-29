@@ -353,3 +353,9 @@ export const updateerrortextmessage = (newValue) => {
     payload: newValue,
   };
 };
+export const fetchdatafreshness = (newValue) => {
+  return {
+    type: "FETCH_DATAFRESHNESS",
+    payload: newValue,
+  };
+};

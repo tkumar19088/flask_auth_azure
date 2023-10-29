@@ -28,6 +28,11 @@ import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 import Orderinvestigation2 from "./Orderinvestigation2";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import {
+  updateloader,
+  updateerrortextmessage,
+  updateerrormodalpopup,
+} from "../../store/actions/sidebarActions";
 
 const StockReallocationData = ({ onData }) => {
   const navigate = useNavigate();
@@ -55,13 +60,7 @@ const StockReallocationData = ({ onData }) => {
 
   const [suggectedRecord, setsuggectedRecord] = useState(suggRecord);
 
-  const static_row = useSelector((state) => state.sidebar.suggectedRecord);
-  // console.log(referenceSuggData);
-
   const channel = referenceSuggData.Channel;
-
-  // const firstRecord = useState(referenceSuggData);
-  // console.log(referenceSuggData);
   const firstRecord = JSON.parse(JSON.stringify(referenceSuggData));
 
   const filteredSamechannelResults = stockreallocationData.filter(
@@ -78,13 +77,13 @@ const StockReallocationData = ({ onData }) => {
     testReallocation: "",
   }));
   const [data, setData] = useState(initialData);
-  console.log(data.length);
+  // console.log(data.length);
   // const lengthofArray = Array.from({ length: data.length }, () => 0);
   // console.log(lengthofArray);
   const [inputValues, setInputValues] = useState(
     Array.from({ length: referenceData.length }, () => "")
   );
-  console.log(inputValues);
+  // console.log(inputValues);
   // const [dataFetched, setDataFetched] = useState(false);
   const [reset, serReset] = useState(false);
   useEffect(() => {
@@ -519,6 +518,40 @@ const StockReallocationData = ({ onData }) => {
 
     // handleInputChange(index, "");
   };
+
+  const handleOptimization = async () => {
+    dispatch(updateloader(true));
+    var data = { rbsku: 3022883 };
+    try {
+      const url = "https://testingsmartola.azurewebsites.net/runoptimizemodel";
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        // setuserDetails(json.name);
+        // dispatch(updatetabname("irregular"));
+        // dispatch(fetchoirregulardata(json));
+        // dispatch(updateexporttabledata(json));
+        // dispatch(fetchtaburl(url));
+        // navigate("/irregular");
+      } else {
+        dispatch(updateerrortextmessage(response.statusText));
+        dispatch(updateerrormodalpopup(true));
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
+  };
+
   return (
     <div style={{ border: "" }} id="captureMe">
       <TableContainer style={{ maxHeight: 445, width: "100%" }}>
@@ -984,7 +1017,7 @@ const StockReallocationData = ({ onData }) => {
               arrow
               placement="top"
               // ml={{ lg: "-19px" }}
-              onClick={handleUpdateResults}
+              onClick={handleOptimization}
             >
               <Button
                 className="sa-boxbtn"
