@@ -95,13 +95,12 @@ def getrarbysku():
     try:
         data = request.json
         staticrow, otherrows = pd.DataFrame(), pd.DataFrame()
+
         if not data:
             raise ValueError("Missing required parameter: RB SKU!")
 
-
         if not global_filters.get("Customer"):
             raise ValueError("No customer selected!")
-
 
         rardf = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
         rardf = rardf[rardf["sku"] == data["rbsku"]]
@@ -199,10 +198,10 @@ def getrarbysku():
         otherrows = otherrows.replace(np.nan, 0).fillna(0)
 
         for col in staticrow.columns:
-            staticrow[col] = staticrow[col].apply(lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x)
+            staticrow[col] = staticrow[col] if col in ['itf','sku', 'RB SKU'] else staticrow[col].apply(lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x)
 
         for col in otherrows.columns:
-            otherrows[col] = otherrows[col].apply(lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x)
+            otherrows[col] = otherrows[col] if col in ['itf','sku', 'RB SKU'] else otherrows[col].apply(lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x)
 
         return {
             "static_row": json.loads(staticrow.to_json(orient="records"))[0],
@@ -320,8 +319,13 @@ def runoptimizemodel():
 
         cols = ['customer','AvgYTDsellout','brand','Location','sku','custwoc-current','newallocation','atf-sif','sumofPOsinalloccycle','idealallocationvalues']
         mergingdf = df[cols]
-        staticrow = pd.merge(staticrow, mergingdf, on=['customer','brand','sku'], how='left')
-        otherrows = pd.merge(otherrows, mergingdf, on=['customer','brand','sku'], how='left')
+        print(f"\n6. mergingdf.columns :\n{mergingdf.columns}\n")
+        print(f"\n7. staticrow.columns :\n{staticrow.columns}\n")
+        print(f"\n8. otherrows.columns :\n{otherrows.columns}\n")
+
+        staticrow['sku'], otherrows['sku'] = data["rbsku"], data["rbsku"]
+        staticrow = pd.merge(staticrow, mergingdf, on=['customer','sku'], how='left')
+        otherrows = pd.merge(otherrows, mergingdf, on=['customer','sku'], how='left')
 
         column_mapping = {
                             'Channel' : "Channel",
@@ -357,10 +361,10 @@ def runoptimizemodel():
         otherrows = otherrows.replace(np.nan, 0).fillna(0)
 
         for col in staticrow.columns:
-            staticrow[col] = staticrow[col].apply(lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x)
+            staticrow[col] = staticrow[col] if col in ['itf','sku', 'RB SKU'] else staticrow[col].apply(lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x)
 
         for col in otherrows.columns:
-            otherrows[col] = otherrows[col].apply(lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x)
+            otherrows[col] = otherrows[col] if col in ['itf','sku', 'RB SKU'] else otherrows[col].apply(lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x)
 
         return {
             "static_row": json.loads(staticrow.to_json(orient="records"))[0],
@@ -369,7 +373,11 @@ def runoptimizemodel():
             "results": results,
         }
     except Exception as e:
-        return jsonify(status="error", message=e), 500
+        response = {
+            "status": "error",
+            "message": e,
+        }
+        return jsonify(response), 500
 
 
 ## Helper Function
@@ -378,6 +386,6 @@ def cleandf(df):
     df = df.replace(missing_values, '-')
     df = df.fillna('-')
     for col in df.columns:
-        df[col] = df[col] if col in ['itf','sku'] else df[col].apply(lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x)
+        df[col] = df[col] if col in ['itf','sku', 'RB SKU'] else df[col].apply(lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x)
     df = df.replace([0.00, 0.0, "0.00", "0.0"], 0)
     return df
