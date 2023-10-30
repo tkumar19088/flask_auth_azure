@@ -16,71 +16,9 @@ load_dotenv()
 
 # ************************** USER DATA READER CLASS ****************************
 #
-#  Contains functions to read user data from SQL Server and Azure Blob Storage
+#  Contains functions to read user data from Azure Blob Storage
 #
 # ******************************************************************************
-class UserDataReaderSQLStorage:
-    def __init__(
-        self,
-    ) -> None:
-        """
-        The above function initializes a database connection using environment variables for server,
-        database, username, password, and driver.
-        """
-        server = os.getenv("SERVER")
-        database = os.getenv("DATABASE")
-        dbusername = os.getenv("DBUSERNAME")
-        password = os.getenv("PASSWORD")
-        driver = os.getenv("DRIVER")
-
-        # Build connection string
-        self.conn = pyodbc.connect(
-            f"DRIVER={driver};"
-            f"SERVER={server};"
-            f"DATABASE={database};"
-            f"UID={dbusername};"
-            f"PWD={password}"
-        )
-        self.cur = self.conn.cursor()
-
-    def fetch_user_details(self, uname):
-        """
-        The function fetches user details from a database based on the provided username.
-
-        :param uname: The `uname` parameter is a string that represents the username of the user whose
-        details you want to fetch from the `UsersTable` in the database
-        :return: The fetch_user_details function returns the details of a user from the UsersTable based
-        on the provided username.
-        """
-        query = f"SELECT * FROM UsersTable WHERE UserName = '{uname}'"
-        self.cur.execute(query)
-        return self.cur.fetchone()
-
-    def get_user_details(self, uname):
-        """
-        Retrieves user details from the database based on the provided username.
-
-        :param user_name: Username of the user whose details you want to retrieve.
-        :return: A dictionary containing user details or a JSON error response.
-        """
-        try:
-            user_details = self.fetch_user_details(uname)
-            if user_details:
-                return {
-                    "name": user_details[1],
-                    "email": user_details[2],
-                    "country": user_details[3],
-                    "role": user_details[4],
-                }
-        except Exception as e:
-            response = {
-                "status": "error",
-                "status_code": e.__dict__.get("status_code", 500),
-                "message": e.__dict__.get("reason", "Internal Server Error"),
-            }
-            return jsonify(response)
-
-
 class UserDataReaderBlobStorage:
     def __init__(self):
         connection_string = os.getenv("azure_connection_string")
@@ -166,7 +104,8 @@ class UserDataReaderBlobStorage:
                         "message": "User not found!",
                         "data": "",
                     }
-        return jsonify(response)
+        # return jsonify(response)
+        return response
 
 
 # ************************** AZURE BLOB READER CLASS ***************************
@@ -324,7 +263,8 @@ class AlertsManager:
                             "message": "No OOS alerts found!",
                             "data": "",
                         }
-        return jsonify(response)
+        # return jsonify(response)
+        return response
 
     def generate_irrpo_alerts(self):
         filters = ["Business Unit", "Customer", "Location", "Brand"]
@@ -359,7 +299,8 @@ class AlertsManager:
                             "message": "No Irregular PO alerts found!",
                             "data": ""
                         }
-        return jsonify(response)
+        # return jsonify(response)
+        return response
 
     def refine_alerts(self):
         for alert in self.alerts:
@@ -385,7 +326,8 @@ class AlertsManager:
                         "message": e.__dict__.get("reason", "Internal Server Error"),
                         "data" : ""
                     }
-        return jsonify(response)
+        # return jsonify(response)
+        return response
 
 
 # ************************** MITIGATION # 1 REALLOCATION BY RETAILER ****************************
@@ -614,7 +556,8 @@ class ReallocationOptimizer:
                                         "optimal_val": pulp.value(X_0),
                                     },
                         }
-        return jsonify(response)
+        # return jsonify(response)
+        return response
 
 
 # Run Optimization model
@@ -739,7 +682,8 @@ class SKUManager:
                             "message": "Missing required parameters: RB SKU & Customer!",
                             "data": "",
                         }
-            return jsonify(response)
+            # return jsonify(response)
+            return response
         else:
             customer, sku_r = self.global_filters.get("Customer"), self.request_data.get("rbsku")
 
@@ -750,7 +694,8 @@ class SKUManager:
                             "message": "No customer selected!",
                             "data": "",
                         }
-            return jsonify(response)
+            # return jsonify(response)
+            return response
         if not sku_r:
             response = {
                             "status": "error",
@@ -758,14 +703,14 @@ class SKUManager:
                             "message": "No SKU selected!",
                             "data": "",
                         }
-            return jsonify(response)
+            # return jsonify(response)
+            return response
 
         try:
             df_price = AzureBlobReader().read_csvfile("ui_data/df_price.csv")
             alternative_skus_calculator = AlternativeSKUsCalculator(df_price, sku_r, customer)
             resp = alternative_skus_calculator.calculate()
-            resp_data = resp.get_json()
-            alternative_skus = resp_data.get("data", None)
+            alternative_skus = resp.get("data", None)
             if len(alternative_skus) <= 0:
                 response = {
                                 "status": "error",
@@ -816,7 +761,8 @@ class SKUManager:
                             "message": e.__dict__.get("reason", "Internal Server Error"),
                             "data": "",
                         }
-        return jsonify(response)
+        # return jsonify(response)
+        return response
 
 
 class AlternativeSKUsCalculator:
@@ -863,7 +809,8 @@ class AlternativeSKUsCalculator:
                             "message": e.__dict__.get("reason", "Internal Server Error"),
                             "data": "",
                         }
-            return jsonify(response)
+            # return jsonify(response)
+            return response
 
         self.df_price = self.df_price.fillna(0)
 
@@ -887,7 +834,8 @@ class AlternativeSKUsCalculator:
                             "message": e.__dict__.get("reason", "Internal Server Error"),
                             "data": "",
                         }
-            return jsonify(response)
+            # return jsonify(response)
+            return response
 
         tmp = tmp.drop(columns=self.sku_r)
         tmp.loc["score_1"] = 1 * (tmp.loc["segment"] == tmp_r["segment"])
@@ -921,7 +869,8 @@ class AlternativeSKUsCalculator:
                         "message": "Alternative SKUs generated successfully",
                         "data": tmp,
                     }
-        return jsonify(response)
+        # return jsonify(response)
+        return response
 
     def _score5(self, a, b, c):
         try:

@@ -32,7 +32,8 @@ def choose_scenario():
     try:
         # pushaltskus
         sku_manager = SKUManager(current_app.config, request.json)
-        altskus = sku_manager.get_alternative_skus()
+        response = sku_manager.get_alternative_skus()
+        altskus = response.get("data", [])
         resp_scen.update({"pushaltskus": f"{(len(altskus) > 0)}"})
 
         # rarbysku
@@ -64,7 +65,8 @@ def choose_scenario():
             "message": e.__dict__.get("reason", "Internal Server Error"),
             "data": "",
         }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 
 
 # ************************** MITIGATION SCENARIO # 1 ***************************
@@ -88,8 +90,7 @@ def getalternativeskus():
     sku_manager = SKUManager(current_app.config, request.json)
     try:
         response = sku_manager.get_alternative_skus()
-        resp_data = response.get_json()
-        altskus = resp_data.get("data", {})
+        altskus = response.get("data", [])
         if len(altskus) < 1:
             response = {
                 "status": "error",
@@ -112,7 +113,8 @@ def getalternativeskus():
             "message": e.__dict__.get("reason", "Internal Server Error"),
             "data": "",
         }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 
 
 # **************************  MITIGATION SCENARIO # 2 **************************
@@ -280,7 +282,8 @@ def getrarbysku():
             "message": e.__dict__.get("reason", "Internal Server Error"),
             "data": "",
         }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 
 
 # **************************  Run RAR Optimization Model **************************
@@ -319,8 +322,7 @@ def runoptimizemodel():
             df, data["rbsku"], minsl, alloc_change, minwoc, maxwoc
         )
 
-        resp_data = response.get_json()
-        responsedata = resp_data.get("data", {})
+        responsedata = response.get("data", {})
         # "data": {
         #             "MINIMUM_SERVICE_LEVEL": MINIMUM_SERVICE_LEVEL,
         #             "ALLOCATION_CHANGE_THRESHOLD": ALLOCATION_CHANGE_THRESHOLD,
@@ -511,7 +513,8 @@ def runoptimizemodel():
             "message": e.__dict__.get("reason", "Internal Server Error"),
             "data": "",
         }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 
 
 ## Helper Function

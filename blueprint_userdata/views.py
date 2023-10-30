@@ -46,6 +46,7 @@ userdata_blueprint = Blueprint("userdata", __name__)
 #                         "message": e.__dict__.get("reason", "Internal Server Error"),
 #                     }
 #     return jsonify(response)
+#     return response
 
 
 def getuserdata():
@@ -87,8 +88,8 @@ def getuserdata():
             "Irregular PO": "View",
             "Sell in/ Sell out": "View",
         }
-        if userDetails:
-            filters = [
+
+        filters = [
                 "Business Unit",
                 "Customer",
                 "Location",
@@ -102,9 +103,12 @@ def getuserdata():
                 "Irregular PO",
                 "Sell in/ Sell out",
             ]
+
+        if userDetails:
             global_user.update({f: userDetails[f] for f in filters if f in userDetails})  # type: ignore
             current_app.config["global_user"] = global_user
-            alertsdata = AlertsManager(global_filters, global_user).get_alerts()
+            resp = AlertsManager(global_filters, global_user).get_alerts()
+            alertsdata = resp.get("data", [])
             data = {"user": userDetails, "alerts": alertsdata}
 
             response = {
@@ -125,6 +129,8 @@ def getuserdata():
                         "status": "error",
                         "status_code": e.__dict__.get("status_code", 500),
                         "message": e.__dict__.get("reason", "Internal Server Error"),
+                        "data": ""
                     }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 

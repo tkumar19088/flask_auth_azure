@@ -49,7 +49,8 @@ def get_filter_params():
                         "message": e.__dict__.get("reason", "Internal Server Error"),
                         "data":""
                     }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 
 
 @uiflow_blueprint.route("/resetfilterparams")
@@ -80,7 +81,8 @@ def reset_filter_params():
                         "message": e.__dict__.get("reason", "Internal Server Error"),
                         "data":""
                     }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 
 
 # *****************************************************
@@ -152,7 +154,8 @@ def get_overview():
                         "message": e.__dict__.get("reason", "Internal Server Error"),
                         "data":""
                     }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 
 
 # *****************************************************
@@ -201,7 +204,8 @@ def getsupply():
                         "message": e.__dict__.get("reason", "Internal Server Error"),
                         "data":""
                     }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 
 
 # *****************************************************
@@ -247,7 +251,8 @@ def getdemand():
                         "message": e.__dict__.get("reason", "Internal Server Error"),
                         "data":""
                     }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 
 
 
@@ -294,7 +299,8 @@ def getsohateow():
                         "message": e.__dict__.get("reason", "Internal Server Error"),
                         "data":""
                     }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 
 
 # *****************************************************
@@ -340,7 +346,8 @@ def getwocateow():
                         "message": e.__dict__.get("reason", "Internal Server Error"),
                         "data":""
                     }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 
 
 
@@ -388,7 +395,8 @@ def getcaseshortages():
                         "message": e.__dict__.get("reason", "Internal Server Error"),
                         "data":""
                     }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 
 
 
@@ -436,7 +444,8 @@ def getexpectedservice():
                         "message": e.__dict__.get("reason", "Internal Server Error"),
                         "data":""
                     }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 
 
 
@@ -502,7 +511,8 @@ def get_stock_position():
                         "message": e.__dict__.get("reason", "Internal Server Error"),
                         "data":""
                     }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 
 
 
@@ -551,7 +561,8 @@ def getcustepos():
                         "message": e.__dict__.get("reason", "Internal Server Error"),
                         "data":""
                     }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 
 
 
@@ -600,7 +611,8 @@ def getcustsellout():
                         "message": e.__dict__.get("reason", "Internal Server Error"),
                         "data":""
                     }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 
 
 
@@ -648,7 +660,8 @@ def getcustsellin():
                         "message": e.__dict__.get("reason", "Internal Server Error"),
                         "data":""
                     }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 
 
 
@@ -688,7 +701,8 @@ def get_campaigns():
                         "message": e.__dict__.get("reason", "Internal Server Error"),
                         "data":""
                     }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 
 
 
@@ -728,7 +742,8 @@ def get_sellin_graph():
                         "message": e.__dict__.get("reason", "Internal Server Error"),
                         "data":""
                     }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 
 
 
@@ -768,7 +783,8 @@ def get_sellout_graph():
                         "message": e.__dict__.get("reason", "Internal Server Error"),
                         "data":""
                     }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 
 
 
@@ -1128,7 +1144,8 @@ def exportdata():
                         "message": e.__dict__.get("reason", "Internal Server Error"),
                         "data":""
                     }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 
 
 
@@ -1177,7 +1194,8 @@ def get_irrpodata():
                         "message": e.__dict__.get("reason", "Internal Server Error"),
                         "data":""
                     }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 
 
 
@@ -1206,7 +1224,8 @@ def get_irrpodetails():
                         "message": e.__dict__.get("reason", "Internal Server Error"),
                         "data":""
                     }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 
 
 
@@ -1293,7 +1312,8 @@ def get_irrposku():
                         "message": e.__dict__.get("reason", "Internal Server Error"),
                         "data":""
                     }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
 
 
 
@@ -1365,4 +1385,5 @@ def get_datarecency():
                         "status_code": e.__dict__.get("status_code", 500),
                         "message": e.__dict__.get("reason", "Internal Server Error"),
                     }
-    return jsonify(response)
+    # return jsonify(response)
+    return response
