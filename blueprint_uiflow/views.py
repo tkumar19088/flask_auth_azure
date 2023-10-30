@@ -34,7 +34,8 @@ def get_filter_params():
         global_filters.clear()
         global_filters.update({k: v for k, v in data.items() if v})
         current_app.config["global_filters"] = global_filters
-        alerts = AlertsManager(global_filters, global_user).get_alerts() or []
+        resp = AlertsManager(global_filters, global_user).get_alerts()
+        alerts = resp.get("data", [])
         response = {
                         "status": "success",
                         "status_code": 200,
