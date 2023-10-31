@@ -166,9 +166,14 @@ function Filtersdropdown() {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const json = await response.json();
-        console.log(json);
-        identifySpecificTabdata(json, url);
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          identifySpecificTabdata(json, url);
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       } else {
         dispatch(updateerrortextmessage(response.statusText));
         dispatch(updateerrormodalpopup(true));
