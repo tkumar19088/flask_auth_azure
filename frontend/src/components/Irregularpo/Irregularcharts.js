@@ -131,7 +131,7 @@ const Irregularcharts = () => {
                 {skudata.rbsku}
               </Typography>
               <Typography fontSize={20} mt="-2px">
-                :
+                -
               </Typography>
               <Typography fontSize={18} color="#415A6C">
                 {" "}

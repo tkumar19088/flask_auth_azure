@@ -627,13 +627,17 @@ const Irregularpo = () => {
               display="flex"
               alignSelf="center"
               alignItems="center"
+              gap="5px"
+              color="#415A6C"
             >
               <Typography fontSize={28} color="#415A6C">
-                Recent POs{"  "}
+                Recent POs
               </Typography>
-              <Typography fontSize={15} color="#415A6C">
-                (last 1 month)
+              (
+              <Typography fontSize={15} color="#415A6C" mt="5px">
+                last 1 month
               </Typography>
+              )
             </Box>
             <TableContainer style={{ maxHeight: 732, width: "100%" }}>
               <Table stickyHeader>
