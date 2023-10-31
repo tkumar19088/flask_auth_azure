@@ -1240,18 +1240,20 @@ def get_irrposku():
         filename = "ui_data/po_irrsku_details.csv"
         podetails = AzureBlobReader().read_csvfile(filename)
         poid, rbsku = data.get("po_id"), data.get("rbsku")
-
-        # get customer name from po details where po number = poid and rbsku = rbsku
         cust = podetails.loc[(podetails['poNumber'] == poid) & (podetails['rbsku'] == rbsku)]['Customer'].values[0]
-
+        # print(f"\n1. poid: {poid}, rbsku: {rbsku}, cust: {cust}\n")
         podetails = podetails[podetails["poNumber"] == poid]
+        # print(f"\n2. podetails: {podetails}\n")
         skudetails = podetails[podetails["rbsku"] == rbsku]
+        # print(f"\n3. skudetails: {skudetails}\n")
         skudata = skudetails[skudetails["Customer"] == cust]
+        # print(f"\n4. skudata: {skudata}\n")
         skudata = cleandf(skudata)
 
         # get WoC data
         try:
             wocdata = skudata[["Cust WoC CW", "Cust WoC CW+1", "Cust WoC CW+2", "Cust WoC CW+3"]]
+            # print(f"\n5. wocdata: {wocdata}\n")
             wocdata = replace_missing_values(wocdata)
             wocdata = cleandf(wocdata)
         except:
@@ -1260,9 +1262,11 @@ def get_irrposku():
         # get histepos data
         try:
             custhistepos = AzureBlobReader().read_csvfile("ui_data/customerhistoricepos.csv")
+            # print(f"\n6. custhistepos: {custhistepos}\n")
             # custhistepos = custhistepos[custhistepos["RB SKU"] == rbsku]
             # custhistepos = custhistepos[custhistepos["Customer"] == cust]
             custhistepos = custhistepos[(custhistepos['Customer'] == cust) & (custhistepos['RB SKU'] == rbsku)]
+            # print(f"\n7. custhistepos: {custhistepos}\n")
             custhistepos = replace_missing_values(custhistepos)
             custhistepos = cleandf(custhistepos)
         except:
@@ -1273,7 +1277,9 @@ def get_irrposku():
             filters = ["Business Unit", "Location", "Customer", "Brand"]
             filename = "ui_data/customer_sellin_act_fcst.csv"
             custsellin = AzureBlobReader().read_csvfile(filename)
+            # print(f"\n8. custsellin: {custsellin}\n")
             custsellin = custsellin[(custsellin["Customer"] == cust) & (custsellin["RB SKU"] == rbsku)]
+            # print(f"\n9. custsellin: {custsellin}\n")
             custsellin["Brand"] = custsellin["Description"].apply(lambda x: "Airwick" if "AWICK" in x else "Gaviscon")
             custsellin = replace_missing_values(custsellin)
             custsellin = cleandf(custsellin)
@@ -1285,13 +1291,14 @@ def get_irrposku():
             filters = ["Business Unit", "Location", "Customer", "Brand"]
             filename = "ui_data/reckittcampaignsbysku.csv"
             campdf = get_data(data, config, filename, filters)
-            campdf = campdf.loc[campdf["Customer"].str.contains(cust, case=False, na=False)]
-            campdf = campdf[campdf["RB SKU"] == data["rbsku"]]
-            campdf["enddate"] = pd.to_datetime(campdf["enddate"])
-            today = dt.date.today().strftime("%Y-%m-%d")
-            campdf = campdf.loc[campdf["enddate"] >= today]
-            campdf["enddate"] = pd.to_datetime(campdf["enddate"], unit="ms")
-            campdf["enddate"] = campdf["enddate"].dt.strftime("%Y-%m-%d")
+            # print(f"\n15. campdf: {campdf}\n")
+            # campdf = campdf.loc[campdf["Customer"].str.contains(cust, case=False, na=False)]
+            # campdf = campdf[campdf["RB SKU"] == data["rbsku"]]
+            # campdf["enddate"] = pd.to_datetime(campdf["enddate"])
+            # today = dt.date.today().strftime("%Y-%m-%d")
+            # campdf = campdf.loc[campdf["enddate"] >= today]
+            # campdf["enddate"] = pd.to_datetime(campdf["enddate"], unit="ms")
+            # campdf["enddate"] = campdf["enddate"].dt.strftime("%Y-%m-%d")
             campaignsbysku = cleandf(campdf)
         except:
             campaignsbysku = pd.DataFrame()

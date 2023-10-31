@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 const Sellinselloutbarchart = ({ data }) => {
   const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
   console.log(data);
-  const details = data.length > 1 ? data[0] : data;
+  const details = data.length >= 1 ? data[0] : data;
   const data1 = [
     {
       name: "CW-3 (" + (startingWeek - 3) + ")",

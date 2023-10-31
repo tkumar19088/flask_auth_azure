@@ -24,8 +24,9 @@ const Irregularcharts = () => {
   const navigate = useNavigate();
   const loader = useSelector((state) => state.sidebar.loader);
   const chartdata = useSelector((state) => state.sidebar.irregularchartdata);
-  const skudata = chartdata.skudata;
+  const skudata = chartdata.skudata[0];
   console.log(chartdata);
+  console.log(skudata);
   const handleClick = () => {
     navigate("/");
   };
