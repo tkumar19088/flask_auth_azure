@@ -567,11 +567,11 @@ const StockReallocationData = ({ onData }) => {
   const handleOptimization = async () => {
     dispatch(updateloader(true));
     var data = {
-      rbsku: suggRecord["RB SKU"],
+      rbsku: parseInt(suggRecord["RB SKU"]),
       MINIMUM_SERVICE_LEVEL: expectedservice,
       ALLOCATION_CHANGE_THRESHOLD: pctdeviation,
-      WOC_MIN: minweeksOnConv,
-      WOC_MAX: weeksOnConv,
+      WOC_MIN: parseInt(minweeksOnConv),
+      WOC_MAX: parseInt(weeksOnConv),
     };
     try {
       const url = "https://testingsmartola.azurewebsites.net/runoptimizemodel";
