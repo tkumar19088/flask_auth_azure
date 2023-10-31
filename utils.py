@@ -990,25 +990,26 @@ def get_data(data, config, filename, filters, sort_column=None, sort_order=None)
         raise ValueError("Missing required parameter: RB SKU!")
 
     search, skulist = data.get("search") or None, data.get("skulist") or None
-
+    global_user = config.get("global_user", {})
     global_filters = config.get("global_filters", {})
     global_filters = dict((k, v.lower()) for k, v in global_filters.items())
 
+    # print(f"\nglobal_user : {global_user}\n")
+    # print(f"\nglobal_filters : {global_filters}\n")
+
     df = AzureBlobReader().read_csvfile(filename)
+
     if filename == "ui_data/reckittcampaignsbysku.csv":
+        df = df[df["Customer"].isin(global_user["Customer"])]
+        # print(f"\n11. df: {df}\n")
+        df = df[df["RB SKU"] == data["rbsku"]]
+        # print(f"\n12. df: {df}\n")
         df["enddate"] = pd.to_datetime(df["enddate"])
         today = dt.date.today().strftime("%Y-%m-%d")
         df = df.loc[df["enddate"] >= today]
-        df = df[df["RB SKU"] == data["rbsku"]]
+        # print(f"\n13. df: {df}\n")
         df["enddate"] = pd.to_datetime(df["enddate"], unit="ms")
         df["enddate"] = df["enddate"].dt.strftime("%Y-%m-%d")
-
-        if "Customer" in global_filters and global_filters["Customer"] != None:
-            df = df.loc[
-                df["Customer"].str.contains(
-                    global_filters["Customer"], case=False, na=False
-                )
-            ]
 
     elif search:
         if search.isdigit():
