@@ -46,9 +46,9 @@ def choose_scenario():
 
         rardf = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
 
-        rardf = rardf[rardf["sku"] == data["rbsku"]]
-        staticrow = rardf[rardf["customer"] == global_filters["Customer"]]
-        otherrows = rardf[rardf["customer"] != global_filters["Customer"]]
+        rardf = rardf[rardf["RB SKU"] == data["rbsku"]]
+        staticrow = rardf[rardf["Customer"] == global_filters["Customer"]]
+        otherrows = rardf[rardf["Customer"] != global_filters["Customer"]]
         resp_scen.update({"rarbysku": str(len(otherrows) > 0)})
 
         response = {
@@ -93,10 +93,10 @@ def getalternativeskus():
         altskus = response.get("data", [])
         if len(altskus) < 1:
             response = {
-                "status": "error",
+                "status": "success",
                 "status_code": 500,
                 "message": "No alternative SKUs found!",
-                "data": ""
+                "data": []
             }
         else:
             altskus = cleandf(altskus)
@@ -135,7 +135,7 @@ def getrarbysku():
             raise ValueError("No customer selected!")
 
         rardf = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
-        rardf = rardf[rardf["sku"] == data["rbsku"]]
+        rardf = rardf[rardf["RB SKU"] == data["rbsku"]]
 
         # Filter out rows there Channel is empty
         rardf = rardf[rardf["Channel"] != ""]
@@ -143,11 +143,11 @@ def getrarbysku():
         # set new allocation by default to 0
         rardf["newallocation"] = 0
 
-        staticrow = rardf[rardf["customer"] == global_filters["Customer"]]
+        staticrow = rardf[rardf["Customer"] == global_filters["Customer"]]
         # print(f"\n5. staticrow.columns :\n{staticrow.columns}\n")
 
         if len(rardf) > 1:
-            otherrows = rardf[rardf["customer"] != global_filters["Customer"]]
+            otherrows = rardf[rardf["Customer"] != global_filters["Customer"]]
         else:
             otherrows = pd.DataFrame()
 
@@ -192,15 +192,10 @@ def getrarbysku():
             else:
                 pctdev = 1
 
-        if staticrow.iloc[0]["stocksafetoreallocate"] == 0 or pd.isna(
-            staticrow.iloc[0]["stocksafetoreallocate"]
-        ):
+        if staticrow.iloc[0]["stocksafetoreallocate"] == 0 or pd.isna(staticrow.iloc[0]["stocksafetoreallocate"]):
             PCT_DEVIATION = 0  # Or any other suitable value
         else:
-            PCT_DEVIATION = (
-                max(staticrow.iloc[0]["stocksafetoreallocate"], 0)
-                / staticrow.iloc[0]["stocksafetoreallocate"]
-            )
+            PCT_DEVIATION = (max(staticrow.iloc[0]["stocksafetoreallocate"], 0) / staticrow.iloc[0]["stocksafetoreallocate"])
 
         avgsl = rardf["expectedservicelevel"].mean()
 
@@ -228,17 +223,17 @@ def getrarbysku():
             {"Name": "EXP OLA", "Value": "99%"},
         ]
 
-        column_mapping = {
-            "atf-sof": "Sell out",
-            "customer": "Customer",
-            "reckitt_sif": "sif-reckitt",
-            "brand": "Brand",
-            "sku": "RB SKU",
-            "atf-sif": "sif-atf",
-        }
+        # column_mapping = {
+        #     "atf-sof": "Sell out",
+        #     "customer": "Customer",
+        #     "reckitt_sif": "sif-reckitt",
+        #     "brand": "Brand",
+        #     "sku": "RB SKU",
+        #     "atf-sif": "sif-atf",
+        # }
 
-        staticrow.rename(columns=column_mapping, inplace=True)
-        otherrows.rename(columns=column_mapping, inplace=True)
+        # staticrow.rename(columns=column_mapping, inplace=True)
+        # otherrows.rename(columns=column_mapping, inplace=True)
 
         # replace missing values and NaN and NULL with 0
         staticrow = staticrow.replace(np.nan, 0).fillna(0)
@@ -302,8 +297,21 @@ def runoptimizemodel():
         if not global_filters.get("Customer"):
             raise ValueError("No customer selected!")
 
+        column_mapping = {
+            "Sell out" : "atf-sof",
+            "Customer" : "customer",
+            "sif-reckitt" : "reckitt_sif",
+            "Brand" : "brand",
+            "RB SKU" : "sku",
+            "sif-atf" : "atf-sif"
+        }
+
         df = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
-        df = df[df["sku"] == data["rbsku"]]
+        print(f"\n1. df.columns :\n{df.columns}\n")
+        df = df[df["RB SKU"] == data["rbsku"]]
+
+        df = df.rename(columns=column_mapping, inplace=True)
+        print(f"\n2. df.columns :\n{df.columns}\n")
 
         # Filter out rows there Channel is empty
         df = df[df["Channel"] != ""]
