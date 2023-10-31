@@ -5,7 +5,6 @@ import numpy as np
 from utils import AzureBlobReader, AlertsManager, replace_missing_values, get_data
 from dotenv import load_dotenv
 import datetime as dt
-import random
 
 load_dotenv()
 
@@ -1240,63 +1239,69 @@ def get_irrposku():
         data = request.json or {}
         filename = "ui_data/po_irrsku_details.csv"
         podetails = AzureBlobReader().read_csvfile(filename)
-        global_user = config.get("global_user", {})
-        cust = random.choice(global_user["Customer"])
         poid, rbsku = data.get("po_id"), data.get("rbsku")
 
+        # get customer name from po details where po number = poid and rbsku = rbsku
+        cust = podetails.loc[(podetails['poNumber'] == poid) & (podetails['rbsku'] == rbsku)]['Customer'].values[0]
+
         podetails = podetails[podetails["poNumber"] == poid]
-        podetails = podetails[podetails["rbsku"] == rbsku]
-        skudata = podetails[podetails["Customer"] == cust]
+        skudetails = podetails[podetails["rbsku"] == rbsku]
+        skudata = skudetails[skudetails["Customer"] == cust]
+        skudata = cleandf(skudata)
 
         # get WoC data
-        wocdata = podetails[podetails["Customer"] == cust][
-            ["Cust WoC CW", "Cust WoC CW+1", "Cust WoC CW+2", "Cust WoC CW+3"]
-        ].sample(1)
-        wocdata = replace_missing_values(wocdata)
+        try:
+            wocdata = skudata[["Cust WoC CW", "Cust WoC CW+1", "Cust WoC CW+2", "Cust WoC CW+3"]]
+            wocdata = replace_missing_values(wocdata)
+            wocdata = cleandf(wocdata)
+        except:
+            wocdata = pd.DataFrame()
 
         # get histepos data
-        custhistepos = AzureBlobReader().read_csvfile(
-            "ui_data/customerhistoricepos.csv"
-        )
-        custhistepos = custhistepos[custhistepos["RB SKU"] == rbsku]
-        custhistepos = custhistepos[custhistepos["Customer"] == cust]
-        custhistepos = replace_missing_values(custhistepos)
+        try:
+            custhistepos = AzureBlobReader().read_csvfile("ui_data/customerhistoricepos.csv")
+            # custhistepos = custhistepos[custhistepos["RB SKU"] == rbsku]
+            # custhistepos = custhistepos[custhistepos["Customer"] == cust]
+            custhistepos = custhistepos[(custhistepos['Customer'] == cust) & (custhistepos['RB SKU'] == rbsku)]
+            custhistepos = replace_missing_values(custhistepos)
+            custhistepos = cleandf(custhistepos)
+        except:
+            custhistepos = pd.DataFrame()
 
         # Cust Sell in Data
-        filters = ["Business Unit", "Location", "Customer", "Brand"]
-        filename = "ui_data/customer_sellin_act_fcst.csv"
-        custsellin = AzureBlobReader().read_csvfile(filename)
-        custsellin["Brand"] = custsellin["Description"].apply(
-            lambda x: "Airwick" if "AWICK" in x else "Gaviscon"
-        )
-        custsellin = custsellin[custsellin["RB SKU"] == rbsku]
-        custsellin = custsellin[custsellin["Customer"] == cust]
-        custsellin = replace_missing_values(custsellin)
+        try:
+            filters = ["Business Unit", "Location", "Customer", "Brand"]
+            filename = "ui_data/customer_sellin_act_fcst.csv"
+            custsellin = AzureBlobReader().read_csvfile(filename)
+            custsellin = custsellin[(custsellin["Customer"] == cust) & (custsellin["RB SKU"] == rbsku)]
+            custsellin["Brand"] = custsellin["Description"].apply(lambda x: "Airwick" if "AWICK" in x else "Gaviscon")
+            custsellin = replace_missing_values(custsellin)
+            custsellin = cleandf(custsellin)
+        except:
+            custsellin = pd.DataFrame()
 
         # campaigns data
-        filters = ["Business Unit", "Location", "Customer", "Brand"]
-        filename = "ui_data/reckittcampaignsbysku.csv"
-        campdf = get_data(data, config, filename, filters)
-        campdf["enddate"] = pd.to_datetime(campdf["enddate"])
-        today = dt.date.today().strftime("%Y-%m-%d")
-        campdf = campdf.loc[campdf["enddate"] >= today]
-        campdf = campdf[campdf["RB SKU"] == data["rbsku"]]
-        campdf["enddate"] = pd.to_datetime(campdf["enddate"], unit="ms")
-        campdf["enddate"] = campdf["enddate"].dt.strftime("%Y-%m-%d")
-        campdf = campdf.loc[campdf["Customer"].str.contains(cust, case=False, na=False)]
-
-        campaignsbysku = cleandf(campdf)
-        skudata = cleandf(skudata)
-        wocdata = cleandf(wocdata)
-        custhistepos = cleandf(custhistepos)
-        custsellin = cleandf(custsellin)
+        try:
+            filters = ["Business Unit", "Location", "Customer", "Brand"]
+            filename = "ui_data/reckittcampaignsbysku.csv"
+            campdf = get_data(data, config, filename, filters)
+            campdf = campdf.loc[campdf["Customer"].str.contains(cust, case=False, na=False)]
+            campdf = campdf[campdf["RB SKU"] == data["rbsku"]]
+            campdf["enddate"] = pd.to_datetime(campdf["enddate"])
+            today = dt.date.today().strftime("%Y-%m-%d")
+            campdf = campdf.loc[campdf["enddate"] >= today]
+            campdf["enddate"] = pd.to_datetime(campdf["enddate"], unit="ms")
+            campdf["enddate"] = campdf["enddate"].dt.strftime("%Y-%m-%d")
+            campaignsbysku = cleandf(campdf)
+        except:
+            campaignsbysku = pd.DataFrame()
 
         data = {
-            "skudata": json.loads(skudata.to_json(orient="records"))[0],
-            "wocgraphdata": json.loads(wocdata.to_json(orient="records"))[0],
-            "histepos": json.loads(custhistepos.to_json(orient="records"))[0],
-            "sellin": json.loads(custsellin.to_json(orient="records"))[0],
-            "campaigns": json.loads(campaignsbysku.to_json(orient="records")),
+            "skudata": json.loads(skudata.to_json(orient="records")),#[0] or [],
+            "wocgraphdata": json.loads(wocdata.to_json(orient="records")),#[0] or [],
+            "histepos": json.loads(custhistepos.to_json(orient="records")),#[0] or [],
+            "sellin": json.loads(custsellin.to_json(orient="records")),#[0] or [],
+            "campaigns": json.loads(campaignsbysku.to_json(orient="records")),# or [],
         }
 
         response = {
