@@ -74,11 +74,15 @@ const StockPosition2 = ({ onData }) => {
           }
         );
         if (response.ok) {
-          const json = await response.json();
-          console.log(json);
-          setiscampaigns(true);
-          setcampaignsData(json);
-          //dispatch(fetchuserdetails(json));
+          const info = await response.json();
+          const json = info.data;
+          if (info.status === "success") {
+            setiscampaigns(true);
+            setcampaignsData(json);
+          } else {
+            dispatch(updateerrortextmessage(info.message));
+            dispatch(updateerrormodalpopup(true));
+          }
         } else {
           dispatch(updateerrortextmessage(response.statusText));
           dispatch(updateerrormodalpopup(true));
@@ -110,9 +114,14 @@ const StockPosition2 = ({ onData }) => {
           }
         );
         if (response.ok) {
-          const json = await response.json();
-          console.log(json);
-          setpushAlternativeData(json);
+          const info = await response.json();
+          const json = info.data;
+          if (info.status === "success") {
+            setpushAlternativeData(json);
+          } else {
+            dispatch(updateerrortextmessage(info.message));
+            dispatch(updateerrormodalpopup(true));
+          }
         } else {
           dispatch(updateerrortextmessage(response.statusText));
           dispatch(updateerrormodalpopup(true));
@@ -141,13 +150,18 @@ const StockPosition2 = ({ onData }) => {
           }
         );
         if (response.ok) {
-          const json = await response.json();
-          console.log(json);
-          dispatch(fetchstockreallocatedata(json));
-          dispatch(updatewithinchanneldata(json));
-          dispatch(fetchstaticrow(json.static_row));
-          dispatch(updateexporttabledata(json));
-          navigate("/stockreallocation");
+          const info = await response.json();
+          const json = info.data;
+          if (info.status === "success") {
+            dispatch(fetchstockreallocatedata(json));
+            dispatch(updatewithinchanneldata(json));
+            dispatch(fetchstaticrow(json.static_row));
+            dispatch(updateexporttabledata(json));
+            navigate("/stockreallocation");
+          } else {
+            dispatch(updateerrortextmessage(info.message));
+            dispatch(updateerrormodalpopup(true));
+          }
         } else {
           dispatch(updateerrortextmessage(response.statusText));
           dispatch(updateerrormodalpopup(true));
@@ -451,9 +465,15 @@ const StockPosition2 = ({ onData }) => {
         }
       );
       if (response.ok) {
-        const json = await response.json();
-        setchooseData(json);
-        setdisplayMigitates(true);
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          setchooseData(json);
+          setdisplayMigitates(true);
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       } else {
         dispatch(updateerrortextmessage(response.statusText));
         dispatch(updateerrormodalpopup(true));

@@ -172,13 +172,17 @@ const OverviewHighRisk2 = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const json = await response.json();
-        // console.log(json);
-        // setuserDetails(json.name);
-        dispatch(updatetabname("overview"));
-        dispatch(fetchoverviewhighriskdata(json));
-        dispatch(updateexporttabledata(json));
-        dispatch(fetchtaburl(url));
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          dispatch(updatetabname("overview"));
+          dispatch(fetchoverviewhighriskdata(json));
+          dispatch(updateexporttabledata(json));
+          dispatch(fetchtaburl(url));
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       } else {
         dispatch(updateerrortextmessage(response.statusText));
         dispatch(updateerrormodalpopup(true));
@@ -215,13 +219,17 @@ const OverviewHighRisk2 = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const json = await response.json();
-        // console.log(json);
-        // setuserDetails(json.name);
-        dispatch(updatetabname("overview"));
-        dispatch(fetchoverviewcustomerdata(json));
-        dispatch(updateexporttabledata(json));
-        dispatch(fetchtaburl(url));
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          dispatch(updatetabname("overview"));
+          dispatch(fetchoverviewcustomerdata(json));
+          dispatch(updateexporttabledata(json));
+          dispatch(fetchtaburl(url));
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       } else {
         dispatch(updateerrortextmessage(response.statusText));
         dispatch(updateerrormodalpopup(true));
@@ -288,21 +296,26 @@ const OverviewHighRisk2 = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const json = await response.json();
-        console.log(json);
-        setexportData(json);
-        const csvData = convertToCSV(json);
-        const blob = new Blob([csvData], { type: "text/csv" });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.style.display = "none";
-        a.href = url;
-        a.download = "data.csv";
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-        return;
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          setexportData(json);
+          const csvData = convertToCSV(json);
+          const blob = new Blob([csvData], { type: "text/csv" });
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.style.display = "none";
+          a.href = url;
+          a.download = "data.csv";
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+          return;
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       } else {
         dispatch(updateerrortextmessage(response.statusText));
         dispatch(updateerrormodalpopup(true));

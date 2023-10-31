@@ -12,7 +12,11 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import { useSelector, useDispatch } from "react-redux";
-import { updateloader } from "../../store/actions/sidebarActions";
+import {
+  updateloader,
+  updateerrortextmessage,
+  updateerrormodalpopup,
+} from "../../store/actions/sidebarActions";
 import "./Sellinforecast";
 
 function Filtersin({ apply }) {
@@ -121,9 +125,15 @@ function Filtersin({ apply }) {
         }
       );
       if (response.ok) {
-        const json = await response.json();
-        apply(json);
-        setAnchorEl(null);
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          apply(json);
+          setAnchorEl(null);
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       }
       // Handle the API response data as needed
     } catch (error) {

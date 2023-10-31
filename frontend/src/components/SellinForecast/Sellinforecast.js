@@ -20,26 +20,29 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import loaderImage from "../../images/Logo-bar.png";
 import Filtersin from "./Filtersin";
+import Errormodalpopup from "../Errormodalpopup/Errormodalpopup";
 
 const Sellinforecast = () => {
   const navigate = useNavigate();
+
+  const open = useSelector((state) => state.sidebar.errormodalopen);
 
   const loader = useSelector((state) => state.sidebar.loader);
   const [rBSKUdata, setrBSKUdata] = useState([]);
   const [filteredData, setfilteredData] = useState([]);
   const defaultData = [
-    { name: "Week1", value: 0, kvalue: 0 },
-    { name: "Week2", value: 0, kvalue: 0 },
-    { name: "Week3", value: 0, kvalue: 0 },
-    { name: "Week4", value: 0, kvalue: 0 },
-    { name: "Week5", value: 0, kvalue: 0 },
-    { name: "Week6", value: 0, kvalue: 0 },
-    { name: "Week7", value: 0, kvalue: 0 },
-    { name: "Week8", value: 0, kvalue: 0 },
-    { name: "Week9", value: 0, kvalue: 0 },
-    { name: "Week10", value: 0, kvalue: 0 },
-    { name: "Week11", value: 0, kvalue: 0 },
-    { name: "Week12", value: 0, kvalue: 0 },
+    { name: "Week 1", value: 0, kvalue: 0 },
+    { name: "Week 2", value: 0, kvalue: 0 },
+    { name: "Week 3", value: 0, kvalue: 0 },
+    { name: "Week 4", value: 0, kvalue: 0 },
+    { name: "Week 5", value: 0, kvalue: 0 },
+    { name: "Week 6", value: 0, kvalue: 0 },
+    { name: "Week 7", value: 0, kvalue: 0 },
+    { name: "Week 8", value: 0, kvalue: 0 },
+    { name: "Week 9", value: 0, kvalue: 0 },
+    { name: "Week 10", value: 0, kvalue: 0 },
+    { name: "Week 11", value: 0, kvalue: 0 },
+    { name: "Week 12", value: 0, kvalue: 0 },
   ];
   const [selectedforecast, setselectedforecast] = useState(defaultData);
   const [error, seterror] = useState(true);
@@ -47,7 +50,7 @@ const Sellinforecast = () => {
   const convertedjson = (json) => {
     const convertedData = [];
     for (let i = 1; i <= 12; i++) {
-      const week = `Week${i}`;
+      const week = `Week ${i}`;
       const value = parseFloat(json[0][`sola CW+${i}`]) || 0;
       const kvalue = parseFloat(json[0][`kinaxis CW+${i}`]) || 0;
       convertedData.push({ name: week, value: value, kvalue: kvalue });
@@ -90,6 +93,7 @@ const Sellinforecast = () => {
           <img src={loaderImage} alt="Loading..." className="rotating-image" />
         </div>
       )}
+      {open && <Errormodalpopup />}
       <Topbar />
       <Grid container>
         <Grid item xs={2}>
@@ -183,11 +187,10 @@ const Sellinforecast = () => {
               </Box>
             </Box>
             <Box sx={{ display: "flex", gap: "20px" }}>
-              <Box sx={{ border: "", marginTop: "10px" }}></Box>
               <Box
                 display="flex"
                 justifyContent="space-between"
-                sx={{ marginBottom: "20px" }}
+                sx={{ marginBottom: "29px" ,marginTop:"-9px"}}
               >
                 <Button
                   variant="contained"

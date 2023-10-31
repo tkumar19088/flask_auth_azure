@@ -69,15 +69,21 @@ const CarouselExample = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const json = await response.json();
-        if (selectedTab == 0) {
-          dispatch(fetchoverviewhighriskdata(json));
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          if (selectedTab == 0) {
+            dispatch(fetchoverviewhighriskdata(json));
+          } else {
+            dispatch(fetchoverviewcustomerdata(json));
+          }
+          dispatch(updateexporttabledata(json));
+          dispatch(fetchtaburl(url));
+          navigate("/overviewhighrisk");
         } else {
-          dispatch(fetchoverviewcustomerdata(json));
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
         }
-        dispatch(updateexporttabledata(json));
-        dispatch(fetchtaburl(url));
-        navigate("/overviewhighrisk");
       } else {
         dispatch(updateerrortextmessage(response.statusText));
         dispatch(updateerrormodalpopup(true));
@@ -104,13 +110,17 @@ const CarouselExample = () => {
           body: JSON.stringify(data),
         });
         if (response.ok) {
-          const json = await response.json();
-          // setuserDetails(json.name);
-          // dispatch(updatetabname("irregular"));
-          dispatch(fetchoirregulardata(json));
-          dispatch(updateexporttabledata(json));
-          dispatch(fetchtaburl(url));
-          navigate("/irregular");
+          const info = await response.json();
+          const json = info.data;
+          if (info.status === "success") {
+            dispatch(fetchoirregulardata(json));
+            dispatch(updateexporttabledata(json));
+            dispatch(fetchtaburl(url));
+            navigate("/irregular");
+          } else {
+            dispatch(updateerrortextmessage(info.message));
+            dispatch(updateerrormodalpopup(true));
+          }
         } else {
           dispatch(updateerrortextmessage(response.statusText));
           dispatch(updateerrormodalpopup(true));

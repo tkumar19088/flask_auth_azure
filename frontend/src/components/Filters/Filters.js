@@ -24,6 +24,8 @@ import {
   fetchalerts,
   updateapplyfilterserror,
   fetchuserdetails,
+  updateerrortextmessage,
+  updateerrormodalpopup,
 } from "../../store/actions/sidebarActions";
 import "./Filters.css";
 import "./Filtersnew.css";
@@ -130,10 +132,15 @@ const Filters = () => {
         }
       );
       if (response.ok) {
-        const json = await response.json();
-        console.log(json);
-        dispatch(fetchfilterapply(true));
-        dispatch(fetchalerts(json.alerts));
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          dispatch(fetchfilterapply(true));
+          dispatch(fetchalerts(json.alerts));
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       }
       // Handle the API response data as needed
     } catch (error) {
@@ -150,13 +157,19 @@ const Filters = () => {
         "https://testingsmartola.azurewebsites.net/resetfilterparams"
       );
       if (response.ok) {
-        console.log("success");
-        dispatch(fetchbusiness(""));
-        dispatch(fetchlocation(""));
-        dispatch(fetchcustomer(""));
-        dispatch(fetchbrand(""));
-        dispatch(fetchalerts(alertsreset));
-        dispatch(fetchfilterapply(false));
+        const info = await response.json();
+        // const json = info.data;
+        if (info.status === "success") {
+          dispatch(fetchbusiness(""));
+          dispatch(fetchlocation(""));
+          dispatch(fetchcustomer(""));
+          dispatch(fetchbrand(""));
+          dispatch(fetchalerts(alertsreset));
+          dispatch(fetchfilterapply(false));
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       }
     } catch (error) {
       console.error("Fetch error:", error);

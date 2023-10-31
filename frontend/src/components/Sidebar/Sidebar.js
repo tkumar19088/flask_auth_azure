@@ -109,10 +109,15 @@ const Sidebar = () => {
       );
       console.log(response);
       if (response.ok) {
-        const json = await response.json();
-        console.log(json);
-        dispatch(fetchdatafreshness(json));
-        navigate("/dataFreshness");
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          dispatch(fetchdatafreshness(json));
+          navigate("/dataFreshness");
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       } else {
         dispatch(updateerrortextmessage(response.statusText));
         dispatch(updateerrormodalpopup(true));
@@ -138,14 +143,17 @@ const Sidebar = () => {
           body: JSON.stringify(data),
         });
         if (response.ok) {
-          const json = await response.json();
-          console.log(json);
-          // setuserDetails(json.name);
-          // dispatch(updatetabname("irregular"));
-          dispatch(fetchoirregulardata(json));
-          dispatch(updateexporttabledata(json));
-          dispatch(fetchtaburl(url));
-          navigate("/irregular");
+          const info = await response.json();
+          const json = info.data;
+          if (info.status === "success") {
+            dispatch(fetchoirregulardata(json));
+            dispatch(updateexporttabledata(json));
+            dispatch(fetchtaburl(url));
+            navigate("/irregular");
+          } else {
+            dispatch(updateerrortextmessage(info.message));
+            dispatch(updateerrormodalpopup(true));
+          }
         } else {
           dispatch(updateerrortextmessage(response.statusText));
           dispatch(updateerrormodalpopup(true));
@@ -263,7 +271,7 @@ const Sidebar = () => {
               fontSize={{ lg: "13px", xs: 10 }}
               p="5px 0 0 0"
             >
-              Sell-in forecast
+              Sell-In Forecast
             </Typography>
           </AccordionDetails>
           <AccordionDetails
@@ -281,7 +289,7 @@ const Sidebar = () => {
             onClick={handleSelloutForecasting}
           >
             <Typography mx="25px" fontSize={{ lg: 13, xs: 10 }} p="5px 0 0 0">
-              Sell-out forecast
+              Sell-Out Forecast
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -397,7 +405,7 @@ const Sidebar = () => {
               fontSize={{ lg: "13px", xs: 10 }}
               p="5px 0 0 0"
             >
-              SKU prioritization for promotion
+              SKU Prioritization for Promotion
             </Typography>
           </AccordionDetails>
         </Accordion>

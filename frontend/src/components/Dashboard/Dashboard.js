@@ -28,6 +28,7 @@ function Dashboard() {
   const filterStatusVal = useSelector((state) => state.sidebar.filterStatus);
   const userDetails = useSelector((state) => state.sidebar.userDetails);
   const loader = useSelector((state) => state.sidebar.loader);
+  const open = useSelector((state) => state.sidebar.errormodalopen);
   const dispatch = useDispatch();
 
   const [isFilter, setisFilter] = useState(filterStatusVal);
@@ -46,13 +47,17 @@ function Dashboard() {
         );
         if (response.ok) {
           // const json = await response.json();
-          const json = await response.json();
-          console.log(json);
-          // setuserDetails(json.name);
-          dispatch(fetchuserdetails(json.user));
-          dispatch(fetchalerts(json.alerts));
-          dispatch(fetchuserdetailsreset(json.user));
-          dispatch(fetchalertsreset(json.alerts));
+          const info = await response.json();
+          const json = info.data;
+          if (info.status === "success") {
+            dispatch(fetchuserdetails(json.user));
+            dispatch(fetchalerts(json.alerts));
+            dispatch(fetchuserdetailsreset(json.user));
+            dispatch(fetchalertsreset(json.alerts));
+          } else {
+            dispatch(updateerrortextmessage(info.message));
+            dispatch(updateerrormodalpopup(true));
+          }
         } else {
           dispatch(updateerrortextmessage(response.statusText));
           dispatch(updateerrormodalpopup(true));
@@ -74,6 +79,7 @@ function Dashboard() {
           <img src={loaderImage} alt="Loading..." className="rotating-image" />
         </div>
       )}
+      {open && <Errormodalpopup />}
       <Topbar />
       <Grid container>
         <Grid item xs={2}>

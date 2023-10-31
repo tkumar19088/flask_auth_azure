@@ -16,12 +16,14 @@ import {
   updateiswithinchannel,
   fetchstockreallocatedata,
 } from "../../store/actions/sidebarActions";
+import Errormodalpopup from "../Errormodalpopup/Errormodalpopup";
 
 function StockReallocation() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [selectedData, setselectedData] = useState();
+  const open = useSelector((state) => state.sidebar.errormodalopen);
   const exporttabledata = useSelector((state) => state.sidebar.exporttabledata);
   const isWithinChannel = useSelector((state) => state.sidebar.isWithinChannel);
   const stockData = useSelector((state) => state.sidebar.stockreallocation);
@@ -134,6 +136,7 @@ function StockReallocation() {
 
   return (
     <div>
+      {open && <Errormodalpopup />}
       <Topbar />
       <Grid container xs={12} className="overviewHighRisk">
         <Grid item xs={2}>
