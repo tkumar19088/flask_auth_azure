@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 const Historicalbarchart = ({ data }) => {
   const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
   console.log(data);
-  const details = data.length > 1 ? data[0] : data;
+  const details = data.length >= 1 ? data[0] : data;
   const data1 = [
     { name: "CW-3 (" + (startingWeek - 3) + ")", value: details["CW-3"] },
     { name: "CW-2 (" + (startingWeek - 2) + ")", value: details["CW-2"] },
