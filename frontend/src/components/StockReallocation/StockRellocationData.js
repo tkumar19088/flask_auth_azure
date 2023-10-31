@@ -33,6 +33,8 @@ import {
   updateerrortextmessage,
   updateerrormodalpopup,
 } from "../../store/actions/sidebarActions";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const StockReallocationData = ({ onData }) => {
   const navigate = useNavigate();
@@ -519,9 +521,58 @@ const StockReallocationData = ({ onData }) => {
     // handleInputChange(index, "");
   };
 
+  // const suggRecord = JSON.parse(JSON.stringify(referenceSuggData));
+
+  const [weeksOnConv, setweeksOnConv] = useState(constraints[3].Value);
+  const [minweeksOnConv, setminweeksOnConv] = useState(constraints[2].Value);
+  const [expectedservice, setexpectedservice] = useState(constraints[1].Value);
+  const [pctdeviation, setpctdeviation] = useState(constraints[0].Value);
+
+  const handleweeksOnCovUp = (e) => {
+    setweeksOnConv(e.target.value);
+  };
+  const handleminweeksOnCovUp = (e) => {
+    setminweeksOnConv(e.target.value);
+  };
+  const handleExpectedserviceUp = (e) => {
+    const value = Math.min(parseInt(e.target.value), 100);
+    setexpectedservice(value);
+  };
+  const handlePCTDeviationUp = (e) => {
+    const value = Math.min(parseInt(e.target.value), 100);
+    setpctdeviation(value);
+  };
+  const [currentDateTime, setCurrentDateTime] = useState("");
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const now = new Date();
+      const formattedDateTime = `${(now.getMonth() + 1)
+        .toString()
+        .padStart(2, "0")}/${now.getDate().toString().padStart(2, "0")}/${now
+        .getFullYear()
+        .toString()
+        .slice(2)
+        .padStart(2, "0")} ${now.getHours().toString().padStart(2, "0")}:${now
+        .getMinutes()
+        .toString()
+        .padStart(2, "0")}:${now.getSeconds().toString().padStart(2, "0")}`;
+      setCurrentDateTime(formattedDateTime);
+    }, 1000);
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, []);
+
   const handleOptimization = async () => {
     dispatch(updateloader(true));
-    var data = { rbsku: 3022883 };
+    var data = {
+      rbsku: 3022883,
+      MINIMUM_SERVICE_LEVEL: "",
+      ALLOCATION_CHANGE_THRESHOLD: "",
+      WOC_MIN: "",
+      WOC_MAX: "",
+    };
     try {
       const url = "https://testingsmartola.azurewebsites.net/runoptimizemodel";
       const response = await fetch(url, {
@@ -532,14 +583,19 @@ const StockReallocationData = ({ onData }) => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const json = await response.json();
-        console.log(json);
-        // setuserDetails(json.name);
-        // dispatch(updatetabname("irregular"));
-        // dispatch(fetchoirregulardata(json));
-        // dispatch(updateexporttabledata(json));
-        // dispatch(fetchtaburl(url));
-        // navigate("/irregular");
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          // setuserDetails(json.name);
+          // dispatch(updatetabname("irregular"));
+          // dispatch(fetchoirregulardata(json));
+          // dispatch(updateexporttabledata(json));
+          // dispatch(fetchtaburl(url));
+          // navigate("/irregular");
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       } else {
         dispatch(updateerrortextmessage(response.statusText));
         dispatch(updateerrormodalpopup(true));
@@ -985,7 +1041,292 @@ const StockReallocationData = ({ onData }) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Orderinvestigation2 constraints={constraints} />
+      <Stack>
+        <Box display="flex" className="sg-main" mt="10px">
+          <Box className="sg-title">
+            Scenario Generation:{" "}
+            {suggRecord.Discription ? suggRecord.Discription + " " : ""}
+            {suggRecord["RB SKU"] ? suggRecord["RB SKU"] : ""}
+          </Box>
+          <Box display="flex" marginTop="2px">
+            <Typography>
+              <VisibilityOutlinedIcon
+                sx={{
+                  height: "18px",
+                  width: "40px",
+                  marginTop: "2px",
+                }}
+              />
+            </Typography>
+            <Typography fontSize={14}>{currentDateTime}</Typography>
+          </Box>
+        </Box>
+      </Stack>
+      <Typography fontSize={24} color="#145A6C" mx="3px" mt="-3px">
+        Constraints (Optional)
+      </Typography>
+
+      <Stack direction="row" border="">
+        <div
+          style={{
+            display: "flex",
+            borderRadius: "5px",
+            backgroundColor: "#fff",
+            padding: "15px",
+            gap: "40px",
+          }}
+        >
+          <Box className="const-bs1" borderRight="1px solid #dcdcdc">
+            <Box display="flex" sx={{ color: "#415A6C" }}>
+              <Typography className="constains-h1">
+                {constraints[0].Name}
+              </Typography>{" "}
+              <Typography>
+                <Tooltip
+                  placement="top"
+                  arrow
+                  title="This constraint determines the maximum allowable deviation from the initial allocation that the reallocation engine can suggest."
+                >
+                  <InfoOutlinedIcon
+                    sx={{
+                      height: "22px",
+                      marginTop: { lg: "0px", xs: "1px" },
+                      marginLeft: "5px",
+                    }}
+                  />
+                </Tooltip>
+              </Typography>
+            </Box>
+            <Box display="flex" alignItems="center">
+              <input
+                type="number"
+                value={pctdeviation}
+                onChange={handlePCTDeviationUp}
+                style={{
+                  height: "38px",
+                  width: "80px",
+                  textAlign: "center",
+                  color: "#008824",
+                  fontSize: "22px",
+                  marginTop: "5px",
+                  border: "1px solid #E7E9EE",
+                  borderRadius: "5PX",
+                  boxSizing: "border-box",
+                }}
+              />
+              <Box
+                border=""
+                textAlign="center"
+                mx={{ lg: "10px", xs: "10px" }}
+                mt="5px"
+              >
+                <Typography
+                  sx={{
+                    width: { lg: "100px", xs: "70px" },
+                    borderRadius: "18px 18px",
+                    backgroundColor:
+                      constraints[0].Label == 0
+                        ? "#F44444"
+                        : constraints[0].Label == 1
+                        ? "orange"
+                        : "#57a957",
+                    color: "#fff",
+                    padding: "2px 8px 2px 8px",
+                  }}
+                  fontSize={{ lg: 12, xs: 8 }}
+                >
+                  {constraints[0].Label == 0
+                    ? "Not Satisfied"
+                    : constraints[0].Label == 1
+                    ? "Partially Satisfied"
+                    : "Fully Satisfied"}
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+
+          <Box className="const-bs2" borderRight="1px solid #dcdcdc">
+            <Box display="flex" width="370px" sx={{ color: "#415A6C" }}>
+              <Typography className="constains-h1">
+                {constraints[1].Name}
+              </Typography>
+              <Typography>
+                <Tooltip
+                  placement="top"
+                  arrow
+                  title="This constraint establishes the minimum expected service level for any individual customer and restricts the maximum quantity of stock that can be reallocated from a customer."
+                >
+                  <InfoOutlinedIcon
+                    sx={{
+                      height: "22px",
+                      marginTop: { lg: "0px", xs: "0px" },
+                      marginLeft: "8px",
+                    }}
+                  />
+                </Tooltip>
+              </Typography>
+            </Box>
+
+            <Box display="flex">
+              <input
+                type="number"
+                value={expectedservice}
+                onChange={handleExpectedserviceUp}
+                style={{
+                  height: "38px",
+                  width: "80px",
+                  textAlign: "center",
+                  color: "#008824",
+                  fontSize: "22px",
+                  marginTop: "5px",
+                  border: "1px solid #E7E9EE",
+                  borderRadius: "5PX",
+                  boxSizing: "border-box",
+                }}
+              />
+              <Box border="" textAlign="center" mx={{ lg: "10px", xs: "10px" }}>
+                <Typography
+                  mt={{ lg: "13px", xs: "10px" }}
+                  sx={{
+                    width: { lg: "100px", xs: "70px" },
+                    borderRadius: "18px 18px",
+                    backgroundColor:
+                      constraints[1].Label == 0
+                        ? "#F44444"
+                        : constraints[1].Label == 1
+                        ? "orange"
+                        : "#57a957",
+                    color: "#fff",
+                    padding: "2px 8px 2px 8px",
+                  }}
+                  fontSize={{ lg: 12, xs: 8 }}
+                >
+                  {constraints[1].Label == 0
+                    ? "Not Satisfied"
+                    : constraints[1].Label == 1
+                    ? "Partially Satisfied"
+                    : "Fully Satisfied"}
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+
+          <Box className="const-bs3">
+            <Box
+              display="flex"
+              width="400px"
+              mx={7}
+              sx={{ color: "#415A6C" }}
+              marginLeft={0}
+            >
+              <Typography className="constains-h1">
+                {constraints[2].Name}
+              </Typography>
+              <Typography>
+                <Tooltip
+                  placement="top"
+                  arrow
+                  title="This constraint defines the minimum and maximum stock that can be reallocated to any one customer based on resultant deviation from the customer target stock level."
+                >
+                  <InfoOutlinedIcon
+                    sx={{
+                      height: "22px",
+                      marginTop: { lg: "0px", xs: "1px" },
+                      marginLeft: "8px",
+                    }}
+                  />
+                </Tooltip>
+              </Typography>
+            </Box>
+
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              mx={{ lg: 0, xs: "-10px" }}
+              marginTop="1%"
+            >
+              <Box display="flex">
+                <Typography
+                  margin="auto"
+                  marginRight="3px"
+                  fontSize={{ lg: 13, xs: 10 }}
+                >
+                  Min
+                </Typography>
+                <input
+                  type="number"
+                  value={minweeksOnConv}
+                  onChange={handleminweeksOnCovUp}
+                  style={{
+                    height: "38px",
+                    width: "80px",
+                    textAlign: "center",
+                    color: "#008824",
+                    fontSize: "22px",
+                    border: "1px solid #E7E9EE",
+                    borderRadius: "5PX",
+                    boxSizing: "border-box",
+                  }}
+                />
+              </Box>
+              <Box display="flex" border="" mx={{ lg: "10px", xs: "7px" }}>
+                <Typography
+                  margin="auto"
+                  marginRight="3px"
+                  fontSize={{ lg: 13, xs: 10 }}
+                >
+                  Max
+                </Typography>
+                <input
+                  type="number"
+                  value={weeksOnConv}
+                  onChange={handleweeksOnCovUp}
+                  style={{
+                    height: "38px",
+                    width: "80px",
+                    textAlign: "center",
+                    color: "#008824",
+                    fontSize: "22px",
+                    border: "1px solid #E7E9EE",
+                    borderRadius: "5PX",
+                    boxSizing: "border-box",
+                  }}
+                />
+              </Box>
+              <Box
+                border=""
+                textAlign="center"
+                mx={{ lg: "3px", xs: "0px" }}
+                marginRight={{ lg: "60px", xs: "0px" }}
+                mt="1px"
+              >
+                <Typography
+                  mt={{ lg: "8px", xs: "10px" }}
+                  sx={{
+                    width: { lg: "100px", xs: "70px" },
+                    borderRadius: "18px 18px",
+                    backgroundColor:
+                      constraints[3].Label == 0
+                        ? "#F44444"
+                        : constraints[3].Label == 1
+                        ? "orange"
+                        : "#57a957",
+                    color: "#fff",
+                    padding: "2px 8px 2px 8px",
+                  }}
+                  fontSize={{ lg: 12, xs: 8 }}
+                >
+                  {constraints[3].Label == 0
+                    ? "Not Satisfied"
+                    : constraints[3].Label == 1
+                    ? "Partially Satisfied"
+                    : "Fully Satisfied"}
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+        </div>
+      </Stack>
       <Grid>
         <Typography fontSize={24} mt="1px" color="#145A6C" my={1}>
           Results

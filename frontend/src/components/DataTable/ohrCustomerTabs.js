@@ -31,7 +31,6 @@ import {
   updatetabname,
   updateerrormodalpopup,
   updateerrortextmessage,
-
 } from "../../store/actions/sidebarActions";
 
 const OhrCustomerTabs = () => {
@@ -67,16 +66,20 @@ const OhrCustomerTabs = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const json = await response.json();
-        // console.log(json);
-        // setuserDetails(json.name);
-        dispatch(updatetabname("overview"));
-        dispatch(fetchoverviewcustomerdata(json));
-        dispatch(updateexporttabledata(json));
-        dispatch(fetchtaburl(url));
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          dispatch(updatetabname("overview"));
+          dispatch(fetchoverviewcustomerdata(json));
+          dispatch(updateexporttabledata(json));
+          dispatch(fetchtaburl(url));
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       } else {
         dispatch(updateerrortextmessage(response.statusText));
-          dispatch(updateerrormodalpopup(true));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -104,16 +107,20 @@ const OhrCustomerTabs = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const json = await response.json();
-        // console.log(json);
-        // setuserDetails(json.name);
-        dispatch(updatetabname("historicepos"));
-        dispatch(fetchcustomerhestoric(json));
-        dispatch(updateexporttabledata(json));
-        dispatch(fetchtaburl(url));
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          dispatch(updatetabname("historicepos"));
+          dispatch(fetchcustomerhestoric(json));
+          dispatch(updateexporttabledata(json));
+          dispatch(fetchtaburl(url));
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       } else {
         dispatch(updateerrortextmessage(response.statusText));
-          dispatch(updateerrormodalpopup(true));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -141,16 +148,20 @@ const OhrCustomerTabs = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const json = await response.json();
-        // console.log(json);
-        // setuserDetails(json.name);
-        dispatch(updatetabname("sellout"));
-        dispatch(fetchcustomersellout(json));
-        dispatch(updateexporttabledata(json));
-        dispatch(fetchtaburl(url));
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          dispatch(updatetabname("sellout"));
+          dispatch(fetchcustomersellout(json));
+          dispatch(updateexporttabledata(json));
+          dispatch(fetchtaburl(url));
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       } else {
         dispatch(updateerrortextmessage(response.statusText));
-          dispatch(updateerrormodalpopup(true));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -178,16 +189,20 @@ const OhrCustomerTabs = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const json = await response.json();
-        // console.log(json);
-        // setuserDetails(json.name);
-        dispatch(updatetabname("sellin"));
-        dispatch(fetchcustomersellin(json));
-        dispatch(updateexporttabledata(json));
-        dispatch(fetchtaburl(url));
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          dispatch(updatetabname("sellin"));
+          dispatch(fetchcustomersellin(json));
+          dispatch(updateexporttabledata(json));
+          dispatch(fetchtaburl(url));
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       } else {
         dispatch(updateerrortextmessage(response.statusText));
-          dispatch(updateerrormodalpopup(true));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -215,16 +230,20 @@ const OhrCustomerTabs = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const json = await response.json();
-        // console.log(json);
-        // setuserDetails(json.name);
-        dispatch(updatetabname("stockposition"));
-        dispatch(fetchcustomerstockposition(json));
-        dispatch(updateexporttabledata(json));
-        dispatch(fetchtaburl(url));
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          dispatch(updatetabname("stockposition"));
+          dispatch(fetchcustomerstockposition(json));
+          dispatch(updateexporttabledata(json));
+          dispatch(fetchtaburl(url));
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       } else {
         dispatch(updateerrortextmessage(response.statusText));
-          dispatch(updateerrormodalpopup(true));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {
@@ -252,16 +271,20 @@ const OhrCustomerTabs = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const json = await response.json();
-        // console.log(json);
-        // setuserDetails(json.name);
-        dispatch(updatetabname("ola"));
-        dispatch(fetchcustomerola(json));
-        dispatch(updateexporttabledata(json));
-        dispatch(fetchtaburl(url));
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          dispatch(updatetabname("ola"));
+          dispatch(fetchcustomerola(json));
+          dispatch(updateexporttabledata(json));
+          dispatch(fetchtaburl(url));
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       } else {
         dispatch(updateerrortextmessage(response.statusText));
-          dispatch(updateerrormodalpopup(true));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {

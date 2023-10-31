@@ -53,16 +53,22 @@ const BasicModal = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const json = await response.json();
-        dispatch(updatetabname("overview"));
-        if (selectedTab == 0) {
-          dispatch(fetchoverviewhighriskdata(json));
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          dispatch(updatetabname("overview"));
+          if (selectedTab == 0) {
+            dispatch(fetchoverviewhighriskdata(json));
+          } else {
+            dispatch(fetchoverviewcustomerdata(json));
+          }
+          dispatch(updateexporttabledata(json));
+          dispatch(fetchtaburl(url));
+          navigate("/overviewhighrisk");
         } else {
-          dispatch(fetchoverviewcustomerdata(json));
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
         }
-        dispatch(updateexporttabledata(json));
-        dispatch(fetchtaburl(url));
-        navigate("/overviewhighrisk");
       } else {
         dispatch(updateerrortextmessage(response.statusText));
         dispatch(updateerrormodalpopup(true));

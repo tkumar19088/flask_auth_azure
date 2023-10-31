@@ -72,13 +72,15 @@ const Irregularpo = () => {
       );
       console.log(response);
       if (response.ok) {
-        const json = await response.json();
-        console.log(json);
-        // setchartData(json);
-        dispatch(fetchoirregularchartdata(json));
-        // setiscampaigns(true);
-        // setpodetails(json);
-        navigate("/irregularcharts");
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          dispatch(fetchoirregularchartdata(json));
+          navigate("/irregularcharts");
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       } else {
         console.log(response.json());
         dispatch(updateerrortextmessage(response.statusText));
@@ -363,11 +365,15 @@ const Irregularpo = () => {
             body: JSON.stringify(data),
           }
         );
-        console.log(response);
         if (response.ok) {
-          const json = await response.json();
-          console.log(json);
-          setpodetails(json);
+          const info = await response.json();
+          const json = info.data;
+          if (info.status === "success") {
+            setpodetails(json);
+          } else {
+            dispatch(updateerrortextmessage(info.message));
+            dispatch(updateerrormodalpopup(true));
+          }
         } else {
           dispatch(updateerrortextmessage(response.statusText));
           dispatch(updateerrormodalpopup(true));
@@ -613,10 +619,6 @@ const Irregularpo = () => {
                 </Button>
               </Box>{" "}
               &#160;&#160;&#160;&#160;&#160;&#160;
-              <Typography fontSize={14}>OOS Risk Dectection</Typography>
-              <Typography>
-                <ChevronRightIcon sx={{ height: "20px" }} />
-              </Typography>
               <Typography fontSize={14}>Irregular PO</Typography>
             </Box>
             <Box
@@ -627,9 +629,9 @@ const Irregularpo = () => {
               alignItems="center"
             >
               <Typography fontSize={28} color="#415A6C">
-                Recent POs{" "}
+                Recent POs{"  "}
               </Typography>
-              <Typography fontSize={18} color="#415A6C">
+              <Typography fontSize={15} color="#415A6C">
                 (last 1 month)
               </Typography>
             </Box>

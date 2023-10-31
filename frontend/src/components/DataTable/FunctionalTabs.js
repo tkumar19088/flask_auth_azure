@@ -61,13 +61,17 @@ const FunctionalTabs = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const json = await response.json();
-        // console.log(json);
-        // setuserDetails(json.name);
-        dispatch(updatetabname("overview"));
-        dispatch(fetchoverviewhighriskdata(json));
-        dispatch(updateexporttabledata(json));
-        dispatch(fetchtaburl(url));
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          dispatch(updatetabname("overview"));
+          dispatch(fetchoverviewhighriskdata(json));
+          dispatch(updateexporttabledata(json));
+          dispatch(fetchtaburl(url));
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       } else {
         dispatch(updateerrortextmessage(response.statusText));
         dispatch(updateerrormodalpopup(true));
@@ -98,13 +102,17 @@ const FunctionalTabs = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const json = await response.json();
-        // console.log(json);
-        // setuserDetails(json.name);
-        dispatch(updatetabname("supply"));
-        dispatch(fetchreckittsupply(json));
-        dispatch(updateexporttabledata(json));
-        dispatch(fetchtaburl(url));
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          dispatch(updatetabname("supply"));
+          dispatch(fetchreckittsupply(json));
+          dispatch(updateexporttabledata(json));
+          dispatch(fetchtaburl(url));
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       } else {
         dispatch(updateerrortextmessage(response.statusText));
         dispatch(updateerrormodalpopup(true));
@@ -135,13 +143,17 @@ const FunctionalTabs = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const json = await response.json();
-        // console.log(json);
-        // setuserDetails(json.name);
-        dispatch(updatetabname("demand"));
-        dispatch(fetchreckittdemand(json));
-        dispatch(updateexporttabledata(json));
-        dispatch(fetchtaburl(url));
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          dispatch(updatetabname("demand"));
+          dispatch(fetchreckittdemand(json));
+          dispatch(updateexporttabledata(json));
+          dispatch(fetchtaburl(url));
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       } else {
         dispatch(updateerrortextmessage(response.statusText));
         dispatch(updateerrormodalpopup(true));
@@ -172,13 +184,17 @@ const FunctionalTabs = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const json = await response.json();
-        // console.log(json);
-        // setuserDetails(json.name);
-        dispatch(updatetabname("sohateow"));
-        dispatch(fetchreckittexpectedsoh(json));
-        dispatch(updateexporttabledata(json));
-        dispatch(fetchtaburl(url));
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          dispatch(updatetabname("sohateow"));
+          dispatch(fetchreckittexpectedsoh(json));
+          dispatch(updateexporttabledata(json));
+          dispatch(fetchtaburl(url));
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       } else {
         dispatch(updateerrortextmessage(response.statusText));
         dispatch(updateerrormodalpopup(true));
@@ -209,13 +225,17 @@ const FunctionalTabs = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const json = await response.json();
-        // console.log(json);
-        // setuserDetails(json.name);
-        dispatch(updatetabname("wocateow"));
-        dispatch(fetchreckittwoc(json));
-        dispatch(updateexporttabledata(json));
-        dispatch(fetchtaburl(url));
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          dispatch(updatetabname("wocateow"));
+          dispatch(fetchreckittwoc(json));
+          dispatch(updateexporttabledata(json));
+          dispatch(fetchtaburl(url));
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       } else {
         dispatch(updateerrortextmessage(response.statusText));
         dispatch(updateerrormodalpopup(true));
@@ -246,13 +266,17 @@ const FunctionalTabs = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const json = await response.json();
-        // console.log(json);
-        // setuserDetails(json.name);
-        dispatch(updatetabname("caseshortages"));
-        dispatch(fetchreckittcaseshortages(json));
-        dispatch(updateexporttabledata(json));
-        dispatch(fetchtaburl(url));
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          dispatch(updatetabname("caseshortages"));
+          dispatch(fetchreckittcaseshortages(json));
+          dispatch(updateexporttabledata(json));
+          dispatch(fetchtaburl(url));
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       } else {
         dispatch(updateerrortextmessage(response.statusText));
         dispatch(updateerrormodalpopup(true));
@@ -284,13 +308,17 @@ const FunctionalTabs = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const json = await response.json();
-        // console.log(json);
-        // setuserDetails(json.name);
-        dispatch(updatetabname("expectedservice"));
-        dispatch(fetchreckittexpectedservice(json));
-        dispatch(updateexporttabledata(json));
-        dispatch(fetchtaburl(url));
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          dispatch(updatetabname("expectedservice"));
+          dispatch(fetchreckittexpectedservice(json));
+          dispatch(updateexporttabledata(json));
+          dispatch(fetchtaburl(url));
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       } else {
         dispatch(updateerrortextmessage(response.statusText));
         dispatch(updateerrormodalpopup(true));
@@ -321,13 +349,17 @@ const FunctionalTabs = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const json = await response.json();
-        // console.log(json);
-        // setuserDetails(json.name);
-        dispatch(updatetabname("stockposition"));
-        dispatch(fetchreckittstockposition(json));
-        dispatch(updateexporttabledata(json));
-        dispatch(fetchtaburl(url));
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          dispatch(updatetabname("stockposition"));
+          dispatch(fetchreckittstockposition(json));
+          dispatch(updateexporttabledata(json));
+          dispatch(fetchtaburl(url));
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       } else {
         dispatch(updateerrortextmessage(response.statusText));
         dispatch(updateerrormodalpopup(true));

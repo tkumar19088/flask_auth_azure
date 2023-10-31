@@ -42,7 +42,6 @@ import {
   updateskulist,
   updateerrormodalpopup,
   updateerrortextmessage,
-
 } from "../../store/actions/sidebarActions";
 import "./Filtersdropdown.css";
 
@@ -133,10 +132,14 @@ function Filtersdropdown() {
         }
       );
       if (response.ok) {
-        // const json = await response.json();
-        // console.log(json);
-        tabApiCall();
-        setAnchorEl(null);
+        const info = await response.json();
+        if (info.status === "success") {
+          tabApiCall();
+          setAnchorEl(null);
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       }
     } catch (error) {
       console.error("Error:", error);
@@ -168,7 +171,7 @@ function Filtersdropdown() {
         identifySpecificTabdata(json, url);
       } else {
         dispatch(updateerrortextmessage(response.statusText));
-          dispatch(updateerrormodalpopup(true));
+        dispatch(updateerrormodalpopup(true));
         console.error("Error fetching data:", response.statusText);
       }
     } catch (error) {

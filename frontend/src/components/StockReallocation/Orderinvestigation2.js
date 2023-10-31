@@ -18,85 +18,74 @@ import "./Orderinvesti.css";
 const Orderinvestigation2 = ({ constraints }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const updateresults = useSelector((state) => state.sidebar.updateresults);
-  // const suggRecord = useSelector(
-  //   (state) => state.sidebar.stockreallocation.static_row[0]
-  // );
-  const suggRecord = {
-    AvgYTDsellout: 600,
-    Brand: "Airwick",
-    "Business Unit": "Health",
-    Channel: "Pharmacy",
-    Customer: "Asda",
-    Location: "Germany",
-    "RB SKU": "3247398",
-    Discription: "Airwick Electrical Lemon",
-    "Sell out": 600,
-    allocationconsumed: 180,
-    cmuscore: 7.44,
-    currentallocation: 400,
-    newallocation: 400,
-    currentcustSOH: 400,
-    "custsoh-current": 1000,
-    "custsoh-target": 900,
-    "custwoc-current": 2,
-    "custwoc-target": 4,
-    expectedservicelevel: 0.94,
-    idealallocationvalues: 800,
-    openorders: 180,
-    remainingallocation: 220,
-    "sif-atf": 900,
-    "sif-reckitt": 800,
-    stocksafetoreallocate: 36,
-    suggestedallocation: 2,
-    sumofPOsinalloccycle: 900,
-    testReallocation: 0,
-  };
-  const [counter, setCounter] = useState(0);
+  // const updateresults = useSelector((state) => state.sidebar.updateresults);
+  const referenceSuggData = useSelector(
+    (state) => state.sidebar.withinChannelData.static_row
+  );
+  const suggRecord = JSON.parse(JSON.stringify(referenceSuggData));
+
+  // const suggRecord = {
+  //   AvgYTDsellout: 600,
+  //   Brand: "Airwick",
+  //   "Business Unit": "Health",
+  //   Channel: "Pharmacy",
+  //   Customer: "Asda",
+  //   Location: "Germany",
+  //   "RB SKU": "3247398",
+  //   Discription: "Airwick Electrical Lemon",
+  //   "Sell out": 600,
+  //   allocationconsumed: 180,
+  //   cmuscore: 7.44,
+  //   currentallocation: 400,
+  //   newallocation: 400,
+  //   currentcustSOH: 400,
+  //   "custsoh-current": 1000,
+  //   "custsoh-target": 900,
+  //   "custwoc-current": 2,
+  //   "custwoc-target": 4,
+  //   expectedservicelevel: 0.94,
+  //   idealallocationvalues: 800,
+  //   openorders: 180,
+  //   remainingallocation: 220,
+  //   "sif-atf": 900,
+  //   "sif-reckitt": 800,
+  //   stocksafetoreallocate: 36,
+  //   suggestedallocation: 2,
+  //   sumofPOsinalloccycle: 900,
+  //   testReallocation: 0,
+  // };
   const [weeksOnConv, setweeksOnConv] = useState(constraints[3].Value);
   const [minweeksOnConv, setminweeksOnConv] = useState(constraints[2].Value);
   const [expectedservice, setexpectedservice] = useState(constraints[1].Value);
   const [pctdeviation, setpctdeviation] = useState(constraints[0].Value);
 
-  const handleUpdateResults = () => {
-    dispatch(fetchupdateresults(true));
-  };
   const handleweeksOnCovUp = (e) => {
     setweeksOnConv(e.target.value);
   };
-
-  const handleweeksOnCovDown = () => {
-    setweeksOnConv(weeksOnConv - 1);
-  };
-
   const handleminweeksOnCovUp = (e) => {
     setminweeksOnConv(e.target.value);
   };
-
-  const handleminweeksOnCovDown = () => {
-    setminweeksOnConv(minweeksOnConv - 1);
-  };
-
   const handleExpectedserviceUp = (e) => {
     const value = Math.min(parseInt(e.target.value), 100);
     setexpectedservice(value);
-  };
-  const handleExpectedserviceDown = () => {
-    setexpectedservice(expectedservice - 1);
   };
   const handlePCTDeviationUp = (e) => {
     const value = Math.min(parseInt(e.target.value), 100);
     setpctdeviation(value);
   };
-  const handlePCTDeviationDown = () => {
-    setpctdeviation(pctdeviation - 1);
-  };
 
-  const [selectedOption, setSelectedOption] = useState("");
+  // useEffect(() => {
+  //   const handleConstraints = () => {
 
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
+  //   }
+  //   handleConstraints();
+  // }, []);
+
+  // const [selectedOption, setSelectedOption] = useState("");
+
+  // const handleOptionChange = (event) => {
+  //   setSelectedOption(event.target.value);
+  // };
   const [currentDateTime, setCurrentDateTime] = useState("");
 
   useEffect(() => {
@@ -118,6 +107,7 @@ const Orderinvestigation2 = ({ constraints }) => {
     // Clear the interval when the component unmounts
     return () => clearInterval(intervalId);
   }, []);
+
   return (
     <div>
       <Stack>

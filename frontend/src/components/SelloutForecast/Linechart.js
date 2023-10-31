@@ -32,7 +32,7 @@ const Linechart = ({ data }) => {
         },
         title: {
           display: true,
-          text: "Forecasted Weeks",
+          text: "Weeks Forecasted",
           font: {
             size: 18, // Adjust the font size as needed
           },

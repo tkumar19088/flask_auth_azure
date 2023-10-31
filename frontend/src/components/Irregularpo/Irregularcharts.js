@@ -95,39 +95,66 @@ const Irregularcharts = () => {
             </Box>{" "}
             &#160;&#160;&#160;&#160;&#160;&#160;
             <Typography fontSize={14} sx={{ color: "#415A6C" }}>
-              OOS Risk Detection
+              Irregular PO
             </Typography>
             <Typography>
               <ChevronRightIcon sx={{ height: "20px", color: "#415A6C" }} />
             </Typography>
             <Typography fontSize={14} sx={{ color: "#415A6C" }}>
-              Irregular PO
+              Investigate SKU
             </Typography>
           </Box>
           <Grid container justifyContent="space-between" my="20px">
-            <Box mx="1px">
+            <Box
+              mx="1px"
+              display="flex"
+              gap="3px"
+              alignSelf="center"
+              alignItems="center"
+            >
               <Typography fontSize={20} color="#415A6C">
-                Irregular PO :
-                <span style={{ fontSize: "18px" }}>
-                  {skudata.poNumber} : {skudata.description}
-                </span>
+                PO
+              </Typography>
+              <Typography fontSize={20} mt="-2px">
+                :
+              </Typography>
+              <Typography fontSize={18} color="#415A6C">
+                {skudata.poNumber}
+              </Typography>
+              <Typography fontSize={20} color="#415A6C" ml={4}>
+                SKU
+              </Typography>
+              <Typography fontSize={20} mt="-2px">
+                :
+              </Typography>
+              <Typography fontSize={18} color="#415A6C">
+                {skudata.rbsku}
+              </Typography>
+              <Typography fontSize={20} mt="-2px">
+                :
+              </Typography>
+              <Typography fontSize={18} color="#415A6C">
+                {" "}
+                {skudata.description}
               </Typography>
             </Box>
-            <Button
-              variant="contained"
-              size="small"
-              sx={{
-                textTransform: "none",
-                height: "30px",
-                backgroundColor: "#415A6C",
-                "&:hover": {
-                  backgroundColor: "#FF007F",
-                },
-              }}
-              onClick={handleScreenshort}
-            >
-              Export Data
-            </Button>
+            <Box mt="-7px">
+              <Button
+                variant="contained"
+                size="small"
+                sx={{
+                  textTransform: "none",
+                  height: "30px",
+                  backgroundColor: "#415A6C",
+                  "&:hover": {
+                    backgroundColor: "#FF007F",
+                  },
+                }}
+                onClick={handleScreenshort}
+              >
+                Export Data
+              </Button>
+            </Box>
           </Grid>
 
           {lineChartData && (
@@ -142,7 +169,13 @@ const Irregularcharts = () => {
                   marginBottom: "10px",
                 }}
               >
-                <Grid container item xs={12} justifyContent="space-around">
+                <Grid
+                  container
+                  item
+                  xs={12}
+                  justifyContent="space-around"
+                  p="6px 0px"
+                >
                   <Typography fontSize="18px" color="brown">
                     PO Issue :
                     <span style={{ color: "#415A6C" }}>
@@ -179,7 +212,7 @@ const Irregularcharts = () => {
                       {skudata.alert == "-"
                         ? ""
                         : skudata.po_issue == "Irregular Volume"
-                        ? skudata["sif-sola"] == null
+                        ? skudata["sif-sola"] == null // if skudata["sif-sola"] == null --> take sif-kinaxis
                           ? "-"
                           : skudata["sif-sola"]
                         : skudata.agreed_price == null
@@ -220,9 +253,7 @@ const Irregularcharts = () => {
               </Typography>
             </Grid>
             <Grid item xs={3} className="kpi-box">
-              <Typography fontSize="13px">
-                Quantity Ordered since Monday
-              </Typography>
+              <Typography fontSize="13px">Quantity Ordered</Typography>
               <Typography color="green">
                 {skudata.quantityordered == null
                   ? "-"
