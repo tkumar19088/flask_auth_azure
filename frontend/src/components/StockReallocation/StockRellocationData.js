@@ -567,11 +567,11 @@ const StockReallocationData = ({ onData }) => {
   const handleOptimization = async () => {
     dispatch(updateloader(true));
     var data = {
-      rbsku: 3022883,
-      MINIMUM_SERVICE_LEVEL: "",
-      ALLOCATION_CHANGE_THRESHOLD: "",
-      WOC_MIN: "",
-      WOC_MAX: "",
+      rbsku: suggRecord["RB SKU"],
+      MINIMUM_SERVICE_LEVEL: expectedservice,
+      ALLOCATION_CHANGE_THRESHOLD: pctdeviation,
+      WOC_MIN: minweeksOnConv,
+      WOC_MAX: weeksOnConv,
     };
     try {
       const url = "https://testingsmartola.azurewebsites.net/runoptimizemodel";
@@ -1045,8 +1045,8 @@ const StockReallocationData = ({ onData }) => {
         <Box display="flex" className="sg-main" mt="10px">
           <Box className="sg-title">
             Scenario Generation:{" "}
-            {suggRecord.Discription ? suggRecord.Discription + " " : ""}
-            {suggRecord["RB SKU"] ? suggRecord["RB SKU"] : ""}
+            {suggRecord["RB SKU"] ? suggRecord["RB SKU"] : ""} :&nbsp;
+            {suggRecord.Channel ? suggRecord.Channel : ""}
           </Box>
           <Box display="flex" marginTop="2px">
             <Typography>

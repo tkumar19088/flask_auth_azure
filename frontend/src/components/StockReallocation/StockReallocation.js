@@ -191,7 +191,13 @@ function StockReallocation() {
               <ChevronRightIcon sx={{ height: "20px", color: "#415A6C" }} />
             </Typography>
             <Typography fontSize={14} sx={{ color: "#415A6C" }}>
-              Airwick Electrical Lemon 3247398
+              Stock Reallocation
+            </Typography>
+            <Typography>
+              <ChevronRightIcon sx={{ height: "20px", color: "#415A6C" }} />
+            </Typography>
+            <Typography fontSize={14} sx={{ color: "#415A6C" }}>
+              {suggRecord["RB SKU"]} : {suggRecord.Channel}
             </Typography>
           </Box>
 
