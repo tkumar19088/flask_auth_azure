@@ -280,6 +280,9 @@ class AlertsManager:
             if (filter_key.lower() in self.global_filters and self.global_filters[filter_key.lower()] != None):
                 df = df[df[filter_key].str.lower() == self.global_filters[filter_key.lower()]]
         irrpoalertsdata = df.sort_values(by=["poReceiptDate", "noSKUsIrregular", "noSKUsinPO", "irregularPO"],ascending=[False, False, False, False]) # type: ignore
+        
+        #filter on noSKUSIrregular > 0
+        irrpoalertsdata = irrpoalertsdata[irrpoalertsdata["noSKUsIrregular"] > 0]
 
         if len(irrpoalertsdata) > 0:
             sorted_irrpo = self.get_sorted_data(irrpoalertsdata, "noSKUsIrregular")
@@ -306,10 +309,10 @@ class AlertsManager:
                     }
         else:
             response = {
-                            "status": "error",
-                            "status_code": 404,
+                            "status": "success",
+                            "status_code": 200,
                             "message": "No Irregular PO alerts found!",
-                            "data": ""
+                            "data": self.alerts
                         }
         # return jsonify(response)
         return response
