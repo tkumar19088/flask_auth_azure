@@ -268,16 +268,28 @@ class AlertsManager:
 
     def generate_irrpo_alerts(self):
         filters = ["Business Unit", "Customer", "Location", "Brand"]
-        irrpo_data = AzureBlobReader().read_csvfile("ui_data/currentalertsirrpo.csv")  # , self.global_filters, self.global_user)
-        irrpoalertsdata = AlertsManager(self.global_filters, self.global_user).filter_data(irrpo_data, filters)
+        filename = "ui_data/irrpomainscreen.csv"
+        irrpo_data = AzureBlobReader().read_csvfile(filename)  # , self.global_filters, self.global_user)
+        # irrpoalertsdata = AlertsManager(self.global_filters, self.global_user).filter_data(irrpo_data, filters)
+        df = irrpo_data.copy()
+
+        for filter_key in filters:
+            if (filter_key.lower() in self.global_user and self.global_user[filter_key.lower()] != None):
+                df = df[df[filter_key] in self.global_user[filter_key]]
+        for filter_key in filters:
+            if (filter_key.lower() in self.global_filters and self.global_filters[filter_key.lower()] != None):
+                df = df[df[filter_key].str.lower() == self.global_filters[filter_key.lower()]]
+        irrpoalertsdata = df.sort_values(by=["poReceiptDate", "noSKUsIrregular", "noSKUsinPO", "irregularPO"],ascending=[False, False, False, False]) # type: ignore
+
         if len(irrpoalertsdata) > 0:
-            sorted_irrpo = self.get_sorted_data(irrpoalertsdata, "Num Irregular SKUs")
+            sorted_irrpo = self.get_sorted_data(irrpoalertsdata, "noSKUsIrregular")
+            print(f"\n1. sorted_irrpo:\n{sorted_irrpo}\n")
             try:
                 for name, group in sorted_irrpo.groupby(["Location", "Brand"]):
                     alert = {
-                        "Title": f"Irregular PO Detected for {name[1]} {name[0]} SKUs",
-                        "DATA": group[["PO Number", "PO Date", "Num Irregular SKUs"]].head(3).to_dict("records"),
-                    }
+                                "Title": f"Irregular PO Detected for {name[1]} {name[0]} SKUs",
+                                "DATA": group[["poNumber", "poReceiptDate", "noSKUsIrregular"]].head(3).to_dict("records"),
+                            }
                     self.alerts.append(alert)
                 response = {
                                 "status": "success",
@@ -328,303 +340,6 @@ class AlertsManager:
                     }
         # return jsonify(response)
         return response
-
-
-# ************************** MITIGATION # 1 REALLOCATION BY RETAILER ****************************
-#
-#       Contains functions to optimize reallocation of supply for alternate retailers
-#
-# # *********************************************************************************************
-class ReallocationOptimizer:
-    def __init__(self, df):
-        self.df = df
-        self.num_rows = len(df)
-        self.problem = pulp.LpProblem("Optimization_Problem", pulp.LpMinimize)
-        self.X_vars = {}
-        self.aux_vars = {}
-
-    @staticmethod
-    def get_data_dict():
-        return {
-            0: "customer",
-            1: "Channel",
-            2: "reckitt_sif",
-            3: "currentallocation",
-            4: "allocationconsumed",
-            5: "openorders",
-            6: "custsoh-target",
-            7: "custwoc-target",
-            8: "cmuscore",
-            9: "reckitt_sif",
-            10: "custsoh-current",
-            11: "atf-sof",
-        }
-
-    @staticmethod
-    def get_var_dict():
-        return {
-            0: "Remaining_allocation",
-            1: "Expected_weekly_service_level",
-            2: "Updated_customer_SOH",
-            3: "Updated_Customer_WoC",
-            4: "SOH_safe_to_reallocate",
-            5: "Suggested_Supply",
-        }
-
-    def initiate_variables(self):
-        X_0 = pulp.LpVariable("X_0", lowBound=0)
-        data_dict = self.get_data_dict()
-
-        # Variables to define in the data
-        self.X_vars = {}
-
-        # Auxiliary variables to apply constraints
-        self.aux_vars = {}
-
-        # Initiate variables
-        for i in range(self.num_rows):
-            self.X_vars[i] = {}
-            self.aux_vars[i] = {}
-
-            # Variables
-            # Remaining allocation
-            self.X_vars[i][0] = pulp.LpVariable(f"X_var_{i}_0", lowBound=0)
-
-            # Expected weekly service level
-            self.X_vars[i][1] = pulp.LpVariable(f"X_var_{i}_1", lowBound=0)
-
-            # Updated customer SOH
-            self.X_vars[i][2] = pulp.LpVariable(f"X_var_{i}_2", lowBound=0)
-
-            # Updated customer WOC
-            self.X_vars[i][3] = pulp.LpVariable(f"X_var_{i}_3", lowBound=0)
-
-            # SOH safe to reallocate
-            self.X_vars[i][4] = pulp.LpVariable(f"X_var_{i}_4", lowBound=0)
-
-            # Suggested supply - No lower bound for the suggested supply
-            self.X_vars[i][5] = pulp.LpVariable(f"X_var_{i}_5", lowBound=None)
-
-            # Initiate auxiliary variables
-            # Auxiliary variables - Expected weekly service level
-            self.aux_vars[i][1] = pulp.LpVariable(f"aux_var_{i}_1_", lowBound=None)
-
-            # Auxiliary variables - Updated customer SOH
-            self.aux_vars[i][2] = pulp.LpVariable(f"aux_var_{i}_2", lowBound=None)
-
-            # Auxiliary variables - SOH safe to reallocate
-            self.aux_vars[i][4] = pulp.LpVariable(f"aux_var_{i}_4", lowBound=None)
-        return X_0
-
-    def add_constraints(
-        self, X_0, WOC_MIN, WOC_MAX, MINIMUM_SERVICE_LEVEL, ALLOCATION_CHANGE_THRESHOLD
-    ):
-        data_dict = self.get_data_dict()
-        for i in range(self.num_rows):
-            self.problem += (
-                self.X_vars[i][0]
-                == self.df[data_dict[3]][i]
-                - self.df[data_dict[4]][i]
-                + self.X_vars[i][5]
-            )
-
-            # Expected SOH considers both current stock and potential change in allocation
-            self.problem += (
-                self.X_vars[i][2]
-                == self.df[data_dict[10]][i]
-                - self.df[data_dict[11]][i]
-                + self.df[data_dict[4]][i]
-                + self.X_vars[i][0]
-                + self.X_vars[i][5]
-                - self.df[data_dict[5]][i]
-            )
-            self.problem += self.X_vars[i][2] >= 0
-
-            # Apply thresholds for weeks of coverage
-            self.problem += self.X_vars[i][3] >= WOC_MIN[i]
-            self.problem += self.X_vars[i][3] <= WOC_MAX[i]
-            self.problem += (
-                self.X_vars[i][2] == self.X_vars[i][3] * self.df[data_dict[11]][i]
-            )
-            self.problem += (
-                self.aux_vars[i][2] >= self.X_vars[i][0] - self.df[data_dict[5]][i]
-            )
-            self.problem += self.aux_vars[i][2] >= 0
-            self.problem += self.X_vars[i][4] == self.aux_vars[i][2]
-            self.problem += self.aux_vars[i][4] >= self.X_vars[i][0] - max(
-                self.df[data_dict[2]][i] - self.df[data_dict[9]][i],
-                self.df[data_dict[5]][i],
-            )
-            self.problem += self.aux_vars[i][4] >= 0
-            self.problem += self.X_vars[i][4] == self.aux_vars[i][4]
-
-            # Expected service level considers both current allocation and potential change in allocation
-            self.problem += self.aux_vars[i][1] <= (
-                self.df[data_dict[3]][i] + self.X_vars[i][5]
-            ) / max(
-                self.df[data_dict[2]][i],
-                self.df[data_dict[9]][i] + self.df[data_dict[5]][i],
-            )
-            self.problem += self.aux_vars[i][1] <= 1
-            self.problem += self.aux_vars[i][1] >= MINIMUM_SERVICE_LEVEL
-            self.problem += self.X_vars[i][1] == self.aux_vars[i][1]
-
-            # Suggested supply should be below SOH safe to reallocate
-            self.problem += self.X_vars[i][5] <= self.X_vars[i][4]
-
-            # Suggested supply cannot be greater than current allocation
-            self.problem += self.X_vars[i][5] <= self.df[data_dict[3]][i]
-
-            # Stock safe to reallocate is a function of the allocation
-            self.problem += (
-                self.X_vars[i][4]
-                <= self.df[data_dict[3]][i] * ALLOCATION_CHANGE_THRESHOLD
-            )
-
-        # Trying to minimise 1 - service level <--> maximise service level
-        self.problem += X_0 == self.num_rows - pulp.lpSum(
-            [self.X_vars[i][1] for i in range(self.num_rows)]
-        )
-
-        # Sum of suggested reallocation equals to 0 since it is a closed system
-        self.problem += (
-            pulp.lpSum([self.X_vars[i][5] for i in range(self.num_rows)]) == 0
-        )
-
-    def optimize(
-        self, MINIMUM_SERVICE_LEVEL, ALLOCATION_CHANGE_THRESHOLD, WOC_MIN, WOC_MAX
-    ):
-        try:
-            data_dict = self.get_data_dict()
-            var_dict = self.get_var_dict()
-
-            WOC_MIN = self.df[data_dict[7]] * WOC_MIN
-            WOC_MAX = self.df[data_dict[7]] * WOC_MAX
-
-            X_0 = self.initiate_variables()
-            self.problem += X_0
-            self.add_constraints(
-                X_0,
-                WOC_MIN,
-                WOC_MAX,
-                MINIMUM_SERVICE_LEVEL,
-                ALLOCATION_CHANGE_THRESHOLD,
-            )
-            self.problem.solve()
-
-            status = pulp.LpStatus[self.problem.status]
-            arr = np.zeros((self.num_rows, len(var_dict.keys())))
-            for k1 in self.X_vars.keys():
-                for k2, v in self.X_vars[k1].items():
-                    arr[k1, k2] = v.varValue
-            df_res = pd.DataFrame(np.round(arr, 4), columns=var_dict.values())
-            final = pd.concat([self.df, df_res], axis=1)
-
-            response = {
-                            "status": "success",
-                            "status_code": 200,
-                            "message": "Supply reallocation optimized successfully",
-                            "data": {
-                                        "MINIMUM_SERVICE_LEVEL": MINIMUM_SERVICE_LEVEL,
-                                        "ALLOCATION_CHANGE_THRESHOLD": ALLOCATION_CHANGE_THRESHOLD,
-                                        "WOC_MIN": WOC_MIN,
-                                        "WOC_MAX": WOC_MAX,
-                                        "status": status,
-                                        "final": final.to_dict("records"),
-                                        "optimal_val": pulp.value(X_0),
-                                    },
-                        }
-        except Exception as e:
-            response = {
-                            "status": "error",
-                            "status_code": e.__dict__.get("status_code", 500),
-                            "message": e.__dict__.get("reason", "Internal Server Error"),
-                            "data" : ""
-                        }
-        else:
-            response = {
-                            "status": "error",
-                            "status_code": 404,
-                            "message": "No data found!",
-                            "data": {
-                                        "MINIMUM_SERVICE_LEVEL": "",
-                                        "ALLOCATION_CHANGE_THRESHOLD": "",
-                                        "WOC_MIN": "",
-                                        "WOC_MAX": "",
-                                        "status": "",
-                                        "final": pd.DataFrame(),
-                                        "optimal_val": pulp.value(X_0),
-                                    },
-                        }
-        # return jsonify(response)
-        return response
-
-
-# Run Optimization model
-# Return Constraints, Results and dataframe for alternate retailers
-def optimise_supply(
-    df, rbsku, MINIMUM_SERVICE_LEVEL, ALLOCATION_CHANGE_THRESHOLD, WOC_MIN, WOC_MAX
-):
-    """
-    Optimizes the supply allocation based on the given DataFrame and constraints.
-
-    Args:
-        df (pandas.DataFrame): The DataFrame containing the supply data.
-        MINIMUM_SERVICE_LEVEL (float, optional): The minimum service level. Defaults to 0.7.
-        WOC_MIN (float, optional): The minimum percentage of weeks of coverage. Defaults to 0.
-        WOC_MAX (float, optional): The maximum percentage of weeks of coverage. Defaults to 10.
-
-    Returns:
-        tuple: A tuple containing the constraints, status, and result DataFrame.
-
-    Raises:
-        ValueError: If the DataFrame is empty.
-    """
-
-    data_dict2 = {
-        0: "customer",
-        1: "Channel",
-        2: "reckitt_sif",
-        3: "currentallocation",
-        4: "allocationconsumed",
-        5: "openorders",
-        6: "custsoh-target",
-        7: "custwoc-target",
-        8: "cmuscore",
-        9: "reckitt_sif",
-        10: "custsoh-current",
-        11: "atf-sof",
-    }
-
-    ddf = df[list(data_dict2.values()) + ["atf-sif", "sku"]].copy()
-    ddf = ddf[ddf["sku"] == rbsku].copy()
-    ddf = pd.concat([ddf.iloc[:, :-5], ddf.iloc[:, -4:]], axis=1)
-    ddf["reckitt_sif"] = ddf[["atf-sif", "reckitt_sif"]].sum(axis=1)
-    ddf.drop(columns=["atf-sif", "sku"], inplace=True)
-    ddf.reset_index(drop=True, inplace=True)
-
-    for x in [
-        "reckitt_sif",
-        "currentallocation",
-        "allocationconsumed",
-        "openorders",
-        "cmuscore",
-        "reckitt_sif",
-        "custsoh-current",
-        "atf-sof",
-    ]:
-        try:
-            ddf[x] = ddf[x].fillna(df[x].mean()).astype(int)
-        except ValueError:
-            ddf[x] = ddf[x].fillna(0)
-            ddf[x] = ddf[x].astype(int)
-
-    ddf["custwoc-target"] = 4
-    ddf["custsoh-target"] = ddf[["custwoc-target", "atf-sof"]].prod(axis=1)
-
-    optimizer = ReallocationOptimizer(ddf)
-    response = optimizer.optimize(MINIMUM_SERVICE_LEVEL, ALLOCATION_CHANGE_THRESHOLD, WOC_MIN, WOC_MAX)  # type: ignore
-    return response
 
 
 # ************************** MITIGATION # 2 PUSH ALTERNATIVE SKU  *****************************
