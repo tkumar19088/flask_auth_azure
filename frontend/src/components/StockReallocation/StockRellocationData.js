@@ -32,6 +32,10 @@ import {
   updateloader,
   updateerrortextmessage,
   updateerrormodalpopup,
+  fetchstockreallocatedata,
+  updatewithinchanneldata,
+  fetchstaticrow,
+  updateexporttabledata,
 } from "../../store/actions/sidebarActions";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
@@ -50,12 +54,16 @@ const StockReallocationData = ({ onData }) => {
   const stockreallocationData = useSelector(
     (state) => state.sidebar.stockreallocation.other_rows
   );
-  const constraints = useSelector(
+  const constraintsData = useSelector(
     (state) => state.sidebar.stockreallocation.constraints
   );
-  const results = useSelector(
+  const [constraints, setconstraints] = useState(constraintsData);
+
+  const resultsData = useSelector(
     (state) => state.sidebar.stockreallocation.results
   );
+  const [results, setresults] = useState(resultsData);
+
   const suggRecord = useSelector(
     (state) => state.sidebar.stockreallocation.static_row
   );
@@ -104,6 +112,7 @@ const StockReallocationData = ({ onData }) => {
     if (reset) {
       setsuggectedRecord(firstRecord);
     }
+    // setconstraints(constraintsData);
   }, [isWithinChannel, stockreallocationData, referenceData, reset]);
   const handleInputChange = (index, value) => {
     const newInputValues = [...inputValues];
@@ -563,7 +572,294 @@ const StockReallocationData = ({ onData }) => {
     // Clear the interval when the component unmounts
     return () => clearInterval(intervalId);
   }, []);
-
+  const optData = {
+    constraints: [
+      {
+        Label: 0,
+        Name: "PCT Deviation From Init Alloc %",
+        Value: 5,
+      },
+      {
+        Label: 1,
+        Name: "MIN Expected Service Level %",
+        Value: 95,
+      },
+      {
+        Label: 2,
+        Name: "MIN Deviation from Target WOC",
+        Value: 4,
+      },
+      {
+        Label: 2,
+        Name: "MAZ Deviation from Target WOC",
+        Value: 8,
+      },
+    ],
+    other_rows: [
+      {
+        AvgYTDsellout: 281,
+        Brand: "Airwick",
+        Channel: "Pure Play",
+        Customer: "Ocado",
+        Location: "United Kingdom",
+        "RB SKU": "3247398",
+        "Sell out": 273,
+        "Supply to Reallocate": 0,
+        allocationconsumed: 36,
+        cmuscore: 4.5,
+        currentallocation: 116,
+        currentcustSOH: 230,
+        "custsoh-current": 123,
+        "custsoh-target": 1685,
+        "custwoc-current": 0.4,
+        "custwoc-target": 6,
+        expectedservicelevel: "75%",
+        idealallocationvalues: 166,
+        newallocation: 0,
+        openorders: 41,
+        remainingallocation: 130,
+        "sif-atf": 221,
+        "sif-reckitt": 1742,
+        stocksafetoreallocate: 0,
+        suggestedallocation: 0,
+        sumofPOsinalloccycle: 36,
+      },
+      {
+        AvgYTDsellout: 689,
+        Brand: "Airwick",
+        Channel: "Grocery",
+        Customer: "Asda",
+        Location: "United Kingdom",
+        "RB SKU": "3247398",
+        "Sell out": 579,
+        "Supply to Reallocate": 0,
+        allocationconsumed: 37,
+        cmuscore: 5,
+        currentallocation: 456,
+        currentcustSOH: 182,
+        "custsoh-current": 59,
+        "custsoh-target": 2067,
+        "custwoc-current": 0.1,
+        "custwoc-target": 3,
+        expectedservicelevel: "100%",
+        idealallocationvalues: 413,
+        newallocation: 0,
+        openorders: 46,
+        remainingallocation: 419,
+        "sif-atf": 413,
+        "sif-reckitt": 1840,
+        stocksafetoreallocate: 43,
+        suggestedallocation: -43,
+        sumofPOsinalloccycle: 37,
+      },
+      {
+        AvgYTDsellout: 422,
+        Brand: "Airwick",
+        Channel: "Grocery",
+        Customer: "Waitrose",
+        Location: "United Kingdom",
+        "RB SKU": "3247398",
+        "Sell out": 406,
+        "Supply to Reallocate": 0,
+        allocationconsumed: 56,
+        cmuscore: 3.2,
+        currentallocation: 326,
+        currentcustSOH: 116,
+        "custsoh-current": 36,
+        "custsoh-target": 844,
+        "custwoc-current": 0.1,
+        "custwoc-target": 2,
+        expectedservicelevel: "75%",
+        idealallocationvalues: 326,
+        newallocation: 0,
+        openorders: 78,
+        remainingallocation: 270,
+        "sif-atf": 434,
+        "sif-reckitt": 1564,
+        stocksafetoreallocate: 0,
+        suggestedallocation: 0,
+        sumofPOsinalloccycle: 56,
+      },
+      {
+        AvgYTDsellout: 152,
+        Brand: "Airwick",
+        Channel: "Grocery",
+        Customer: "Morrisons",
+        Location: "United Kingdom",
+        "RB SKU": "3247398",
+        "Sell out": 127,
+        "Supply to Reallocate": 0,
+        allocationconsumed: 3,
+        cmuscore: 3.2,
+        currentallocation: 108,
+        currentcustSOH: 256,
+        "custsoh-current": 236,
+        "custsoh-target": 761,
+        "custwoc-current": 1.6,
+        "custwoc-target": 5,
+        expectedservicelevel: "75%",
+        idealallocationvalues: 108,
+        newallocation: 0,
+        openorders: 5,
+        remainingallocation: 104,
+        "sif-atf": 143,
+        "sif-reckitt": 1440,
+        stocksafetoreallocate: 0,
+        suggestedallocation: 0,
+        sumofPOsinalloccycle: 3,
+      },
+      {
+        AvgYTDsellout: 290,
+        Brand: "Airwick",
+        Channel: "Grocery",
+        Customer: "Tesco",
+        Location: "United Kingdom",
+        "RB SKU": "3247398",
+        "Sell out": 274,
+        "Supply to Reallocate": 0,
+        allocationconsumed: 31,
+        cmuscore: 4.3,
+        currentallocation: 191,
+        currentcustSOH: 220,
+        "custsoh-current": 137,
+        "custsoh-target": 1160,
+        "custwoc-current": 0.5,
+        "custwoc-target": 4,
+        expectedservicelevel: "75%",
+        idealallocationvalues: 191,
+        newallocation: 0,
+        openorders: 33,
+        remainingallocation: 160,
+        "sif-atf": 255,
+        "sif-reckitt": 1750,
+        stocksafetoreallocate: 0,
+        suggestedallocation: 0,
+        sumofPOsinalloccycle: 31,
+      },
+      {
+        AvgYTDsellout: 345,
+        Brand: "Airwick",
+        Channel: "Grocery",
+        Customer: "Sainsburys",
+        Location: "United Kingdom",
+        "RB SKU": "3247398",
+        "Sell out": 352,
+        "Supply to Reallocate": 0,
+        allocationconsumed: 34,
+        cmuscore: 2.7,
+        currentallocation: 272,
+        currentcustSOH: 102,
+        "custsoh-current": 22,
+        "custsoh-target": 1381,
+        "custwoc-current": 0.1,
+        "custwoc-target": 4,
+        expectedservicelevel: "75%",
+        idealallocationvalues: 272,
+        newallocation: 0,
+        openorders: 37,
+        remainingallocation: 238,
+        "sif-atf": 363,
+        "sif-reckitt": 1240,
+        stocksafetoreallocate: 0,
+        suggestedallocation: 0,
+        sumofPOsinalloccycle: 34,
+      },
+      {
+        AvgYTDsellout: 401,
+        Brand: "Airwick",
+        Channel: "Discounter",
+        Customer: "TJ Morris",
+        Location: "United Kingdom",
+        "RB SKU": "3247398",
+        "Sell out": 436,
+        "Supply to Reallocate": 0,
+        allocationconsumed: 77,
+        cmuscore: 3.1,
+        currentallocation: 376,
+        currentcustSOH: 17,
+        "custsoh-current": 0,
+        "custsoh-target": 1204,
+        "custwoc-current": 0.0,
+        "custwoc-target": 3,
+        expectedservicelevel: "75%",
+        idealallocationvalues: 376,
+        newallocation: 0,
+        openorders: 51,
+        remainingallocation: 300,
+        "sif-atf": 502,
+        "sif-reckitt": 1002,
+        stocksafetoreallocate: 0,
+        suggestedallocation: 0,
+        sumofPOsinalloccycle: 77,
+      },
+      {
+        AvgYTDsellout: 483,
+        Brand: "Airwick",
+        Channel: "Discounter",
+        Customer: "Lidl",
+        Location: "United Kingdom",
+        "RB SKU": "3247398",
+        "Sell out": 498,
+        "Supply to Reallocate": 0,
+        allocationconsumed: 54,
+        cmuscore: 3.9,
+        currentallocation: 358,
+        currentcustSOH: 103,
+        "custsoh-current": 0,
+        "custsoh-target": 965,
+        "custwoc-current": 0.0,
+        "custwoc-target": 2,
+        expectedservicelevel: "100%",
+        idealallocationvalues: 332,
+        newallocation: 0,
+        openorders: 68,
+        remainingallocation: 304,
+        "sif-atf": 332,
+        "sif-reckitt": 1243,
+        stocksafetoreallocate: 26,
+        suggestedallocation: -26,
+        sumofPOsinalloccycle: 54,
+      },
+    ],
+    results: [
+      {
+        Name: "AVG EXP SERVICE LEVEL",
+        Value: "30%",
+      },
+      {
+        Name: "EXP OLA",
+        Value: "9%",
+      },
+    ],
+    static_row: {
+      AvgYTDsellout: 387,
+      Brand: "Airwick",
+      Channel: "Pure Play",
+      Customer: "Amazon",
+      Location: "United Kingdom",
+      "RB SKU": "3247398",
+      "Sell out": 387,
+      "Supply to Reallocate": 0,
+      allocationconsumed: 26,
+      cmuscore: 2.2,
+      currentallocation: 310,
+      currentcustSOH: 259,
+      "custsoh-current": 182,
+      "custsoh-target": 1546,
+      "custwoc-current": 0.5,
+      "custwoc-target": 4,
+      expectedservicelevel: "75%",
+      idealallocationvalues: 379,
+      newallocation: 0,
+      openorders: 23,
+      remainingallocation: 285,
+      "sif-atf": 414,
+      "sif-reckitt": 2026,
+      stocksafetoreallocate: 0,
+      suggestedallocation: 69,
+      sumofPOsinalloccycle: 26,
+    },
+  };
   const handleOptimization = async () => {
     dispatch(updateloader(true));
     var data = {
@@ -586,12 +882,17 @@ const StockReallocationData = ({ onData }) => {
         const info = await response.json();
         const json = info.data;
         if (info.status === "success") {
-          // setuserDetails(json.name);
-          // dispatch(updatetabname("irregular"));
-          // dispatch(fetchoirregulardata(json));
-          // dispatch(updateexporttabledata(json));
-          // dispatch(fetchtaburl(url));
-          // navigate("/irregular");
+          console.log(json);
+          dispatch(fetchstockreallocatedata(json));
+          dispatch(updatewithinchanneldata(json));
+          dispatch(fetchstaticrow(json.static_row));
+          dispatch(updateexporttabledata(json.other_rows));
+
+          setweeksOnConv(json.constraints[3].Value);
+          setminweeksOnConv(json.constraints[2].Value);
+          setexpectedservice(json.constraints[1].Value);
+          setpctdeviation(json.constraints[0].Value);
+          setresults(json.results);
         } else {
           dispatch(updateerrortextmessage(info.message));
           dispatch(updateerrormodalpopup(true));
