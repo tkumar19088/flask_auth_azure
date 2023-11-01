@@ -230,7 +230,7 @@ def getrarbysku():
         ]
 
         results = [
-            {"Name": "AVG EXP SERVICE LEVEL", "Value": f"{avgsl:.2f}"},
+            {"Name": "AVG EXP SERVICE LEVEL", "Value": float("{:04.2f}".format(avgsl * 100))},
             {"Name": "EXP OLA", "Value": "99%"},
         ]
 
@@ -250,23 +250,30 @@ def getrarbysku():
         staticrow = staticrow.replace(np.nan, 0).fillna(0)
         otherrows = otherrows.replace(np.nan, 0).fillna(0)
 
+        # for col in staticrow.columns:
+        #     if col not in ["itf", "sku", "RB SKU", "Brand", "Business Unit", "Channel","Customer","Location"]:
+        #         staticrow[col] = staticrow[col].apply(lambda x: '{:,.2f}'.format(x))
+        #         otherrows[col] = otherrows[col].apply(lambda x: '{:,.2f}'.format(x))
+
         for col in staticrow.columns:
-            staticrow[col] = (
-                staticrow[col]
-                if col in ["itf", "sku", "RB SKU"]
-                else staticrow[col].apply(
-                    lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x
-                )
-            )
+            if staticrow[col].dtype == 'object':
+                try:
+                    staticrow[col] = staticrow[col].astype(int)
+                except ValueError:
+                    try:
+                        staticrow[col] = staticrow[col].astype(float)
+                    except ValueError:
+                        pass
 
         for col in otherrows.columns:
-            otherrows[col] = (
-                otherrows[col]
-                if col in ["itf", "sku", "RB SKU"]
-                else otherrows[col].apply(
-                    lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x
-                )
-            )
+            if otherrows[col].dtype == 'object':
+                try:
+                    otherrows[col] = otherrows[col].astype(int)
+                except ValueError:
+                    try:
+                        otherrows[col] = otherrows[col].astype(float)
+                    except ValueError:
+                        pass
 
         data = {
             "static_row": json.loads(staticrow.to_json(orient="records"))[0],
@@ -369,24 +376,24 @@ def runoptimizemodel():
         constraints = [
                         {
                             "Name": "PCT DEVIATION FROM INIT ALLOC",
-                            "Value": f"{int(18)}",
+                            "Value": 18,
                             "Label": 1,
                         },
                         {
                             "Name": "MIN Expected Service Level",
-                            "Value": f"{91}",
-                            "Label": f"{0}",
+                            "Value": 91,
+                            "Label": 0,
                         },
-                        {"Name": "MIN Deviation from Target WOC", "Value": f"{1}"},
+                        {"Name": "MIN Deviation from Target WOC", "Value": 2},
                         {
                             "Name": "MAX Deviation from Target WOC",
-                            "Value": f"{11}",
-                            "Label": f"{2}",
+                            "Value": 11,
+                            "Label": 2,
                         },
                     ]
 
         results = [
-                    {"Name": "AVG EXP SERVICE LEVEL", "Value": f"{38:.2f}"},
+                    {"Name": "AVG EXP SERVICE LEVEL", "Value": float("{:04.2f}".format(.38 * 100))},
                     {"Name": "EXP OLA", "Value": "99%"},
                 ]
         cols = [
@@ -439,22 +446,30 @@ def runoptimizemodel():
         staticrow = staticrow.replace(np.nan, 0).fillna(0)
         otherrows = otherrows.replace(np.nan, 0).fillna(0)
 
+        # for col in staticrow.columns:
+        #     if col not in ["itf", "sku", "RB SKU", "Brand", "Business Unit", "Channel","Customer","Location"]:
+        #         staticrow[col] = staticrow[col].apply(lambda x: '{:,.2f}'.format(x))
+        #         otherrows[col] = otherrows[col].apply(lambda x: '{:,.2f}'.format(x))
+
         for col in staticrow.columns:
-            staticrow[col] = (
-                staticrow[col]
-                if col in ["itf", "sku", "RB SKU"]
-                else staticrow[col].apply(
-                    lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x
-                )
-            )
+            if staticrow[col].dtype == 'object':
+                try:
+                    staticrow[col] = staticrow[col].astype(int)
+                except ValueError:
+                    try:
+                        staticrow[col] = staticrow[col].astype(float)
+                    except ValueError:
+                        pass
+
         for col in otherrows.columns:
-            otherrows[col] = (
-                otherrows[col]
-                if col in ["itf", "sku", "RB SKU"]
-                else otherrows[col].apply(
-                    lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x
-                )
-            )
+            if otherrows[col].dtype == 'object':
+                try:
+                    otherrows[col] = otherrows[col].astype(int)
+                except ValueError:
+                    try:
+                        otherrows[col] = otherrows[col].astype(float)
+                    except ValueError:
+                        pass
 
         data = {
                 "static_row": json.loads(staticrow.to_json(orient="records"))[0],

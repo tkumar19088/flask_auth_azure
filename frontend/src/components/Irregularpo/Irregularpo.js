@@ -720,13 +720,15 @@ const Irregularpo = () => {
                   {data.map((item, index) => (
                     <React.Fragment key={item.poNumber}>
                       <TableRow
-                        onClick={() => handleRowClick(item.poNumber)}
                         style={{
                           backgroundColor:
                             index % 2 === 0 ? "#FFFFFF" : "#F5F5F5",
                         }}
                       >
-                        <TableCell fontSize={13}>
+                        <TableCell
+                          fontSize={13}
+                          onClick={() => handleRowClick(item.poNumber)}
+                        >
                           <Box
                             sx={{
                               display: "flex",

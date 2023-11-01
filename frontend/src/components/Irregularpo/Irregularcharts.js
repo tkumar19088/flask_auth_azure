@@ -276,10 +276,11 @@ const Irregularcharts = () => {
                 Customer SoH (Current / Target)
               </Typography>
               <Typography color="green">
+                (
                 {skudata["CustSOH_current"] == null
                   ? "-"
-                  : skudata["CustSOH_current"]}{" "}
-                (
+                  : skudata["CustSOH_current"]}
+                {" / "}
                 {skudata["CustSOH_target"] == null
                   ? "-"
                   : skudata["CustSOH_target"]}

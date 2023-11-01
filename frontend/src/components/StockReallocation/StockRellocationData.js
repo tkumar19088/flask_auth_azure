@@ -32,6 +32,10 @@ import {
   updateloader,
   updateerrortextmessage,
   updateerrormodalpopup,
+  fetchstockreallocatedata,
+  updatewithinchanneldata,
+  fetchstaticrow,
+  updateexporttabledata,
 } from "../../store/actions/sidebarActions";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
@@ -50,12 +54,16 @@ const StockReallocationData = ({ onData }) => {
   const stockreallocationData = useSelector(
     (state) => state.sidebar.stockreallocation.other_rows
   );
-  const constraints = useSelector(
+  const constraintsData = useSelector(
     (state) => state.sidebar.stockreallocation.constraints
   );
-  const results = useSelector(
+  const [constraints, setconstraints] = useState(constraintsData);
+
+  const resultsData = useSelector(
     (state) => state.sidebar.stockreallocation.results
   );
+  const [results, setresults] = useState(resultsData);
+
   const suggRecord = useSelector(
     (state) => state.sidebar.stockreallocation.static_row
   );
@@ -104,6 +112,7 @@ const StockReallocationData = ({ onData }) => {
     if (reset) {
       setsuggectedRecord(firstRecord);
     }
+    // setconstraints(constraintsData);
   }, [isWithinChannel, stockreallocationData, referenceData, reset]);
   const handleInputChange = (index, value) => {
     const newInputValues = [...inputValues];
@@ -219,7 +228,6 @@ const StockReallocationData = ({ onData }) => {
         setsuggectedRecord(suggectedRecord);
         // newInputValues[index] = value;
         // setInputValues((inputValues[index], ""));
-        // handleInputChange(index, "");
 
         return {
           ...item,
@@ -232,7 +240,6 @@ const StockReallocationData = ({ onData }) => {
           suggestedallocation: suggestedallocation,
         };
       } else {
-        // handleInputChange(index, "");
         return item;
       }
     });
@@ -517,8 +524,6 @@ const StockReallocationData = ({ onData }) => {
       newInputValues[i] = "";
       setInputValues(newInputValues);
     }
-
-    // handleInputChange(index, "");
   };
 
   // const suggRecord = JSON.parse(JSON.stringify(referenceSuggData));
@@ -586,12 +591,17 @@ const StockReallocationData = ({ onData }) => {
         const info = await response.json();
         const json = info.data;
         if (info.status === "success") {
-          // setuserDetails(json.name);
-          // dispatch(updatetabname("irregular"));
-          // dispatch(fetchoirregulardata(json));
-          // dispatch(updateexporttabledata(json));
-          // dispatch(fetchtaburl(url));
-          // navigate("/irregular");
+          console.log(json);
+          dispatch(fetchstockreallocatedata(json));
+          dispatch(updatewithinchanneldata(json));
+          dispatch(fetchstaticrow(json.static_row));
+          dispatch(updateexporttabledata(json.other_rows));
+
+          setweeksOnConv(json.constraints[3].Value);
+          setminweeksOnConv(json.constraints[2].Value);
+          setexpectedservice(json.constraints[1].Value);
+          setpctdeviation(json.constraints[0].Value);
+          setresults(json.results);
         } else {
           dispatch(updateerrortextmessage(info.message));
           dispatch(updateerrormodalpopup(true));
