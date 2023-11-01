@@ -393,7 +393,7 @@ const SupplyTable = ({ onData }) => {
           marginBottom: "10px",
         }}
       >
-        Recent / Current / Upcoming Campaigns
+        Current / Upcoming Campaigns
       </Typography>
 
       <TableContainer

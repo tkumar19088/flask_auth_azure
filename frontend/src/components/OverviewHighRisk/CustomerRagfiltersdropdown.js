@@ -9,6 +9,7 @@ import {
   updateloader,
   updatecustomerragfilters,
   updatesearchvalue,
+  updateskulist,
 } from "../../store/actions/sidebarActions";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -262,6 +263,8 @@ function CustomerRagfilters() {
 
     console.log(filteredData);
     dispatch(fetchofilteredcustomerdata(filteredData));
+    const skuArray = filteredData.map((item) => item["RB SKU"]);
+    dispatch(updateskulist(skuArray));
     dispatch(flagragfiltercustomer(true));
     setAnchorEl(null);
   };

@@ -49,7 +49,6 @@ const OhrTable2 = ({ onData }) => {
   const customerdata = useSelector(
     (state) => state.sidebar.overviewcustomerdata
   );
-  console.log(customerdata);
   const exporttabledata = useSelector((state) => state.sidebar.exporttabledata);
   const search = useSelector((state) => state.sidebar.search);
   const isragfiltercustomer = useSelector(
@@ -58,13 +57,11 @@ const OhrTable2 = ({ onData }) => {
   const filteredcustomerdata = useSelector(
     (state) => state.sidebar.filteredcustomerdata
   );
-  console.log(search);
   const data = isragfiltercustomer
     ? filteredcustomerdata
     : search
     ? exporttabledata
     : customerdata;
-  console.log(data);
 
   const truncateText = (text, maxLength) => {
     if (text.length <= maxLength) {
@@ -497,7 +494,7 @@ const OhrTable2 = ({ onData }) => {
           marginBottom: "10px",
         }}
       >
-        Recent / Current / Upcoming Campaigns
+        Current / Upcoming Campaigns
       </Typography>
 
       <TableContainer
@@ -1124,12 +1121,13 @@ const OhrTable2 = ({ onData }) => {
                     <TableCell
                       onClick={() => handleRowClick(item["RB SKU"])}
                       sx={{
-                        // display: "flex",
+                        display: "flex",
                         // padding: "12px",
                         border: "none",
                         alignItems: "center",
                         fontSize: "13px",
                         justifyContent: "center",
+                        textAlign: "center",
                         // gap: "1px",
                       }}
                     >
