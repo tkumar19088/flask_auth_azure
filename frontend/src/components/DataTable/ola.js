@@ -577,7 +577,7 @@ const Ola = ({ onData }) => {
                   colSpan={20}
                   style={{ textAlign: "center", fontSize: "16px" }}
                 >
-                  No Records Found
+                  No Campaigns Found
                 </TableCell>
               </TableRow>
             )}
@@ -838,7 +838,7 @@ const Ola = ({ onData }) => {
                   colSpan={20}
                   style={{ textAlign: "center", fontSize: "16px" }}
                 >
-                  No Alternaative SKUs Found!
+                  No Alternative SKUs Found
                 </TableCell>
               </TableRow>
             )}
@@ -1092,7 +1092,7 @@ const Ola = ({ onData }) => {
                   colSpan={20}
                   style={{ textAlign: "center", fontSize: "16px" }}
                 >
-                  No Records Found
+                  No Campaigns Found
                 </TableCell>
               </TableRow>
             )}

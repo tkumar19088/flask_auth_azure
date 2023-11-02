@@ -1328,7 +1328,7 @@ const OhrTable = ({ onData }) => {
                   colSpan={20}
                   style={{ textAlign: "center", fontSize: "16px" }}
                 >
-                  No Records Found
+                  No Campaigns Found
                 </TableCell>
               </TableRow>
             )}
@@ -1590,7 +1590,7 @@ const OhrTable = ({ onData }) => {
                   colSpan={20}
                   style={{ textAlign: "center", fontSize: "16px" }}
                 >
-                  No Alternative SKUs Found.
+                  No Alternative SKUs Found
                 </TableCell>
               </TableRow>
             )}
@@ -1751,7 +1751,7 @@ const OhrTable = ({ onData }) => {
                 }}
               >
                 <Typography className="table-h1-title" lineHeight="16px">
-                  Service Level %
+                  Service Level (%)
                 </Typography>
               </TableCell>
               <TableCell
@@ -1967,7 +1967,7 @@ const OhrTable = ({ onData }) => {
                   colSpan={20}
                   style={{ textAlign: "center", fontSize: "16px" }}
                 >
-                  No Records Found
+                  No Campaigns Found
                 </TableCell>
               </TableRow>
             )}
