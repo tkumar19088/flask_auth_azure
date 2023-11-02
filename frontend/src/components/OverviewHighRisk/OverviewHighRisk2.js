@@ -107,15 +107,22 @@ const OverviewHighRisk2 = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const json = await response.json();
-        const jsonLength = json.length;
-        if (jsonLength > 1) {
-          const skuArray = json.map((item) => item["RB SKU"]);
-          dispatch(updateskulist(skuArray));
+        // const json = await response.json();
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          const jsonLength = json.length;
+          if (jsonLength > 1) {
+            const skuArray = json.map((item) => item["RB SKU"]);
+            dispatch(updateskulist(skuArray));
+          } else {
+            dispatch(updateskulist([]));
+          }
+          identifySpecificTabdata(json, url);
         } else {
-          dispatch(updateskulist([]));
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
         }
-        identifySpecificTabdata(json, url);
         // dispatch(updatesearch(false));
       } else {
         dispatch(updateerrortextmessage(response.statusText));

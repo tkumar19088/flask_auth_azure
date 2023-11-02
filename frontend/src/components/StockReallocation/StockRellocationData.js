@@ -133,11 +133,14 @@ const StockReallocationData = ({ onData }) => {
         //current allocation//
         const currentallocation =
           item.currentallocation + parseInt(inputValues[index]);
+
         // proposed allocation //
         const proposedallocation =
           item.currentallocation + parseInt(inputValues[index]);
+
         //Remaining allocation //
         const remainingallocation = currentallocation - item.allocationconsumed;
+
         const aloocated_value =
           proposedallocation == 0 ? currentallocation : proposedallocation;
         const expectedservice = Math.min(
@@ -151,6 +154,7 @@ const StockReallocationData = ({ onData }) => {
         );
         const expectedservicelevel =
           parseFloat(expectedservice.toFixed(2)) + "%";
+
         const updatedCustomerSOH = Math.max(
           item.currentcustSOH +
             item.allocationconsumed +
@@ -159,7 +163,9 @@ const StockReallocationData = ({ onData }) => {
           0
         );
         const updatedCustomer = updatedCustomerSOH / item.AvgYTDsellout;
+
         const updatedCustomerWOC = parseFloat(updatedCustomer.toFixed(2));
+
         const stocksafetoreallocate = Math.max(
           remainingallocation -
             Math.max(
@@ -168,6 +174,7 @@ const StockReallocationData = ({ onData }) => {
             ),
           0
         );
+
         const suggestedallocation =
           item.idealallocationvalues - aloocated_value;
 
@@ -652,9 +659,7 @@ const StockReallocationData = ({ onData }) => {
                 Suggested Reallocation
               </TableCell>
               <TableCell className="stable-header">Open Orders</TableCell>
-              <TableCell className="stable-header">
-                Expected Weekly Service Level
-              </TableCell>
+              <TableCell className="stable-header">Exp Weekly SL (%)</TableCell>
               <TableCell className="stable-header">
                 Customer SoH <br />
                 (current / target)
