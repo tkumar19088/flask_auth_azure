@@ -261,17 +261,37 @@ const Planning = ({ filterStatus }) => {
               style={{
                 backgroundColor: "#fff",
                 color: "black",
+                cursor: "auto",
               }}
             >
               <Box className="">
-                <Badge badgeContent="Coming Soon" className="systamatic-badge">
-                  <Typography
-                    fontSize={{ lg: 14, xs: 12 }}
-                    className="plan-minititile"
-                  >
-                    SKU Prioritization for Promotion
-                  </Typography>
-                </Badge>
+                <Typography
+                  fontSize={{ lg: 14, xs: 12 }}
+                  className="plan-minititile"
+                >
+                  More Upcoming Usecases
+                </Typography>
+              </Box>
+              <Box className="pln-cards-cnt">
+                <GridViewRoundedIcon />
+              </Box>
+            </Box>
+            <Box
+              className="pln-card-bdpromotion"
+              onClick={handleReallocation}
+              style={{
+                backgroundColor: "#fff",
+                color: "black",
+                cursor: "auto",
+              }}
+            >
+              <Box className="">
+                <Typography
+                  fontSize={{ lg: 14, xs: 12 }}
+                  className="plan-minititile"
+                >
+                  More Upcoming Usecases
+                </Typography>
               </Box>
               <Box className="pln-cards-cnt">
                 <GridViewRoundedIcon />

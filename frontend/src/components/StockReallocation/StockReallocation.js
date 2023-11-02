@@ -197,7 +197,7 @@ function StockReallocation() {
               <ChevronRightIcon sx={{ height: "20px", color: "#415A6C" }} />
             </Typography>
             <Typography fontSize={14} sx={{ color: "#415A6C" }}>
-              {suggRecord["RB SKU"]} : {suggRecord.Channel}
+              {suggRecord["RB SKU"]} : {suggRecord.Customer}
             </Typography>
           </Box>
 
@@ -211,10 +211,10 @@ function StockReallocation() {
           >
             <Box>
               <Typography
-                fontSize={30}
+                fontSize={24}
                 color="#415A6C"
                 className="srbr-h1"
-                marginTop="7px"
+                marginTop="13px"
 
                 // mt="1px"
               >

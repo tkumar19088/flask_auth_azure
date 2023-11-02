@@ -231,10 +231,9 @@ class AlertsManager:
                                             ],
                                             how="inner",
                                         )
-            merged = merged.sort_values(
-                by=["Reckitt WOC", "Exp NR CW"], ascending=[True, False]
-            )
+            merged = merged.sort_values(by=["Reckitt WOC", "Exp NR CW"], ascending=[True, False])
             merged = merged[["Location", "Brand", "Description", "Reckitt WOC", "Exp NR CW"]]
+
             try:
                 for name, group in merged.groupby(["Location", "Brand"]):
                     alert = {
@@ -279,14 +278,14 @@ class AlertsManager:
         for filter_key in filters:
             if (filter_key.lower() in self.global_filters and self.global_filters[filter_key.lower()] != None):
                 df = df[df[filter_key].str.lower() == self.global_filters[filter_key.lower()]]
-        irrpoalertsdata = df.sort_values(by=["poReceiptDate", "noSKUsIrregular", "noSKUsinPO", "irregularPO"],ascending=[False, False, False, False]) # type: ignore
-        
+        irrpoalertsdata = df.sort_values(by=["poReceiptDate", "noSKUsIrregular", "noSKUsinPO"],ascending=[False, False, False]) # type: ignore
+
         #filter on noSKUSIrregular > 0
         irrpoalertsdata = irrpoalertsdata[irrpoalertsdata["noSKUsIrregular"] > 0]
 
         if len(irrpoalertsdata) > 0:
             sorted_irrpo = self.get_sorted_data(irrpoalertsdata, "noSKUsIrregular")
-            print(f"\n1. sorted_irrpo:\n{sorted_irrpo}\n")
+            # print(f"\n1. sorted_irrpo:\n{sorted_irrpo}\n")
             try:
                 for name, group in sorted_irrpo.groupby(["Location", "Brand"]):
                     alert = {
@@ -326,7 +325,13 @@ class AlertsManager:
     def get_alerts(self):
         try:
             self.generate_oos_alerts()
+        except:
+            pass
+        try:
             self.generate_irrpo_alerts()
+        except:
+            pass
+        try:
             self.refine_alerts()
             response = {
                             "status": "success",

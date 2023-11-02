@@ -258,9 +258,7 @@ const Sidebar = () => {
               backgroundColor: issellinSelected
                 ? "rgb(70, 96, 114)"
                 : "#E7E9EE",
-              color: issellinSelected
-                ? "rgb(255, 255, 255)"
-                : "rgba(0, 0, 0, 0.87)",
+              color: issellinSelected ? "rgb(255, 255, 255)" : "#415A6C",
               cursor: "pointer",
             }}
             className="selectedMenu"
@@ -270,6 +268,7 @@ const Sidebar = () => {
               mx="25px"
               fontSize={{ lg: "13px", xs: 10 }}
               p="5px 0 0 0"
+              // color="#415A6C"
             >
               Sell-In Forecast
             </Typography>
@@ -280,15 +279,18 @@ const Sidebar = () => {
               backgroundColor: isselloutSelected
                 ? "rgb(70, 96, 114)"
                 : "#E7E9EE",
-              color: isselloutSelected
-                ? "rgb(255, 255, 255)"
-                : "rgba(0, 0, 0, 0.87)",
+              color: isselloutSelected ? "rgb(255, 255, 255)" : "#415A6C",
               cursor: "pointer",
             }}
             className="selectedMenu"
             onClick={handleSelloutForecasting}
           >
-            <Typography mx="25px" fontSize={{ lg: 13, xs: 10 }} p="5px 0 0 0">
+            <Typography
+              mx="25px"
+              // color="#415A6C"
+              fontSize={{ lg: 13, xs: 10 }}
+              p="5px 0 0 0"
+            >
               Sell-Out Forecast
             </Typography>
           </AccordionDetails>
@@ -328,7 +330,7 @@ const Sidebar = () => {
               borderTop: "1px solid #B7C3CA ",
               borderBottom: "1px solid #B7C3CA ",
               backgroundColor: oosrick ? "rgb(70, 96, 114)" : "#E7E9EE",
-              color: oosrick ? "rgb(255, 255, 255)" : "rgba(0, 0, 0, 0.87)",
+              color: oosrick ? "rgb(255, 255, 255)" : "#415A6C",
               cursor: "pointer",
             }}
             className="selectedMenu"
@@ -346,13 +348,17 @@ const Sidebar = () => {
             sx={{
               borderBottom: "1px solid #B7C3CA",
               backgroundColor: irregular ? "rgb(70, 96, 114)" : "#E7E9EE",
-              color: irregular ? "rgb(255, 255, 255)" : "rgba(0, 0, 0, 0.87)",
+              color: irregular ? "rgb(255, 255, 255)" : "#415A6C",
               cursor: "pointer",
             }}
             className="selectedMenu"
             onClick={handleIrregular}
           >
-            <Typography mx="26px" fontSize={{ lg: 13, xs: 10 }} p="5px 0 0 0">
+            <Typography
+              mx="26px"
+              fontSize={{ lg: 13, xs: 10 }}
+              p="5px 0 0 0"
+            >
               Irregular PO
             </Typography>
           </AccordionDetails>
@@ -394,8 +400,8 @@ const Sidebar = () => {
               backgroundColor: reallocation ? "rgb(70, 96, 114)" : "#E7E9EE",
               color: reallocation
                 ? "rgb(255, 255, 255)"
-                : "rgba(0, 0, 0, 0.87)",
-              cursor: "pointer",
+                : "#415A6C",
+              cursor: "auto",
             }}
             className="selectedMenu"
             onClick={handleReallocation}
@@ -405,7 +411,7 @@ const Sidebar = () => {
               fontSize={{ lg: "13px", xs: 10 }}
               p="5px 0 0 0"
             >
-              SKU Prioritization for Promotion
+              More Upcoming Usecases
             </Typography>
           </AccordionDetails>
         </Accordion>

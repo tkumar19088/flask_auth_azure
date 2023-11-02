@@ -81,20 +81,26 @@ const Filters = () => {
   //   }
   // }, [data]);
 
-  useEffect(() => {
-    if (data.Location.length > 0) {
-      dispatch(fetchlocation(data.Location[0]));
-    }
-    if (data["Business Unit"].length > 0) {
-      dispatch(fetchbusiness(data["Business Unit"][0]));
-    }
-    if (data.Customer.length > 0) {
-      dispatch(fetchcustomer(data.Customer[0]));
-    }
-    if (data.Brand.length > 0) {
-      dispatch(fetchbrand(data.Brand[0]));
-    }
-  }, [data]);
+  useEffect(
+    () => {
+      if (!apply) {
+        if (data.Location.length > 0) {
+          dispatch(fetchlocation(data.Location[0]));
+        }
+        if (data["Business Unit"].length > 0) {
+          dispatch(fetchbusiness(data["Business Unit"][0]));
+        }
+        if (data.Customer.length > 0) {
+          dispatch(fetchcustomer(data.Customer[0]));
+        }
+        if (data.Brand.length > 0) {
+          dispatch(fetchbrand(data.Brand[0]));
+        }
+      }
+    },
+    [data],
+    apply
+  );
 
   const handleApplyFilters = async (e) => {
     e.preventDefault();

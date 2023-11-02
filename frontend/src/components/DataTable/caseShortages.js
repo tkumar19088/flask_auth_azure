@@ -730,7 +730,7 @@ const CaseShortages = ({ onData }) => {
                   colSpan={20}
                   style={{ textAlign: "center", fontSize: "16px" }}
                 >
-                  No Records Found
+                  No Alternaative SKUs Found!
                 </TableCell>
               </TableRow>
             )}

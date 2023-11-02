@@ -114,12 +114,14 @@ const StockReallocationData = ({ onData }) => {
     }
     // setconstraints(constraintsData);
   }, [isWithinChannel, stockreallocationData, referenceData, reset]);
-  const handleInputChange = (index, value) => {
+  const handleInputChange = (index, value, remainingallocation) => {
     const newInputValues = [...inputValues];
-    if (value > 0) {
-      value = -value;
-    }
-    newInputValues[index] = value;
+    value = Math.abs(value);
+    // if (value > 0) {
+    //   value = -value;
+    // }
+    value = Math.min(parseInt(value), remainingallocation);
+    newInputValues[index] = -value;
     console.log(newInputValues);
     setInputValues(newInputValues);
   };
@@ -133,13 +135,17 @@ const StockReallocationData = ({ onData }) => {
         //current allocation//
         const currentallocation =
           item.currentallocation + parseInt(inputValues[index]);
+
         // proposed allocation //
         const proposedallocation =
           item.currentallocation + parseInt(inputValues[index]);
+
         //Remaining allocation //
         const remainingallocation = currentallocation - item.allocationconsumed;
+
         const aloocated_value =
           proposedallocation == 0 ? currentallocation : proposedallocation;
+
         const expectedservice = Math.min(
           (aloocated_value /
             Math.max(
@@ -151,6 +157,7 @@ const StockReallocationData = ({ onData }) => {
         );
         const expectedservicelevel =
           parseFloat(expectedservice.toFixed(2)) + "%";
+
         const updatedCustomerSOH = Math.max(
           item.currentcustSOH +
             item.allocationconsumed +
@@ -159,7 +166,9 @@ const StockReallocationData = ({ onData }) => {
           0
         );
         const updatedCustomer = updatedCustomerSOH / item.AvgYTDsellout;
+
         const updatedCustomerWOC = parseFloat(updatedCustomer.toFixed(2));
+
         const stocksafetoreallocate = Math.max(
           remainingallocation -
             Math.max(
@@ -168,6 +177,7 @@ const StockReallocationData = ({ onData }) => {
             ),
           0
         );
+
         const suggestedallocation =
           item.idealallocationvalues - aloocated_value;
 
@@ -597,6 +607,7 @@ const StockReallocationData = ({ onData }) => {
           dispatch(fetchstaticrow(json.static_row));
           dispatch(updateexporttabledata(json.other_rows));
 
+          setconstraints(json.constraints);
           setweeksOnConv(json.constraints[3].Value);
           setminweeksOnConv(json.constraints[2].Value);
           setexpectedservice(json.constraints[1].Value);
@@ -652,9 +663,7 @@ const StockReallocationData = ({ onData }) => {
                 Suggested Reallocation
               </TableCell>
               <TableCell className="stable-header">Open Orders</TableCell>
-              <TableCell className="stable-header">
-                Expected Weekly Service Level
-              </TableCell>
+              <TableCell className="stable-header">Exp Weekly SL (%)</TableCell>
               <TableCell className="stable-header">
                 Customer SoH <br />
                 (current / target)
@@ -1042,7 +1051,13 @@ const StockReallocationData = ({ onData }) => {
                     <input
                       type="number"
                       value={inputValues[index]}
-                      onChange={(e) => handleInputChange(index, e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange(
+                          index,
+                          e.target.value,
+                          item.remainingallocation
+                        )
+                      }
                     />
                   </Box>
                 </TableCell>
@@ -1056,7 +1071,7 @@ const StockReallocationData = ({ onData }) => {
           <Box className="sg-title">
             Scenario Generation:{" "}
             {suggRecord["RB SKU"] ? suggRecord["RB SKU"] : ""} :&nbsp;
-            {suggRecord.Channel ? suggRecord.Channel : ""}
+            {suggRecord.Customer ? suggRecord.Customer : ""}
           </Box>
           <Box display="flex" marginTop="2px">
             <Typography>
@@ -1072,7 +1087,7 @@ const StockReallocationData = ({ onData }) => {
           </Box>
         </Box>
       </Stack>
-      <Typography fontSize={24} color="#145A6C" mx="3px" mt="-3px">
+      <Typography fontSize={24} color="#145A6C" mx="3px" marginBottom="10px">
         Constraints (Optional)
       </Typography>
 
@@ -1117,7 +1132,7 @@ const StockReallocationData = ({ onData }) => {
                   width: "80px",
                   textAlign: "center",
                   color: "#008824",
-                  fontSize: "22px",
+                  fontSize: "17px",
                   marginTop: "5px",
                   border: "1px solid #E7E9EE",
                   borderRadius: "5PX",
@@ -1187,7 +1202,7 @@ const StockReallocationData = ({ onData }) => {
                   width: "80px",
                   textAlign: "center",
                   color: "#008824",
-                  fontSize: "22px",
+                  fontSize: "17px",
                   marginTop: "5px",
                   border: "1px solid #E7E9EE",
                   borderRadius: "5PX",
@@ -1272,7 +1287,7 @@ const StockReallocationData = ({ onData }) => {
                     width: "80px",
                     textAlign: "center",
                     color: "#008824",
-                    fontSize: "22px",
+                    fontSize: "17px",
                     border: "1px solid #E7E9EE",
                     borderRadius: "5PX",
                     boxSizing: "border-box",
@@ -1296,7 +1311,7 @@ const StockReallocationData = ({ onData }) => {
                     width: "80px",
                     textAlign: "center",
                     color: "#008824",
-                    fontSize: "22px",
+                    fontSize: "17px",
                     border: "1px solid #E7E9EE",
                     borderRadius: "5PX",
                     boxSizing: "border-box",
@@ -1338,7 +1353,7 @@ const StockReallocationData = ({ onData }) => {
         </div>
       </Stack>
       <Grid>
-        <Typography fontSize={24} mt="1px" color="#145A6C" my={1}>
+        <Typography fontSize={24} mt="1px" color="#145A6C" my="10px">
           Results
         </Typography>
 
@@ -1349,7 +1364,7 @@ const StockReallocationData = ({ onData }) => {
           justifyContent="space-between"
           className="sa-stack"
         >
-          <Box display="flex" sx={{ gap: "30px" }}>
+          <Box display="flex" sx={{ gap: "30px", marginTop: "6px" }}>
             <Box className="sa-box">
               <Typography className="sa-h1"> {results[0].Name}</Typography>
               <Typography color="#008824" className="sa-h2">
@@ -1361,7 +1376,7 @@ const StockReallocationData = ({ onData }) => {
           <Box
             display="flex"
             justifyContent="space-around"
-            sx={{ width: "650px" }}
+            sx={{ width: "650px", marginTop: "25px" }}
           >
             <Tooltip
               title="Run Optimization Model"
