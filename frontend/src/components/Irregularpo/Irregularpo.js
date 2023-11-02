@@ -630,7 +630,7 @@ const Irregularpo = () => {
               gap="5px"
               color="#415A6C"
             >
-              <Typography fontSize={28} color="#415A6C">
+              <Typography fontSize={24} color="#415A6C">
                 Recent POs
               </Typography>
               (

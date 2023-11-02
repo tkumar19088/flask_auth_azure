@@ -390,9 +390,15 @@ const OverviewHighRisk2 = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const json = await response.json();
-        identifySpecificTabdata(json, url);
-        dispatch(updatesearch(false));
+        const info = await response.json();
+        const json = info.data;
+        if (info.status === "success") {
+          identifySpecificTabdata(json, url);
+          dispatch(updatesearch(false));
+        } else {
+          dispatch(updateerrortextmessage(info.message));
+          dispatch(updateerrormodalpopup(true));
+        }
       } else {
         dispatch(updateerrortextmessage(response.statusText));
         dispatch(updateerrormodalpopup(true));

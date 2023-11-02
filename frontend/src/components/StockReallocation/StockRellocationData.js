@@ -145,6 +145,7 @@ const StockReallocationData = ({ onData }) => {
 
         const aloocated_value =
           proposedallocation == 0 ? currentallocation : proposedallocation;
+
         const expectedservice = Math.min(
           (aloocated_value /
             Math.max(
@@ -1069,7 +1070,7 @@ const StockReallocationData = ({ onData }) => {
           <Box className="sg-title">
             Scenario Generation:{" "}
             {suggRecord["RB SKU"] ? suggRecord["RB SKU"] : ""} :&nbsp;
-            {suggRecord.Channel ? suggRecord.Channel : ""}
+            {suggRecord.Customer ? suggRecord.Customer : ""}
           </Box>
           <Box display="flex" marginTop="2px">
             <Typography>
@@ -1085,7 +1086,7 @@ const StockReallocationData = ({ onData }) => {
           </Box>
         </Box>
       </Stack>
-      <Typography fontSize={24} color="#145A6C" mx="3px" mt="-3px">
+      <Typography fontSize={24} color="#145A6C" mx="3px" marginBottom="10px">
         Constraints (Optional)
       </Typography>
 
@@ -1130,7 +1131,7 @@ const StockReallocationData = ({ onData }) => {
                   width: "80px",
                   textAlign: "center",
                   color: "#008824",
-                  fontSize: "22px",
+                  fontSize: "17px",
                   marginTop: "5px",
                   border: "1px solid #E7E9EE",
                   borderRadius: "5PX",
@@ -1200,7 +1201,7 @@ const StockReallocationData = ({ onData }) => {
                   width: "80px",
                   textAlign: "center",
                   color: "#008824",
-                  fontSize: "22px",
+                  fontSize: "17px",
                   marginTop: "5px",
                   border: "1px solid #E7E9EE",
                   borderRadius: "5PX",
@@ -1285,7 +1286,7 @@ const StockReallocationData = ({ onData }) => {
                     width: "80px",
                     textAlign: "center",
                     color: "#008824",
-                    fontSize: "22px",
+                    fontSize: "17px",
                     border: "1px solid #E7E9EE",
                     borderRadius: "5PX",
                     boxSizing: "border-box",
@@ -1309,7 +1310,7 @@ const StockReallocationData = ({ onData }) => {
                     width: "80px",
                     textAlign: "center",
                     color: "#008824",
-                    fontSize: "22px",
+                    fontSize: "17px",
                     border: "1px solid #E7E9EE",
                     borderRadius: "5PX",
                     boxSizing: "border-box",
@@ -1351,7 +1352,7 @@ const StockReallocationData = ({ onData }) => {
         </div>
       </Stack>
       <Grid>
-        <Typography fontSize={24} mt="1px" color="#145A6C" my={1}>
+        <Typography fontSize={24} mt="1px" color="#145A6C" my="10px">
           Results
         </Typography>
 
@@ -1362,7 +1363,7 @@ const StockReallocationData = ({ onData }) => {
           justifyContent="space-between"
           className="sa-stack"
         >
-          <Box display="flex" sx={{ gap: "30px" }}>
+          <Box display="flex" sx={{ gap: "30px", marginTop: "6px" }}>
             <Box className="sa-box">
               <Typography className="sa-h1"> {results[0].Name}</Typography>
               <Typography color="#008824" className="sa-h2">
@@ -1374,7 +1375,7 @@ const StockReallocationData = ({ onData }) => {
           <Box
             display="flex"
             justifyContent="space-around"
-            sx={{ width: "650px" }}
+            sx={{ width: "650px", marginTop: "25px" }}
           >
             <Tooltip
               title="Run Optimization Model"
