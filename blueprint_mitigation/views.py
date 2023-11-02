@@ -3,7 +3,7 @@ import pandas as pd
 import json
 import numpy as np
 import os
-from utils import AzureBlobReader, SKUManager
+from utils import AzureBlobReader, SKUManager, replace_missing_values
 import numpy as np
 import pandas as pd
 import pulp
@@ -146,6 +146,7 @@ def getrarbysku():
             raise ValueError("No customer selected!")
 
         rardf = AzureBlobReader().read_csvfile("ui_data/retailerreallocation.csv")
+
         rardf = rardf[rardf["RB SKU"] == data["rbsku"]]
 
         # Filter out rows there Channel is empty
@@ -155,7 +156,6 @@ def getrarbysku():
         rardf["newallocation"] = 0
 
         staticrow = rardf[rardf["Customer"] == global_filters["Customer"]]
-        # print(f"\n5. staticrow.columns :\n{staticrow.columns}\n")
 
         if len(rardf) > 1:
             otherrows = rardf[rardf["Customer"] != global_filters["Customer"]]
@@ -209,6 +209,7 @@ def getrarbysku():
             PCT_DEVIATION = (max(staticrow.iloc[0]["stocksafetoreallocate"], 0) / staticrow.iloc[0]["stocksafetoreallocate"])
 
         avgsl = rardf["expectedservicelevel"].mean()
+        avgsl = (avgsl * 100).round(2)
 
         constraints = [
             {
@@ -230,7 +231,7 @@ def getrarbysku():
         ]
 
         results = [
-            {"Name": "AVG EXP SERVICE LEVEL", "Value": float("{:04.2f}".format(avgsl * 100))},
+            {"Name": "AVG EXP SERVICE LEVEL (%)", "Value": avgsl},
             {"Name": "EXP OLA", "Value": "99%"},
         ]
 
@@ -250,30 +251,14 @@ def getrarbysku():
         staticrow = staticrow.replace(np.nan, 0).fillna(0)
         otherrows = otherrows.replace(np.nan, 0).fillna(0)
 
-        # for col in staticrow.columns:
-        #     if col not in ["itf", "sku", "RB SKU", "Brand", "Business Unit", "Channel","Customer","Location"]:
-        #         staticrow[col] = staticrow[col].apply(lambda x: '{:,.2f}'.format(x))
-        #         otherrows[col] = otherrows[col].apply(lambda x: '{:,.2f}'.format(x))
-
         for col in staticrow.columns:
-            if staticrow[col].dtype == 'object':
-                try:
-                    staticrow[col] = staticrow[col].astype(int)
-                except ValueError:
-                    try:
-                        staticrow[col] = staticrow[col].astype(float)
-                    except ValueError:
-                        pass
+            if staticrow[col].dtype in ['float', 'float64']:
+                staticrow[col] = staticrow[col].round(2)
+            if otherrows[col].dtype in ['float', 'float64']:
+                otherrows[col] = otherrows[col].round(2)
+        staticrow['expectedservicelevel'] = (staticrow['expectedservicelevel']*100).round(4)
+        otherrows['expectedservicelevel'] = (otherrows['expectedservicelevel']*100).round(4)
 
-        for col in otherrows.columns:
-            if otherrows[col].dtype == 'object':
-                try:
-                    otherrows[col] = otherrows[col].astype(int)
-                except ValueError:
-                    try:
-                        otherrows[col] = otherrows[col].astype(float)
-                    except ValueError:
-                        pass
 
         data = {
             "static_row": json.loads(staticrow.to_json(orient="records"))[0],
@@ -393,7 +378,7 @@ def runoptimizemodel():
                     ]
 
         results = [
-                    {"Name": "AVG EXP SERVICE LEVEL", "Value": float("{:04.2f}".format(.38 * 100))},
+                    {"Name": "AVG EXP SERVICE LEVEL (%)", "Value": float("{:04.2f}".format(.38 * 100))},
                     {"Name": "EXP OLA", "Value": "99%"},
                 ]
         cols = [
@@ -446,30 +431,11 @@ def runoptimizemodel():
         staticrow = staticrow.replace(np.nan, 0).fillna(0)
         otherrows = otherrows.replace(np.nan, 0).fillna(0)
 
-        # for col in staticrow.columns:
-        #     if col not in ["itf", "sku", "RB SKU", "Brand", "Business Unit", "Channel","Customer","Location"]:
-        #         staticrow[col] = staticrow[col].apply(lambda x: '{:,.2f}'.format(x))
-        #         otherrows[col] = otherrows[col].apply(lambda x: '{:,.2f}'.format(x))
-
         for col in staticrow.columns:
-            if staticrow[col].dtype == 'object':
-                try:
-                    staticrow[col] = staticrow[col].astype(int)
-                except ValueError:
-                    try:
-                        staticrow[col] = staticrow[col].astype(float)
-                    except ValueError:
-                        pass
-
-        for col in otherrows.columns:
-            if otherrows[col].dtype == 'object':
-                try:
-                    otherrows[col] = otherrows[col].astype(int)
-                except ValueError:
-                    try:
-                        otherrows[col] = otherrows[col].astype(float)
-                    except ValueError:
-                        pass
+            if staticrow[col].dtype in ['float', 'float64']:
+                staticrow[col] = staticrow[col].round(2)
+            if otherrows[col].dtype in ['float', 'float64']:
+                otherrows[col] = otherrows[col].round(2)
 
         data = {
                 "static_row": json.loads(staticrow.to_json(orient="records"))[0],
