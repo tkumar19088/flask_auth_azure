@@ -114,12 +114,14 @@ const StockReallocationData = ({ onData }) => {
     }
     // setconstraints(constraintsData);
   }, [isWithinChannel, stockreallocationData, referenceData, reset]);
-  const handleInputChange = (index, value) => {
+  const handleInputChange = (index, value, remainingallocation) => {
     const newInputValues = [...inputValues];
-    if (value > 0) {
-      value = -value;
-    }
-    newInputValues[index] = value;
+    value = Math.abs(value);
+    // if (value > 0) {
+    //   value = -value;
+    // }
+    value = Math.min(parseInt(value), remainingallocation);
+    newInputValues[index] = -value;
     console.log(newInputValues);
     setInputValues(newInputValues);
   };
@@ -1047,7 +1049,13 @@ const StockReallocationData = ({ onData }) => {
                     <input
                       type="number"
                       value={inputValues[index]}
-                      onChange={(e) => handleInputChange(index, e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange(
+                          index,
+                          e.target.value,
+                          item.remainingallocation
+                        )
+                      }
                     />
                   </Box>
                 </TableCell>
