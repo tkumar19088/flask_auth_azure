@@ -395,7 +395,7 @@ const Sidebar = () => {
               color: reallocation
                 ? "rgb(255, 255, 255)"
                 : "rgba(0, 0, 0, 0.87)",
-              cursor: "pointer",
+              cursor: "auto",
             }}
             className="selectedMenu"
             onClick={handleReallocation}
@@ -405,7 +405,7 @@ const Sidebar = () => {
               fontSize={{ lg: "13px", xs: 10 }}
               p="5px 0 0 0"
             >
-              SKU Prioritization for Promotion
+              More Upcoming Usecases
             </Typography>
           </AccordionDetails>
         </Accordion>
