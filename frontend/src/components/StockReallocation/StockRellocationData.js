@@ -607,6 +607,7 @@ const StockReallocationData = ({ onData }) => {
           dispatch(fetchstaticrow(json.static_row));
           dispatch(updateexporttabledata(json.other_rows));
 
+          setconstraints(json.constraints);
           setweeksOnConv(json.constraints[3].Value);
           setminweeksOnConv(json.constraints[2].Value);
           setexpectedservice(json.constraints[1].Value);
