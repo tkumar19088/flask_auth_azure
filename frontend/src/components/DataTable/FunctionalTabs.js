@@ -436,7 +436,7 @@ const FunctionalTabs = () => {
           }}
           onClick={handleExpectedService}
         >
-          Expected Service %
+          Expected Service (%)
         </Tab>
         <Tab
           style={{

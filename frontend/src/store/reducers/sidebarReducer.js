@@ -43,12 +43,12 @@ const initialState = {
     constraints: [
       {
         Label: 0,
-        Name: "PCT Deviation From Init Alloc %",
+        Name: "PCT Deviation From Init Alloc (%)",
         Value: 5,
       },
       {
         Label: 1,
-        Name: "MIN Expected Service Level %",
+        Name: "MIN Expected Service Level (%)",
         Value: 95,
       },
       {
@@ -331,12 +331,12 @@ const initialState = {
     constraints: [
       {
         Label: 0,
-        Name: "PCT Deviation From Init Alloc %",
+        Name: "PCT Deviation From Init Alloc (%)",
         Value: 5,
       },
       {
         Label: 1,
-        Name: "MIN Expected Service Level %",
+        Name: "MIN Expected Service Level (%)",
         Value: 95,
       },
       {
