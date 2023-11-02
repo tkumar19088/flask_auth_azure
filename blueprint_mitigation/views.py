@@ -291,14 +291,14 @@ def getrarbysku():
 def runoptimizemodel():
     global_filters = current_app.config.get("global_filters", {})
     global_user = current_app.config.get("global_user", {})
+
     data = request.json
+
     if not data:
         raise ValueError("Missing required parameter: RB SKU!")
-
     try:
         df = read_data_from_blob(CONNECTION_STRING,CONTAINER_NAME,'ui_data/retailerreallocation.csv')
         dfa = df.copy()
-
         data_dict2 = {
                         0: 'customer',
                         1: 'Channel',
@@ -321,6 +321,7 @@ def runoptimizemodel():
                             "RB SKU" : "sku",
                             "sif-atf" : "atf-sif"
                         }
+
         df.rename(columns=column_mapping, inplace=True)
 
         skuid, customer = data["rbsku"], global_filters['Customer']
@@ -345,43 +346,98 @@ def runoptimizemodel():
 
         ddf['custwoc-target'] = 4
         ddf['custsoh-target'] = ddf[['custwoc-target', 'atf-sof']].prod(axis = 1)
-
         conds = (~((df['reckitt_sif'].isna()) & (df['atf-sif'].isna())))
         conds &= (~(df['currentallocation'].isna()))
-        # status, final, optimalvalue = optimise_supply(ddf,MINIMUM_SERVICE_LEVEL, ALLOCATION_CHANGE_THRESHOLD, WOC_MIN_PCT, WOC_MAX_PCT)
 
-        # print(f"\nskuid - {skuid}\ncustomer - {customer}\nnum unique customers - {ddf['customer'].unique()}\nstatus - {status}\nOptimal value of X_0 : {optimalvalue}\n")
+        status, final, optimalvalue = optimise_supply(ddf,MINIMUM_SERVICE_LEVEL, ALLOCATION_CHANGE_THRESHOLD, WOC_MIN_PCT, WOC_MAX_PCT)
+        print(f"\nskuid - {skuid}\ncustomer - {customer}\nnum unique customers - {ddf['customer'].unique()}\nstatus - {status}\nOptimal value of X_0 : {optimalvalue}\n")
 
-        # -------------------------------------------------------------
-        # -------------------------------------------------------------
-        # Comment Below code for production
+        if status == "Infeasible":
+            response = {
+                        "status": "error",
+                        "status_code": 500,
+                        "message": f"Optimization Infeasible for selected SKU - {skuid} & Customer - {customer}.",
+                        "data": {},
+                    }
+        else:
+            minsl = final['Expected_weekly_service_level'].min()
+            aloc_thresh = 12
+            wocmin = final['Updated_Customer_WoC'].min()
+            wocmax = final['Updated_Customer_WoC'].max()
+            rardf = final.copy()
 
-        staticrow = ddf[ddf["customer"] == global_filters["Customer"]]
-        otherrows = ddf[ddf["customer"] != global_filters["Customer"]]
-        constraints = [
-                        {
-                            "Name": "PCT DEVIATION FROM INIT ALLOC",
-                            "Value": 18,
-                            "Label": 1,
-                        },
-                        {
-                            "Name": "MIN Expected Service Level",
-                            "Value": 91,
-                            "Label": 0,
-                        },
-                        {"Name": "MIN Deviation from Target WOC", "Value": 2},
-                        {
-                            "Name": "MAX Deviation from Target WOC",
-                            "Value": 11,
-                            "Label": 2,
-                        },
+            staticrow = rardf[rardf["customer"] == global_filters["Customer"]]
+            otherrows = rardf[rardf["customer"] != global_filters["Customer"]]
+
+            # Default label values
+            sl, woc = 0, 0
+            # Set labels by value of the params
+            if len(otherrows) > 0:
+                # Label for Service Level
+                if (otherrows["Expected_weekly_service_level"] >= minsl).all():
+                    sl = 2
+                elif (otherrows["Expected_weekly_service_level"] < minsl).any():
+                    sl = 0
+                else:
+                    sl = 1
+                # Label for WOC
+                if (otherrows["Updated_Customer_WoC"] >= wocmin).all() and (
+                    otherrows["Updated_Customer_WoC"] <= wocmax
+                ).all():
+                    woc = 2
+                elif (otherrows["Updated_Customer_WoC"] < wocmin).any() or (
+                    otherrows["Updated_Customer_WoC"] > wocmax
+                ).any():
+                    woc = 0
+                else:
+                    woc = 1
+                # Label for Pct Deviation # TODO: How do we calculate this?
+                if (otherrows["Updated_Customer_WoC"] >= wocmin).all() and (
+                    otherrows["Updated_Customer_WoC"] <= wocmax
+                ).all():
+                    woc = 2
+                elif (otherrows["Updated_Customer_WoC"] < wocmin).any() or (
+                    otherrows["Updated_Customer_WoC"] > wocmax
+                ).any():
+                    woc = 0
+                else:
+                    woc = 1
+            if staticrow.iloc[0]["currentallocation"] == 0 or pd.isna(
+                staticrow.iloc[0]["currentallocation"]
+            ):
+                PCT_DEVIATION = 0
+            else:
+                PCT_DEVIATION = (
+                    max(staticrow.iloc[0]["SOH_safe_to_reallocate"], 0)
+                    / staticrow.iloc[0]["currentallocation"])
+
+            constraints = [
+                {
+                    "Name": "PCT DEVIATION FROM INIT ALLOC",
+                    "Value": PCT_DEVIATION,
+                    "Label": 0,
+                },
+                {
+                    "Name": "MIN Expected Service Level",
+                    "Value": minsl,
+                    "Label": sl,
+                },
+                {"Name": "MIN Deviation from Target WOC", "Value": wocmin},
+                {
+                    "Name": "MAX Deviation from Target WOC",
+                    "Value": wocmax,
+                    "Label": woc,
+                },
+            ]
+
+            avgsl = rardf["Expected_weekly_service_level"].mean()
+            avgsl = (avgsl * 100).round(2) #type: ignore
+            results = [
+                        {"Name": "AVG EXP SERVICE LEVEL", "Value": avgsl},
+                        {"Name": "EXP OLA", "Value": "99%"},
                     ]
 
-        results = [
-                    {"Name": "AVG EXP SERVICE LEVEL (%)", "Value": float("{:04.2f}".format(.38 * 100))},
-                    {"Name": "EXP OLA", "Value": "99%"},
-                ]
-        cols = [
+            cols = [
                 "customer",
                 "AvgYTDsellout",
                 "brand",
@@ -393,232 +449,75 @@ def runoptimizemodel():
                 "sumofPOsinalloccycle",
                 "idealallocationvalues",
             ]
-        mergingdf = df[cols]
-        staticrow["sku"], otherrows["sku"] = data["rbsku"], data["rbsku"]
-        staticrow = pd.merge(staticrow, mergingdf, on=["customer", "sku"], how="left")
-        otherrows = pd.merge(otherrows, mergingdf, on=["customer", "sku"], how="left")
+            mergingdf = df[cols]
+            staticrow["sku"], otherrows["sku"] = data["rbsku"], data["rbsku"]
+            staticrow = pd.merge(staticrow, mergingdf, on=["customer", "sku"], how="left")
+            otherrows = pd.merge(otherrows, mergingdf, on=["customer", "sku"], how="left")
 
-        column_mapping = {
-            "Channel": "Channel",
-            "Expected_weekly_service_level": "expectedservicelevel",
-            "Remaining_allocation": "remainingallocation",
-            "SOH_safe_to_reallocate": "stocksafetoreallocate",
-            "Suggested_Supply": "suggestedallocation",
-            "allocationconsumed": "allocationconsumed",
-            "atf-sof": "Sell out",
-            "cmuscore": "cmuscore",
-            "currentallocation": "currentallocation",
-            "customer": "Customer",
-            "custsoh-current": "custsoh-current",
-            "custsoh-target": "custsoh-target",
-            "custwoc-target": "custwoc-target",
-            "openorders": "openorders",
-            "reckitt_sif": "sif-reckitt",
-            "AvgYTDsellout": "AvgYTDsellout",
-            "brand": "Brand",
-            "Location": "Location",
-            "sku": "RB SKU",
-            "custwoc-current": "custwoc-current",
-            "newallocation": "newallocation",
-            "atf-sif": "sif-atf",
-            "sumofPOsinalloccycle": "sumofPOsinalloccycle",
-            "idealallocationvalues": "idealallocationvalues",
-        }
-        staticrow.rename(columns=column_mapping, inplace=True)
-        otherrows.rename(columns=column_mapping, inplace=True)
-
-        # replace missing values and NaN and NULL with 0
-        staticrow = staticrow.replace(np.nan, 0).fillna(0)
-        otherrows = otherrows.replace(np.nan, 0).fillna(0)
-
-        for col in staticrow.columns:
-            if staticrow[col].dtype in ['float', 'float64']:
-                staticrow[col] = staticrow[col].round(2)
-            if otherrows[col].dtype in ['float', 'float64']:
-                otherrows[col] = otherrows[col].round(2)
-
-        data = {
-                "static_row": json.loads(staticrow.to_json(orient="records"))[0],
-                "other_rows": json.loads(otherrows.to_json(orient="records")),
-                "constraints": constraints,
-                "results": results,
+            column_mapping = {
+                "Channel": "Channel",
+                "Expected_weekly_service_level": "expectedservicelevel",
+                "Remaining_allocation": "remainingallocation",
+                "SOH_safe_to_reallocate": "stocksafetoreallocate",
+                "Suggested_Supply": "suggestedallocation",
+                "allocationconsumed": "allocationconsumed",
+                "atf-sof": "Sell out",
+                "cmuscore": "cmuscore",
+                "currentallocation": "currentallocation",
+                "customer": "Customer",
+                "custsoh-current": "custsoh-current",
+                "custsoh-target": "custsoh-target",
+                "custwoc-target": "custwoc-target",
+                "openorders": "openorders",
+                "reckitt_sif": "sif-reckitt",
+                "AvgYTDsellout": "AvgYTDsellout",
+                "brand": "Brand",
+                "Location": "Location",
+                "sku": "RB SKU",
+                "custwoc-current": "custwoc-current",
+                "newallocation": "newallocation",
+                "atf-sif": "sif-atf",
+                "sumofPOsinalloccycle": "sumofPOsinalloccycle",
+                "idealallocationvalues": "idealallocationvalues",
             }
+            staticrow.rename(columns=column_mapping, inplace=True)
+            otherrows.rename(columns=column_mapping, inplace=True)
 
-        response = {
-                    "status": "success",
-                    "status_code": 200,
-                    "message": "Data fetched successfully!",
-                    "data": data,
+            # replace missing values and NaN and NULL with 0
+            staticrow = staticrow.replace(np.nan, 0).fillna(0)
+            otherrows = otherrows.replace(np.nan, 0).fillna(0)
+
+            for col in staticrow.columns:
+                staticrow[col] = (
+                    staticrow[col]
+                    if col in ["itf", "sku", "RB SKU"]
+                    else staticrow[col].apply(
+                        lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x
+                    )
+                )
+
+            for col in otherrows.columns:
+                otherrows[col] = (
+                    otherrows[col]
+                    if col in ["itf", "sku", "RB SKU"]
+                    else otherrows[col].apply(
+                        lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x
+                    )
+                )
+
+            data = {
+                    "static_row": json.loads(staticrow.to_json(orient="records"))[0],
+                    "other_rows": json.loads(otherrows.to_json(orient="records")),
+                    "constraints": constraints,
+                    "results": results,
                 }
-        # -------------------------------------------------------------
-        # -------------------------------------------------------------
 
-        # if status == "Infeasible":
-        #     response = {
-        #                 "status": "error",
-        #                 "status_code": 500,
-        #                 "message": f"Optimization Infeasible for selected SKU - {skuid} & Customer - {customer}.",
-        #                 "data": {},
-        #             }
-        # else:
-        #     minsl = final['Expected_weekly_service_level'].min()
-        #     aloc_thresh = 12
-        #     wocmin = final['Updated_Customer_WoC'].min()
-        #     wocmax = final['Updated_Customer_WoC'].max()
-        #     rardf = final.copy()
-
-        #     staticrow = rardf[rardf["customer"] == global_filters["Customer"]]
-        #     otherrows = rardf[rardf["customer"] != global_filters["Customer"]]
-
-        #     # Default label values
-        #     sl, woc = 0, 0
-
-        #     # Set labels by value of the params
-        #     if len(otherrows) > 0:
-        #         # Label for Service Level
-        #         if (otherrows["Expected_weekly_service_level"] >= minsl).all():
-        #             sl = 2
-        #         elif (otherrows["Expected_weekly_service_level"] < minsl).any():
-        #             sl = 0
-        #         else:
-        #             sl = 1
-        #         # Label for WOC
-        #         if (otherrows["Updated_Customer_WoC"] >= wocmin).all() and (
-        #             otherrows["Updated_Customer_WoC"] <= wocmax
-        #         ).all():
-        #             woc = 2
-        #         elif (otherrows["Updated_Customer_WoC"] < wocmin).any() or (
-        #             otherrows["Updated_Customer_WoC"] > wocmax
-        #         ).any():
-        #             woc = 0
-        #         else:
-        #             woc = 1
-        #         # Label for Pct Deviation # TODO: How do we calculate this?
-        #         if (otherrows["Updated_Customer_WoC"] >= wocmin).all() and (
-        #             otherrows["Updated_Customer_WoC"] <= wocmax
-        #         ).all():
-        #             woc = 2
-        #         elif (otherrows["Updated_Customer_WoC"] < wocmin).any() or (
-        #             otherrows["Updated_Customer_WoC"] > wocmax
-        #         ).any():
-        #             woc = 0
-        #         else:
-        #             woc = 1
-        #     if staticrow.iloc[0]["currentallocation"] == 0 or pd.isna(
-        #         staticrow.iloc[0]["currentallocation"]
-        #     ):
-        #         PCT_DEVIATION = 0
-        #     else:
-        #         PCT_DEVIATION = (
-        #             max(staticrow.iloc[0]["SOH_safe_to_reallocate"], 0)
-        #             / staticrow.iloc[0]["currentallocation"]
-        #         )
-        #     avgsl = rardf["Expected_weekly_service_level"].mean()
-
-        #     constraints = [
-        #         {
-        #             "Name": "PCT DEVIATION FROM INIT ALLOC",
-        #             "Value": f"{int(PCT_DEVIATION)}",
-        #             "Label": 0,
-        #         },
-        #         {
-        #             "Name": "MIN Expected Service Level",
-        #             "Value": f"{minsl}",
-        #             "Label": f"{sl}",
-        #         },
-        #         {"Name": "MIN Deviation from Target WOC", "Value": f"{wocmin}"},
-        #         {
-        #             "Name": "MAX Deviation from Target WOC",
-        #             "Value": f"{wocmax}",
-        #             "Label": f"{woc}",
-        #         },
-        #     ]
-
-        #     results = [
-        #                 {"Name": "AVG EXP SERVICE LEVEL", "Value": f"{avgsl:.2f}"},
-        #                 {"Name": "EXP OLA", "Value": "99%"},
-        #             ]
-
-        #     cols = [
-        #         "customer",
-        #         "AvgYTDsellout",
-        #         "brand",
-        #         "Location",
-        #         "sku",
-        #         "custwoc-current",
-        #         "newallocation",
-        #         "atf-sif",
-        #         "sumofPOsinalloccycle",
-        #         "idealallocationvalues",
-        #     ]
-        #     mergingdf = df[cols]
-        #     staticrow["sku"], otherrows["sku"] = data["rbsku"], data["rbsku"]
-        #     staticrow = pd.merge(staticrow, mergingdf, on=["customer", "sku"], how="left")
-        #     otherrows = pd.merge(otherrows, mergingdf, on=["customer", "sku"], how="left")
-
-        #     column_mapping = {
-        #         "Channel": "Channel",
-        #         "Expected_weekly_service_level": "expectedservicelevel",
-        #         "Remaining_allocation": "remainingallocation",
-        #         "SOH_safe_to_reallocate": "stocksafetoreallocate",
-        #         "Suggested_Supply": "suggestedallocation",
-        #         "allocationconsumed": "allocationconsumed",
-        #         "atf-sof": "Sell out",
-        #         "cmuscore": "cmuscore",
-        #         "currentallocation": "currentallocation",
-        #         "customer": "Customer",
-        #         "custsoh-current": "custsoh-current",
-        #         "custsoh-target": "custsoh-target",
-        #         "custwoc-target": "custwoc-target",
-        #         "openorders": "openorders",
-        #         "reckitt_sif": "sif-reckitt",
-        #         "AvgYTDsellout": "AvgYTDsellout",
-        #         "brand": "Brand",
-        #         "Location": "Location",
-        #         "sku": "RB SKU",
-        #         "custwoc-current": "custwoc-current",
-        #         "newallocation": "newallocation",
-        #         "atf-sif": "sif-atf",
-        #         "sumofPOsinalloccycle": "sumofPOsinalloccycle",
-        #         "idealallocationvalues": "idealallocationvalues",
-        #     }
-        #     staticrow.rename(columns=column_mapping, inplace=True)
-        #     otherrows.rename(columns=column_mapping, inplace=True)
-
-        #     # replace missing values and NaN and NULL with 0
-        #     staticrow = staticrow.replace(np.nan, 0).fillna(0)
-        #     otherrows = otherrows.replace(np.nan, 0).fillna(0)
-
-        #     for col in staticrow.columns:
-        #         staticrow[col] = (
-        #             staticrow[col]
-        #             if col in ["itf", "sku", "RB SKU"]
-        #             else staticrow[col].apply(
-        #                 lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x
-        #             )
-        #         )
-        #     for col in otherrows.columns:
-        #         otherrows[col] = (
-        #             otherrows[col]
-        #             if col in ["itf", "sku", "RB SKU"]
-        #             else otherrows[col].apply(
-        #                 lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x
-        #             )
-        #         )
-
-        #     data = {
-        #             "static_row": json.loads(staticrow.to_json(orient="records"))[0],
-        #             "other_rows": json.loads(otherrows.to_json(orient="records")),
-        #             "constraints": constraints,
-        #             "results": results,
-        #         }
-
-        #     response = {
-        #                 "status": "success",
-        #                 "status_code": 200,
-        #                 "message": "Data fetched successfully!",
-        #                 "data": data,
-        #             }
+            response = {
+                        "status": "success",
+                        "status_code": 200,
+                        "message": "Data fetched successfully!",
+                        "data": data,
+                    }
 
     except Exception as e:
         response = {

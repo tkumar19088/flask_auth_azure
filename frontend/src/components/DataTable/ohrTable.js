@@ -1590,7 +1590,7 @@ const OhrTable = ({ onData }) => {
                   colSpan={20}
                   style={{ textAlign: "center", fontSize: "16px" }}
                 >
-                  No Alternaative SKUs Found!
+                  No Alternative SKUs Found.
                 </TableCell>
               </TableRow>
             )}
@@ -1649,7 +1649,7 @@ const OhrTable = ({ onData }) => {
                   </Box>
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
-                  <Typography fontSize="13px">{item["atf-sif"]}</Typography>
+                  <Typography fontSize="13px">{item["atf-sof"]}</Typography>
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
                   <Typography fontSize="13px">
