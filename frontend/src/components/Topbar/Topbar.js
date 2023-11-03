@@ -21,12 +21,18 @@ import { useNavigate } from "react-router-dom";
 
 import { Button, Menu, MenuItem, Typography } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  updateloader,
+  updateerrortextmessage,
+  updateerrormodalpopup,
+} from "../../store/actions/sidebarActions";
 
 const Topbar = () => {
+  const dispatch = useDispatch();
+
   const [anchorEl, setAnchorEl] = useState(null);
   const userDetails = useSelector((state) => state.sidebar.userDetails);
-  console.log(userDetails);
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -43,7 +49,25 @@ const Topbar = () => {
     navigate("/");
   };
 
-  const handleLogout = () => {};
+  const handleLogout = async () => {
+    dispatch(updateloader(true));
+    try {
+      const response = await fetch(
+        "https://testingsmartola.azurewebsites.net/logout"
+      );
+      if (response.ok) {
+        console.log("logged out");
+      } else {
+        dispatch(updateerrortextmessage(response.statusText));
+        dispatch(updateerrormodalpopup(true));
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
+  };
 
   const Search = styled("div")(({ theme }) => ({
     position: "relative",
