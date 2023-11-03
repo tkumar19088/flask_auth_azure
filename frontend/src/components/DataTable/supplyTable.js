@@ -586,8 +586,7 @@ const SupplyTable = ({ onData }) => {
                     ? "green"
                     : pushAlternative
                     ? "#FF007F"
-                    : "#415A6C",
-                // backgroundColor: pushAlternative ? "#FF007F" : "#415A6C",
+                    : "red",
                 "&:hover": {
                   backgroundColor: "#FF007F",
                 },
@@ -600,7 +599,7 @@ const SupplyTable = ({ onData }) => {
               onClick={handleReallocate}
               sx={{
                 backgroundColor:
-                  chooseData.rarbysku == "True" ? "green" : "#415A6C",
+                  chooseData.rarbysku == "True" ? "green" : "red",
                 "&:hover": {
                   backgroundColor: "#FF007F",
                 },
@@ -1054,7 +1053,7 @@ const SupplyTable = ({ onData }) => {
                     </TableCell>
                     <TableCell>
                       <Tooltip title={item.Description}>
-                        {truncateText(item.Description, 15)}
+                        {truncateText(item.Description, 10)}
                       </Tooltip>
                     </TableCell>
                     <TableCell>

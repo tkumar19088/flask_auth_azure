@@ -539,8 +539,7 @@ const StockPosition = ({ onData }) => {
                     ? "green"
                     : pushAlternative
                     ? "#FF007F"
-                    : "#415A6C",
-                // backgroundColor: pushAlternative ? "#FF007F" : "#415A6C",
+                    : "red",
                 "&:hover": {
                   backgroundColor: "#FF007F",
                 },
@@ -553,7 +552,7 @@ const StockPosition = ({ onData }) => {
               onClick={handleReallocate}
               sx={{
                 backgroundColor:
-                  chooseData.rarbysku == "True" ? "green" : "#415A6C",
+                  chooseData.rarbysku == "True" ? "green" : "red",
                 "&:hover": {
                   backgroundColor: "#FF007F",
                 },
