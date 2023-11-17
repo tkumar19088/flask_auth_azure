@@ -101,11 +101,31 @@ const Sidebar = () => {
     setoosrick(true);
     setirregular(false);
   };
+
+  const handleLogout = async () => {
+    dispatch(updateloader(true));
+    try {
+      const response = await fetch(
+        "https://testingsmartola.azurewebsites.net/logout"
+      );
+      if (response.ok) {
+        console.log("logged out");
+      } else {
+        dispatch(updateerrortextmessage(response.statusText));
+        dispatch(updateerrormodalpopup(true));
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      dispatch(updateloader(false));
+    }
+  };
   const handleDataFreshness = async () => {
     dispatch(updateloader(true));
     try {
       const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/getdatarecency"
+        "http://localhost:5000/getdatarecency"
       );
       console.log(response);
       if (response.ok) {
@@ -134,7 +154,7 @@ const Sidebar = () => {
       dispatch(updateloader(true));
       var data = {};
       try {
-        const url = "https://testingsmartola.azurewebsites.net/getirrpodata";
+        const url = "http://localhost:5000/getirrpodata";
         const response = await fetch(url, {
           method: "POST",
           headers: {
@@ -354,11 +374,7 @@ const Sidebar = () => {
             className="selectedMenu"
             onClick={handleIrregular}
           >
-            <Typography
-              mx="26px"
-              fontSize={{ lg: 13, xs: 10 }}
-              p="5px 0 0 0"
-            >
+            <Typography mx="26px" fontSize={{ lg: 13, xs: 10 }} p="5px 0 0 0">
               Irregular PO
             </Typography>
           </AccordionDetails>
@@ -398,9 +414,7 @@ const Sidebar = () => {
               borderTop: "1px solid #B7C3CA ",
               borderBottom: "1px solid #B7C3CA ",
               backgroundColor: reallocation ? "rgb(70, 96, 114)" : "#E7E9EE",
-              color: reallocation
-                ? "rgb(255, 255, 255)"
-                : "#415A6C",
+              color: reallocation ? "rgb(255, 255, 255)" : "#415A6C",
               cursor: "auto",
             }}
             className="selectedMenu"
@@ -466,6 +480,7 @@ const Sidebar = () => {
           bottom: 10,
           cursor: "pointer",
         }}
+        onClick={handleLogout}
       >
         <img src={Log} alt="logout" className="logout-icon" />
         <Typography fontSize={{ lg: 14, xs: 9 }} className="logsout-titile">

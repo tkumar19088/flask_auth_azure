@@ -53,7 +53,7 @@ const Ola = ({ onData }) => {
       var data = { customer: 0, rbsku: rowId };
       try {
         const response = await fetch(
-          "https://testingsmartola.azurewebsites.net/getcampaigns",
+          "http://localhost:5000/getcampaigns",
           {
             method: "POST",
             headers: {
@@ -91,7 +91,7 @@ const Ola = ({ onData }) => {
     var data = { rbsku: expandedRow };
     try {
       const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/getalternativeskus",
+        "http://localhost:5000/getalternativeskus",
         {
           method: "POST",
           headers: {
@@ -125,7 +125,7 @@ const Ola = ({ onData }) => {
     var data = { rbsku: expandedRow };
     try {
       const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/rarbysku",
+        "http://localhost:5000/rarbysku",
         {
           method: "POST",
           headers: {
@@ -430,7 +430,7 @@ const Ola = ({ onData }) => {
     var data = { rbsku: expandedRow };
     try {
       const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/choosescenario",
+        "http://localhost:5000/choosescenario",
         {
           method: "POST",
           headers: {
@@ -665,8 +665,7 @@ const Ola = ({ onData }) => {
                     ? "green"
                     : pushAlternative
                     ? "#FF007F"
-                    : "#415A6C",
-                // backgroundColor: pushAlternative ? "#FF007F" : "#415A6C",
+                    : "red",
                 "&:hover": {
                   backgroundColor: "#FF007F",
                 },
@@ -679,7 +678,7 @@ const Ola = ({ onData }) => {
               onClick={handleReallocate}
               sx={{
                 backgroundColor:
-                  chooseData.rarbysku == "True" ? "green" : "#415A6C",
+                  chooseData.rarbysku == "True" ? "green" : "red",
                 "&:hover": {
                   backgroundColor: "#FF007F",
                 },

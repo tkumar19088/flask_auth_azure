@@ -583,13 +583,13 @@ const StockReallocationData = ({ onData }) => {
     dispatch(updateloader(true));
     var data = {
       rbsku: parseInt(suggRecord["RB SKU"]),
-      MINIMUM_SERVICE_LEVEL: expectedservice,
-      ALLOCATION_CHANGE_THRESHOLD: pctdeviation,
+      MINIMUM_SERVICE_LEVEL: parseInt(expectedservice),
+      ALLOCATION_CHANGE_THRESHOLD: parseInt(pctdeviation),
       WOC_MIN: parseInt(minweeksOnConv),
       WOC_MAX: parseInt(weeksOnConv),
     };
     try {
-      const url = "https://testingsmartola.azurewebsites.net/runoptimizemodel";
+      const url = "http://localhost:5000/runoptimizemodel";
       const response = await fetch(url, {
         method: "POST",
         headers: {
