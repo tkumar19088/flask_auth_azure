@@ -113,7 +113,7 @@ function Filtersout({ apply }) {
     console.log(data);
     try {
       const response = await fetch(
-        "http://localhost:5000/getselloutgraph",
+        "https:testingsmartola.azurewebsites.net/getselloutgraph",
         {
           method: "POST",
           headers: {
