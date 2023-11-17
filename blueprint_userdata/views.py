@@ -89,20 +89,37 @@ def getuserdata():
             "Sell in/ Sell out": "View",
         }
 
+        # userDetails = {
+        #     "Name": "Angela Assaf",
+        #     "Email": "angela.assaf@artefact.com",
+        #     "Business Unit": ["Hygiene"],
+        #     "Location": ["United Kingdom"],
+        #     "Customer": ["Asda", "Amazon"],
+        #     "Brand": ["Airwick"],
+        #     "PersonType": "Commerical Hygiene",
+        #     "OOS Landing Screen": "Customer",
+        #     "High Risk - Reckitt": "Restricted",
+        #     "High Risk - Customer": "View",
+        #     "Push Alternative": "View",
+        #     "Reallocate": "Edit",
+        #     "Irregular PO": "Restricted",
+        #     "Sell in/ Sell out": "View",
+        # }
+
         filters = [
-                "Business Unit",
-                "Customer",
-                "Location",
-                "Brand",
-                "PersonType",
-                "OOS Landing Screen",
-                "High Risk - Reckitt",
-                "High Risk - Customer",
-                "Push Alternative",
-                "Reallocate",
-                "Irregular PO",
-                "Sell in/ Sell out",
-            ]
+            "Business Unit",
+            "Customer",
+            "Location",
+            "Brand",
+            "PersonType",
+            "OOS Landing Screen",
+            "High Risk - Reckitt",
+            "High Risk - Customer",
+            "Push Alternative",
+            "Reallocate",
+            "Irregular PO",
+            "Sell in/ Sell out",
+        ]
 
         if userDetails:
             global_user.update({f: userDetails[f] for f in filters if f in userDetails})  # type: ignore
@@ -112,25 +129,24 @@ def getuserdata():
             data = {"user": userDetails, "alerts": alertsdata}
 
             response = {
-                        "status": "success",
-                        "status_code": 200,
-                        "message": "User data retrieved successfully",
-                        "data": data,
-                    }
+                "status": "success",
+                "status_code": 200,
+                "message": "User data retrieved successfully",
+                "data": data,
+            }
         else:
             response = {
-                        "status": "error",
-                        "status_code": 404,
-                        "message": "User not found!",
-                        "data": "",
-                    }
+                "status": "error",
+                "status_code": 404,
+                "message": "User not found!",
+                "data": "",
+            }
     except Exception as e:
         response = {
-                        "status": "error",
-                        "status_code": e.__dict__.get("status_code", 500),
-                        "message": e.__dict__.get("reason", "Internal Server Error"),
-                        "data": ""
-                    }
+            "status": "error",
+            "status_code": e.__dict__.get("status_code", 500),
+            "message": e.__dict__.get("reason", "Internal Server Error"),
+            "data": "",
+        }
     # return jsonify(response)
     return response
-

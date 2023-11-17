@@ -214,19 +214,19 @@ def getrarbysku():
         constraints = [
             {
                 "Name": "PCT DEVIATION FROM INIT ALLOC",
-                "Value": f"{int(PCT_DEVIATION)}",
-                "Label": f"{pctdev}",
+                "Value": PCT_DEVIATION,
+                "Label": pctdev,
             },
             {
                 "Name": "MIN Expected Service Level",
-                "Value": f"{minsl}",
-                "Label": f"{sl}",
+                "Value": minsl,
+                "Label": sl,
             },
-            {"Name": "MIN Deviation from Target WOC", "Value": f"{avg_wocmin}"},
+            {"Name": "MIN Deviation from Target WOC", "Value": avg_wocmin},
             {
                 "Name": "MAX Deviation from Target WOC",
-                "Value": f"{avg_wocmax}",
-                "Label": f"{woc}",
+                "Value": avg_wocmax,
+                "Label": woc,
             },
         ]
 

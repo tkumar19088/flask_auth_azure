@@ -269,19 +269,23 @@ class AlertsManager:
         filters = ["Business Unit", "Customer", "Location", "Brand"]
         filename = "ui_data/irrpomainscreen.csv"
         irrpo_data = AzureBlobReader().read_csvfile(filename)  # , self.global_filters, self.global_user)
-        # irrpoalertsdata = AlertsManager(self.global_filters, self.global_user).filter_data(irrpo_data, filters)
-        df = irrpo_data.copy()
+        irrpoalertsdata = AlertsManager(self.global_filters, self.global_user).filter_data(irrpo_data, filters)
+        df = irrpoalertsdata.copy()
 
         for filter_key in filters:
             if (filter_key.lower() in self.global_user and self.global_user[filter_key.lower()] != None):
                 df = df[df[filter_key] in self.global_user[filter_key]]
-        for filter_key in filters:
-            if (filter_key.lower() in self.global_filters and self.global_filters[filter_key.lower()] != None):
-                df = df[df[filter_key].str.lower() == self.global_filters[filter_key.lower()]]
+        if self.global_filters:
+            for filter_key in filters:
+                if (filter_key.lower() in self.global_filters and self.global_filters[filter_key.lower()] != None):
+                    df = df[df[filter_key].str.lower() == self.global_filters[filter_key.lower()]]
+
         irrpoalertsdata = df.sort_values(by=["poReceiptDate", "noSKUsIrregular", "noSKUsinPO"],ascending=[False, False, False]) # type: ignore
+        print(f"\n1. irrpoalertsdata:\n{irrpoalertsdata}\n")
 
         #filter on noSKUSIrregular > 0
         irrpoalertsdata = irrpoalertsdata[irrpoalertsdata["noSKUsIrregular"] > 0]
+        print(f"\n2. irrpoalertsdata:\n{irrpoalertsdata}\n")
 
         if len(irrpoalertsdata) > 0:
             sorted_irrpo = self.get_sorted_data(irrpoalertsdata, "noSKUsIrregular")
@@ -319,8 +323,8 @@ class AlertsManager:
     def refine_alerts(self):
         for alert in self.alerts:
             for data in alert["DATA"]:
-                data["Name"] = data.pop("Description", data.pop("PO Number", None))
-                data["Value"] = data.pop("Reckitt WOC", data.pop("PO Date", None))
+                data["Name"] = data.pop("Description", data.pop("poNumber", None))
+                data["Value"] = data.pop("Reckitt WOC", data.pop("poReceiptDate", None))
 
     def get_alerts(self):
         try:
