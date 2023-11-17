@@ -115,7 +115,7 @@ function Filtersin({ apply }) {
     console.log(data);
     try {
       const response = await fetch(
-        "https:testingsmartola.azurewebsites.net/getsellingraph",
+        "https://testingsmartola.azurewebsites.net/getsellingraph",
         {
           method: "POST",
           headers: {

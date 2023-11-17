@@ -589,7 +589,7 @@ const StockReallocationData = ({ onData }) => {
       WOC_MAX: parseInt(weeksOnConv),
     };
     try {
-      const url = "https:testingsmartola.azurewebsites.net/runoptimizemodel";
+      const url = "https://testingsmartola.azurewebsites.net/runoptimizemodel";
       const response = await fetch(url, {
         method: "POST",
         headers: {

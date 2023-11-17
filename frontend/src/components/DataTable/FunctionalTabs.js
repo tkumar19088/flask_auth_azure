@@ -52,7 +52,7 @@ const FunctionalTabs = () => {
       rbsku: "",
     };
     try {
-      const url = "https:testingsmartola.azurewebsites.net/getoverview";
+      const url = "https://testingsmartola.azurewebsites.net/getoverview";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -93,7 +93,7 @@ const FunctionalTabs = () => {
       rbsku: "",
     };
     try {
-      const url = "https:testingsmartola.azurewebsites.net/getsupply";
+      const url = "https://testingsmartola.azurewebsites.net/getsupply";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -134,7 +134,7 @@ const FunctionalTabs = () => {
       rbsku: "",
     };
     try {
-      const url = "https:testingsmartola.azurewebsites.net/getdemand";
+      const url = "https://testingsmartola.azurewebsites.net/getdemand";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -175,7 +175,7 @@ const FunctionalTabs = () => {
       rbsku: "",
     };
     try {
-      const url = "https:testingsmartola.azurewebsites.net/getsohateow";
+      const url = "https://testingsmartola.azurewebsites.net/getsohateow";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -216,7 +216,7 @@ const FunctionalTabs = () => {
       rbsku: "",
     };
     try {
-      const url = "https:testingsmartola.azurewebsites.net/getwocateow";
+      const url = "https://testingsmartola.azurewebsites.net/getwocateow";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -257,7 +257,7 @@ const FunctionalTabs = () => {
       rbsku: "",
     };
     try {
-      const url = "https:testingsmartola.azurewebsites.net/getcaseshortages";
+      const url = "https://testingsmartola.azurewebsites.net/getcaseshortages";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -299,7 +299,7 @@ const FunctionalTabs = () => {
     };
     try {
       const url =
-        "https:testingsmartola.azurewebsites.net/getexpectedservice";
+        "https://testingsmartola.azurewebsites.net/getexpectedservice";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -340,7 +340,7 @@ const FunctionalTabs = () => {
       rbsku: "",
     };
     try {
-      const url = "https:testingsmartola.azurewebsites.net/getstockposition";
+      const url = "https://testingsmartola.azurewebsites.net/getstockposition";
       const response = await fetch(url, {
         method: "POST",
         headers: {

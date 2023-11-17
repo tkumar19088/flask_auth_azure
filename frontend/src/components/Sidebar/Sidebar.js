@@ -125,7 +125,7 @@ const Sidebar = () => {
     dispatch(updateloader(true));
     try {
       const response = await fetch(
-        "https:testingsmartola.azurewebsites.net/getdatarecency"
+        "https://testingsmartola.azurewebsites.net/getdatarecency"
       );
       console.log(response);
       if (response.ok) {
@@ -154,7 +154,7 @@ const Sidebar = () => {
       dispatch(updateloader(true));
       var data = {};
       try {
-        const url = "https:testingsmartola.azurewebsites.net/getirrpodata";
+        const url = "https://testingsmartola.azurewebsites.net/getirrpodata";
         const response = await fetch(url, {
           method: "POST",
           headers: {

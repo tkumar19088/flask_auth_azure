@@ -122,7 +122,7 @@ function Filtersdropdown() {
     console.log(data);
     try {
       const response = await fetch(
-        "https:testingsmartola.azurewebsites.net/getfilterparams",
+        "https://testingsmartola.azurewebsites.net/getfilterparams",
         {
           method: "POST",
           headers: {

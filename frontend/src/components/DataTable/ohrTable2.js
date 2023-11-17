@@ -80,7 +80,7 @@ const OhrTable2 = ({ onData }) => {
       var data = { customer: 1, rbsku: rowId };
       try {
         const response = await fetch(
-          "https:testingsmartola.azurewebsites.net/getcampaigns",
+          "https://testingsmartola.azurewebsites.net/getcampaigns",
           {
             method: "POST",
             headers: {
@@ -121,7 +121,7 @@ const OhrTable2 = ({ onData }) => {
       var data = { rbsku: expandedRow };
       try {
         const response = await fetch(
-          "https:testingsmartola.azurewebsites.net/getalternativeskus",
+          "https://testingsmartola.azurewebsites.net/getalternativeskus",
           {
             method: "POST",
             headers: {
@@ -157,7 +157,7 @@ const OhrTable2 = ({ onData }) => {
       var data = { rbsku: expandedRow };
       try {
         const response = await fetch(
-          "https:testingsmartola.azurewebsites.net/rarbysku",
+          "https://testingsmartola.azurewebsites.net/rarbysku",
           {
             method: "POST",
             headers: {
@@ -452,7 +452,7 @@ const OhrTable2 = ({ onData }) => {
     var data = { rbsku: expandedRow };
     try {
       const response = await fetch(
-        "https:testingsmartola.azurewebsites.net/choosescenario",
+        "https://testingsmartola.azurewebsites.net/choosescenario",
         {
           method: "POST",
           headers: {
