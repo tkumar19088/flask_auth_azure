@@ -208,7 +208,7 @@ class AlertsManager:
         oos_data = AzureBlobReader().read_csvfile("ui_data/currentalertsoos.csv")  # , self.global_filters, self.global_user)
         oosalertsdata = AlertsManager(self.global_filters, self.global_user).filter_data(oos_data, filters)
         overviewfiltered = AlertsManager(self.global_filters, self.global_user).filter_data(overviewdata, filters)
-        overviewfiltered = replace_missing_values(overviewfiltered)
+        # overviewfiltered = replace_missing_values(overviewfiltered)
         if len(oosalertsdata) > 0:
             merged = oosalertsdata.merge(
                                             overviewfiltered,
@@ -286,7 +286,7 @@ class AlertsManager:
 
         #filter on noSKUSIrregular > 0
         irrpoalertsdata = irrpoalertsdata[irrpoalertsdata["noSKUsIrregular"] > 0]
-        irrpoalertsdata = replace_missing_values(irrpoalertsdata)
+        # irrpoalertsdata = replace_missing_values(irrpoalertsdata)
         # print(f"\n2. irrpoalertsdata:\n{irrpoalertsdata}\n")
 
         if len(irrpoalertsdata) > 0:
