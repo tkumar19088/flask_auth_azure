@@ -248,7 +248,7 @@ const CarouselExample = () => {
                       >
                         {item.Title.includes("Irregular PO")
                           ? res["noSKUsIrregular"]
-                          : parseFloat(res["Exp NR CW"].toFixed(2))}
+                          : parseFloat(res["Exp NR CW"])}
                       </Typography>
                     ))}
                   </Box>
