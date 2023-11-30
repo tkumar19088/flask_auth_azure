@@ -208,6 +208,7 @@ class AlertsManager:
         oos_data = AzureBlobReader().read_csvfile("ui_data/currentalertsoos.csv")  # , self.global_filters, self.global_user)
         oosalertsdata = AlertsManager(self.global_filters, self.global_user).filter_data(oos_data, filters)
         overviewfiltered = AlertsManager(self.global_filters, self.global_user).filter_data(overviewdata, filters)
+        overviewfiltered = replace_missing_values(overviewfiltered)
         if len(oosalertsdata) > 0:
             merged = oosalertsdata.merge(
                                             overviewfiltered,
@@ -281,11 +282,12 @@ class AlertsManager:
                     df = df[df[filter_key].str.lower() == self.global_filters[filter_key.lower()]]
 
         irrpoalertsdata = df.sort_values(by=["poReceiptDate", "noSKUsIrregular", "noSKUsinPO"],ascending=[False, False, False]) # type: ignore
-        print(f"\n1. irrpoalertsdata:\n{irrpoalertsdata}\n")
+        # print(f"\n1. irrpoalertsdata:\n{irrpoalertsdata}\n")
 
         #filter on noSKUSIrregular > 0
         irrpoalertsdata = irrpoalertsdata[irrpoalertsdata["noSKUsIrregular"] > 0]
-        print(f"\n2. irrpoalertsdata:\n{irrpoalertsdata}\n")
+        irrpoalertsdata = replace_missing_values(irrpoalertsdata)
+        # print(f"\n2. irrpoalertsdata:\n{irrpoalertsdata}\n")
 
         if len(irrpoalertsdata) > 0:
             sorted_irrpo = self.get_sorted_data(irrpoalertsdata, "noSKUsIrregular")
@@ -720,9 +722,6 @@ def get_data(data, config, filename, filters, sort_column=None, sort_order=None)
     global_user = config.get("global_user", {})
     global_filters = config.get("global_filters", {})
     global_filters = dict((k, v.lower()) for k, v in global_filters.items())
-
-    # print(f"\nglobal_user : {global_user}\n")
-    # print(f"\nglobal_filters : {global_filters}\n")
 
     df = AzureBlobReader().read_csvfile(filename)
 

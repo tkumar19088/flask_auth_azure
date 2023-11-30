@@ -31,7 +31,7 @@ app.register_blueprint(userdata_blueprint)
 app.register_blueprint(uiflow_blueprint)
 app.register_blueprint(mitigation_blueprint)
 
-# Session(app)
+Session(app)
 
 app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
