@@ -102,6 +102,10 @@ const Sidebar = () => {
     setirregular(false);
   };
 
+  const handleAlerts = () => {
+    navigate("/");
+  };
+
   const handleLogout = async () => {
     dispatch(updateloader(true));
     try {
@@ -433,7 +437,7 @@ const Sidebar = () => {
 
       <div className="s-h2">
         <WarningRoundedIcon className="alert-icon" />
-        <Typography fontSize={{ lg: 14, xs: 9 }} className="sidebar-minititle">
+        <Typography fontSize={{ lg: 14, xs: 9 }} className="sidebar-minititle" onClick={handleAlerts}>
           Alerts
         </Typography>
       </div>

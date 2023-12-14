@@ -341,7 +341,7 @@ const OhrCustomerTabs = () => {
           }}
           onClick={handleStockPosition}
         >
-          Stock Position
+          Expected SOH at EOW
         </Tab>
       </TabList>
 

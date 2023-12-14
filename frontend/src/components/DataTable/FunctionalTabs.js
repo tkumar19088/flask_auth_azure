@@ -409,7 +409,7 @@ const FunctionalTabs = () => {
           }}
           onClick={handleExpectedSOH}
         >
-          Expected SoH at EoW
+          Stock Position
         </Tab>
         <Tab
           style={{
@@ -445,7 +445,7 @@ const FunctionalTabs = () => {
           }}
           onClick={handleStockPosition}
         >
-          Stock Position
+          Expected SOH at EOW
         </Tab>
       </TabList>
 

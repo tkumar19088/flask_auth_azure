@@ -1007,7 +1007,7 @@ const StockPosition2 = ({ onData }) => {
                   // padding: "0px",
                 }}
               >
-                Stock Position CW <br /> ({startingWeek})
+                Expected SOH at EOW CW <br /> ({startingWeek})
               </TableCell>
               <TableCell
                 sx={{
@@ -1017,7 +1017,7 @@ const StockPosition2 = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Stock Position CW+1 <br /> ({startingWeek + 1})
+                Expected SOH at EOW CW+1 <br /> ({startingWeek + 1})
               </TableCell>
               <TableCell
                 sx={{
@@ -1027,7 +1027,7 @@ const StockPosition2 = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Stock Position CW+2 <br /> ({startingWeek + 2})
+                Expected SOH at EOW CW+2 <br /> ({startingWeek + 2})
               </TableCell>
               <TableCell
                 sx={{
@@ -1037,7 +1037,7 @@ const StockPosition2 = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Stock Position CW+3 <br /> ({startingWeek + 3})
+                Expected SOH at EOW CW+3 <br /> ({startingWeek + 3})
               </TableCell>
               <TableCell
                 sx={{
@@ -1047,7 +1047,7 @@ const StockPosition2 = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Stock Position CW+4 <br /> ({startingWeek + 4})
+                Expected SOH at EOW CW+4 <br /> ({startingWeek + 4})
               </TableCell>
               <TableCell
                 sx={{
@@ -1057,7 +1057,7 @@ const StockPosition2 = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Stock Position CW+5 <br /> ({startingWeek + 5})
+                Expected SOH at EOW CW+5 <br /> ({startingWeek + 5})
               </TableCell>
               <TableCell
                 sx={{
@@ -1067,7 +1067,7 @@ const StockPosition2 = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Stock Position CW+6 <br /> ({startingWeek + 6})
+                Expected SOH at EOW CW+6 <br /> ({startingWeek + 6})
               </TableCell>
               <TableCell
                 sx={{
@@ -1077,7 +1077,7 @@ const StockPosition2 = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Stock Position CW+7 <br /> ({startingWeek + 7})
+                Expected SOH at EOW CW+7 <br /> ({startingWeek + 7})
               </TableCell>
               <TableCell
                 sx={{
@@ -1087,7 +1087,7 @@ const StockPosition2 = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Stock Position CW+8 <br /> ({startingWeek + 8})
+                Expected SOH at EOW CW+8 <br /> ({startingWeek + 8})
               </TableCell>
               <TableCell
                 sx={{
@@ -1097,7 +1097,7 @@ const StockPosition2 = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Stock Position CW+9 <br /> ({startingWeek + 9})
+                Expected SOH at EOW CW+9 <br /> ({startingWeek + 9})
               </TableCell>
             </TableRow>
           </TableHead>

@@ -638,8 +638,7 @@ const StockReallocationData = ({ onData }) => {
               <TableCell className="stable-header">Customer</TableCell>
               <TableCell className="stable-header">Channel</TableCell>
               <TableCell className="stable-header">
-                Sell-In Forecast <br />
-                (S-OLA / Kinaxis)
+                Expected Allocation Consumption
               </TableCell>
               <TableCell className="stable-header">
                 Current Allocation

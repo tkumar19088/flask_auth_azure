@@ -333,7 +333,7 @@ def runoptimizemodel():
         ddf = df[list(data_dict2.values()) + ['atf-sif', 'sku']].copy()
         ddf = ddf[ddf['sku'] == skuid]
         ddf = pd.concat([ddf.iloc[:, :-5], ddf.iloc[:, -4:]], axis = 1)
-        ddf['reckitt_sif'] = ddf[['atf-sif', 'reckitt_sif']].sum(axis = 1)
+        ddf['reckitt_sif'] = ddf[['atf-sif', 'reckitt_sif']].min(axis = 1)
         ddf.drop(columns = ['atf-sif', 'sku'], inplace = True)
         ddf.reset_index(drop = True, inplace = True)
 
@@ -350,7 +350,7 @@ def runoptimizemodel():
         conds &= (~(df['currentallocation'].isna()))
 
         status, final, optimalvalue = optimise_supply(ddf,MINIMUM_SERVICE_LEVEL, ALLOCATION_CHANGE_THRESHOLD, WOC_MIN_PCT, WOC_MAX_PCT)
-        print(f"\nskuid - {skuid}\ncustomer - {customer}\nnum unique customers - {ddf['customer'].unique()}\nstatus - {status}\nOptimal value of X_0 : {optimalvalue}\n")
+        # print(f"\nskuid - {skuid}\ncustomer - {customer}\nnum unique customers - {ddf['customer'].unique()}\nstatus - {status}\nOptimal value of X_0 : {optimalvalue}\n")
 
         if status == "Infeasible":
             response = {
@@ -529,7 +529,6 @@ def runoptimizemodel():
     return response
 
 
-
 ## Helper Function
 def cleandf(df):
     missing_values = [
@@ -620,7 +619,8 @@ def read_data_from_blob(CONNECTION_STRING,CONTAINER_NAME, blob_name, file_format
     except Exception as e:
         print(f"An error occurred: {str(e)}")
         return None
-    
+
+
 def optimise_supply(
     df, 
     MINIMUM_SERVICE_LEVEL = 0.7, 
@@ -656,10 +656,9 @@ def optimise_supply(
         2: 'Updated_customer_SOH',
         3: 'Updated_Customer_WoC',
         4: 'SOH_safe_to_reallocate',
-        5: 'Suggested_Supply'
+        5: 'Suggested_Supply_changes'
     }
     n_vars = len(var_dict.keys())
-
 
     WOC_MIN = df[data_dict[7]] * WOC_MIN_PCT
     WOC_MAX = df[data_dict[7]] * WOC_MAX_PCT
@@ -707,14 +706,12 @@ def optimise_supply(
         # Auxiliary variables - SOH safe to reallocate
         aux_vars[i][4] = pulp.LpVariable(f"aux_var_{i}_4", lowBound=None)
 
-
     # Add objective function
     problem += X_0
 
     # Add constraints
     for i in range(num_rows):
         problem += X_vars[i][0] == df[data_dict[3]][i] - df[data_dict[4]][i] + X_vars[i][5]
-
 
         # Expected SOH considers both current stock and potential change in allocation
         problem += X_vars[i][2] == df[data_dict[10]][i] - df[data_dict[11]][i] + df[data_dict[4]][i] + X_vars[i][0] + X_vars[i][5] - df[data_dict[5]][i]
@@ -740,13 +737,11 @@ def optimise_supply(
         # Suggested supply should be below SOH safe to reallocate
         problem += X_vars[i][5] <= X_vars[i][4]
 
-
         # Suggested supply cannot be greater than current allocation
         problem += X_vars[i][5] <= df[data_dict[3]][i]
 
         # Stock safe to reallocate is a function of the allocation
         problem += X_vars[i][4] <= df[data_dict[3]][i] * ALLOCATION_CHANGE_THRESHOLD
-
 
     # Trying to minimise 1 - service level <--> maximise service level
     problem += X_0 == num_rows - pulp.lpSum([X_vars[i][1] for i in range(num_rows)])

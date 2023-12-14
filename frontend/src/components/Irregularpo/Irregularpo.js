@@ -766,7 +766,7 @@ const Irregularpo = () => {
                           {item.poReceiptDate}
                         </TableCell>
                         <TableCell sx={{ textAlign: "center" }}>
-                          {item.poReceiptDate}
+                          {item.poDeliveryDate}
                         </TableCell>
                         <TableCell sx={{ textAlign: "center" }}>
                           {item.poStatus}

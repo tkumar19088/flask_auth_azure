@@ -1,3 +1,4 @@
+import math
 from flask import Blueprint, current_app, request, jsonify
 import json
 import pandas as pd
@@ -35,20 +36,30 @@ def get_filter_params():
         current_app.config["global_filters"] = global_filters
         resp = AlertsManager(global_filters, global_user).get_alerts()
         alerts = resp.get("data", [])
+
+        for alert in alerts:
+            for item in alert["DATA"]:
+                if (
+                    "Value" in item
+                    and isinstance(item["Value"], float)
+                    and math.isnan(item["Value"])
+                ):
+                    item["Value"] = 0.0
+
         response = {
-                        "status": "success",
-                        "status_code": 200,
-                        "message": "Get Alerts successful!",
-                        "data": {"filters": global_filters, "alerts": alerts},
-                    }
+            "status": "success",
+            "status_code": 200,
+            "message": "Get Alerts successful!",
+            "data": {"filters": global_filters, "alerts": alerts},
+        }
 
     except Exception as e:
         response = {
-                        "status": "error",
-                        "status_code": e.__dict__.get("status_code", 500),
-                        "message": e.__dict__.get("reason", "Internal Server Error"),
-                        "data":""
-                    }
+            "status": "error",
+            "status_code": e.__dict__.get("status_code", 500),
+            "message": e.__dict__.get("reason", "Internal Server Error"),
+            "data": "",
+        }
     # return jsonify(response)
     return response
 
@@ -69,18 +80,18 @@ def reset_filter_params():
         global_filters.clear()
         current_app.config["global_filters"] = global_filters
         response = {
-                        "status": "success",
-                        "status_code": 200,
-                        "message": "Reset Filters successful!",
-                        "data": "",
-                    }
+            "status": "success",
+            "status_code": 200,
+            "message": "Reset Filters successful!",
+            "data": "",
+        }
     except Exception as e:
         response = {
-                        "status": "error",
-                        "status_code": e.__dict__.get("status_code", 500),
-                        "message": e.__dict__.get("reason", "Internal Server Error"),
-                        "data":""
-                    }
+            "status": "error",
+            "status_code": e.__dict__.get("status_code", 500),
+            "message": e.__dict__.get("reason", "Internal Server Error"),
+            "data": "",
+        }
     # return jsonify(response)
     return response
 
@@ -141,19 +152,19 @@ def get_overview():
         )
 
         response = {
-                        "status": "success",
-                        "status_code": 200,
-                        "message": "Get Overview High Risk data successful!",
-                        "data": json.loads(ohrsorted.to_json(orient="records")),
-                    }
+            "status": "success",
+            "status_code": 200,
+            "message": "Get Overview High Risk data successful!",
+            "data": json.loads(ohrsorted.to_json(orient="records")),
+        }
 
     except Exception as e:
         response = {
-                        "status": "error",
-                        "status_code": e.__dict__.get("status_code", 500),
-                        "message": e.__dict__.get("reason", "Internal Server Error"),
-                        "data":""
-                    }
+            "status": "error",
+            "status_code": e.__dict__.get("status_code", 500),
+            "message": e.__dict__.get("reason", "Internal Server Error"),
+            "data": "",
+        }
     # return jsonify(response)
     return response
 
@@ -191,19 +202,19 @@ def getsupply():
         rbsupply = get_data(data, config, filename, filters, sort_column, sort_order)
 
         response = {
-                        "status": "success",
-                        "status_code": 200,
-                        "message": "Get Supply data successful!",
-                        "data": json.loads(rbsupply.to_json(orient="records")),
-                    }
+            "status": "success",
+            "status_code": 200,
+            "message": "Get Supply data successful!",
+            "data": json.loads(rbsupply.to_json(orient="records")),
+        }
 
     except Exception as e:
         response = {
-                        "status": "error",
-                        "status_code": e.__dict__.get("status_code", 500),
-                        "message": e.__dict__.get("reason", "Internal Server Error"),
-                        "data":""
-                    }
+            "status": "error",
+            "status_code": e.__dict__.get("status_code", 500),
+            "message": e.__dict__.get("reason", "Internal Server Error"),
+            "data": "",
+        }
     # return jsonify(response)
     return response
 
@@ -239,21 +250,20 @@ def getdemand():
 
         rbdemand = get_data(data, config, filename, filters, sort_column, sort_order)
         response = {
-                        "status": "success",
-                        "status_code": 200,
-                        "message": "Get Demand data successful!",
-                        "data": json.loads(rbdemand.to_json(orient="records")),
+            "status": "success",
+            "status_code": 200,
+            "message": "Get Demand data successful!",
+            "data": json.loads(rbdemand.to_json(orient="records")),
         }
     except Exception as e:
         response = {
-                        "status": "error",
-                        "status_code": e.__dict__.get("status_code", 500),
-                        "message": e.__dict__.get("reason", "Internal Server Error"),
-                        "data":""
-                    }
+            "status": "error",
+            "status_code": e.__dict__.get("status_code", 500),
+            "message": e.__dict__.get("reason", "Internal Server Error"),
+            "data": "",
+        }
     # return jsonify(response)
     return response
-
 
 
 # *****************************************************
@@ -287,18 +297,18 @@ def getsohateow():
 
         rbexpsoheow = get_data(data, config, filename, filters, sort_column, sort_order)
         response = {
-                        "status": "success",
-                        "status_code": 200,
-                        "message": "Get Expected SOH at EOW data successful!",
-                        "data": json.loads(rbexpsoheow.to_json(orient="records")),
+            "status": "success",
+            "status_code": 200,
+            "message": "Get Expected SOH at EOW data successful!",
+            "data": json.loads(rbexpsoheow.to_json(orient="records")),
         }
     except Exception as e:
         response = {
-                        "status": "error",
-                        "status_code": e.__dict__.get("status_code", 500),
-                        "message": e.__dict__.get("reason", "Internal Server Error"),
-                        "data":""
-                    }
+            "status": "error",
+            "status_code": e.__dict__.get("status_code", 500),
+            "message": e.__dict__.get("reason", "Internal Server Error"),
+            "data": "",
+        }
     # return jsonify(response)
     return response
 
@@ -334,21 +344,20 @@ def getwocateow():
 
         rbwoceow = get_data(data, config, filename, filters, sort_column, sort_order)
         response = {
-                        "status": "success",
-                        "status_code": 200,
-                        "message": "Get WOC at EOW data successful!",
-                        "data": json.loads(rbwoceow.to_json(orient="records")),
-                    }
+            "status": "success",
+            "status_code": 200,
+            "message": "Get WOC at EOW data successful!",
+            "data": json.loads(rbwoceow.to_json(orient="records")),
+        }
     except Exception as e:
         response = {
-                        "status": "error",
-                        "status_code": e.__dict__.get("status_code", 500),
-                        "message": e.__dict__.get("reason", "Internal Server Error"),
-                        "data":""
-                    }
+            "status": "error",
+            "status_code": e.__dict__.get("status_code", 500),
+            "message": e.__dict__.get("reason", "Internal Server Error"),
+            "data": "",
+        }
     # return jsonify(response)
     return response
-
 
 
 # *****************************************************
@@ -383,21 +392,20 @@ def getcaseshortages():
         rbcaseshort = get_data(data, config, filename, filters, sort_column, sort_order)
 
         response = {
-                        "status": "success",
-                        "status_code": 200,
-                        "message": "Get Case Shortages data successful!",
-                        "data": json.loads(rbcaseshort.to_json(orient="records")),
-                    }
+            "status": "success",
+            "status_code": 200,
+            "message": "Get Case Shortages data successful!",
+            "data": json.loads(rbcaseshort.to_json(orient="records")),
+        }
     except Exception as e:
         response = {
-                        "status": "error",
-                        "status_code": e.__dict__.get("status_code", 500),
-                        "message": e.__dict__.get("reason", "Internal Server Error"),
-                        "data":""
-                    }
+            "status": "error",
+            "status_code": e.__dict__.get("status_code", 500),
+            "message": e.__dict__.get("reason", "Internal Server Error"),
+            "data": "",
+        }
     # return jsonify(response)
     return response
-
 
 
 # *****************************************************
@@ -432,21 +440,20 @@ def getexpectedservice():
         rbexpsl = get_data(data, config, filename, filters, sort_column, sort_order)
 
         response = {
-                        "status": "success",
-                        "status_code": 200,
-                        "message": "Get Expected Service data successful!",
-                        "data": json.loads(rbexpsl.to_json(orient="records")),
-                    }
+            "status": "success",
+            "status_code": 200,
+            "message": "Get Expected Service data successful!",
+            "data": json.loads(rbexpsl.to_json(orient="records")),
+        }
     except Exception as e:
         response = {
-                        "status": "error",
-                        "status_code": e.__dict__.get("status_code", 500),
-                        "message": e.__dict__.get("reason", "Internal Server Error"),
-                        "data":""
-                    }
+            "status": "error",
+            "status_code": e.__dict__.get("status_code", 500),
+            "message": e.__dict__.get("reason", "Internal Server Error"),
+            "data": "",
+        }
     # return jsonify(response)
     return response
-
 
 
 # *******************************************************************
@@ -499,21 +506,20 @@ def get_stock_position():
                 )
 
         response = {
-                        "status": "success",
-                        "status_code": 200,
-                        "message": "Get Stock Position data successful!",
-                        "data": json.loads(stock_pos.to_json(orient="records")),
-                    }
+            "status": "success",
+            "status_code": 200,
+            "message": "Get Stock Position data successful!",
+            "data": json.loads(stock_pos.to_json(orient="records")),
+        }
     except Exception as e:
         response = {
-                        "status": "error",
-                        "status_code": e.__dict__.get("status_code", 500),
-                        "message": e.__dict__.get("reason", "Internal Server Error"),
-                        "data":""
-                    }
+            "status": "error",
+            "status_code": e.__dict__.get("status_code", 500),
+            "message": e.__dict__.get("reason", "Internal Server Error"),
+            "data": "",
+        }
     # return jsonify(response)
     return response
-
 
 
 # *****************************************************
@@ -548,22 +554,21 @@ def getcustepos():
         custhepos = get_data(data, config, filename, filters, sort_column, sort_order)
 
         response = {
-                        "status": "success",
-                        "status_code": 200,
-                        "message": "Get Customer Historical ePOS data successful!",
-                        "data": json.loads(custhepos.to_json(orient="records")),
-                    }
+            "status": "success",
+            "status_code": 200,
+            "message": "Get Customer Historical ePOS data successful!",
+            "data": json.loads(custhepos.to_json(orient="records")),
+        }
 
     except Exception as e:
         response = {
-                        "status": "error",
-                        "status_code": e.__dict__.get("status_code", 500),
-                        "message": e.__dict__.get("reason", "Internal Server Error"),
-                        "data":""
-                    }
+            "status": "error",
+            "status_code": e.__dict__.get("status_code", 500),
+            "message": e.__dict__.get("reason", "Internal Server Error"),
+            "data": "",
+        }
     # return jsonify(response)
     return response
-
 
 
 # *****************************************************
@@ -598,22 +603,21 @@ def getcustsellout():
         custsellout = get_data(data, config, filename, filters, sort_column, sort_order)
 
         response = {
-                        "status": "success",
-                        "status_code": 200,
-                        "message": "Get Customer Sell Out data successful!",
-                        "data": json.loads(custsellout.to_json(orient="records")),
-                    }
+            "status": "success",
+            "status_code": 200,
+            "message": "Get Customer Sell Out data successful!",
+            "data": json.loads(custsellout.to_json(orient="records")),
+        }
 
     except Exception as e:
         response = {
-                        "status": "error",
-                        "status_code": e.__dict__.get("status_code", 500),
-                        "message": e.__dict__.get("reason", "Internal Server Error"),
-                        "data":""
-                    }
+            "status": "error",
+            "status_code": e.__dict__.get("status_code", 500),
+            "message": e.__dict__.get("reason", "Internal Server Error"),
+            "data": "",
+        }
     # return jsonify(response)
     return response
-
 
 
 # *****************************************************
@@ -647,22 +651,21 @@ def getcustsellin():
 
         custsellin = get_data(data, config, filename, filters, sort_column, sort_order)
         response = {
-                        "status": "success",
-                        "status_code": 200,
-                        "message": "Get Customer Sell In data successful!",
-                        "data": json.loads(custsellin.to_json(orient="records")),
-                    }
+            "status": "success",
+            "status_code": 200,
+            "message": "Get Customer Sell In data successful!",
+            "data": json.loads(custsellin.to_json(orient="records")),
+        }
 
     except Exception as e:
         response = {
-                        "status": "error",
-                        "status_code": e.__dict__.get("status_code", 500),
-                        "message": e.__dict__.get("reason", "Internal Server Error"),
-                        "data":""
-                    }
+            "status": "error",
+            "status_code": e.__dict__.get("status_code", 500),
+            "message": e.__dict__.get("reason", "Internal Server Error"),
+            "data": "",
+        }
     # return jsonify(response)
     return response
-
 
 
 # ****************************************************************************
@@ -689,21 +692,20 @@ def get_campaigns():
 
         campaignsbysku = get_data(data, config, filename, filters)
         response = {
-                        "status": "success",
-                        "status_code": 200,
-                        "message": "Get Campaigns by SKU data successful!",
-                        "data": json.loads(campaignsbysku.to_json(orient="records")),
-                    }
+            "status": "success",
+            "status_code": 200,
+            "message": "Get Campaigns by SKU data successful!",
+            "data": json.loads(campaignsbysku.to_json(orient="records")),
+        }
     except Exception as e:
         response = {
-                        "status": "error",
-                        "status_code": e.__dict__.get("status_code", 500),
-                        "message": e.__dict__.get("reason", "Internal Server Error"),
-                        "data":""
-                    }
+            "status": "error",
+            "status_code": e.__dict__.get("status_code", 500),
+            "message": e.__dict__.get("reason", "Internal Server Error"),
+            "data": "",
+        }
     # return jsonify(response)
     return response
-
 
 
 # *******************************
@@ -727,24 +729,25 @@ def get_sellin_graph():
         sellin = AzureBlobReader().read_csvfile(filename)
         for filter_key in ["Business Unit", "Location", "Brand", "Customer"]:
             if filter_key in data and filter_key != "":
-                sellin = sellin[sellin[filter_key] == data[filter_key]]
+                sellin = sellin[
+                    sellin[filter_key].str.lower() == data[filter_key].lower()
+                ]
         sellin = replace_missing_values(sellin)
         response = {
-                        "status": "success",
-                        "status_code": 200,
-                        "message": "Get Sell In Graph data successful!",
-                        "data": json.loads(sellin.to_json(orient="records")),
-                    }
+            "status": "success",
+            "status_code": 200,
+            "message": "Get Sell In Graph data successful!",
+            "data": json.loads(sellin.to_json(orient="records")),
+        }
     except Exception as e:
         response = {
-                        "status": "error",
-                        "status_code": e.__dict__.get("status_code", 500),
-                        "message": e.__dict__.get("reason", "Internal Server Error"),
-                        "data":""
-                    }
+            "status": "error",
+            "status_code": e.__dict__.get("status_code", 500),
+            "message": e.__dict__.get("reason", "Internal Server Error"),
+            "data": "",
+        }
     # return jsonify(response)
     return response
-
 
 
 # *******************************
@@ -768,24 +771,25 @@ def get_sellout_graph():
         sellout = AzureBlobReader().read_csvfile(filename)
         for filter_key in ["Business Unit", "Location", "Brand", "Customer"]:
             if filter_key in data and filter_key != "":
-                sellout = sellout[sellout[filter_key] == data[filter_key]]
+                sellout = sellout[
+                    sellout[filter_key].str.lower() == data[filter_key].lower()
+                ]
         sellout = replace_missing_values(sellout)
         response = {
-                        "status": "success",
-                        "status_code": 200,
-                        "message": "Get Sell Out Graph data successful!",
-                        "data": json.loads(sellout.to_json(orient="records")),
-                    }
+            "status": "success",
+            "status_code": 200,
+            "message": "Get Sell Out Graph data successful!",
+            "data": json.loads(sellout.to_json(orient="records")),
+        }
     except Exception as e:
         response = {
-                        "status": "error",
-                        "status_code": e.__dict__.get("status_code", 500),
-                        "message": e.__dict__.get("reason", "Internal Server Error"),
-                        "data":""
-                    }
+            "status": "error",
+            "status_code": e.__dict__.get("status_code", 500),
+            "message": e.__dict__.get("reason", "Internal Server Error"),
+            "data": "",
+        }
     # return jsonify(response)
     return response
-
 
 
 # *******************************
@@ -1131,22 +1135,21 @@ def exportdata():
 
         # return json_result
         response = {
-                        "status": "success",
-                        "status_code": 200,
-                        "message": "Get Export Data successful!",
-                        "data": json.loads(df.to_json(orient="records")),
-                    }
+            "status": "success",
+            "status_code": 200,
+            "message": "Get Export Data successful!",
+            "data": json.loads(df.to_json(orient="records")),
+        }
 
     except Exception as e:
         response = {
-                        "status": "error",
-                        "status_code": e.__dict__.get("status_code", 500),
-                        "message": e.__dict__.get("reason", "Internal Server Error"),
-                        "data":""
-                    }
+            "status": "error",
+            "status_code": e.__dict__.get("status_code", 500),
+            "message": e.__dict__.get("reason", "Internal Server Error"),
+            "data": "",
+        }
     # return jsonify(response)
     return response
-
 
 
 # ***********************
@@ -1162,41 +1165,35 @@ def get_irrpodata():
         filters = ["Business Unit", "Location", "Customer", "Brand"]
         filename = "ui_data/irrpomainscreen.csv"
         df = AzureBlobReader().read_csvfile(filename)
+
         for filter_key in filters:
-            if (
-                filter_key.lower() in global_user
-                and global_user[filter_key.lower()] != None
-            ):
+            if (filter_key.lower() in global_user and global_user[filter_key.lower()] != None):
                 df = df[df[filter_key] in global_user[filter_key]]
+
         for filter_key in filters:
-            if (
-                filter_key.lower() in global_filters
-                and global_filters[filter_key.lower()] != None
-            ):
-                df = df[
-                    df[filter_key].str.lower() == global_filters[filter_key.lower()]
-                ]
+            if (filter_key.lower() in global_filters and global_filters[filter_key.lower()] != None):
+                df = df[df[filter_key].str.lower() == global_filters[filter_key.lower()]]
+
         df = df.sort_values(
             by=["poReceiptDate", "noSKUsIrregular", "noSKUsinPO", "irregularPO"],
             ascending=[False, False, False, False],
-        ) # type: ignore
+        )  # type: ignore
 
         response = {
-                        "status": "success",
-                        "status_code": 200,
-                        "message": "Get Irregular PO data successful!",
-                        "data": json.loads(df.to_json(orient="records")),
-                    }
+            "status": "success",
+            "status_code": 200,
+            "message": "Get Irregular PO data successful!",
+            "data": json.loads(df.to_json(orient="records")),
+        }
     except Exception as e:
         response = {
-                        "status": "error",
-                        "status_code": e.__dict__.get("status_code", 500),
-                        "message": e.__dict__.get("reason", "Internal Server Error"),
-                        "data":""
-                    }
+            "status": "error",
+            "status_code": e.__dict__.get("status_code", 500),
+            "message": e.__dict__.get("reason", "Internal Server Error"),
+            "data": "",
+        }
     # return jsonify(response)
     return response
-
 
 
 # ***********************
@@ -1212,21 +1209,20 @@ def get_irrpodetails():
         df = df[df["poNumber"] == poid]
         df = cleandf(df)
         response = {
-                        "status": "success",
-                        "status_code": 200,
-                        "message": "Get IRRPO Details data successful!",
-                        "data": json.loads(df.to_json(orient="records")),
-                    }
+            "status": "success",
+            "status_code": 200,
+            "message": "Get IRRPO Details data successful!",
+            "data": json.loads(df.to_json(orient="records")),
+        }
     except Exception as e:
         response = {
-                        "status": "error",
-                        "status_code": e.__dict__.get("status_code", 500),
-                        "message": e.__dict__.get("reason", "Internal Server Error"),
-                        "data":""
-                    }
+            "status": "error",
+            "status_code": e.__dict__.get("status_code", 500),
+            "message": e.__dict__.get("reason", "Internal Server Error"),
+            "data": "",
+        }
     # return jsonify(response)
     return response
-
 
 
 # *********************************************
@@ -1240,7 +1236,9 @@ def get_irrposku():
         filename = "ui_data/po_irrsku_details.csv"
         podetails = AzureBlobReader().read_csvfile(filename)
         poid, rbsku = data.get("po_id"), data.get("rbsku")
-        cust = podetails.loc[(podetails['poNumber'] == poid) & (podetails['rbsku'] == rbsku)]['Customer'].values[0]
+        cust = podetails.loc[
+            (podetails["poNumber"] == poid) & (podetails["rbsku"] == rbsku)
+        ]["Customer"].values[0]
         # print(f"\n1. poid: {poid}, rbsku: {rbsku}, cust: {cust}\n")
         podetails = podetails[podetails["poNumber"] == poid]
         # print(f"\n2. podetails: {podetails}\n")
@@ -1252,7 +1250,9 @@ def get_irrposku():
 
         # get WoC data
         try:
-            wocdata = skudata[["Cust WoC CW", "Cust WoC CW+1", "Cust WoC CW+2", "Cust WoC CW+3"]]
+            wocdata = skudata[
+                ["Cust WoC CW", "Cust WoC CW+1", "Cust WoC CW+2", "Cust WoC CW+3"]
+            ]
             # print(f"\n5. wocdata: {wocdata}\n")
             wocdata = replace_missing_values(wocdata)
             wocdata = cleandf(wocdata)
@@ -1261,11 +1261,15 @@ def get_irrposku():
 
         # get histepos data
         try:
-            custhistepos = AzureBlobReader().read_csvfile("ui_data/customerhistoricepos.csv")
+            custhistepos = AzureBlobReader().read_csvfile(
+                "ui_data/customerhistoricepos.csv"
+            )
             # print(f"\n6. custhistepos: {custhistepos}\n")
             # custhistepos = custhistepos[custhistepos["RB SKU"] == rbsku]
             # custhistepos = custhistepos[custhistepos["Customer"] == cust]
-            custhistepos = custhistepos[(custhistepos['Customer'] == cust) & (custhistepos['RB SKU'] == rbsku)]
+            custhistepos = custhistepos[
+                (custhistepos["Customer"] == cust) & (custhistepos["RB SKU"] == rbsku)
+            ]
             # print(f"\n7. custhistepos: {custhistepos}\n")
             custhistepos = replace_missing_values(custhistepos)
             custhistepos = cleandf(custhistepos)
@@ -1278,9 +1282,13 @@ def get_irrposku():
             filename = "ui_data/customer_sellin_act_fcst.csv"
             custsellin = AzureBlobReader().read_csvfile(filename)
             # print(f"\n8. custsellin: {custsellin}\n")
-            custsellin = custsellin[(custsellin["Customer"] == cust) & (custsellin["RB SKU"] == rbsku)]
+            custsellin = custsellin[
+                (custsellin["Customer"] == cust) & (custsellin["RB SKU"] == rbsku)
+            ]
             # print(f"\n9. custsellin: {custsellin}\n")
-            custsellin["Brand"] = custsellin["Description"].apply(lambda x: "Airwick" if "AWICK" in x else "Gaviscon")
+            custsellin["Brand"] = custsellin["Description"].apply(
+                lambda x: "Airwick" if "AWICK" in x else "Gaviscon"
+            )
             custsellin = replace_missing_values(custsellin)
             custsellin = cleandf(custsellin)
         except:
@@ -1304,30 +1312,31 @@ def get_irrposku():
             campaignsbysku = pd.DataFrame()
 
         data = {
-            "skudata": json.loads(skudata.to_json(orient="records")),#[0] or [],
-            "wocgraphdata": json.loads(wocdata.to_json(orient="records")),#[0] or [],
-            "histepos": json.loads(custhistepos.to_json(orient="records")),#[0] or [],
-            "sellin": json.loads(custsellin.to_json(orient="records")),#[0] or [],
-            "campaigns": json.loads(campaignsbysku.to_json(orient="records")),# or [],
+            "skudata": json.loads(skudata.to_json(orient="records")),  # [0] or [],
+            "wocgraphdata": json.loads(wocdata.to_json(orient="records")),  # [0] or [],
+            "histepos": json.loads(
+                custhistepos.to_json(orient="records")
+            ),  # [0] or [],
+            "sellin": json.loads(custsellin.to_json(orient="records")),  # [0] or [],
+            "campaigns": json.loads(campaignsbysku.to_json(orient="records")),  # or [],
         }
 
         response = {
-                        "status": "success",
-                        "status_code": 200,
-                        "message": "Get IRRSKU Investigation Details data successful!",
-                        "data": data,
-                    }
+            "status": "success",
+            "status_code": 200,
+            "message": "Get IRRSKU Investigation Details data successful!",
+            "data": data,
+        }
 
     except Exception as e:
         response = {
-                        "status": "error",
-                        "status_code": e.__dict__.get("status_code", 500),
-                        "message": e.__dict__.get("reason", "Internal Server Error"),
-                        "data":""
-                    }
+            "status": "error",
+            "status_code": e.__dict__.get("status_code", 500),
+            "message": e.__dict__.get("reason", "Internal Server Error"),
+            "data": "",
+        }
     # return jsonify(response)
     return response
-
 
 
 ## Helper Function
@@ -1387,16 +1396,16 @@ def get_datarecency():
             list_of_objects.append(row_dict)
 
         response = {
-                        "status": "success",
-                        "status_code": 200,
-                        "message": "Get Data Recency data successful!",
-                        "data": list_of_objects,
-                    }
+            "status": "success",
+            "status_code": 200,
+            "message": "Get Data Recency data successful!",
+            "data": list_of_objects,
+        }
     except Exception as e:
         response = {
-                        "status": "error",
-                        "status_code": e.__dict__.get("status_code", 500),
-                        "message": e.__dict__.get("reason", "Internal Server Error"),
-                    }
+            "status": "error",
+            "status_code": e.__dict__.get("status_code", 500),
+            "message": e.__dict__.get("reason", "Internal Server Error"),
+        }
     # return jsonify(response)
     return response

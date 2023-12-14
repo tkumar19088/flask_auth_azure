@@ -75,7 +75,7 @@ class UserDataReaderBlobStorage:
         """
         self.res = {}
         usersdata = self.fetch_user_excel("users.xlsx")
-        user_details = usersdata[usersdata["Email"] == uemail]
+        user_details = usersdata[usersdata["Email"].str.lower() == uemail.lower()]
         if len(user_details) > 0:
             try:
                 self.res = json.loads(user_details.to_json(orient="records"))[0]

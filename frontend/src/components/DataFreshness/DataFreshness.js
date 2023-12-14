@@ -63,7 +63,7 @@ const DataFreshness = () => {
   //     Customer: "Asda,Amazon",
   //     Brand: "Airwick",
   //     "Data Parameter":
-  //       "Supply,Demand,Expected SOH at EOW,WOC at EOW,Case Shortages,Expected Service,Stock Position,RAG,Reason Code,Comment/Root Cause,",
+  //       "Supply,Demand,Stock Position,WOC at EOW,Case Shortages,Expected Service,Stock Position,RAG,Reason Code,Comment/Root Cause,",
   //     Dataset: "Forecasted supply (from factory) and Aggregated Demand",
   //     Source: "Seyed Houssini",
   //     Frequency: "Weekly (EoD Tuesday)",
@@ -166,7 +166,7 @@ const DataFreshness = () => {
   //     Customer: "Asda,Amazon",
   //     Brand: "Gaviscon",
   //     "Data Parameter":
-  //       "Supply,Demand,Expected SOH at EOW,WOC at EOW,Case Shortages,Expected Service,Stock Position,RAG,Reason Code,Comment/Root Cause,",
+  //       "Supply,Demand,Stock Position,WOC at EOW,Case Shortages,Expected Service,Stock Position,RAG,Reason Code,Comment/Root Cause,",
   //     Dataset: "Forecasted supply (from factory) and Aggregated Demand",
   //     Source: "Umar Ahmed",
   //     Frequency: "Weekly (EoD Tuesday)",
