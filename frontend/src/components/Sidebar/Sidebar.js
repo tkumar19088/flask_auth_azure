@@ -110,7 +110,7 @@ const Sidebar = () => {
     dispatch(updateloader(true));
     try {
       const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/logout"
+        "http://localhost:5000/logout"
       );
       if (response.ok) {
         console.log("logged out");
@@ -129,7 +129,7 @@ const Sidebar = () => {
     dispatch(updateloader(true));
     try {
       const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/getdatarecency"
+        "http://localhost:5000/getdatarecency"
       );
       console.log(response);
       if (response.ok) {
@@ -158,7 +158,7 @@ const Sidebar = () => {
       dispatch(updateloader(true));
       var data = {};
       try {
-        const url = "https://testingsmartola.azurewebsites.net/getirrpodata";
+        const url = "http://localhost:5000/getirrpodata";
         const response = await fetch(url, {
           method: "POST",
           headers: {
@@ -292,7 +292,7 @@ const Sidebar = () => {
               mx="25px"
               fontSize={{ lg: "13px", xs: 10 }}
               p="5px 0 0 0"
-              // color="#415A6C"
+            // color="#415A6C"
             >
               Sell-In Forecast
             </Typography>
@@ -435,9 +435,13 @@ const Sidebar = () => {
         </Accordion>
       </div>
 
-      <div className="s-h2">
+      <div className="s-h2"
+        onClick={handleAlerts}
+        style={{
+          cursor: "pointer",
+        }}>
         <WarningRoundedIcon className="alert-icon" />
-        <Typography fontSize={{ lg: 14, xs: 9 }} className="sidebar-minititle" onClick={handleAlerts}>
+        <Typography fontSize={{ lg: 14, xs: 9 }} className="sidebar-minititle">
           Alerts
         </Typography>
       </div>

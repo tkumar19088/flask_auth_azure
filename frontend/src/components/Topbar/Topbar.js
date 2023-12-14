@@ -53,7 +53,7 @@ const Topbar = () => {
     dispatch(updateloader(true));
     try {
       const response = await fetch(
-        "https://testingsmartola.azurewebsites.net/logout"
+        "http://localhost:5000/logout"
       );
       if (response.ok) {
         console.log("logged out");
