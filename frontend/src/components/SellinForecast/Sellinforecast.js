@@ -46,6 +46,8 @@ const Sellinforecast = () => {
   ];
   const [selectedforecast, setselectedforecast] = useState(defaultData);
   const [error, seterror] = useState(true);
+  const [isexportData, setexportData] = useState(false);
+  const [exportTableData, setexportTableData] = useState([]);
 
   const convertedjson = (json) => {
     const convertedData = [];
@@ -56,6 +58,7 @@ const Sellinforecast = () => {
       convertedData.push({ name: week, value: value, kvalue: kvalue });
     }
     setselectedforecast(convertedData);
+    setexportData(true);
   };
 
   const handleClick = () => {
@@ -67,6 +70,7 @@ const Sellinforecast = () => {
 
   const handleApply = (jsonData) => {
     seterror(false);
+    setexportData(false);
     setfilteredData(jsonData);
     var rbSkuArray = [];
     if (jsonData.length > 0) {
@@ -83,8 +87,58 @@ const Sellinforecast = () => {
     if (skucode != "") {
       const json = filteredData.filter((item) => item["RB SKU"] == skucode);
       convertedjson(json);
+      setexportTableData(json);
     }
   };
+  const convertToCSV = (objArray) => {
+    const array =
+      typeof objArray !== "object" ? JSON.parse(objArray) : objArray;
+    let csv = "";
+
+    // Generate the header row
+    let header = "";
+    for (let key in array[0]) {
+      if (header !== "") header += ",";
+      header += `"${key}"`; // Enclose headers in double quotes
+    }
+    csv += header + "\r\n";
+
+    // Generate the data rows
+    for (let i = 0; i < array.length; i++) {
+      let line = "";
+      for (let key in array[i]) {
+        if (line !== "") line += ",";
+        let value = array[i][key];
+
+        // Check if value is null
+        if (value === null) {
+          value = "";
+        } else {
+          value = value.toString(); // Convert to string
+          value = value.replace(/"/g, '""'); // Enclose values in double quotes and escape existing double quotes
+        }
+
+        line += `"${value}"`;
+      }
+      csv += line + "\r\n";
+    }
+
+    return csv;
+  };
+  const handleExportData = () => {
+    console.log(exportTableData);
+    const csvData = convertToCSV(exportTableData);
+    const blob = new Blob([csvData], { type: "text/csv" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = url;
+    a.download = "data.csv";
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  }
 
   return (
     <div>
@@ -190,12 +244,13 @@ const Sellinforecast = () => {
               <Box
                 display="flex"
                 justifyContent="space-between"
-                sx={{ marginBottom: "29px" ,marginTop:"-9px"}}
+                sx={{ marginBottom: "29px", marginTop: "-9px" }}
               >
                 <Button
                   variant="contained"
                   size="small"
                   className="exportButton"
+                  onClick={isexportData ? handleExportData : null}
                 >
                   Export Data
                 </Button>

@@ -2,23 +2,35 @@ import React from "react";
 import { Chart as ChartJS } from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 import { useSelector } from "react-redux";
+const getNextYearWeekNumbers = () => {
+  const currentDate = new Date();
+  const currentWeekNumber = getWeekNumber(currentDate);
+  return Array.from({ length: 7 }, (_, index) => (currentWeekNumber + index) % 52 + 1);
+};
 
+const getWeekNumber = (date) => {
+  const yearStart = new Date(date.getFullYear(), 0, 1);
+  const millisecondsPerDay = 24 * 60 * 60 * 1000;
+  return Math.floor(((date - yearStart) / millisecondsPerDay + 1) / 7);
+};
 const Customerwocbarchart = ({ data }) => {
+  const nextWeekNumbers = getNextYearWeekNumbers();
+
   const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
   console.log(data);
   const details = data.length >= 1 ? data[0] : data;
   const data1 = [
     { name: "CW (" + startingWeek + ")", value: details["Cust WoC CW"] },
     {
-      name: "CW+1 (" + (startingWeek + 1) + ")",
+      name: "CW+1 (" + (nextWeekNumbers[0]) + ")",
       value: details["Cust WoC CW+1"],
     },
     {
-      name: "CW+2 (" + (startingWeek + 2) + ")",
+      name: "CW+2 (" + (nextWeekNumbers[1]) + ")",
       value: details["Cust WoC CW+2"],
     },
     {
-      name: "CW+3 (" + (startingWeek + 3) + ")",
+      name: "CW+3 (" + (nextWeekNumbers[2]) + ")",
       value: details["Cust WoC CW+3"],
     },
   ];

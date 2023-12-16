@@ -34,11 +34,22 @@ import {
   updatewithinchanneldata,
   fetchstaticrow,
 } from "../../store/actions/sidebarActions";
+const getNextYearWeekNumbers = () => {
+  const currentDate = new Date();
+  const currentWeekNumber = getWeekNumber(currentDate);
+  return Array.from({ length: 7 }, (_, index) => (currentWeekNumber + index) % 52 + 1);
+};
 
+const getWeekNumber = (date) => {
+  const yearStart = new Date(date.getFullYear(), 0, 1);
+  const millisecondsPerDay = 24 * 60 * 60 * 1000;
+  return Math.floor(((date - yearStart) / millisecondsPerDay + 1) / 7);
+};
 const OhrTable2 = ({ onData }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.sidebar.userDetails);
+  const nextWeekNumbers = getNextYearWeekNumbers();
 
   const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
   const [expandedRow, setExpandedRow] = useState(null);
@@ -1056,7 +1067,7 @@ const OhrTable2 = ({ onData }) => {
                 }}
               >
                 <Typography className="cw"> CW </Typography>
-                <div className="brack-number">({startingWeek + 0})</div>
+                <div className="brack-number">({startingWeek})</div>
               </TableCell>
               <TableCell
                 sx={{
@@ -1068,7 +1079,7 @@ const OhrTable2 = ({ onData }) => {
                 }}
               >
                 CW+1
-                <div className="brack-number">({startingWeek + 1})</div>
+                <div className="brack-number">({nextWeekNumbers[0]})</div>
               </TableCell>
               <TableCell
                 sx={{
@@ -1080,7 +1091,7 @@ const OhrTable2 = ({ onData }) => {
                 }}
               >
                 CW+2
-                <div className="brack-number">({startingWeek + 2})</div>
+                <div className="brack-number">({nextWeekNumbers[1]})</div>
               </TableCell>
               <TableCell
                 sx={{
@@ -1091,7 +1102,7 @@ const OhrTable2 = ({ onData }) => {
                   padding: "0px",
                 }}
               >
-                CW+3 <div className="brack-number">({startingWeek + 3})</div>
+                CW+3 <div className="brack-number">({nextWeekNumbers[2]})</div>
               </TableCell>
             </TableRow>
           </TableHead>

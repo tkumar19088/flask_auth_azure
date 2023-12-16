@@ -31,10 +31,21 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import Badge from "@mui/material/Badge";
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
+const getNextYearWeekNumbers = () => {
+  const currentDate = new Date();
+  const currentWeekNumber = getWeekNumber(currentDate);
+  return Array.from({ length: 9 }, (_, index) => (currentWeekNumber + index) % 52 + 1);
+};
 
+const getWeekNumber = (date) => {
+  const yearStart = new Date(date.getFullYear(), 0, 1);
+  const millisecondsPerDay = 24 * 60 * 60 * 1000;
+  return Math.floor(((date - yearStart) / millisecondsPerDay + 1) / 7);
+};
 const StockPositionWeek = ({ onData }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const nextWeekNumbers = getNextYearWeekNumbers();
 
   const handleBack = () => {
     navigate(-1);
@@ -875,7 +886,7 @@ const StockPositionWeek = ({ onData }) => {
                 }}
               >
                 <div>Stock Position CW+1</div>
-                <div className="brack-number">({startingWeek + 1})</div>
+                <div className="brack-number">({nextWeekNumbers[0]})</div>
               </TableCell>
               <TableCell
                 sx={{
@@ -886,7 +897,7 @@ const StockPositionWeek = ({ onData }) => {
                 }}
               >
                 <div>Stock Position CW+2</div>
-                <div className="brack-number">({startingWeek + 2})</div>
+                <div className="brack-number">({nextWeekNumbers[1]})</div>
               </TableCell>
               <TableCell
                 sx={{
@@ -897,7 +908,7 @@ const StockPositionWeek = ({ onData }) => {
                 }}
               >
                 <div>Stock Position CW+3</div>
-                <div className="brack-number">({startingWeek + 3})</div>
+                <div className="brack-number">({nextWeekNumbers[2]})</div>
               </TableCell>
             </TableRow>
           </TableHead>

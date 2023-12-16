@@ -30,10 +30,21 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import Badge from "@mui/material/Badge";
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
 import Tooltip from "@mui/material/Tooltip";
+const getNextYearWeekNumbers = () => {
+  const currentDate = new Date();
+  const currentWeekNumber = getWeekNumber(currentDate);
+  return Array.from({ length: 9 }, (_, index) => (currentWeekNumber - index + 51) % 52 || 52);
+};
 
+const getWeekNumber = (date) => {
+  const yearStart = new Date(date.getFullYear(), 0, 1);
+  const millisecondsPerDay = 24 * 60 * 60 * 1000;
+  return Math.floor(((date - yearStart) / millisecondsPerDay + 1) / 7);
+};
 const Historic = ({ onData }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const nextWeekNumbers = getNextYearWeekNumbers();
 
   const handleBack = () => {
     navigate(-1);
@@ -1007,7 +1018,7 @@ const Historic = ({ onData }) => {
                 }}
               >
                 <div>Hist ePos CW-9</div>
-                <div>({startingWeek - 9})</div>
+                <div>({nextWeekNumbers[8]})</div>
               </TableCell>
               <TableCell
                 sx={{
@@ -1018,7 +1029,7 @@ const Historic = ({ onData }) => {
                 }}
               >
                 <div>Hist ePos CW-8</div>
-                <div className="brack-number">({startingWeek - 8})</div>
+                <div className="brack-number">({nextWeekNumbers[7]})</div>
               </TableCell>
               <TableCell
                 sx={{
@@ -1029,7 +1040,7 @@ const Historic = ({ onData }) => {
                 }}
               >
                 <div>Hist ePos CW-7</div>
-                <div className="brack-number">({startingWeek - 7})</div>
+                <div className="brack-number">({nextWeekNumbers[6]})</div>
               </TableCell>
               <TableCell
                 sx={{
@@ -1040,7 +1051,7 @@ const Historic = ({ onData }) => {
                 }}
               >
                 <div>Hist ePos CW-6</div>
-                <div className="brack-number">({startingWeek - 6})</div>
+                <div className="brack-number">({nextWeekNumbers[5]})</div>
               </TableCell>
               <TableCell
                 sx={{
@@ -1051,7 +1062,7 @@ const Historic = ({ onData }) => {
                 }}
               >
                 <div>Hist ePos CW-5</div>
-                <div className="brack-number">({startingWeek - 5})</div>
+                <div className="brack-number">({nextWeekNumbers[4]})</div>
               </TableCell>
               <TableCell
                 sx={{
@@ -1062,7 +1073,7 @@ const Historic = ({ onData }) => {
                 }}
               >
                 <div>Hist ePos CW-4</div>
-                <div className="brack-number">({startingWeek - 4})</div>
+                <div className="brack-number">({nextWeekNumbers[3]})</div>
               </TableCell>
               <TableCell
                 sx={{
@@ -1073,7 +1084,7 @@ const Historic = ({ onData }) => {
                 }}
               >
                 <div>Hist ePos CW-3</div>
-                <div className="brack-number">({startingWeek - 3})</div>
+                <div className="brack-number">({nextWeekNumbers[2]})</div>
               </TableCell>
               <TableCell
                 sx={{
@@ -1084,7 +1095,7 @@ const Historic = ({ onData }) => {
                 }}
               >
                 <div>Hist ePos CW-2</div>
-                <div className="brack-number">({startingWeek - 2})</div>
+                <div className="brack-number">({nextWeekNumbers[1]})</div>
               </TableCell>
               <TableCell
                 sx={{
@@ -1095,7 +1106,7 @@ const Historic = ({ onData }) => {
                 }}
               >
                 <div>Hist ePos CW-1</div>
-                <div className="brack-number">({startingWeek - 1})</div>
+                <div className="brack-number">({nextWeekNumbers[0]})</div>
               </TableCell>
               <TableCell
                 sx={{

@@ -5,23 +5,42 @@ import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import "./sellinsellout.css";
 import { useSelector } from "react-redux";
 
+const getNextYearWeekNumbers = () => {
+  const currentDate = new Date();
+  const currentWeekNumber = getWeekNumber(currentDate);
+  return Array.from({ length: 7 }, (_, index) => (currentWeekNumber + index) % 52 + 1);
+};
+
+const getPreviousYearWeekNumbers = () => {
+  const currentDate = new Date();
+  const currentWeekNumber = getWeekNumber(currentDate);
+  return Array.from({ length: 9 }, (_, index) => (currentWeekNumber - index + 51) % 52 || 52);
+};
+
+const getWeekNumber = (date) => {
+  const yearStart = new Date(date.getFullYear(), 0, 1);
+  const millisecondsPerDay = 24 * 60 * 60 * 1000;
+  return Math.floor(((date - yearStart) / millisecondsPerDay + 1) / 7);
+};
 const Sellinselloutbarchart = ({ data }) => {
+  const nextWeekNumbers = getNextYearWeekNumbers();
+  const previousWeekNumbers = getPreviousYearWeekNumbers();
   const startingWeek = useSelector((state) => state.sidebar.currentWeekNumber);
   console.log(data);
   const details = data.length >= 1 ? data[0] : data;
   const data1 = [
     {
-      name: "CW-3 (" + (startingWeek - 3) + ")",
+      name: "CW-3 (" + previousWeekNumbers[2] + ")",
       value: details["sellinactuals CW-3"],
       fvalue: details["sola CW+3"],
     },
     {
-      name: "CW-2 (" + (startingWeek - 2) + ")",
+      name: "CW-2 (" +previousWeekNumbers[1] + ")",
       value: details["sellinactuals CW-2"],
       fvalue: details["sola CW+2"],
     },
     {
-      name: "CW-1 (" + (startingWeek - 1) + ")",
+      name: "CW-1 (" + previousWeekNumbers[0] + ")",
       value: details["sellinactuals CW-1"],
       fvalue: details["sola CW+1"],
     },
@@ -31,17 +50,17 @@ const Sellinselloutbarchart = ({ data }) => {
       fvalue: details["sif CW"],
     },
     {
-      name: "CW+1(" + (startingWeek + 1) + ")",
+      name: "CW+1(" + nextWeekNumbers[0] + ")",
       value: 0,
       fvalue: details["sif CW+1"],
     },
     {
-      name: "CW+2 (" + (startingWeek + 2) + ")",
+      name: "CW+2 (" + nextWeekNumbers[1] + ")",
       value: 0,
       fvalue: details["sif CW+2"],
     },
     {
-      name: "CW+3(" + (startingWeek + 3) + ")",
+      name: "CW+3(" + nextWeekNumbers[2] + ")",
       value: 0,
       fvalue: details["sif CW+3"],
     },

@@ -31,10 +31,21 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import Badge from "@mui/material/Badge";
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
+const getNextYearWeekNumbers = () => {
+  const currentDate = new Date();
+  const currentWeekNumber = getWeekNumber(currentDate);
+  return Array.from({ length: 9 }, (_, index) => (currentWeekNumber + index) % 52 + 1);
+};
 
+const getWeekNumber = (date) => {
+  const yearStart = new Date(date.getFullYear(), 0, 1);
+  const millisecondsPerDay = 24 * 60 * 60 * 1000;
+  return Math.floor(((date - yearStart) / millisecondsPerDay + 1) / 7);
+};
 const WocTable = ({ onData }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const nextWeekNumbers = getNextYearWeekNumbers();
 
   const handleBack = () => {
     navigate(-1);
@@ -868,7 +879,7 @@ const WocTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Reckitt WoC CW+1 <br /> ({startingWeek + 1})
+                Reckitt WoC CW+1 <br /> ({nextWeekNumbers[0]})
               </TableCell>
               <TableCell
                 sx={{
@@ -878,7 +889,7 @@ const WocTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Reckitt WoC CW+2 <br /> ({startingWeek + 2})
+                Reckitt WoC CW+2 <br /> ({nextWeekNumbers[1]})
               </TableCell>
               <TableCell
                 sx={{
@@ -888,7 +899,7 @@ const WocTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Reckitt WoC CW+3 <br /> ({startingWeek + 3})
+                Reckitt WoC CW+3 <br /> ({nextWeekNumbers[2]})
               </TableCell>
               <TableCell
                 sx={{
@@ -898,7 +909,7 @@ const WocTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Reckitt WoC CW+4 <br /> ({startingWeek + 4})
+                Reckitt WoC CW+4 <br />  ({nextWeekNumbers[3]})
               </TableCell>
               <TableCell
                 sx={{
@@ -908,7 +919,7 @@ const WocTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Reckitt WoC CW+5 <br /> ({startingWeek + 5})
+                Reckitt WoC CW+5 <br /> ({nextWeekNumbers[4]})
               </TableCell>
               <TableCell
                 sx={{
@@ -918,7 +929,7 @@ const WocTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Reckitt WoC CW+6 <br /> ({startingWeek + 6})
+                Reckitt WoC CW+6 <br />  ({nextWeekNumbers[5]})
               </TableCell>
               <TableCell
                 sx={{
@@ -928,7 +939,7 @@ const WocTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Reckitt WoC CW+7 <br /> ({startingWeek + 7})
+                Reckitt WoC CW+7 <br />  ({nextWeekNumbers[6]})
               </TableCell>
               <TableCell
                 sx={{
@@ -938,7 +949,7 @@ const WocTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Reckitt WoC CW+8 <br /> ({startingWeek + 8})
+                Reckitt WoC CW+8 <br />  ({nextWeekNumbers[7]})
               </TableCell>
               <TableCell
                 sx={{
@@ -948,7 +959,7 @@ const WocTable = ({ onData }) => {
                   border: "1px solid #dcdcdc",
                 }}
               >
-                Reckitt WoC CW+9 <br /> ({startingWeek + 9})
+                Reckitt WoC CW+9 <br /> ({nextWeekNumbers[8]})
               </TableCell>
             </TableRow>
           </TableHead>
